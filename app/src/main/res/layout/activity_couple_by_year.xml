@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <!--toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Thống kê tần suất Đề chạy"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header"
+            android:typeface="normal" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_5dp">
+
+                        <EditText
+                            android:id="@+id/edtNumberOfYears"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Số năm"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+
+                        <EditText
+                            android:id="@+id/edtTens"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Số đầu"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+
+                        <EditText
+                            android:id="@+id/edtUnit"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Số đuôi"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/cboNearestYear"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Năm gần nhất"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+
+                        <CheckBox
+                            android:id="@+id/cboSumOfYears"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tổng các năm"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/tvFilter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin_10dp"
+                        android:background="@drawable/border_corners_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_10dp"
+                        android:text="Lọc"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:text="Đề chạy theo năm:"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <LinearLayout
+                android:id="@+id/linearFreqCouple"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_10dp"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

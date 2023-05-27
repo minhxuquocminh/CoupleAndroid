@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <!--toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Soi cầu XSMB"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header"
+            android:typeface="normal" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:background="@drawable/border_lottery"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_5dp"
+                    android:text="@string/finding_bridge_note"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:text="Số ngày trước đó:"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edtDayNumberBefore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="4"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:text="0"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvUpdate1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:background="@drawable/border_corners_primary"
+                        android:padding="@dimen/padding_10dp"
+                        android:text="Cập nhật"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_size" />
+
+                    <TextView
+                        android:id="@+id/tvViewLottery1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="@dimen/margin_2dp"
+                        android:background="@drawable/border_corners_primary"
+                        android:padding="@dimen/padding_10dp"
+                        android:text="Xem XSMB"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:text="Cầu Đề"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Cầu liên thông (*)"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvJackpotNextDay1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text=" * Kết quả: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvConnectedBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Thông tin cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:text="Số chạm đầy đủ:"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="left"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvSub1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_cell_sub"
+                            android:paddingLeft="18dp"
+                            android:paddingTop="@dimen/padding_5dp"
+                            android:paddingRight="18dp"
+                            android:paddingBottom="@dimen/padding_5dp"
+                            android:text="-"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvEnoughTouchs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_cell_sub"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="7dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="7dp"
+                            android:text="0"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvPlus1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/border_cell_sub"
+                            android:paddingLeft="18dp"
+                            android:paddingTop="@dimen/padding_5dp"
+                            android:paddingRight="18dp"
+                            android:paddingBottom="@dimen/padding_5dp"
+                            android:text="+"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvViewLottery2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="@dimen/margin_2dp"
+                        android:background="@drawable/border_corners_primary"
+                        android:padding="@dimen/padding_10dp"
+                        android:text="Xem XSMB"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Cầu bộ 3 (*)"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboSortBySet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:text="Sắp xếp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvJackpotNextDay2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_15dp"
+                        android:layout_marginRight="@dimen/margin_15dp"
+                        android:background="@color/colorThemeLight"
+                        android:lineSpacingExtra="2dp"
+                        android:padding="@dimen/padding_2dp"
+                        android:text=" * Kết quả: "
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <ImageView
+                        android:id="@+id/imgGetBridgeStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_pan_tool_red" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvTriadBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Thông tin cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:text="Khung cầu (ngày):"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edtFindingDays"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="4"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:text="20"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvUpdate3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:background="@drawable/border_corners_primary"
+                        android:padding="@dimen/padding_10dp"
+                        android:text="Cập nhật"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_size" />
+
+                    <TextView
+                        android:id="@+id/tvViewLottery3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="@dimen/margin_2dp"
+                        android:background="@drawable/border_corners_primary"
+                        android:padding="@dimen/padding_10dp"
+                        android:text="Xem XSMB"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:text="Soi càng"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvJackpotNextDay3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text=" * Kết quả: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Cầu càng 1 (*)"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvFirstClaw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Thông tin cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Cầu càng 2 (*)"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvSecondClaw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Thông tin cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Cầu càng 3 (*)"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvThirdClaw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Thông tin cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvJackpotThirdClawTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Cầu càng 3 giải ĐB (khung 365 ngày)"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvJackpotThirdClaw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="@dimen/padding_2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Các số: "
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:text="Cầu Lô tô"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:text="Cầu ngày"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Thông tin cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearDayNumberBefore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_15dp"
+            android:layout_marginTop="@dimen/margin_15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvSub2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_cell_main"
+                android:paddingLeft="20dp"
+                android:paddingTop="@dimen/padding_8dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="@dimen/padding_8dp"
+                android:text="-"
+                android:textColor="@color/colorThemeBold"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDayNumberBefore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_cell_main"
+                android:paddingLeft="20dp"
+                android:paddingTop="@dimen/padding_10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="@dimen/padding_10dp"
+                android:text="0"
+                android:textColor="@color/colorThemeBold"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPlus2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_cell_main"
+                android:paddingLeft="20dp"
+                android:paddingTop="@dimen/padding_8dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="@dimen/padding_8dp"
+                android:text="+"
+                android:textColor="@color/colorThemeBold"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
+

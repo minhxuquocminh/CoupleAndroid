@@ -1,0 +1,34 @@
+package com.example.couple.Custom.Handler;
+
+import android.content.Context;
+
+import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Model.Origin.Jackpot;
+
+import java.util.List;
+
+public class CheckUpdate {
+    public static boolean checkUpdateTime(Context context) {
+        String data = IOFileBase.readDataFromFile(context, "time.txt");
+        if (data.equals("")) return true;
+        String sub[] = data.split("===");
+        int calendarDay = Integer.parseInt(sub[1]);
+        String[] monthData = sub[2].split(" ");
+        int calendarMonth = Integer.parseInt(monthData[1]);
+        int calendarYear = Integer.parseInt(monthData[4]);
+        return !(TimeInfo.CURRENT_DAY == calendarDay && TimeInfo.CURRENT_MONTH == calendarMonth
+                && TimeInfo.CURRENT_YEAR == calendarYear);
+
+    }
+
+    public static boolean checkUpdateData(Context context) {
+        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 1);
+        if (jackpotList.isEmpty()) return true;
+        return !jackpotList.get(0).getDateBase().isToday();
+    }
+
+    public static boolean checkUpdateAll(Context context) {
+        return checkUpdateTime(context) || checkUpdateData(context);
+    }
+}

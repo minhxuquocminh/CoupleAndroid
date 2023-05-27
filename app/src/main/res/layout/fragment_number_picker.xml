@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <!--toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Chọn số"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header"
+            android:typeface="normal" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2dp"
+                android:layout_marginBottom="@dimen/margin_2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvBalanceCouple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_corners_primary"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_10dp"
+                    android:text="BSCB"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvViewCoupleWeekly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_corners_primary"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_10dp"
+                    android:text="ĐB tuần"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvJackpotByYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_corners_primary"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_10dp"
+                    android:text="ĐB năm"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvCreateNumberArray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_corners_primary"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_10dp"
+                    android:text="ĐB ngày mai"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_6dp"
+                android:layout_marginRight="@dimen/margin_6dp"
+                android:layout_marginBottom="@dimen/margin_3dp"
+                android:orientation="horizontal"
+                android:weightSum="9">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/linearCoupleLastMonth"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:id="@+id/linearCoupleNextDay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical" />
+
+                    <LinearLayout
+                        android:id="@+id/linearCouple"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/cboSavedList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Danh sách đã lưu"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboNumberPicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bảng chọn số"
+                        android:textSize="@dimen/text_size" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/cboTableA"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="@dimen/padding_2dp"
+                            android:text="A"
+                            android:textSize="@dimen/text_size_small" />
+
+                        <CheckBox
+                            android:id="@+id/cboTableB"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="@dimen/padding_2dp"
+                            android:text="B"
+                            android:textSize="@dimen/text_size_small" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvShowPrediction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_2dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:gravity="right"
+                        android:paddingRight="9dp"
+                        android:text="m: xx, xx, xx, xx, xx"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <TextView
+                        android:id="@+id/tvNumberCounter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:text="15 số được chọn"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="italic" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgClear"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_weight="1"
+                            android:padding="@dimen/padding_3dp"
+                            android:src="@drawable/ic_cancel" />
+
+                        <ImageView
+                            android:id="@+id/imgSave"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_save" />
+
+                        <ImageView
+                            android:id="@+id/imgExport"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_weight="1"
+                            android:padding="1dp"
+                            android:src="@drawable/ic_export" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearTableList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_6dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTableA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bảng A"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgCancelA"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/padding_3dp"
+                        android:src="@drawable/ic_cancel" />
+
+                    <ImageView
+                        android:id="@+id/imgExportA"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_weight="1"
+                        android:padding="1dp"
+                        android:src="@drawable/ic_export" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvTableB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bảng B"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgCancelB"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/padding_3dp"
+                        android:src="@drawable/ic_cancel" />
+
+                    <ImageView
+                        android:id="@+id/imgExportB"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_weight="1"
+                        android:padding="1dp"
+                        android:src="@drawable/ic_export" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/hsNumberTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_6dp"
+                android:scrollbars="horizontal|vertical" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsFilteredNumberTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_6dp"
+                android:scrollbars="horizontal|vertical" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsChooseHeadTailTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_6dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_6dp"
+                android:scrollbars="horizontal|vertical" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsTableToChooseNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_6dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_6dp"
+                android:scrollbars="horizontal|vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
+
+

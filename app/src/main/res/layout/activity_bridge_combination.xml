@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <!--toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Tổ hợp cầu"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header"
+            android:typeface="normal" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/edtDayNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Số ngày lấy cầu"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:text="18"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboShadowTouchBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Chạm bóng"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboConnectedBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cầu liên thông"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboMappingBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Ánh xạ"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboShadowMappingBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ánh xạ bóng"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboPeriodBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Khoảng"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboNegativeShadowBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chạm bóng âm"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboPositiveShadowBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chạm bóng dương"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/cboBigDoubleSet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Bộ kép to..."
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnFindingBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_5dp"
+                android:layout_weight="1"
+                android:background="@color/colorThemeBold"
+                android:text="cầu kết hợp chạm"
+                android:textAllCaps="false"
+                android:textColor="@color/colorThemeLight"
+                android:textSize="@dimen/text_size_big" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnTouchBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="cầu kết hợp chạm"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+
+                <Button
+                    android:id="@+id/btnShadowTouchBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="cầu chạm bóng"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnMappingBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="cầu ánh xạ"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+
+                <Button
+                    android:id="@+id/btnShadowMappingBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="cầu đổ bóng"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+
+                <Button
+                    android:id="@+id/btnPeriodBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="cầu khoảng"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnCombineBridge1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="cầu 1"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+
+                <Button
+                    android:id="@+id/btnCombineBridge2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="cầu 2"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+
+                <Button
+                    android:id="@+id/btnCombineBridge3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="cầu 3"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnBigDoubleSet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="bộ kép to"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+
+                <Button
+                    android:id="@+id/btnDoubleSet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="bộ kép bằng"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+
+                <Button
+                    android:id="@+id/btnNearDoubleSet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:text="bộ sát kép"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size_big" />
+            </LinearLayout>
+
+            <!--show data-->
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvShowCombineBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
+
+

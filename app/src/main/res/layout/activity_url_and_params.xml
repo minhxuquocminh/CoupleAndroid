@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Đường dẫn và tham số"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header"
+            android:typeface="normal" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorThemeLight">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:text="XS Đặc biệt"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imgEditUrlJackpot"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:src="@drawable/ic_edit" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvUrlJackpot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="@dimen/margin_15dp"
+                android:text="XS Đặc biệt"
+                android:textSize="@dimen/text_size"
+                android:textColor="@color/colorText"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvParamsJackpot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="@dimen/margin_15dp"
+                android:text="XS Đặc biệt"
+                android:textSize="@dimen/text_size"
+                android:textColor="@color/colorText"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:text="XSMB"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imgEditUrlLottery"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:src="@drawable/ic_edit" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvUrlLottery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="@dimen/margin_15dp"
+                android:text="XS Đặc biệt"
+                android:textSize="@dimen/text_size"
+                android:textColor="@color/colorText"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvParamsLottery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="@dimen/margin_15dp"
+                android:text="XS Đặc biệt"
+                android:textSize="@dimen/text_size"
+                android:textColor="@color/colorText"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
+

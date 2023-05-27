@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Couple</string>
+    <string name="finding_bridge_note">Soi cầu là công việc tìm ra kết quả Xổ Số
+        với Xác suất cao chứ không phải là tuyệt đối. Không có bất kỳ một cá nhân
+        hoặc tổ chức nào có thể biết trước hoặc sắp đặt được kết quả Xổ Số. Vậy nên
+        mọi người cần cân nhắc trước khi chơi XS tránh việc quá ham hố mà không thể
+        tìm được đường lui cho bản thân và gia đình. Chúc may mắn !</string>
+    <string name="dieu_khoan_chinh_sach">Bằng việc đăng ký, bạn đồng ý với <u>
+        Điều khoản dịch vụ</u> và <u>Chính sách bảo mật</u> của chúng tôi</string>
+</resources>

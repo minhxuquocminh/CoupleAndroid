@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="1dp"
+    android:background="@drawable/border_lottery"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_2dp">
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorThemeLight"
+        android:gravity="center"
+        android:padding="@dimen/padding_row_lottery"
+        android:text="XSMB"
+        android:textColor="@color/colorTextDateLottery"
+        android:textSize="@dimen/text_size_lottery" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#bebebe" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBgRowLottery"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="KT"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <TextView
+            android:id="@+id/tvCharacters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="KTTG"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_lottery"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderInLottery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorThemeLight"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_jackpot_lottery"
+            android:text="ĐB"
+            android:textColor="@color/colorTextJackpot"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <TextView
+            android:id="@+id/tvJackpots"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_jackpot_lottery"
+            android:text="12345"
+            android:textColor="@color/colorTextJackpot"
+            android:textSize="@dimen/text_size_jackpot_lottery"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderInLottery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBgRowLottery"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="G1"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <TextView
+            android:id="@+id/tvFirst"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="12345"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_lottery"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderInLottery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorThemeLight"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="G2"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvSecond1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="12345"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvSecond2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="12345"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderInLottery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBgRowLottery"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="G3"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/tvThird1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="12345"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBorderInLottery" />
+
+                <TextView
+                    android:id="@+id/tvThird2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="12345"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBorderInLottery" />
+
+                <TextView
+                    android:id="@+id/tvThird3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="12345"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBorderInLottery" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvThird4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="12345"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBorderInLottery" />
+
+                <TextView
+                    android:id="@+id/tvThird5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="12345"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBorderInLottery" />
+
+                <TextView
+                    android:id="@+id/tvThird6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="12345"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderInLottery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorThemeLight"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="G4"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvFour1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="1234"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvFour2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="1234"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvFour3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="1234"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvFour4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="1234"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderInLottery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBgRowLottery"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="G5"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvFifth1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="1234"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBorderInLottery" />
+
+                <TextView
+                    android:id="@+id/tvFifth2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="1234"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBorderInLottery" />
+
+                <TextView
+                    android:id="@+id/tvFifth3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="1234"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBorderInLottery" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvFifth4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="1234"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBorderInLottery" />
+
+                <TextView
+                    android:id="@+id/tvFifth5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="1234"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBorderInLottery" />
+
+                <TextView
+                    android:id="@+id/tvFifth6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_row_lottery"
+                    android:text="1234"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_lottery"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderInLottery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorThemeLight"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="G6"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvSixth1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="123"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvSixth2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="123"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvSixth3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="123"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBorderInLottery" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBgRowLottery"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:padding="@dimen/padding_row_lottery"
+            android:text="G7"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_lottery" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorBorderInLottery" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="14"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvSeventh1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="12"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvSeventh2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="12"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvSeventh3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="12"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorBorderInLottery" />
+
+            <TextView
+                android:id="@+id/tvSeventh4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/padding_row_lottery"
+                android:text="12"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size_lottery"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <!--toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Cầu theo tuần"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header"
+            android:typeface="normal" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorThemeLight"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_10dp">
+
+                    <TextView
+                        android:id="@+id/tvLabelSelect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Chọn thứ"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboSelectAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tvLabelSelect"
+                        android:text="Chọn tất cả"
+                        android:textSize="@dimen/text_size" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cboT2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T2"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboT3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T3"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboT4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T4"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboT5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T5"
+                        android:textSize="@dimen/text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:orientation="horizontal">
+
+
+                    <CheckBox
+                        android:id="@+id/cboT6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T6"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboT7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="T7"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboCN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="CN"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Tên cầu"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtRuns"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Số lần chạy"
+                            android:inputType="number"
+                            android:lineSpacingExtra="2dp"
+                            android:maxLength="2"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtLosts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Số lần gãy"
+                            android:inputType="number"
+                            android:lineSpacingExtra="2dp"
+                            android:maxLength="2"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtSets"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Bộ"
+                            android:lineSpacingExtra="2dp"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtTriads"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Càng"
+                            android:lineSpacingExtra="2dp"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtRunningTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Ngày thường về"
+                            android:lineSpacingExtra="2dp"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtSums"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Tổng"
+                            android:lineSpacingExtra="2dp"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtTouchs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Chạm"
+                            android:lineSpacingExtra="2dp"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtHeads"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Đầu"
+                            android:lineSpacingExtra="2dp"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_marginBottom="@dimen/margin_5dp"
+                        android:layout_weight="1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtTails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Đuôi"
+                            android:lineSpacingExtra="2dp"
+                            android:textColor="@color/colorText"
+                            android:textSize="@dimen/text_size" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtAdds"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Thêm"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtRemoves"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bỏ"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_marginBottom="@dimen/margin_5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Mô tả cầu"
+                        android:lineSpacingExtra="2dp"
+                        android:minLines="5"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_10dp">
+
+                    <Button
+                        android:id="@+id/btnSave"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorThemeBold"
+                        android:text="Lưu"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorThemeLight"
+                        android:textSize="@dimen/text_size" />
+
+                    <Button
+                        android:id="@+id/btnCancel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorBgSunday"
+                        android:text="Hủy"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorThemeLight"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>
+

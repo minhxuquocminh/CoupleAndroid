@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <!--toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Các cầu cho ngày hôm nay"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header"
+            android:typeface="normal" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorThemeLight"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_5dp"
+                android:gravity="center"
+                android:text="Câu nói vui: Bắc cầu cho anh đi qua :D"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvJackpotToday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="@color/colorThemeLight"
+                android:padding="@dimen/margin_5dp"
+                android:text="Xổ số Đặc biệt hôm nay về: "
+                android:textColor="@color/colorTextJackpot"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvLastJackpot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:background="@color/colorThemeLight"
+                android:padding="@dimen/margin_5dp"
+                android:text="Xổ số Đặc biệt ngày trước đó: "
+                android:textColor="@color/colorTextJackpot"
+                android:textSize="@dimen/text_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cầu chạm"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvViewBalanceCouple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Xem thêm"
+                    android:textColor="@color/colorTextLink"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTouchBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Từ bộ số CB lấy các chạm: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvSpecialTouchBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Các chạm đặc biệt từ BSCB: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvTouchThirdClaw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Chạm càng 3 trong giải ĐB: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cầu XSMB"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvViewFindingBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Xem thêm"
+                    android:textColor="@color/colorTextLink"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvConnectedBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:padding="@dimen/padding_2dp"
+                android:text="Từ cầu liên thông lấy các chạm (*): "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvThirdClaw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Từ cầu càng 3 lấy các chạm (*): "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvTriadBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:padding="@dimen/padding_2dp"
+                android:text="Các bộ từ cầu bộ 3 (*): "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvCancelTriadBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Các bộ về hơn 6 lần từ cầu bộ 3 (*): "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvSameDoubleTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cầu kép bằng"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvViewJackpot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Xem thêm"
+                    android:textColor="@color/colorTextLink"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvBeatSDB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:padding="@dimen/padding_2dp"
+                android:text="Nhịp của kép bằng: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvSignInLotterySDB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Dấu hiệu trong XSMB: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvSignInJackpot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Dấu hiệu trong giải ĐB:"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvRareDoubleSame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Kép bằng ít về trong năm nay:"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvLastCouple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Các số đề trước khi về kép:"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <!--cầu thống kê-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cầu thống kê"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvViewStatistics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Xem thêm"
+                    android:textColor="@color/colorTextLink"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRareNumberThisYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:padding="@dimen/padding_2dp"
+                android:text="Các số chưa về trong năm nay: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvRareNumberLastYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Các số ít về vào năm ngoái: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvRareHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Đầu x, x đã x, x ngày chưa về."
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvRareTail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Đuôi x, x đã x, x ngày chưa về."
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Đầu 8 thường về các đầu x, đuôi y."
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:id="@+id/tvTail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginBottom="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Đuôi 9 thường về các đầu x, đuôi y."
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
+
+
+
+
