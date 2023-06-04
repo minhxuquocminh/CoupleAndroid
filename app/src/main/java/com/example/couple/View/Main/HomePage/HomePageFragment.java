@@ -92,7 +92,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
         homePageViewModel.GetTimeDataFromFile();
         homePageViewModel.GetJackpotDataFromFile();
-        homePageViewModel.GetLotteryList(30 + "");
+        homePageViewModel.GetLotteryList(60 + "");
 
         homePageViewModel.GetNote();
 
@@ -132,10 +132,10 @@ public class HomePageFragment extends Fragment implements HomePageView {
             public void onClick(View v) {
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Cập nhật XSMB?")
-                        .setMessage("Bạn có muốn cập nhật XSMB trong vòng 30 ngày không?")
+                        .setMessage("Bạn có muốn cập nhật XSMB trong vòng 60 ngày không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.UpdateLotteryData(30, true);
+                                homePageViewModel.UpdateLotteryData(60, true);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -213,19 +213,19 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
     @Override
     public void UpdateTimeSuccess(String message) {
-        if(!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         homePageViewModel.GetTimeDataFromFile();
     }
 
     @Override
     public void UpdateJackpotSuccess(String message) {
-        if(!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         homePageViewModel.GetJackpotDataFromFile();
     }
 
     @Override
     public void UpdateLotterySuccess(String message) {
-        if(!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

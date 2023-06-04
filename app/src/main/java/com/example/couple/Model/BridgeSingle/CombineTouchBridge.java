@@ -75,15 +75,15 @@ public class CombineTouchBridge {
     }
 
     public String showBridge() {
-        String show = "";
+        String show = " * " + jackpotHistory.show() + ":\n";
         for (String bridgeName : bridgeNames) {
             List<Integer> bridgeTouchs = getBridgeTouchs(bridgeName);
-            String win = NumberBase.isTouch(jackpotHistory, bridgeTouchs) ? "trúng" : "trượt";
-            show += " * " + jackpotHistory.show() + " - " + win + "\n";
-            show += " - " + bridgeName + ": " + NumberBase.showTouchs(bridgeTouchs) + ".\n";
+            String win = jackpotHistory.isEmpty() ? "" :
+                    (NumberBase.isTouch(jackpotHistory, bridgeTouchs) ? "trúng" : "trượt");
+            show += "    - " + bridgeName + " (" + win + "): " + NumberBase.showTouchs(bridgeTouchs) + ".\n";
         }
-        String win = isWin() ? "trúng" : "trượt";
-        show += " * KQ tổ hợp (" + win + "): " + showTouchs();
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
+        show += "    => KQ tổ hợp (" + win + "): " + showTouchs();
         return show.trim();
     }
 

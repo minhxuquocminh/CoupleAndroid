@@ -25,8 +25,8 @@ public class Const {
     public static final String SHADOW_MAPPING_BRIDGE_NAME = "Cầu ánh xạ bóng";
     public static final String PERIOD_BRIDGE_NAME = "Cầu khoảng";
     public static final String CONNECTED_BRIDGE_NAME = "Cầu liên thông";
-    public static final String NEGATIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng âm";
-    public static final String POSITIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng dương";
+    public static final String NEGATIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng -";
+    public static final String POSITIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng +";
     public static final String BIG_DOUBLE_SET_NAME = "Bộ kép to";
     public static final String DOUBLE_SET_NAME = "Bộ kép bằng";
     public static final String NEAR_DOUBLE_SET_NAME = "Bộ sát kép";

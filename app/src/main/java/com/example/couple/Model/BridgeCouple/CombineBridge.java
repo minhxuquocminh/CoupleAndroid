@@ -27,32 +27,23 @@ public class CombineBridge {
     List<String> bridgeNames;
     List<Integer> numbers;
 
-    public CombineBridge(ShadowTouchBridge shadowTouchBridge, MappingBridge mappingBridge,
-                         ShadowMappingBridge shadowMappingBridge, PeriodBridge periodBridge,
-                         ConnectedBridge connectedBridge, ShadowTouchBridge negativeShadowBridge,
-                         ShadowTouchBridge positiveShadowBridge, SpecialSet bigDoubleSet,
+    public CombineBridge(ShadowTouchBridge shadowTouchBridge, ConnectedBridge connectedBridge,
+                         ShadowTouchBridge negativeShadowBridge, ShadowTouchBridge positiveShadowBridge,
+                         MappingBridge mappingBridge, ShadowMappingBridge shadowMappingBridge,
+                         PeriodBridge periodBridge, SpecialSet bigDoubleSet,
                          JackpotHistory jackpotHistory) {
         this.shadowTouchBridge = shadowTouchBridge;
-        this.mappingBridge = mappingBridge;
-        this.shadowMappingBridge = shadowMappingBridge;
-        this.periodBridge = periodBridge;
         this.connectedBridge = connectedBridge;
         this.positiveShadowBridge = positiveShadowBridge;
         this.negativeShadowBridge = negativeShadowBridge;
+        this.mappingBridge = mappingBridge;
+        this.shadowMappingBridge = shadowMappingBridge;
+        this.periodBridge = periodBridge;
         this.bigDoubleSet = bigDoubleSet;
         this.jackpotHistory = jackpotHistory;
         this.bridgeNames = new ArrayList<>();
         if (!shadowTouchBridge.isEmpty()) {
             this.bridgeNames.add(Const.SHADOW_TOUCH_BRIDGE_NAME);
-        }
-        if (!mappingBridge.isEmpty()) {
-            this.bridgeNames.add(Const.MAPPING_BRIDGE_NAME);
-        }
-        if (!shadowMappingBridge.isEmpty()) {
-            this.bridgeNames.add(Const.SHADOW_MAPPING_BRIDGE_NAME);
-        }
-        if (!periodBridge.isEmpty()) {
-            this.bridgeNames.add(Const.PERIOD_BRIDGE_NAME);
         }
         if (!connectedBridge.isEmpty()) {
             this.bridgeNames.add(Const.CONNECTED_BRIDGE_NAME);
@@ -62,6 +53,15 @@ public class CombineBridge {
         }
         if (!negativeShadowBridge.isEmpty()) {
             this.bridgeNames.add(Const.NEGATIVE_SHADOW_BRIDGE_NAME);
+        }
+        if (!mappingBridge.isEmpty()) {
+            this.bridgeNames.add(Const.MAPPING_BRIDGE_NAME);
+        }
+        if (!shadowMappingBridge.isEmpty()) {
+            this.bridgeNames.add(Const.SHADOW_MAPPING_BRIDGE_NAME);
+        }
+        if (!periodBridge.isEmpty()) {
+            this.bridgeNames.add(Const.PERIOD_BRIDGE_NAME);
         }
         if (!bigDoubleSet.isEmpty()) {
             this.bridgeNames.add(Const.BIG_DOUBLE_SET_NAME);
@@ -75,13 +75,13 @@ public class CombineBridge {
     }
 
     public String showBridge() {
-        String show = "";
+        String show = " * " + jackpotHistory.show() + ":\n";
         for (String bridgeName : bridgeNames) {
             CombineInterface bridge = getBridge(bridgeName);
             show += bridge.showCompactBridge() + "\n";
         }
-        String win = isWin() ? "trúng" : "trượt";
-        show += " * KQ tổ hợp (" + win + "): " + showNumbers() + " (" + numbers.size() + " số).";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
+        show += "    => KQ tổ hợp (" + win + "): " + showNumbers() + " (" + numbers.size() + " số).";
         return show.trim();
     }
 

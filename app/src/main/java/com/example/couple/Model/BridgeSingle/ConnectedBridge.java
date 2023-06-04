@@ -3,14 +3,12 @@ package com.example.couple.Model.BridgeSingle;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.BridgeCouple.CombineInterface;
-import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.Support.ConnectedSupport;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
@@ -54,14 +52,17 @@ public class ConnectedBridge implements CombineInterface {
 
     public String showBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - Cầu liên thông: " + showTouchs() + ".";
+        show += "    - Cầu liên thông: " + showTouchs() + ".";
         return show;
     }
 
     public String showCompactBridge() {
-        return showBridge();
+        String show = "";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
+        show += "    - Cầu liên thông (" + win + "): " + showTouchs() + ".";
+        return show;
     }
 
     public static ConnectedBridge getEmpty() {

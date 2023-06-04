@@ -21,12 +21,12 @@ public class JackpotHistory {
         return dayNumberBefore == -1;
     }
 
-    public String getJackpotString() {
-        return jackpot.getJackpot();
-    }
-
     public String show() {
         return "KQ: " + jackpot.getJackpot() + " (" + dayNumberBefore + " ngày trước)";
+    }
+
+    public String showJackpot() {
+        return jackpot.getJackpot();
     }
 
 }

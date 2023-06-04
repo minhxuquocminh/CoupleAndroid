@@ -16,7 +16,7 @@ public class NumberBase {
     }
 
     public static boolean isWin(JackpotHistory jackpotHistory, List<Integer> numbers) {
-        if (numbers.isEmpty()) return false;
+        if (jackpotHistory.isEmpty() || numbers.isEmpty()) return false;
         int couple = jackpotHistory.getJackpot().getCoupleInt();
         for (int number : numbers) {
             if (number == couple) return true;
@@ -25,7 +25,7 @@ public class NumberBase {
     }
 
     public static boolean isTouch(JackpotHistory jackpotHistory, List<Integer> touchs) {
-        if (touchs.isEmpty()) return false;
+        if (jackpotHistory.isEmpty() || touchs.isEmpty()) return false;
         int couple = jackpotHistory.getJackpot().getCoupleInt();
         for (int touch : touchs) {
             if (touch == couple / 10 || touch == couple % 10) return true;

@@ -1,7 +1,6 @@
 package com.example.couple.Model.BridgeCouple;
 
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
@@ -18,17 +17,16 @@ public class MappingBridge implements CombineInterface {
 
     public String showBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - Cầu ánh xạ: " + showNumbers() + " (" + numbers.size() + " số).";
+        show += "    - Cầu ánh xạ: " + showNumbers() + " (" + numbers.size() + " số).";
         return show;
     }
 
     public String showCompactBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - Cầu ánh xạ: " + numbers.size() + " số.";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
+        show += "    - Cầu ánh xạ (" + win + "): " + numbers.size() + " số.";
         return show;
     }
 

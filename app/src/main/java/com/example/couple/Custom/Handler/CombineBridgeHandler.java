@@ -20,9 +20,10 @@ public class CombineBridgeHandler {
         MappingBridge mappingBridge = JackpotBridgeHandler.GetMappingBridge(jackpotList, dayNumberBefore);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmptyJackpot() : jackpotList.get(dayNumberBefore - 1);
-        return new CombineBridge(shadowTouchBridge, mappingBridge, new ShadowMappingBridge(),
-                PeriodBridge.getEmpty(), ConnectedBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
-                ShadowTouchBridge.getEmpty(), SpecialSet.getEmpty(), new JackpotHistory(dayNumberBefore, jackpot));
+        return new CombineBridge(shadowTouchBridge, ConnectedBridge.getEmpty(),
+                ShadowTouchBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
+                mappingBridge, new ShadowMappingBridge(), PeriodBridge.getEmpty(),
+                SpecialSet.getEmpty(), new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static CombineBridge GetCombineBridgeLevel2(List<Jackpot> jackpotList, int dayNumberBefore) {
@@ -33,9 +34,10 @@ public class CombineBridgeHandler {
                 JackpotBridgeHandler.GetShadowMappingBridge(jackpotList, dayNumberBefore);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmptyJackpot() : jackpotList.get(dayNumberBefore - 1);
-        return new CombineBridge(shadowTouchBridge, mappingBridge, shadowMappingBridge,
-                PeriodBridge.getEmpty(), ConnectedBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
-                ShadowTouchBridge.getEmpty(), SpecialSet.getEmpty(), new JackpotHistory(dayNumberBefore, jackpot));
+        return new CombineBridge(shadowTouchBridge, ConnectedBridge.getEmpty(),
+                ShadowTouchBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
+                mappingBridge, shadowMappingBridge, PeriodBridge.getEmpty(),
+                SpecialSet.getEmpty(), new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static CombineBridge GetCombineBridgeLevel3(List<Jackpot> jackpotList, int dayNumberBefore) {
@@ -47,9 +49,10 @@ public class CombineBridgeHandler {
         PeriodBridge periodBridge = JackpotBridgeHandler.GetPeriodBridge(jackpotList, dayNumberBefore);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmptyJackpot() : jackpotList.get(dayNumberBefore - 1);
-        return new CombineBridge(shadowTouchBridge, mappingBridge, shadowMappingBridge,
-                periodBridge, ConnectedBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
-                ShadowTouchBridge.getEmpty(), SpecialSet.getEmpty(), new JackpotHistory(dayNumberBefore, jackpot));
+        return new CombineBridge(shadowTouchBridge, ConnectedBridge.getEmpty(),
+                ShadowTouchBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
+                mappingBridge, shadowMappingBridge, periodBridge,
+                SpecialSet.getEmpty(), new JackpotHistory(dayNumberBefore, jackpot));
     }
 
 }

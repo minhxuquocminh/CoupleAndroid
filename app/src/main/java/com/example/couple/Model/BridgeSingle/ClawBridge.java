@@ -28,14 +28,13 @@ public class ClawBridge {
 
     public String showBridge() {
         String show = "";
-        List<Integer> touchs = getTouchs();
-        String win = isWin() ? "trúng" : "trượt";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - Cầu liên thông: " + showTouchs() + ".";
+        show += "    - Cầu liên thông: " + showTouchs() + ".";
         return show;
     }
 
-    public String showTouchs(){
+    public String showTouchs() {
         return NumberBase.showTouchs(touchs);
     }
 }

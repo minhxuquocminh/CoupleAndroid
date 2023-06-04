@@ -1,7 +1,6 @@
 package com.example.couple.Model.BridgeCouple;
 
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.ShadowCouple;
 import com.example.couple.Model.Support.ShadowSingle;
@@ -12,11 +11,10 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Getter
-public class ShadowMappingBridge implements CombineInterface{
+public class ShadowMappingBridge implements CombineInterface {
     ShadowSingle shadowSingle1;
     ShadowSingle shadowSingle2;
     JackpotHistory jackpotHistory;
@@ -55,17 +53,17 @@ public class ShadowMappingBridge implements CombineInterface{
 
     public String showBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - Cầu đổ bóng: " + showCombineShadowCouples() + " (" + getCombineShadowCouples().size() + " số).";
+        show += "    - Cầu đổ bóng: " + showCombineShadowCouples() +
+                " (" + getCombineShadowCouples().size() + " số).";
         return show;
     }
 
     public String showCompactBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - Cầu đổ bóng: " + getCombineShadowCouples().size() + " số.";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
+        show += "    - Cầu đổ bóng (" + win + "): " + getCombineShadowCouples().size() + " số.";
         return show;
     }
 

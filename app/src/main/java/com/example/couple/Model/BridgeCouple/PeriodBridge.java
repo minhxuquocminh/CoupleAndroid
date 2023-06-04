@@ -53,17 +53,16 @@ public class PeriodBridge implements CombineInterface {
 
     public String showBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - Cầu khoảng: " + showNumbers() + " (" + numbers.size() + " số).";
+        show += "    - Cầu khoảng: " + showNumbers() + " (" + numbers.size() + " số).";
         return show;
     }
 
     public String showCompactBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - Cầu khoảng: " + numbers.size() + " số.";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
+        show += "    - Cầu khoảng (" + win + "): " + numbers.size() + " số.";
         return show;
     }
 

@@ -23,15 +23,18 @@ public class SpecialSet implements CombineInterface {
     @Override
     public String showBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - " + bridgeName + ": " + showNumbers() + " (" + numbers.size() + " số).";
+        show += "    - " + bridgeName + ": " + showNumbers() + " (" + numbers.size() + " số).";
         return show;
     }
 
     @Override
     public String showCompactBridge() {
-        return showBridge();
+        String show = "";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
+        show += "    - " + bridgeName + " (" + win + ").";
+        return show;
     }
 
     @Override

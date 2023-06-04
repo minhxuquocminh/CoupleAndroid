@@ -8,7 +8,6 @@ import com.example.couple.Model.Support.JackpotHistory;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
@@ -39,14 +38,17 @@ public class ShadowTouchBridge implements CombineInterface {
 
     public String showBridge() {
         String show = "";
-        String win = isWin() ? "trúng" : "trượt";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += " - " + bridgeName + ": " + showTouchs() + ".";
+        show += "    - " + bridgeName + ": " + showTouchs() + ".";
         return show;
     }
 
     public String showCompactBridge() {
-        return showBridge();
+        String show = "";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
+        show += "    - " + bridgeName + " (" + win + "): " + showTouchs() + ".";
+        return show;
     }
 
     public static ShadowTouchBridge getEmpty() {

@@ -53,9 +53,9 @@ public class BridgeCombinationViewModel {
                     .GetNegativeShadowTouchBridge(jackpotList, 0);
             ShadowTouchBridge positiveShadowBridge = JackpotBridgeHandler
                     .GetPositiveShadowTouchBridge(jackpotList, 0);
-            CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, mappingBridge,
-                    shadowMappingBridge, periodBridge, connectedBridge, negativeShadowBridge,
-                    positiveShadowBridge, SpecialSet.getEmpty(),
+            CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, connectedBridge,
+                    negativeShadowBridge, positiveShadowBridge, mappingBridge,
+                    shadowMappingBridge, periodBridge, SpecialSet.getEmpty(),
                     new JackpotHistory(0, Jackpot.getEmptyJackpot()));
             view.ShowAllBridgeToday(combineBridge);
         }
@@ -92,9 +92,9 @@ public class BridgeCombinationViewModel {
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmptyJackpot();
             SpecialSet bigDoubleSet = bigDouble ? new SpecialSet(Const.BIG_DOUBLE_SET_NAME,
                     Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot)) : SpecialSet.getEmpty();
-            CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, mappingBridge,
-                    shadowMappingBridge, periodBridge, connectedBridge, negativeShadowBridge,
-                    positiveShadowBridge, bigDoubleSet, new JackpotHistory(i, jackpot));
+            CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, connectedBridge,
+                    negativeShadowBridge, positiveShadowBridge, mappingBridge, shadowMappingBridge,
+                    periodBridge, bigDoubleSet, new JackpotHistory(i, jackpot));
             combineBridges.add(combineBridge);
         }
         if (combineBridges.isEmpty()) {

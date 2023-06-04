@@ -2,14 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/itHome"
-        android:title="Trang chủ"
         android:icon="@drawable/icon_home_change"
-        />
-
-    <item
-        android:id="@+id/itPredictionBridge"
-        android:icon="@drawable/icon_prediction_bridge_change"
-        android:title="Tạo dàn số" />
+        android:title="Trang chủ" />
 
     <item
         android:id="@+id/itCreateNumbers"
@@ -17,14 +11,17 @@
         android:title="Chọn số" />
 
     <item
+        android:id="@+id/itPredictionBridge"
+        android:icon="@drawable/icon_prediction_bridge_change"
+        android:title="Tạo dàn số" />
+
+    <item
         android:id="@+id/itFunction"
-        android:title="Chức năng"
         android:icon="@drawable/icon_function_change"
-        />
+        android:title="Chức năng" />
 
     <item
         android:id="@+id/itPersonal"
-        android:title="Cá nhân"
         android:icon="@drawable/icon_personal_change"
-        />
+        android:title="Cá nhân" />
 </menu>
