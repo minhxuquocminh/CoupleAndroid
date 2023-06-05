@@ -67,4 +67,14 @@ public class ShadowSingle {
         return results;
     }
 
+    public static ShadowSingle getEmpty() {
+        return new ShadowSingle(new ArrayList<>(),
+                new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    }
+
+    public boolean isEmpty() {
+        return firstsTens.isEmpty() &&
+                secondsTens.isEmpty() && firstsUnits.isEmpty() && secondsUnits.isEmpty();
+    }
+
 }

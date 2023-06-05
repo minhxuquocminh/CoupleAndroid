@@ -18,6 +18,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.couple.Base.Handler.InternetBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -36,7 +37,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
     ImageView imgViewLottery;
     ImageView imgFindingBridge;
     TextView tvCalendar;
-    LinearLayout layoutRefreshTime;
+    LinearLayout layoutRefreshAll;
     LinearLayout layoutRefreshLottery;
     LinearLayout layoutRefreshJackpots;
     TextView tvJackpotToday;
@@ -62,7 +63,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
         imgViewLottery = view.findViewById(R.id.imgViewLottery);
         imgFindingBridge = view.findViewById(R.id.imgFindingBridge);
         tvCalendar = view.findViewById(R.id.tvCalendar);
-        layoutRefreshTime = view.findViewById(R.id.layoutRefreshTime);
+        layoutRefreshAll = view.findViewById(R.id.layoutRefreshAll);
         layoutRefreshLottery = view.findViewById(R.id.layoutRefreshLottery);
         layoutRefreshJackpots = view.findViewById(R.id.layoutRefreshJackpots);
         tvJackpotToday = view.findViewById(R.id.tvJackpotToday);
@@ -110,15 +111,15 @@ public class HomePageFragment extends Fragment implements HomePageView {
             }
         });
 
-        layoutRefreshTime.setOnClickListener(new View.OnClickListener() {
+        layoutRefreshAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Cập nhật thời gian?")
-                        .setMessage("Bạn có muốn cập nhật thời gian cho đúng với thời điểm hiện tại không?")
+                        .setTitle("Cập nhật tất cả?")
+                        .setMessage("Bạn có muốn cập nhật thời gian, XS Đặc biệt và XSMB không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.UpdateTimeData(true);
+                                homePageViewModel.UpdateAllData();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -132,10 +133,11 @@ public class HomePageFragment extends Fragment implements HomePageView {
             public void onClick(View v) {
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Cập nhật XSMB?")
-                        .setMessage("Bạn có muốn cập nhật XSMB trong vòng 60 ngày không?")
+                        .setMessage("Bạn có muốn cập nhật XSMB trong vòng " +
+                                Const.MAX_DAYS_TO_GET_LOTTERY + " ngày không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.UpdateLotteryData(60, true);
+                                homePageViewModel.UpdateLottery(Const.MAX_DAYS_TO_GET_LOTTERY, true);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -152,7 +154,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
                         .setMessage("Bạn có muốn cập nhật XS Đặc biệt của năm nay không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.UpdateJackpotData(true);
+                                homePageViewModel.UpdateJackpot(true);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -209,12 +211,6 @@ public class HomePageFragment extends Fragment implements HomePageView {
     @Override
     public void ShowAllDataStatus(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void UpdateTimeSuccess(String message) {
-        if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        homePageViewModel.GetTimeDataFromFile();
     }
 
     @Override

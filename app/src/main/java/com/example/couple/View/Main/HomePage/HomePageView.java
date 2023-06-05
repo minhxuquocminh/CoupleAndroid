@@ -9,7 +9,6 @@ import java.util.List;
 public interface HomePageView {
     void ShowError(String message);
     void ShowAllDataStatus(String message);
-    void UpdateTimeSuccess(String message);
     void UpdateJackpotSuccess(String message);
     void UpdateLotterySuccess(String message);
     // show data

@@ -34,7 +34,7 @@ public class BridgeCombinationViewModel {
 
     public void GetLotteryAndJackpotList() {
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, Const.DAY_OF_YEAR);
-        List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, 30);
+        List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         view.ShowLotteryAndJackpotList(jackpotList, lotteryList);
     }
 
@@ -56,7 +56,7 @@ public class BridgeCombinationViewModel {
             CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, connectedBridge,
                     negativeShadowBridge, positiveShadowBridge, mappingBridge,
                     shadowMappingBridge, periodBridge, SpecialSet.getEmpty(),
-                    new JackpotHistory(0, Jackpot.getEmptyJackpot()));
+                    new JackpotHistory(0, Jackpot.getEmpty()));
             view.ShowAllBridgeToday(combineBridge);
         }
     }
@@ -89,7 +89,7 @@ public class BridgeCombinationViewModel {
                     .GetNegativeShadowTouchBridge(jackpotList, i) : ShadowTouchBridge.getEmpty();
             ShadowTouchBridge positiveShadowBridge = positiveShadow ? JackpotBridgeHandler
                     .GetPositiveShadowTouchBridge(jackpotList, i) : ShadowTouchBridge.getEmpty();
-            Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmptyJackpot();
+            Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             SpecialSet bigDoubleSet = bigDouble ? new SpecialSet(Const.BIG_DOUBLE_SET_NAME,
                     Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot)) : SpecialSet.getEmpty();
             CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, connectedBridge,
@@ -211,7 +211,7 @@ public class BridgeCombinationViewModel {
     public void GetBigDoubleSet(List<Jackpot> jackpotList, int numberOfDay) {
         List<SpecialSet> bigDoubleSets = new ArrayList<>();
         for (int i = 0; i < numberOfDay; i++) {
-            Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmptyJackpot();
+            Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             SpecialSet bigDoubleSet = new SpecialSet(Const.BIG_DOUBLE_SET_NAME,
                     Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot));
             bigDoubleSets.add(bigDoubleSet);
@@ -226,7 +226,7 @@ public class BridgeCombinationViewModel {
     public void GetDoubleSet(List<Jackpot> jackpotList, int numberOfDay) {
         List<SpecialSet> doubleSets = new ArrayList<>();
         for (int i = 0; i < numberOfDay; i++) {
-            Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmptyJackpot();
+            Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             SpecialSet doubleSet = new SpecialSet(Const.DOUBLE_SET_NAME,
                     Const.DOUBLE_SET, new JackpotHistory(i, jackpot));
             doubleSets.add(doubleSet);
@@ -241,7 +241,7 @@ public class BridgeCombinationViewModel {
     public void GetNearDoubleSet(List<Jackpot> jackpotList, int numberOfDay) {
         List<SpecialSet> nearDoubleSets = new ArrayList<>();
         for (int i = 0; i < numberOfDay; i++) {
-            Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmptyJackpot();
+            Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             SpecialSet nearDoubleSet = new SpecialSet(Const.NEAR_DOUBLE_SET_NAME,
                     Const.NEAR_DOUBLE_SET, new JackpotHistory(i, jackpot));
             nearDoubleSets.add(nearDoubleSet);

@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
@@ -28,35 +29,39 @@ public class UpdateDataAlarm extends BroadcastReceiver {
     }
 
     public void getData(Context context) {
-        boolean isUpdateAll = CheckUpdate.checkUpdateAll(context);
-        if (isUpdateAll) {
-            getDataIfNeeded(context);
-            String title = "XSMB";
-            String content = "";
-            if(!CheckUpdate.checkUpdateData(context)){ // sub: update = false => data.length > 0 nên ko cần check empty list nữa
-                List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 7);
-                content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: "
-                        + jackpotList.get(0).getJackpot();
-            } else {
-                content = "Hiện tại, dữ liệu XS Đặc biệt Miền Bắc trong ngày hôm nay chưa được cập nhật.";
+        String title = "XSMB";
+        String content = "";
+        if (CheckUpdate.checkUpdateJackpot(context)) {
+            try {
+                String jackpot = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
+                IOFileBase.saveDataToFile(context, "jackpot" +
+                        TimeInfo.CURRENT_YEAR + ".txt", jackpot, 0);
+                List<Jackpot> jackpotList = JackpotHandler
+                        .GetReserveJackpotListFromFile(context, 1);
+                content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
+                        jackpotList.get(0).getJackpot() + ".";
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            pushNotification(context, title, content);
+        } else {
+            content = "Hiện tại, dữ liệu XS Đặc biệt Miền Bắc trong ngày hôm nay chưa được cập nhật.";
         }
+        pushNotification(context, title, content);
+        getDataIfNeeded(context);
     }
 
     private void getDataIfNeeded(Context context) {
-        boolean isUpdateTime = CheckUpdate.checkUpdateTime(context);
-        boolean isUpdateData = CheckUpdate.checkUpdateData(context);
+        boolean checkUpdateTime = CheckUpdate.checkUpdateTime(context);
+        boolean checkUpdateLottery = CheckUpdate.checkUpdateLottery(context);
         try {
-            if (isUpdateTime) {
+            if (checkUpdateTime) {
                 String time = Api.GetTimeDataFromInternet();
                 IOFileBase.saveDataToFile(context, "time.txt", time, 0);
             }
-            if (isUpdateData) {
-                String jackpot = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
-                String lottery = Api.GetLotteryDataFromInternet(context, 30);
-                IOFileBase.saveDataToFile(context, "jackpot" + TimeInfo.CURRENT_YEAR + ".txt",
-                        jackpot, 0);
+            if (checkUpdateLottery) {
+                String lottery = Api.GetLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
                 IOFileBase.saveDataToFile(context, "lottery.txt", lottery, 0);
             }
         } catch (ExecutionException e) {

@@ -12,11 +12,11 @@ public class Jackpot {
     String jackpot;
     DateBase dateBase;
 
-    public static Jackpot getEmptyJackpot() {
+    public static Jackpot getEmpty() {
         return new Jackpot("-99999", new DateBase());
     }
 
-    public boolean isEmptyJackpot() {
+    public boolean isEmpty() {
         return jackpot != null && jackpot.equals("-99999");
     }
 

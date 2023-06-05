@@ -30,17 +30,16 @@ public class SearchingBridgeViewModel {
         this.context = context;
     }
 
-    public void GetLotteryList(int numberOfDays) {
-        List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
+    public void GetLotteryListAndJackpotList() {
+        List<Lottery> lotteries =
+                LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         if (lotteries.size() == 0) {
             searchingBridgeView.ShowError("Lỗi không lấy được thông tin XSMB!");
         } else {
             searchingBridgeView.ShowLotteryList(lotteries);
         }
-    }
-
-    public void GetJackpotList(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, numberOfDays);
+        List<Jackpot> jackpotList =
+                JackpotHandler.GetReserveJackpotListFromFile(context, Const.DAY_OF_YEAR);
         if (jackpotList.size() == 0) {
             searchingBridgeView.ShowError("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {
@@ -243,4 +242,5 @@ public class SearchingBridgeViewModel {
         List<BSingle> BSingleList = JackpotBridgeHandler.GetTouchsByThirdClawBridge(jackpotList, dayNumberBefore);
         searchingBridgeView.ShowJackpotThirdClawBridge(BSingleList, jackpotList.size());
     }
+
 }

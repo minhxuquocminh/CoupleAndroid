@@ -60,17 +60,17 @@ public class ConnectedBridge implements CombineInterface {
 
     public String showCompactBridge() {
         String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += "    - Cầu liên thông (" + win + "): " + showTouchs() + ".";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
+        show += "    - Cầu liên thông" + win + ": " + showTouchs() + ".";
         return show;
     }
 
     public static ConnectedBridge getEmpty() {
-        return new ConnectedBridge(new ArrayList<>(), new JackpotHistory());
+        return new ConnectedBridge(new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {
-        return jackpotHistory.isEmpty();
+        return connectedSupports.isEmpty() || numbers.isEmpty();
     }
 
 }

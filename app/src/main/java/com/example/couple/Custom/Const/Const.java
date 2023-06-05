@@ -11,6 +11,7 @@ public class Const {
     public static final int MAX_ROW_COUNT_TABLE = 100;
     public static final int MAX_DAY_NUMBER_BEFORE = 999;
     public static final int NUMBER_OF_PRIZES = 27;
+    public static final int MAX_DAYS_TO_GET_LOTTERY = 60;
     public static final int MAX_LENGTH_OF_PRIZE = 5;
     public static final int AMPLITUDE_OF_PERIOD_BRIDGE = 13;
     public static final int CONNECTED_BRIDGE_FINDING_DAYS = 10;

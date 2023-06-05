@@ -61,8 +61,8 @@ public class PeriodBridge implements CombineInterface {
 
     public String showCompactBridge() {
         String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += "    - Cầu khoảng (" + win + "): " + numbers.size() + " số.";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
+        show += "    - Cầu khoảng" + win + ": " + numbers.size() + " số.";
         return show;
     }
 
@@ -75,11 +75,11 @@ public class PeriodBridge implements CombineInterface {
     }
 
     public static PeriodBridge getEmpty() {
-        return new PeriodBridge(new ArrayList<>(), new ArrayList<>(), new JackpotHistory());
+        return new PeriodBridge(new ArrayList<>(), new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {
-        return jackpotHistory.isEmpty();
+        return periodHistories.isEmpty();
     }
 
 }

@@ -100,8 +100,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvPlus2 = findViewById(R.id.tvPlus2);
 
         viewModel = new SearchingBridgeViewModel(this, this);
-        viewModel.GetLotteryList(30);
-        viewModel.GetJackpotList(Const.DAY_OF_YEAR);
+        viewModel.GetLotteryListAndJackpotList();
 
         dayNumberBefore = 0;
         edtDayNumberBefore.setText(dayNumberBefore + "");

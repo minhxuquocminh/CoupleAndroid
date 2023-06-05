@@ -293,7 +293,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     @Override
     public void ShowPeriodBridgeList(List<PeriodBridge> periodBridges) {
         String show = "Ghi chú: nên chơi khi số lượng KQ tổ hợp lớn hơn hoặc bằng 55, " +
-                " nếu số lượng nhỏ hơn 55 thì cần xem lại thông tin chi tiết của cầu. ";
+                " nếu số lượng nhỏ hơn 55 thì cần xem lại thông tin chi tiết của cầu.\n";
         int count = 0;
         for (PeriodBridge bridge : periodBridges) {
             show += bridge.showBridge() + "\n";

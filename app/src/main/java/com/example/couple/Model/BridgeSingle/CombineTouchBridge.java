@@ -21,16 +21,6 @@ public class CombineTouchBridge {
     List<Integer> touchs;
     List<String> bridgeNames;
 
-    public CombineTouchBridge() {
-        this.firstBridgeName = "";
-        this.firstList = new ArrayList<>();
-        this.secondBridgeName = "";
-        this.secondList = new ArrayList<>();
-        this.thirdBridgeName = "";
-        this.thirdList = new ArrayList<>();
-        this.jackpotHistory = new JackpotHistory();
-    }
-
     public CombineTouchBridge(String firstBridgeName, List<Integer> firstList, String secondBridgeName,
                               List<Integer> secondList, String thirdBridgeName, List<Integer> thirdList,
                               JackpotHistory jackpotHistory) {
@@ -85,6 +75,16 @@ public class CombineTouchBridge {
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += "    => KQ tổ hợp (" + win + "): " + showTouchs();
         return show.trim();
+    }
+
+    public static CombineTouchBridge getEmpty() {
+        return new CombineTouchBridge("", new ArrayList<>(),
+                "", new ArrayList<>(), "",
+                new ArrayList<>(), JackpotHistory.getEmpty());
+    }
+
+    public boolean isEmpty() {
+        return firstBridgeName.equals("") && secondBridgeName.equals("") && thirdBridgeName.equals("");
     }
 
 }

@@ -16,10 +16,6 @@ public class SpecialSet implements CombineInterface {
     List<Integer> numbers;
     JackpotHistory jackpotHistory;
 
-    public static SpecialSet getEmpty() {
-        return new SpecialSet("", new ArrayList<>(), new JackpotHistory());
-    }
-
     @Override
     public String showBridge() {
         String show = "";
@@ -32,8 +28,8 @@ public class SpecialSet implements CombineInterface {
     @Override
     public String showCompactBridge() {
         String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += "    - " + bridgeName + " (" + win + ").";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
+        show += "    - " + bridgeName + "" + win + ".";
         return show;
     }
 
@@ -52,8 +48,12 @@ public class SpecialSet implements CombineInterface {
         return NumberBase.showNumbers(numbers);
     }
 
+    public static SpecialSet getEmpty() {
+        return new SpecialSet("", new ArrayList<>(), JackpotHistory.getEmpty());
+    }
+
     @Override
     public boolean isEmpty() {
-        return jackpotHistory.isEmpty();
+        return bridgeName.equals("") || numbers.isEmpty();
     }
 }

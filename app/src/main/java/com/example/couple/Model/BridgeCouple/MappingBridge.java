@@ -25,8 +25,8 @@ public class MappingBridge implements CombineInterface {
 
     public String showCompactBridge() {
         String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += "    - Cầu ánh xạ (" + win + "): " + numbers.size() + " số.";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
+        show += "    - Cầu ánh xạ" + win + ": " + numbers.size() + " số.";
         return show;
     }
 
@@ -39,10 +39,10 @@ public class MappingBridge implements CombineInterface {
     }
 
     public static MappingBridge getEmpty() {
-        return new MappingBridge(new ArrayList<>(), new JackpotHistory());
+        return new MappingBridge(new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {
-        return jackpotHistory.isEmpty();
+        return numbers.isEmpty();
     }
 }

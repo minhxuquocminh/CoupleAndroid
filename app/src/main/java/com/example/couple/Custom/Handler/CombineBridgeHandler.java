@@ -19,10 +19,10 @@ public class CombineBridgeHandler {
                 .GetShadowTouchBridge(jackpotList, dayNumberBefore);
         MappingBridge mappingBridge = JackpotBridgeHandler.GetMappingBridge(jackpotList, dayNumberBefore);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : jackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new CombineBridge(shadowTouchBridge, ConnectedBridge.getEmpty(),
                 ShadowTouchBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
-                mappingBridge, new ShadowMappingBridge(), PeriodBridge.getEmpty(),
+                mappingBridge, ShadowMappingBridge.getEmpty(), PeriodBridge.getEmpty(),
                 SpecialSet.getEmpty(), new JackpotHistory(dayNumberBefore, jackpot));
     }
 
@@ -33,7 +33,7 @@ public class CombineBridgeHandler {
         ShadowMappingBridge shadowMappingBridge =
                 JackpotBridgeHandler.GetShadowMappingBridge(jackpotList, dayNumberBefore);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : jackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new CombineBridge(shadowTouchBridge, ConnectedBridge.getEmpty(),
                 ShadowTouchBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
                 mappingBridge, shadowMappingBridge, PeriodBridge.getEmpty(),
@@ -48,7 +48,7 @@ public class CombineBridgeHandler {
                 JackpotBridgeHandler.GetShadowMappingBridge(jackpotList, dayNumberBefore);
         PeriodBridge periodBridge = JackpotBridgeHandler.GetPeriodBridge(jackpotList, dayNumberBefore);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : jackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new CombineBridge(shadowTouchBridge, ConnectedBridge.getEmpty(),
                 ShadowTouchBridge.getEmpty(), ShadowTouchBridge.getEmpty(),
                 mappingBridge, shadowMappingBridge, periodBridge,

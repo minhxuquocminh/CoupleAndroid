@@ -46,17 +46,17 @@ public class ShadowTouchBridge implements CombineInterface {
 
     public String showCompactBridge() {
         String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += "    - " + bridgeName + " (" + win + "): " + showTouchs() + ".";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
+        show += "    - " + bridgeName + "" + win + ": " + showTouchs() + ".";
         return show;
     }
 
     public static ShadowTouchBridge getEmpty() {
-        return new ShadowTouchBridge("", new ArrayList<>(), new JackpotHistory());
+        return new ShadowTouchBridge("", new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {
-        return jackpotHistory.isEmpty();
+        return bridgeName.equals("") || touchs.isEmpty();
     }
 
 }

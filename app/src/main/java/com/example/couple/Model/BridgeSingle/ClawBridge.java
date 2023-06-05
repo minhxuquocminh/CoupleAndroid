@@ -16,11 +16,6 @@ public class ClawBridge {
     int bridgeType;
     JackpotHistory jackpotHistory;
 
-    public ClawBridge() {
-        this.touchs = new ArrayList<>();
-        this.bridgeType = 0;
-        this.jackpotHistory = new JackpotHistory();
-    }
 
     public boolean isWin() {
         return NumberBase.isTouch(jackpotHistory, touchs);
@@ -36,5 +31,9 @@ public class ClawBridge {
 
     public String showTouchs() {
         return NumberBase.showTouchs(touchs);
+    }
+
+    public static ClawBridge getEmpty() {
+        return new ClawBridge(new ArrayList<>(), 0, JackpotHistory.getEmpty());
     }
 }

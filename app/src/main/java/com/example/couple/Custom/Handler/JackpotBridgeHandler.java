@@ -41,12 +41,12 @@ public class JackpotBridgeHandler {
     public static CombineTouchBridge GetTouchBridge(List<Jackpot> reverseJackpotList,
                                                     List<Lottery> lotteries, int dayNumberBefore) {
         if (reverseJackpotList.size() < dayNumberBefore + 2 || lotteries.size() < 30)
-            return new CombineTouchBridge();
+            return CombineTouchBridge.getEmpty();
         List<Integer> firstList = GetShadowTouchBridge(reverseJackpotList, dayNumberBefore).getTouchs();
         List<Integer> secondList = GetConnectedBridge(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS,
                 dayNumberBefore, Const.CONNECTED_BRIDGE_MAX_DISPLAY).getTouchs();
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : reverseJackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new CombineTouchBridge("Cầu chạm bóng", firstList,
                 "Cầu liên thông", secondList, "",
                 new ArrayList<>(), new JackpotHistory(dayNumberBefore, jackpot));
@@ -58,17 +58,17 @@ public class JackpotBridgeHandler {
 
     public static ShadowMappingBridge GetShadowMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < dayNumberBefore + 2)
-            return new ShadowMappingBridge();
+            return ShadowMappingBridge.getEmpty();
         ShadowSingle first = reverseJackpotList.get(dayNumberBefore + 1).getCouple().getShadowSingle();
         ShadowSingle second = reverseJackpotList.get(dayNumberBefore).getCouple().getShadowSingle();
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : reverseJackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new ShadowMappingBridge(first, second, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static MappingBridge GetMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < dayNumberBefore + 2)
-            return new MappingBridge(new ArrayList<>(), new JackpotHistory());
+            return MappingBridge.getEmpty();
         List<Integer> firstList = reverseJackpotList.get(dayNumberBefore + 1).getCouple().getMappingNumbers();
         List<Integer> secondList = reverseJackpotList.get(dayNumberBefore).getCouple().getMappingNumbers();
         for (int second : secondList) {
@@ -77,7 +77,7 @@ public class JackpotBridgeHandler {
             }
         }
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : reverseJackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         Collections.sort(firstList);
         return new MappingBridge(firstList, new JackpotHistory(dayNumberBefore, jackpot));
     }
@@ -100,7 +100,7 @@ public class JackpotBridgeHandler {
         }
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : reverseJackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(Const.NEGATIVE_SHADOW_BRIDGE_NAME, results,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
@@ -123,7 +123,7 @@ public class JackpotBridgeHandler {
         }
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : reverseJackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(Const.POSITIVE_SHADOW_BRIDGE_NAME, results,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
@@ -148,7 +148,7 @@ public class JackpotBridgeHandler {
         }
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : reverseJackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge("Cầu chạm bóng", results,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
@@ -199,7 +199,7 @@ public class JackpotBridgeHandler {
         List<History> periodHistories4 = GetPeriodHistoryList(jackpotList,
                 dayNumberBefore, 4, Const.AMPLITUDE_OF_PERIOD_BRIDGE);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : jackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new PeriodBridge(periodHistories3, periodHistories4,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
@@ -284,7 +284,7 @@ public class JackpotBridgeHandler {
             if (times > 1) {
                 int value = lotteries.get(dayNumberBefore).getValueAtPosition(startPositions.get(i));
                 Jackpot jackpot = dayNumberBefore == 0 ?
-                        Jackpot.getEmptyJackpot() : lotteries.get(dayNumberBefore - 1).getJackpot();
+                        Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
                 ConnectedSupport connectedSupport = new ConnectedSupport(value,
                         startPositions.get(i), typeList, times, new JackpotHistory(dayNumberBefore, jackpot));
                 connectedSupportList.add(connectedSupport);
@@ -306,7 +306,7 @@ public class JackpotBridgeHandler {
 
         int sizeOfShow = maxDisplay < connectedSupportList.size() ? maxDisplay : connectedSupportList.size();
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : lotteries.get(dayNumberBefore - 1).getJackpot();
+                Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
         List<ConnectedSupport> connectedSupports = connectedSupportList.subList(0, sizeOfShow);
         return new ConnectedBridge(connectedSupports, new JackpotHistory(dayNumberBefore, jackpot));
     }
@@ -371,7 +371,7 @@ public class JackpotBridgeHandler {
                     }
                     if (statusList.size() > 2) {
                         Jackpot jackpot = dayNumberBefore == 0 ?
-                                Jackpot.getEmptyJackpot() : lotteries.get(dayNumberBefore - 1).getJackpot();
+                                Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
                         TriadBridge triadBridge = new TriadBridge(supportTriadList.get(i), supportTriadList.get(j),
                                 supportTriadList.get(k), statusList, new JackpotHistory(dayNumberBefore, jackpot));
                         triadBridgeList.add(triadBridge);
@@ -527,14 +527,14 @@ public class JackpotBridgeHandler {
 
     public static ClawBridge GetClawBridge(List<Lottery> lotteries, List<Integer> searchingDaysList,
                                            int dayNumberBefore, int maxDisplay, int bridgeType) {
-        if (lotteries.size() < 30) return new ClawBridge();
+        if (lotteries.size() < 30) return ClawBridge.getEmpty();
         List<Integer> touchs0 = JackpotBridgeHandler.GetTouchsByClawSupport(lotteries,
                 searchingDaysList, dayNumberBefore, maxDisplay, 0);
         List<Integer> touchs1 = JackpotBridgeHandler.GetTouchsByClawSupport(lotteries,
                 searchingDaysList, dayNumberBefore, maxDisplay, 1);
         List<Integer> touchs = bridgeType == 0 ? touchs0 : NumberBase.getPrivateNumbers(touchs0, touchs1);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmptyJackpot() : lotteries.get(dayNumberBefore - 1).getJackpot();
+                Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
         return new ClawBridge(touchs, bridgeType, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
@@ -668,7 +668,7 @@ public class JackpotBridgeHandler {
             List<Integer> beatList = GetBeatListByClaw(lotteries, position,
                     searchingDays, dayNumberBefore, clawType);
             Jackpot jackpot = dayNumberBefore == 0 ?
-                    Jackpot.getEmptyJackpot() : lotteries.get(dayNumberBefore - 1).getJackpot();
+                    Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
             ClawSupport clawSupport = new ClawSupport(value, position, beatList,
                     new JackpotHistory(dayNumberBefore, jackpot));
             clawSupportList.add(clawSupport);

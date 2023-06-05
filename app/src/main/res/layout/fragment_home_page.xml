@@ -81,7 +81,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/layoutRefreshTime"
+                    android:id="@+id/layoutRefreshAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_3dp"
@@ -91,7 +91,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Thời gian"
+                        android:text="Tất cả"
                         android:textColor="@color/colorThemeBold"
                         android:textSize="@dimen/text_size_big"
                         android:textStyle="bold" />

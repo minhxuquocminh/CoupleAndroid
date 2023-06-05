@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Origin.Lottery;
 
 import java.util.List;
 
@@ -22,13 +23,16 @@ public class CheckUpdate {
 
     }
 
-    public static boolean checkUpdateData(Context context) {
+    public static boolean checkUpdateJackpot(Context context) {
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 1);
         if (jackpotList.isEmpty()) return true;
         return !jackpotList.get(0).getDateBase().isToday();
     }
 
-    public static boolean checkUpdateAll(Context context) {
-        return checkUpdateTime(context) || checkUpdateData(context);
+    public static boolean checkUpdateLottery(Context context) {
+        List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, 1);
+        if (lotteries.isEmpty()) return true;
+        return !lotteries.get(0).getDateBase().isToday();
     }
+
 }

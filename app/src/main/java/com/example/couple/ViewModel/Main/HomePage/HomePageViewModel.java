@@ -3,14 +3,14 @@ package com.example.couple.ViewModel.Main.HomePage;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.AlarmBase;
+import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.CoupleBridgeHandler;
-import com.example.couple.Custom.Handler.Api;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.UpdateDataAlarm;
 import com.example.couple.Model.Display.BSingle;
@@ -64,14 +64,15 @@ public class HomePageViewModel {
     }
 
     public void UpdateAllData() {
-        String timeStatus = UpdateTimeData(false) ? "(done)" : "(failed)";
-        String jackpotStatus = UpdateJackpotData(false) ? "(done)" : "(failed)";
-        String lotteryStatus = UpdateLotteryData(30, false) ? "(done)" : "(failed)";
-        homePageView.ShowAllDataStatus("Trạng thái: thời gian " + timeStatus + ", XS Đặc biệt " +
-                jackpotStatus + ", XSMB " + lotteryStatus + ".");
+        String timeStatus = UpdateTime(false) ? "(done)" : "(failed)";
+        String jackpotStatus = UpdateJackpot(false) ? "(done)" : "(failed)";
+        String lotteryStatus =
+                UpdateLottery(Const.MAX_DAYS_TO_GET_LOTTERY, false) ? "(done)" : "(failed)";
+        homePageView.ShowAllDataStatus("Trạng thái: thời gian "
+                + timeStatus + ", XS Đặc biệt " + jackpotStatus + ", XSMB " + lotteryStatus + ".");
     }
 
-    public boolean UpdateTimeData(boolean showMessage) {
+    public boolean UpdateTime(boolean showMessage) {
         try {
             String timeData = Api.GetTimeDataFromInternet();
             if (timeData.equals("")) {
@@ -79,7 +80,6 @@ public class HomePageViewModel {
                 return false;
             }
             IOFileBase.saveDataToFile(context, "time.txt", timeData, 0);
-            homePageView.UpdateTimeSuccess(showMessage ? "Cập nhật Thời gian thành công!" : "");
             return true;
         } catch (ExecutionException e) {
             return false;
@@ -88,7 +88,7 @@ public class HomePageViewModel {
         }
     }
 
-    public boolean UpdateJackpotData(boolean showMessage) {
+    public boolean UpdateJackpot(boolean showMessage) {
         try {
             String jackpotData = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
             if (jackpotData.equals("")) {
@@ -112,7 +112,7 @@ public class HomePageViewModel {
         }
     }
 
-    public boolean UpdateLotteryData(int numberOfDays, boolean showMessage) {
+    public boolean UpdateLottery(int numberOfDays, boolean showMessage) {
         try {
             String lotteryData = Api.GetLotteryDataFromInternet(context, numberOfDays);
             if (lotteryData.equals("")) {

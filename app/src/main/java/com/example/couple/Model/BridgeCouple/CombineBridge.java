@@ -80,8 +80,8 @@ public class CombineBridge {
             CombineInterface bridge = getBridge(bridgeName);
             show += bridge.showCompactBridge() + "\n";
         }
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += "    => KQ tổ hợp (" + win + "): " + showNumbers() + " (" + numbers.size() + " số).";
+        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : "(trượt)");
+        show += "    => KQ tổ hợp" + win + ": " + showNumbers() + " (" + numbers.size() + " số).";
         return show.trim();
     }
 
