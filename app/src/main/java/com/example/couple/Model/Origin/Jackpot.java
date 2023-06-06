@@ -1,7 +1,7 @@
 package com.example.couple.Model.Origin;
 
-import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Model.Display.BCouple;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

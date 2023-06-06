@@ -1,8 +1,6 @@
 package com.example.couple.Model.Support;
 
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Support.Position;
 
 import java.util.ArrayList;
 import java.util.List;

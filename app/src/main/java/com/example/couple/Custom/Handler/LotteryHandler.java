@@ -2,8 +2,8 @@ package com.example.couple.Custom.Handler;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Model.Origin.Lottery;
 
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ public class LotteryHandler {
             4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 7.1, 7.2, 7.3, 7.4};
 
     public static List<Lottery> getLotteryListFromFile(Context context, int numberOfDays) {
-        String data= IOFileBase.readDataFromFile(context,"lottery.txt");
-        if(data.equals("")) return new ArrayList<>();
-        return GetLotteryList(data,numberOfDays);
+        String data = IOFileBase.readDataFromFile(context, "lottery.txt");
+        if (data.equals("")) return new ArrayList<>();
+        return GetLotteryList(data, numberOfDays);
     }
 
     private static List<Lottery> GetLotteryList(String data, int numberOfDays) {

@@ -1,8 +1,6 @@
 package com.example.couple.Model.Support;
 
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Support.Position;
 
 import java.util.List;
 
@@ -35,5 +33,5 @@ public class ConnectedSupport {
     public String showShort() {
         return value + " (" + typeList.size() + ")";
     }
-    
+
 }

@@ -1,7 +1,6 @@
 package com.example.couple.ViewModel.Account;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;

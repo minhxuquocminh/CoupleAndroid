@@ -51,6 +51,7 @@ public class CustomLinearLayout {
         linearLayout.addView(frameLayout);
         return linearLayout;
     }
+
     public static LinearLayout GetEmptyLinearLayout(Context context) {
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

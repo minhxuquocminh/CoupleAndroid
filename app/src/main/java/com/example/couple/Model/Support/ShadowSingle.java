@@ -1,7 +1,5 @@
 package com.example.couple.Model.Support;
 
-import com.example.couple.Model.BridgeCouple.ShadowMappingBridge;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

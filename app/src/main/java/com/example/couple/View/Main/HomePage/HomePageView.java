@@ -1,6 +1,7 @@
 package com.example.couple.View.Main.HomePage;
 
 import com.example.couple.Model.Display.BSingle;
+import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 
@@ -16,10 +17,8 @@ public interface HomePageView {
     void ShowJackpotDataFromFile(List<Jackpot> jackpotList);
     void ShowLotteryList(List<Lottery> lotteries);
     // show bridge
-    void ShowTouchsByClawBridge(List<Integer> touchs);
+    void ShowHeadAndTailInLongestTime(List<NearestTime> nearestTimeList);
     void ShowTouchBridge(List<BSingle> touchList);
     void ShowSpecialTouchBridge(List<Integer> touchList);
     void ShowNote(String note);
-
-
 }

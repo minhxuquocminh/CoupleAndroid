@@ -20,4 +20,11 @@ public class NearestTime {
         }
         return show;
     }
+
+    public String showType() {
+        if (type == 0) return "kép";
+        if (type == 1) return "đầu";
+        if (type == 2) return "đuôi";
+        return "";
+    }
 }

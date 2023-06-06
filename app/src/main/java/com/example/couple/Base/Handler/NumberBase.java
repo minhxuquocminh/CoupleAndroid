@@ -1,6 +1,5 @@
 package com.example.couple.Base.Handler;
 
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Display.Number;
 import com.example.couple.Model.Support.JackpotHistory;
 

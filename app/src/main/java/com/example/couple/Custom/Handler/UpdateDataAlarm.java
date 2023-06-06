@@ -6,10 +6,10 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
-import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
+import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.List;

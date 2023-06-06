@@ -2,8 +2,8 @@ package com.example.couple.Model.BridgeCouple;
 
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.History;
+import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
 import java.util.Collections;

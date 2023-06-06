@@ -20,30 +20,30 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
     ChangePasswordViewModel viewModel;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        edtOldPassword=findViewById(R.id.edtOldPassword);
-        edtNewPassword=findViewById(R.id.edtNewPassword);
-        edtRepeatPassword=findViewById(R.id.edtRepeatPassword);
-        btnUpdate=findViewById(R.id.btnUpdate);
+        edtOldPassword = findViewById(R.id.edtOldPassword);
+        edtNewPassword = findViewById(R.id.edtNewPassword);
+        edtRepeatPassword = findViewById(R.id.edtRepeatPassword);
+        btnUpdate = findViewById(R.id.btnUpdate);
 
-        viewModel=new ChangePasswordViewModel(this,this);
+        viewModel = new ChangePasswordViewModel(this, this);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String oldPassword=edtOldPassword.getText().toString().trim();
-                String newPassword=edtOldPassword.getText().toString().trim();
-                String repeatPassword=edtRepeatPassword.getText().toString().trim();
+                String oldPassword = edtOldPassword.getText().toString().trim();
+                String newPassword = edtOldPassword.getText().toString().trim();
+                String repeatPassword = edtRepeatPassword.getText().toString().trim();
 
-                if(oldPassword.equals("") || newPassword.equals("")|| repeatPassword.equals("")){
+                if (oldPassword.equals("") || newPassword.equals("") || repeatPassword.equals("")) {
                     ShowError("Bạn phải nhập đầy đủ các trường!");
-                }else if(!newPassword.equals(repeatPassword)){
+                } else if (!newPassword.equals(repeatPassword)) {
                     ShowError("Mật khẩu nhập lại không khớp!");
-                }else {
-                    viewModel.CheckOldPassword(oldPassword,newPassword);
+                } else {
+                    viewModel.CheckOldPassword(oldPassword, newPassword);
                 }
             }
         });
@@ -52,7 +52,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
 
     @Override
     public void ShowError(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
 
     @Override
     public void ChangePasswordSuccess(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         finish();
     }
 }

@@ -1,9 +1,7 @@
 package com.example.couple.Model.Support;
 
 import com.example.couple.Base.Handler.DateBase;
-import com.example.couple.Custom.Const.Const;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;

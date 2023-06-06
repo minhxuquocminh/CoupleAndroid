@@ -1,7 +1,5 @@
 package com.example.couple.Model.Support;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

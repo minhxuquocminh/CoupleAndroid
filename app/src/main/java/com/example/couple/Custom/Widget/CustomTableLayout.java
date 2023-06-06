@@ -10,16 +10,16 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Handler.CoupleBridgeHandler;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
+import com.example.couple.Custom.Handler.CoupleBridgeHandler;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.Model.Display.NearestTime;
-import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
@@ -41,7 +41,7 @@ public class CustomTableLayout {
                 numberOfWeek * Const.DAY_OF_WEEK - 1 : reverseJackpotList.size() - 1;
         int monday_start = 0;
         for (int i = start; i >= 0; i--) {
-            if(reverseJackpotList.get(i).getDateBase().getDayOfWeek() == 2) {
+            if (reverseJackpotList.get(i).getDateBase().getDayOfWeek() == 2) {
                 monday_start = i;
                 break;
             }
@@ -49,18 +49,18 @@ public class CustomTableLayout {
         for (int i = monday_start; i >= 0; i--) {
             count++;
             String couple = reverseJackpotList.get(i).getCouple().toString();
-            int firstNegativeShadow = NumberBase.getNegativeShadow(Integer.parseInt(couple.charAt(0)+""));
-            int secondNegativeShadow = NumberBase.getNegativeShadow(Integer.parseInt(couple.charAt(1)+""));
+            int firstNegativeShadow = NumberBase.getNegativeShadow(Integer.parseInt(couple.charAt(0) + ""));
+            int secondNegativeShadow = NumberBase.getNegativeShadow(Integer.parseInt(couple.charAt(1) + ""));
             row.addView(CustomLinearLayout.GetItemCoupleByWeekLinearLayout(context,
                     couple, firstNegativeShadow, secondNegativeShadow));
-            if(i == 0) {
+            if (i == 0) {
                 int emptyLength = Const.DAY_OF_WEEK - count;
                 for (int j = 0; j < emptyLength; j++) {
                     count++;
                     row.addView(CustomLinearLayout.GetEmptyLinearLayout(context));
                 }
             }
-            if (count == Const.DAY_OF_WEEK){
+            if (count == Const.DAY_OF_WEEK) {
                 tableLayout.addView(row);
                 count = 0;
                 row = new TableRow(context);

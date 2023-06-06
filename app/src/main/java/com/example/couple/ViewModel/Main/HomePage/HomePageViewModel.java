@@ -9,16 +9,16 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.CoupleBridgeHandler;
-import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.UpdateDataAlarm;
+import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
 import com.example.couple.Model.Display.BSingle;
+import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.View.Main.HomePage.HomePageView;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -167,11 +167,11 @@ public class HomePageViewModel {
         }
     }
 
-    public void GetTouchsByClawBridge(List<Lottery> lotteries) {
-        List<Integer> searchDaysList = Arrays.asList(12, 14, 16, 18);
-        List<Integer> touchs = JackpotBridgeHandler.GetTouchsByClawSupport(lotteries,
-                searchDaysList, 0, 8, 0);
-        homePageView.ShowTouchsByClawBridge(touchs);
+    public void GetHeadAndTailInLongestTime(List<Jackpot> jackpotList) {
+        List<NearestTime> nearestTimeList = JackpotStatistics.GetHeadAndTailInNearestTime(jackpotList);
+        if (!nearestTimeList.isEmpty()) {
+            homePageView.ShowHeadAndTailInLongestTime(nearestTimeList);
+        }
     }
 
     public void GetTouchBridge(List<Jackpot> jackpotList) {

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Model.Origin.Lottery;
@@ -108,7 +107,7 @@ public class LotteryAdapter extends RecyclerView.Adapter<LotteryAdapter.LotteryV
         holder.tvDate.setText(lottery.getTimeShow());
         holder.tvCharacters.setText(lottery.getCharacters());
 
-        List<String> lotteryString=lottery.getLottery();
+        List<String> lotteryString = lottery.getLottery();
         holder.tvJackpots.setText(lotteryString.get(0));
         holder.tvFirst.setText(lotteryString.get(1));
         holder.tvSecond1.setText(lotteryString.get(2));

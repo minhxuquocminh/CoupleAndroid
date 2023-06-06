@@ -42,7 +42,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("datajsoup",data);
+        Log.d("datajsoup", data);
 
         return data;
     }

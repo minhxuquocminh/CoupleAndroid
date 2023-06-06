@@ -47,7 +47,7 @@ public class ChangePasswordViewModel {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             view.ChangePasswordSuccess("Đã thay đổi mật khẩu!");
-                        }else {
+                        } else {
                             view.ShowError("Đã xảy ra lỗi khi cập nhật mật khẩu!");
                         }
                     }

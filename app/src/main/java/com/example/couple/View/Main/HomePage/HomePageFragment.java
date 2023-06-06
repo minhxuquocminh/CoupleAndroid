@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Display.BSingle;
+import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -233,6 +234,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
     public void ShowJackpotDataFromFile(List<Jackpot> jackpotList) {
         tvJackpotToday.setText("Xổ số Đặc Biệt hôm nay về: " + jackpotList.get(0).getJackpot());
         tvJackpotLastDay.setText("Xổ số Đ.Biệt ngày trước đó: " + jackpotList.get(1).getJackpot());
+        homePageViewModel.GetHeadAndTailInLongestTime(jackpotList);
         homePageViewModel.GetTouchBridge(jackpotList);
         homePageViewModel.GetSpecialTouchBridge(jackpotList);
         int size_to_show = (jackpotList.size() > 7) ? 7 : jackpotList.size();
@@ -246,19 +248,21 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
     @Override
     public void ShowLotteryList(List<Lottery> lotteries) {
-        homePageViewModel.GetTouchsByClawBridge(lotteries);
     }
 
     @Override
-    public void ShowTouchsByClawBridge(List<Integer> touchs) {
-        String touchBridge = touchs.isEmpty() ? "Không có chạm nào từ cầu càng !" : "Các chạm theo cầu càng: ";
-        for (int i = 0; i < touchs.size(); i++) {
-            touchBridge += touchs.get(i);
-            if (i != touchs.size() - 1) {
-                touchBridge += ", ";
+    public void ShowHeadAndTailInLongestTime(List<NearestTime> nearestTimeList) {
+        String show = "Những đầu đuôi đã chạy lâu nhất: ";
+        int length = nearestTimeList.size() < 1 ? nearestTimeList.size() : 1;
+        for (int i = 0; i < 1; i++) {
+            NearestTime nearestTime = nearestTimeList.get(i);
+            show += nearestTime.showType() + " " + nearestTime.getNumber() +
+                    "(" + nearestTime.getDayNumberBefore() + " ngày)";
+            if (i != length - 1) {
+                show += ", ";
             }
         }
-        tvSuggest.setText(touchBridge);
+        tvSuggest.setText(".");
     }
 
     @Override

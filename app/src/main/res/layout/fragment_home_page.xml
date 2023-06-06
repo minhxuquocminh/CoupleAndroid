@@ -91,7 +91,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tất cả"
+                        android:text="Update All"
                         android:textColor="@color/colorThemeBold"
                         android:textSize="@dimen/text_size_big"
                         android:textStyle="bold" />
@@ -138,7 +138,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="XS Đặc biệt"
+                        android:text="XS Đặc Biệt"
                         android:textColor="@color/colorThemeBold"
                         android:textSize="@dimen/text_size_big"
                         android:textStyle="bold" />

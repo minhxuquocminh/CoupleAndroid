@@ -35,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         edtPassword = findViewById(R.id.edtPassword);
         edtRepeatPassword = findViewById(R.id.edtRepeatPassword);
         btnSignUp = findViewById(R.id.btnSignUp);
-        viewModel=new SignUpViewModel(this,this);
+        viewModel = new SignUpViewModel(this, this);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,11 +46,11 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
                 String username = edtUsername.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
                 String repeatPassword = edtRepeatPassword.getText().toString().trim();
-                if(name.equals("") || email.equals("") || password.equals("")|| repeatPassword.equals("")){
+                if (name.equals("") || email.equals("") || password.equals("") || repeatPassword.equals("")) {
                     ShowError("Bạn cần nhập đầy đủ các trường!");
-                }else if(!password.equals(repeatPassword)) {
+                } else if (!password.equals(repeatPassword)) {
                     ShowError("Mật khẩu nhập lại không đúng!");
-                }else {
+                } else {
                     viewModel.signUp(name, email, password);
                 }
             }
@@ -59,13 +59,13 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
 
     @Override
     public void ShowError(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void SignUpSuccess(String name) {
         viewModel.UpdateDisplayName(name);
-        Toast.makeText(this,"Đăng ký thành công!",Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this,SignInActivity.class));
+        Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, SignInActivity.class));
     }
 }

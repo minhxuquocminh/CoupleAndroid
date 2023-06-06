@@ -3,8 +3,6 @@ package com.example.couple.ViewModel.Account;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.example.couple.View.Account.SignInView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,15 +19,15 @@ public class SignInViewModel {
     }
 
     public void SignIn(String username, String password) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(username,password)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             signInView.SignInSuccess();
-                        }else {
+                        } else {
                             signInView.ShowError("Bạn đã nhập sai tên đăng nhập hoặc mật khẩu!");
-                            Log.d("MINHTRAN",task.getException().getMessage());
+                            Log.d("MINHTRAN", task.getException().getMessage());
                         }
                     }
                 });
