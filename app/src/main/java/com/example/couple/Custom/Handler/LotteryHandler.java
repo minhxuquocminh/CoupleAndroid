@@ -16,11 +16,6 @@ public class LotteryHandler {
     public static List<Lottery> getLotteryListFromFile(Context context, int numberOfDays) {
         String data = IOFileBase.readDataFromFile(context, "lottery.txt");
         if (data.equals("")) return new ArrayList<>();
-        return GetLotteryList(data, numberOfDays);
-    }
-
-    private static List<Lottery> GetLotteryList(String data, int numberOfDays) {
-        if (data.equals("")) return new ArrayList<>();
         List<Lottery> lotteries = new ArrayList<>();
         String elements[] = data.split("---");
         int length_lotteries = (numberOfDays < elements.length) ? numberOfDays : elements.length;
@@ -48,5 +43,7 @@ public class LotteryHandler {
         }
         return lotteries;
     }
+
+
 
 }

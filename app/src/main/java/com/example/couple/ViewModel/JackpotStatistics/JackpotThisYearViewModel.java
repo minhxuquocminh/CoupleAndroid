@@ -27,7 +27,7 @@ public class JackpotThisYearViewModel {
         }
     }
 
-    public void GetSameDoubleAndDayNumberTotal(List<com.example.couple.Model.Origin.Jackpot> jackpotList) {
+    public void GetSameDoubleAndDayNumberTotal(List<Jackpot> jackpotList) {
         int countSameDouble = 0;
         for (int i = 0; i < jackpotList.size(); i++) {
             if (jackpotList.get(i).getCouple().isSameDouble()) {
@@ -37,12 +37,12 @@ public class JackpotThisYearViewModel {
         view.ShowSameDoubleAndDayNumberTotal(countSameDouble, jackpotList.size());
     }
 
-    public void GetSameDoubleInNearestTime(List<com.example.couple.Model.Origin.Jackpot> jackpotList) {
+    public void GetSameDoubleInNearestTime(List<Jackpot> jackpotList) {
         List<NearestTime> nearestTimeList = JackpotStatistics.GetSameDoubleInNearestTime(jackpotList);
         view.ShowSameDoubleInNearestTime(nearestTimeList);
     }
 
-    public void GetHeadAndTailInNearestTime(List<com.example.couple.Model.Origin.Jackpot> jackpotList) {
+    public void GetHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
         List<NearestTime> nearestTimeList = JackpotStatistics.GetHeadAndTailInNearestTime(jackpotList);
         view.ShowHeadAndTailInNearestTime(nearestTimeList);
     }

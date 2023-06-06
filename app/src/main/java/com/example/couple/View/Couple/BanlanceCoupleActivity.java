@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.WidgetBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Custom.Widget.CustomTextView;
 import com.example.couple.Model.Origin.Jackpot;
@@ -65,14 +66,21 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
 
     @Override
     public void ShowJackpotData(List<Jackpot> jackpotList) {
-        viewModel.GetTableOfBalanceCouple(jackpotList, NUMBER_OF_DAYS + "");
+        viewModel.GetTableOfBalanceCouple(jackpotList, NUMBER_OF_DAYS);
 
         tvGetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
-                String dayNumber = edtNumberOfDays.getText().toString().trim();
-                viewModel.GetTableOfBalanceCouple(jackpotList, dayNumber);
+                String numberOfDaysStr = edtNumberOfDays.getText().toString().trim();
+                if (numberOfDaysStr.length() == 0) {
+                    ShowError("Bạn chưa nhập số ngày để lấy dữ liệu!");
+                } else if (Integer.parseInt(numberOfDaysStr) > Const.DAY_OF_YEAR
+                        || Integer.parseInt(numberOfDaysStr) < 0) {
+                    ShowError("Nằm ngoài phạm vi!");
+                } else {
+                    viewModel.GetTableOfBalanceCouple(jackpotList, Integer.parseInt(numberOfDaysStr));
+                }
             }
         });
 
@@ -82,7 +90,7 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
                 WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
                 String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
                 String filterDays = edtFilterDays.getText().toString().trim();
-                viewModel.GetPeriodBridge(jackpotList, dayNumberBefore, filterDays);
+                viewModel.GetPeriodHistory(jackpotList, dayNumberBefore, filterDays);
             }
         });
         tvViewCombineBridge.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +115,7 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
     }
 
     @Override
-    public void ShowPeriodBridge(List<History> historyList) {
+    public void ShowPeriodHistory(List<History> historyList) {
         String show = historyList.isEmpty() ? "Không có khoảng cần tìm"
                 : "Các khoảng gần giống khoảng gần đây:\n";
         for (History history : historyList) {

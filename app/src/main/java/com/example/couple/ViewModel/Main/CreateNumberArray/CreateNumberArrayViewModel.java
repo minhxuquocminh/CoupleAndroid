@@ -32,7 +32,7 @@ public class CreateNumberArrayViewModel {
 
     public void GetLotteryAndJackpotList() {
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, Const.DAY_OF_YEAR);
-        List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, 30);
+        List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         view.ShowLotteryAndJackpotList(jackpotList, lotteryList);
     }
 

@@ -6,6 +6,7 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
 import com.example.couple.Model.Display.JackpotNextDay;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayView;
 
 import java.util.List;
@@ -44,10 +45,10 @@ public class JackpotNextDayViewModel {
                 if (endYear_file < TimeInfo.CURRENT_YEAR || numberOfYears_file < yearInt) {
                     view.ShowRequestLoadMoreData(startYear_file, endYear_file);
                 } else {
-                    List<com.example.couple.Model.Origin.Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 10);
+                    List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 10);
                     int dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
                     int couple = jackpotList.get(dayNumberBefore).getCoupleInt();
-                    List<com.example.couple.Model.Origin.Jackpot> jackpotListManyYears = JackpotHandler.GetJackpotListManyYears(context, yearInt);
+                    List<Jackpot> jackpotListManyYears = JackpotHandler.GetJackpotListManyYears(context, yearInt);
                     List<JackpotNextDay> jackpotNextDayList =
                             JackpotStatistics.GetJackpotNextDayList(jackpotListManyYears, couple);
                     view.ShowJackpotNextDay(jackpotNextDayList);

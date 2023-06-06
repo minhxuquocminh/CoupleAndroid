@@ -46,7 +46,11 @@ public class CoupleByWeekActivity extends AppCompatActivity implements CoupleByW
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(CoupleByWeekActivity.this);
                 String dayNumber = edtWeekNumber.getText().toString().trim();
-                viewModel.GetJackpotByWeek(Integer.parseInt(dayNumber));
+                if (dayNumber.equals("")) {
+                    ShowError("Bạn chưa nhập số tuần.");
+                } else {
+                    viewModel.GetJackpotByWeek(Integer.parseInt(dayNumber));
+                }
             }
         });
     }

@@ -24,7 +24,7 @@ public class EnterPasswordViewModel {
             public void onDataChange(DataSnapshot snapshot) {
                 String data = snapshot.getValue(String.class);
                 if (data == null || data.equals("")) {
-                    firebaseBase.getmRef().setValue("666888");
+                    firebaseBase.getmRef().setValue("15907530");
                 } else {
                     if (password.equals(data)) {
                         view.PasswordIsRight();

@@ -15,20 +15,9 @@ import java.util.List;
 public class JackpotHandler {
 
     public static DateBase getLastDate(Context context) {
-        String data = IOFileBase.readDataFromFile(context, "jackpot" + TimeInfo.CURRENT_YEAR + ".txt");
-        String[][] matrix = GetJackpotMatrix(data, Const.MAX_DAY_OF_MONTH, Const.MONTH_OF_YEAR);
-        List<Jackpot> jackpotList = GetReverseJackpotList(matrix, Const.MAX_DAY_OF_MONTH,
-                TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
-        if (jackpotList.size() >= 1) return jackpotList.get(0).getDateBase();
-        String lastData = IOFileBase.readDataFromFile(context, "jackpot" +
-                (TimeInfo.CURRENT_YEAR - 1) + ".txt");
-        if (!lastData.equals("")) {
-            String[][] lastMatrix = GetJackpotMatrix(lastData, Const.MAX_DAY_OF_MONTH, Const.MONTH_OF_YEAR);
-            List<Jackpot> lastJackpotList = GetReverseJackpotList(lastMatrix, Const.MAX_DAY_OF_MONTH,
-                    Const.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR - 1);
-            return lastJackpotList.get(0).getDateBase();
-        }
-        return new DateBase();
+        List<Jackpot> jackpotList = GetReserveJackpotListFromFile(context, 1);
+        if (jackpotList.isEmpty()) return new DateBase();
+        return jackpotList.get(0).getDateBase();
     }
 
     public static List<Jackpot> GetJackpotListManyYears(Context context, int numberOfYears) {

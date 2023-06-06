@@ -12,7 +12,6 @@ import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.History;
 import com.example.couple.View.Couple.BalanceCoupleView;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class BalanceCoupleViewModel {
@@ -30,29 +29,22 @@ public class BalanceCoupleViewModel {
         balanceCoupleView.ShowJackpotData(jackpotList);
     }
 
-    public void GetTableOfBalanceCouple(List<Jackpot> jackpotList, String numberOfDaysStr) {
-        if (numberOfDaysStr.length() == 0) {
-            balanceCoupleView.ShowError("Bạn chưa nhập số ngày để lấy dữ liệu!");
-        } else if (Integer.parseInt(numberOfDaysStr) > 360 || Integer.parseInt(numberOfDaysStr) < 0) {
-            balanceCoupleView.ShowError("Nằm ngoài phạm vi!");
-        } else {
-            balanceCoupleView.ShowTableOfBalanceCouple(jackpotList, Integer.parseInt(numberOfDaysStr));
-        }
+    public void GetTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays) {
+        balanceCoupleView.ShowTableOfBalanceCouple(jackpotList, numberOfDays);
     }
 
-    public void GetPeriodBridge(List<Jackpot> jackpotList, String dayNumberBefore, String filterDays) {
+    public void GetPeriodHistory(List<Jackpot> jackpotList, String dayNumberBefore, String filterDays) {
         List<History> historyList = JackpotBridgeHandler.GetPeriodHistoryList(jackpotList,
                 Integer.parseInt(dayNumberBefore), Integer.parseInt(filterDays), Const.AMPLITUDE_OF_PERIOD_BRIDGE);
-        balanceCoupleView.ShowPeriodBridge(historyList);
+        balanceCoupleView.ShowPeriodHistory(historyList);
     }
 
     public void GetCombineBridge(List<Jackpot> jackpotList, String dayNumberBeforeStr, int bridgeType) {
         int dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
-        List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, 30);
+        List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         PeriodBridge periodBridge = JackpotBridgeHandler.GetPeriodBridge(jackpotList, dayNumberBefore);
-        List<Integer> searchDaysList = Arrays.asList(12, 14, 16, 18);
         List<Integer> touchs = JackpotBridgeHandler.GetTouchsByClawSupport(lotteries,
-                searchDaysList, Integer.parseInt(dayNumberBeforeStr), 8, bridgeType);
+                Const.CLAW_BRIDGE_SEARCHING_DAYS, Integer.parseInt(dayNumberBeforeStr), 8, bridgeType);
         if (touchs.isEmpty()) {
             balanceCoupleView.ShowError("Không tìm thấy cầu.");
         } else {

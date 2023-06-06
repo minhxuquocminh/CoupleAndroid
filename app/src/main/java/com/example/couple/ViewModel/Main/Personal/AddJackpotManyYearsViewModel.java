@@ -3,6 +3,7 @@ package com.example.couple.ViewModel.Main.Personal;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.View.Main.Personal.AddJackpotManyYearsView;
@@ -21,7 +22,7 @@ public class AddJackpotManyYearsViewModel {
     public void GetStartYear() {
         String data = IOFileBase.readDataFromFile(context, "year.txt");
         if (data.equals("")) {
-            view.ShowStartYear(2018);
+            view.ShowStartYear(TimeInfo.CURRENT_YEAR - 4);
         } else {
             String arr[] = data.split("-");
             view.ShowStartYear(Integer.parseInt(arr[0].trim()));

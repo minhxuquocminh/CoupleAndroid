@@ -9,6 +9,6 @@ public interface BalanceCoupleView {
     void ShowError(String message);
     void ShowJackpotData(List<Jackpot> jackpotList);
     void ShowTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays);
-    void ShowPeriodBridge(List<History> historyList);
+    void ShowPeriodHistory(List<History> historyList);
     void ShowTest(List<Integer> touchs);
 }

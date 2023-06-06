@@ -20,21 +20,14 @@ public class LotteryViewModel {
         this.context = context;
     }
 
-    public void GetLotteryList(String numberOfDaysStr) {
-        if (numberOfDaysStr.equals("")) {
-            lotteryView.ShowError("Bạn chưa nhập số ngày để lấy dữ liệu!");
-        } else if (Integer.parseInt(numberOfDaysStr) <= 0) {
-            lotteryView.ShowError("Số ngày không hợp lệ!");
+    public void GetLotteryList(int numberOfDays) {
+        List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
+        if (lotteries.isEmpty()) {
+            lotteryView.ShowError("Lỗi không tải được dữ liệu!");
+        } else if (lotteries.size() < numberOfDays) {
+            lotteryView.ShowRequestToUpdateLottery(lotteries.size(), numberOfDays);
         } else {
-            int numberOfDays = Integer.parseInt(numberOfDaysStr);
-            List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
-            if (lotteries.size() == 0) {
-                lotteryView.ShowError("Lỗi không tải được dữ liệu!");
-            } else if (lotteries.size() < numberOfDays) {
-                lotteryView.ShowRequestToUpdateLottery(lotteries.size(), numberOfDaysStr);
-            } else {
-                lotteryView.ShowLotteryList(lotteries);
-            }
+            lotteryView.ShowLotteryList(lotteries);
         }
     }
 

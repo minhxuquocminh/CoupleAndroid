@@ -252,8 +252,8 @@ public class ReferenceBridgeViewModel {
 
     public void GetHeadForALongTime(List<Jackpot> jackpotList) {
         int runningDayNumber = jackpotList.size() < 150 ? jackpotList.size() : 150;
-        List<NearestTime> nearestTimeList = JackpotStatistics.GetHeadAndTailInNearestTime(jackpotList.subList(0,
-                runningDayNumber - 1));
+        List<NearestTime> nearestTimeList = JackpotStatistics
+                .GetHeadAndTailInNearestTime(jackpotList.subList(0, runningDayNumber - 1));
         List<NearestTime> subNearestTimeList = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nearestTimeList.size(); i++) {
@@ -268,8 +268,8 @@ public class ReferenceBridgeViewModel {
 
     public void GetTailForALongTime(List<Jackpot> jackpotList) {
         int runningDayNumber = jackpotList.size() < 150 ? jackpotList.size() : 150;
-        List<NearestTime> nearestTimeList = JackpotStatistics.GetHeadAndTailInNearestTime(jackpotList.subList(0,
-                runningDayNumber - 1));
+        List<NearestTime> nearestTimeList = JackpotStatistics
+                .GetHeadAndTailInNearestTime(jackpotList.subList(0, runningDayNumber - 1));
         List<NearestTime> subNearestTimeList = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nearestTimeList.size(); i++) {

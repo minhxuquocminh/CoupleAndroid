@@ -248,25 +248,25 @@ public class NumberBase {
         return numberStr + "" + number;
     }
 
-    public static String toString(List<Integer> numbers, String split) {
+    public static String toString(List<Integer> numbers, String delimiter) {
         if (numbers.isEmpty()) return "";
         String data = "";
         for (int i = 0; i < numbers.size(); i++) {
             data += numbers.get(i);
             if (i != numbers.size() - 1) {
-                data += split;
+                data += delimiter;
             }
         }
         return data;
     }
 
-    public static String toString(List<Integer> numbers, String split, int limitOfNumber) {
+    public static String toString(List<Integer> numbers, String delimiter, int limitOfNumber) {
         if (numbers.isEmpty()) return "";
         String data = "";
         for (int i = 0; i < numbers.size(); i++) {
             data += showNumberString(numbers.get(i), limitOfNumber);
             if (i != numbers.size() - 1) {
-                data += split;
+                data += delimiter;
             }
         }
         return data;
