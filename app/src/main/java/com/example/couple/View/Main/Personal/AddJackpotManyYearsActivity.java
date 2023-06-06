@@ -42,16 +42,16 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                 String startingYear = edtStart.getText().toString().trim();
                 if (startingYear.equals("")) {
                     ShowError("Vui lòng nhập năm bắt đầu!");
-                } else if(!InternetBase.isNetworkAvailable(AddJackpotManyYearsActivity.this)) {
+                } else if (!InternetBase.isNetworkAvailable(AddJackpotManyYearsActivity.this)) {
                     ShowError("Bạn đang offline.");
-                }else {
+                } else {
                     new AlertDialog.Builder(AddJackpotManyYearsActivity.this)
                             .setTitle("Nạp dữ liệu")
                             .setMessage("Bạn có chắc muốn nạp dữ liệu XS Đặc biệt trong " +
                                     "tất cả các năm kể từ năm " + startingYear + " không?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    viewModel.GetJackpotDataInManyYears(Integer.parseInt(startingYear),false);
+                                    viewModel.GetJackpotDataInManyYears(Integer.parseInt(startingYear), false);
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null)
@@ -74,9 +74,9 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                                     "năm kể từ năm " + startingYear + " không?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if(InternetBase.isNetworkAvailable(AddJackpotManyYearsActivity.this)) {
+                                    if (InternetBase.isNetworkAvailable(AddJackpotManyYearsActivity.this)) {
                                         viewModel.GetJackpotDataInManyYears(Integer.parseInt(startingYear), true);
-                                    }else {
+                                    } else {
                                         ShowError("Bạn đang offline!");
                                     }
                                 }

@@ -12,12 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.couple.View.Adapter.PredictionBridgeAdapter;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Model.Display.Prediction;
 import com.example.couple.R;
+import com.example.couple.View.Adapter.PredictionBridgeAdapter;
 import com.example.couple.View.Lottery.LotteryActivity;
-import com.example.couple.ViewModel.Main.PredictionBridge.PredictionBridgeViewModel;
+import com.example.couple.ViewModel.PredictionBridge.PredictionBridgeViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

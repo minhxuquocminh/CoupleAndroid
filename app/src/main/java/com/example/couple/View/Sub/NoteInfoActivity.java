@@ -19,15 +19,15 @@ public class NoteInfoActivity extends AppCompatActivity implements NoteInfoView 
     NoteInfoViewModel viewModel;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_info);
 
-        edtNote =findViewById(R.id.edtNote);
-        btnAddNote =findViewById(R.id.btnAddNote);
-        btnCancel =findViewById(R.id.tvCancel);
+        edtNote = findViewById(R.id.edtNote);
+        btnAddNote = findViewById(R.id.btnAddNote);
+        btnCancel = findViewById(R.id.tvCancel);
 
-        viewModel=new NoteInfoViewModel(this,this);
+        viewModel = new NoteInfoViewModel(this, this);
 
         btnAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,13 +47,13 @@ public class NoteInfoActivity extends AppCompatActivity implements NoteInfoView 
 
     @Override
     public void AddNoteSuccess(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish();
     }
 
     @Override
     public void ShowError(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -26,10 +26,10 @@ public class CalculatingBalanceCoupleActivity extends AppCompatActivity implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculating_balance_couple);
 
-        tvShow=findViewById(R.id.tvInfo);
-        edtFirstNumber=findViewById(R.id.edtFirstNumber);
-        edtSecondNumber=findViewById(R.id.edtSecondNumber);
-        tvCalculate=findViewById(R.id.tvCalculate);
+        tvShow = findViewById(R.id.tvInfo);
+        edtFirstNumber = findViewById(R.id.edtFirstNumber);
+        edtSecondNumber = findViewById(R.id.edtSecondNumber);
+        tvCalculate = findViewById(R.id.tvCalculate);
 
         viewModel = new CalculatingBalanceCoupleViewModel(this);
 
@@ -37,9 +37,9 @@ public class CalculatingBalanceCoupleActivity extends AppCompatActivity implemen
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(CalculatingBalanceCoupleActivity.this);
-                String firstNumber=edtFirstNumber.getText().toString().trim();
-                String secondNumber=edtSecondNumber.getText().toString().trim();
-                viewModel.CalculateBalance2D(firstNumber,secondNumber);
+                String firstNumber = edtFirstNumber.getText().toString().trim();
+                String secondNumber = edtSecondNumber.getText().toString().trim();
+                viewModel.CalculateBalance2D(firstNumber, secondNumber);
             }
         });
 
@@ -52,7 +52,7 @@ public class CalculatingBalanceCoupleActivity extends AppCompatActivity implemen
 
     @Override
     public void ShowError(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT)
+        Toast.makeText(this, message, Toast.LENGTH_SHORT)
                 .show();
     }
 }

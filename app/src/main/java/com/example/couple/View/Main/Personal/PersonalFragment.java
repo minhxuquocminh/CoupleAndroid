@@ -129,7 +129,7 @@ public class PersonalFragment extends Fragment implements PersonalView {
     @Override
     public void SignOutSuccess() {
         Toast.makeText(getActivity(), "Bạn đã đăng xuất!", Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(getActivity(), SignInActivity.class);
+        Intent intent = new Intent(getActivity(), SignInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.couple.View.Adapter.NoteAdapter;
 import com.example.couple.R;
+import com.example.couple.View.Adapter.NoteAdapter;
 import com.example.couple.ViewModel.Sub.NoteViewModel;
 
 import java.util.List;

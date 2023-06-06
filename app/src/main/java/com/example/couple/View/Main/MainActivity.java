@@ -1,8 +1,6 @@
 package com.example.couple.View.Main;
 
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -10,14 +8,11 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.couple.R;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayFragment;
+import com.example.couple.View.Main.FunctionDisplay.FunctionDisplayFragment;
 import com.example.couple.View.Main.HomePage.HomePageFragment;
 import com.example.couple.View.Main.NumberPicker.NumberPickerFragment;
-import com.example.couple.View.PredictionBridge.PredictionBridgeActivity;
 import com.example.couple.View.Main.Personal.PersonalFragment;
-import com.example.couple.View.Main.FunctionDisplay.FunctionDisplayFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {

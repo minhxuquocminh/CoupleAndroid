@@ -18,13 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.BridgeSingle.ConnectedBridge;
 import com.example.couple.Model.BridgeCouple.TriadBridge;
-import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.BridgeSingle.ConnectedBridge;
 import com.example.couple.Model.Display.BSingle;
+import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.Model.Support.ConnectedSupport;
 import com.example.couple.R;
 import com.example.couple.View.Lottery.LotteryActivity;

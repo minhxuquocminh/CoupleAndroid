@@ -8,20 +8,20 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.Model.BridgeSingle.ConnectedBridge;
+import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.HeadTail;
 import com.example.couple.Model.Display.JackpotSign;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Display.NumberDouble;
 import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.R;
 import com.example.couple.View.Couple.BanlanceCoupleActivity;
-import com.example.couple.View.SearchingBridge.SearchingBridgeActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
+import com.example.couple.View.SearchingBridge.SearchingBridgeActivity;
 import com.example.couple.ViewModel.ReferenceBridge.ReferenceBridgeViewModel;
 
 import java.util.List;

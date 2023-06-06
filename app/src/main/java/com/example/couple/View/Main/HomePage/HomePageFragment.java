@@ -24,12 +24,12 @@ import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
+import com.example.couple.View.Couple.BanlanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
-import com.example.couple.View.Sub.CalculatingBalanceCoupleActivity;
 import com.example.couple.View.SearchingBridge.SearchingBridgeActivity;
+import com.example.couple.View.Sub.CalculatingBalanceCoupleActivity;
 import com.example.couple.View.Sub.NoteActivity;
-import com.example.couple.View.Couple.BanlanceCoupleActivity;
 import com.example.couple.ViewModel.Main.HomePage.HomePageViewModel;
 
 import java.util.List;

@@ -8,13 +8,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Base.Handler.FirebaseBase;
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Model.Support.NumberArray;
 import com.example.couple.Model.Display.Prediction;
-import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Model.Support.NumberArray;
 import com.example.couple.R;
-import com.example.couple.ViewModel.Main.PredictionBridge.MonthlyPredictionBridgeViewModel;
+import com.example.couple.ViewModel.PredictionBridge.MonthlyPredictionBridgeViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;

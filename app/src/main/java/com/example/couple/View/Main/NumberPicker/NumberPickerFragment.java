@@ -25,12 +25,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Base.View.WidgetBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Model.Display.Number;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.R;
@@ -359,7 +359,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                         if (MainActivity.active != MainActivity.fragment2) {
                             fm.beginTransaction().show(MainActivity.fragment2).hide(MainActivity.active).commit();
                             MainActivity.active = MainActivity.fragment2;
-                            if(CreateNumberArrayFragment.RECEIVE_DATA){
+                            if (CreateNumberArrayFragment.RECEIVE_DATA) {
                                 setDataToTable();
                                 CreateNumberArrayFragment.RECEIVE_DATA = false;
                             }

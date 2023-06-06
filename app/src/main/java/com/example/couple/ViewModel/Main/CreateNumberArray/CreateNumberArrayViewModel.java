@@ -2,16 +2,14 @@ package com.example.couple.ViewModel.Main.CreateNumberArray;
 
 import android.content.Context;
 
+import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CombineBridgeHandler;
-import com.example.couple.Custom.Handler.JackpotBridgeHandler;
+import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Model.BridgeCouple.CombineBridge;
-import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.Display.Number;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Origin.Jackpot;

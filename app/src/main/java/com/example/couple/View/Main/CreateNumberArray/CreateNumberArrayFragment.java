@@ -19,20 +19,20 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Base.View.WidgetBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Model.BridgeCouple.CombineBridge;
 import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.Display.Number;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
-import com.example.couple.View.Main.MainActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
+import com.example.couple.View.Main.MainActivity;
 import com.example.couple.ViewModel.Main.CreateNumberArray.CreateNumberArrayViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

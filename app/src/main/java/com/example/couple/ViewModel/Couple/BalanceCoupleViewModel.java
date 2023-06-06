@@ -2,15 +2,14 @@ package com.example.couple.ViewModel.Couple;
 
 import android.content.Context;
 
-
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.BridgeCouple.PeriodBridge;
-import com.example.couple.Model.Support.History;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.History;
 import com.example.couple.View.Couple.BalanceCoupleView;
 
 import java.util.Arrays;

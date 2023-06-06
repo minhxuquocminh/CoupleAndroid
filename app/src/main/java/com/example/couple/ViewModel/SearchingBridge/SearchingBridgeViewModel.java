@@ -2,20 +2,19 @@ package com.example.couple.ViewModel.SearchingBridge;
 
 import android.content.Context;
 
-
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.BridgeSingle.ConnectedBridge;
 import com.example.couple.Model.BridgeCouple.TriadBridge;
-import com.example.couple.Model.Support.TriadSets;
-import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.BridgeSingle.ConnectedBridge;
 import com.example.couple.Model.Display.BSingle;
+import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.ClawSupport;
+import com.example.couple.Model.Support.TriadSets;
 import com.example.couple.View.SearchingBridge.SearchingBridgeView;
 
 import java.util.ArrayList;

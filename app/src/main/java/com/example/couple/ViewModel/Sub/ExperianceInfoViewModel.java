@@ -15,7 +15,7 @@ public class ExperianceInfoViewModel {
     }
 
     public void UpdateExperiance(String experiance) {
-        FirebaseBase firebaseBase =new FirebaseBase("experiance");
+        FirebaseBase firebaseBase = new FirebaseBase("experiance");
         firebaseBase.getmRef().setValue(experiance);
         view.UpdateExperianceSuccess("Cập nhật thông tin thành công!");
     }

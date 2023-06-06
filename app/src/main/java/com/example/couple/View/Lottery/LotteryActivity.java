@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.couple.View.Adapter.LotteryAdapter;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
+import com.example.couple.View.Adapter.LotteryAdapter;
 import com.example.couple.ViewModel.Lottery.LotteryViewModel;
 
 import java.util.List;

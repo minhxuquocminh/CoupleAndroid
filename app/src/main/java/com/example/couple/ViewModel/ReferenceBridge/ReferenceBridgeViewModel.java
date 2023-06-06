@@ -2,24 +2,24 @@ package com.example.couple.ViewModel.ReferenceBridge;
 
 import android.content.Context;
 
-import com.example.couple.Custom.Handler.JackpotBridgeHandler;
-import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.CoupleBridgeHandler;
+import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.BridgeSingle.ConnectedBridge;
+import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
 import com.example.couple.Model.BridgeCouple.TriadBridge;
+import com.example.couple.Model.BridgeSingle.ConnectedBridge;
+import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.HeadTail;
 import com.example.couple.Model.Display.JackpotSign;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Display.NumberDouble;
 import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.View.ReferenceBridge.ReferenceBridgeView;
 
 import java.util.ArrayList;

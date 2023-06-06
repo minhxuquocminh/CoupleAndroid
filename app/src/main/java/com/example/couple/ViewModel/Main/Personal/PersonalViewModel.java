@@ -25,9 +25,9 @@ public class PersonalViewModel {
         if (user == null) {
             personalView.NotLoggedIn();
         } else {
-            String name=user.getDisplayName();
-            String email=user.getEmail();
-            personalView.LoggedIn(name,email);
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            personalView.LoggedIn(name, email);
         }
     }
 }

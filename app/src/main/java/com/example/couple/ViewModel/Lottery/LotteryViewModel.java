@@ -2,9 +2,9 @@ package com.example.couple.ViewModel.Lottery;
 
 import android.content.Context;
 
+import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.View.Lottery.LotteryView;
 

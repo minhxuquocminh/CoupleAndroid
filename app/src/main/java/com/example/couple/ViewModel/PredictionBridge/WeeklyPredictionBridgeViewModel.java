@@ -1,4 +1,4 @@
-package com.example.couple.ViewModel.Main.PredictionBridge;
+package com.example.couple.ViewModel.PredictionBridge;
 
 import android.content.Context;
 

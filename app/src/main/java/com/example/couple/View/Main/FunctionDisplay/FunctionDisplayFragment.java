@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.couple.R;
 import com.example.couple.View.Couple.BanlanceCoupleActivity;
-import com.example.couple.View.SearchingBridge.SearchingBridgeActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotAllYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
@@ -19,6 +18,7 @@ import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
 import com.example.couple.View.JackpotStatistics.JackpotThisYearActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.View.ReferenceBridge.ReferenceBridgeActivity;
+import com.example.couple.View.SearchingBridge.SearchingBridgeActivity;
 
 public class FunctionDisplayFragment extends Fragment {
     CardView cvViewLottery;

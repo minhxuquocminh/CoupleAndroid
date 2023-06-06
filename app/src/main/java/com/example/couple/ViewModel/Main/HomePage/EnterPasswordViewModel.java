@@ -18,17 +18,17 @@ public class EnterPasswordViewModel {
     }
 
     public void CheckPassword(String password) {
-        FirebaseBase firebaseBase =new FirebaseBase("experiancePassword");
+        FirebaseBase firebaseBase = new FirebaseBase("experiancePassword");
         firebaseBase.getmRef().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                String data=snapshot.getValue(String.class);
-                if(data == null || data.equals("")){
+                String data = snapshot.getValue(String.class);
+                if (data == null || data.equals("")) {
                     firebaseBase.getmRef().setValue("666888");
-                }else {
-                    if(password.equals(data)){
+                } else {
+                    if (password.equals(data)) {
                         view.PasswordIsRight();
-                    }else {
+                    } else {
                         view.ShowError("Sai mật khẩu.");
                     }
                 }

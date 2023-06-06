@@ -14,7 +14,7 @@ import com.example.couple.R;
 import com.example.couple.View.Sub.ExperianceActivity;
 import com.example.couple.ViewModel.Main.HomePage.EnterPasswordViewModel;
 
-public class EnterPasswordDialog extends Dialog implements EnterPasswordView{
+public class EnterPasswordDialog extends Dialog implements EnterPasswordView {
 
     public Activity activity;
     EditText edtPassword;
@@ -35,15 +35,15 @@ public class EnterPasswordDialog extends Dialog implements EnterPasswordView{
         edtPassword = findViewById(R.id.edtPassword);
         btnOK = findViewById(R.id.btnOK);
 
-        viewModel=new EnterPasswordViewModel(activity,this);
+        viewModel = new EnterPasswordViewModel(activity, this);
 
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String password=edtPassword.getText().toString().trim();
-                if(password.equals("")){
+                String password = edtPassword.getText().toString().trim();
+                if (password.equals("")) {
                     ShowError("Bạn chưa nhập mật khẩu.");
-                }else {
+                } else {
                     viewModel.CheckPassword(password);
                 }
 
@@ -54,7 +54,7 @@ public class EnterPasswordDialog extends Dialog implements EnterPasswordView{
 
     @Override
     public void ShowError(String message) {
-        Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

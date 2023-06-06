@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Custom.Widget.CustomTextView;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Couple.CoupleByWeekViewModel;

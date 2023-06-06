@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Base.View.WidgetBase;
+import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.R;
 import com.example.couple.View.Main.Personal.AddJackpotManyYearsActivity;
 import com.example.couple.ViewModel.JackpotStatistics.CoupleByYearViewModel;
