@@ -1,6 +1,7 @@
 package com.example.couple.View.Main.Personal;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -9,16 +10,29 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
+import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Handler.Api;
+import com.example.couple.Custom.Handler.CheckUpdate;
+import com.example.couple.Custom.Handler.JackpotHandler;
+import com.example.couple.Custom.Handler.UpdateDataNotification;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Main.Personal.AddJackpotManyYearsViewModel;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AddJackpotManyYearsActivity extends AppCompatActivity implements AddJackpotManyYearsView {
     EditText edtStart;
     Button btnAddData;
     Button btnLoadAllData;
     Button btnCancel;
+    Button btnTestNotif;
 
     AddJackpotManyYearsViewModel viewModel;
 
@@ -31,6 +45,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         btnAddData = findViewById(R.id.btnAddData);
         btnLoadAllData = findViewById(R.id.btnLoadAllData);
         btnCancel = findViewById(R.id.tvCancel);
+        btnTestNotif = findViewById(R.id.btnTestNotif);
 
         viewModel = new AddJackpotManyYearsViewModel(this, this);
 
@@ -94,6 +109,13 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                 finish();
             }
         });
+
+        btnTestNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getData(AddJackpotManyYearsActivity.this);
+            }
+        });
     }
 
     @Override
@@ -111,5 +133,53 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         viewModel.GetStartYear();
     }
+
+    public void getData(Context context) {
+        String title = "XSMB";
+        String content = "";
+        if (CheckUpdate.checkUpdateJackpot(context)) {
+            try {
+                String jackpot = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
+                IOFileBase.saveDataToFile(context, "jackpot" +
+                        TimeInfo.CURRENT_YEAR + ".txt", jackpot, 0);
+                List<Jackpot> jackpotList = JackpotHandler
+                        .GetReserveJackpotListFromFile(context, 1);
+                content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
+                        jackpotList.get(0).getJackpot() + ".";
+                pushNotification(context, title, content);
+                getDataIfNeeded(context);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void getDataIfNeeded(Context context) {
+        boolean checkUpdateTime = CheckUpdate.checkUpdateTime(context);
+        boolean checkUpdateLottery = CheckUpdate.checkUpdateLottery(context);
+        try {
+            if (checkUpdateTime) {
+                String time = Api.GetTimeDataFromInternet();
+                IOFileBase.saveDataToFile(context, "time.txt", time, 0);
+            }
+            if (checkUpdateLottery) {
+                String lottery = Api.GetLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
+                IOFileBase.saveDataToFile(context, "lottery.txt", lottery, 0);
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void pushNotification(Context context, String title, String content) {
+        UpdateDataNotification notification = new UpdateDataNotification(context, title, content);
+        NotificationCompat.Builder nb = notification.getChannelNotification();
+        notification.getManager().notify(1, nb.build());
+    }
+
 
 }

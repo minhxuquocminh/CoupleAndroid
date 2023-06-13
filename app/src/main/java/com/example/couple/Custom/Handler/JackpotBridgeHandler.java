@@ -47,8 +47,8 @@ public class JackpotBridgeHandler {
                 dayNumberBefore, Const.CONNECTED_BRIDGE_MAX_DISPLAY).getTouchs();
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new CombineTouchBridge("Cầu chạm bóng", firstList,
-                "Cầu liên thông", secondList, "",
+        return new CombineTouchBridge(Const.SHADOW_TOUCH_BRIDGE_NAME, firstList,
+                Const.CONNECTED_BRIDGE_NAME, secondList, "",
                 new ArrayList<>(), new JackpotHistory(dayNumberBefore, jackpot));
     }
 
@@ -149,7 +149,7 @@ public class JackpotBridgeHandler {
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge("Cầu chạm bóng", results,
+        return new ShadowTouchBridge(Const.SHADOW_TOUCH_BRIDGE_NAME, results,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 

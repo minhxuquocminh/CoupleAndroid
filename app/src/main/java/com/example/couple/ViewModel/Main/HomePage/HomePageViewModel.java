@@ -35,13 +35,13 @@ public class HomePageViewModel {
      * init url data if needed
      */
     public void setUrlAndParamsIfNoData() {
-        String data1 = IOFileBase.readDataFromFile(context, "urljackpot.txt");
-        String data2 = IOFileBase.readDataFromFile(context, "urllottery.txt");
+        String data1 = IOFileBase.readDataFromFile(context, Const.JACKPOT_URL_FILE_NAME);
+        String data2 = IOFileBase.readDataFromFile(context, Const.LOTTERY_URL_FILE_NAME);
         if (data1.equals("") || data2.equals("")) {
-            data1 = "http://ketqua8.net/bang-dac-biet-nam\nchu16";
-            data2 = "https://ketqua8.net/so-ket-qua\nwatermark";
-            IOFileBase.saveDataToFile(context, "urljackpot.txt", data1, 0);
-            IOFileBase.saveDataToFile(context, "urllottery.txt", data2, 0);
+            IOFileBase.saveDataToFile(context,
+                    Const.JACKPOT_URL_FILE_NAME, Const.JACKPOT_URL_AND_PARAMS, 0);
+            IOFileBase.saveDataToFile(context,
+                    Const.LOTTERY_URL_FILE_NAME, Const.LOTTERY_URL_AND_PARAMS, 0);
         }
     }
 
@@ -79,7 +79,7 @@ public class HomePageViewModel {
                 homePageView.ShowError(showMessage ? "Lỗi không lấy được thông tin thời gian!" : "");
                 return false;
             }
-            IOFileBase.saveDataToFile(context, "time.txt", timeData, 0);
+            IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, timeData, 0);
             return true;
         } catch (ExecutionException e) {
             return false;
@@ -130,7 +130,7 @@ public class HomePageViewModel {
     }
 
     public void GetTimeDataFromFile() {
-        String data = IOFileBase.readDataFromFile(context, "time.txt");
+        String data = IOFileBase.readDataFromFile(context, Const.TIME_FILE_NAME);
         String time = "Lỗi cập nhật thời gian!";
         try {
             String sub[] = data.split("===");
@@ -189,7 +189,7 @@ public class HomePageViewModel {
     }
 
     public void GetNote() {
-        String data = IOFileBase.readDataFromFile(context, "note.txt");
+        String data = IOFileBase.readDataFromFile(context, Const.NOTE_FILE_NAME);
         String arr[] = data.split("===");
         String note = "";
         for (int i = 0; i < arr.length; i++) {

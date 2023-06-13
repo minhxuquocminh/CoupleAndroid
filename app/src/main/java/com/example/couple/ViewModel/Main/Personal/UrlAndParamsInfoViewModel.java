@@ -3,6 +3,7 @@ package com.example.couple.ViewModel.Main.Personal;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.View.Main.Personal.UrlAndParamsInfoView;
 
 public class UrlAndParamsInfoViewModel {
@@ -18,9 +19,9 @@ public class UrlAndParamsInfoViewModel {
 
     public void GetUrlAndParams(String type) {
         if (type.equals("jackpot")) {
-            fileName = "urljackpot.txt";
+            fileName = Const.JACKPOT_URL_FILE_NAME;
         } else if (type.equals("lottery")) {
-            fileName = "urllottery.txt";
+            fileName = Const.LOTTERY_URL_FILE_NAME;
         }
         data = IOFileBase.readDataFromFile(context, fileName);
         String arr[] = data.split("\n");

@@ -287,8 +287,8 @@ public class CreateNumberArrayViewModel {
     }
 
     public void GetTriadTable() {
-        String data = IOFileBase.readDataFromFile(context, "triad.txt");
-        String importantData = IOFileBase.readDataFromFile(context, "itriad.txt");
+        String data = IOFileBase.readDataFromFile(context, Const.TRIAD_FILE_NAME);
+        String importantData = IOFileBase.readDataFromFile(context, Const.ITRIAD_FILE_NAME);
 
         if (data.equals("") && importantData.equals("")) {
             view.ShowTriadTable(new ArrayList<>());
@@ -332,14 +332,14 @@ public class CreateNumberArrayViewModel {
                 data2 += numbers.get(i).getNumber() + ",";
             }
         }
-        IOFileBase.saveDataToFile(context, "triad.txt", data1, 0);
-        IOFileBase.saveDataToFile(context, "itriad.txt", data2, 0);
+        IOFileBase.saveDataToFile(context, Const.TRIAD_FILE_NAME, data1, 0);
+        IOFileBase.saveDataToFile(context, Const.ITRIAD_FILE_NAME, data2, 0);
         view.SaveDataSuccess("Lưu dữ liệu thành công!");
     }
 
     public void GetTriadList() {
-        String data = IOFileBase.readDataFromFile(context, "triad.txt");
-        String importantData = IOFileBase.readDataFromFile(context, "itriad.txt");
+        String data = IOFileBase.readDataFromFile(context, Const.TRIAD_FILE_NAME);
+        String importantData = IOFileBase.readDataFromFile(context, Const.ITRIAD_FILE_NAME);
         if (data.equals("") && importantData.equals("")) {
             view.ShowTriadList(new ArrayList<>());
         } else {

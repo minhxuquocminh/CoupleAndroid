@@ -3,6 +3,7 @@ package com.example.couple.ViewModel.Lottery;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.Origin.Lottery;
@@ -37,7 +38,7 @@ public class LotteryViewModel {
             if (lotteryData.equals("")) {
                 lotteryView.ShowError("Lỗi không lấy được thông tin XSMB!");
             } else {
-                IOFileBase.saveDataToFile(context, "lottery.txt", lotteryData, 0);
+                IOFileBase.saveDataToFile(context, Const.LOTTERY_FILE_NAME, lotteryData, 0);
                 lotteryView.UpdateLotterySuccess("Cập nhật dữ liệu thành công!", numberOfDays);
             }
         } catch (ExecutionException e) {

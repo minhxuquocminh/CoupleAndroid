@@ -20,7 +20,7 @@ public class AddJackpotManyYearsViewModel {
     }
 
     public void GetStartYear() {
-        String data = IOFileBase.readDataFromFile(context, "year.txt");
+        String data = IOFileBase.readDataFromFile(context, Const.JACKPOT_YEARS_FILE_NAME);
         if (data.equals("")) {
             view.ShowStartYear(TimeInfo.CURRENT_YEAR - 4);
         } else {
@@ -35,7 +35,7 @@ public class AddJackpotManyYearsViewModel {
         } else if (startYear > TimeInfo.CURRENT_YEAR) {
             view.ShowError("Năm bắt đầu phải nhỏ hơn năm hiện tại!");
         } else {
-            String years = IOFileBase.readDataFromFile(context, "year.txt");
+            String years = IOFileBase.readDataFromFile(context, Const.JACKPOT_YEARS_FILE_NAME);
             if (years.equals("")) {
                 availableData = false;
             }
@@ -71,7 +71,7 @@ public class AddJackpotManyYearsViewModel {
                 }
             }
             if (countYear == TimeInfo.CURRENT_YEAR - startYear + 1) {
-                IOFileBase.saveDataToFile(context, "year.txt", yearData, 0);
+                IOFileBase.saveDataToFile(context, Const.JACKPOT_YEARS_FILE_NAME, yearData, 0);
                 view.GetJackpotDataSuccess("Thêm dữ liệu thành công!");
             } else {
                 view.ShowError("Lỗi nạp dữ liệu!");

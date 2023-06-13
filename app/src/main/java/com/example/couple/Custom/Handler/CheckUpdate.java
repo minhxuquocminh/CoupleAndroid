@@ -3,6 +3,7 @@ package com.example.couple.Custom.Handler;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class CheckUpdate {
     public static boolean checkUpdateTime(Context context) {
-        String data = IOFileBase.readDataFromFile(context, "time.txt");
+        String data = IOFileBase.readDataFromFile(context, Const.TIME_FILE_NAME);
         if (data.equals("")) return true;
         String sub[] = data.split("===");
         int calendarDay = Integer.parseInt(sub[1]);

@@ -106,4 +106,15 @@
             android:textSize="@dimen/text_size_big" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnTestNotif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5dp"
+        android:background="@color/colorThemeBold"
+        android:text="Test thông báo"
+        android:textAllCaps="false"
+        android:textColor="@color/colorThemeLight"
+        android:textSize="@dimen/text_size_big" />
+
 </LinearLayout>

@@ -77,4 +77,19 @@ public class Const {
                     99
             );
 
+    public static final String TIME_FILE_NAME = "time.txt";
+    public static final String LOTTERY_FILE_NAME = "lottery.txt";
+    public static final String JACKPOT_YEARS_FILE_NAME = "jackpot_years.txt";
+    public static final String JACKPOT_URL_FILE_NAME = "jackpot_url.txt";
+    public static final String LOTTERY_URL_FILE_NAME = "lottery_url.txt";
+    public static final String NOTE_FILE_NAME = "note.txt";
+    public static final String TRIAD_FILE_NAME = "triad.txt";
+    public static final String ITRIAD_FILE_NAME = "itriad.txt";
+    public static final String TABLE_A_FILE_NAME = "table_a.txt";
+    public static final String TABLE_B_FILE_NAME = "table_b.txt";
+    public static final String ITABLE_A_FILE_NAME = "itable_a.txt";
+    public static final String ITABLE_B_FILE_NAME = "itable_b.txt";
+    public static final String TIME_URL = "https://lichvannien365.com/";
+    public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua8.net/bang-dac-biet-nam\nchu16";
+    public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua8.net/so-ket-qua\nwatermark";
 }

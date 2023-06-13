@@ -3,6 +3,7 @@ package com.example.couple.ViewModel.Sub;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.View.Sub.NoteView;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class NoteViewModel {
     }
 
     public void GetNoteList() {
-        String data = IOFileBase.readDataFromFile(context, "note.txt");
+        String data = IOFileBase.readDataFromFile(context, Const.NOTE_FILE_NAME);
         if (data.equals("")) {
             noteView.HideNoteList();
         } else {
@@ -34,7 +35,7 @@ public class NoteViewModel {
     }
 
     public void DeleteNoteList() {
-        IOFileBase.saveDataToFile(context, "note.txt", "", 0);
+        IOFileBase.saveDataToFile(context, Const.NOTE_FILE_NAME, "", 0);
         noteView.DeleteNoteListSuccess("Xóa Ghi chú thành công!");
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Origin.Lottery;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class LotteryHandler {
             4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 7.1, 7.2, 7.3, 7.4};
 
     public static List<Lottery> getLotteryListFromFile(Context context, int numberOfDays) {
-        String data = IOFileBase.readDataFromFile(context, "lottery.txt");
+        String data = IOFileBase.readDataFromFile(context, Const.LOTTERY_FILE_NAME);
         if (data.equals("")) return new ArrayList<>();
         List<Lottery> lotteries = new ArrayList<>();
         String elements[] = data.split("---");
@@ -43,7 +44,6 @@ public class LotteryHandler {
         }
         return lotteries;
     }
-
 
 
 }

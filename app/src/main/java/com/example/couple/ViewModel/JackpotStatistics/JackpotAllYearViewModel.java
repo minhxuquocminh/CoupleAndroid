@@ -6,6 +6,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.JackpotStatistics.JackpotAllYearView;
 
 import java.util.List;
@@ -68,7 +69,7 @@ public class JackpotAllYearViewModel {
                 view.ShowRequestLoadMoreData(startYear_file, endYear_file);
             } else {
                 startYearSDB = endYear_file - numberOfYearsSDB + 1;
-                List<com.example.couple.Model.Origin.Jackpot> jackpotList = JackpotHandler.GetJackpotListManyYears(context, numberOfYearsSDB);
+                List<Jackpot> jackpotList = JackpotHandler.GetJackpotListManyYears(context, numberOfYearsSDB);
                 return JackpotStatistics.GetCountCoupleMatrix(jackpotList,
                         Const.MAX_ROW_COUNT_TABLE, numberOfYearsSDB + 1, startYearSDB);
             }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.JsoupBase;
+import com.example.couple.Custom.Const.Const;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 public class Api {
     public static String GetTimeDataFromInternet()
             throws ExecutionException, InterruptedException {
-        String link = "https://lichvannien365.com/";
+        String link = Const.TIME_URL;
         List<String> listClassName = new ArrayList<>();
         listClassName.add("lvn-cld-week");
         listClassName.add("lvn-cld-day");
@@ -27,7 +28,7 @@ public class Api {
 
     public static String GetSexagenaryCycleByDay(int day, int month, int year)
             throws ExecutionException, InterruptedException {
-        String link = "https://lichvannien365.com/xem-ngay-tot-xau-ngay-" + day + "-" + month + "-" + year;
+        String link = Const.TIME_URL + "xem-ngay-tot-xau-ngay-" + day + "-" + month + "-" + year;
         List<String> listClassName = new ArrayList<>();
         listClassName.add("lvn-xoneday-blocktop");
 
@@ -38,7 +39,7 @@ public class Api {
 
     public static String GetJackpotDataFromInternet(Context context, int year)
             throws ExecutionException, InterruptedException {
-        String urlAndParams = IOFileBase.readDataFromFile(context, "urljackpot.txt");
+        String urlAndParams = IOFileBase.readDataFromFile(context, Const.JACKPOT_URL_FILE_NAME);
         String arr[] = urlAndParams.split("\n");
 
         String link = arr[0].trim();
@@ -55,7 +56,7 @@ public class Api {
 
     public static String GetLotteryDataFromInternet(Context context, int numberOfDays)
             throws ExecutionException, InterruptedException {
-        String urlAndParams = IOFileBase.readDataFromFile(context, "urllottery.txt");
+        String urlAndParams = IOFileBase.readDataFromFile(context, Const.LOTTERY_URL_FILE_NAME);
         String arr[] = urlAndParams.split("\n");
 
         String link = arr[0].trim();
