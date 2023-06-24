@@ -7,7 +7,7 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
+import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.Model.Display.Number;
 import com.example.couple.Model.Origin.Couple;

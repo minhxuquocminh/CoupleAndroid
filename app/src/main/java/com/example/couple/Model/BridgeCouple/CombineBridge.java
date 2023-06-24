@@ -1,9 +1,11 @@
 package com.example.couple.Model.BridgeCouple;
 
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.NumberArrayHandler;
+import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
 import com.example.couple.Model.BridgeSingle.ConnectedBridge;
+import com.example.couple.Model.BridgeSingle.LottoTouchBridge;
 import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -15,12 +17,14 @@ import lombok.Getter;
 @Getter
 public class CombineBridge {
     ShadowTouchBridge shadowTouchBridge;
+    ConnectedBridge connectedBridge;
+    LottoTouchBridge lottoTouchBridge;
     MappingBridge mappingBridge;
     ShadowMappingBridge shadowMappingBridge;
     PeriodBridge periodBridge;
-    ConnectedBridge connectedBridge;
     ShadowTouchBridge negativeShadowBridge;
     ShadowTouchBridge positiveShadowBridge;
+    CombineTouchBridge combineTouchBridge;
     SpecialSet bigDoubleSet;
 
     JackpotHistory jackpotHistory;
@@ -28,17 +32,20 @@ public class CombineBridge {
     List<Integer> numbers;
 
     public CombineBridge(ShadowTouchBridge shadowTouchBridge, ConnectedBridge connectedBridge,
-                         ShadowTouchBridge negativeShadowBridge, ShadowTouchBridge positiveShadowBridge,
-                         MappingBridge mappingBridge, ShadowMappingBridge shadowMappingBridge,
-                         PeriodBridge periodBridge, SpecialSet bigDoubleSet,
+                         LottoTouchBridge lottoTouchBridge, ShadowTouchBridge negativeShadowBridge,
+                         ShadowTouchBridge positiveShadowBridge, MappingBridge mappingBridge,
+                         ShadowMappingBridge shadowMappingBridge, PeriodBridge periodBridge,
+                         CombineTouchBridge combineTouchBridge, SpecialSet bigDoubleSet,
                          JackpotHistory jackpotHistory) {
         this.shadowTouchBridge = shadowTouchBridge;
         this.connectedBridge = connectedBridge;
+        this.lottoTouchBridge = lottoTouchBridge;
         this.positiveShadowBridge = positiveShadowBridge;
         this.negativeShadowBridge = negativeShadowBridge;
         this.mappingBridge = mappingBridge;
         this.shadowMappingBridge = shadowMappingBridge;
         this.periodBridge = periodBridge;
+        this.combineTouchBridge = combineTouchBridge;
         this.bigDoubleSet = bigDoubleSet;
         this.jackpotHistory = jackpotHistory;
         this.bridgeNames = new ArrayList<>();
@@ -47,6 +54,9 @@ public class CombineBridge {
         }
         if (!connectedBridge.isEmpty()) {
             this.bridgeNames.add(Const.CONNECTED_BRIDGE_NAME);
+        }
+        if (!lottoTouchBridge.isEmpty()) {
+            this.bridgeNames.add(Const.LOTTO_TOUCH_BRIDGE_NAME);
         }
         if (!positiveShadowBridge.isEmpty()) {
             this.bridgeNames.add(Const.POSITIVE_SHADOW_BRIDGE_NAME);
@@ -63,6 +73,9 @@ public class CombineBridge {
         if (!periodBridge.isEmpty()) {
             this.bridgeNames.add(Const.PERIOD_BRIDGE_NAME);
         }
+        if (!combineTouchBridge.isEmpty()) {
+            this.bridgeNames.add(Const.COMBINE_TOUCH_BRIDGE_NAME);
+        }
         if (!bigDoubleSet.isEmpty()) {
             this.bridgeNames.add(Const.BIG_DOUBLE_SET_NAME);
         }
@@ -70,7 +83,7 @@ public class CombineBridge {
         this.numbers = new ArrayList<>();
         for (String bridgeName : bridgeNames) {
             CombineInterface bridge = getBridge(bridgeName);
-            numbers = NumberArrayHandler.getMatchNumbers(numbers, bridge.getNumbers());
+            numbers = NumberBase.getMatchNumbers(numbers, bridge.getNumbers());
         }
     }
 
@@ -86,29 +99,33 @@ public class CombineBridge {
     }
 
     public boolean isWin() {
-        return NumberBase.isWin(jackpotHistory, numbers);
+        return CoupleHandler.isWin(jackpotHistory, numbers);
     }
 
     public String showNumbers() {
-        return NumberBase.showNumbers(numbers);
+        return CoupleHandler.showCoupleNumbers(numbers);
     }
 
     private CombineInterface getBridge(String bridgeName) {
         switch (bridgeName) {
             case Const.SHADOW_TOUCH_BRIDGE_NAME:
                 return this.shadowTouchBridge;
+            case Const.CONNECTED_BRIDGE_NAME:
+                return this.connectedBridge;
+            case Const.LOTTO_TOUCH_BRIDGE_NAME:
+                return this.lottoTouchBridge;
             case Const.MAPPING_BRIDGE_NAME:
                 return this.mappingBridge;
             case Const.SHADOW_MAPPING_BRIDGE_NAME:
                 return this.shadowMappingBridge;
             case Const.PERIOD_BRIDGE_NAME:
                 return this.periodBridge;
-            case Const.CONNECTED_BRIDGE_NAME:
-                return this.connectedBridge;
             case Const.POSITIVE_SHADOW_BRIDGE_NAME:
                 return this.positiveShadowBridge;
             case Const.NEGATIVE_SHADOW_BRIDGE_NAME:
                 return this.negativeShadowBridge;
+            case Const.COMBINE_TOUCH_BRIDGE_NAME:
+                return this.combineTouchBridge;
             case Const.BIG_DOUBLE_SET_NAME:
                 return this.bigDoubleSet;
             default:

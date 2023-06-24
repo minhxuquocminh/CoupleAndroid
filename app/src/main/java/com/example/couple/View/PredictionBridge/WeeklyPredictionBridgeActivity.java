@@ -169,14 +169,14 @@ public class WeeklyPredictionBridgeActivity extends AppCompatActivity implements
                     } else {
                         int runsInt = runs.equals("") ? -1 : Integer.parseInt(runs);
                         int lostsInt = losts.equals("") ? -1 : Integer.parseInt(losts);
-                        String setsStr = NumberBase.toString(setList, " ");
-                        String sumsStr = NumberBase.toString(sumList, " ");
-                        String touchsStr = NumberBase.toString(touchList, " ");
-                        String headsStr = NumberBase.toString(headList, " ");
-                        String tailsStr = NumberBase.toString(tailList, " ");
-                        String addsStr = NumberBase.toString(addList, " ");
-                        String removesStr = NumberBase.toString(removeList, " ");
-                        String triadsStr = NumberBase.toString(triadList, " ");
+                        String setsStr = NumberBase.showNumbers(setList, " ");
+                        String sumsStr = NumberBase.showNumbers(sumList, " ");
+                        String touchsStr = NumberBase.showNumbers(touchList, " ");
+                        String headsStr = NumberBase.showNumbers(headList, " ");
+                        String tailsStr = NumberBase.showNumbers(tailList, " ");
+                        String addsStr = NumberBase.showNumbers(addList, " ");
+                        String removesStr = NumberBase.showNumbers(removeList, " ");
+                        String triadsStr = NumberBase.showNumbers(triadList, " ");
                         NumberArray numberArray = new NumberArray(setsStr, sumsStr,
                                 touchsStr, headsStr, tailsStr, addsStr, removesStr);
                         DateBase dateBase = DateBase.getCurrentDate();

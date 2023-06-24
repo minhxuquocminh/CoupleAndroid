@@ -39,7 +39,7 @@ public class NumberArray implements Serializable {
         List<Integer> headVerify = NumberBase.verifyNumberArray(heads, 1);
         List<Integer> tailVerify = NumberBase.verifyNumberArray(tails, 1);
 
-        List<Integer> setList = NumberArrayHandler.getSetsDetail(setVerify);
+        List<Integer> setList = NumberArrayHandler.getSetsByCouples(setVerify);
         List<Integer> sumList = NumberArrayHandler.getSums(sumVerify);
         List<Integer> touchList = NumberArrayHandler.getTouchs(touchVerify);
         List<Integer> headList = NumberArrayHandler.getHeads(headVerify);
@@ -61,7 +61,7 @@ public class NumberArray implements Serializable {
                 numberList.add(number);
             }
         }
-        this.numbers = NumberBase.toString(numberList, "; ", 2);
+        this.numbers = NumberBase.showNumbers(numberList, "; ", 2);
     }
 
 }

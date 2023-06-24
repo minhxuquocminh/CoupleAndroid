@@ -1,6 +1,6 @@
 package com.example.couple.Model.BridgeCouple;
 
-import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class SpecialSet implements CombineInterface {
 
     @Override
     public boolean isWin() {
-        return NumberBase.isWin(jackpotHistory, numbers);
+        return CoupleHandler.isWin(jackpotHistory, numbers);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SpecialSet implements CombineInterface {
 
     @Override
     public String showNumbers() {
-        return NumberBase.showNumbers(numbers);
+        return CoupleHandler.showCoupleNumbers(numbers);
     }
 
     public static SpecialSet getEmpty() {

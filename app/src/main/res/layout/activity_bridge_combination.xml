@@ -61,6 +61,69 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <CheckBox
+                        android:id="@+id/cboSets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bộ số:"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtSets"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:hint="ex: 1 8"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <CheckBox
+                        android:id="@+id/cboTouchs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chạm:"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtTouchs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ex: 2 8"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <CheckBox
                     android:id="@+id/cboShadowTouchBridge"
                     android:layout_width="wrap_content"
@@ -145,8 +208,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboLottoTouchBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chạm lô tô"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboCombineTouchBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chạm kết hợp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <View
                     android:layout_width="0dp"
@@ -157,10 +244,11 @@
                     android:id="@+id/cboBigDoubleSet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:text="Bộ kép to..."
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
+
 
             </LinearLayout>
 
@@ -171,7 +259,7 @@
                 android:layout_margin="@dimen/margin_5dp"
                 android:layout_weight="1"
                 android:background="@color/colorThemeBold"
-                android:text="cầu kết hợp chạm"
+                android:text="cầu kết hợp"
                 android:textAllCaps="false"
                 android:textColor="@color/colorThemeLight"
                 android:textSize="@dimen/text_size_big" />
@@ -247,48 +335,6 @@
                     android:textColor="@color/colorThemeLight"
                     android:textSize="@dimen/text_size_big" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnCombineBridge1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="cầu 1"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
-
-                <Button
-                    android:id="@+id/btnCombineBridge2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="cầu 2"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
-
-                <Button
-                    android:id="@+id/btnCombineBridge3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="cầu 3"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
             </LinearLayout>
 
             <LinearLayout

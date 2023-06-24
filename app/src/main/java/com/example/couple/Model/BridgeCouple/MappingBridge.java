@@ -1,6 +1,7 @@
 package com.example.couple.Model.BridgeCouple;
 
-import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
@@ -19,23 +20,23 @@ public class MappingBridge implements CombineInterface {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - Cầu ánh xạ: " + showNumbers() + " (" + numbers.size() + " số).";
+        show += "    - " + Const.MAPPING_BRIDGE_NAME + ": " + showNumbers() + " (" + numbers.size() + " số).";
         return show;
     }
 
     public String showCompactBridge() {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - Cầu ánh xạ" + win + ": " + numbers.size() + " số.";
+        show += "    - " + Const.MAPPING_BRIDGE_NAME + win + ": " + numbers.size() + " số.";
         return show;
     }
 
     public boolean isWin() {
-        return NumberBase.isWin(jackpotHistory, numbers);
+        return CoupleHandler.isWin(jackpotHistory, numbers);
     }
 
     public String showNumbers() {
-        return NumberBase.showNumbers(numbers);
+        return CoupleHandler.showCoupleNumbers(numbers);
     }
 
     public static MappingBridge getEmpty() {

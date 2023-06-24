@@ -1,6 +1,6 @@
 package com.example.couple.Model.BridgeSingle;
 
-import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
@@ -18,19 +18,19 @@ public class ClawBridge {
 
 
     public boolean isWin() {
-        return NumberBase.isTouch(jackpotHistory, touchs);
+        return CoupleHandler.isTouch(jackpotHistory, touchs);
     }
 
     public String showBridge() {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - Cầu liên thông: " + showTouchs() + ".";
+        show += "    - Cầu càng: " + showTouchs() + ".";
         return show;
     }
 
     public String showTouchs() {
-        return NumberBase.showTouchs(touchs);
+        return CoupleHandler.showTouchs(touchs);
     }
 
     public static ClawBridge getEmpty() {

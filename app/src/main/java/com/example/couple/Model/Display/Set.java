@@ -1,5 +1,6 @@
 package com.example.couple.Model.Display;
 
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Model.Origin.Couple;
 
@@ -14,8 +15,8 @@ public class Set {
     int second;
 
     public Set(int first, int second) {
-        int cache1 = NumberBase.getSmallShadow(first);
-        int cache2 = NumberBase.getSmallShadow(second);
+        int cache1 = CoupleHandler.getSmallShadow(first);
+        int cache2 = CoupleHandler.getSmallShadow(second);
         this.first = cache1 < cache2 ? cache1 : cache2;
         this.second = cache1 < cache2 ? cache2 : cache1;
     }
@@ -29,13 +30,13 @@ public class Set {
             String coupleStr = couple + "";
             int first = Integer.parseInt(coupleStr.charAt(0) + "");
             int second = Integer.parseInt(coupleStr.charAt(1) + "");
-            this.first = NumberBase.getSmallShadow(first);
-            this.second = NumberBase.getSmallShadow(second);
+            this.first = CoupleHandler.getSmallShadow(first);
+            this.second = CoupleHandler.getSmallShadow(second);
         }
     }
 
     public boolean isItMatch(Couple couple) {
-        int shadow = NumberBase.getSmallShadow(couple.getCoupleInt());
+        int shadow = CoupleHandler.getSmallShadow(couple.getCoupleInt());
         return shadow == getSetInt();
     }
 
@@ -70,12 +71,6 @@ public class Set {
         numbers.add(Integer.valueOf(shadowOfFirst + "" + shadowOfSecond));
         numbers.add(Integer.valueOf(shadowOfSecond + "" + shadowOfFirst));
 
-        List<Integer> compactNumbers = new ArrayList<>();
-        for (int i : numbers) {
-            if (!compactNumbers.contains(i)) {
-                compactNumbers.add(i);
-            }
-        }
-        return compactNumbers;
+        return NumberBase.filterDuplicatedNumbers(numbers);
     }
 }

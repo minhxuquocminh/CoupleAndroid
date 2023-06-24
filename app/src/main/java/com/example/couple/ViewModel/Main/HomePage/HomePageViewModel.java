@@ -12,7 +12,7 @@ import com.example.couple.Custom.Handler.CoupleBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.UpdateDataAlarm;
-import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
+import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
@@ -119,7 +119,7 @@ public class HomePageViewModel {
                 homePageView.ShowError(showMessage ? "Lỗi không lấy được thông tin XSMB!" : "");
                 return false;
             }
-            IOFileBase.saveDataToFile(context, "lottery.txt", lotteryData, 0);
+            IOFileBase.saveDataToFile(context, Const.LOTTERY_FILE_NAME, lotteryData, 0);
             homePageView.UpdateLotterySuccess(showMessage ? "Cập nhật XSMB thành công!" : "");
             return true;
         } catch (ExecutionException e) {

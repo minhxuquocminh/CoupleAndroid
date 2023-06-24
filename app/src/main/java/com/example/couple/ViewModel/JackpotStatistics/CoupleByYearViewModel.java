@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
+import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.View.JackpotStatistics.CoupleByYearView;
 
 import java.util.List;

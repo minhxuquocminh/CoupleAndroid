@@ -8,7 +8,7 @@ import com.example.couple.Custom.Handler.CoupleBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Custom.Old.Statistics.JackpotStatistics;
+import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.BridgeCouple.TriadBridge;
 import com.example.couple.Model.BridgeSingle.ConnectedBridge;
 import com.example.couple.Model.Display.BSingle;
@@ -257,7 +257,7 @@ public class ReferenceBridgeViewModel {
         List<NearestTime> subNearestTimeList = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nearestTimeList.size(); i++) {
-            if (nearestTimeList.get(i).getType() == 1) {
+            if (nearestTimeList.get(i).getType().equals(Const.HEAD)) {
                 count++;
                 subNearestTimeList.add(nearestTimeList.get(i));
             }
@@ -273,7 +273,7 @@ public class ReferenceBridgeViewModel {
         List<NearestTime> subNearestTimeList = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nearestTimeList.size(); i++) {
-            if (nearestTimeList.get(i).getType() == 2) {
+            if (nearestTimeList.get(i).getType().equals(Const.TAIL)) {
                 count++;
                 subNearestTimeList.add(nearestTimeList.get(i));
             }

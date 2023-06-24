@@ -1,6 +1,7 @@
 package com.example.couple.Model.BridgeCouple;
 
-import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.ShadowCouple;
 import com.example.couple.Model.Support.ShadowSingle;
@@ -51,7 +52,7 @@ public class ShadowMappingBridge implements CombineInterface {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - Cầu đổ bóng: " + showCombineShadowCouples() +
+        show += "    - " + Const.SHADOW_MAPPING_BRIDGE_NAME + ": " + showCombineShadowCouples() +
                 " (" + getCombineShadowCouples().size() + " số).";
         return show;
     }
@@ -59,16 +60,17 @@ public class ShadowMappingBridge implements CombineInterface {
     public String showCompactBridge() {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - Cầu đổ bóng" + win + ": " + getCombineShadowCouples().size() + " số.";
+        show += "    - " + Const.SHADOW_MAPPING_BRIDGE_NAME + win + ": " +
+                getCombineShadowCouples().size() + " số.";
         return show;
     }
 
     public boolean isWin() {
-        return NumberBase.isWin(jackpotHistory, getNumbers());
+        return CoupleHandler.isWin(jackpotHistory, getNumbers());
     }
 
     public String showNumbers() {
-        return NumberBase.showNumbers(numbers);
+        return CoupleHandler.showCoupleNumbers(numbers);
     }
 
     public String showCombineShadowCouples() {
@@ -81,7 +83,7 @@ public class ShadowMappingBridge implements CombineInterface {
     }
 
     public String showCopyCombineShadowCouples() {
-        return NumberBase.showNumbers(getNumbers());
+        return CoupleHandler.showCoupleNumbers(getNumbers());
     }
 
     public static ShadowMappingBridge getEmpty() {

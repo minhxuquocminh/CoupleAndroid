@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.View.WidgetBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Widget.CustomTableLayout;
@@ -68,7 +69,7 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
         DateBase selectedDate = lastDate.plusDays(1);
         int row = selectedDate.getDay() - 1;
         int col = selectedDate.getMonth() - 1;
-        String selected = IOFileBase.readDataFromFile(this, "selected.txt");
+        String selected = IOFileBase.readDataFromFile(this, Const.SELECTED_NUMBER_FILE_NAME);
         matrix[row][col] = selected.equals("") ? "" : "123" + selected;
         tvNote.setVisibility(View.VISIBLE);
         TableLayout tableLayout = CustomTableLayout.getJackpotMatrixByYear(this, matrix,

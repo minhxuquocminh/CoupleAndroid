@@ -22,9 +22,6 @@ public interface BridgeCombinationView {
     void ShowPeriodBridgeList(List<PeriodBridge> periodBridges);
     void ShowMappingBridgeList(List<MappingBridge> mappingBridgeList);
     void ShowShadowMappingBridgeList(List<ShadowMappingBridge> shadowMappingBridgeList);
-    void ShowCombineBridgeList1(List<CombineBridge> combineBridges);
-    void ShowCombineBridgeList2(List<CombineBridge> combineBridges);
-    void ShowCombineBridgeList3(List<CombineBridge> combineBridges);
     void ShowSet(List<Integer> bigDoubleSet);
     void ShowBigDoubleSet(List<SpecialSet> bigDoubleSets);
     void ShowDoubleSet(List<SpecialSet> doubleSets);

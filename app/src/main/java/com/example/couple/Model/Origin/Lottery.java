@@ -1,6 +1,8 @@
 package com.example.couple.Model.Origin;
 
 import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Support.Lotto;
 import com.example.couple.Model.Support.Position;
 
 import java.util.ArrayList;
@@ -58,5 +60,47 @@ public class Lottery {
             couples.add(new Couple(first, second, dateBase));
         }
         return couples;
+    }
+
+    public List<Lotto> getHeadLotoList() {
+        List<Lotto> lottos = new ArrayList<>();
+        int a[] = new int[100];
+        for (String numberString : lottery) {
+            int length_number = numberString.length();
+            int first = Integer.parseInt(numberString.charAt(length_number - 2) + "");
+            int second = Integer.parseInt(numberString.charAt(length_number - 1) + "");
+            a[first * 10 + second]++;
+        }
+        for (int i = 0; i < 10; i++) {
+            List<Integer> headList = new ArrayList<>();
+            for (int j = 0; j < 10; j++) {
+                for (int k = 0; k < a[i * 10 + j]; k++) {
+                    headList.add(i * 10 + j);
+                }
+            }
+            lottos.add(new Lotto(Const.HEAD, i, headList));
+        }
+        return lottos;
+    }
+
+    public List<Lotto> getTailLotoList() {
+        List<Lotto> lottos = new ArrayList<>();
+        int a[] = new int[100];
+        for (String numberString : lottery) {
+            int length_number = numberString.length();
+            int first = Integer.parseInt(numberString.charAt(length_number - 2) + "");
+            int second = Integer.parseInt(numberString.charAt(length_number - 1) + "");
+            a[first * 10 + second]++;
+        }
+        for (int j = 0; j < 10; j++) {
+            List<Integer> tailList = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                for (int k = 0; k < a[i * 10 + j]; k++) {
+                    tailList.add(i * 10 + j);
+                }
+            }
+            lottos.add(new Lotto(Const.TAIL, j, tailList));
+        }
+        return lottos;
     }
 }

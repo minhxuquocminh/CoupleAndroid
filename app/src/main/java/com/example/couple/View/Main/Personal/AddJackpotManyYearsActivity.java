@@ -142,12 +142,14 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                 String jackpot = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
                 IOFileBase.saveDataToFile(context, "jackpot" +
                         TimeInfo.CURRENT_YEAR + ".txt", jackpot, 0);
-                List<Jackpot> jackpotList = JackpotHandler
-                        .GetReserveJackpotListFromFile(context, 1);
-                content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
-                        jackpotList.get(0).getJackpot() + ".";
-                pushNotification(context, title, content);
-                getDataIfNeeded(context);
+                if (!CheckUpdate.checkUpdateJackpot(context)) {
+                    List<Jackpot> jackpotList = JackpotHandler
+                            .GetReserveJackpotListFromFile(context, 1);
+                    content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
+                            jackpotList.get(0).getJackpot() + ".";
+                    pushNotification(context, title, content);
+                    getDataIfNeeded(context);
+                }
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -162,11 +164,11 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         try {
             if (checkUpdateTime) {
                 String time = Api.GetTimeDataFromInternet();
-                IOFileBase.saveDataToFile(context, "time.txt", time, 0);
+                IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, time, 0);
             }
             if (checkUpdateLottery) {
                 String lottery = Api.GetLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-                IOFileBase.saveDataToFile(context, "lottery.txt", lottery, 0);
+                IOFileBase.saveDataToFile(context, Const.LOTTERY_FILE_NAME, lottery, 0);
             }
         } catch (ExecutionException e) {
             e.printStackTrace();

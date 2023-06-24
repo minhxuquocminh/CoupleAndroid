@@ -36,12 +36,14 @@ public class UpdateDataAlarm extends BroadcastReceiver {
                 String jackpot = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
                 IOFileBase.saveDataToFile(context, "jackpot" +
                         TimeInfo.CURRENT_YEAR + ".txt", jackpot, 0);
-                List<Jackpot> jackpotList = JackpotHandler
-                        .GetReserveJackpotListFromFile(context, 1);
-                content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
-                        jackpotList.get(0).getJackpot() + ".";
-                pushNotification(context, title, content);
-                getDataIfNeeded(context);
+                if (!CheckUpdate.checkUpdateJackpot(context)) {
+                    List<Jackpot> jackpotList = JackpotHandler
+                            .GetReserveJackpotListFromFile(context, 1);
+                    content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
+                            jackpotList.get(0).getJackpot() + ".";
+                    pushNotification(context, title, content);
+                    getDataIfNeeded(context);
+                }
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

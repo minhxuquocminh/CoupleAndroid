@@ -1,6 +1,6 @@
 package com.example.couple.Model.BridgeCouple;
 
-import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Support.History;
 import com.example.couple.Model.Support.JackpotHistory;
@@ -37,7 +37,7 @@ public class PeriodBridge implements CombineInterface {
 
         List<Integer> inits = new ArrayList<>();
         for (History history : periodHistories) {
-            inits.addAll(NumberBase
+            inits.addAll(CoupleHandler
                     .getPeriodNumbers(history.getLastNumber(), Const.AMPLITUDE_OF_PERIOD_BRIDGE));
         }
 
@@ -55,23 +55,23 @@ public class PeriodBridge implements CombineInterface {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - Cầu khoảng: " + showNumbers() + " (" + numbers.size() + " số).";
+        show += "    - " + Const.PERIOD_BRIDGE_NAME + ": " + showNumbers() + " (" + numbers.size() + " số).";
         return show;
     }
 
     public String showCompactBridge() {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - Cầu khoảng" + win + ": " + numbers.size() + " số.";
+        show += "    - " + Const.PERIOD_BRIDGE_NAME + win + ": " + numbers.size() + " số.";
         return show;
     }
 
     public boolean isWin() {
-        return NumberBase.isWin(jackpotHistory, numbers);
+        return CoupleHandler.isWin(jackpotHistory, numbers);
     }
 
     public String showNumbers() {
-        return NumberBase.showNumbers(numbers);
+        return CoupleHandler.showCoupleNumbers(numbers);
     }
 
     public static PeriodBridge getEmpty() {

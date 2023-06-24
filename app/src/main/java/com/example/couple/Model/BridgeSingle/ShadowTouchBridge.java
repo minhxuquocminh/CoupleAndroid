@@ -1,6 +1,6 @@
 package com.example.couple.Model.BridgeSingle;
 
-import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.BridgeCouple.CombineInterface;
 import com.example.couple.Model.Support.JackpotHistory;
@@ -25,15 +25,15 @@ public class ShadowTouchBridge implements CombineInterface {
     }
 
     public boolean isWin() {
-        return NumberBase.isTouch(jackpotHistory, touchs);
+        return CoupleHandler.isTouch(jackpotHistory, touchs);
     }
 
     public String showNumbers() {
-        return NumberBase.showNumbers(numbers);
+        return CoupleHandler.showCoupleNumbers(numbers);
     }
 
     public String showTouchs() {
-        return NumberBase.showTouchs(touchs);
+        return CoupleHandler.showTouchs(touchs);
     }
 
     public String showBridge() {

@@ -1,7 +1,7 @@
 package com.example.couple.Model.Origin;
 
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.DateBase;
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Support.ShadowSingle;
 import com.example.couple.Model.Support.Single;
@@ -22,7 +22,7 @@ public class Couple {
 
     public boolean isDouble() {
         // kép = hoặc lệch
-        return first == second || first == NumberBase.getShadow(second);
+        return first == second || first == CoupleHandler.getShadow(second);
     }
 
     public ShadowSingle getShadowSingle() {
@@ -42,59 +42,59 @@ public class Couple {
     private static List<Single> getFirstList(int first) {
         List<Single> firstList = new ArrayList<>();
         firstList.add(new Single(first, 1, 1));
-        firstList.add(new Single(NumberBase.getShadow(first), 1, 1));
-        firstList.add(new Single(NumberBase.getNegativeShadow(first), 1, 2));
+        firstList.add(new Single(CoupleHandler.getShadow(first), 1, 1));
+        firstList.add(new Single(CoupleHandler.getNegativeShadow(first), 1, 2));
         return firstList;
     }
 
     private static List<Single> getSecondList(int second) {
         List<Single> secondList = new ArrayList<>();
-        int shadowSecond = NumberBase.getShadow(second);
-        int negativeShadowOfSecond = NumberBase.getNegativeShadow(second);
-        int negativeShadowOfShadowSecond = NumberBase.getNegativeShadow(shadowSecond);
+        int shadowSecond = CoupleHandler.getShadow(second);
+        int negativeShadowOfSecond = CoupleHandler.getNegativeShadow(second);
+        int negativeShadowOfShadowSecond = CoupleHandler.getNegativeShadow(shadowSecond);
         secondList.add(new Single(second, 2, 1));
         secondList.add(new Single(shadowSecond, 2, 1));
-        secondList.add(new Single(NumberBase.minusOne(second), 2, 4));
-        secondList.add(new Single(NumberBase.minusOne(shadowSecond), 2, 4));
+        secondList.add(new Single(CoupleHandler.minusOne(second), 2, 4));
+        secondList.add(new Single(CoupleHandler.minusOne(shadowSecond), 2, 4));
 
         secondList.add(new Single(negativeShadowOfSecond, 2, 2));
-        secondList.add(new Single(NumberBase.getShadow(negativeShadowOfSecond), 2, 5));
-        secondList.add(new Single(NumberBase.minusOne(negativeShadowOfSecond), 2, 2));
-        secondList.add(new Single(NumberBase.minusOne(NumberBase
+        secondList.add(new Single(CoupleHandler.getShadow(negativeShadowOfSecond), 2, 5));
+        secondList.add(new Single(CoupleHandler.minusOne(negativeShadowOfSecond), 2, 2));
+        secondList.add(new Single(CoupleHandler.minusOne(CoupleHandler
                 .getShadow(negativeShadowOfSecond)), 2, 5));
 
         secondList.add(new Single(negativeShadowOfShadowSecond, 2, 3));
-        secondList.add(new Single(NumberBase.getShadow(negativeShadowOfShadowSecond), 2, 3));
-        secondList.add(new Single(NumberBase.minusOne(negativeShadowOfShadowSecond), 2, 6));
-        secondList.add(new Single(NumberBase.minusOne(NumberBase
+        secondList.add(new Single(CoupleHandler.getShadow(negativeShadowOfShadowSecond), 2, 3));
+        secondList.add(new Single(CoupleHandler.minusOne(negativeShadowOfShadowSecond), 2, 6));
+        secondList.add(new Single(CoupleHandler.minusOne(CoupleHandler
                 .getShadow(negativeShadowOfShadowSecond)), 2, 6));
         return secondList;
     }
 
     public List<Integer> getMappingNumbers() {
-        List<Integer> numbers = NumberBase.getMappingNumbers(getCoupleInt());
+        List<Integer> numbers = CoupleHandler.getMappingNumbers(getCoupleInt());
         for (int i = 1; i <= 2; i++) {
             if (first - i >= 0) {
                 int top = (first - i) * 10 + second;
-                List<Integer> topList = NumberBase.getMappingNumbers(top);
+                List<Integer> topList = CoupleHandler.getMappingNumbers(top);
                 numbers.addAll(topList);
             }
 
             if (first + i <= 9) {
                 int bottom = (first + i) * 10 + second;
-                List<Integer> bottomList = NumberBase.getMappingNumbers(bottom);
+                List<Integer> bottomList = CoupleHandler.getMappingNumbers(bottom);
                 numbers.addAll(bottomList);
             }
 
             if (second - i >= 0) {
                 int left = first * 10 + second - i;
-                List<Integer> leftList = NumberBase.getMappingNumbers(left);
+                List<Integer> leftList = CoupleHandler.getMappingNumbers(left);
                 numbers.addAll(leftList);
             }
 
             if (second + i <= 9) {
                 int right = first * 10 + second + i;
-                List<Integer> rightList = NumberBase.getMappingNumbers(right);
+                List<Integer> rightList = CoupleHandler.getMappingNumbers(right);
                 numbers.addAll(rightList);
             }
         }

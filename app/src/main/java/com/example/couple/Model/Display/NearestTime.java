@@ -7,9 +7,9 @@ import lombok.Getter;
 @Getter
 public class NearestTime {
     int number;
-    int type; // 0 : same double, 1: head, 2: tail
     int dayNumberBefore; // Const.MAX_DAY_NUMBER_BEFORE <=> ko thấy.
     int appearanceTimes;
+    String type; // 0 : same double, 1: head, 2: tail
 
     public String show() {
         String show = number + "";
@@ -21,10 +21,4 @@ public class NearestTime {
         return show;
     }
 
-    public String showType() {
-        if (type == 0) return "kép";
-        if (type == 1) return "đầu";
-        if (type == 2) return "đuôi";
-        return "";
-    }
 }

@@ -1,15 +1,15 @@
-package com.example.couple.Custom.Old.Statistics;
+package com.example.couple.Custom.Statistics;
 
 import android.content.Context;
 
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.HeadTail;
 import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.Model.Display.JackpotSign;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Display.NumberDouble;
-import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -104,7 +104,7 @@ public class JackpotStatistics {
     }
 
     public static int[] GetStartAndEndYearFile(Context context) {
-        String yearData = IOFileBase.readDataFromFile(context, "year.txt");
+        String yearData = IOFileBase.readDataFromFile(context, Const.JACKPOT_YEARS_FILE_NAME);
         if (yearData.equals("")) return null;
         String yearArr[] = yearData.split("-");
         int results[] = new int[2];
@@ -114,7 +114,7 @@ public class JackpotStatistics {
     }
 
     public static int GetMaxStartNumberOfYears(Context context, int START_NUMBER_OF_YEARS) {
-        String yearData = IOFileBase.readDataFromFile(context, "year.txt");
+        String yearData = IOFileBase.readDataFromFile(context, Const.JACKPOT_YEARS_FILE_NAME);
         if (yearData.equals("")) return 0;
         int numberOfYearsFile = yearData.split("-").length;
         return numberOfYearsFile < START_NUMBER_OF_YEARS ? numberOfYearsFile : START_NUMBER_OF_YEARS;
@@ -157,11 +157,11 @@ public class JackpotStatistics {
         for (int i = 0; i < 10; i++) {
             int dayNumberBefore1 = nearestIndex1[i] == -1 ?
                     Const.MAX_DAY_NUMBER_BEFORE : nearestIndex1[i] + 1;
-            NearestTime nearestTime1 = new NearestTime(i, 1, dayNumberBefore1, appearanceTimes1[i]);
+            NearestTime nearestTime1 = new NearestTime(i, dayNumberBefore1, appearanceTimes1[i], Const.HEAD);
             nearestTimeList.add(nearestTime1);
             int dayNumberBefore2 = nearestIndex2[i] == -1 ?
                     Const.MAX_DAY_NUMBER_BEFORE : nearestIndex2[i] + 1;
-            NearestTime nearestTime2 = new NearestTime(i, 2, dayNumberBefore2, appearanceTimes2[i]);
+            NearestTime nearestTime2 = new NearestTime(i, dayNumberBefore2, appearanceTimes2[i], Const.TAIL);
             nearestTimeList.add(nearestTime2);
         }
 
@@ -200,7 +200,7 @@ public class JackpotStatistics {
         for (int i = 0; i < 10; i++) {
             int number = Integer.parseInt(i + "" + i);
             int dayNumberBefore = nearestIndex[i] == -1 ? Const.MAX_DAY_NUMBER_BEFORE : nearestIndex[i] + 1;
-            NearestTime nearestTime = new NearestTime(number, 0, dayNumberBefore, appearanceTimes[i]);
+            NearestTime nearestTime = new NearestTime(number, dayNumberBefore, appearanceTimes[i], Const.DOUBLE);
             nearestTimeList.add(nearestTime);
         }
 
@@ -391,10 +391,10 @@ public class JackpotStatistics {
 
     public static List<Jackpot> GetMonthJackpotList(List<Jackpot> jackpotList, int month, int year) {
         if (jackpotList.size() == 0) return new ArrayList<>();
-        List<Jackpot> monthJackpotList=new ArrayList<>();
+        List<Jackpot> monthJackpotList = new ArrayList<>();
         for (int i = 0; i < jackpotList.size(); i++) {
             if (jackpotList.get(i).getDateBase().getMonth() == month
-                    && jackpotList.get(i).getDateBase().getYear() == year){
+                    && jackpotList.get(i).getDateBase().getYear() == year) {
                 monthJackpotList.add(jackpotList.get(i));
             }
         }

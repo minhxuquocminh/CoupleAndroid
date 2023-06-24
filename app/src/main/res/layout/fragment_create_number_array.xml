@@ -57,7 +57,7 @@
                     android:textSize="@dimen/text_size" />
 
                 <TextView
-                    android:id="@+id/tvFirstSet"
+                    android:id="@+id/tvSpecialNumbersHistory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
@@ -65,7 +65,7 @@
                     android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
-                    android:text="Bộ 1"
+                    android:text="Số đặc biệt"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />

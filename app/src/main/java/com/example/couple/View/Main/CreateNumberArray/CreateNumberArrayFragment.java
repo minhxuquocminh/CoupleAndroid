@@ -28,6 +28,7 @@ import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Model.BridgeCouple.CombineBridge;
 import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.Display.Number;
+import com.example.couple.Model.Display.SpecialNumbersHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -41,7 +42,7 @@ import java.util.List;
 
 public class CreateNumberArrayFragment extends Fragment implements CreateNumberArrayView {
     TextView tvViewBridge;
-    TextView tvFirstSet;
+    TextView tvSpecialNumbersHistory;
     TextView tvSecondSet;
     TextView tvThirdSet;
     EditText edtSet;
@@ -86,7 +87,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         viewParent = inflater.inflate(R.layout.fragment_create_number_array, container, false);
 
         tvViewBridge = viewParent.findViewById(R.id.tvViewBridge);
-        tvFirstSet = viewParent.findViewById(R.id.tvFirstSet);
+        tvSpecialNumbersHistory = viewParent.findViewById(R.id.tvSpecialNumbersHistory);
         tvSecondSet = viewParent.findViewById(R.id.tvSecondSet);
         tvThirdSet = viewParent.findViewById(R.id.tvThirdSet);
         edtSet = viewParent.findViewById(R.id.edtSet);
@@ -296,11 +297,11 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
     @Override
     public void ShowLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
-        tvFirstSet.setOnClickListener(new View.OnClickListener() {
+        tvSpecialNumbersHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(getActivity());
-                viewModel.GetNumberArrayLevel1(jackpotList);
+                viewModel.GetSpecialNumbersHistory(jackpotList);
             }
         });
 
@@ -322,38 +323,14 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void ShowNumberArrayLevel1(CombineBridge combineBridge) {
-        String message = "Cầu kết hợp:\n";
-        message += combineBridge.showBridge();
-        WidgetBase.showDialogCanBeCopied(getActivity(),
-                "Cầu cấp 1", message, combineBridge.showNumbers());
-    }
-
-    @Override
-    public void ShowNumberArrayLevel2(CombineBridge combineBridge) {
-        String message = "Cầu kết hợp:\n";
-        message += combineBridge.showBridge();
-        WidgetBase.showDialogCanBeCopied(getActivity(),
-                "Cầu cấp 2", message, combineBridge.showNumbers());
-    }
-
-    @Override
-    public void ShowNumberArrayLevel3(CombineBridge combineBridge) {
-        String message = "Cầu kết hợp:\n";
-        message += combineBridge.showBridge();
-        WidgetBase.showDialogCanBeCopied(getActivity(),
-                "Cầu cấp 3", message, combineBridge.showNumbers());
-    }
-
-    @Override
-    public void ShowNumberArrayLevel4(MappingBridge mappingBridge) {
-        String copy = "";
-        for (int number : mappingBridge.getNumbers()) {
-            copy += number + " ";
+    public void ShowSpecialNumbersHistory(List<SpecialNumbersHistory> histories) {
+        String title = "Lịch sử các số đặc biệt";
+        String content = " * Lịch sử các số đặc biệt trong ngày:\n";
+        for (SpecialNumbersHistory history : histories) {
+            content += history.showHistory() + "\n";
         }
-        String message = "Cầu 4: " + copy + " (" + mappingBridge.getNumbers().size() + " số).";
         WidgetBase.showDialogCanBeCopied(getActivity(),
-                "Cầu cấp 4", message, copy);
+                title, content.trim(), histories.get(0).showNumbers());
     }
 
     @Override
@@ -372,7 +349,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
     @Override
     public void VerifyCoupleArraySuccess(String numbersArr) {
-        IOFileBase.saveDataToFile(getActivity(), "numberarray.txt", numbersArr, 0);
+        IOFileBase.saveDataToFile(getActivity(), Const.NUMBER_ARRAY_FILE_NAME, numbersArr, 0);
         RECEIVE_DATA = true;
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.beginTransaction().show(MainActivity.fragment2).hide(MainActivity.active).commit();
@@ -404,23 +381,21 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     private void SetTextForSubJackpot(List<Jackpot> jackpotList, int myJackpot) {
+        if (jackpotList.isEmpty()) {
+            tvSubJackpot.setText("");
+            return;
+        }
         String myJackpotStr = "";
         if (myJackpot < 0) {
-            myJackpotStr = "12???";
-        } else if (myJackpot < 10) {
-            myJackpotStr = "1234" + myJackpot;
+            myJackpotStr = "88???";
         } else {
-            myJackpotStr = "12" + NumberBase.showNumberString(myJackpot, 3);
+            myJackpotStr = "88" + NumberBase.showNumberString(myJackpot, 3);
         }
         String show = "";
-        if (jackpotList.size() == 0) {
-            show += myJackpotStr;
-        } else {
-            for (int i = jackpotList.size() - 1; i >= 0; i--) {
-                show += jackpotList.get(i).getJackpot() + "\n";
-            }
-            show += myJackpotStr;
+        for (int i = jackpotList.size() - 1; i >= 0; i--) {
+            show += jackpotList.get(i).getJackpot() + "\n";
         }
+        show += myJackpotStr;
         tvSubJackpot.setText(show);
     }
 

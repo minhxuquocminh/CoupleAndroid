@@ -10,9 +10,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
@@ -49,8 +49,8 @@ public class CustomTableLayout {
         for (int i = monday_start; i >= 0; i--) {
             count++;
             String couple = reverseJackpotList.get(i).getCouple().toString();
-            int firstNegativeShadow = NumberBase.getNegativeShadow(Integer.parseInt(couple.charAt(0) + ""));
-            int secondNegativeShadow = NumberBase.getNegativeShadow(Integer.parseInt(couple.charAt(1) + ""));
+            int firstNegativeShadow = CoupleHandler.getNegativeShadow(Integer.parseInt(couple.charAt(0) + ""));
+            int secondNegativeShadow = CoupleHandler.getNegativeShadow(Integer.parseInt(couple.charAt(1) + ""));
             row.addView(CustomLinearLayout.GetItemCoupleByWeekLinearLayout(context,
                     couple, firstNegativeShadow, secondNegativeShadow));
             if (i == 0) {
@@ -207,20 +207,12 @@ public class CustomTableLayout {
 
         for (NearestTime nearestTime : nearestTimeList) {
             TableRow row = new TableRow(context);
-            String numberStr = nearestTime.getNumber() == 0 && nearestTime.getType() == 0 ?
-                    "00" : nearestTime.getNumber() + "";
-            String typeStr = "";
-            if (nearestTime.getType() == 0) {
-                typeStr = "kép";
-            } else if (nearestTime.getType() == 1) {
-                typeStr = "đầu";
-            } else if (nearestTime.getType() == 2) {
-                typeStr = "đuôi";
-            }
+            String numberStr = nearestTime.getNumber() == 0 &&
+                    nearestTime.getType().equals(Const.DOUBLE) ? "00" : nearestTime.getNumber() + "";
             String dayNumberBeforeStr = nearestTime.getDayNumberBefore() == Const.MAX_DAY_NUMBER_BEFORE ?
                     "MAX" : nearestTime.getDayNumberBefore() + "";
             row.addView(getCellInEvenRows(context, numberStr));
-            row.addView(getCellInEvenRows(context, typeStr));
+            row.addView(getCellInEvenRows(context, nearestTime.getType()));
             row.addView(getCellInEvenRows(context, nearestTime.getAppearanceTimes() + ""));
             row.addView(getCellInEvenRows(context, dayNumberBeforeStr));
             tableLayout.addView(row);
@@ -484,7 +476,7 @@ public class CustomTableLayout {
             } else {
                 String number = "xx";
                 String cl = "xx";
-                String data = IOFileBase.readDataFromFile(context, "selected.txt");
+                String data = IOFileBase.readDataFromFile(context, Const.SELECTED_NUMBER_FILE_NAME);
                 if (!data.equals("")) {
                     int first = Integer.parseInt(data.charAt(0) + "");
                     int second = Integer.parseInt(data.charAt(1) + "");

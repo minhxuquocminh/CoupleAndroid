@@ -547,7 +547,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             tvShowPrediction.setText("m: " + mpStr + ", " + listMP);
 
             String selected = mp < 0 ? "" : mpStr;
-            IOFileBase.saveDataToFile(getActivity(), "selected.txt", selected, 0);
+            IOFileBase.saveDataToFile(getActivity(), Const.SELECTED_NUMBER_FILE_NAME, selected, 0);
         }
     }
 
@@ -995,8 +995,8 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     public void setDataToTable() {
-        String numbersStr = IOFileBase.readDataFromFile(getActivity(), "numberarray.txt");
-        IOFileBase.saveDataToFile(getActivity(), "numberarray.txt", "", 0);
+        String numbersStr = IOFileBase.readDataFromFile(getActivity(), Const.NUMBER_ARRAY_FILE_NAME);
+        IOFileBase.saveDataToFile(getActivity(), Const.NUMBER_ARRAY_FILE_NAME, "", 0);
         if (isFirstNumberPicker) {
             List<Number> numbers = NumberBase.verifyNumberArr(numbersStr, 2);
             if (numbers.size() != 0) {

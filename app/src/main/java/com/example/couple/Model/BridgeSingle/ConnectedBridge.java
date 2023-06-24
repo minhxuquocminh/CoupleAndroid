@@ -1,6 +1,7 @@
 package com.example.couple.Model.BridgeSingle;
 
-import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.BridgeCouple.CombineInterface;
 import com.example.couple.Model.Support.ConnectedSupport;
@@ -23,14 +24,14 @@ public class ConnectedBridge implements CombineInterface {
         this.jackpotHistory = jackpotHistory;
         this.touchs = new ArrayList<>();
         if (!connectedSupports.isEmpty()) {
-            int smallShadow0 = NumberBase.getSmallShadow(connectedSupports.get(0).getValue());
+            int smallShadow0 = CoupleHandler.getSmallShadow(connectedSupports.get(0).getValue());
             touchs.add(smallShadow0);
-            touchs.add(NumberBase.getShadow(smallShadow0));
+            touchs.add(CoupleHandler.getShadow(smallShadow0));
             for (int i = 0; i < connectedSupports.size(); i++) {
-                int smallShadow = NumberBase.getSmallShadow(connectedSupports.get(i).getValue());
+                int smallShadow = CoupleHandler.getSmallShadow(connectedSupports.get(i).getValue());
                 if (smallShadow0 != smallShadow) {
                     touchs.add(smallShadow);
-                    touchs.add(NumberBase.getShadow(smallShadow));
+                    touchs.add(CoupleHandler.getShadow(smallShadow));
                     break;
                 }
             }
@@ -39,29 +40,29 @@ public class ConnectedBridge implements CombineInterface {
     }
 
     public boolean isWin() {
-        return NumberBase.isTouch(jackpotHistory, getTouchs());
+        return CoupleHandler.isTouch(jackpotHistory, getTouchs());
     }
 
     public String showNumbers() {
-        return NumberBase.showNumbers(numbers);
+        return CoupleHandler.showCoupleNumbers(numbers);
     }
 
     public String showTouchs() {
-        return NumberBase.showTouchs(touchs);
+        return CoupleHandler.showTouchs(touchs);
     }
 
     public String showBridge() {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - Cầu liên thông: " + showTouchs() + ".";
+        show += "    - " + Const.CONNECTED_BRIDGE_NAME + ": " + showTouchs() + ".";
         return show;
     }
 
     public String showCompactBridge() {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - Cầu liên thông" + win + ": " + showTouchs() + ".";
+        show += "    - " + Const.CONNECTED_BRIDGE_NAME + win + ": " + showTouchs() + ".";
         return show;
     }
 

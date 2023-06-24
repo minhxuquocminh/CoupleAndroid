@@ -5,13 +5,12 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.CombineBridgeHandler;
+import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.BridgeCouple.CombineBridge;
 import com.example.couple.Model.Display.Number;
-import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.Display.SpecialNumbersHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayView;
@@ -36,34 +35,58 @@ public class CreateNumberArrayViewModel {
         view.ShowLotteryAndJackpotList(jackpotList, lotteryList);
     }
 
-    public void GetNumberArrayLevel1(List<Jackpot> jackpotList) {
-        CombineBridge combineBridge = CombineBridgeHandler
-                .GetCombineBridgeLevel1(jackpotList, 0);
-        if (combineBridge.getNumbers().isEmpty()) {
-            view.ShowError("Không tìm thấy cầu kết hợp.");
-        } else {
-            view.ShowNumberArrayLevel1(combineBridge);
+    public void GetSpecialNumbersHistory(List<Jackpot> jackpotList) {
+        List<SpecialNumbersHistory> histories = new ArrayList<>();
+        List<SpecialNumbersHistory> headTailList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            SpecialNumbersHistory head =
+                    JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.HEAD, i);
+            headTailList.add(head);
+            SpecialNumbersHistory tail =
+                    JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.TAIL, i);
+            headTailList.add(tail);
+        }
+        Collections.sort(headTailList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+        histories.addAll(headTailList);
+
+        List<SpecialNumbersHistory> sumList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            SpecialNumbersHistory sum =
+                    JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.SUM, i);
+            sumList.add(sum);
+        }
+        Collections.sort(sumList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+        histories.addAll(sumList);
+
+        List<SpecialNumbersHistory> setList = new ArrayList<>();
+        for (int i : Const.SMALL_SET) {
+            SpecialNumbersHistory set =
+                    JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.SET, i);
+            setList.add(set);
+        }
+        Collections.sort(setList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+        histories.addAll(setList);
+
+        SpecialNumbersHistory doubleHistory = JackpotBridgeHandler
+                .GetSpecialNumbersHistory(jackpotList, Const.DOUBLE, Const.EMPTY_VALUE);
+        histories.add(doubleHistory);
+        SpecialNumbersHistory deviatedHistory = JackpotBridgeHandler
+                .GetSpecialNumbersHistory(jackpotList, Const.DEVIATED_DOUBLE, Const.EMPTY_VALUE);
+        histories.add(deviatedHistory);
+        SpecialNumbersHistory nearHistory = JackpotBridgeHandler
+                .GetSpecialNumbersHistory(jackpotList, Const.NEAR_DOUBLE, Const.EMPTY_VALUE);
+        histories.add(nearHistory);
+        if (!histories.isEmpty()) {
+            view.ShowSpecialNumbersHistory(histories);
         }
     }
 
     public void GetNumberArrayLevel2(List<Jackpot> jackpotList, List<Lottery> lotteries) {
-        CombineBridge combineBridge = CombineBridgeHandler
-                .GetCombineBridgeLevel2(jackpotList, 0);
-        if (combineBridge.getNumbers().isEmpty()) {
-            view.ShowError("Không tìm thấy cầu kết hợp.");
-        } else {
-            view.ShowNumberArrayLevel2(combineBridge);
-        }
+
     }
 
     public void GetNumberArrayLevel3(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
-        CombineBridge combineBridge = CombineBridgeHandler
-                .GetCombineBridgeLevel3(jackpotList, 0);
-        if (combineBridge.getNumbers().isEmpty()) {
-            view.ShowError("Không tìm thấy cầu kết hợp.");
-        } else {
-            view.ShowNumberArrayLevel3(combineBridge);
-        }
+
     }
 
     public void CreateNumberArray(String set, String touch, String sum, String thirdClaw,
@@ -85,14 +108,10 @@ public class CreateNumberArrayViewModel {
                     error += " bộ;";
                 }
             } else {
-                List<Set> convertToSetList = new ArrayList<>();
-                for (int i = 0; i < setListIn.size(); i++) {
-                    convertToSetList.add(new Set(setListIn.get(i)));
-                }
-                setListOut = NumberArrayHandler.getSetsDetailFromSetList(convertToSetList);
+                setListOut = NumberArrayHandler.getSetsByCouples(setListIn);
             }
         } else {
-            setListOut = NumberArrayHandler.getSetsDetailFromSingles(setListIn);
+            setListOut = NumberArrayHandler.getSetsBySingles(setListIn);
         }
 
         // touch
@@ -179,12 +198,10 @@ public class CreateNumberArrayViewModel {
 
         // match set, touch, sum
 
-        List<Integer> firstMatch = NumberArrayHandler
-                .getMatchNumbers(setListOut, touchListOut, sumListOut);
+        List<Integer> firstMatch = NumberBase.getMatchNumbers(setListOut, touchListOut, sumListOut);
 
         // match head, tail
-        List<Integer> secondMatch = NumberArrayHandler
-                .getMatchNumbers(firstMatch, headListOut, tailListOut);
+        List<Integer> secondMatch = NumberBase.getMatchNumbers(firstMatch, headListOut, tailListOut);
 
         // add
 
@@ -201,7 +218,7 @@ public class CreateNumberArrayViewModel {
 
         // match combine
 
-        List<Integer> combineNumbers = NumberArrayHandler.getMatchNumbers(combineList, secondMatch);
+        List<Integer> combineNumbers = NumberBase.getMatchNumbers(combineList, secondMatch);
 
         // loại bỏ trùng lặp
 
@@ -218,23 +235,21 @@ public class CreateNumberArrayViewModel {
 
         // thêm càng thứ 3
 
-        if (results.size() > 0) {
-            List<Integer> thirdClawListIn = NumberBase.verifyNumberArray(thirdClaw, 1);
-            List<Integer> numbers = new ArrayList<>();
-            int typeOfNumber = 0;
-            if (thirdClawListIn.size() == 0) {
-                if (!thirdClaw.equals("")) {
-                    countError++;
-                    error += " càng 3;";
-                }
-                numbers = results;
-                typeOfNumber = 2;
-            } else {
-                numbers = NumberArrayHandler.getThreeClaws(results, thirdClawListIn);
-                typeOfNumber = 3;
+        List<Integer> thirdClawListIn = NumberBase.verifyNumberArray(thirdClaw, 1);
+        List<Integer> numbers = new ArrayList<>();
+        int typeOfNumber = 0;
+        if (thirdClawListIn.size() == 0) {
+            if (!thirdClaw.equals("")) {
+                countError++;
+                error += " càng 3;";
             }
-            view.ShowNumberArray(numbers, typeOfNumber);
+            numbers = results;
+            typeOfNumber = 2;
+        } else {
+            numbers = NumberArrayHandler.getThreeClaws(results, thirdClawListIn);
+            typeOfNumber = 3;
         }
+        view.ShowNumberArray(numbers, typeOfNumber);
 
         if (countError > 0) {
             view.ShowError(error);
@@ -371,5 +386,4 @@ public class CreateNumberArrayViewModel {
             view.ShowTriadList(numbers);
         }
     }
-
 }

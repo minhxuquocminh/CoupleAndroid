@@ -3,7 +3,6 @@ package com.example.couple.ViewModel.Main.CreateNumberArray;
 import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.CombineBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
@@ -14,6 +13,7 @@ import com.example.couple.Model.BridgeCouple.ShadowMappingBridge;
 import com.example.couple.Model.BridgeCouple.SpecialSet;
 import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
 import com.example.couple.Model.BridgeSingle.ConnectedBridge;
+import com.example.couple.Model.BridgeSingle.LottoTouchBridge;
 import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -45,26 +45,29 @@ public class BridgeCombinationViewModel {
             ConnectedBridge connectedBridge = lotteryList.isEmpty() ? ConnectedBridge.getEmpty() :
                     JackpotBridgeHandler.GetConnectedBridge(lotteryList, Const.CONNECTED_BRIDGE_FINDING_DAYS,
                             0, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+            LottoTouchBridge lottoTouchBridge =
+                    JackpotBridgeHandler.GetLottoTouchBridge(lotteryList, 0);
             MappingBridge mappingBridge = JackpotBridgeHandler.GetMappingBridge(jackpotList, 0);
-            ShadowMappingBridge shadowMappingBridge = JackpotBridgeHandler
-                    .GetShadowMappingBridge(jackpotList, 0);
+            ShadowMappingBridge shadowMappingBridge =
+                    JackpotBridgeHandler.GetShadowMappingBridge(jackpotList, 0);
             PeriodBridge periodBridge = JackpotBridgeHandler.GetPeriodBridge(jackpotList, 0);
-            ShadowTouchBridge negativeShadowBridge = JackpotBridgeHandler
-                    .GetNegativeShadowTouchBridge(jackpotList, 0);
-            ShadowTouchBridge positiveShadowBridge = JackpotBridgeHandler
-                    .GetPositiveShadowTouchBridge(jackpotList, 0);
-            CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, connectedBridge,
-                    negativeShadowBridge, positiveShadowBridge, mappingBridge,
-                    shadowMappingBridge, periodBridge, SpecialSet.getEmpty(),
-                    new JackpotHistory(0, Jackpot.getEmpty()));
+            ShadowTouchBridge negativeShadowBridge =
+                    JackpotBridgeHandler.GetNegativeShadowTouchBridge(jackpotList, 0);
+            ShadowTouchBridge positiveShadowBridge =
+                    JackpotBridgeHandler.GetPositiveShadowTouchBridge(jackpotList, 0);
+            CombineTouchBridge combineTouchBridge =
+                    JackpotBridgeHandler.GetCombineTouchBridge(jackpotList, lotteryList, 0);
+            CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, connectedBridge, lottoTouchBridge,
+                    negativeShadowBridge, positiveShadowBridge, mappingBridge, shadowMappingBridge, periodBridge,
+                    combineTouchBridge, SpecialSet.getEmpty(), new JackpotHistory(0, Jackpot.getEmpty()));
             view.ShowAllBridgeToday(combineBridge);
         }
     }
 
     public void GetCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList, int numberOfDay,
-                                     boolean shadowTouch, boolean connected, boolean mapping,
+                                     boolean shadowTouch, boolean connected, boolean lottoTouch, boolean mapping,
                                      boolean shadowMapping, boolean period, boolean negativeShadow,
-                                     boolean positiveShadow, boolean bigDouble) {
+                                     boolean positiveShadow, boolean combineTouch, boolean bigDouble) {
         List<CombineBridge> combineBridges = new ArrayList<>();
         if (connected && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
             view.ShowError("Đặt lại giới hạn số ngày cho cầu liên thông là " +
@@ -79,6 +82,8 @@ public class BridgeCombinationViewModel {
             ConnectedBridge connectedBridge = connected ? JackpotBridgeHandler
                     .GetConnectedBridge(lotteryList, Const.CONNECTED_BRIDGE_FINDING_DAYS, i,
                             Const.CONNECTED_BRIDGE_MAX_DISPLAY) : ConnectedBridge.getEmpty();
+            LottoTouchBridge lottoTouchBridge = lottoTouch ? JackpotBridgeHandler
+                    .GetLottoTouchBridge(lotteryList, i) : LottoTouchBridge.getEmpty();
             MappingBridge mappingBridge = mapping ? JackpotBridgeHandler
                     .GetMappingBridge(jackpotList, i) : MappingBridge.getEmpty();
             ShadowMappingBridge shadowMappingBridge = shadowMapping ? JackpotBridgeHandler
@@ -89,12 +94,14 @@ public class BridgeCombinationViewModel {
                     .GetNegativeShadowTouchBridge(jackpotList, i) : ShadowTouchBridge.getEmpty();
             ShadowTouchBridge positiveShadowBridge = positiveShadow ? JackpotBridgeHandler
                     .GetPositiveShadowTouchBridge(jackpotList, i) : ShadowTouchBridge.getEmpty();
+            CombineTouchBridge combineTouchBridge = combineTouch ? JackpotBridgeHandler
+                    .GetCombineTouchBridge(jackpotList, lotteryList, i) : CombineTouchBridge.getEmpty();
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             SpecialSet bigDoubleSet = bigDouble ? new SpecialSet(Const.BIG_DOUBLE_SET_NAME,
                     Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot)) : SpecialSet.getEmpty();
-            CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, connectedBridge,
-                    negativeShadowBridge, positiveShadowBridge, mappingBridge, shadowMappingBridge,
-                    periodBridge, bigDoubleSet, new JackpotHistory(i, jackpot));
+            CombineBridge combineBridge = new CombineBridge(shadowTouchBridge, connectedBridge, lottoTouchBridge,
+                    negativeShadowBridge, positiveShadowBridge, mappingBridge, shadowMappingBridge, periodBridge,
+                    combineTouchBridge, bigDoubleSet, new JackpotHistory(i, jackpot));
             combineBridges.add(combineBridge);
         }
         if (combineBridges.isEmpty()) {
@@ -107,7 +114,7 @@ public class BridgeCombinationViewModel {
     public void GetTouchBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList, int numberOfDay) {
         List<CombineTouchBridge> combineTouchBridges = new ArrayList<>();
         for (int i = 0; i < numberOfDay; i++) {
-            CombineTouchBridge combineTouchBridge = JackpotBridgeHandler.GetTouchBridge(jackpotList, lotteryList, i);
+            CombineTouchBridge combineTouchBridge = JackpotBridgeHandler.GetCombineTouchBridge(jackpotList, lotteryList, i);
             combineTouchBridges.add(combineTouchBridge);
         }
         if (combineTouchBridges.isEmpty()) {
@@ -166,45 +173,6 @@ public class BridgeCombinationViewModel {
             view.ShowError("Không tìm thấy cầu.");
         } else {
             view.ShowShadowMappingBridgeList(shadowMappingBridgeList);
-        }
-    }
-
-    public void GetCombineBridgeList1(List<Jackpot> jackpotList, int numberOfDay) {
-        List<CombineBridge> combineBridges = new ArrayList<>();
-        for (int i = 0; i < numberOfDay; i++) {
-            CombineBridge bridge = CombineBridgeHandler.GetCombineBridgeLevel1(jackpotList, i);
-            combineBridges.add(bridge);
-        }
-        if (combineBridges.isEmpty()) {
-            view.ShowError("Không tìm thấy cầu.");
-        } else {
-            view.ShowCombineBridgeList1(combineBridges);
-        }
-    }
-
-    public void GetCombineBridgeList2(List<Jackpot> jackpotList, int numberOfDay) {
-        List<CombineBridge> combineBridges = new ArrayList<>();
-        for (int i = 0; i < numberOfDay; i++) {
-            CombineBridge bridge = CombineBridgeHandler.GetCombineBridgeLevel2(jackpotList, i);
-            combineBridges.add(bridge);
-        }
-        if (combineBridges.isEmpty()) {
-            view.ShowError("Không tìm thấy cầu.");
-        } else {
-            view.ShowCombineBridgeList2(combineBridges);
-        }
-    }
-
-    public void GetCombineBridgeList3(List<Jackpot> jackpotList, int numberOfDay) {
-        List<CombineBridge> combineBridges = new ArrayList<>();
-        for (int i = 0; i < numberOfDay; i++) {
-            CombineBridge bridge = CombineBridgeHandler.GetCombineBridgeLevel3(jackpotList, i);
-            combineBridges.add(bridge);
-        }
-        if (combineBridges.isEmpty()) {
-            view.ShowError("Không tìm thấy cầu.");
-        } else {
-            view.ShowCombineBridgeList3(combineBridges);
         }
     }
 

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Const {
+    public static final int EMPTY_VALUE = -1;
     public static final int MAX_DAY_OF_MONTH = 31;
     public static final int DAY_OF_WEEK = 7;
     public static final int DAY_OF_YEAR = 365;
@@ -22,15 +23,24 @@ public class Const {
     public static final int TRIAD_SET_BRIDGE_SEARCHING_DAYS = 10;
 
     public static final String SHADOW_TOUCH_BRIDGE_NAME = "Cầu chạm bóng";
+    public static final String LOTTO_TOUCH_BRIDGE_NAME = "Cầu chạm lô tô";
     public static final String MAPPING_BRIDGE_NAME = "Cầu ánh xạ";
     public static final String SHADOW_MAPPING_BRIDGE_NAME = "Cầu ánh xạ bóng";
     public static final String PERIOD_BRIDGE_NAME = "Cầu khoảng";
     public static final String CONNECTED_BRIDGE_NAME = "Cầu liên thông";
     public static final String NEGATIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng -";
     public static final String POSITIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng +";
+    public static final String COMBINE_TOUCH_BRIDGE_NAME = "Chạm kết hợp";
     public static final String BIG_DOUBLE_SET_NAME = "Bộ kép to";
     public static final String DOUBLE_SET_NAME = "Bộ kép bằng";
     public static final String NEAR_DOUBLE_SET_NAME = "Bộ sát kép";
+    public static final String HEAD = "đầu";
+    public static final String TAIL = "đuôi";
+    public static final String SET = "bộ";
+    public static final String SUM = "tổng";
+    public static final String DOUBLE = "kép bằng";
+    public static final String NEAR_DOUBLE = "sát kép";
+    public static final String DEVIATED_DOUBLE = "kép lệch";
 
     public static final List<Integer> BIG_DOUBLE_SET = Arrays.asList
             (
@@ -76,7 +86,21 @@ public class Const {
                     88,
                     99
             );
-
+    public static final List<Integer> DEVIATED_DOUBLE_SET = Arrays.asList
+            (
+                    05, 50,
+                    16, 61,
+                    27, 72,
+                    38, 83,
+                    49, 94
+            );
+    public static final List<Integer> SMALL_SET =
+            Arrays.asList(0, 1, 2, 3, 4, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
+    // url and params
+    public static final String TIME_URL = "https://lichvannien365.com/";
+    public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua8.net/bang-dac-biet-nam\nchu16";
+    public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua8.net/so-ket-qua\nwatermark";
+    // file name
     public static final String TIME_FILE_NAME = "time.txt";
     public static final String LOTTERY_FILE_NAME = "lottery.txt";
     public static final String JACKPOT_YEARS_FILE_NAME = "jackpot_years.txt";
@@ -89,7 +113,8 @@ public class Const {
     public static final String TABLE_B_FILE_NAME = "table_b.txt";
     public static final String ITABLE_A_FILE_NAME = "itable_a.txt";
     public static final String ITABLE_B_FILE_NAME = "itable_b.txt";
-    public static final String TIME_URL = "https://lichvannien365.com/";
-    public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua8.net/bang-dac-biet-nam\nchu16";
-    public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua8.net/so-ket-qua\nwatermark";
+    public static final String NUMBER_ARRAY_FILE_NAME = "number_array.txt";
+    public static final String SELECTED_NUMBER_FILE_NAME = "selected_number.txt";
+
+
 }

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Widget.CustomTableLayout;
@@ -132,9 +132,9 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
     @Override
     public void ShowTest(List<Integer> touchs) {
         String message = "Chạm: ";
-        message += NumberBase.showTouchs(touchs);
+        message += CoupleHandler.showTouchs(touchs);
         WidgetBase.showDialogCanBeCopied(this,
-                "Cầu chạm.", message, NumberBase.showTouchs(touchs));
+                "Cầu chạm.", message, CoupleHandler.showTouchs(touchs));
     }
 
 }

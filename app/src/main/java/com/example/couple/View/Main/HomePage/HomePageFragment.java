@@ -256,7 +256,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
         int length = nearestTimeList.size() < 1 ? nearestTimeList.size() : 1;
         for (int i = 0; i < 1; i++) {
             NearestTime nearestTime = nearestTimeList.get(i);
-            show += nearestTime.showType() + " " + nearestTime.getNumber() +
+            show += nearestTime.getType() + " " + nearestTime.getNumber() +
                     "(" + nearestTime.getDayNumberBefore() + " ngày)";
             if (i != length - 1) {
                 show += ", ";

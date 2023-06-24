@@ -52,7 +52,6 @@ public class CalculatingBalanceCoupleActivity extends AppCompatActivity implemen
 
     @Override
     public void ShowError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT)
-                .show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
