@@ -17,8 +17,8 @@ import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
 import com.example.couple.View.JackpotStatistics.JackpotThisYearActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
-import com.example.couple.View.ReferenceBridge.ReferenceBridgeActivity;
-import com.example.couple.View.SearchingBridge.SearchingBridgeActivity;
+import com.example.couple.View.Bridge.ReferenceBridgeActivity;
+import com.example.couple.View.Bridge.SearchingBridgeActivity;
 
 public class FunctionDisplayFragment extends Fragment {
     CardView cvViewLottery;

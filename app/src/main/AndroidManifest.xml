@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".View.SearchingBridge.SearchingBridgeActivity" />
+        <activity android:name=".View.Bridge.SearchingBridgeActivity" />
 
         <activity android:name=".View.JackpotStatistics.JackpotNextDayActivity" />
 
@@ -61,29 +61,27 @@
 
         <activity android:name=".View.JackpotStatistics.JackpotAllYearActivity" />
 
-        <activity android:name=".View.Main.CreateNumberArray.BridgeCombinationActivity" />
-
         <activity
             android:name=".View.JackpotStatistics.JackpotByYearActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".View.ReferenceBridge.ReferenceBridgeActivity" />
+        <activity android:name=".View.Bridge.ReferenceBridgeActivity" />
 
-        <activity android:name=".View.Sub.ExperianceActivity" />
+        <activity android:name=".View.SubScreen.ExperianceActivity" />
 
-        <activity android:name=".View.Sub.ExperianceInfoActivity" />
+        <activity android:name=".View.SubScreen.ExperianceInfoActivity" />
 
-        <activity android:name=".View.Sub.NoteActivity" />
+        <activity android:name=".View.SubScreen.NoteActivity" />
 
-        <activity android:name=".View.Sub.NoteInfoActivity" />
+        <activity android:name=".View.SubScreen.NoteInfoActivity" />
 
-        <activity android:name=".View.Sub.CalculatingBalanceCoupleActivity" />
+        <activity android:name=".View.SubScreen.CalculatingBalanceCoupleActivity" />
 
-        <activity android:name=".View.Main.Personal.UrlAndParamsActivity" />
+        <activity android:name=".View.UpdateDataInfo.UrlAndParamsActivity" />
 
-        <activity android:name=".View.Main.Personal.UrlAndParamsInfoActivity" />
+        <activity android:name=".View.UpdateDataInfo.UrlAndParamsInfoActivity" />
 
-        <activity android:name=".View.Main.Personal.AddJackpotManyYearsActivity" />
+        <activity android:name=".View.UpdateDataInfo.AddJackpotManyYearsActivity" />
 
         <activity android:name=".View.Account.SignInActivity" />
 

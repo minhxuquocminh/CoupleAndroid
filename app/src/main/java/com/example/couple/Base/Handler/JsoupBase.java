@@ -76,7 +76,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
         for (Map.Entry<String, String> entry : hashMap.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            conn = conn.data(key, value);
+            conn.data(key, value);
         }
 
         Document doc = conn.userAgent("Mozilla").post();

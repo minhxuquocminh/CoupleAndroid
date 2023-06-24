@@ -18,6 +18,8 @@ import com.example.couple.R;
 import com.example.couple.View.Account.ChangePasswordActivity;
 import com.example.couple.View.Account.SignInActivity;
 import com.example.couple.View.Account.SignUpActivity;
+import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
+import com.example.couple.View.UpdateDataInfo.UrlAndParamsActivity;
 import com.example.couple.ViewModel.Main.Personal.PersonalViewModel;
 
 public class PersonalFragment extends Fragment implements PersonalView {

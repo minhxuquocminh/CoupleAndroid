@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.couple.R;
-import com.example.couple.View.Sub.ExperianceActivity;
+import com.example.couple.View.SubScreen.ExperianceActivity;
 import com.example.couple.ViewModel.Main.HomePage.EnterPasswordViewModel;
 
 public class EnterPasswordDialog extends Dialog implements EnterPasswordView {
