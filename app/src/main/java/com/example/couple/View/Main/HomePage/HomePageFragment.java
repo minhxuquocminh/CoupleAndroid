@@ -240,9 +240,9 @@ public class HomePageFragment extends Fragment implements HomePageView {
         int size_to_show = (jackpotList.size() > 7) ? 7 : jackpotList.size();
         String de2Cang7Ngay = "Kết quả: ";
         for (int i = 0; i < size_to_show - 1; i++) {
-            de2Cang7Ngay += jackpotList.get(i).getCouple().toString() + ", ";
+            de2Cang7Ngay += jackpotList.get(i).getCouple().show() + ", ";
         }
-        de2Cang7Ngay += jackpotList.get(size_to_show - 1).getCouple().toString();
+        de2Cang7Ngay += jackpotList.get(size_to_show - 1).getCouple().show();
         tvSubJackpot.setText(de2Cang7Ngay);
     }
 

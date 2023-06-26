@@ -34,19 +34,27 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     EditText edtSets;
     CheckBox cboTouchs;
     EditText edtTouchs;
+    //
+    CheckBox cboLottoTouchBridge;
+    CheckBox cboCombineTouchBridge;
     CheckBox cboShadowTouchBridge;
     CheckBox cboConnectedBridge;
+    CheckBox cboNegativeShadowBridge;
+    CheckBox cboPositiveShadowBridge;
+    //
     CheckBox cboMappingBridge;
     CheckBox cboShadowMappingBridge;
     CheckBox cboPeriodBridge;
-    CheckBox cboNegativeShadowBridge;
-    CheckBox cboPositiveShadowBridge;
-    CheckBox cboLottoTouchBridge;
-    CheckBox cboCombineTouchBridge;
+    CheckBox cboMappingBridge0;
+    CheckBox cboMappingBridge1;
+    CheckBox cboMappingBridge2;
+    //
     CheckBox cboBigDoubleSet;
+    CheckBox cboSameDoubleSet;
+    CheckBox cboNearDoubleSet;
+    //
     Button btnFindingBridge;
-    Button btnTouchBridge;
-    Button btnShadowTouchBridge;
+    Button btnBridgeAnnotation;
     Button btnPeriodBridge;
     Button btnMappingBridge;
     Button btnShadowMappingBridge;
@@ -67,19 +75,27 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         edtSets = findViewById(R.id.edtSets);
         cboTouchs = findViewById(R.id.cboTouchs);
         edtTouchs = findViewById(R.id.edtTouchs);
-        cboShadowTouchBridge = findViewById(R.id.cboShadowTouchBridge);
-        cboConnectedBridge = findViewById(R.id.cboConnectedBridge);
-        cboMappingBridge = findViewById(R.id.cboMappingBridge);
-        cboShadowMappingBridge = findViewById(R.id.cboShadowMappingBridge);
-        cboPeriodBridge = findViewById(R.id.cboPeriodBridge);
-        cboNegativeShadowBridge = findViewById(R.id.cboNegativeShadowBridge);
-        cboPositiveShadowBridge = findViewById(R.id.cboPositiveShadowBridge);
+        // touch
         cboLottoTouchBridge = findViewById(R.id.cboLottoTouchBridge);
         cboCombineTouchBridge = findViewById(R.id.cboCombineTouchBridge);
+        cboShadowTouchBridge = findViewById(R.id.cboShadowTouchBridge);
+        cboConnectedBridge = findViewById(R.id.cboConnectedBridge);
+        cboNegativeShadowBridge = findViewById(R.id.cboNegativeShadowBridge);
+        cboPositiveShadowBridge = findViewById(R.id.cboPositiveShadowBridge);
+        // mapping, period
+        cboMappingBridge = findViewById(R.id.cboMappingBridge);
+        cboMappingBridge0 = findViewById(R.id.cboMappingBridge0);
+        cboMappingBridge1 = findViewById(R.id.cboMappingBridge1);
+        cboMappingBridge2 = findViewById(R.id.cboMappingBridge2);
+        cboShadowMappingBridge = findViewById(R.id.cboShadowMappingBridge);
+        cboPeriodBridge = findViewById(R.id.cboPeriodBridge);
+        // special set
         cboBigDoubleSet = findViewById(R.id.cboBigDoubleSet);
+        cboSameDoubleSet = findViewById(R.id.cboSameDoubleSet);
+        cboNearDoubleSet = findViewById(R.id.cboNearDoubleSet);
+        // button
         btnFindingBridge = findViewById(R.id.btnFindingBridge);
-        btnTouchBridge = findViewById(R.id.btnTouchBridge);
-        btnShadowTouchBridge = findViewById(R.id.btnShadowTouchBridge);
+        btnBridgeAnnotation = findViewById(R.id.btnBridgeAnnotation);
         btnPeriodBridge = findViewById(R.id.btnPeriodBridge);
         btnMappingBridge = findViewById(R.id.btnMappingBridge);
         btnShadowMappingBridge = findViewById(R.id.btnShadowMappingBridge);
@@ -110,47 +126,42 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
                 String numberOfDayStr = edtDayNumber.getText().toString().trim();
-                boolean shadowTouch = cboShadowTouchBridge.isChecked();
+                // touch
+                boolean combineTouch = cboCombineTouchBridge.isChecked();
                 boolean connected = cboConnectedBridge.isChecked();
+                boolean shadowTouch = cboShadowTouchBridge.isChecked();
                 boolean lottoTouch = cboLottoTouchBridge.isChecked();
+                boolean negativeShadow = cboNegativeShadowBridge.isChecked();
+                boolean positiveShadow = cboPositiveShadowBridge.isChecked();
+                // mapping, period
                 boolean mapping = cboMappingBridge.isChecked();
                 boolean shadowMapping = cboShadowMappingBridge.isChecked();
                 boolean period = cboPeriodBridge.isChecked();
-                boolean negativeShadow = cboNegativeShadowBridge.isChecked();
-                boolean positiveShadow = cboPositiveShadowBridge.isChecked();
-                boolean combineTouch = cboCombineTouchBridge.isChecked();
+                boolean mapping0 = cboMappingBridge0.isChecked();
+                boolean mapping1 = cboMappingBridge1.isChecked();
+                boolean mapping2 = cboMappingBridge2.isChecked();
+                // special set
                 boolean bigDouble = cboBigDoubleSet.isChecked();
+                boolean sameDouble = cboSameDoubleSet.isChecked();
+                boolean nearDouble = cboNearDoubleSet.isChecked();
                 if (!numberOfDayStr.equals("")) {
                     int numberOfDay = connected && Integer.parseInt(numberOfDayStr) >
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
                             Integer.parseInt(numberOfDayStr);
-                    viewModel.GetCombineBridgeList(jackpotList, lotteryList, numberOfDay,
-                            shadowTouch, connected, lottoTouch, mapping, shadowMapping, period,
-                            negativeShadow, positiveShadow, combineTouch, bigDouble);
+                    viewModel.GetCombineBridgeList(jackpotList, lotteryList, numberOfDay, combineTouch,
+                            connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow, mapping,
+                            shadowMapping, period, mapping0, mapping1, mapping2, bigDouble, sameDouble, nearDouble);
                 }
             }
         });
-        btnTouchBridge.setOnClickListener(new View.OnClickListener() {
+
+        btnBridgeAnnotation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                String numberOfDay = edtDayNumber.getText().toString().trim();
-                if (!numberOfDay.equals("") && Integer.parseInt(numberOfDay) <
-                        lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
-                    viewModel.GetTouchBridgeList(jackpotList, lotteryList, Integer.parseInt(numberOfDay));
-                }
-
-            }
-        });
-
-        btnShadowTouchBridge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                String numberOfDay = edtDayNumber.getText().toString().trim();
-                if (!numberOfDay.equals(""))
-                    viewModel.GetShadowTouchBridgeList(jackpotList, Integer.parseInt(numberOfDay));
+                WidgetBase.showDialog(
+                        BridgeCombinationActivity.this, "Chú giải", Const.BRIDGE_ANNOTATION);
             }
         });
 
@@ -217,15 +228,15 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
 
     @Override
     public void ShowAllBridgeToday(CombineBridge combineBridge) {
-        cboShadowTouchBridge.setText("Chạm bóng " + combineBridge.getShadowTouchBridge().showTouchs());
-        cboConnectedBridge.setText("Liên thông " + combineBridge.getConnectedBridge().showTouchs());
-        cboMappingBridge.setText("Ánh xạ " + combineBridge.getMappingBridge().getNumbers().size());
-        cboShadowMappingBridge.setText("Ánh xạ bóng " + combineBridge.getShadowMappingBridge().getNumbers().size());
-        cboPeriodBridge.setText("Khoảng " + combineBridge.getPeriodBridge().getNumbers().size());
-        cboNegativeShadowBridge.setText("Chạm bóng âm " + combineBridge.getNegativeShadowBridge().showTouchs());
-        cboPositiveShadowBridge.setText("Chạm bóng dương " + combineBridge.getPositiveShadowBridge().showTouchs());
-        cboLottoTouchBridge.setText("Chạm lô tô " + combineBridge.getLottoTouchBridge().showTouchs());
-        cboCombineTouchBridge.setText("Chạm kết hợp " + combineBridge.getCombineTouchBridge().showTouchs());
+        cboShadowTouchBridge.setText("bóng " + combineBridge.getShadowTouchBridge().showTouchs());
+        cboConnectedBridge.setText("liên thông " + combineBridge.getConnectedBridge().showTouchs());
+        cboMappingBridge.setText("ánh xạ " + combineBridge.getMappingBridge().getNumbers().size());
+        cboShadowMappingBridge.setText("ánh xạ bóng " + combineBridge.getShadowMappingBridge().getNumbers().size());
+        cboPeriodBridge.setText("khoảng " + combineBridge.getPeriodBridge().getNumbers().size());
+        cboNegativeShadowBridge.setText("bóng âm " + combineBridge.getNegativeShadowBridge().showTouchs());
+        cboPositiveShadowBridge.setText("bóng dương " + combineBridge.getPositiveShadowBridge().showTouchs());
+        cboLottoTouchBridge.setText("lô tô " + combineBridge.getLottoTouchBridge().showTouchs());
+        cboCombineTouchBridge.setText("kết hợp " + combineBridge.getCombineTouchBridge().showTouchs());
     }
 
     @Override
@@ -269,8 +280,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
 
     @Override
     public void ShowPeriodBridgeList(List<PeriodBridge> periodBridges) {
-        String show = "Ghi chú: nên chơi khi số lượng KQ tổ hợp lớn hơn hoặc bằng 55, " +
-                " nếu số lượng nhỏ hơn 55 thì cần xem lại thông tin chi tiết của cầu.\n";
+        String show = "";
         int count = 0;
         for (PeriodBridge bridge : periodBridges) {
             show += bridge.showBridge() + "\n";
@@ -283,10 +293,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
 
     @Override
     public void ShowMappingBridgeList(List<MappingBridge> mappingBridgeList) {
-        String show = "Ghi chú: nếu hôm trước có đầu 0 thì hôm sau dễ xịt, " +
-                "khi tạo hình của 2 hôm trước tạo nước đi khó thì cũng dễ bị lọt. " +
-                "Cần xem kĩ các thế đi của đề để có thể tạo ra tỉ lệ trúng cao. " +
-                "Số lượng tổ hợp hay xịt là { 72, 79 }.\n";
+        String show = "";
         int count = 0;
         for (MappingBridge bridge : mappingBridgeList) {
             show += bridge.showBridge() + "\n";
@@ -299,10 +306,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
 
     @Override
     public void ShowShadowMappingBridgeList(List<ShadowMappingBridge> shadowMappingBridgeList) {
-        String show = "Ghi chú: nếu 1-2 hôm trước ra kép thì chơi ít lại, " +
-                "gặp số lượng tổ hợp là { 57, 52, 51 } thì hay bị xịt. " +
-                "Tỉ lệ trúng cao khi SLTH lớn hơn 70 rồi đến 60, " +
-                "các trường hợp nhỏ hơn vẫn có thể trúng nhưng xác suất khá thấp.\n";
+        String show = "";
         int count = 0;
         for (ShadowMappingBridge bridge : shadowMappingBridgeList) {
             show += bridge.showBridge() + "\n";

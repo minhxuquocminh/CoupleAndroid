@@ -1,5 +1,6 @@
 package com.example.couple.Base.Handler;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import java.util.Calendar;
 
 public class AlarmBase {
+    @SuppressLint("NewApi")
     public static void startAlarmEveryDay(Context context, Class<?> receiverClass, int REQUEST_CODE,
                                           int hour, int minute, int second) {
         Calendar calendar = Calendar.getInstance();
@@ -23,7 +25,7 @@ public class AlarmBase {
             calendar.add(Calendar.DATE, 1);
         }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
 }

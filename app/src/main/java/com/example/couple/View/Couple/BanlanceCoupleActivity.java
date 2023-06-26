@@ -90,7 +90,9 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
                 WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
                 String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
                 String filterDays = edtFilterDays.getText().toString().trim();
-                viewModel.GetPeriodHistory(jackpotList, dayNumberBefore, filterDays);
+                if (!dayNumberBefore.equals("") && !filterDays.equals("")) {
+                    viewModel.GetPeriodHistory(jackpotList, dayNumberBefore, filterDays);
+                }
             }
         });
         tvViewCombineBridge.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +101,9 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
                 WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
                 String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
                 int bridgeType = cboCombineBridgeCheck.isChecked() ? 1 : 0;
-                viewModel.GetCombineBridge(jackpotList, dayNumberBefore, bridgeType);
+                if (!dayNumberBefore.equals("")) {
+                    viewModel.GetCombineBridge(jackpotList, dayNumberBefore, bridgeType);
+                }
             }
         });
 

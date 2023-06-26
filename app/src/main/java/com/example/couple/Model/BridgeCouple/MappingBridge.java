@@ -13,6 +13,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class MappingBridge implements CombineInterface {
+    String bridgeName;
     List<Integer> numbers;
     JackpotHistory jackpotHistory;
 
@@ -20,14 +21,14 @@ public class MappingBridge implements CombineInterface {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
         show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - " + Const.MAPPING_BRIDGE_NAME + ": " + showNumbers() + " (" + numbers.size() + " số).";
+        show += "    - " + bridgeName + ": " + showNumbers() + " (" + numbers.size() + " số).";
         return show;
     }
 
     public String showCompactBridge() {
         String show = "";
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - " + Const.MAPPING_BRIDGE_NAME + win + ": " + numbers.size() + " số.";
+        show += "    - " + bridgeName + win + ": " + numbers.size() + " số.";
         return show;
     }
 
@@ -40,7 +41,7 @@ public class MappingBridge implements CombineInterface {
     }
 
     public static MappingBridge getEmpty() {
-        return new MappingBridge(new ArrayList<>(), JackpotHistory.getEmpty());
+        return new MappingBridge("", new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {

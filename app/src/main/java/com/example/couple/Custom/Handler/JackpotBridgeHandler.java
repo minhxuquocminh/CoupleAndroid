@@ -111,38 +111,51 @@ public class JackpotBridgeHandler {
         return new ShadowMappingBridge(first, second, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static MappingBridge GetMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
+    public static MappingBridge GetMappingBridge(List<Jackpot> reverseJackpotList,
+                                                 int mappingType, int dayNumberBefore) {
         if (reverseJackpotList.size() < dayNumberBefore + 2)
             return MappingBridge.getEmpty();
-        List<Integer> firstList = reverseJackpotList.get(dayNumberBefore + 1).getCouple().getMappingNumbers();
-        List<Integer> secondList = reverseJackpotList.get(dayNumberBefore).getCouple().getMappingNumbers();
+        List<Integer> firstList = reverseJackpotList.get(dayNumberBefore + 1)
+                .getCouple().getMappingNumbers(mappingType);
+        List<Integer> secondList = reverseJackpotList.get(dayNumberBefore)
+                .getCouple().getMappingNumbers(mappingType);
         for (int second : secondList) {
             if (!firstList.contains(second)) {
                 firstList.add(second);
             }
         }
+        Collections.sort(firstList);
+        String bridgeName = "";
+        switch (mappingType) {
+            case 0:
+                bridgeName = Const.MAPPING_BRIDGE_NAME_0;
+                break;
+            case 1:
+                bridgeName = Const.MAPPING_BRIDGE_NAME_1;
+                break;
+            case 2:
+                bridgeName = Const.MAPPING_BRIDGE_NAME_2;
+                break;
+            case Const.MAPPING_ALL:
+                bridgeName = Const.MAPPING_BRIDGE_NAME;
+                break;
+        }
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        Collections.sort(firstList);
-        return new MappingBridge(firstList, new JackpotHistory(dayNumberBefore, jackpot));
+        return new MappingBridge(bridgeName, firstList, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static ShadowTouchBridge GetNegativeShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < Const.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
-        String coupleLastWeek = reverseJackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple().toString();
-        int first = Integer.parseInt(coupleLastWeek.charAt(0) + "");
-        int second = Integer.parseInt(coupleLastWeek.charAt(1) + "");
+        Couple coupleLastWeek = reverseJackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
+        int first = coupleLastWeek.getFirst();
+        int second = coupleLastWeek.getSecond();
         touchs.add(CoupleHandler.getNegativeShadow(first));
         touchs.add(CoupleHandler.getNegativeShadow(second));
         if (first == second) touchs.add(first);
-        List<Integer> results = new ArrayList<>();
-        for (int touch : touchs) {
-            if (!results.contains(touch)) {
-                results.add(touch);
-            }
-        }
+        List<Integer> results = NumberBase.filterDuplicatedNumbers(touchs);
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
@@ -154,18 +167,13 @@ public class JackpotBridgeHandler {
         if (reverseJackpotList.size() < Const.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
-        String coupleLastWeek = reverseJackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple().toString();
-        int first = Integer.parseInt(coupleLastWeek.charAt(0) + "");
-        int second = Integer.parseInt(coupleLastWeek.charAt(1) + "");
+        Couple coupleLastWeek = reverseJackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
+        int first = coupleLastWeek.getFirst();
+        int second = coupleLastWeek.getSecond();
         touchs.add(CoupleHandler.getShadow(first));
         touchs.add(CoupleHandler.getShadow(second));
         if (first == second) touchs.add(first);
-        List<Integer> results = new ArrayList<>();
-        for (int touch : touchs) {
-            if (!results.contains(touch)) {
-                results.add(touch);
-            }
-        }
+        List<Integer> results = NumberBase.filterDuplicatedNumbers(touchs);
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
@@ -173,27 +181,22 @@ public class JackpotBridgeHandler {
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static ShadowTouchBridge GetShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
-        if (reverseJackpotList.size() < Const.DAY_OF_WEEK + dayNumberBefore)
+    public static ShadowTouchBridge GetShadowTouchBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.size() - Const.DAY_OF_WEEK < dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
-        String coupleLastWeek = reverseJackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple().toString();
-        int first = Integer.parseInt(coupleLastWeek.charAt(0) + "");
-        int second = Integer.parseInt(coupleLastWeek.charAt(1) + "");
+        Couple coupleLastWeek = jackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
+        int first = coupleLastWeek.getFirst();
+        int second = coupleLastWeek.getSecond();
         touchs.add(CoupleHandler.getNegativeShadow(first));
         touchs.add(CoupleHandler.getNegativeShadow(second));
         touchs.add(CoupleHandler.getShadow(first));
         touchs.add(CoupleHandler.getShadow(second));
         if (first == second) touchs.add(first);
-        List<Integer> results = new ArrayList<>();
-        for (int touch : touchs) {
-            if (!results.contains(touch)) {
-                results.add(touch);
-            }
-        }
+        List<Integer> results = NumberBase.filterDuplicatedNumbers(touchs);
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(Const.SHADOW_TOUCH_BRIDGE_NAME, results,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }

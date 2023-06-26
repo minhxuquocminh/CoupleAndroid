@@ -2,8 +2,11 @@ package com.example.couple.View.JackpotStatistics;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,9 +23,12 @@ import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotByYearViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class JackpotByYearActivity extends AppCompatActivity implements JackpotByYearView {
-    EditText edtYear;
+    Spinner spnYear;
     TextView tvGetData;
     HorizontalScrollView hsTable;
     TextView tvNote;
@@ -34,25 +40,22 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jackpot_by_year);
 
-        edtYear = findViewById(R.id.edtYear);
+        spnYear = findViewById(R.id.spnYear);
         tvGetData = findViewById(R.id.tvGetData);
         hsTable = findViewById(R.id.hsTable);
         tvNote = findViewById(R.id.tvNote);
 
-        viewModel = new JackpotByYearViewModel(this, this);
-
-        edtYear.setText(TimeInfo.CURRENT_YEAR + "");
-        edtYear.setSelection(edtYear.getText().length());
         tvNote.setVisibility(View.GONE);
 
-        viewModel.GetTableOfJackpot(TimeInfo.CURRENT_YEAR + "");
+        viewModel = new JackpotByYearViewModel(this, this);
+        viewModel.GetYearList();
 
         tvGetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(JackpotByYearActivity.this);
-                String year = edtYear.getText().toString().trim();
-                viewModel.GetTableOfJackpot(year);
+                String year = spnYear.getSelectedItem().toString().split(" ")[1].trim();
+                viewModel.GetTableOfJackpot(Integer.parseInt(year));
             }
         });
 
@@ -64,13 +67,27 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
     }
 
     @Override
+    public void ShowYearList(List<Integer> yearList) {
+        List<String> yearStrList = new ArrayList<>();
+        for (int year : yearList) {
+            yearStrList.add("Năm " + year);
+        }
+        ArrayAdapter adapter = new ArrayAdapter(this,
+                R.layout.custom_item_spn_year, R.id.tvYear, yearStrList);
+        spnYear.setAdapter(adapter);
+        viewModel.GetTableOfJackpot(TimeInfo.CURRENT_YEAR);
+    }
+
+    @Override
     public void ShowTableOfJackpot(String[][] matrix, int year) {
         DateBase lastDate = JackpotHandler.getLastDate(this);
         DateBase selectedDate = lastDate.plusDays(1);
         int row = selectedDate.getDay() - 1;
         int col = selectedDate.getMonth() - 1;
         String selected = IOFileBase.readDataFromFile(this, Const.SELECTED_NUMBER_FILE_NAME);
-        matrix[row][col] = selected.equals("") ? "" : "123" + selected;
+        if (year == TimeInfo.CURRENT_YEAR) {
+            matrix[row][col] = selected.equals("") ? "" : "888" + selected;
+        }
         tvNote.setVisibility(View.VISIBLE);
         TableLayout tableLayout = CustomTableLayout.getJackpotMatrixByYear(this, matrix,
                 31, 12, year);

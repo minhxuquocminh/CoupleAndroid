@@ -1,15 +1,18 @@
-package com.example.couple.Custom.Handler;
+package com.example.couple.Custom.Old.HandleData;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.example.couple.R;
+import com.example.couple.View.Main.MainActivity;
 
 // class notification helper
 public class UpdateDataNotification extends ContextWrapper {
@@ -18,17 +21,13 @@ public class UpdateDataNotification extends ContextWrapper {
 
     private NotificationManager mManager;
     Context context;
-    String title;
-    String content;
 
-    public UpdateDataNotification(Context context, String title, String content) {
+    public UpdateDataNotification(Context context) {
         super(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
         }
         this.context = context;
-        this.title = title;
-        this.content = content;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -47,10 +46,19 @@ public class UpdateDataNotification extends ContextWrapper {
         return mManager;
     }
 
-    public NotificationCompat.Builder getChannelNotification() {
+    private NotificationCompat.Builder getChannelNotification(String title, String content) {
+        Intent notificationIntent = new Intent(context, MainActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
         return new NotificationCompat.Builder(context, channelID)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setSmallIcon(R.drawable.ic_launcher_background);
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentIntent(pendingIntent);
+    }
+
+    public void pushNotification(String title, String content) {
+        NotificationCompat.Builder nb = getChannelNotification(title, content);
+        mManager.notify(1, nb.build());
     }
 }

@@ -30,6 +30,15 @@ public class WidgetBase {
                 .setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 
+    public static void showDialog(Context context, String title, String message) {
+        new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setNegativeButton("OK", null)
+                .setIcon(android.R.drawable.ic_dialog_alert).show();
+    }
+
+
     public static void copyToClipboard(Context context, String label, String text) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(label, text);

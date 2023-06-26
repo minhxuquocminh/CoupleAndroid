@@ -10,16 +10,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
+import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Handler.UpdateDataNotification;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
@@ -126,6 +125,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
     @Override
     public void ShowStartYear(int year) {
         edtStart.setText(year + "");
+        edtStart.setSelection(edtStart.length());
     }
 
     @Override
@@ -147,7 +147,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                             .GetReserveJackpotListFromFile(context, 1);
                     content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
                             jackpotList.get(0).getJackpot() + ".";
-                    pushNotification(context, title, content);
+                    NotificationBase.pushNotification(context, title, content);
                     getDataIfNeeded(context);
                 }
             } catch (ExecutionException e) {
@@ -176,12 +176,5 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
             e.printStackTrace();
         }
     }
-
-    private void pushNotification(Context context, String title, String content) {
-        UpdateDataNotification notification = new UpdateDataNotification(context, title, content);
-        NotificationCompat.Builder nb = notification.getChannelNotification();
-        notification.getManager().notify(1, nb.build());
-    }
-
 
 }

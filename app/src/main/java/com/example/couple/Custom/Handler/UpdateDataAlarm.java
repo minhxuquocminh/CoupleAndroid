@@ -4,10 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import androidx.core.app.NotificationCompat;
-
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
+import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Origin.Jackpot;
@@ -24,7 +23,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         } else {
             String title = "XSMB";
             String content = "Lỗi lấy kết quả XS Đặc biệt Miền Bắc (Lỗi không có mạng).";
-            pushNotification(context, title, content);
+            NotificationBase.pushNotification(context, title, content);
         }
     }
 
@@ -41,7 +40,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
                             .GetReserveJackpotListFromFile(context, 1);
                     content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
                             jackpotList.get(0).getJackpot() + ".";
-                    pushNotification(context, title, content);
+                    NotificationBase.pushNotification(context, title, content);
                     getDataIfNeeded(context);
                 }
             } catch (ExecutionException e) {
@@ -69,12 +68,6 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    private void pushNotification(Context context, String title, String content) {
-        UpdateDataNotification notification = new UpdateDataNotification(context, title, content);
-        NotificationCompat.Builder nb = notification.getChannelNotification();
-        notification.getManager().notify(1, nb.build());
     }
 
 

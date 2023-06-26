@@ -48,7 +48,7 @@ public class CustomTableLayout {
         }
         for (int i = monday_start; i >= 0; i--) {
             count++;
-            String couple = reverseJackpotList.get(i).getCouple().toString();
+            String couple = reverseJackpotList.get(i).getCouple().show();
             int firstNegativeShadow = CoupleHandler.getNegativeShadow(Integer.parseInt(couple.charAt(0) + ""));
             int secondNegativeShadow = CoupleHandler.getNegativeShadow(Integer.parseInt(couple.charAt(1) + ""));
             row.addView(CustomLinearLayout.GetItemCoupleByWeekLinearLayout(context,
@@ -78,7 +78,7 @@ public class CustomTableLayout {
 
         for (int i = 0; i < couples.size(); i++) {
             TableRow row = new TableRow(context);
-            row.addView(getCellOfCoupleTable(context, couples.get(i).toString()));
+            row.addView(getCellOfCoupleTable(context, couples.get(i).show()));
             tableLayout.addView(row);
         }
         if (type >= 0) {

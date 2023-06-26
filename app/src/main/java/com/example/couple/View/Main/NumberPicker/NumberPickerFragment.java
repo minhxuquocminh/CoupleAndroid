@@ -515,7 +515,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         viewModel.GetSubCoupleLastMonth(lastCouple.getDateBase());
         listMP = "";
         for (int i = subCoupleList.size() - 1; i >= 0; i--) {
-            listMP += subCoupleList.get(i).toString();
+            listMP += subCoupleList.get(i).show();
             if (i != 0) {
                 listMP += ", ";
             }

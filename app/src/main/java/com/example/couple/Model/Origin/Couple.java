@@ -1,5 +1,7 @@
 package com.example.couple.Model.Origin;
 
+import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Model.Display.BCouple;
@@ -19,11 +21,6 @@ public class Couple {
     private int first;
     private int second;
     private DateBase dateBase;
-
-    public boolean isDouble() {
-        // kép = hoặc lệch
-        return first == second || first == CoupleHandler.getShadow(second);
-    }
 
     public ShadowSingle getShadowSingle() {
         List<Single> firstsTens = new ArrayList<>();
@@ -71,9 +68,12 @@ public class Couple {
         return secondList;
     }
 
-    public List<Integer> getMappingNumbers() {
+    public List<Integer> getMappingNumbers(int mappingType) {
         List<Integer> numbers = CoupleHandler.getMappingNumbers(getCoupleInt());
-        for (int i = 1; i <= 2; i++) {
+        if (mappingType == 0) return numbers;
+        int start = mappingType == Const.MAPPING_ALL ? 1 : mappingType;
+        int end = mappingType == Const.MAPPING_ALL ? 2 : mappingType;
+        for (int i = start; i <= end; i++) {
             if (first - i >= 0) {
                 int top = (first - i) * 10 + second;
                 List<Integer> topList = CoupleHandler.getMappingNumbers(top);
@@ -99,14 +99,9 @@ public class Couple {
             }
         }
 
-        List<Integer> results = new ArrayList<>();
-        for (int num : numbers) {
-            if (!results.contains(num)) {
-                results.add(num);
-            }
-        }
-
+        List<Integer> results = NumberBase.filterDuplicatedNumbers(numbers);
         Collections.sort(results);
+
         return results;
     }
 
@@ -116,17 +111,17 @@ public class Couple {
 
     public int plus(Couple cp) {
         int cp1 = Integer.parseInt(first + "" + second);
-        int cp2 = Integer.parseInt(cp.toString());
+        int cp2 = Integer.parseInt(cp.show());
         return cp1 + cp2;
     }
 
     public int sub(Couple cp) {
         int cp1 = Integer.parseInt(first + "" + second);
-        int cp2 = Integer.parseInt(cp.toString());
+        int cp2 = Integer.parseInt(cp.show());
         return cp1 - cp2;
     }
 
-    public String toString() {
+    public String show() {
         return first + "" + second;
     }
 
@@ -136,6 +131,11 @@ public class Couple {
 
     public boolean isSameDouble() {
         return first == second;
+    }
+
+    public boolean isDouble() {
+        // kép = hoặc lệch
+        return first == second || first == CoupleHandler.getShadow(second);
     }
 
     public boolean isDeviatedDouble() {

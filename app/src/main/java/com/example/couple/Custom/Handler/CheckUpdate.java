@@ -36,4 +36,11 @@ public class CheckUpdate {
         return !lotteries.get(0).getDateBase().isToday();
     }
 
+    public static boolean checkDataSync(Context context) {
+        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 1);
+        List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, 1);
+        if (jackpotList.isEmpty() || lotteries.isEmpty()) return false;
+        return jackpotList.get(0).getDateBase().equals(lotteries.get(0).getDateBase());
+    }
+
 }

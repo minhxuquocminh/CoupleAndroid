@@ -190,7 +190,7 @@ public class CreateNumberArrayViewModel {
 
         List<Integer> combineList = NumberBase.verifyNumberArray(combine, 2);
         if (combineList.size() == 0) {
-            if (!add.equals("")) {
+            if (!combine.equals("")) {
                 countError++;
                 error += " kết hợp;";
             }

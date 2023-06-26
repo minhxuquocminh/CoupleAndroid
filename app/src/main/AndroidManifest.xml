@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -18,11 +19,8 @@
 
         <receiver
             android:name=".Custom.Handler.UpdateDataAlarm"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.example.couple.alarms" />
-            </intent-filter>
-        </receiver>
+            android:enabled="true"
+            android:exported="true"></receiver>
 
         <activity
             android:name=".View.Main.MainActivity"
@@ -66,6 +64,8 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity android:name=".View.Bridge.ReferenceBridgeActivity" />
+
+        <activity android:name=".View.Bridge.BridgeCombinationActivity" />
 
         <activity android:name=".View.SubScreen.ExperianceActivity" />
 

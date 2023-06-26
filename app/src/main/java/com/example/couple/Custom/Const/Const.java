@@ -21,10 +21,14 @@ public class Const {
     public static final List<Integer> CLAW_BRIDGE_SEARCHING_DAYS = Arrays.asList(12, 14, 16, 18);
     public static final int TRIAD_SET_BRIDGE_MAX_DISPLAY = 25;
     public static final int TRIAD_SET_BRIDGE_SEARCHING_DAYS = 10;
+    public static final int MAPPING_ALL = 999;
 
     public static final String SHADOW_TOUCH_BRIDGE_NAME = "Cầu chạm bóng";
     public static final String LOTTO_TOUCH_BRIDGE_NAME = "Cầu chạm lô tô";
     public static final String MAPPING_BRIDGE_NAME = "Cầu ánh xạ";
+    public static final String MAPPING_BRIDGE_NAME_0 = "Cầu ánh xạ 0";
+    public static final String MAPPING_BRIDGE_NAME_1 = "Cầu ánh xạ 1";
+    public static final String MAPPING_BRIDGE_NAME_2 = "Cầu ánh xạ 2";
     public static final String SHADOW_MAPPING_BRIDGE_NAME = "Cầu ánh xạ bóng";
     public static final String PERIOD_BRIDGE_NAME = "Cầu khoảng";
     public static final String CONNECTED_BRIDGE_NAME = "Cầu liên thông";
@@ -116,5 +120,16 @@ public class Const {
     public static final String NUMBER_ARRAY_FILE_NAME = "number_array.txt";
     public static final String SELECTED_NUMBER_FILE_NAME = "selected_number.txt";
 
-
+    public static final String BRIDGE_ANNOTATION =
+            " * Ghi chú: " +
+                    "    - Đối với cầu khoảng: nên chơi khi số lượng KQ tổ hợp lớn hơn hoặc bằng 55, " +
+                    "nếu số lượng nhỏ hơn 55 thì cần xem lại thông tin chi tiết của cầu.\n" +
+                    "    - Đối với cầu ánh xạ: nếu hôm trước có đầu 0 thì hôm sau dễ xịt, " +
+                    "khi tạo hình của 2 hôm trước tạo nước đi khó thì cũng dễ bị lọt. " +
+                    "Cần xem kĩ các thế đi của đề để có thể tạo ra tỉ lệ trúng cao. " +
+                    "Số lượng tổ hợp hay xịt là { 72, 79 }.\n" +
+                    "    - Đối với cầu ánh xạ bóng: nếu 1-2 hôm trước ra kép thì chơi ít lại, " +
+                    "gặp số lượng tổ hợp là { 57, 52, 51 } thì hay bị xịt. " +
+                    "Tỉ lệ trúng cao khi SLTH lớn hơn 70 rồi đến 60, " +
+                    "các trường hợp nhỏ hơn vẫn có thể trúng nhưng xác suất khá thấp.\n";
 }

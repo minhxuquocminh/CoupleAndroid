@@ -71,6 +71,7 @@ public class UrlAndParamsInfoActivity extends AppCompatActivity implements UrlAn
     @Override
     public void ShowUrlAndParams(String[] arr) {
         edtUrl.setText(arr[0].trim());
+        edtUrl.setSelection(edtUrl.length());
         edtClassName.setText(arr[1].trim());
     }
 
@@ -80,6 +81,7 @@ public class UrlAndParamsInfoActivity extends AppCompatActivity implements UrlAn
             setResult(RESULT_CANCELED);
         } else if (status == 1) {
             setResult(RESULT_OK);
+            Toast.makeText(this, "Lưu thành công.", Toast.LENGTH_SHORT).show();
         }
         finish();
     }
