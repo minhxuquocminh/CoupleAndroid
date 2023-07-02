@@ -1,6 +1,7 @@
 package com.example.couple.Base.Handler;
 
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Handler.CoupleHandler;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -24,6 +25,18 @@ public class DateBase implements Serializable {
     int day;
     int month;
     int year;
+
+    public static DateBase getEmpty() {
+        return new DateBase(0, 0, 0);
+    }
+
+    public boolean isEmpty() {
+        return day == 0 || month == 0 || year == 0;
+    }
+
+    public static DateBase TO_DAY() {
+        return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
+    }
 
     public DateBase plusDays(int numberOfDays) {
         Date date = toDate();
@@ -118,4 +131,9 @@ public class DateBase implements Serializable {
         String monthStr = month < 10 ? "0" + month : "" + month;
         return dayStr + "-" + monthStr + "-" + year;
     }
+
+    public String showDDMM(String delimiter) {
+        return CoupleHandler.showCouple(day) + delimiter + CoupleHandler.showCouple(month);
+    }
+
 }

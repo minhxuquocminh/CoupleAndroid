@@ -62,6 +62,21 @@ public class NumberBase {
         return filteredNumber;
     }
 
+    public static List<Integer> getDuplicatedNumbers(List<Integer> numbers) {
+        if (numbers.size() == 0) return new ArrayList<>();
+        List<Integer> results = new ArrayList<>();
+        List<Integer> initNumbers = new ArrayList<>();
+        for (int number : numbers) {
+            if (!initNumbers.contains(number)) {
+                initNumbers.add(number);
+            } else {
+                results.add(number);
+            }
+        }
+        return results;
+    }
+
+
     // numberLength = 1 : số nhỏ hơn 10, numberLength = 2 số nhỏ hơn 100,....
     public static List<Number> verifyNumberArr(String numberArray, int numberLength) {
         if (numberArray.equals("")) return new ArrayList<>();

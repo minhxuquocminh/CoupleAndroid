@@ -6,7 +6,9 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
+import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.BridgeCouple.CombineBridge;
+import com.example.couple.Model.BridgeCouple.CycleBridge;
 import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.BridgeCouple.PeriodBridge;
 import com.example.couple.Model.BridgeCouple.ShadowMappingBridge;
@@ -18,6 +20,7 @@ import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Support.TimeBase;
 import com.example.couple.View.Bridge.BridgeCombinationView;
 
 import java.util.ArrayList;
@@ -35,7 +38,8 @@ public class BridgeCombinationViewModel {
     public void GetLotteryAndJackpotList() {
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, Const.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        view.ShowLotteryAndJackpotList(jackpotList, lotteryList);
+        List<TimeBase> timeBaseList = TimeHandler.getAllSexagenaryCycle(context, Const.MAX_DAYS_TO_GET_CYCLE);
+        view.ShowLotteryAndJackpotList(jackpotList, lotteryList, timeBaseList);
     }
 
     public void GetAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
@@ -62,19 +66,20 @@ public class BridgeCombinationViewModel {
             CombineBridge combineBridge = new CombineBridge(combineTouchBridge, connectedBridge,
                     shadowTouchBridge, lottoTouchBridge, negativeShadowBridge, positiveShadowBridge,
                     mappingBridge, shadowMappingBridge, periodBridge, MappingBridge.getEmpty(),
-                    MappingBridge.getEmpty(), MappingBridge.getEmpty(), SpecialSet.getEmpty(),
+                    CycleBridge.getEmpty(), CycleBridge.getEmpty(), SpecialSet.getEmpty(),
                     SpecialSet.getEmpty(), SpecialSet.getEmpty(),
                     new JackpotHistory(0, Jackpot.getEmpty()));
             view.ShowAllBridgeToday(combineBridge);
         }
     }
 
-    public void GetCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList, int numberOfDay,
+    public void GetCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList,
+                                     List<TimeBase> timeBaseList, int numberOfDay,
                                      boolean combineTouch, boolean connected, boolean shadowTouch,
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
-                                     boolean mapping, boolean shadowMapping, boolean period, boolean mapping0,
-                                     boolean mapping1, boolean mapping2, boolean bigDouble, boolean sameDouble,
-                                     boolean nearDouble) {
+                                     boolean mapping, boolean shadowMapping, boolean period, boolean mapping1,
+                                     boolean compatible, boolean incompatible, boolean bigDouble,
+                                     boolean sameDouble, boolean nearDouble) {
         List<CombineBridge> combineBridges = new ArrayList<>();
         if (connected && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
             view.ShowError("Đặt lại giới hạn số ngày cho cầu liên thông là " +
@@ -105,12 +110,12 @@ public class BridgeCombinationViewModel {
                     .GetShadowMappingBridge(jackpotList, i) : ShadowMappingBridge.getEmpty();
             PeriodBridge periodBridge = period ? JackpotBridgeHandler
                     .GetPeriodBridge(jackpotList, i) : PeriodBridge.getEmpty();
-            MappingBridge mappingBridge0 = mapping0 ? JackpotBridgeHandler
-                    .GetMappingBridge(jackpotList, 0, i) : MappingBridge.getEmpty();
             MappingBridge mappingBridge1 = mapping1 ? JackpotBridgeHandler
                     .GetMappingBridge(jackpotList, 1, i) : MappingBridge.getEmpty();
-            MappingBridge mappingBridge2 = mapping2 ? JackpotBridgeHandler
-                    .GetMappingBridge(jackpotList, 2, i) : MappingBridge.getEmpty();
+            CycleBridge compatibleBridge = compatible ? JackpotBridgeHandler
+                    .GetCompatibleCycleBridge(jackpotList, timeBaseList, i) : CycleBridge.getEmpty();
+            CycleBridge incompatibleBridge = incompatible ? JackpotBridgeHandler
+                    .GetIncompatibleCycleBridge(jackpotList, timeBaseList, i) : CycleBridge.getEmpty();
             // jackpot
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             // special set
@@ -122,8 +127,8 @@ public class BridgeCombinationViewModel {
                     Const.NEAR_DOUBLE_SET, new JackpotHistory(i, jackpot)) : SpecialSet.getEmpty();
             CombineBridge combineBridge = new CombineBridge(combineTouchBridge, connectedBridge,
                     shadowTouchBridge, lottoTouchBridge, negativeShadowBridge, positiveShadowBridge,
-                    mappingBridge, shadowMappingBridge, periodBridge, mappingBridge0, mappingBridge1,
-                    mappingBridge2, bigDoubleSet, sameDoubleSet, nearDoubleSet, new JackpotHistory(i, jackpot));
+                    mappingBridge, shadowMappingBridge, periodBridge, mappingBridge1, compatibleBridge,
+                    incompatibleBridge, bigDoubleSet, sameDoubleSet, nearDoubleSet, new JackpotHistory(i, jackpot));
             combineBridges.add(combineBridge);
         }
         if (combineBridges.isEmpty()) {

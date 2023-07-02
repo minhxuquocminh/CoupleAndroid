@@ -27,9 +27,9 @@ public class CombineBridge {
     MappingBridge mappingBridge;
     ShadowMappingBridge shadowMappingBridge;
     PeriodBridge periodBridge;
-    MappingBridge mappingBridge0;
     MappingBridge mappingBridge1;
-    MappingBridge mappingBridge2;
+    CycleBridge compatibleCycleBridge;
+    CycleBridge incompatibleCycleBridge;
     // special set
     SpecialSet bigDoubleSet;
     SpecialSet sameDoubleSet;
@@ -43,8 +43,8 @@ public class CombineBridge {
                          ShadowTouchBridge shadowTouchBridge, LottoTouchBridge lottoTouchBridge,
                          ShadowTouchBridge negativeShadowBridge, ShadowTouchBridge positiveShadowBridge,
                          MappingBridge mappingBridge, ShadowMappingBridge shadowMappingBridge,
-                         PeriodBridge periodBridge, MappingBridge mappingBridge0,
-                         MappingBridge mappingBridge1, MappingBridge mappingBridge2,
+                         PeriodBridge periodBridge, MappingBridge mappingBridge1,
+                         CycleBridge compatibleCycleBridge, CycleBridge incompatibleCycleBridge,
                          SpecialSet bigDoubleSet, SpecialSet sameDoubleSet, SpecialSet nearDoubleSet,
                          JackpotHistory jackpotHistory) {
         // touch
@@ -58,9 +58,9 @@ public class CombineBridge {
         this.mappingBridge = mappingBridge;
         this.shadowMappingBridge = shadowMappingBridge;
         this.periodBridge = periodBridge;
-        this.mappingBridge0 = mappingBridge0;
         this.mappingBridge1 = mappingBridge1;
-        this.mappingBridge2 = mappingBridge2;
+        this.compatibleCycleBridge = compatibleCycleBridge;
+        this.incompatibleCycleBridge = incompatibleCycleBridge;
         // special set
         this.bigDoubleSet = bigDoubleSet;
         this.sameDoubleSet = sameDoubleSet;
@@ -97,14 +97,14 @@ public class CombineBridge {
         if (!periodBridge.isEmpty()) {
             this.bridgeNames.add(Const.PERIOD_BRIDGE_NAME);
         }
-        if (!mappingBridge0.isEmpty()) {
-            this.bridgeNames.add(Const.MAPPING_BRIDGE_NAME_0);
-        }
         if (!mappingBridge1.isEmpty()) {
             this.bridgeNames.add(Const.MAPPING_BRIDGE_NAME_1);
         }
-        if (!mappingBridge2.isEmpty()) {
-            this.bridgeNames.add(Const.MAPPING_BRIDGE_NAME_2);
+        if (!compatibleCycleBridge.isEmpty()) {
+            this.bridgeNames.add(Const.COMPATIBLE_CYCLE_BRIDGE_NAME);
+        }
+        if (!incompatibleCycleBridge.isEmpty()) {
+            this.bridgeNames.add(Const.INCOMPATIBLE_CYCLE_BRIDGE_NAME);
         }
         // special set
         if (!bigDoubleSet.isEmpty()) {
@@ -165,12 +165,12 @@ public class CombineBridge {
                 return this.shadowMappingBridge;
             case Const.PERIOD_BRIDGE_NAME:
                 return this.periodBridge;
-            case Const.MAPPING_BRIDGE_NAME_0:
-                return this.mappingBridge0;
             case Const.MAPPING_BRIDGE_NAME_1:
                 return this.mappingBridge1;
-            case Const.MAPPING_BRIDGE_NAME_2:
-                return this.mappingBridge2;
+            case Const.COMPATIBLE_CYCLE_BRIDGE_NAME:
+                return this.compatibleCycleBridge;
+            case Const.INCOMPATIBLE_CYCLE_BRIDGE_NAME:
+                return this.incompatibleCycleBridge;
             // special set
             case Const.BIG_DOUBLE_SET_NAME:
                 return this.bigDoubleSet;

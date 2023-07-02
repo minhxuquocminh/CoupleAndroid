@@ -3,6 +3,8 @@ package com.example.couple.Custom.Handler;
 import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Model.BridgeCouple.CycleBridge;
 import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.BridgeCouple.PeriodBridge;
 import com.example.couple.Model.BridgeCouple.ShadowMappingBridge;
@@ -12,6 +14,8 @@ import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
 import com.example.couple.Model.BridgeSingle.ConnectedBridge;
 import com.example.couple.Model.BridgeSingle.LottoTouchBridge;
 import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
+import com.example.couple.Model.Cycle.Cycle;
+import com.example.couple.Model.Cycle.YearCycle;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Display.SpecialNumbersHistory;
@@ -28,6 +32,7 @@ import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.Position;
 import com.example.couple.Model.Support.ShadowSingle;
 import com.example.couple.Model.Support.SupportTriad;
+import com.example.couple.Model.Support.TimeBase;
 import com.example.couple.Model.Support.TriadSets;
 
 import java.util.ArrayList;
@@ -36,6 +41,34 @@ import java.util.Comparator;
 import java.util.List;
 
 public class JackpotBridgeHandler {
+
+    /**
+     * work with jackpot and others
+     */
+
+    public static CycleBridge GetCompatibleCycleBridge(List<Jackpot> jackpotList,
+                                                       List<TimeBase> timeBases, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore || timeBases.size() < dayNumberBefore + 1)
+            return CycleBridge.getEmpty();
+        Cycle cycleDay = timeBases.get(dayNumberBefore).getDateCycle().getDay();
+        List<YearCycle> yearCycles =
+                cycleDay.getCompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        return new CycleBridge(Const.COMPATIBLE_CYCLE_BRIDGE_NAME,
+                yearCycles, new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
+    public static CycleBridge GetIncompatibleCycleBridge(List<Jackpot> jackpotList,
+                                                         List<TimeBase> timeBases, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore || timeBases.size() < dayNumberBefore + 1)
+            return CycleBridge.getEmpty();
+        Cycle cycleDay = timeBases.get(dayNumberBefore).getDateCycle().getDay();
+        List<YearCycle> yearCycles =
+                cycleDay.getIncompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        return new CycleBridge(Const.INCOMPATIBLE_CYCLE_BRIDGE_NAME,
+                yearCycles, new JackpotHistory(dayNumberBefore, jackpot));
+    }
 
     /**
      * work with jackpot and lottery
@@ -127,14 +160,8 @@ public class JackpotBridgeHandler {
         Collections.sort(firstList);
         String bridgeName = "";
         switch (mappingType) {
-            case 0:
-                bridgeName = Const.MAPPING_BRIDGE_NAME_0;
-                break;
             case 1:
                 bridgeName = Const.MAPPING_BRIDGE_NAME_1;
-                break;
-            case 2:
-                bridgeName = Const.MAPPING_BRIDGE_NAME_2;
                 break;
             case Const.MAPPING_ALL:
                 bridgeName = Const.MAPPING_BRIDGE_NAME;

@@ -88,6 +88,23 @@ public class HomePageViewModel {
         }
     }
 
+    public boolean UpdateSexagenaryCycle(boolean showMessage) {
+        try {
+            String timeData = Api.GetSexagenaryCycleByDay(TimeInfo.CURRENT_DAY,
+                    TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
+            if (timeData.equals("")) {
+                homePageView.ShowError(showMessage ? "Lỗi không lấy được thông tin can chi!" : "");
+                return false;
+            }
+            IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, timeData, 0);
+            return true;
+        } catch (ExecutionException e) {
+            return false;
+        } catch (InterruptedException e) {
+            return false;
+        }
+    }
+
     public boolean UpdateJackpot(boolean showMessage) {
         try {
             String jackpotData = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);

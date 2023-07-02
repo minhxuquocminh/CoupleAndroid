@@ -33,6 +33,8 @@ import com.example.couple.R;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Main.MainActivity;
+import com.example.couple.View.SubScreen.CycleByYearActivity;
+import com.example.couple.View.SubScreen.SexagenaryCycleActivity;
 import com.example.couple.ViewModel.Main.CreateNumberArray.CreateNumberArrayViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -42,8 +44,8 @@ import java.util.List;
 public class CreateNumberArrayFragment extends Fragment implements CreateNumberArrayView {
     TextView tvViewBridge;
     TextView tvSpecialNumbersHistory;
-    TextView tvSecondSet;
-    TextView tvThirdSet;
+    TextView tvViewCycle;
+    TextView tvViewCycleByYear;
     EditText edtSet;
     EditText edtTouch;
     EditText edtSum;
@@ -87,8 +89,8 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
         tvViewBridge = viewParent.findViewById(R.id.tvViewBridge);
         tvSpecialNumbersHistory = viewParent.findViewById(R.id.tvSpecialNumbersHistory);
-        tvSecondSet = viewParent.findViewById(R.id.tvSecondSet);
-        tvThirdSet = viewParent.findViewById(R.id.tvThirdSet);
+        tvViewCycle = viewParent.findViewById(R.id.tvViewCycle);
+        tvViewCycleByYear = viewParent.findViewById(R.id.tvViewCycleByYear);
         edtSet = viewParent.findViewById(R.id.edtSet);
         edtTouch = viewParent.findViewById(R.id.edtTouch);
         edtSum = viewParent.findViewById(R.id.edtSum);
@@ -304,19 +306,19 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             }
         });
 
-        tvSecondSet.setOnClickListener(new View.OnClickListener() {
+        tvViewCycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(getActivity());
-                viewModel.GetNumberArrayLevel2(jackpotList, lotteryList);
+                startActivity(new Intent(getActivity(), SexagenaryCycleActivity.class));
             }
         });
 
-        tvThirdSet.setOnClickListener(new View.OnClickListener() {
+        tvViewCycleByYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(getActivity());
-                viewModel.GetNumberArrayLevel3(jackpotList, lotteryList);
+                startActivity(new Intent(getActivity(), CycleByYearActivity.class));
             }
         });
     }

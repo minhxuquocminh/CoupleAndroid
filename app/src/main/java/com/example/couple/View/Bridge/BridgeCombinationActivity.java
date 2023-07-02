@@ -23,6 +23,7 @@ import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
 import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.TimeBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Bridge.BridgeCombinationViewModel;
 
@@ -45,9 +46,9 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     CheckBox cboMappingBridge;
     CheckBox cboShadowMappingBridge;
     CheckBox cboPeriodBridge;
-    CheckBox cboMappingBridge0;
     CheckBox cboMappingBridge1;
-    CheckBox cboMappingBridge2;
+    CheckBox cboCompatible;
+    CheckBox cboIncompatible;
     //
     CheckBox cboBigDoubleSet;
     CheckBox cboSameDoubleSet;
@@ -84,9 +85,9 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboPositiveShadowBridge = findViewById(R.id.cboPositiveShadowBridge);
         // mapping, period
         cboMappingBridge = findViewById(R.id.cboMappingBridge);
-        cboMappingBridge0 = findViewById(R.id.cboMappingBridge0);
         cboMappingBridge1 = findViewById(R.id.cboMappingBridge1);
-        cboMappingBridge2 = findViewById(R.id.cboMappingBridge2);
+        cboCompatible = findViewById(R.id.cboCompatible);
+        cboIncompatible = findViewById(R.id.cboIncompatible);
         cboShadowMappingBridge = findViewById(R.id.cboShadowMappingBridge);
         cboPeriodBridge = findViewById(R.id.cboPeriodBridge);
         // special set
@@ -119,7 +120,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void ShowLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
+    public void ShowLotteryAndJackpotList(List<Jackpot> jackpotList,
+                                          List<Lottery> lotteryList, List<TimeBase> timeBaseList) {
         viewModel.GetAllBridgeToday(jackpotList, lotteryList);
         btnFindingBridge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,9 +139,9 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 boolean mapping = cboMappingBridge.isChecked();
                 boolean shadowMapping = cboShadowMappingBridge.isChecked();
                 boolean period = cboPeriodBridge.isChecked();
-                boolean mapping0 = cboMappingBridge0.isChecked();
                 boolean mapping1 = cboMappingBridge1.isChecked();
-                boolean mapping2 = cboMappingBridge2.isChecked();
+                boolean compatible = cboCompatible.isChecked();
+                boolean incompatible = cboIncompatible.isChecked();
                 // special set
                 boolean bigDouble = cboBigDoubleSet.isChecked();
                 boolean sameDouble = cboSameDoubleSet.isChecked();
@@ -149,9 +151,10 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
                             Integer.parseInt(numberOfDayStr);
-                    viewModel.GetCombineBridgeList(jackpotList, lotteryList, numberOfDay, combineTouch,
-                            connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow, mapping,
-                            shadowMapping, period, mapping0, mapping1, mapping2, bigDouble, sameDouble, nearDouble);
+                    viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseList, numberOfDay,
+                            combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
+                            mapping, shadowMapping, period, mapping1, compatible, incompatible, bigDouble,
+                            sameDouble, nearDouble);
                 }
             }
         });

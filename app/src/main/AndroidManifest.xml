@@ -75,6 +75,10 @@
 
         <activity android:name=".View.SubScreen.NoteInfoActivity" />
 
+        <activity android:name=".View.SubScreen.SexagenaryCycleActivity" />
+
+        <activity android:name=".View.SubScreen.CycleByYearActivity" />
+
         <activity android:name=".View.SubScreen.CalculatingBalanceCoupleActivity" />
 
         <activity android:name=".View.UpdateDataInfo.UrlAndParamsActivity" />

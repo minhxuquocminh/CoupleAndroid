@@ -9,12 +9,14 @@ import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
 import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.TimeBase;
 
 import java.util.List;
 
 public interface BridgeCombinationView {
     void ShowError(String message);
-    void ShowLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList);
+    void ShowLotteryAndJackpotList(List<Jackpot> jackpotList,
+                                   List<Lottery> lotteryList, List<TimeBase> timeBaseList);
     void ShowAllBridgeToday(CombineBridge combineBridge);
     void ShowCombineBridgeList(List<CombineBridge> combineBridges);
     void ShowTouchBridgeList(List<CombineTouchBridge> combineTouchBridges);
