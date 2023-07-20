@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Api {
-    public static String GetTimeDataFromInternet()
+    public static String GetTimeDataFromInternet(Context context)
             throws ExecutionException, InterruptedException {
         String link = Const.TIME_URL;
         List<String> listClassName = new ArrayList<>();
@@ -21,18 +21,18 @@ public class Api {
         listClassName.add("lvn-cld-monthyear");
         listClassName.add("lvn-cld-timebott-main");
 
-        JsoupBase jsoupBase = new JsoupBase(link, listClassName);
+        JsoupBase jsoupBase = new JsoupBase(context, link, listClassName);
         jsoupBase.execute();
         return jsoupBase.get();
     }
 
-    public static String GetSexagenaryCycleByDay(int day, int month, int year)
+    public static String GetSexagenaryCycleByDay(Context context, int day, int month, int year)
             throws ExecutionException, InterruptedException {
         String link = Const.TIME_URL + "xem-ngay-tot-xau-ngay-" + day + "-" + month + "-" + year;
         List<String> listClassName = new ArrayList<>();
         listClassName.add("lvn-xoneday-blocktop");
 
-        JsoupBase jsoupBase = new JsoupBase(link, listClassName);
+        JsoupBase jsoupBase = new JsoupBase(context, link, listClassName);
         jsoupBase.execute();
         return jsoupBase.get();
     }
@@ -48,7 +48,7 @@ public class Api {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("year", year + "");
 
-        JsoupBase jsoupBase = new JsoupBase(link, listClassName, hashMap);
+        JsoupBase jsoupBase = new JsoupBase(context, link, listClassName, hashMap);
         jsoupBase.execute();
 
         return jsoupBase.get();
@@ -65,7 +65,7 @@ public class Api {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("count", numberOfDays + "");
 
-        JsoupBase jsoupBase = new JsoupBase(link, listClassName, hashMap);
+        JsoupBase jsoupBase = new JsoupBase(context, link, listClassName, hashMap);
         jsoupBase.execute();
 
         return jsoupBase.get();

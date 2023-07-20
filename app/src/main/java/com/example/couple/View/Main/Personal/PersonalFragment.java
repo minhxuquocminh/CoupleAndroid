@@ -95,7 +95,7 @@ public class PersonalFragment extends Fragment implements PersonalView {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (InternetBase.isNetworkAvailable(getActivity())) {
+                if (InternetBase.isInternetAvailable(getActivity())) {
                     viewModel.SignOut();
                 } else {
                     ShowError("Bạn đang offline.");

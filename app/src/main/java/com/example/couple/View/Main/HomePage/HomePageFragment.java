@@ -17,17 +17,16 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
+import com.example.couple.View.Bridge.SearchingBridgeActivity;
 import com.example.couple.View.Couple.BanlanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
-import com.example.couple.View.Bridge.SearchingBridgeActivity;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleActivity;
 import com.example.couple.View.SubScreen.NoteActivity;
 import com.example.couple.ViewModel.Main.HomePage.HomePageViewModel;
@@ -86,15 +85,10 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
         homePageViewModel.setUrlAndParamsIfNoData();
         homePageViewModel.registerBackgoundRuntime();
-        if (InternetBase.isNetworkAvailable(getActivity())) {
-            homePageViewModel.UpdateAllDataIfNeeded();
-        } else {
-            ShowError("Bạn đang offline.");
-        }
-
+        homePageViewModel.UpdateAllDataIfNeeded();
         homePageViewModel.GetTimeDataFromFile();
         homePageViewModel.GetJackpotDataFromFile();
-        homePageViewModel.GetLotteryList(60 + "");
+        homePageViewModel.GetLotteryList(Const.MAX_DAYS_TO_GET_LOTTERY + "");
 
         homePageViewModel.GetNote();
 

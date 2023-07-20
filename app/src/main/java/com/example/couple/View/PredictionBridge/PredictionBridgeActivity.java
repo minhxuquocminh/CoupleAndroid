@@ -49,7 +49,7 @@ public class PredictionBridgeActivity extends AppCompatActivity implements Predi
 
         viewModel = new PredictionBridgeViewModel(this, this);
 
-        if (InternetBase.isNetworkAvailable(this)) {
+        if (InternetBase.isInternetAvailable(this)) {
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (firebaseUser != null) {
                 viewModel.GetPredictionBridge();

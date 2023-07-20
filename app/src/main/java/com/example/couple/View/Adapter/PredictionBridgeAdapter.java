@@ -89,7 +89,7 @@ public class PredictionBridgeAdapter extends
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (InternetBase.isNetworkAvailable(context)) {
+                if (InternetBase.isInternetAvailable(context)) {
                     if (pb.getType() == 1) {
                         Intent intent = new Intent(context, WeeklyPredictionBridgeActivity.class);
                         intent.putExtra("POSITION", position);
@@ -114,7 +114,7 @@ public class PredictionBridgeAdapter extends
                         .setMessage("Bạn có muốn xóa cầu dự đoán này không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                if (InternetBase.isNetworkAvailable(context)) {
+                                if (InternetBase.isInternetAvailable(context)) {
                                     String objName = pb.getType() == 1 ? "weekly" : "monthly";
                                     FirebaseBase fb = new FirebaseBase(objName);
                                     fb.removeObject(pb.getId());

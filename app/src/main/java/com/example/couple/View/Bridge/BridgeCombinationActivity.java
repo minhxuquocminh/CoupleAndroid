@@ -49,6 +49,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     CheckBox cboMappingBridge1;
     CheckBox cboCompatible;
     CheckBox cboIncompatible;
+    CheckBox cboMatchMappingBridge;
     //
     CheckBox cboBigDoubleSet;
     CheckBox cboSameDoubleSet;
@@ -90,6 +91,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboIncompatible = findViewById(R.id.cboIncompatible);
         cboShadowMappingBridge = findViewById(R.id.cboShadowMappingBridge);
         cboPeriodBridge = findViewById(R.id.cboPeriodBridge);
+        cboMatchMappingBridge = findViewById(R.id.cboMatchMappingBridge);
         // special set
         cboBigDoubleSet = findViewById(R.id.cboBigDoubleSet);
         cboSameDoubleSet = findViewById(R.id.cboSameDoubleSet);
@@ -109,7 +111,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         edtDayNumber.setSelection(edtDayNumber.getText().length());
 
         viewModel = new BridgeCombinationViewModel(this, this);
-        viewModel.GetLotteryAndJackpotList();
+        viewModel.GetLotteryAndJackpotAndTimeBaseList();
 
 
     }
@@ -120,8 +122,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void ShowLotteryAndJackpotList(List<Jackpot> jackpotList,
-                                          List<Lottery> lotteryList, List<TimeBase> timeBaseList) {
+    public void ShowLotteryAndJackpotAndTimeBaseList(List<Jackpot> jackpotList,
+                                                     List<Lottery> lotteryList, List<TimeBase> timeBaseList) {
         viewModel.GetAllBridgeToday(jackpotList, lotteryList);
         btnFindingBridge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +144,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 boolean mapping1 = cboMappingBridge1.isChecked();
                 boolean compatible = cboCompatible.isChecked();
                 boolean incompatible = cboIncompatible.isChecked();
+                boolean matchMapping = cboMatchMappingBridge.isChecked();
                 // special set
                 boolean bigDouble = cboBigDoubleSet.isChecked();
                 boolean sameDouble = cboSameDoubleSet.isChecked();
@@ -153,8 +156,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             Integer.parseInt(numberOfDayStr);
                     viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseList, numberOfDay,
                             combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
-                            mapping, shadowMapping, period, mapping1, compatible, incompatible, bigDouble,
-                            sameDouble, nearDouble);
+                            mapping, shadowMapping, period, mapping1, compatible, incompatible,matchMapping,
+                            bigDouble, sameDouble, nearDouble);
                 }
             }
         });

@@ -28,6 +28,7 @@ public class Const {
     public static final String LOTTO_TOUCH_BRIDGE_NAME = "Cầu chạm lô tô";
     public static final String MAPPING_BRIDGE_NAME = "Cầu ánh xạ";
     public static final String MAPPING_BRIDGE_NAME_1 = "Cầu ánh xạ 1";
+    public static final String MATCH_MAPPING_BRIDGE_NAME = "Cầu ánh xạ hợp";
     public static final String COMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi hợp";
     public static final String INCOMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi khắc";
     public static final String SHADOW_MAPPING_BRIDGE_NAME = "Cầu ánh xạ bóng";
@@ -103,8 +104,8 @@ public class Const {
             Arrays.asList(0, 1, 2, 3, 4, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
     // url and params
     public static final String TIME_URL = "https://lichvannien365.com/";
-    public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua8.net/bang-dac-biet-nam\nchu16";
-    public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua8.net/so-ket-qua\nwatermark";
+    public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua9.net/bang-dac-biet-nam\nchu16";
+    public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua9.net/so-ket-qua\nwatermark";
     // file name
     public static final String TIME_FILE_NAME = "time.txt";
     public static final String CYCLE_TODAY_FILE_NAME = "cycle_today.txt";

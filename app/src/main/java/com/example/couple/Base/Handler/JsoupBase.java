@@ -1,5 +1,6 @@
 package com.example.couple.Base.Handler;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,16 +15,19 @@ import java.util.List;
 import java.util.Map;
 
 public class JsoupBase extends AsyncTask<String, Void, String> {
+    Context context;
     String link;
     List<String> listClassName;
     HashMap<String, String> hashMap = new HashMap<>();
 
-    public JsoupBase(String link, List<String> listClassName) {
+    public JsoupBase(Context context, String link, List<String> listClassName) {
+        this.context = context;
         this.link = link;
         this.listClassName = listClassName;
     }
 
-    public JsoupBase(String link, List<String> listClassName, HashMap<String, String> hashMap) {
+    public JsoupBase(Context context, String link, List<String> listClassName, HashMap<String, String> hashMap) {
+        this.context = context;
         this.link = link;
         this.listClassName = listClassName;
         this.hashMap = hashMap;
@@ -31,6 +35,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
+        if (!InternetBase.isInternetAvailable(context)) return "";
         String data = "";
 
         try {

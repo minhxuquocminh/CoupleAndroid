@@ -75,7 +75,9 @@
 
         <activity android:name=".View.SubScreen.NoteInfoActivity" />
 
-        <activity android:name=".View.SubScreen.SexagenaryCycleActivity" />
+        <activity
+            android:name=".View.SubScreen.SexagenaryCycleActivity"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity android:name=".View.SubScreen.CycleByYearActivity" />
 

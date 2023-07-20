@@ -30,6 +30,7 @@ public class CombineBridge {
     MappingBridge mappingBridge1;
     CycleBridge compatibleCycleBridge;
     CycleBridge incompatibleCycleBridge;
+    MappingBridge matchMappingBridge;
     // special set
     SpecialSet bigDoubleSet;
     SpecialSet sameDoubleSet;
@@ -45,8 +46,8 @@ public class CombineBridge {
                          MappingBridge mappingBridge, ShadowMappingBridge shadowMappingBridge,
                          PeriodBridge periodBridge, MappingBridge mappingBridge1,
                          CycleBridge compatibleCycleBridge, CycleBridge incompatibleCycleBridge,
-                         SpecialSet bigDoubleSet, SpecialSet sameDoubleSet, SpecialSet nearDoubleSet,
-                         JackpotHistory jackpotHistory) {
+                         MappingBridge matchMappingBridge, SpecialSet bigDoubleSet,
+                         SpecialSet sameDoubleSet, SpecialSet nearDoubleSet, JackpotHistory jackpotHistory) {
         // touch
         this.combineTouchBridge = combineTouchBridge;
         this.connectedBridge = connectedBridge;
@@ -61,6 +62,7 @@ public class CombineBridge {
         this.mappingBridge1 = mappingBridge1;
         this.compatibleCycleBridge = compatibleCycleBridge;
         this.incompatibleCycleBridge = incompatibleCycleBridge;
+        this.matchMappingBridge = matchMappingBridge;
         // special set
         this.bigDoubleSet = bigDoubleSet;
         this.sameDoubleSet = sameDoubleSet;
@@ -105,6 +107,9 @@ public class CombineBridge {
         }
         if (!incompatibleCycleBridge.isEmpty()) {
             this.bridgeNames.add(Const.INCOMPATIBLE_CYCLE_BRIDGE_NAME);
+        }
+        if (!matchMappingBridge.isEmpty()) {
+            this.bridgeNames.add(Const.MATCH_MAPPING_BRIDGE_NAME);
         }
         // special set
         if (!bigDoubleSet.isEmpty()) {
@@ -171,6 +176,8 @@ public class CombineBridge {
                 return this.compatibleCycleBridge;
             case Const.INCOMPATIBLE_CYCLE_BRIDGE_NAME:
                 return this.incompatibleCycleBridge;
+            case Const.MATCH_MAPPING_BRIDGE_NAME:
+                return this.matchMappingBridge;
             // special set
             case Const.BIG_DOUBLE_SET_NAME:
                 return this.bigDoubleSet;

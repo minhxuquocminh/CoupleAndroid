@@ -3,6 +3,7 @@ package com.example.couple.Base.Handler;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 
 public class InternetBase {
 
@@ -14,11 +15,16 @@ public class InternetBase {
      * @param context
      * @return
      */
-    public static boolean isNetworkAvailable(Context context) {
+    public static boolean isInternetAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null &&
+                    activeNetworkInfo.isConnected() && activeNetworkInfo.isAvailable();
+
+        }
+        return connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork()) != null;
     }
 
 }

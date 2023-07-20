@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.AlarmBase;
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
@@ -57,6 +58,10 @@ public class HomePageViewModel {
     }
 
     public void UpdateAllDataIfNeeded() {
+        if (!InternetBase.isInternetAvailable(context)) {
+            homePageView.ShowError("Bạn đang offline.");
+            return;
+        }
         boolean isUpdateTime = CheckUpdate.checkUpdateTime(context);
         if (isUpdateTime) {
             UpdateAllData();
@@ -64,7 +69,11 @@ public class HomePageViewModel {
     }
 
     public void UpdateAllData() {
-        String timeStatus = UpdateTime(false) ? "(done)" : "(failed)";
+        if (!InternetBase.isInternetAvailable(context)) {
+            homePageView.ShowError("Bạn đang offline.");
+            return;
+        }
+        String timeStatus = UpdateTime() ? "(done)" : "(failed)";
         String jackpotStatus = UpdateJackpot(false) ? "(done)" : "(failed)";
         String lotteryStatus =
                 UpdateLottery(Const.MAX_DAYS_TO_GET_LOTTERY, false) ? "(done)" : "(failed)";
@@ -72,11 +81,11 @@ public class HomePageViewModel {
                 + timeStatus + ", XS Đặc biệt " + jackpotStatus + ", XSMB " + lotteryStatus + ".");
     }
 
-    public boolean UpdateTime(boolean showMessage) {
+    public boolean UpdateTime() {
         try {
-            String timeData = Api.GetTimeDataFromInternet();
+            String timeData = Api.GetTimeDataFromInternet(context);
             if (timeData.equals("")) {
-                homePageView.ShowError(showMessage ? "Lỗi không lấy được thông tin thời gian!" : "");
+                homePageView.ShowError("Lỗi không lấy được thông tin thời gian!");
                 return false;
             }
             IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, timeData, 0);
@@ -88,12 +97,12 @@ public class HomePageViewModel {
         }
     }
 
-    public boolean UpdateSexagenaryCycle(boolean showMessage) {
+    public boolean UpdateSexagenaryCycle() {
         try {
-            String timeData = Api.GetSexagenaryCycleByDay(TimeInfo.CURRENT_DAY,
-                    TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
+            String timeData = Api.GetSexagenaryCycleByDay(context,
+                    TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
             if (timeData.equals("")) {
-                homePageView.ShowError(showMessage ? "Lỗi không lấy được thông tin can chi!" : "");
+                homePageView.ShowError("Lỗi không lấy được thông tin can chi!");
                 return false;
             }
             IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, timeData, 0);
@@ -109,7 +118,8 @@ public class HomePageViewModel {
         try {
             String jackpotData = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
             if (jackpotData.equals("")) {
-                homePageView.ShowError(showMessage ? "Lỗi không lấy được thông tin XS Đặc biệt." : "");
+                if (showMessage)
+                    homePageView.ShowError("Lỗi không lấy được thông tin XS Đặc biệt.");
                 return false;
             }
             IOFileBase.saveDataToFile(context, "jackpot" + TimeInfo.CURRENT_YEAR + ".txt",
@@ -120,7 +130,7 @@ public class HomePageViewModel {
                 IOFileBase.saveDataToFile(context, "jackpot" + (TimeInfo.CURRENT_YEAR - 1)
                         + ".txt", lastJackpotData, 0);
             }
-            homePageView.UpdateJackpotSuccess(showMessage ? "Cập nhật XS Đặc biệt thành công." : "");
+            homePageView.UpdateJackpotSuccess("Cập nhật XS Đặc biệt thành công.");
             return true;
         } catch (ExecutionException e) {
             return false;
@@ -133,11 +143,11 @@ public class HomePageViewModel {
         try {
             String lotteryData = Api.GetLotteryDataFromInternet(context, numberOfDays);
             if (lotteryData.equals("")) {
-                homePageView.ShowError(showMessage ? "Lỗi không lấy được thông tin XSMB!" : "");
+                if (showMessage) homePageView.ShowError("Lỗi không lấy được thông tin XSMB!");
                 return false;
             }
             IOFileBase.saveDataToFile(context, Const.LOTTERY_FILE_NAME, lotteryData, 0);
-            homePageView.UpdateLotterySuccess(showMessage ? "Cập nhật XSMB thành công!" : "");
+            homePageView.UpdateLotterySuccess("Cập nhật XSMB thành công!");
             return true;
         } catch (ExecutionException e) {
             return false;
@@ -171,24 +181,21 @@ public class HomePageViewModel {
 
     public void GetJackpotDataFromFile() {
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 7);
-        if (jackpotList.size() > 0) {
-            homePageView.ShowJackpotDataFromFile(jackpotList);
-        }
+        if (jackpotList.isEmpty()) return;
+        homePageView.ShowJackpotDataFromFile(jackpotList);
     }
 
     public void GetLotteryList(String dayNumberStr) {
         int numberOfDays = Integer.parseInt(dayNumberStr);
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
-        if (lotteries.size() != 0) {
-            homePageView.ShowLotteryList(lotteries);
-        }
+        if (lotteries.isEmpty()) return;
+        homePageView.ShowLotteryList(lotteries);
     }
 
     public void GetHeadAndTailInLongestTime(List<Jackpot> jackpotList) {
         List<NearestTime> nearestTimeList = JackpotStatistics.GetHeadAndTailInNearestTime(jackpotList);
-        if (!nearestTimeList.isEmpty()) {
-            homePageView.ShowHeadAndTailInLongestTime(nearestTimeList);
-        }
+        if (nearestTimeList.isEmpty()) return;
+        homePageView.ShowHeadAndTailInLongestTime(nearestTimeList);
     }
 
     public void GetTouchBridge(List<Jackpot> jackpotList) {

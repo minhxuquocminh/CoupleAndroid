@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 public class UpdateDataAlarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (InternetBase.isNetworkAvailable(context)) {
+        if (InternetBase.isInternetAvailable(context)) {
             getData(context);
         } else {
             String title = "XSMB";
@@ -56,7 +56,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         boolean checkUpdateLottery = CheckUpdate.checkUpdateLottery(context);
         try {
             if (checkUpdateTime) {
-                String time = Api.GetTimeDataFromInternet();
+                String time = Api.GetTimeDataFromInternet(context);
                 IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, time, 0);
             }
             if (checkUpdateLottery) {

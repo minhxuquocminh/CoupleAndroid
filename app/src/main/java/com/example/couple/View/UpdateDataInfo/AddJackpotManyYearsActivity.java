@@ -56,7 +56,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                 String startingYear = edtStart.getText().toString().trim();
                 if (startingYear.equals("")) {
                     ShowError("Vui lòng nhập năm bắt đầu!");
-                } else if (!InternetBase.isNetworkAvailable(AddJackpotManyYearsActivity.this)) {
+                } else if (!InternetBase.isInternetAvailable(AddJackpotManyYearsActivity.this)) {
                     ShowError("Bạn đang offline.");
                 } else {
                     new AlertDialog.Builder(AddJackpotManyYearsActivity.this)
@@ -88,7 +88,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                                     "năm kể từ năm " + startingYear + " không?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if (InternetBase.isNetworkAvailable(AddJackpotManyYearsActivity.this)) {
+                                    if (InternetBase.isInternetAvailable(AddJackpotManyYearsActivity.this)) {
                                         viewModel.GetJackpotDataInManyYears(Integer.parseInt(startingYear), true);
                                     } else {
                                         ShowError("Bạn đang offline!");
@@ -163,7 +163,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         boolean checkUpdateLottery = CheckUpdate.checkUpdateLottery(context);
         try {
             if (checkUpdateTime) {
-                String time = Api.GetTimeDataFromInternet();
+                String time = Api.GetTimeDataFromInternet(context);
                 IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, time, 0);
             }
             if (checkUpdateLottery) {

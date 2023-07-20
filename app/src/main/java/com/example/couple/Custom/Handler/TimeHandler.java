@@ -5,7 +5,6 @@ import android.content.Context;
 import com.example.couple.Base.Handler.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Cycle.Cycle;
 import com.example.couple.Model.Support.DateCycle;
 import com.example.couple.Model.Support.DateLunar;
@@ -94,7 +93,7 @@ public class TimeHandler {
 
     private static boolean updateSexagenaryCycle(Context context, DateBase dateBase, String fileName) {
         try {
-            String data = Api.GetSexagenaryCycleByDay(
+            String data = Api.GetSexagenaryCycleByDay(context,
                     dateBase.getDay(), dateBase.getMonth(), dateBase.getYear());
             if (data.equals("")) return false;
             IOFileBase.saveDataToFile(context, fileName, data, 0);

@@ -144,6 +144,26 @@ public class JackpotBridgeHandler {
         return new ShadowMappingBridge(first, second, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
+    public static MappingBridge GetMatchMappingBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore + 2)
+            return MappingBridge.getEmpty();
+        List<Integer> firstList = jackpotList.get(dayNumberBefore + 1)
+                .getCouple().getMappingNumbers(Const.MAPPING_ALL);
+        List<Integer> secondList = jackpotList.get(dayNumberBefore)
+                .getCouple().getMappingNumbers(Const.MAPPING_ALL);
+        List<Integer> results = new ArrayList<>();
+        for (int second : secondList) {
+            if (firstList.contains(second)) {
+                results.add(second);
+            }
+        }
+        Collections.sort(firstList);
+        Jackpot jackpot = dayNumberBefore == 0 ?
+                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        return new MappingBridge(Const.MATCH_MAPPING_BRIDGE_NAME,
+                results, new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
     public static MappingBridge GetMappingBridge(List<Jackpot> reverseJackpotList,
                                                  int mappingType, int dayNumberBefore) {
         if (reverseJackpotList.size() < dayNumberBefore + 2)

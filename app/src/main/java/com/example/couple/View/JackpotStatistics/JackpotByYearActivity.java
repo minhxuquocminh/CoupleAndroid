@@ -2,9 +2,7 @@ package com.example.couple.View.JackpotStatistics;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -68,7 +66,7 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
 
     @Override
     public void ShowYearList(List<Integer> yearList) {
-        List<String> yearStrList = new ArrayList<>();
+        List<String> yearStrList = new ArrayList<String>();
         for (int year : yearList) {
             yearStrList.add("Năm " + year);
         }

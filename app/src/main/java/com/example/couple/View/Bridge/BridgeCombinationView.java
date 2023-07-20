@@ -15,8 +15,8 @@ import java.util.List;
 
 public interface BridgeCombinationView {
     void ShowError(String message);
-    void ShowLotteryAndJackpotList(List<Jackpot> jackpotList,
-                                   List<Lottery> lotteryList, List<TimeBase> timeBaseList);
+    void ShowLotteryAndJackpotAndTimeBaseList(List<Jackpot> jackpotList,
+                                              List<Lottery> lotteryList, List<TimeBase> timeBaseList);
     void ShowAllBridgeToday(CombineBridge combineBridge);
     void ShowCombineBridgeList(List<CombineBridge> combineBridges);
     void ShowTouchBridgeList(List<CombineTouchBridge> combineTouchBridges);

@@ -69,8 +69,9 @@ public class Couple {
     }
 
     public List<Integer> getMappingNumbers(int mappingType) {
-        List<Integer> numbers = CoupleHandler.getMappingNumbers(getCoupleInt());
-        if (mappingType == 0) return numbers;
+        if (mappingType == 0) return CoupleHandler.getMappingNumbers(getCoupleInt());
+        List<Integer> numbers = mappingType == Const.MAPPING_ALL ?
+                CoupleHandler.getMappingNumbers(getCoupleInt()) : new ArrayList<>();
         int start = mappingType == Const.MAPPING_ALL ? 1 : mappingType;
         int end = mappingType == Const.MAPPING_ALL ? 2 : mappingType;
         for (int i = start; i <= end; i++) {

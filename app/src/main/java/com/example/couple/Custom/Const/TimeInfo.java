@@ -15,7 +15,7 @@ public class TimeInfo {
     );
 
     public static final List<String> EARTHLY_BRANCHES = Arrays.asList(
-            "Tí", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"
+            "Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"
     );
 
 }
