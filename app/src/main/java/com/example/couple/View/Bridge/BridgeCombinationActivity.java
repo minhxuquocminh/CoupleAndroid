@@ -50,6 +50,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     CheckBox cboCompatible;
     CheckBox cboIncompatible;
     CheckBox cboMatchMappingBridge;
+    CheckBox cboTriadMappingBridge;
     //
     CheckBox cboBigDoubleSet;
     CheckBox cboSameDoubleSet;
@@ -92,6 +93,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboShadowMappingBridge = findViewById(R.id.cboShadowMappingBridge);
         cboPeriodBridge = findViewById(R.id.cboPeriodBridge);
         cboMatchMappingBridge = findViewById(R.id.cboMatchMappingBridge);
+        cboTriadMappingBridge = findViewById(R.id.cboTriadMappingBridge);
         // special set
         cboBigDoubleSet = findViewById(R.id.cboBigDoubleSet);
         cboSameDoubleSet = findViewById(R.id.cboSameDoubleSet);
@@ -145,6 +147,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 boolean compatible = cboCompatible.isChecked();
                 boolean incompatible = cboIncompatible.isChecked();
                 boolean matchMapping = cboMatchMappingBridge.isChecked();
+                boolean triadMapping = cboTriadMappingBridge.isChecked();
                 // special set
                 boolean bigDouble = cboBigDoubleSet.isChecked();
                 boolean sameDouble = cboSameDoubleSet.isChecked();
@@ -156,8 +159,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             Integer.parseInt(numberOfDayStr);
                     viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseList, numberOfDay,
                             combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
-                            mapping, shadowMapping, period, mapping1, compatible, incompatible,matchMapping,
-                            bigDouble, sameDouble, nearDouble);
+                            mapping, shadowMapping, period, mapping1, compatible, incompatible, matchMapping,
+                            triadMapping, bigDouble, sameDouble, nearDouble);
                 }
             }
         });

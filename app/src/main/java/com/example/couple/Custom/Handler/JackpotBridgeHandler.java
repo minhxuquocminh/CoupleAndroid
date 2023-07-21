@@ -9,6 +9,7 @@ import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.BridgeCouple.PeriodBridge;
 import com.example.couple.Model.BridgeCouple.ShadowMappingBridge;
 import com.example.couple.Model.BridgeCouple.TriadBridge;
+import com.example.couple.Model.BridgeCouple.TriadMappingBridge;
 import com.example.couple.Model.BridgeSingle.ClawBridge;
 import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
 import com.example.couple.Model.BridgeSingle.ConnectedBridge;
@@ -38,7 +39,9 @@ import com.example.couple.Model.Support.TriadSets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JackpotBridgeHandler {
 
@@ -91,6 +94,22 @@ public class JackpotBridgeHandler {
     /**
      * work with jackpot
      */
+
+    public static TriadMappingBridge GetTriadMappingBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore + 14)
+            return TriadMappingBridge.getEmpty();
+        Map<Couple, Couple> sequentCoupleMap = new HashMap<>();
+        sequentCoupleMap.put(jackpotList.get(dayNumberBefore + 1).getCouple(),
+                jackpotList.get(dayNumberBefore).getCouple());
+        sequentCoupleMap.put(jackpotList.get(dayNumberBefore + 7).getCouple(),
+                jackpotList.get(dayNumberBefore).getCouple());
+//        List<Couple> couplesNextDay = getCouplesNextDay(jackpotList, dayNumberBefore);
+//        if (couplesNextDay.size() >= 2) {
+//            sequentCoupleMap.put(couplesNextDay.get(1), couplesNextDay.get(0));
+//        }
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        return new TriadMappingBridge(sequentCoupleMap, new JackpotHistory(dayNumberBefore, jackpot));
+    }
 
     public static SpecialNumbersHistory GetSpecialNumbersHistory(List<Jackpot> jackpotList,
                                                                  String numberType, int value) {
@@ -340,6 +359,18 @@ public class JackpotBridgeHandler {
         if (number <= range) return numberCheck >= 0 && numberCheck <= number + range;
         if (number >= 99 - range) return numberCheck <= 99 && numberCheck >= number - range;
         return numberCheck >= number - range && numberCheck <= number + range;
+    }
+
+    public static List<Couple> getCouplesNextDay(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
+        Couple couple = jackpotList.get(dayNumberBefore).getCouple();
+        List<Couple> results = new ArrayList<>();
+        for (int i = dayNumberBefore; i < jackpotList.size() - 1; i++) {
+            if (jackpotList.get(i).getCouple().equals(couple)) {
+                results.add(jackpotList.get(i + 1).getCouple());
+            }
+        }
+        return results;
     }
 
     /**

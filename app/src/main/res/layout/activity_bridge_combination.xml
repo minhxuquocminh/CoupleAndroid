@@ -253,6 +253,15 @@
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
+                <CheckBox
+                    android:id="@+id/cboTriadMappingBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="3 ánh xạ"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
             </LinearLayout>
 
             <LinearLayout

@@ -13,6 +13,7 @@ import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.BridgeCouple.PeriodBridge;
 import com.example.couple.Model.BridgeCouple.ShadowMappingBridge;
 import com.example.couple.Model.BridgeCouple.SpecialSet;
+import com.example.couple.Model.BridgeCouple.TriadMappingBridge;
 import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
 import com.example.couple.Model.BridgeSingle.ConnectedBridge;
 import com.example.couple.Model.BridgeSingle.LottoTouchBridge;
@@ -67,7 +68,8 @@ public class BridgeCombinationViewModel {
                     shadowTouchBridge, lottoTouchBridge, negativeShadowBridge, positiveShadowBridge,
                     mappingBridge, shadowMappingBridge, periodBridge, MappingBridge.getEmpty(),
                     CycleBridge.getEmpty(), CycleBridge.getEmpty(), MappingBridge.getEmpty(),
-                    SpecialSet.getEmpty(), SpecialSet.getEmpty(), SpecialSet.getEmpty(),
+                    TriadMappingBridge.getEmpty(), SpecialSet.getEmpty(),
+                    SpecialSet.getEmpty(), SpecialSet.getEmpty(),
                     new JackpotHistory(0, Jackpot.getEmpty()));
             view.ShowAllBridgeToday(combineBridge);
         }
@@ -79,7 +81,7 @@ public class BridgeCombinationViewModel {
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
                                      boolean mapping, boolean shadowMapping, boolean period, boolean mapping1,
                                      boolean compatible, boolean incompatible, boolean matchMapping,
-                                     boolean bigDouble, boolean sameDouble, boolean nearDouble) {
+                                     boolean triadMapping, boolean bigDouble, boolean sameDouble, boolean nearDouble) {
         List<CombineBridge> combineBridges = new ArrayList<>();
         if (connected && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
             view.ShowError("Đặt lại giới hạn số ngày cho cầu liên thông là " +
@@ -118,6 +120,8 @@ public class BridgeCombinationViewModel {
                     .GetIncompatibleCycleBridge(jackpotList, timeBaseList, i) : CycleBridge.getEmpty();
             MappingBridge matchMappingBridge = matchMapping ? JackpotBridgeHandler
                     .GetMatchMappingBridge(jackpotList, i) : MappingBridge.getEmpty();
+            TriadMappingBridge triadMappingBridge = triadMapping ? JackpotBridgeHandler
+                    .GetTriadMappingBridge(jackpotList, i) : TriadMappingBridge.getEmpty();
             // jackpot
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             // special set
@@ -130,7 +134,7 @@ public class BridgeCombinationViewModel {
             CombineBridge combineBridge = new CombineBridge(combineTouchBridge, connectedBridge,
                     shadowTouchBridge, lottoTouchBridge, negativeShadowBridge, positiveShadowBridge,
                     mappingBridge, shadowMappingBridge, periodBridge, mappingBridge1, compatibleBridge,
-                    incompatibleBridge, matchMappingBridge, bigDoubleSet, sameDoubleSet,
+                    incompatibleBridge, matchMappingBridge, triadMappingBridge, bigDoubleSet, sameDoubleSet,
                     nearDoubleSet, new JackpotHistory(i, jackpot));
             combineBridges.add(combineBridge);
         }

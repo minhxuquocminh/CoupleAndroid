@@ -28,6 +28,7 @@ public class Const {
     public static final String LOTTO_TOUCH_BRIDGE_NAME = "Cầu chạm lô tô";
     public static final String MAPPING_BRIDGE_NAME = "Cầu ánh xạ";
     public static final String MAPPING_BRIDGE_NAME_1 = "Cầu ánh xạ 1";
+    public static final String TRIAD_MAPPING_BRIDGE_NAME = "Cầu 3 ánh xạ";
     public static final String MATCH_MAPPING_BRIDGE_NAME = "Cầu ánh xạ hợp";
     public static final String COMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi hợp";
     public static final String INCOMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi khắc";

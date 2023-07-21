@@ -116,6 +116,10 @@ public class Couple {
         return cp1 + cp2;
     }
 
+    public boolean equals(Couple couple) {
+        return first == couple.getFirst() && second == couple.getSecond();
+    }
+
     public int sub(Couple cp) {
         int cp1 = Integer.parseInt(first + "" + second);
         int cp2 = Integer.parseInt(cp.show());

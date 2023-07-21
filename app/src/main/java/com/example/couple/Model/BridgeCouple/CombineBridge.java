@@ -1,8 +1,8 @@
 package com.example.couple.Model.BridgeCouple;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
 import com.example.couple.Model.BridgeSingle.ConnectedBridge;
 import com.example.couple.Model.BridgeSingle.LottoTouchBridge;
@@ -31,6 +31,7 @@ public class CombineBridge {
     CycleBridge compatibleCycleBridge;
     CycleBridge incompatibleCycleBridge;
     MappingBridge matchMappingBridge;
+    TriadMappingBridge triadMappingBridge;
     // special set
     SpecialSet bigDoubleSet;
     SpecialSet sameDoubleSet;
@@ -46,8 +47,9 @@ public class CombineBridge {
                          MappingBridge mappingBridge, ShadowMappingBridge shadowMappingBridge,
                          PeriodBridge periodBridge, MappingBridge mappingBridge1,
                          CycleBridge compatibleCycleBridge, CycleBridge incompatibleCycleBridge,
-                         MappingBridge matchMappingBridge, SpecialSet bigDoubleSet,
-                         SpecialSet sameDoubleSet, SpecialSet nearDoubleSet, JackpotHistory jackpotHistory) {
+                         MappingBridge matchMappingBridge, TriadMappingBridge triadMappingBridge,
+                         SpecialSet bigDoubleSet, SpecialSet sameDoubleSet,
+                         SpecialSet nearDoubleSet, JackpotHistory jackpotHistory) {
         // touch
         this.combineTouchBridge = combineTouchBridge;
         this.connectedBridge = connectedBridge;
@@ -63,6 +65,7 @@ public class CombineBridge {
         this.compatibleCycleBridge = compatibleCycleBridge;
         this.incompatibleCycleBridge = incompatibleCycleBridge;
         this.matchMappingBridge = matchMappingBridge;
+        this.triadMappingBridge = triadMappingBridge;
         // special set
         this.bigDoubleSet = bigDoubleSet;
         this.sameDoubleSet = sameDoubleSet;
@@ -110,6 +113,9 @@ public class CombineBridge {
         }
         if (!matchMappingBridge.isEmpty()) {
             this.bridgeNames.add(Const.MATCH_MAPPING_BRIDGE_NAME);
+        }
+        if (!triadMappingBridge.isEmpty()) {
+            this.bridgeNames.add(Const.TRIAD_MAPPING_BRIDGE_NAME);
         }
         // special set
         if (!bigDoubleSet.isEmpty()) {
@@ -178,6 +184,8 @@ public class CombineBridge {
                 return this.incompatibleCycleBridge;
             case Const.MATCH_MAPPING_BRIDGE_NAME:
                 return this.matchMappingBridge;
+            case Const.TRIAD_MAPPING_BRIDGE_NAME:
+                return this.triadMappingBridge;
             // special set
             case Const.BIG_DOUBLE_SET_NAME:
                 return this.bigDoubleSet;
