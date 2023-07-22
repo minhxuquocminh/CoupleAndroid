@@ -1,7 +1,7 @@
 package com.example.couple.View.Bridge;
 
 import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.BridgeSingle.ConnectedBridge;
+import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Display.HeadTail;
 import com.example.couple.Model.Display.JackpotSign;
 import com.example.couple.Model.Display.NearestTime;

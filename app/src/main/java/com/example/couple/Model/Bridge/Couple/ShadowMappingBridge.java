@@ -1,7 +1,8 @@
-package com.example.couple.Model.BridgeCouple;
+package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.ShadowCouple;
 import com.example.couple.Model.Support.ShadowSingle;
@@ -15,7 +16,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class ShadowMappingBridge implements CombineInterface {
+public class ShadowMappingBridge extends Bridge {
     ShadowSingle shadowSingle1;
     ShadowSingle shadowSingle2;
     JackpotHistory jackpotHistory;
@@ -48,38 +49,14 @@ public class ShadowMappingBridge implements CombineInterface {
         return results;
     }
 
-    public String showBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - " + Const.SHADOW_MAPPING_BRIDGE_NAME + ": " + showCombineShadowCouples() +
-                " (" + getCombineShadowCouples().size() + " số).";
-        return show;
+    @Override
+    public List<Integer> getTouchs() {
+        return new ArrayList<>();
     }
 
-    public String showCompactBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - " + Const.SHADOW_MAPPING_BRIDGE_NAME + win + ": " +
-                getCombineShadowCouples().size() + " số.";
-        return show;
-    }
-
-    public boolean isWin() {
-        return CoupleHandler.isWin(jackpotHistory, getNumbers());
-    }
-
-    public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(numbers);
-    }
-
-    public String showCombineShadowCouples() {
-        String show = "";
-        List<ShadowCouple> shadowCouples = getCombineShadowCouples();
-        for (ShadowCouple couple : shadowCouples) {
-            show += couple.show();
-        }
-        return show;
+    @Override
+    public String getBridgeName() {
+        return Const.SHADOW_MAPPING_BRIDGE_NAME;
     }
 
     public String showCopyCombineShadowCouples() {

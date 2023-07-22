@@ -1,10 +1,6 @@
-package com.example.couple.Model.Support;
+package com.example.couple.Model.Time;
 
-import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.Cycle.Cycle;
-
-import java.util.List;
+import com.example.couple.Model.Time.Cycle.Cycle;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

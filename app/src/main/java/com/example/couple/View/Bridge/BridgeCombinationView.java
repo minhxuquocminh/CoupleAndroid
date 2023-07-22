@@ -1,15 +1,15 @@
 package com.example.couple.View.Bridge;
 
-import com.example.couple.Model.BridgeCouple.CombineBridge;
-import com.example.couple.Model.BridgeCouple.MappingBridge;
-import com.example.couple.Model.BridgeCouple.PeriodBridge;
-import com.example.couple.Model.BridgeCouple.ShadowMappingBridge;
-import com.example.couple.Model.BridgeCouple.SpecialSet;
-import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
-import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
+import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Bridge.Couple.MappingBridge;
+import com.example.couple.Model.Bridge.Couple.PeriodBridge;
+import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
+import com.example.couple.Model.Bridge.Couple.SpecialSet;
+import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
+import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Support.TimeBase;
+import com.example.couple.Model.Time.TimeBase;
 
 import java.util.List;
 

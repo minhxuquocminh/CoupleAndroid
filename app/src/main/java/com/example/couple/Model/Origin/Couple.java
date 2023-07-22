@@ -3,7 +3,7 @@ package com.example.couple.Model.Origin;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Support.ShadowSingle;
 import com.example.couple.Model.Support.Single;
@@ -163,7 +163,7 @@ public class Couple {
         return firstStt + secondStt;
     }
 
-    public BCouple getCouple() {
+    public BCouple toBCouple() {
         return new BCouple(first, second);
     }
 }

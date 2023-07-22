@@ -1,4 +1,4 @@
-package com.example.couple.Model.BridgeCouple;
+package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;

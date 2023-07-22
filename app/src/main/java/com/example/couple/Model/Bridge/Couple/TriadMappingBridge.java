@@ -1,8 +1,8 @@
-package com.example.couple.Model.BridgeCouple;
+package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -16,7 +16,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class TriadMappingBridge implements CombineInterface {
+public class TriadMappingBridge extends Bridge {
     Map<Couple, Couple> sequentCoupleMap;
     List<Integer> numbers;
     JackpotHistory jackpotHistory;
@@ -35,27 +35,14 @@ public class TriadMappingBridge implements CombineInterface {
         this.jackpotHistory = jackpotHistory;
     }
 
-    public String showBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - " + Const.TRIAD_MAPPING_BRIDGE_NAME + ": " + showNumbers() + " (" + numbers.size() + " số).";
-        return show;
+    @Override
+    public List<Integer> getTouchs() {
+        return new ArrayList<>();
     }
 
-    public String showCompactBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - " + Const.TRIAD_MAPPING_BRIDGE_NAME + win + ": " + numbers.size() + " số.";
-        return show;
-    }
-
-    public boolean isWin() {
-        return CoupleHandler.isWin(jackpotHistory, numbers);
-    }
-
-    public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(numbers);
+    @Override
+    public String getBridgeName() {
+        return Const.TRIAD_MAPPING_BRIDGE_NAME;
     }
 
     public static TriadMappingBridge getEmpty() {

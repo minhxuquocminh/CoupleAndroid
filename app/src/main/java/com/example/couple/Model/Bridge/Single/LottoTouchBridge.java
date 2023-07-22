@@ -1,9 +1,8 @@
-package com.example.couple.Model.BridgeSingle;
+package com.example.couple.Model.Bridge.Single;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.BridgeCouple.CombineInterface;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.Heads;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.Lotto;
@@ -14,7 +13,7 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class LottoTouchBridge implements CombineInterface {
+public class LottoTouchBridge extends Bridge {
     List<Lotto> headLottos;
     List<Lotto> tailLottos;
     List<Integer> touchs;
@@ -54,31 +53,8 @@ public class LottoTouchBridge implements CombineInterface {
         this.numbers = NumberArrayHandler.getTouchs(touchs);
     }
 
-    public boolean isWin() {
-        return CoupleHandler.isTouch(jackpotHistory, touchs);
-    }
-
-    public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(numbers);
-    }
-
-    public String showTouchs() {
-        return CoupleHandler.showTouchs(touchs);
-    }
-
-    public String showBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - " + Const.LOTTO_TOUCH_BRIDGE_NAME + ": " + showTouchs() + ".";
-        return show;
-    }
-
-    public String showCompactBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - " + Const.LOTTO_TOUCH_BRIDGE_NAME + win + ": " + showTouchs() + ".";
-        return show;
+    public String getBridgeName() {
+        return Const.LOTTO_TOUCH_BRIDGE_NAME;
     }
 
     public static LottoTouchBridge getEmpty() {

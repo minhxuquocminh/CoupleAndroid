@@ -1,7 +1,8 @@
-package com.example.couple.Model.BridgeCouple;
+package com.example.couple.Model.Bridge.Couple;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.History;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class PeriodBridge implements CombineInterface {
+public class PeriodBridge extends Bridge {
     List<History> periodHistories3;
     List<History> periodHistories4;
     JackpotHistory jackpotHistory;
@@ -51,35 +52,22 @@ public class PeriodBridge implements CombineInterface {
 
     }
 
-    public String showBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - " + Const.PERIOD_BRIDGE_NAME + ": " + showNumbers() + " (" + numbers.size() + " số).";
-        return show;
-    }
-
-    public String showCompactBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - " + Const.PERIOD_BRIDGE_NAME + win + ": " + numbers.size() + " số.";
-        return show;
-    }
-
-    public boolean isWin() {
-        return CoupleHandler.isWin(jackpotHistory, numbers);
-    }
-
-    public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(numbers);
-    }
-
     public static PeriodBridge getEmpty() {
         return new PeriodBridge(new ArrayList<>(), new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {
         return periodHistories.isEmpty();
+    }
+
+    @Override
+    public List<Integer> getTouchs() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getBridgeName() {
+        return Const.PERIOD_BRIDGE_NAME;
     }
 
 }

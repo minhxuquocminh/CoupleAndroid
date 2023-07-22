@@ -1,10 +1,9 @@
-package com.example.couple.Model.BridgeSingle;
+package com.example.couple.Model.Bridge.Single;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.BridgeCouple.CombineInterface;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class CombineTouchBridge implements CombineInterface {
+public class CombineTouchBridge extends Bridge {
     ShadowTouchBridge shadowTouchBridge;
     ConnectedBridge connectedBridge;
     LottoTouchBridge lottoTouchBridge;
@@ -51,33 +50,6 @@ public class CombineTouchBridge implements CombineInterface {
         this.jackpotHistory = jackpotHistory;
     }
 
-    public boolean isWin() {
-        return CoupleHandler.isTouch(jackpotHistory, getTouchs());
-    }
-
-    public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(numbers);
-    }
-
-    public String showTouchs() {
-        return CoupleHandler.showTouchs(touchs);
-    }
-
-    public String showBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - " + Const.COMBINE_TOUCH_BRIDGE_NAME + ": " + showTouchs() + ".";
-        return show;
-    }
-
-    public String showCompactBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - " + Const.COMBINE_TOUCH_BRIDGE_NAME + win + ": " + showTouchs() + ".";
-        return show;
-    }
-
     public static CombineTouchBridge getEmpty() {
         return new CombineTouchBridge(ShadowTouchBridge.getEmpty(), ConnectedBridge.getEmpty(),
                 LottoTouchBridge.getEmpty(), JackpotHistory.getEmpty());
@@ -85,5 +57,9 @@ public class CombineTouchBridge implements CombineInterface {
 
     public boolean isEmpty() {
         return numbers.isEmpty();
+    }
+
+    public String getBridgeName() {
+        return Const.COMBINE_TOUCH_BRIDGE_NAME;
     }
 }

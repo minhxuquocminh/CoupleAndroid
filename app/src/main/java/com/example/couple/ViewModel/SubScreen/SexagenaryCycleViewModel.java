@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.TimeBase;
+import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.View.SubScreen.SexagenaryCycleView;
 
 import java.util.List;

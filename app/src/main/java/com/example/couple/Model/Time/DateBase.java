@@ -1,4 +1,4 @@
-package com.example.couple.Base.Handler;
+package com.example.couple.Model.Time;
 
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.CoupleHandler;

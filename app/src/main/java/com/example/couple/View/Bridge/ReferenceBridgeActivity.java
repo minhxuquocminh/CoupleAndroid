@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.couple.Model.BridgeSingle.ConnectedBridge;
+import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.HeadTail;
 import com.example.couple.Model.Display.JackpotSign;

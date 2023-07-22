@@ -1,7 +1,7 @@
 package com.example.couple.View.SubScreen;
 
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.TimeBase;
+import com.example.couple.Model.Time.TimeBase;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.couple.Model.Base;
+package com.example.couple.Model.UI;
 
 import java.util.List;
 
@@ -7,6 +7,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Row {
-    List<String> cells;
+public class Column {
+    List<String> cellList;
 }

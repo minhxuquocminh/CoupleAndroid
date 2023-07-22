@@ -1,6 +1,4 @@
-package com.example.couple.Model.Support;
-
-import com.example.couple.Base.Handler.DateBase;
+package com.example.couple.Model.Time;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

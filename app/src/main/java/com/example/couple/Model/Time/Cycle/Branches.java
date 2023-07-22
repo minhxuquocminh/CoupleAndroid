@@ -1,5 +1,6 @@
-package com.example.couple.Model.Cycle;
+package com.example.couple.Model.Time.Cycle;
 
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 
 import java.util.ArrayList;
@@ -60,10 +61,10 @@ public class Branches {
     }
 
     public static Branches getEmpty() {
-        return new Branches(-1, "");
+        return new Branches(Const.EMPTY_VALUE, "");
     }
 
     public boolean isEmpty() {
-        return position == -1 || name.equals("");
+        return position == Const.EMPTY_VALUE || name.equals("");
     }
 }

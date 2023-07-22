@@ -1,5 +1,6 @@
-package com.example.couple.Model.Cycle;
+package com.example.couple.Model.Time.Cycle;
 
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Cycle {
     Branches branches;
 
     public static Cycle getEmpty() {
-        return new Cycle(-1, "", Stems.getEmpty(), Branches.getEmpty());
+        return new Cycle(Const.EMPTY_VALUE, "", Stems.getEmpty(), Branches.getEmpty());
     }
 
     public boolean isEmpty() {

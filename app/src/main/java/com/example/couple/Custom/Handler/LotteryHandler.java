@@ -2,7 +2,7 @@ package com.example.couple.Custom.Handler;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Origin.Lottery;

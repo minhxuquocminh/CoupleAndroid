@@ -1,4 +1,4 @@
-package com.example.couple.Model.Base;
+package com.example.couple.Model.UI;
 
 import java.util.List;
 

@@ -1,7 +1,5 @@
 package com.example.couple.View.Main.CreateNumberArray;
 
-import com.example.couple.Model.BridgeCouple.CombineBridge;
-import com.example.couple.Model.BridgeCouple.MappingBridge;
 import com.example.couple.Model.Display.Number;
 import com.example.couple.Model.Display.SpecialNumbersHistory;
 import com.example.couple.Model.Origin.Jackpot;

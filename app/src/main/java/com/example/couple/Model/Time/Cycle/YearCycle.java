@@ -1,5 +1,6 @@
-package com.example.couple.Model.Cycle;
+package com.example.couple.Model.Time.Cycle;
 
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.CoupleHandler;
 
@@ -15,11 +16,11 @@ public class YearCycle {
     }
 
     public static YearCycle getEmpty() {
-        return new YearCycle(-1);
+        return new YearCycle(Const.EMPTY_VALUE);
     }
 
     public boolean isEmpty() {
-        return year == -1;
+        return year == Const.EMPTY_VALUE;
     }
 
     public YearCycle(int year) {

@@ -7,21 +7,22 @@ import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.TimeHandler;
-import com.example.couple.Model.BridgeCouple.CombineBridge;
-import com.example.couple.Model.BridgeCouple.CycleBridge;
-import com.example.couple.Model.BridgeCouple.MappingBridge;
-import com.example.couple.Model.BridgeCouple.PeriodBridge;
-import com.example.couple.Model.BridgeCouple.ShadowMappingBridge;
-import com.example.couple.Model.BridgeCouple.SpecialSet;
-import com.example.couple.Model.BridgeCouple.TriadMappingBridge;
-import com.example.couple.Model.BridgeSingle.CombineTouchBridge;
-import com.example.couple.Model.BridgeSingle.ConnectedBridge;
-import com.example.couple.Model.BridgeSingle.LottoTouchBridge;
-import com.example.couple.Model.BridgeSingle.ShadowTouchBridge;
+import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Bridge.Couple.CycleBridge;
+import com.example.couple.Model.Bridge.Couple.MappingBridge;
+import com.example.couple.Model.Bridge.Couple.PeriodBridge;
+import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
+import com.example.couple.Model.Bridge.Couple.SpecialSet;
+import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
+import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
+import com.example.couple.Model.Bridge.Single.ConnectedBridge;
+import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
+import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Support.TimeBase;
+import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.View.Bridge.BridgeCombinationView;
 
 import java.util.ArrayList;
@@ -45,31 +46,36 @@ public class BridgeCombinationViewModel {
 
     public void GetAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
         if (!jackpotList.isEmpty()) {
+            List<Bridge> bridgeList = new ArrayList<>();
             // touch
             CombineTouchBridge combineTouchBridge =
                     JackpotBridgeHandler.GetCombineTouchBridge(jackpotList, lotteryList, 0);
+            bridgeList.add(combineTouchBridge);
             ConnectedBridge connectedBridge = JackpotBridgeHandler.GetConnectedBridge(lotteryList,
                     Const.CONNECTED_BRIDGE_FINDING_DAYS, 0, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+            bridgeList.add(connectedBridge);
             ShadowTouchBridge shadowTouchBridge = JackpotBridgeHandler
                     .GetShadowTouchBridge(jackpotList, 0);
+            bridgeList.add(shadowTouchBridge);
             LottoTouchBridge lottoTouchBridge =
                     JackpotBridgeHandler.GetLottoTouchBridge(lotteryList, 0);
+            bridgeList.add(lottoTouchBridge);
             ShadowTouchBridge negativeShadowBridge =
                     JackpotBridgeHandler.GetNegativeShadowTouchBridge(jackpotList, 0);
+            bridgeList.add(negativeShadowBridge);
             ShadowTouchBridge positiveShadowBridge =
                     JackpotBridgeHandler.GetPositiveShadowTouchBridge(jackpotList, 0);
+            bridgeList.add(positiveShadowBridge);
             // mapping, period
             MappingBridge mappingBridge =
                     JackpotBridgeHandler.GetMappingBridge(jackpotList, Const.MAPPING_ALL, 0);
+            bridgeList.add(mappingBridge);
             ShadowMappingBridge shadowMappingBridge =
                     JackpotBridgeHandler.GetShadowMappingBridge(jackpotList, 0);
+            bridgeList.add(shadowMappingBridge);
             PeriodBridge periodBridge = JackpotBridgeHandler.GetPeriodBridge(jackpotList, 0);
-            CombineBridge combineBridge = new CombineBridge(combineTouchBridge, connectedBridge,
-                    shadowTouchBridge, lottoTouchBridge, negativeShadowBridge, positiveShadowBridge,
-                    mappingBridge, shadowMappingBridge, periodBridge, MappingBridge.getEmpty(),
-                    CycleBridge.getEmpty(), CycleBridge.getEmpty(), MappingBridge.getEmpty(),
-                    TriadMappingBridge.getEmpty(), SpecialSet.getEmpty(),
-                    SpecialSet.getEmpty(), SpecialSet.getEmpty(),
+            bridgeList.add(periodBridge);
+            CombineBridge combineBridge = new CombineBridge(bridgeList,
                     new JackpotHistory(0, Jackpot.getEmpty()));
             view.ShowAllBridgeToday(combineBridge);
         }
@@ -91,51 +97,99 @@ public class BridgeCombinationViewModel {
                 lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                 lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS : numberOfDay;
         for (int i = 0; i < newDayNumber; i++) {
+            List<Bridge> bridgeList = new ArrayList<>();
             // touch
-            CombineTouchBridge combineTouchBridge = combineTouch ? JackpotBridgeHandler
-                    .GetCombineTouchBridge(jackpotList, lotteryList, i) : CombineTouchBridge.getEmpty();
-            ConnectedBridge connectedBridge = connected ? JackpotBridgeHandler
-                    .GetConnectedBridge(lotteryList, Const.CONNECTED_BRIDGE_FINDING_DAYS, i,
-                            Const.CONNECTED_BRIDGE_MAX_DISPLAY) : ConnectedBridge.getEmpty();
-            ShadowTouchBridge shadowTouchBridge = shadowTouch ? JackpotBridgeHandler
-                    .GetShadowTouchBridge(jackpotList, i) : ShadowTouchBridge.getEmpty();
-            LottoTouchBridge lottoTouchBridge = lottoTouch ? JackpotBridgeHandler
-                    .GetLottoTouchBridge(lotteryList, i) : LottoTouchBridge.getEmpty();
-            ShadowTouchBridge negativeShadowBridge = negativeShadow ? JackpotBridgeHandler
-                    .GetNegativeShadowTouchBridge(jackpotList, i) : ShadowTouchBridge.getEmpty();
-            ShadowTouchBridge positiveShadowBridge = positiveShadow ? JackpotBridgeHandler
-                    .GetPositiveShadowTouchBridge(jackpotList, i) : ShadowTouchBridge.getEmpty();
+            if (combineTouch) {
+                CombineTouchBridge combineTouchBridge = JackpotBridgeHandler
+                        .GetCombineTouchBridge(jackpotList, lotteryList, i);
+                bridgeList.add(combineTouchBridge);
+            }
+            if (connected) {
+                ConnectedBridge connectedBridge = JackpotBridgeHandler
+                        .GetConnectedBridge(lotteryList, Const.CONNECTED_BRIDGE_FINDING_DAYS, i,
+                                Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+                bridgeList.add(connectedBridge);
+            }
+            if (shadowTouch) {
+                ShadowTouchBridge shadowTouchBridge = JackpotBridgeHandler
+                        .GetShadowTouchBridge(jackpotList, i);
+                bridgeList.add(shadowTouchBridge);
+            }
+            if (lottoTouch) {
+                LottoTouchBridge lottoTouchBridge = JackpotBridgeHandler
+                        .GetLottoTouchBridge(lotteryList, i);
+                bridgeList.add(lottoTouchBridge);
+            }
+            if (negativeShadow) {
+                ShadowTouchBridge negativeShadowBridge = JackpotBridgeHandler
+                        .GetNegativeShadowTouchBridge(jackpotList, i);
+                bridgeList.add(negativeShadowBridge);
+            }
+            if (positiveShadow) {
+                ShadowTouchBridge positiveShadowBridge = JackpotBridgeHandler
+                        .GetPositiveShadowTouchBridge(jackpotList, i);
+                bridgeList.add(positiveShadowBridge);
+            }
             // mapping, period
-            MappingBridge mappingBridge = mapping ? JackpotBridgeHandler
-                    .GetMappingBridge(jackpotList, Const.MAPPING_ALL, i) : MappingBridge.getEmpty();
-            ShadowMappingBridge shadowMappingBridge = shadowMapping ? JackpotBridgeHandler
-                    .GetShadowMappingBridge(jackpotList, i) : ShadowMappingBridge.getEmpty();
-            PeriodBridge periodBridge = period ? JackpotBridgeHandler
-                    .GetPeriodBridge(jackpotList, i) : PeriodBridge.getEmpty();
-            MappingBridge mappingBridge1 = mapping1 ? JackpotBridgeHandler
-                    .GetMappingBridge(jackpotList, 1, i) : MappingBridge.getEmpty();
-            CycleBridge compatibleBridge = compatible ? JackpotBridgeHandler
-                    .GetCompatibleCycleBridge(jackpotList, timeBaseList, i) : CycleBridge.getEmpty();
-            CycleBridge incompatibleBridge = incompatible ? JackpotBridgeHandler
-                    .GetIncompatibleCycleBridge(jackpotList, timeBaseList, i) : CycleBridge.getEmpty();
-            MappingBridge matchMappingBridge = matchMapping ? JackpotBridgeHandler
-                    .GetMatchMappingBridge(jackpotList, i) : MappingBridge.getEmpty();
-            TriadMappingBridge triadMappingBridge = triadMapping ? JackpotBridgeHandler
-                    .GetTriadMappingBridge(jackpotList, i) : TriadMappingBridge.getEmpty();
+            if (mapping) {
+                MappingBridge mappingBridge = JackpotBridgeHandler
+                        .GetMappingBridge(jackpotList, Const.MAPPING_ALL, i);
+                bridgeList.add(mappingBridge);
+            }
+            if (shadowMapping) {
+                ShadowMappingBridge shadowMappingBridge = JackpotBridgeHandler
+                        .GetShadowMappingBridge(jackpotList, i);
+                bridgeList.add(shadowMappingBridge);
+            }
+            if (period) {
+                PeriodBridge periodBridge = JackpotBridgeHandler
+                        .GetPeriodBridge(jackpotList, i);
+                bridgeList.add(periodBridge);
+            }
+            if (mapping1) {
+                MappingBridge mappingBridge1 = JackpotBridgeHandler
+                        .GetMappingBridge(jackpotList, 1, i);
+                bridgeList.add(mappingBridge1);
+            }
+            if (compatible) {
+                CycleBridge compatibleBridge = JackpotBridgeHandler
+                        .GetCompatibleCycleBridge(jackpotList, timeBaseList, i);
+                bridgeList.add(compatibleBridge);
+            }
+            if (incompatible) {
+                CycleBridge incompatibleBridge = JackpotBridgeHandler
+                        .GetIncompatibleCycleBridge(jackpotList, timeBaseList, i);
+                bridgeList.add(incompatibleBridge);
+            }
+            if (matchMapping) {
+                MappingBridge matchMappingBridge = JackpotBridgeHandler
+                        .GetMatchMappingBridge(jackpotList, i);
+                bridgeList.add(matchMappingBridge);
+            }
+            if (triadMapping) {
+                TriadMappingBridge triadMappingBridge = JackpotBridgeHandler
+                        .GetTriadMappingBridge(jackpotList, i);
+                bridgeList.add(triadMappingBridge);
+            }
             // jackpot
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             // special set
-            SpecialSet bigDoubleSet = bigDouble ? new SpecialSet(Const.BIG_DOUBLE_SET_NAME,
-                    Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot)) : SpecialSet.getEmpty();
-            SpecialSet sameDoubleSet = sameDouble ? new SpecialSet(Const.DOUBLE_SET_NAME,
-                    Const.DOUBLE_SET, new JackpotHistory(i, jackpot)) : SpecialSet.getEmpty();
-            SpecialSet nearDoubleSet = nearDouble ? new SpecialSet(Const.NEAR_DOUBLE_SET_NAME,
-                    Const.NEAR_DOUBLE_SET, new JackpotHistory(i, jackpot)) : SpecialSet.getEmpty();
-            CombineBridge combineBridge = new CombineBridge(combineTouchBridge, connectedBridge,
-                    shadowTouchBridge, lottoTouchBridge, negativeShadowBridge, positiveShadowBridge,
-                    mappingBridge, shadowMappingBridge, periodBridge, mappingBridge1, compatibleBridge,
-                    incompatibleBridge, matchMappingBridge, triadMappingBridge, bigDoubleSet, sameDoubleSet,
-                    nearDoubleSet, new JackpotHistory(i, jackpot));
+            if (bigDouble) {
+                SpecialSet bigDoubleSet = new SpecialSet(Const.BIG_DOUBLE_SET_NAME,
+                        Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot));
+                bridgeList.add(bigDoubleSet);
+            }
+            if (sameDouble) {
+                SpecialSet sameDoubleSet = new SpecialSet(Const.DOUBLE_SET_NAME,
+                        Const.DOUBLE_SET, new JackpotHistory(i, jackpot));
+                bridgeList.add(sameDoubleSet);
+            }
+            if (nearDouble) {
+                SpecialSet nearDoubleSet = new SpecialSet(Const.NEAR_DOUBLE_SET_NAME,
+                        Const.NEAR_DOUBLE_SET, new JackpotHistory(i, jackpot));
+                bridgeList.add(nearDoubleSet);
+            }
+            CombineBridge combineBridge = new CombineBridge(bridgeList, new JackpotHistory(i, jackpot));
             combineBridges.add(combineBridge);
         }
         if (combineBridges.isEmpty()) {

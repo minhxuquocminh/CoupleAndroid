@@ -5,25 +5,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Base.Handler.StringBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.Base.Row;
-import com.example.couple.Model.Base.TableByRow;
-import com.example.couple.Model.Cycle.Cycle;
-import com.example.couple.Model.Cycle.YearCycle;
+import com.example.couple.Model.UI.Row;
+import com.example.couple.Model.UI.TableByRow;
+import com.example.couple.Model.Time.Cycle.Cycle;
+import com.example.couple.Model.Time.Cycle.YearCycle;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.TimeBase;
+import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.SexagenaryCycleViewModel;
 

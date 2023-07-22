@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Base.Row;
-import com.example.couple.Model.Base.TableByRow;
-import com.example.couple.Model.Cycle.YearCycle;
+import com.example.couple.Model.UI.Row;
+import com.example.couple.Model.UI.TableByRow;
+import com.example.couple.Model.Time.Cycle.YearCycle;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.CycleByYearViewModel;
 

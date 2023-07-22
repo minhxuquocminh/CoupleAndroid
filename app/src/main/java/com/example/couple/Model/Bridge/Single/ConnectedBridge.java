@@ -1,9 +1,9 @@
-package com.example.couple.Model.BridgeSingle;
+package com.example.couple.Model.Bridge.Single;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.BridgeCouple.CombineInterface;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.ConnectedSupport;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class ConnectedBridge implements CombineInterface {
+public class ConnectedBridge extends Bridge {
     List<ConnectedSupport> connectedSupports;
     JackpotHistory jackpotHistory;
     List<Integer> touchs;
@@ -39,31 +39,9 @@ public class ConnectedBridge implements CombineInterface {
         this.numbers = NumberArrayHandler.getTouchs(touchs);
     }
 
-    public boolean isWin() {
-        return CoupleHandler.isTouch(jackpotHistory, getTouchs());
-    }
-
-    public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(numbers);
-    }
-
-    public String showTouchs() {
-        return CoupleHandler.showTouchs(touchs);
-    }
-
-    public String showBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        show += " * " + jackpotHistory.show() + " - " + win + "\n";
-        show += "    - " + Const.CONNECTED_BRIDGE_NAME + ": " + showTouchs() + ".";
-        return show;
-    }
-
-    public String showCompactBridge() {
-        String show = "";
-        String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        show += "    - " + Const.CONNECTED_BRIDGE_NAME + win + ": " + showTouchs() + ".";
-        return show;
+    @Override
+    public String getBridgeName() {
+        return Const.CONNECTED_BRIDGE_NAME;
     }
 
     public static ConnectedBridge getEmpty() {

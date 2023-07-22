@@ -18,8 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.BridgeCouple.TriadBridge;
-import com.example.couple.Model.BridgeSingle.ConnectedBridge;
+import com.example.couple.Model.Bridge.Couple.TriadBridge;
+import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Origin.Jackpot;

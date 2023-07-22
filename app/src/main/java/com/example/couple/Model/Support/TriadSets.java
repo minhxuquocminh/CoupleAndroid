@@ -1,6 +1,6 @@
 package com.example.couple.Model.Support;
 
-import com.example.couple.Model.BridgeCouple.TriadBridge;
+import com.example.couple.Model.Bridge.Couple.TriadBridge;
 
 import java.util.List;
 

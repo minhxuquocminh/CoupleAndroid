@@ -9,9 +9,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.couple.Model.Base.Row;
-import com.example.couple.Model.Base.TableByColumn;
-import com.example.couple.Model.Base.TableByRow;
+import com.example.couple.Model.UI.Row;
+import com.example.couple.Model.UI.TableByColumn;
+import com.example.couple.Model.UI.TableByRow;
 import com.example.couple.R;
 
 public class TableLayoutBase {

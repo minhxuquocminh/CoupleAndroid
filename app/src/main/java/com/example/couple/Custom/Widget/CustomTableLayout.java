@@ -11,7 +11,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
@@ -415,7 +415,7 @@ public class CustomTableLayout {
             Couple dgFirst = jackpotList.get(i).getCouple(); //the day before 2 day
             Couple dgSecond = jackpotList.get(i - 1).getCouple(); // the day before 1 day
             List<BCouple> balanceBCouples = CoupleBridgeHandler.GetBalanceCouples(
-                    dgFirst.getCouple(), dgSecond.getCouple());
+                    dgFirst.toBCouple(), dgSecond.toBCouple());
 
             //Current row is at i - 2 position
 

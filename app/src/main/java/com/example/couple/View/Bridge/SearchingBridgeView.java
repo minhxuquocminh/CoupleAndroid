@@ -2,8 +2,8 @@ package com.example.couple.View.Bridge;
 
 
 import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.BridgeSingle.ConnectedBridge;
-import com.example.couple.Model.BridgeCouple.TriadBridge;
+import com.example.couple.Model.Bridge.Single.ConnectedBridge;
+import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Origin.Jackpot;

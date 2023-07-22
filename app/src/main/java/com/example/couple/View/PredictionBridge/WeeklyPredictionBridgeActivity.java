@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.FirebaseBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Model.Display.Prediction;

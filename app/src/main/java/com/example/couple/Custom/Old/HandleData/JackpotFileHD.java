@@ -1,6 +1,6 @@
 package com.example.couple.Custom.Old.HandleData;
 
-import com.example.couple.Base.Handler.DateBase;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 

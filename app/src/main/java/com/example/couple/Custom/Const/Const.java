@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Const {
-    public static final int EMPTY_VALUE = -1;
+    public static final int EMPTY_VALUE = -999;
     public static final int MAX_DAY_OF_MONTH = 31;
     public static final int DAY_OF_WEEK = 7;
     public static final int DAY_OF_YEAR = 365;
@@ -101,7 +101,7 @@ public class Const {
                     38, 83,
                     49, 94
             );
-    public static final List<Integer> SMALL_SET =
+    public static final List<Integer> SMALL_SETS =
             Arrays.asList(0, 1, 2, 3, 4, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
     // url and params
     public static final String TIME_URL = "https://lichvannien365.com/";

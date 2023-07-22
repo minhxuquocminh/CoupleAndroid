@@ -1,5 +1,6 @@
-package com.example.couple.Model.Cycle;
+package com.example.couple.Model.Time.Cycle;
 
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 
 import lombok.Getter;
@@ -19,11 +20,11 @@ public class Stems {
     }
 
     public static Stems getEmpty() {
-        return new Stems(-1, "");
+        return new Stems(Const.EMPTY_VALUE, "");
     }
 
     public boolean isEmpty() {
-        return position == -1 || name.equals("");
+        return position == Const.EMPTY_VALUE || name.equals("");
     }
 
     public Stems getCompatibleStems() {

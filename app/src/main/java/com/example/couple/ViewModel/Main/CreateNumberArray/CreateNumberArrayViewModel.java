@@ -59,7 +59,7 @@ public class CreateNumberArrayViewModel {
         histories.addAll(sumList);
 
         List<SpecialNumbersHistory> setList = new ArrayList<>();
-        for (int i : Const.SMALL_SET) {
+        for (int i : Const.SMALL_SETS) {
             SpecialNumbersHistory set =
                     JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.SET, i);
             setList.add(set);

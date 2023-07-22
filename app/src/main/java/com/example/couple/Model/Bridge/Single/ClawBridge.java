@@ -1,5 +1,6 @@
-package com.example.couple.Model.BridgeSingle;
+package com.example.couple.Model.Bridge.Single;
 
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -34,6 +35,6 @@ public class ClawBridge {
     }
 
     public static ClawBridge getEmpty() {
-        return new ClawBridge(new ArrayList<>(), 0, JackpotHistory.getEmpty());
+        return new ClawBridge(new ArrayList<>(), Const.EMPTY_VALUE, JackpotHistory.getEmpty());
     }
 }
