@@ -14,13 +14,13 @@ public class Stems {
     int position;
     String name;
 
-    public Stems(int position, String name) {
-        this.position = position % 10;
-        this.name = name;
+    public Stems(int position) {
+        this.position = position == Const.EMPTY_VALUE ? position : position % 10;
+        this.name = position == Const.EMPTY_VALUE ? "" : TimeInfo.HEAVENLY_STEMS.get(position % 10);
     }
 
     public static Stems getEmpty() {
-        return new Stems(Const.EMPTY_VALUE, "");
+        return new Stems(Const.EMPTY_VALUE);
     }
 
     public boolean isEmpty() {
@@ -29,12 +29,12 @@ public class Stems {
 
     public Stems getCompatibleStems() {
         int new_position = (position + 5) % 10;
-        return new Stems(new_position, TimeInfo.HEAVENLY_STEMS.get(new_position));
+        return new Stems(new_position);
     }
 
     public Stems getIncompatibleStems() {
         int new_position = (position + 4) % 10;
-        return new Stems(new_position, TimeInfo.HEAVENLY_STEMS.get(new_position));
+        return new Stems(new_position);
     }
 
     public String showCompatibleStems() {

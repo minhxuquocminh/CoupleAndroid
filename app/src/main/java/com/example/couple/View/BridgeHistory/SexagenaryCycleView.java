@@ -1,4 +1,4 @@
-package com.example.couple.View.SubScreen;
+package com.example.couple.View.BridgeHistory;
 
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Time.TimeBase;

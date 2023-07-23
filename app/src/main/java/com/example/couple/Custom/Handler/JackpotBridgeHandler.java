@@ -1,5 +1,6 @@
 package com.example.couple.Custom.Handler;
 
+import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
 import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
@@ -95,6 +96,14 @@ public class JackpotBridgeHandler {
      * work with jackpot
      */
 
+    public static ShadowExchangeBridge GetShadowExchangeBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore + 2)
+            return ShadowExchangeBridge.getEmpty();
+        Couple couple = jackpotList.get(dayNumberBefore + 1).getCouple();
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        return new ShadowExchangeBridge(couple, new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
     public static TriadMappingBridge GetTriadMappingBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore + 14)
             return TriadMappingBridge.getEmpty();
@@ -103,10 +112,6 @@ public class JackpotBridgeHandler {
                 jackpotList.get(dayNumberBefore).getCouple());
         sequentCoupleMap.put(jackpotList.get(dayNumberBefore + 7).getCouple(),
                 jackpotList.get(dayNumberBefore).getCouple());
-//        List<Couple> couplesNextDay = getCouplesNextDay(jackpotList, dayNumberBefore);
-//        if (couplesNextDay.size() >= 2) {
-//            sequentCoupleMap.put(couplesNextDay.get(1), couplesNextDay.get(0));
-//        }
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new TriadMappingBridge(sequentCoupleMap, new JackpotHistory(dayNumberBefore, jackpot));
     }

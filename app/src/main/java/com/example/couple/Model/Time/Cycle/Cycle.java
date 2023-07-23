@@ -2,6 +2,7 @@ package com.example.couple.Model.Time.Cycle;
 
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Model.Origin.Couple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +58,8 @@ public class Cycle {
         String branchesName = cycleArr[1].trim();
         int stemsPos = TimeInfo.HEAVENLY_STEMS.indexOf(stemsName);
         int branchesPos = TimeInfo.EARTHLY_BRANCHES.indexOf(branchesName);
-        Stems stems = new Stems(stemsPos, stemsName);
-        Branches branches = new Branches(branchesPos, branchesName);
+        Stems stems = new Stems(stemsPos);
+        Branches branches = new Branches(branchesPos);
         return new Cycle(stems, branches);
     }
 
@@ -66,10 +67,8 @@ public class Cycle {
         if (position < 0) return Cycle.getEmpty();
         int stemsPos = position % 10;
         int branchesPos = position % 12;
-        String stemsName = TimeInfo.HEAVENLY_STEMS.get(stemsPos);
-        String branchesName = TimeInfo.EARTHLY_BRANCHES.get(branchesPos);
-        Stems stems = new Stems(stemsPos, stemsName);
-        Branches branches = new Branches(branchesPos, branchesName);
+        Stems stems = new Stems(stemsPos);
+        Branches branches = new Branches(branchesPos);
         return new Cycle(stems, branches);
     }
 
@@ -103,6 +102,18 @@ public class Cycle {
             }
         }
         return results;
+    }
+
+    public static List<Cycle> getCycleList(Couple couple, int startYear, int endYear) {
+        List<Cycle> cycles = new ArrayList<>();
+        for (int i = startYear / 100; i <= endYear / 100; i++) {
+            int year = i * 100 + couple.getCoupleInt();
+            if (year >= startYear && year <= endYear) {
+                YearCycle yearCycle = new YearCycle(year);
+                cycles.add(yearCycle.getCycle());
+            }
+        }
+        return cycles;
     }
 
 }

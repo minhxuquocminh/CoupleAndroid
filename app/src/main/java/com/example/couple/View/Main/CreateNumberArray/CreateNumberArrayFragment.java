@@ -34,7 +34,7 @@ import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Main.MainActivity;
 import com.example.couple.View.SubScreen.CycleByYearActivity;
-import com.example.couple.View.SubScreen.SexagenaryCycleActivity;
+import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.ViewModel.Main.CreateNumberArray.CreateNumberArrayViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

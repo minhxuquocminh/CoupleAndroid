@@ -22,6 +22,23 @@ public class Couple {
     private int second;
     private DateBase dateBase;
 
+    public List<Integer> getShadowExchange() {
+        List<Integer> firstList = new ArrayList<>();
+        firstList.add(CoupleHandler.getNegativeShadow(first));
+        firstList.add(CoupleHandler.getShadow(first));
+        List<Integer> secondList = new ArrayList<>();
+        secondList.add(CoupleHandler.getNegativeShadow(second));
+        secondList.add(CoupleHandler.getShadow(second));
+        List<Integer> results = new ArrayList<>();
+        for (int fi : firstList) {
+            for (int se : secondList) {
+                results.add(fi * 10 + se);
+                results.add(CoupleHandler.reverse(fi * 10 + se));
+            }
+        }
+        return NumberBase.filterDuplicatedNumbers(results);
+    }
+
     public ShadowSingle getShadowSingle() {
         List<Single> firstsTens = new ArrayList<>();
         List<Single> secondsTens = new ArrayList<>();
@@ -166,4 +183,13 @@ public class Couple {
     public BCouple toBCouple() {
         return new BCouple(first, second);
     }
+
+    public static Couple getEmpty() {
+        return new Couple(Const.EMPTY_VALUE, Const.EMPTY_VALUE, DateBase.getEmpty());
+    }
+
+    public boolean isEmpty() {
+        return first == Const.EMPTY_VALUE || second == Const.EMPTY_VALUE;
+    }
+
 }

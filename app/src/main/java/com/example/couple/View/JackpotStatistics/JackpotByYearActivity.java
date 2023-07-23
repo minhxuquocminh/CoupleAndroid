@@ -71,7 +71,7 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
             yearStrList.add("Năm " + year);
         }
         ArrayAdapter adapter = new ArrayAdapter(this,
-                R.layout.custom_item_spn_year, R.id.tvYear, yearStrList);
+                R.layout.custom_item_spinner, R.id.tvItemSpinner, yearStrList);
         spnYear.setAdapter(adapter);
         viewModel.GetTableOfJackpot(TimeInfo.CURRENT_YEAR);
     }

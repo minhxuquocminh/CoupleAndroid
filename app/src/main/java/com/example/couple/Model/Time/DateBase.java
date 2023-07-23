@@ -1,5 +1,6 @@
 package com.example.couple.Model.Time;
 
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.CoupleHandler;
 
@@ -27,11 +28,11 @@ public class DateBase implements Serializable {
     int year;
 
     public static DateBase getEmpty() {
-        return new DateBase(0, 0, 0);
+        return new DateBase(Const.EMPTY_VALUE, Const.EMPTY_VALUE, Const.EMPTY_VALUE);
     }
 
     public boolean isEmpty() {
-        return day == 0 || month == 0 || year == 0;
+        return day == Const.EMPTY_VALUE || month == Const.EMPTY_VALUE || year == Const.EMPTY_VALUE;
     }
 
     public static DateBase TO_DAY() {

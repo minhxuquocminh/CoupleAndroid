@@ -51,6 +51,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     CheckBox cboIncompatible;
     CheckBox cboMatchMappingBridge;
     CheckBox cboTriadMappingBridge;
+    CheckBox cboShadowExchangeBridge;
     //
     CheckBox cboBigDoubleSet;
     CheckBox cboSameDoubleSet;
@@ -94,6 +95,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboPeriodBridge = findViewById(R.id.cboPeriodBridge);
         cboMatchMappingBridge = findViewById(R.id.cboMatchMappingBridge);
         cboTriadMappingBridge = findViewById(R.id.cboTriadMappingBridge);
+        cboShadowExchangeBridge = findViewById(R.id.cboShadowExchangeBridge);
         // special set
         cboBigDoubleSet = findViewById(R.id.cboBigDoubleSet);
         cboSameDoubleSet = findViewById(R.id.cboSameDoubleSet);
@@ -148,6 +150,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 boolean incompatible = cboIncompatible.isChecked();
                 boolean matchMapping = cboMatchMappingBridge.isChecked();
                 boolean triadMapping = cboTriadMappingBridge.isChecked();
+                boolean shadowExchange = cboShadowExchangeBridge.isChecked();
                 // special set
                 boolean bigDouble = cboBigDoubleSet.isChecked();
                 boolean sameDouble = cboSameDoubleSet.isChecked();
@@ -160,7 +163,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                     viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseList, numberOfDay,
                             combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
                             mapping, shadowMapping, period, mapping1, compatible, incompatible, matchMapping,
-                            triadMapping, bigDouble, sameDouble, nearDouble);
+                            triadMapping, shadowExchange, bigDouble, sameDouble, nearDouble);
                 }
             }
         });

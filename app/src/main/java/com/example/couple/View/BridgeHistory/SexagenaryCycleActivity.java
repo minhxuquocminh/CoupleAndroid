@@ -1,4 +1,4 @@
-package com.example.couple.View.SubScreen;
+package com.example.couple.View.BridgeHistory;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,14 +15,14 @@ import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.UI.Row;
-import com.example.couple.Model.UI.TableByRow;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Time.Cycle.Cycle;
 import com.example.couple.Model.Time.Cycle.YearCycle;
-import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Time.TimeBase;
+import com.example.couple.Model.UI.Row;
+import com.example.couple.Model.UI.TableByRow;
 import com.example.couple.R;
-import com.example.couple.ViewModel.SubScreen.SexagenaryCycleViewModel;
+import com.example.couple.ViewModel.BridgeHistory.SexagenaryCycleViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,8 +89,8 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
             if (index != -1) break;
         }
         if (index < 0) {
-            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
-                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp", "Năm khắc");
+//            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
+//                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp", "Năm khắc");
             for (TimeBase timeBase : cycleList) {
                 String dateBase = timeBase.getDateBase().showDDMM("-");
                 String dateLunar = timeBase.getDateLunar().showDDMM("-");
@@ -98,24 +98,20 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                 Cycle dayCycle = timeBase.getDateCycle().getDay();
                 String stems = dayCycle.getStems().getPosition() + "";
                 String branches = dayCycle.getBranches().getPosition() % 10 + "";
-                String comStems = dayCycle.getStems().showCompatibleStems();
-                String incomStems = dayCycle.getStems().showIncompatibleStems();
-                String comBranches = dayCycle.getBranches().showCompatibleBranches();
-                String incomBranches = dayCycle.getBranches().showIncompatibleBranches();
-                List<YearCycle> comYear =
-                        dayCycle.getCompatibleYearCyclesByBranches(1900, TimeInfo.CURRENT_YEAR);
+                List<YearCycle> comYear = dayCycle
+                        .getCompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
                 String comCycle = "(" + comYear.size() + " số)";
                 for (YearCycle yearCycle : comYear) {
                     comCycle += yearCycle.showByCouple() + " ";
                 }
-                List<YearCycle> incomYear =
-                        dayCycle.getIncompatibleYearCyclesByBranches(1900, TimeInfo.CURRENT_YEAR);
+                List<YearCycle> incomYear = dayCycle
+                        .getIncompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
                 String incomCycle = "(" + incomYear.size() + " số)";
                 for (YearCycle yearCycle : incomYear) {
                     incomCycle += yearCycle.showByCouple() + " ";
                 }
-                List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stems,
-                        branches, comStems, incomStems, comBranches, incomBranches, comCycle, incomCycle);
+                List<String> cells = Arrays.asList(dateBase,
+                        dateLunar, dateCycle, stems, branches, comCycle, incomCycle);
                 Row row = new Row(cells);
                 rows.add(row);
             }
@@ -124,23 +120,26 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
             List<Jackpot> jackpots = new ArrayList<>();
             jackpots.add(Jackpot.getEmpty());
             jackpots.addAll(jackpotList);
-            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
-                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp khắc", "Năm hợp", "Năm khắc");
+//            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
+//                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp khắc", "Năm hợp", "Năm khắc");
             for (TimeBase timeBase : cycleList) {
                 String dateBase = timeBase.getDateBase().showDDMM("-");
                 String dateLunar = timeBase.getDateLunar().showDDMM("-");
                 String dateCycle = timeBase.getDateCycle().show();
-                String jackpot = jackpots.get(count).getJackpot();
                 Cycle dayCycle = timeBase.getDateCycle().getDay();
                 String stems = dayCycle.getStems().getPosition() + "";
                 String branches = dayCycle.getBranches().getPosition() % 10 + "";
-                String comStems = dayCycle.getStems().showCompatibleStems();
-                String incomStems = dayCycle.getStems().showIncompatibleStems();
-                String comBranches = dayCycle.getBranches().showCompatibleBranches();
-                String incomBranches = dayCycle.getBranches().showIncompatibleBranches();
+                List<Cycle> cycles = count == 0 ? Arrays.asList(dayCycle) :
+                        Cycle.getCycleList(jackpots.get(count).getCouple(),
+                                TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
+                String coupleBranches1 = "";
+                String coupleBranches2 = "";
+                if (!cycles.isEmpty()) coupleBranches1 = cycles.get(0).getBranches().show();
+                if (cycles.size() > 1) coupleBranches2 = cycles.get(1).getBranches().show();
+                String jackpot = count == 0 ? "?????" : jackpots.get(count).getJackpot();
                 String status = "";
-                List<YearCycle> comYear =
-                        dayCycle.getCompatibleYearCyclesByBranches(1900, TimeInfo.CURRENT_YEAR);
+                List<YearCycle> comYear = dayCycle
+                        .getCompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
                 String comCycle = "(" + comYear.size() + " số)";
                 for (YearCycle yearCycle : comYear) {
                     comCycle += yearCycle.getCouple() + " ";
@@ -148,8 +147,8 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                         status += "H";
                     }
                 }
-                List<YearCycle> incomYear =
-                        dayCycle.getIncompatibleYearCyclesByBranches(1900, TimeInfo.CURRENT_YEAR);
+                List<YearCycle> incomYear = dayCycle
+                        .getIncompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
                 String incomCycle = "(" + incomYear.size() + " số)";
                 for (YearCycle yearCycle : incomYear) {
                     incomCycle += yearCycle.getCouple() + " ";
@@ -157,6 +156,7 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                         status += "K";
                     }
                 }
+                if (count == 0) status = "";
                 List<Integer> matchList = new ArrayList<>();
                 for (YearCycle com : comYear) {
                     for (YearCycle incom : incomYear) {
@@ -169,8 +169,8 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                 List<Integer> matchs2 = NumberBase.getDuplicatedNumbers(matchList);
                 String match = "(" + matchs.size() + " số) " + CoupleHandler.showCoupleNumbers(matchs);
                 String match2 = "(" + matchs2.size() + " số) " + CoupleHandler.showCoupleNumbers(matchs2);
-                List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, jackpot, stems, branches,
-                        comStems, incomStems, comBranches, incomBranches, status, match, match2, comCycle, incomCycle);
+                List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stems, branches,
+                        coupleBranches1, coupleBranches2, jackpot, status, match, match2, comCycle, incomCycle);
                 Row row = new Row(cells);
                 rows.add(row);
                 count++;

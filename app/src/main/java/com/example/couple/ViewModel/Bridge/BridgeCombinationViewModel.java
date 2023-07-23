@@ -12,6 +12,7 @@ import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.PeriodBridge;
+import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
 import com.example.couple.Model.Bridge.Couple.SpecialSet;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
@@ -87,7 +88,8 @@ public class BridgeCombinationViewModel {
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
                                      boolean mapping, boolean shadowMapping, boolean period, boolean mapping1,
                                      boolean compatible, boolean incompatible, boolean matchMapping,
-                                     boolean triadMapping, boolean bigDouble, boolean sameDouble, boolean nearDouble) {
+                                     boolean triadMapping, boolean shadowExchange,
+                                     boolean bigDouble, boolean sameDouble, boolean nearDouble) {
         List<CombineBridge> combineBridges = new ArrayList<>();
         if (connected && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
             view.ShowError("Đặt lại giới hạn số ngày cho cầu liên thông là " +
@@ -170,6 +172,11 @@ public class BridgeCombinationViewModel {
                 TriadMappingBridge triadMappingBridge = JackpotBridgeHandler
                         .GetTriadMappingBridge(jackpotList, i);
                 bridgeList.add(triadMappingBridge);
+            }
+            if (shadowExchange) {
+                ShadowExchangeBridge shadowExchangeBridge = JackpotBridgeHandler
+                        .GetShadowExchangeBridge(jackpotList, i);
+                bridgeList.add(shadowExchangeBridge);
             }
             // jackpot
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();

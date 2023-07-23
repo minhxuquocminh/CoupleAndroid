@@ -4,12 +4,12 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tvYear"
+        android:id="@+id/tvItemSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/padding_10dp"
-        android:text="2020"
+        android:text="Item"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_size"
         android:textStyle="bold" />

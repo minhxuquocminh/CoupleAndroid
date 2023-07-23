@@ -33,6 +33,7 @@ public class Const {
     public static final String COMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi hợp";
     public static final String INCOMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi khắc";
     public static final String SHADOW_MAPPING_BRIDGE_NAME = "Cầu ánh xạ bóng";
+    public static final String SHADOW_EXCHANGE_BRIDGE_NAME = "Cầu đổi bóng";
     public static final String PERIOD_BRIDGE_NAME = "Cầu khoảng";
     public static final String CONNECTED_BRIDGE_NAME = "Cầu liên thông";
     public static final String NEGATIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng -";

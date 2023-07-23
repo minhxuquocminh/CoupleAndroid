@@ -17,16 +17,16 @@ public class Branches {
     int position;
     String name;
 
-    public Branches(int position, String name) {
-        this.position = position % 12;
-        this.name = name;
+    public Branches(int position) {
+        this.position = position == Const.EMPTY_VALUE ? position : position % 12;
+        this.name = position == Const.EMPTY_VALUE ? "" : TimeInfo.EARTHLY_BRANCHES.get(position % 12);
     }
 
     public List<Branches> getCompatibleBranches() {
         List<Branches> results = new ArrayList<>();
         for (int i = 4; i < 12; i += 4) {
             int new_position = (position + i) % 12;
-            Branches branches = new Branches(new_position, TimeInfo.EARTHLY_BRANCHES.get(new_position));
+            Branches branches = new Branches(new_position);
             results.add(branches);
         }
         return results;
@@ -36,7 +36,7 @@ public class Branches {
         List<Branches> results = new ArrayList<>();
         for (int i = 3; i < 12; i += 3) {
             int new_position = (position + i) % 12;
-            Branches branches = new Branches(new_position, TimeInfo.EARTHLY_BRANCHES.get(new_position));
+            Branches branches = new Branches(new_position);
             results.add(branches);
         }
         return results;
@@ -60,8 +60,12 @@ public class Branches {
         return show.trim();
     }
 
+    public String show() {
+        return name + " (" + position + ")";
+    }
+
     public static Branches getEmpty() {
-        return new Branches(Const.EMPTY_VALUE, "");
+        return new Branches(Const.EMPTY_VALUE);
     }
 
     public boolean isEmpty() {
