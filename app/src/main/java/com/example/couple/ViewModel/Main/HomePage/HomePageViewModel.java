@@ -12,12 +12,14 @@ import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.CoupleBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
+import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Custom.Handler.UpdateDataAlarm;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.View.Main.HomePage.HomePageView;
 
 import java.util.List;
@@ -77,8 +79,9 @@ public class HomePageViewModel {
         String jackpotStatus = UpdateJackpot(false) ? "(done)" : "(failed)";
         String lotteryStatus =
                 UpdateLottery(Const.MAX_DAYS_TO_GET_LOTTERY, false) ? "(done)" : "(failed)";
-        homePageView.ShowAllDataStatus("Trạng thái: thời gian "
-                + timeStatus + ", XS Đặc biệt " + jackpotStatus + ", XSMB " + lotteryStatus + ".");
+        String cycleStatus = TimeHandler.updateAllSexagenaryCycle(context) ? "(done)" : "(failed)";
+        homePageView.ShowAllDataStatus("Trạng thái: thời gian " + timeStatus + ", XS Đặc biệt "
+                + jackpotStatus + ", XSMB " + lotteryStatus + ", thời gian can chi " + cycleStatus + ".");
     }
 
     public boolean UpdateTime() {
@@ -99,8 +102,7 @@ public class HomePageViewModel {
 
     public boolean UpdateSexagenaryCycle() {
         try {
-            String timeData = Api.GetSexagenaryCycleByDay(context,
-                    TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
+            String timeData = Api.GetSexagenaryCycleByDay(context, DateBase.getCurrentDate());
             if (timeData.equals("")) {
                 homePageView.ShowError("Lỗi không lấy được thông tin can chi!");
                 return false;

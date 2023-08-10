@@ -10,17 +10,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Time.Cycle.Branch;
 import com.example.couple.Model.Time.Cycle.Cycle;
 import com.example.couple.Model.Time.Cycle.YearCycle;
 import com.example.couple.Model.Time.TimeBase;
-import com.example.couple.Model.UI.Row;
-import com.example.couple.Model.UI.TableByRow;
+import com.example.couple.Model.UI.RowUI;
+import com.example.couple.Model.UI.TableUI;
 import com.example.couple.R;
 import com.example.couple.ViewModel.BridgeHistory.SexagenaryCycleViewModel;
 
@@ -77,7 +76,7 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
     @Override
     public void ShowSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> jackpotList) {
         List<String> headers = new ArrayList<>();
-        List<Row> rows = new ArrayList<>();
+        List<RowUI> rows = new ArrayList<>();
         int index = -1;
         for (TimeBase timeBase : cycleList) {
             for (int i = 0; i < jackpotList.size(); i++) {
@@ -96,23 +95,10 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                 String dateLunar = timeBase.getDateLunar().showDDMM("-");
                 String dateCycle = timeBase.getDateCycle().show();
                 Cycle dayCycle = timeBase.getDateCycle().getDay();
-                String stems = dayCycle.getStems().getPosition() + "";
-                String branches = dayCycle.getBranches().getPosition() % 10 + "";
-                List<YearCycle> comYear = dayCycle
-                        .getCompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
-                String comCycle = "(" + comYear.size() + " số)";
-                for (YearCycle yearCycle : comYear) {
-                    comCycle += yearCycle.showByCouple() + " ";
-                }
-                List<YearCycle> incomYear = dayCycle
-                        .getIncompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
-                String incomCycle = "(" + incomYear.size() + " số)";
-                for (YearCycle yearCycle : incomYear) {
-                    incomCycle += yearCycle.showByCouple() + " ";
-                }
-                List<String> cells = Arrays.asList(dateBase,
-                        dateLunar, dateCycle, stems, branches, comCycle, incomCycle);
-                Row row = new Row(cells);
+                String stems = dayCycle.getStem().getPosition() + "";
+                String branches = dayCycle.getBranch().getPosition() % 10 + "";
+                List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stems, branches);
+                RowUI row = new RowUI(cells);
                 rows.add(row);
             }
         } else {
@@ -126,59 +112,36 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                 String dateBase = timeBase.getDateBase().showDDMM("-");
                 String dateLunar = timeBase.getDateLunar().showDDMM("-");
                 String dateCycle = timeBase.getDateCycle().show();
-                Cycle dayCycle = timeBase.getDateCycle().getDay();
-                String stems = dayCycle.getStems().getPosition() + "";
-                String branches = dayCycle.getBranches().getPosition() % 10 + "";
-                List<Cycle> cycles = count == 0 ? Arrays.asList(dayCycle) :
-                        Cycle.getCycleList(jackpots.get(count).getCouple(),
-                                TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
+                Branch branch = timeBase.getDateCycle().getDay().getBranch();
+                String stem = timeBase.getDateCycle().getDay().getStem().getPosition() + "";
+                String branches = branch.getPosition() % 10 + "";
+                List<Branch> branchList = count == 0 ? Arrays.asList(branch) :
+                        Branch.getYearBranchList(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);
                 String coupleBranches1 = "";
                 String coupleBranches2 = "";
-                if (!cycles.isEmpty()) coupleBranches1 = cycles.get(0).getBranches().show();
-                if (cycles.size() > 1) coupleBranches2 = cycles.get(1).getBranches().show();
+                if (!branchList.isEmpty()) coupleBranches1 = branchList.get(0).show();
+                if (branchList.size() > 1) coupleBranches2 = branchList.get(1).show();
+                int distance = branch.getDistance(branchList.get(0));
+                String distanceStr = count == 0 ? "" : (distance > 0 ? "+" + distance : distance + "");
                 String jackpot = count == 0 ? "?????" : jackpots.get(count).getJackpot();
-                String status = "";
-                List<YearCycle> comYear = dayCycle
-                        .getCompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
-                String comCycle = "(" + comYear.size() + " số)";
-                for (YearCycle yearCycle : comYear) {
-                    comCycle += yearCycle.getCouple() + " ";
-                    if (yearCycle.getYear() % 100 == jackpots.get(count).getCoupleInt()) {
-                        status += "H";
-                    }
+
+                String status = count == 0 ? "" :
+                        branch.getStatus(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);
+                List<YearCycle> yearBranch = branch.getYearCycles(TimeInfo.CURRENT_YEAR);
+                String yearBranchStr = "";
+                for (YearCycle cycle : yearBranch) {
+                    yearBranchStr += cycle.getCouple() + " ";
                 }
-                List<YearCycle> incomYear = dayCycle
-                        .getIncompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
-                String incomCycle = "(" + incomYear.size() + " số)";
-                for (YearCycle yearCycle : incomYear) {
-                    incomCycle += yearCycle.getCouple() + " ";
-                    if (yearCycle.getYear() % 100 == jackpots.get(count).getCoupleInt()) {
-                        status += "K";
-                    }
-                }
-                if (count == 0) status = "";
-                List<Integer> matchList = new ArrayList<>();
-                for (YearCycle com : comYear) {
-                    for (YearCycle incom : incomYear) {
-                        if (com.getCouple().equals(incom.getCouple())) {
-                            matchList.add(Integer.parseInt(com.getCouple()));
-                        }
-                    }
-                }
-                List<Integer> matchs = NumberBase.filterDuplicatedNumbers(matchList);
-                List<Integer> matchs2 = NumberBase.getDuplicatedNumbers(matchList);
-                String match = "(" + matchs.size() + " số) " + CoupleHandler.showCoupleNumbers(matchs);
-                String match2 = "(" + matchs2.size() + " số) " + CoupleHandler.showCoupleNumbers(matchs2);
-                List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stems, branches,
-                        coupleBranches1, coupleBranches2, jackpot, status, match, match2, comCycle, incomCycle);
-                Row row = new Row(cells);
+                List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stem, branches,
+                        coupleBranches1, coupleBranches2, distanceStr, jackpot, status, yearBranchStr);
+                RowUI row = new RowUI(cells);
                 rows.add(row);
                 count++;
             }
         }
 
-        TableByRow tableByRow = new TableByRow(headers, rows);
-        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableByRow);
+        TableUI tableUI = new TableUI(headers, rows);
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableUI);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
     }

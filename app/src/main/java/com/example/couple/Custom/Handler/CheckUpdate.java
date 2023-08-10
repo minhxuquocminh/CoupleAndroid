@@ -7,6 +7,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Time.TimeBase;
 
 import java.util.List;
 
@@ -22,6 +23,14 @@ public class CheckUpdate {
         return !(TimeInfo.CURRENT_DAY == calendarDay && TimeInfo.CURRENT_MONTH == calendarMonth
                 && TimeInfo.CURRENT_YEAR == calendarYear);
 
+    }
+
+    public static boolean checkUpdateCycle(Context context) {
+        List<TimeBase> timeBaseList= TimeHandler.getAllSexagenaryCycle(context,1);
+        if(timeBaseList.isEmpty()) return true;
+        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 1);
+        if (jackpotList.isEmpty()) return true;
+        return !jackpotList.get(0).getDateBase().plusDays(1).equals(timeBaseList.get(0).getDateBase());
     }
 
     public static boolean checkUpdateJackpot(Context context) {

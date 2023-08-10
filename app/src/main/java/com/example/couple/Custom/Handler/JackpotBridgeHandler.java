@@ -1,6 +1,7 @@
 package com.example.couple.Custom.Handler;
 
 import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
+import com.example.couple.Model.Time.Cycle.Branch;
 import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
@@ -51,24 +52,28 @@ public class JackpotBridgeHandler {
      */
 
     public static CycleBridge GetCompatibleCycleBridge(List<Jackpot> jackpotList,
-                                                       List<TimeBase> timeBases, int dayNumberBefore) {
-        if (jackpotList.size() < dayNumberBefore || timeBases.size() < dayNumberBefore + 1)
+                                                       TimeBase timeBaseNextDay, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore || timeBaseNextDay.isEmpty())
             return CycleBridge.getEmpty();
-        Cycle cycleDay = timeBases.get(dayNumberBefore).getDateCycle().getDay();
-        List<YearCycle> yearCycles =
-                cycleDay.getCompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
+        int positionNextDay = timeBaseNextDay.getDateCycle().getDay().getBranch().getPosition();
+        int currentPosition = (positionNextDay - dayNumberBefore) > 0 ?
+                (positionNextDay - dayNumberBefore) : 12 + (positionNextDay - dayNumberBefore) % 12;
+        Branch currentBranch = new Branch(currentPosition);
+        List<YearCycle> yearCycles = currentBranch.getCompatibleYearCycles(TimeInfo.CURRENT_YEAR);
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new CycleBridge(Const.COMPATIBLE_CYCLE_BRIDGE_NAME,
                 yearCycles, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static CycleBridge GetIncompatibleCycleBridge(List<Jackpot> jackpotList,
-                                                         List<TimeBase> timeBases, int dayNumberBefore) {
-        if (jackpotList.size() < dayNumberBefore || timeBases.size() < dayNumberBefore + 1)
+                                                         TimeBase timeBaseNextDay, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore || timeBaseNextDay.isEmpty())
             return CycleBridge.getEmpty();
-        Cycle cycleDay = timeBases.get(dayNumberBefore).getDateCycle().getDay();
-        List<YearCycle> yearCycles =
-                cycleDay.getIncompatibleYearCyclesByBranches(TimeInfo.CYCLE_START_YEAR, TimeInfo.CURRENT_YEAR);
+        int positionNextDay = timeBaseNextDay.getDateCycle().getDay().getBranch().getPosition();
+        int currentPosition = (positionNextDay - dayNumberBefore) > 0 ?
+                (positionNextDay - dayNumberBefore) : 12 + (positionNextDay - dayNumberBefore) % 12;
+        Branch currentBranch = new Branch(currentPosition);
+        List<YearCycle> yearCycles = currentBranch.getIncompatibleYearCycles(TimeInfo.CURRENT_YEAR);
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new CycleBridge(Const.INCOMPATIBLE_CYCLE_BRIDGE_NAME,
                 yearCycles, new JackpotHistory(dayNumberBefore, jackpot));

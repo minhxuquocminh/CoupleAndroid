@@ -7,6 +7,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Column {
-    List<String> cellList;
+public class RowUI {
+    List<String> cells;
 }

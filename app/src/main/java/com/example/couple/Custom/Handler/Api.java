@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.JsoupBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Time.DateBase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,9 +27,10 @@ public class Api {
         return jsoupBase.get();
     }
 
-    public static String GetSexagenaryCycleByDay(Context context, int day, int month, int year)
+    public static String GetSexagenaryCycleByDay(Context context, DateBase dateBase)
             throws ExecutionException, InterruptedException {
-        String link = Const.TIME_URL + "xem-ngay-tot-xau-ngay-" + day + "-" + month + "-" + year;
+        String link = Const.TIME_URL + "xem-ngay-tot-xau-ngay-" +
+                dateBase.getDay() + "-" + dateBase.getMonth() + "-" + dateBase.getYear();
         List<String> listClassName = new ArrayList<>();
         listClassName.add("lvn-xoneday-blocktop");
 

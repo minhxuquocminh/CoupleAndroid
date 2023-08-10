@@ -9,9 +9,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.couple.Model.UI.Row;
-import com.example.couple.Model.UI.TableByColumn;
-import com.example.couple.Model.UI.TableByRow;
+import com.example.couple.Model.UI.RowUI;
+import com.example.couple.Model.UI.TableUI;
 import com.example.couple.R;
 
 public class TableLayoutBase {
@@ -40,20 +39,20 @@ public class TableLayoutBase {
         return tableLayout;
     }
 
-    public static TableLayout getTableLayout(Context context, TableByRow tableByRow) {
+    public static TableLayout getTableLayout(Context context, TableUI tableUI) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout
                 .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        if (!tableByRow.getHeaders().isEmpty()) {
+        if (!tableUI.getHeaders().isEmpty()) {
             TableRow rowHeader = new TableRow(context);
-            for (String header : tableByRow.getHeaders()) {
+            for (String header : tableUI.getHeaders()) {
                 TextView tvHeader = getHeaderCell(context, header);
                 rowHeader.addView(tvHeader);
             }
         }
 
-        for (Row row : tableByRow.getRows()) {
+        for (RowUI row : tableUI.getRows()) {
             TableRow tableRow = new TableRow(context);
             for (String cell : row.getCells()) {
                 TextView tv = getCell(context, cell);
@@ -65,51 +64,26 @@ public class TableLayoutBase {
         return tableLayout;
     }
 
-    public static TableLayout getTableLayoutWrapContent(Context context, TableByRow tableByRow) {
+    public static TableLayout getTableLayoutWrapContent(Context context, TableUI tableUI) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout
                 .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        if (!tableByRow.getHeaders().isEmpty()) {
+        if (!tableUI.getHeaders().isEmpty()) {
             TableRow rowHeader = new TableRow(context);
-            for (String header : tableByRow.getHeaders()) {
+            for (String header : tableUI.getHeaders()) {
                 TextView tvHeader = getHeaderCell(context, header);
                 rowHeader.addView(tvHeader);
             }
         }
 
-        for (Row row : tableByRow.getRows()) {
+        for (RowUI row : tableUI.getRows()) {
             TableRow tableRow = new TableRow(context);
             for (String cell : row.getCells()) {
                 TextView tv = getCell(context, cell);
                 tableRow.addView(tv);
             }
             tableLayout.addView(tableRow);
-        }
-        return tableLayout;
-    }
-
-    public static TableLayout getTableLayout(Context context, TableByColumn tableByColumn) {
-        TableLayout tableLayout = new TableLayout(context);
-        tableLayout.setLayoutParams(new TableLayout
-                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        tableLayout.setShrinkAllColumns(true);
-        tableLayout.setStretchAllColumns(true);
-
-        String matrix[][] = tableByColumn.convertToMatrix();
-        TableRow rowHeader = new TableRow(context);
-        for (int j = 0; j < tableByColumn.getCol(); j++) {
-            TextView tvHeader = getHeaderCell(context, matrix[0][j]);
-            rowHeader.addView(tvHeader);
-        }
-
-        for (int i = 1; i < tableByColumn.getRow(); i++) {
-            TableRow row = new TableRow(context);
-            for (int j = 0; j < tableByColumn.getCol(); j++) {
-                TextView tv = getCell(context, matrix[i][j]);
-                row.addView(tv);
-            }
-            tableLayout.addView(row);
         }
         return tableLayout;
     }

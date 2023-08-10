@@ -10,41 +10,31 @@ import lombok.Getter;
  */
 
 @Getter
-public class Stems {
+public class Stem {
     int position;
     String name;
 
-    public Stems(int position) {
+    public Stem(int position) {
         this.position = position == Const.EMPTY_VALUE ? position : position % 10;
         this.name = position == Const.EMPTY_VALUE ? "" : TimeInfo.HEAVENLY_STEMS.get(position % 10);
     }
 
-    public static Stems getEmpty() {
-        return new Stems(Const.EMPTY_VALUE);
+    public static Stem getEmpty() {
+        return new Stem(Const.EMPTY_VALUE);
     }
 
     public boolean isEmpty() {
         return position == Const.EMPTY_VALUE || name.equals("");
     }
 
-    public Stems getCompatibleStems() {
+    public Stem getCompatibleStems() {
         int new_position = (position + 5) % 10;
-        return new Stems(new_position);
+        return new Stem(new_position);
     }
 
-    public Stems getIncompatibleStems() {
+    public Stem getIncompatibleStems() {
         int new_position = (position + 4) % 10;
-        return new Stems(new_position);
-    }
-
-    public String showCompatibleStems() {
-        Stems compatible = getCompatibleStems();
-        return "" + compatible.getPosition();
-    }
-
-    public String showIncompatibleStems() {
-        Stems incompatible = getIncompatibleStems();
-        return "" + incompatible.getPosition();
+        return new Stem(new_position);
     }
 
 }

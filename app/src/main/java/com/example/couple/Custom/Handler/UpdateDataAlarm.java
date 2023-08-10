@@ -54,6 +54,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
     private void getDataIfNeeded(Context context) {
         boolean checkUpdateTime = CheckUpdate.checkUpdateTime(context);
         boolean checkUpdateLottery = CheckUpdate.checkUpdateLottery(context);
+        boolean checkUpdateCycle = CheckUpdate.checkUpdateCycle(context);
         try {
             if (checkUpdateTime) {
                 String time = Api.GetTimeDataFromInternet(context);
@@ -62,6 +63,9 @@ public class UpdateDataAlarm extends BroadcastReceiver {
             if (checkUpdateLottery) {
                 String lottery = Api.GetLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
                 IOFileBase.saveDataToFile(context, Const.LOTTERY_FILE_NAME, lottery, 0);
+            }
+            if (checkUpdateCycle) {
+                TimeHandler.updateAllSexagenaryCycle(context);
             }
         } catch (ExecutionException e) {
             e.printStackTrace();

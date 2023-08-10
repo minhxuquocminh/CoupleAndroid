@@ -38,11 +38,11 @@ public class BridgeCombinationViewModel {
         this.context = context;
     }
 
-    public void GetLotteryAndJackpotAndTimeBaseList() {
+    public void GetTimeBaseNextDayAndLotteryAndJackpotList() {
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, Const.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        List<TimeBase> timeBaseList = TimeHandler.getAllSexagenaryCycle(context, Const.MAX_DAYS_TO_GET_CYCLE);
-        view.ShowLotteryAndJackpotAndTimeBaseList(jackpotList, lotteryList, timeBaseList);
+        TimeBase timeBaseNextDay = TimeHandler.getTimeBaseNextDay(context);
+        view.ShowLotteryAndJackpotAndTimeBaseList(jackpotList, lotteryList, timeBaseNextDay);
     }
 
     public void GetAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
@@ -83,7 +83,7 @@ public class BridgeCombinationViewModel {
     }
 
     public void GetCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList,
-                                     List<TimeBase> timeBaseList, int numberOfDay,
+                                     TimeBase timeBaseNextDay, int numberOfDay,
                                      boolean combineTouch, boolean connected, boolean shadowTouch,
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
                                      boolean mapping, boolean shadowMapping, boolean period, boolean mapping1,
@@ -155,12 +155,12 @@ public class BridgeCombinationViewModel {
             }
             if (compatible) {
                 CycleBridge compatibleBridge = JackpotBridgeHandler
-                        .GetCompatibleCycleBridge(jackpotList, timeBaseList, i);
+                        .GetCompatibleCycleBridge(jackpotList, timeBaseNextDay, i);
                 bridgeList.add(compatibleBridge);
             }
             if (incompatible) {
                 CycleBridge incompatibleBridge = JackpotBridgeHandler
-                        .GetIncompatibleCycleBridge(jackpotList, timeBaseList, i);
+                        .GetIncompatibleCycleBridge(jackpotList, timeBaseNextDay, i);
                 bridgeList.add(incompatibleBridge);
             }
             if (matchMapping) {

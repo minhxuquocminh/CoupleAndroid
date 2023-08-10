@@ -2,10 +2,10 @@ package com.example.couple.Custom.Handler;
 
 import android.content.Context;
 
-import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Time.Cycle.Cycle;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Model.Time.DateCycle;
 import com.example.couple.Model.Time.DateLunar;
 import com.example.couple.Model.Time.TimeBase;
@@ -21,11 +21,19 @@ public class TimeHandler {
         return !today.isEmpty() && today.getDateBase().equals(DateBase.TO_DAY());
     }
 
+    public static TimeBase getTimeBaseNextDay(Context context) {
+        if (!CheckUpdate.checkUpdateJackpot(context)) {
+            return getSexagenaryCycle(context, Const.CYCLE_NEXT_DAY_FILE_NAME);
+        }
+        return getSexagenaryCycle(context, Const.CYCLE_TODAY_FILE_NAME);
+    }
+
     public static List<TimeBase> getAllSexagenaryCycle(Context context, int numberOfDays) {
         List<TimeBase> timeBaseList = new ArrayList<>();
         if (!CheckUpdate.checkUpdateJackpot(context)) {
-            TimeBase tomorrow = getSexagenaryCycle(context, Const.CYCLE_TOMORROW_FILE_NAME);
-            timeBaseList.add(tomorrow);
+            TimeBase nextDay = getSexagenaryCycle(context, Const.CYCLE_NEXT_DAY_FILE_NAME);
+            timeBaseList.add(nextDay);
+            numberOfDays--;
         }
 
         TimeBase today = getSexagenaryCycle(context, Const.CYCLE_TODAY_FILE_NAME);
@@ -67,12 +75,29 @@ public class TimeHandler {
             timeBaseList.add(new TimeBase(dateBase, dateLunar, dateCycle));
         }
 
+        if (timeBaseList.size() > numberOfDays) {
+            return timeBaseList;
+        }
+
+        // khởi tạo time base chỉ có dateBase và cycleDay, ko có cycleMonth, cycleYear
+        int timesSize = timeBaseList.size();
+        int positionLastCycle = timeBaseList.get(timesSize - 1).getDateCycle().getDay().getPosition();
+        DateBase lastDateBase = timeBaseList.get(timesSize - 1).getDateBase();
+        for (int i = 1; i <= numberOfDays - timesSize; i++) {
+            DateBase dateBase = lastDateBase.plusDays(-i);
+            int position = positionLastCycle - i;
+            Cycle day = position > 0 ? Cycle.getCycle(position % 60) :
+                    Cycle.getCycle((60 * (-position / 60 + 1) + position) % 60);
+            DateCycle dateCycle = new DateCycle(day, Cycle.getEmpty(), Cycle.getEmpty());
+            timeBaseList.add(new TimeBase(dateBase, DateLunar.getEmpty(), dateCycle));
+        }
+
         return timeBaseList;
     }
 
     public static boolean updateAllSexagenaryCycle(Context context) {
         boolean checkTomorrow = updateSexagenaryCycle(context,
-                DateBase.TO_DAY().plusDays(1), Const.CYCLE_TOMORROW_FILE_NAME);
+                DateBase.TO_DAY().plusDays(1), Const.CYCLE_NEXT_DAY_FILE_NAME);
         if (!checkTomorrow) return false;
 
         boolean checkToday = updateSexagenaryCycle(context, DateBase.TO_DAY(), Const.CYCLE_TODAY_FILE_NAME);
@@ -93,8 +118,7 @@ public class TimeHandler {
 
     private static boolean updateSexagenaryCycle(Context context, DateBase dateBase, String fileName) {
         try {
-            String data = Api.GetSexagenaryCycleByDay(context,
-                    dateBase.getDay(), dateBase.getMonth(), dateBase.getYear());
+            String data = Api.GetSexagenaryCycleByDay(context, dateBase);
             if (data.equals("")) return false;
             IOFileBase.saveDataToFile(context, fileName, data, 0);
             return true;

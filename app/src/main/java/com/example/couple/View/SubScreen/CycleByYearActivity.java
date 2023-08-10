@@ -15,10 +15,10 @@ import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.Time.Cycle.Branches;
-import com.example.couple.Model.UI.Row;
-import com.example.couple.Model.UI.TableByRow;
+import com.example.couple.Model.Time.Cycle.Branch;
 import com.example.couple.Model.Time.Cycle.YearCycle;
+import com.example.couple.Model.UI.RowUI;
+import com.example.couple.Model.UI.TableUI;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.CycleByYearViewModel;
 
@@ -46,8 +46,8 @@ public class CycleByYearActivity extends AppCompatActivity implements CycleByYea
 
         List<String> branchesList = new ArrayList<String>();
         for (int i = 0; i < 12; i++) {
-            Branches branches = new Branches(i);
-            branchesList.add(branches.show());
+            Branch branch = new Branch(i);
+            branchesList.add(branch.show());
         }
         ArrayAdapter adapter = new ArrayAdapter(this,
                 R.layout.custom_item_spinner, R.id.tvItemSpinner, branchesList);
@@ -73,17 +73,17 @@ public class CycleByYearActivity extends AppCompatActivity implements CycleByYea
 
     private void GetCycleByYear() {
         List<String> headers = TimeInfo.HEAVENLY_STEMS;
-        List<Row> rows = new ArrayList<>();
+        List<RowUI> rows = new ArrayList<>();
         for (int i = 0; i < 13; i++) {
             List<String> cells = new ArrayList<>();
             for (int j = 0; j < 10; j++) {
                 YearCycle yearCycle = new YearCycle(1900 + i * 10 + j);
                 cells.add(yearCycle.showByCouple());
             }
-            rows.add(new Row(cells));
+            rows.add(new RowUI(cells));
         }
-        TableByRow tableByRow = new TableByRow(headers, rows);
-        TableLayout tableLayout = TableLayoutBase.getTableLayoutWrapContent(this, tableByRow);
+        TableUI tableUI = new TableUI(headers, rows);
+        TableLayout tableLayout = TableLayoutBase.getTableLayoutWrapContent(this, tableUI);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
     }

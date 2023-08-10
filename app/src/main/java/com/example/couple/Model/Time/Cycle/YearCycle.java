@@ -24,11 +24,11 @@ public class YearCycle {
 
     public YearCycle(int year) {
         int stemsPos = year % 10;
-        int branchesPos = (year - 4) % 12;
-        Stems stems = new Stems(stemsPos);
-        Branches branches = new Branches(branchesPos);
+        int branchesPos = (year - 4) > 0 ? (year - 4) % 12 : 12 + (year - 4) % 12;
+        Stem stem = new Stem(stemsPos);
+        Branch branch = new Branch(branchesPos);
         this.year = year;
-        this.cycle = new Cycle(stems, branches);
+        this.cycle = new Cycle(stem, branch);
     }
 
     public String showByCouple() {

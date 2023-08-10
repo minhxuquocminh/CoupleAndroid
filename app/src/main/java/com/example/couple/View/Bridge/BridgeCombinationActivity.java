@@ -115,7 +115,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         edtDayNumber.setSelection(edtDayNumber.getText().length());
 
         viewModel = new BridgeCombinationViewModel(this, this);
-        viewModel.GetLotteryAndJackpotAndTimeBaseList();
+        viewModel.GetTimeBaseNextDayAndLotteryAndJackpotList();
 
 
     }
@@ -127,7 +127,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
 
     @Override
     public void ShowLotteryAndJackpotAndTimeBaseList(List<Jackpot> jackpotList,
-                                                     List<Lottery> lotteryList, List<TimeBase> timeBaseList) {
+                                                     List<Lottery> lotteryList, TimeBase timeBaseNextDay) {
         viewModel.GetAllBridgeToday(jackpotList, lotteryList);
         btnFindingBridge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +160,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
                             Integer.parseInt(numberOfDayStr);
-                    viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseList, numberOfDay,
+                    viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseNextDay, numberOfDay,
                             combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
                             mapping, shadowMapping, period, mapping1, compatible, incompatible, matchMapping,
                             triadMapping, shadowExchange, bigDouble, sameDouble, nearDouble);

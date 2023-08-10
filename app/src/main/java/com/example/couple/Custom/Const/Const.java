@@ -111,7 +111,7 @@ public class Const {
     // file name
     public static final String TIME_FILE_NAME = "time.txt";
     public static final String CYCLE_TODAY_FILE_NAME = "cycle_today.txt";
-    public static final String CYCLE_TOMORROW_FILE_NAME = "cycle_tomorrow.txt";
+    public static final String CYCLE_NEXT_DAY_FILE_NAME = "cycle_tomorrow.txt";
     public static final String CYCLE_1_FILE_NAME = "cycle_1.txt";
     public static final String CYCLE_2_FILE_NAME = "cycle_2.txt";
     public static final String LOTTERY_FILE_NAME = "lottery.txt";
