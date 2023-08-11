@@ -14,7 +14,7 @@ import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.PeriodBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
-import com.example.couple.Model.Bridge.Couple.SpecialSet;
+import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
@@ -182,17 +182,17 @@ public class BridgeCombinationViewModel {
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             // special set
             if (bigDouble) {
-                SpecialSet bigDoubleSet = new SpecialSet(Const.BIG_DOUBLE_SET_NAME,
+                SpecialSetBridge bigDoubleSet = new SpecialSetBridge(Const.BIG_DOUBLE_SET_NAME,
                         Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot));
                 bridgeList.add(bigDoubleSet);
             }
             if (sameDouble) {
-                SpecialSet sameDoubleSet = new SpecialSet(Const.DOUBLE_SET_NAME,
+                SpecialSetBridge sameDoubleSet = new SpecialSetBridge(Const.DOUBLE_SET_NAME,
                         Const.DOUBLE_SET, new JackpotHistory(i, jackpot));
                 bridgeList.add(sameDoubleSet);
             }
             if (nearDouble) {
-                SpecialSet nearDoubleSet = new SpecialSet(Const.NEAR_DOUBLE_SET_NAME,
+                SpecialSetBridge nearDoubleSet = new SpecialSetBridge(Const.NEAR_DOUBLE_SET_NAME,
                         Const.NEAR_DOUBLE_SET, new JackpotHistory(i, jackpot));
                 bridgeList.add(nearDoubleSet);
             }
@@ -272,10 +272,10 @@ public class BridgeCombinationViewModel {
     }
 
     public void GetBigDoubleSet(List<Jackpot> jackpotList, int numberOfDay) {
-        List<SpecialSet> bigDoubleSets = new ArrayList<>();
+        List<SpecialSetBridge> bigDoubleSets = new ArrayList<>();
         for (int i = 0; i < numberOfDay; i++) {
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
-            SpecialSet bigDoubleSet = new SpecialSet(Const.BIG_DOUBLE_SET_NAME,
+            SpecialSetBridge bigDoubleSet = new SpecialSetBridge(Const.BIG_DOUBLE_SET_NAME,
                     Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot));
             bigDoubleSets.add(bigDoubleSet);
         }
@@ -287,10 +287,10 @@ public class BridgeCombinationViewModel {
     }
 
     public void GetDoubleSet(List<Jackpot> jackpotList, int numberOfDay) {
-        List<SpecialSet> doubleSets = new ArrayList<>();
+        List<SpecialSetBridge> doubleSets = new ArrayList<>();
         for (int i = 0; i < numberOfDay; i++) {
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
-            SpecialSet doubleSet = new SpecialSet(Const.DOUBLE_SET_NAME,
+            SpecialSetBridge doubleSet = new SpecialSetBridge(Const.DOUBLE_SET_NAME,
                     Const.DOUBLE_SET, new JackpotHistory(i, jackpot));
             doubleSets.add(doubleSet);
         }
@@ -302,10 +302,10 @@ public class BridgeCombinationViewModel {
     }
 
     public void GetNearDoubleSet(List<Jackpot> jackpotList, int numberOfDay) {
-        List<SpecialSet> nearDoubleSets = new ArrayList<>();
+        List<SpecialSetBridge> nearDoubleSets = new ArrayList<>();
         for (int i = 0; i < numberOfDay; i++) {
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
-            SpecialSet nearDoubleSet = new SpecialSet(Const.NEAR_DOUBLE_SET_NAME,
+            SpecialSetBridge nearDoubleSet = new SpecialSetBridge(Const.NEAR_DOUBLE_SET_NAME,
                     Const.NEAR_DOUBLE_SET, new JackpotHistory(i, jackpot));
             nearDoubleSets.add(nearDoubleSet);
         }

@@ -1,14 +1,12 @@
 package com.example.couple.Custom.Handler;
 
-import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
-import com.example.couple.Model.Time.Cycle.Branch;
-import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.PeriodBridge;
+import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
@@ -17,11 +15,8 @@ import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
 import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
-import com.example.couple.Model.Time.Cycle.Cycle;
-import com.example.couple.Model.Time.Cycle.YearCycle;
 import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Display.SpecialNumbersHistory;
+import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Display.Status;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
@@ -30,13 +25,16 @@ import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.Model.Support.ConnectedSupport;
 import com.example.couple.Model.Support.DayPositions;
 import com.example.couple.Model.Support.Doublet;
-import com.example.couple.Model.Support.History;
 import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.Model.Support.Position;
 import com.example.couple.Model.Support.ShadowSingle;
 import com.example.couple.Model.Support.SupportTriad;
-import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.Model.Support.TriadSets;
+import com.example.couple.Model.Time.Cycle.Branch;
+import com.example.couple.Model.Time.Cycle.YearCycle;
+import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.Time.TimeBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,36 +119,9 @@ public class JackpotBridgeHandler {
         return new TriadMappingBridge(sequentCoupleMap, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static SpecialNumbersHistory GetSpecialNumbersHistory(List<Jackpot> jackpotList,
-                                                                 String numberType, int value) {
-        if (jackpotList.isEmpty()) return new SpecialNumbersHistory();
-        List<Integer> numbers = new ArrayList<>();
-        switch (numberType) {
-            case Const.HEAD:
-                numbers = NumberArrayHandler.getHeads(value);
-                break;
-            case Const.TAIL:
-                numbers = NumberArrayHandler.getTails(value);
-                break;
-            case Const.SUM:
-                numbers = NumberArrayHandler.getSums(value);
-                break;
-            case Const.SET:
-                Set set = new Set(value);
-                numbers = set.getSetsDetail();
-                break;
-            case Const.DOUBLE:
-                numbers = Const.DOUBLE_SET;
-                break;
-            case Const.DEVIATED_DOUBLE:
-                numbers = Const.DEVIATED_DOUBLE_SET;
-                break;
-            case Const.NEAR_DOUBLE:
-                numbers = Const.NEAR_DOUBLE_SET;
-                break;
-            default:
-                break;
-        }
+    public static SpecialSetHistory GetSpecialSetHistory(List<Jackpot> jackpotList,
+                                                         String specialSetName, List<Integer> numbers) {
+        if (jackpotList.isEmpty()) return new SpecialSetHistory();
         List<Integer> beatList = new ArrayList<>();
         int count = 0;
         for (Jackpot jackpot : jackpotList) {
@@ -161,7 +132,26 @@ public class JackpotBridgeHandler {
             }
         }
         Collections.reverse(beatList);
-        return new SpecialNumbersHistory(numberType, value, beatList);
+        return new SpecialSetHistory(specialSetName, numbers, beatList);
+    }
+
+    public static SpecialSetHistory GetSpecialSetHistoryByBranchDistance(List<Jackpot> jackpotList,
+                                                                         String specialSetName,
+                                                                         int distance, Branch nextDayBranch) {
+        if (jackpotList.isEmpty()) return new SpecialSetHistory();
+        List<Integer> beatList = new ArrayList<>();
+        int count = 0;
+        for (Jackpot jackpot : jackpotList) {
+            count++;
+            Branch jackpotBranch = new Branch(jackpot.getCoupleInt() % 12);
+            Branch dayBranch = nextDayBranch.plusDays(-count);
+            if (dayBranch.getDistance(jackpotBranch) == distance) {
+                beatList.add(count);
+                count = 0;
+            }
+        }
+        Collections.reverse(beatList);
+        return new SpecialSetHistory(specialSetName, nextDayBranch.plusDays(distance).getIntYearCycles(), beatList);
     }
 
     public static ShadowMappingBridge GetShadowMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
@@ -318,9 +308,9 @@ public class JackpotBridgeHandler {
     }
 
     public static PeriodBridge GetPeriodBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
-        List<History> periodHistories3 = GetPeriodHistoryList(jackpotList,
+        List<PeriodHistory> periodHistories3 = GetPeriodHistoryList(jackpotList,
                 dayNumberBefore, 3, Const.AMPLITUDE_OF_PERIOD_BRIDGE);
-        List<History> periodHistories4 = GetPeriodHistoryList(jackpotList,
+        List<PeriodHistory> periodHistories4 = GetPeriodHistoryList(jackpotList,
                 dayNumberBefore, 4, Const.AMPLITUDE_OF_PERIOD_BRIDGE);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
@@ -328,15 +318,15 @@ public class JackpotBridgeHandler {
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static List<History> GetPeriodHistoryList(List<Jackpot> jackpotList,
-                                                     int dayNumberBefore, int periodNumber, int range) {
+    public static List<PeriodHistory> GetPeriodHistoryList(List<Jackpot> jackpotList,
+                                                           int dayNumberBefore, int periodNumber, int range) {
         if (jackpotList.size() < dayNumberBefore + periodNumber) return new ArrayList<>();
         List<Integer> lastNumbers = new ArrayList<>();
         for (int i = dayNumberBefore; i < dayNumberBefore + periodNumber; i++) {
             lastNumbers.add(jackpotList.get(i).getCoupleInt());
         }
 
-        List<History> historyList = new ArrayList<>();
+        List<PeriodHistory> periodHistoryList = new ArrayList<>();
         for (int i = dayNumberBefore + periodNumber; i < jackpotList.size() - periodNumber; i++) {
             int count = 0;
             List<Integer> numbers = new ArrayList<>();
@@ -355,13 +345,13 @@ public class JackpotBridgeHandler {
                     numbers.add(jackpotList.get(i - 1).getCoupleInt());
                     end = jackpotList.get(i - 1).getDateBase();
                 }
-                historyList.add(new History(start, end, numbers));
+                periodHistoryList.add(new PeriodHistory(start, end, numbers));
             }
         }
 
-        Collections.reverse(historyList);
+        Collections.reverse(periodHistoryList);
 
-        return historyList;
+        return periodHistoryList;
     }
 
     private static boolean isInPeriod(int number, int numberCheck, int range) {

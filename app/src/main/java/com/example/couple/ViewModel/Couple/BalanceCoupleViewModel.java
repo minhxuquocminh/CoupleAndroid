@@ -9,7 +9,7 @@ import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.Bridge.Couple.PeriodBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Support.History;
+import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.View.Couple.BalanceCoupleView;
 
 import java.util.List;
@@ -34,9 +34,9 @@ public class BalanceCoupleViewModel {
     }
 
     public void GetPeriodHistory(List<Jackpot> jackpotList, String dayNumberBefore, String filterDays) {
-        List<History> historyList = JackpotBridgeHandler.GetPeriodHistoryList(jackpotList,
+        List<PeriodHistory> periodHistoryList = JackpotBridgeHandler.GetPeriodHistoryList(jackpotList,
                 Integer.parseInt(dayNumberBefore), Integer.parseInt(filterDays), Const.AMPLITUDE_OF_PERIOD_BRIDGE);
-        balanceCoupleView.ShowPeriodHistory(historyList);
+        balanceCoupleView.ShowPeriodHistory(periodHistoryList);
     }
 
     public void GetCombineBridge(List<Jackpot> jackpotList, String dayNumberBeforeStr, int bridgeType) {

@@ -4,7 +4,7 @@ import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.PeriodBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
-import com.example.couple.Model.Bridge.Couple.SpecialSet;
+import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
@@ -25,7 +25,7 @@ public interface BridgeCombinationView {
     void ShowMappingBridgeList(List<MappingBridge> mappingBridgeList);
     void ShowShadowMappingBridgeList(List<ShadowMappingBridge> shadowMappingBridgeList);
     void ShowSet(List<Integer> bigDoubleSet);
-    void ShowBigDoubleSet(List<SpecialSet> bigDoubleSets);
-    void ShowDoubleSet(List<SpecialSet> doubleSets);
-    void ShowNearDoubleSet(List<SpecialSet> nearDoubleSets);
+    void ShowBigDoubleSet(List<SpecialSetBridge> bigDoubleSets);
+    void ShowDoubleSet(List<SpecialSetBridge> doubleSets);
+    void ShowNearDoubleSet(List<SpecialSetBridge> nearDoubleSets);
 }

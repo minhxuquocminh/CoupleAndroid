@@ -14,6 +14,10 @@ public class YearCycle {
         return CoupleHandler.showCouple(year % 100);
     }
 
+    public int getCoupleInt() {
+        return year % 100;
+    }
+
     public static YearCycle getEmpty() {
         return new YearCycle(Const.EMPTY_VALUE);
     }

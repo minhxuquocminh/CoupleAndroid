@@ -10,7 +10,8 @@ import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Display.Number;
-import com.example.couple.Model.Display.SpecialNumbersHistory;
+import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayView;
@@ -36,45 +37,45 @@ public class CreateNumberArrayViewModel {
     }
 
     public void GetSpecialNumbersHistory(List<Jackpot> jackpotList) {
-        List<SpecialNumbersHistory> histories = new ArrayList<>();
-        List<SpecialNumbersHistory> headTailList = new ArrayList<>();
+        List<SpecialSetHistory> histories = new ArrayList<>();
+        List<SpecialSetHistory> headTailList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            SpecialNumbersHistory head =
-                    JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.HEAD, i);
+            SpecialSetHistory head = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
+                    Const.HEAD + " " + i, NumberArrayHandler.getHeads(i));
             headTailList.add(head);
-            SpecialNumbersHistory tail =
-                    JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.TAIL, i);
+            SpecialSetHistory tail = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
+                    Const.TAIL + " " + i, NumberArrayHandler.getTails(i));
             headTailList.add(tail);
         }
         Collections.sort(headTailList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         histories.addAll(headTailList);
 
-        List<SpecialNumbersHistory> sumList = new ArrayList<>();
+        List<SpecialSetHistory> sumList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            SpecialNumbersHistory sum =
-                    JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.SUM, i);
+            SpecialSetHistory sum = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
+                    Const.SUM + " " + i, NumberArrayHandler.getSums(i));
             sumList.add(sum);
         }
         Collections.sort(sumList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         histories.addAll(sumList);
 
-        List<SpecialNumbersHistory> setList = new ArrayList<>();
+        List<SpecialSetHistory> setList = new ArrayList<>();
         for (int i : Const.SMALL_SETS) {
-            SpecialNumbersHistory set =
-                    JackpotBridgeHandler.GetSpecialNumbersHistory(jackpotList, Const.SET, i);
+            SpecialSetHistory set = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
+                    Const.SET + "" + i, (new Set(i)).getSetsDetail());
             setList.add(set);
         }
         Collections.sort(setList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         histories.addAll(setList);
 
-        SpecialNumbersHistory doubleHistory = JackpotBridgeHandler
-                .GetSpecialNumbersHistory(jackpotList, Const.DOUBLE, Const.EMPTY_VALUE);
+        SpecialSetHistory doubleHistory = JackpotBridgeHandler
+                .GetSpecialSetHistory(jackpotList, Const.DOUBLE, Const.DOUBLE_SET);
         histories.add(doubleHistory);
-        SpecialNumbersHistory deviatedHistory = JackpotBridgeHandler
-                .GetSpecialNumbersHistory(jackpotList, Const.DEVIATED_DOUBLE, Const.EMPTY_VALUE);
+        SpecialSetHistory deviatedHistory = JackpotBridgeHandler
+                .GetSpecialSetHistory(jackpotList, Const.DEVIATED_DOUBLE, Const.DEVIATED_DOUBLE_SET);
         histories.add(deviatedHistory);
-        SpecialNumbersHistory nearHistory = JackpotBridgeHandler
-                .GetSpecialNumbersHistory(jackpotList, Const.NEAR_DOUBLE, Const.EMPTY_VALUE);
+        SpecialSetHistory nearHistory = JackpotBridgeHandler
+                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE, Const.NEAR_DOUBLE_SET);
         histories.add(nearHistory);
         if (!histories.isEmpty()) {
             view.ShowSpecialNumbersHistory(histories);

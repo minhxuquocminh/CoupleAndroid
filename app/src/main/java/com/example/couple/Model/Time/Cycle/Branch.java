@@ -66,6 +66,15 @@ public class Branch {
         return results;
     }
 
+    public List<Integer> getIntYearCycles() {
+        List<Integer> results = new ArrayList<>();
+        for (int i = position; i <= 99; i += 12) {
+            YearCycle yearCycle = new YearCycle(i);
+            results.add(yearCycle.getCoupleInt());
+        }
+        return results;
+    }
+
     public List<YearCycle> getYearCycles(int currentYear) {
         List<YearCycle> results = new ArrayList<>();
         for (int i = position; i <= 100 + (currentYear % 100); i += 12) {
@@ -120,6 +129,12 @@ public class Branch {
         if (Math.abs(distance) < 6) return distance;
         if (distance < 0) return 12 + distance;
         return -(12 - distance);
+    }
+
+    public Branch plusDays(int numberOfDays) {
+        int new_index = position + numberOfDays < 0 ?
+                12 * (Math.abs(numberOfDays / 12) + 1) + position + numberOfDays : (position + numberOfDays) % 60;
+        return new Branch(new_index);
     }
 
     public String show() {

@@ -11,7 +11,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SpecialSet extends Bridge {
+public class SpecialSetBridge extends Bridge {
     String bridgeName;
     List<Integer> numbers;
     JackpotHistory jackpotHistory;
@@ -21,8 +21,8 @@ public class SpecialSet extends Bridge {
         return new ArrayList<>();
     }
 
-    public static SpecialSet getEmpty() {
-        return new SpecialSet("", new ArrayList<>(), JackpotHistory.getEmpty());
+    public static SpecialSetBridge getEmpty() {
+        return new SpecialSetBridge("", new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <!--toolbar-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Trạng thái chạy gần đây"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header"
+            android:typeface="normal" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="3">
+
+                <EditText
+                    android:id="@+id/edtDayNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Số ngày xem"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:text="18"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_5dp"
+                android:layout_weight="1"
+                android:background="@color/colorThemeBold"
+                android:text="Xem"
+                android:textAllCaps="false"
+                android:textColor="@color/colorThemeLight"
+                android:textSize="@dimen/text_size_big" />
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_6dp"
+                android:layout_marginRight="@dimen/margin_6dp"
+                android:fillViewport="true"
+                android:scrollbarStyle="outsideInset"
+                android:scrollbars="horizontal|vertical">
+
+                <HorizontalScrollView
+                    android:id="@+id/hsTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal|vertical" />
+            </ScrollView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

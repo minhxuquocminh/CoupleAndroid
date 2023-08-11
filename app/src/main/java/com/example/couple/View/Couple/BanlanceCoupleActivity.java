@@ -18,7 +18,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Custom.Widget.CustomTextView;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.History;
+import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Couple.BalanceCoupleViewModel;
 
@@ -119,11 +119,11 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
     }
 
     @Override
-    public void ShowPeriodHistory(List<History> historyList) {
-        String show = historyList.isEmpty() ? "Không có khoảng cần tìm"
+    public void ShowPeriodHistory(List<PeriodHistory> periodHistoryList) {
+        String show = periodHistoryList.isEmpty() ? "Không có khoảng cần tìm"
                 : "Các khoảng gần giống khoảng gần đây:\n";
-        for (History history : historyList) {
-            show += history.show() + "\n";
+        for (PeriodHistory periodHistory : periodHistoryList) {
+            show += periodHistory.show() + "\n";
         }
         new AlertDialog.Builder(this)
                 .setTitle("Cầu tìm khoảng")

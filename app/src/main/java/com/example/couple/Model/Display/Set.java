@@ -1,7 +1,7 @@
 package com.example.couple.Model.Display;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Origin.Couple;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class Set {
         if (couple < 0) return;
         if (couple < 10) {
             this.first = 0;
-            this.second = couple;
+            this.second = CoupleHandler.getSmallShadow(couple);
         } else {
             String coupleStr = couple + "";
             int first = Integer.parseInt(coupleStr.charAt(0) + "");

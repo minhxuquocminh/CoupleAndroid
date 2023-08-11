@@ -26,15 +26,15 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Model.Display.Number;
-import com.example.couple.Model.Display.SpecialNumbersHistory;
+import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
+import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Main.MainActivity;
 import com.example.couple.View.SubScreen.CycleByYearActivity;
-import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.ViewModel.Main.CreateNumberArray.CreateNumberArrayViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -324,14 +324,14 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void ShowSpecialNumbersHistory(List<SpecialNumbersHistory> histories) {
+    public void ShowSpecialNumbersHistory(List<SpecialSetHistory> histories) {
         String title = "Lịch sử các số đặc biệt";
         String content = " * Lịch sử các số đặc biệt trong ngày:\n";
-        for (SpecialNumbersHistory history : histories) {
+        for (SpecialSetHistory history : histories) {
             content += history.showHistory() + "\n";
         }
         WidgetBase.showDialogCanBeCopied(getActivity(),
-                title, content.trim(), histories.get(0).showNumbers());
+                title, content.trim(), histories.get(0).getSpecialSet().showNumbers());
     }
 
     @Override

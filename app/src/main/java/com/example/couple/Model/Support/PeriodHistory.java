@@ -11,7 +11,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class History {
+public class PeriodHistory {
     DateBase startDate;
     DateBase endDate;
     List<Integer> numbers;

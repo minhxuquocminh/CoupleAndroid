@@ -10,6 +10,8 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.couple.R;
+import com.example.couple.View.Bridge.SearchingBridgeActivity;
+import com.example.couple.View.BridgeHistory.SpecialSetsHistoryActivity;
 import com.example.couple.View.Couple.BanlanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotAllYearActivity;
@@ -17,8 +19,6 @@ import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
 import com.example.couple.View.JackpotStatistics.JackpotThisYearActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
-import com.example.couple.View.Bridge.ReferenceBridgeActivity;
-import com.example.couple.View.Bridge.SearchingBridgeActivity;
 
 public class FunctionDisplayFragment extends Fragment {
     CardView cvViewLottery;
@@ -76,7 +76,7 @@ public class FunctionDisplayFragment extends Fragment {
         cvJackpotReference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ReferenceBridgeActivity.class));
+                startActivity(new Intent(getActivity(), SpecialSetsHistoryActivity.class));
             }
         });
 

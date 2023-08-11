@@ -42,13 +42,13 @@ public class Const {
     public static final String BIG_DOUBLE_SET_NAME = "Bộ kép to";
     public static final String DOUBLE_SET_NAME = "Bộ kép bằng";
     public static final String NEAR_DOUBLE_SET_NAME = "Bộ sát kép";
-    public static final String HEAD = "đầu";
-    public static final String TAIL = "đuôi";
-    public static final String SET = "bộ";
-    public static final String SUM = "tổng";
-    public static final String DOUBLE = "kép bằng";
-    public static final String NEAR_DOUBLE = "sát kép";
-    public static final String DEVIATED_DOUBLE = "kép lệch";
+    public static final String HEAD = "Đầu";
+    public static final String TAIL = "Đuôi";
+    public static final String SET = "Bộ";
+    public static final String SUM = "Tổng";
+    public static final String DOUBLE = "Kép bằng";
+    public static final String NEAR_DOUBLE = "Sát kép";
+    public static final String DEVIATED_DOUBLE = "Kép lệch";
 
     public static final List<Integer> BIG_DOUBLE_SET = Arrays.asList
             (

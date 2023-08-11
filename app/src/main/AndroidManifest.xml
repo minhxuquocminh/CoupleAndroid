@@ -79,6 +79,10 @@
             android:name=".View.BridgeHistory.SexagenaryCycleActivity"
             android:windowSoftInputMode="stateHidden" />
 
+        <activity
+            android:name=".View.BridgeHistory.SpecialSetsHistoryActivity"
+            android:windowSoftInputMode="stateHidden" />
+
         <activity android:name=".View.SubScreen.CycleByYearActivity" />
 
         <activity android:name=".View.SubScreen.CalculatingBalanceCoupleActivity" />

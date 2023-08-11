@@ -18,7 +18,7 @@ import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.PeriodBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
-import com.example.couple.Model.Bridge.Couple.SpecialSet;
+import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
@@ -336,7 +336,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void ShowBigDoubleSet(List<SpecialSet> bigDoubleSets) {
+    public void ShowBigDoubleSet(List<SpecialSetBridge> bigDoubleSets) {
 //        String show = "";
 //        int count = 0;
 //        for (SpecialSet set : bigDoubleSets) {
@@ -349,7 +349,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void ShowDoubleSet(List<SpecialSet> doubleSets) {
+    public void ShowDoubleSet(List<SpecialSetBridge> doubleSets) {
 //        String show = "";
 //        int count = 0;
 //        for (SpecialSet set : doubleSets) {
@@ -362,7 +362,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void ShowNearDoubleSet(List<SpecialSet> nearDoubleSets) {
+    public void ShowNearDoubleSet(List<SpecialSetBridge> nearDoubleSets) {
 //        String show = "";
 //        int count = 0;
 //        for (SpecialSet set : nearDoubleSets) {
