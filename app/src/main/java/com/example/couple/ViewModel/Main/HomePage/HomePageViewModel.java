@@ -6,6 +6,7 @@ import com.example.couple.Base.Handler.AlarmBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.CheckUpdate;
@@ -38,13 +39,13 @@ public class HomePageViewModel {
      * init url data if needed
      */
     public void setUrlAndParamsIfNoData() {
-        String data1 = IOFileBase.readDataFromFile(context, Const.JACKPOT_URL_FILE_NAME);
-        String data2 = IOFileBase.readDataFromFile(context, Const.LOTTERY_URL_FILE_NAME);
+        String data1 = IOFileBase.readDataFromFile(context, FileName.JACKPOT_URL);
+        String data2 = IOFileBase.readDataFromFile(context, FileName.LOTTERY_URL);
         if (data1.equals("") || data2.equals("")) {
             IOFileBase.saveDataToFile(context,
-                    Const.JACKPOT_URL_FILE_NAME, Const.JACKPOT_URL_AND_PARAMS, 0);
+                    FileName.JACKPOT_URL, Const.JACKPOT_URL_AND_PARAMS, 0);
             IOFileBase.saveDataToFile(context,
-                    Const.LOTTERY_URL_FILE_NAME, Const.LOTTERY_URL_AND_PARAMS, 0);
+                    FileName.LOTTERY_URL, Const.LOTTERY_URL_AND_PARAMS, 0);
         }
     }
 
@@ -91,7 +92,7 @@ public class HomePageViewModel {
                 homePageView.ShowError("Lỗi không lấy được thông tin thời gian!");
                 return false;
             }
-            IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, timeData, 0);
+            IOFileBase.saveDataToFile(context, FileName.TIME, timeData, 0);
             return true;
         } catch (ExecutionException e) {
             return false;
@@ -107,7 +108,7 @@ public class HomePageViewModel {
                 homePageView.ShowError("Lỗi không lấy được thông tin can chi!");
                 return false;
             }
-            IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, timeData, 0);
+            IOFileBase.saveDataToFile(context, FileName.TIME, timeData, 0);
             return true;
         } catch (ExecutionException e) {
             return false;
@@ -148,7 +149,7 @@ public class HomePageViewModel {
                 if (showMessage) homePageView.ShowError("Lỗi không lấy được thông tin XSMB!");
                 return false;
             }
-            IOFileBase.saveDataToFile(context, Const.LOTTERY_FILE_NAME, lotteryData, 0);
+            IOFileBase.saveDataToFile(context, FileName.LOTTERY, lotteryData, 0);
             homePageView.UpdateLotterySuccess("Cập nhật XSMB thành công!");
             return true;
         } catch (ExecutionException e) {
@@ -159,7 +160,7 @@ public class HomePageViewModel {
     }
 
     public void GetTimeDataFromFile() {
-        String data = IOFileBase.readDataFromFile(context, Const.TIME_FILE_NAME);
+        String data = IOFileBase.readDataFromFile(context, FileName.TIME);
         String time = "Lỗi cập nhật thời gian!";
         try {
             String sub[] = data.split("===");
@@ -215,7 +216,7 @@ public class HomePageViewModel {
     }
 
     public void GetNote() {
-        String data = IOFileBase.readDataFromFile(context, Const.NOTE_FILE_NAME);
+        String data = IOFileBase.readDataFromFile(context, FileName.NOTE);
         String arr[] = data.split("===");
         String note = "";
         for (int i = 0; i < arr.length; i++) {

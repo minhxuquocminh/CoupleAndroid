@@ -6,7 +6,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Model.Bridge.Couple.PeriodBridge;
+import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.PeriodHistory;
@@ -35,14 +35,14 @@ public class BalanceCoupleViewModel {
 
     public void GetPeriodHistory(List<Jackpot> jackpotList, String dayNumberBefore, String filterDays) {
         List<PeriodHistory> periodHistoryList = JackpotBridgeHandler.GetPeriodHistoryList(jackpotList,
-                Integer.parseInt(dayNumberBefore), Integer.parseInt(filterDays), Const.AMPLITUDE_OF_PERIOD_BRIDGE);
+                Integer.parseInt(dayNumberBefore), Integer.parseInt(filterDays), Const.AMPLITUDE_OF_PERIOD);
         balanceCoupleView.ShowPeriodHistory(periodHistoryList);
     }
 
     public void GetCombineBridge(List<Jackpot> jackpotList, String dayNumberBeforeStr, int bridgeType) {
         int dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        PeriodBridge periodBridge = JackpotBridgeHandler.GetPeriodBridge(jackpotList, dayNumberBefore);
+        EstimatedBridge estimatedBridge = JackpotBridgeHandler.GetEstimatedBridge(jackpotList, dayNumberBefore);
         List<Integer> touchs = JackpotBridgeHandler.GetTouchsByClawSupport(lotteries,
                 Const.CLAW_BRIDGE_SEARCHING_DAYS, Integer.parseInt(dayNumberBeforeStr), 8, bridgeType);
         if (touchs.isEmpty()) {

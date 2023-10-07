@@ -10,18 +10,19 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Handler.CoupleBridgeHandler;
+import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.R;
 
 import java.util.List;
@@ -476,7 +477,7 @@ public class CustomTableLayout {
             } else {
                 String number = "xx";
                 String cl = "xx";
-                String data = IOFileBase.readDataFromFile(context, Const.SELECTED_NUMBER_FILE_NAME);
+                String data = IOFileBase.readDataFromFile(context, FileName.SELECTED_NUMBER);
                 if (!data.equals("")) {
                     int first = Integer.parseInt(data.charAt(0) + "");
                     int second = Integer.parseInt(data.charAt(1) + "");

@@ -13,14 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Bridge.CombineBridge;
-import com.example.couple.Model.Bridge.Couple.MappingBridge;
-import com.example.couple.Model.Bridge.Couple.PeriodBridge;
-import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
-import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
-import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
-import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Time.TimeBase;
@@ -45,11 +38,11 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     //
     CheckBox cboMappingBridge;
     CheckBox cboShadowMappingBridge;
-    CheckBox cboPeriodBridge;
-    CheckBox cboMappingBridge1;
+    CheckBox cboEstimatedBridge;
+    CheckBox cboCompactRightMappingBridge;
     CheckBox cboCompatible;
     CheckBox cboIncompatible;
-    CheckBox cboMatchMappingBridge;
+    CheckBox cboRightMappingBridge;
     CheckBox cboTriadMappingBridge;
     CheckBox cboShadowExchangeBridge;
     //
@@ -59,12 +52,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     //
     Button btnFindingBridge;
     Button btnBridgeAnnotation;
-    Button btnPeriodBridge;
-    Button btnMappingBridge;
-    Button btnShadowMappingBridge;
-    Button btnBigDoubleSet;
-    Button btnDoubleSet;
-    Button btnNearDoubleSet;
     TextView tvShowCombineBridge;
 
     BridgeCombinationViewModel viewModel;
@@ -88,12 +75,12 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboPositiveShadowBridge = findViewById(R.id.cboPositiveShadowBridge);
         // mapping, period
         cboMappingBridge = findViewById(R.id.cboMappingBridge);
-        cboMappingBridge1 = findViewById(R.id.cboMappingBridge1);
+        cboRightMappingBridge = findViewById(R.id.cboRightMappingBridge);
         cboCompatible = findViewById(R.id.cboCompatible);
         cboIncompatible = findViewById(R.id.cboIncompatible);
         cboShadowMappingBridge = findViewById(R.id.cboShadowMappingBridge);
-        cboPeriodBridge = findViewById(R.id.cboPeriodBridge);
-        cboMatchMappingBridge = findViewById(R.id.cboMatchMappingBridge);
+        cboEstimatedBridge = findViewById(R.id.cboEstimatedBridge);
+        cboCompactRightMappingBridge = findViewById(R.id.cboCompactRightMappingBridge);
         cboTriadMappingBridge = findViewById(R.id.cboTriadMappingBridge);
         cboShadowExchangeBridge = findViewById(R.id.cboShadowExchangeBridge);
         // special set
@@ -103,12 +90,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         // button
         btnFindingBridge = findViewById(R.id.btnFindingBridge);
         btnBridgeAnnotation = findViewById(R.id.btnBridgeAnnotation);
-        btnPeriodBridge = findViewById(R.id.btnPeriodBridge);
-        btnMappingBridge = findViewById(R.id.btnMappingBridge);
-        btnShadowMappingBridge = findViewById(R.id.btnShadowMappingBridge);
-        btnBigDoubleSet = findViewById(R.id.btnBigDoubleSet);
-        btnDoubleSet = findViewById(R.id.btnDoubleSet);
-        btnNearDoubleSet = findViewById(R.id.btnNearDoubleSet);
         tvShowCombineBridge = findViewById(R.id.tvShowCombineBridge);
 
         edtDayNumber.setText("18");
@@ -141,14 +122,14 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 boolean lottoTouch = cboLottoTouchBridge.isChecked();
                 boolean negativeShadow = cboNegativeShadowBridge.isChecked();
                 boolean positiveShadow = cboPositiveShadowBridge.isChecked();
-                // mapping, period
+                // mapping, estimated
                 boolean mapping = cboMappingBridge.isChecked();
                 boolean shadowMapping = cboShadowMappingBridge.isChecked();
-                boolean period = cboPeriodBridge.isChecked();
-                boolean mapping1 = cboMappingBridge1.isChecked();
+                boolean estimated = cboEstimatedBridge.isChecked();
+                boolean rightMapping = cboRightMappingBridge.isChecked();
                 boolean compatible = cboCompatible.isChecked();
                 boolean incompatible = cboIncompatible.isChecked();
-                boolean matchMapping = cboMatchMappingBridge.isChecked();
+                boolean compactRightMapping = cboCompactRightMappingBridge.isChecked();
                 boolean triadMapping = cboTriadMappingBridge.isChecked();
                 boolean shadowExchange = cboShadowExchangeBridge.isChecked();
                 // special set
@@ -162,8 +143,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             Integer.parseInt(numberOfDayStr);
                     viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseNextDay, numberOfDay,
                             combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
-                            mapping, shadowMapping, period, mapping1, compatible, incompatible, matchMapping,
-                            triadMapping, shadowExchange, bigDouble, sameDouble, nearDouble);
+                            mapping, shadowMapping, estimated, rightMapping, compatible, incompatible,
+                            compactRightMapping, triadMapping, shadowExchange, bigDouble, sameDouble, nearDouble);
                 }
             }
         });
@@ -174,66 +155,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
                 WidgetBase.showDialog(
                         BridgeCombinationActivity.this, "Chú giải", Const.BRIDGE_ANNOTATION);
-            }
-        });
-
-        btnPeriodBridge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                String numberOfDay = edtDayNumber.getText().toString().trim();
-                if (!numberOfDay.equals(""))
-                    viewModel.GetPeriodBridgeList(jackpotList, Integer.parseInt(numberOfDay));
-            }
-        });
-
-        btnMappingBridge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                String numberOfDay = edtDayNumber.getText().toString().trim();
-                if (!numberOfDay.equals(""))
-                    viewModel.GetMappingBridgeList(jackpotList, Integer.parseInt(numberOfDay));
-            }
-        });
-
-        btnShadowMappingBridge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                String numberOfDay = edtDayNumber.getText().toString().trim();
-                if (!numberOfDay.equals(""))
-                    viewModel.GetShadowBridgeList(jackpotList, Integer.parseInt(numberOfDay));
-            }
-        });
-
-        btnBigDoubleSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                String numberOfDay = edtDayNumber.getText().toString().trim();
-                if (!numberOfDay.equals(""))
-                    viewModel.GetBigDoubleSet(jackpotList, Integer.parseInt(numberOfDay));
-            }
-        });
-
-        btnDoubleSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                String numberOfDay = edtDayNumber.getText().toString().trim();
-                if (!numberOfDay.equals(""))
-                    viewModel.GetDoubleSet(jackpotList, Integer.parseInt(numberOfDay));
-            }
-        });
-
-        btnNearDoubleSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                String numberOfDay = edtDayNumber.getText().toString().trim();
-                if (!numberOfDay.equals(""))
-                    viewModel.GetNearDoubleSet(jackpotList, Integer.parseInt(numberOfDay));
             }
         });
     }
@@ -248,7 +169,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboPositiveShadowBridge.setText("bóng dương " + combineBridge.getBridgeList().get(5).showTouchs());
         cboMappingBridge.setText("ánh xạ " + combineBridge.getBridgeList().get(6).getNumbers().size());
         cboShadowMappingBridge.setText("ánh xạ bóng " + combineBridge.getBridgeList().get(7).getNumbers().size());
-        cboPeriodBridge.setText("khoảng " + combineBridge.getBridgeList().get(8).getNumbers().size());
+        cboEstimatedBridge.setText("ước lượng " + combineBridge.getBridgeList().get(8).getNumbers().size());
     }
 
     @Override
@@ -262,116 +183,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         WidgetBase.showDialogCanBeCopied(this,
                 "Cầu kết hợp", "Tỉ lệ: " + count + "/" + combineBridges.size() +
                         "\n" + show, combineBridges.get(0).showNumbers());
-    }
-
-    @Override
-    public void ShowTouchBridgeList(List<CombineTouchBridge> combineTouchBridges) {
-//        String show = "";
-//        int count = 0;
-//        for (CombineTouchBridge bridge : combineTouchBridges) {
-//            show += bridge.showBridge() + "\n";
-//            if (bridge.isWin()) count++;
-//        }
-//        WidgetBase.showDialogCanBeCopied(this,
-//                "Cầu chạm", "Tỉ lệ: " + count + "/" + combineTouchBridges.size() +
-//                        "\n" + show, combineTouchBridges.get(0).showTouchs());
-    }
-
-    @Override
-    public void ShowShadowTouchBridgeList(List<ShadowTouchBridge> touchBridges) {
-//        String show = "";
-//        int count = 0;
-//        for (ShadowTouchBridge bridge : touchBridges) {
-//            show += bridge.showBridge() + "\n";
-//            if (bridge.isWin()) count++;
-//        }
-//        WidgetBase.showDialogCanBeCopied(this,
-//                "Cầu chạm bóng", "Tỉ lệ: " + count + "/" + touchBridges.size() +
-//                        "\n" + show, touchBridges.get(0).showNumbers());
-    }
-
-    @Override
-    public void ShowPeriodBridgeList(List<PeriodBridge> periodBridges) {
-//        String show = "";
-//        int count = 0;
-//        for (PeriodBridge bridge : periodBridges) {
-//            show += bridge.showBridge() + "\n";
-//            if (bridge.isWin()) count++;
-//        }
-//        WidgetBase.showDialogCanBeCopied(this,
-//                "Cầu khoảng", "Tỉ lệ: " + count + "/" + periodBridges.size() +
-//                        "\n" + show, periodBridges.get(0).showNumbers());
-    }
-
-    @Override
-    public void ShowMappingBridgeList(List<MappingBridge> mappingBridgeList) {
-//        String show = "";
-//        int count = 0;
-//        for (MappingBridge bridge : mappingBridgeList) {
-//            show += bridge.showBridge() + "\n";
-//            if (bridge.isWin()) count++;
-//        }
-//        WidgetBase.showDialogCanBeCopied(this,
-//                "Cầu ánh xạ", "Tỉ lệ: " + count + "/" + mappingBridgeList.size() +
-//                        "\n" + show, mappingBridgeList.get(0).showNumbers());
-    }
-
-    @Override
-    public void ShowShadowMappingBridgeList(List<ShadowMappingBridge> shadowMappingBridgeList) {
-//        String show = "";
-//        int count = 0;
-//        for (ShadowMappingBridge bridge : shadowMappingBridgeList) {
-//            show += bridge.showBridge() + "\n";
-//            if (bridge.isWin()) count++;
-//        }
-//        WidgetBase.showDialogCanBeCopied(this, "Cầu ánh xạ bóng",
-//                "Tỉ lệ: " + count + "/" + shadowMappingBridgeList.size() + "\n" + show,
-//                shadowMappingBridgeList.get(0).showCopyCombineShadowCouples());
-    }
-
-    @Override
-    public void ShowSet(List<Integer> bigDoubleSet) {
-        WidgetBase.showDialogCanBeCopied(this, "Bộ số", "Thông tin bộ số: "
-                + CoupleHandler.showCoupleNumbers(bigDoubleSet), CoupleHandler.showCoupleNumbers(bigDoubleSet));
-    }
-
-    @Override
-    public void ShowBigDoubleSet(List<SpecialSetBridge> bigDoubleSets) {
-//        String show = "";
-//        int count = 0;
-//        for (SpecialSet set : bigDoubleSets) {
-//            show += set.showBridge() + "\n";
-//            if (set.isWin()) count++;
-//        }
-//        WidgetBase.showDialogCanBeCopied(this, bigDoubleSets.get(0).getBridgeName(),
-//                "Tỉ lệ: " + count + "/" + bigDoubleSets.size() + "\n" + show,
-//                bigDoubleSets.get(0).showNumbers());
-    }
-
-    @Override
-    public void ShowDoubleSet(List<SpecialSetBridge> doubleSets) {
-//        String show = "";
-//        int count = 0;
-//        for (SpecialSet set : doubleSets) {
-//            show += set.showBridge() + "\n";
-//            if (set.isWin()) count++;
-//        }
-//        WidgetBase.showDialogCanBeCopied(this, doubleSets.get(0).getBridgeName(),
-//                "Tỉ lệ: " + count + "/" + doubleSets.size() + "\n" + show,
-//                doubleSets.get(0).showNumbers());
-    }
-
-    @Override
-    public void ShowNearDoubleSet(List<SpecialSetBridge> nearDoubleSets) {
-//        String show = "";
-//        int count = 0;
-//        for (SpecialSet set : nearDoubleSets) {
-//            show += set.showBridge() + "\n";
-//            if (set.isWin()) count++;
-//        }
-//        WidgetBase.showDialogCanBeCopied(this, nearDoubleSets.get(0).getBridgeName(),
-//                "Tỉ lệ: " + count + "/" + nearDoubleSets.size() + "\n" + show,
-//                nearDoubleSets.get(0).showNumbers());
     }
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
@@ -303,8 +304,8 @@ public class CreateNumberArrayViewModel {
     }
 
     public void GetTriadTable() {
-        String data = IOFileBase.readDataFromFile(context, Const.TRIAD_FILE_NAME);
-        String importantData = IOFileBase.readDataFromFile(context, Const.ITRIAD_FILE_NAME);
+        String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
+        String importantData = IOFileBase.readDataFromFile(context, FileName.ITRIAD);
 
         if (data.equals("") && importantData.equals("")) {
             view.ShowTriadTable(new ArrayList<>());
@@ -348,14 +349,14 @@ public class CreateNumberArrayViewModel {
                 data2 += numbers.get(i).getNumber() + ",";
             }
         }
-        IOFileBase.saveDataToFile(context, Const.TRIAD_FILE_NAME, data1, 0);
-        IOFileBase.saveDataToFile(context, Const.ITRIAD_FILE_NAME, data2, 0);
+        IOFileBase.saveDataToFile(context, FileName.TRIAD, data1, 0);
+        IOFileBase.saveDataToFile(context, FileName.ITRIAD, data2, 0);
         view.SaveDataSuccess("Lưu dữ liệu thành công!");
     }
 
     public void GetTriadList() {
-        String data = IOFileBase.readDataFromFile(context, Const.TRIAD_FILE_NAME);
-        String importantData = IOFileBase.readDataFromFile(context, Const.ITRIAD_FILE_NAME);
+        String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
+        String importantData = IOFileBase.readDataFromFile(context, FileName.ITRIAD);
         if (data.equals("") && importantData.equals("")) {
             view.ShowTriadList(new ArrayList<>());
         } else {

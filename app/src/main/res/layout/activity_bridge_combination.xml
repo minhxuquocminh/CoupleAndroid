@@ -195,11 +195,11 @@
                     android:textSize="@dimen/text_size" />
 
                 <CheckBox
-                    android:id="@+id/cboPeriodBridge"
+                    android:id="@+id/cboEstimatedBridge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="khoảng"
+                    android:text="ước lượng"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
@@ -211,11 +211,11 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/cboMappingBridge1"
+                    android:id="@+id/cboRightMappingBridge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="ánh xạ 1"
+                    android:text="ánh xạ P"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
@@ -245,11 +245,11 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/cboMatchMappingBridge"
+                    android:id="@+id/cboCompactRightMappingBridge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="ánh xạ hợp"
+                    android:text="ánh xạ P1"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
@@ -438,91 +438,6 @@
                     android:textColor="@color/colorThemeLight"
                     android:textSize="@dimen/text_size_big" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnMappingBridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="cầu ánh xạ"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
-
-                <Button
-                    android:id="@+id/btnShadowMappingBridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="cầu đổ bóng"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
-
-                <Button
-                    android:id="@+id/btnPeriodBridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="cầu khoảng"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnBigDoubleSet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="bộ kép to"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
-
-                <Button
-                    android:id="@+id/btnDoubleSet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="bộ kép bằng"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
-
-                <Button
-                    android:id="@+id/btnNearDoubleSet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="bộ sát kép"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
             </LinearLayout>
 
             <!--show data-->

@@ -3,7 +3,7 @@ package com.example.couple.Custom.Handler;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Model.Time.Cycle.Cycle;
 import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Model.Time.DateCycle;
@@ -17,26 +17,26 @@ import java.util.concurrent.ExecutionException;
 public class TimeHandler {
 
     public static boolean hasSyncedCycleToday(Context context) {
-        TimeBase today = getSexagenaryCycle(context, Const.CYCLE_TODAY_FILE_NAME);
+        TimeBase today = getSexagenaryCycle(context, FileName.CYCLE_TODAY);
         return !today.isEmpty() && today.getDateBase().equals(DateBase.TO_DAY());
     }
 
     public static TimeBase getTimeBaseNextDay(Context context) {
         if (!CheckUpdate.checkUpdateJackpot(context)) {
-            return getSexagenaryCycle(context, Const.CYCLE_NEXT_DAY_FILE_NAME);
+            return getSexagenaryCycle(context, FileName.CYCLE_NEXT_DAY);
         }
-        return getSexagenaryCycle(context, Const.CYCLE_TODAY_FILE_NAME);
+        return getSexagenaryCycle(context, FileName.CYCLE_TODAY);
     }
 
     public static List<TimeBase> getAllSexagenaryCycle(Context context, int numberOfDays) {
         List<TimeBase> timeBaseList = new ArrayList<>();
         if (!CheckUpdate.checkUpdateJackpot(context)) {
-            TimeBase nextDay = getSexagenaryCycle(context, Const.CYCLE_NEXT_DAY_FILE_NAME);
+            TimeBase nextDay = getSexagenaryCycle(context, FileName.CYCLE_NEXT_DAY);
             timeBaseList.add(nextDay);
             numberOfDays--;
         }
 
-        TimeBase today = getSexagenaryCycle(context, Const.CYCLE_TODAY_FILE_NAME);
+        TimeBase today = getSexagenaryCycle(context, FileName.CYCLE_TODAY);
         int daysOfThisMonth = today.getDateLunar().getDay();
         int size = numberOfDays < daysOfThisMonth ? numberOfDays : daysOfThisMonth;
         for (int i = 0; i < size; i++) {
@@ -49,7 +49,7 @@ public class TimeHandler {
             return timeBaseList;
         }
 
-        TimeBase previous = getSexagenaryCycle(context, Const.CYCLE_1_FILE_NAME);
+        TimeBase previous = getSexagenaryCycle(context, FileName.CYCLE_1);
         int daysOfPreviousMonth = previous.getDateLunar().getDay();
         size = (numberOfDays - daysOfThisMonth) < daysOfPreviousMonth ?
                 (numberOfDays - daysOfThisMonth) : daysOfPreviousMonth;
@@ -60,7 +60,7 @@ public class TimeHandler {
             timeBaseList.add(new TimeBase(dateBase, dateLunar, dateCycle));
         }
 
-        TimeBase previous2 = getSexagenaryCycle(context, Const.CYCLE_2_FILE_NAME);
+        TimeBase previous2 = getSexagenaryCycle(context, FileName.CYCLE_2);
         int daysOfPreviousMonth2 = previous2.getDateLunar().getDay();
         if (numberOfDays - daysOfThisMonth - daysOfPreviousMonth < daysOfPreviousMonth2) {
             return timeBaseList;
@@ -97,20 +97,20 @@ public class TimeHandler {
 
     public static boolean updateAllSexagenaryCycle(Context context) {
         boolean checkTomorrow = updateSexagenaryCycle(context,
-                DateBase.TO_DAY().plusDays(1), Const.CYCLE_NEXT_DAY_FILE_NAME);
+                DateBase.TO_DAY().plusDays(1), FileName.CYCLE_NEXT_DAY);
         if (!checkTomorrow) return false;
 
-        boolean checkToday = updateSexagenaryCycle(context, DateBase.TO_DAY(), Const.CYCLE_TODAY_FILE_NAME);
+        boolean checkToday = updateSexagenaryCycle(context, DateBase.TO_DAY(), FileName.CYCLE_TODAY);
         if (!checkToday) return false;
-        TimeBase today = getSexagenaryCycle(context, Const.CYCLE_TODAY_FILE_NAME);
+        TimeBase today = getSexagenaryCycle(context, FileName.CYCLE_TODAY);
         DateBase previousMonth = today.getDateBase().plusDays(-today.getDateLunar().getDay());
 
-        boolean check1 = updateSexagenaryCycle(context, previousMonth, Const.CYCLE_1_FILE_NAME);
+        boolean check1 = updateSexagenaryCycle(context, previousMonth, FileName.CYCLE_1);
         if (!check1) return false;
-        TimeBase timeBase1 = getSexagenaryCycle(context, Const.CYCLE_1_FILE_NAME);
+        TimeBase timeBase1 = getSexagenaryCycle(context, FileName.CYCLE_1);
         DateBase previousPreviousMonth = timeBase1.getDateBase().plusDays(-timeBase1.getDateLunar().getDay());
 
-        boolean check2 = updateSexagenaryCycle(context, previousPreviousMonth, Const.CYCLE_2_FILE_NAME);
+        boolean check2 = updateSexagenaryCycle(context, previousPreviousMonth, FileName.CYCLE_2);
         if (!check2) return false;
 
         return true;

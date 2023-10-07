@@ -3,10 +3,10 @@ package com.example.couple.Model.Origin;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Support.ShadowSingle;
 import com.example.couple.Model.Support.Single;
+import com.example.couple.Model.Time.DateBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -122,6 +122,62 @@ public class Couple {
 
         return results;
     }
+
+    public List<Integer> getRightMappingNumbers() {
+        List<Integer> numbers = CoupleHandler.getMappingNumbers(getCoupleInt());
+        for (int i = 1; i <= 2; i++) {
+            // top
+            if (first - i >= 0) {
+                int top = (first - i) * 10 + second;
+                numbers.addAll(CoupleHandler.getMappingLeftBottomNumbers(top));
+            } else {
+                if (second + i <= 9) {
+                    int right = first * 10 + second + i;
+                    numbers.addAll(CoupleHandler.getMappingLeftBottomNumbers(right));
+                }
+            }
+            // bottom
+            if (first + i <= 9) {
+                int bottom = (first + i) * 10 + second;
+                numbers.addAll(CoupleHandler.getMappingRightTopNumbers(bottom));
+            } else {
+                if (second + i <= 9) {
+                    int right = first * 10 + second + i;
+                    numbers.addAll(CoupleHandler.getMappingRightTopNumbers(right));
+                }
+            }
+        }
+        List<Integer> results = NumberBase.filterDuplicatedNumbers(numbers);
+        Collections.sort(results);
+        return results;
+    }
+
+    public List<Integer> getRight1MappingNumbers() {
+        List<Integer> numbers = new ArrayList<>();
+        if (first - 1 >= 0) {
+            int top = (first - 1) * 10 + second;
+            numbers.addAll(CoupleHandler.getMappingLeftBottomNumbers(top));
+        } else {
+            if (second + 1 <= 9) {
+                int right = first * 10 + second + 1;
+                numbers.addAll(CoupleHandler.getMappingLeftBottomNumbers(right));
+            }
+        }
+        // bottom
+        if (first + 1 <= 9) {
+            int bottom = (first + 1) * 10 + second;
+            numbers.addAll(CoupleHandler.getMappingRightTopNumbers(bottom));
+        } else {
+            if (second + 1 <= 9) {
+                int right = first * 10 + second + 1;
+                numbers.addAll(CoupleHandler.getMappingRightTopNumbers(right));
+            }
+        }
+        List<Integer> results = NumberBase.filterDuplicatedNumbers(numbers);
+        Collections.sort(results);
+        return results;
+    }
+
 
     public int getCoupleInt() {
         return Integer.parseInt(first + "" + second);

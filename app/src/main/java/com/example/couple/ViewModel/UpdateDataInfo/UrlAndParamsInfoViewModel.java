@@ -3,7 +3,7 @@ package com.example.couple.ViewModel.UpdateDataInfo;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.View.UpdateDataInfo.UrlAndParamsInfoView;
 
 public class UrlAndParamsInfoViewModel {
@@ -19,9 +19,9 @@ public class UrlAndParamsInfoViewModel {
 
     public void GetUrlAndParams(String type) {
         if (type.equals("jackpot")) {
-            fileName = Const.JACKPOT_URL_FILE_NAME;
+            fileName = FileName.JACKPOT_URL;
         } else if (type.equals("lottery")) {
-            fileName = Const.LOTTERY_URL_FILE_NAME;
+            fileName = FileName.LOTTERY_URL;
         }
         data = IOFileBase.readDataFromFile(context, fileName);
         String arr[] = data.split("\n");

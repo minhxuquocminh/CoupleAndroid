@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.HeadTail;
 import com.example.couple.Model.Display.JackpotNextDay;
@@ -104,7 +105,7 @@ public class JackpotStatistics {
     }
 
     public static int[] GetStartAndEndYearFile(Context context) {
-        String yearData = IOFileBase.readDataFromFile(context, Const.JACKPOT_YEARS_FILE_NAME);
+        String yearData = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
         if (yearData.equals("")) return null;
         String yearArr[] = yearData.split("-");
         int results[] = new int[2];
@@ -114,7 +115,7 @@ public class JackpotStatistics {
     }
 
     public static int GetMaxStartNumberOfYears(Context context, int START_NUMBER_OF_YEARS) {
-        String yearData = IOFileBase.readDataFromFile(context, Const.JACKPOT_YEARS_FILE_NAME);
+        String yearData = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
         if (yearData.equals("")) return 0;
         int numberOfYearsFile = yearData.split("-").length;
         return numberOfYearsFile < START_NUMBER_OF_YEARS ? numberOfYearsFile : START_NUMBER_OF_YEARS;

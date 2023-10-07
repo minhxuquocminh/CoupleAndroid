@@ -13,9 +13,8 @@ public class Const {
     public static final int MAX_DAY_NUMBER_BEFORE = 999;
     public static final int NUMBER_OF_PRIZES = 27;
     public static final int MAX_DAYS_TO_GET_LOTTERY = 60;
-    public static final int MAX_DAYS_TO_GET_CYCLE = 80;
     public static final int MAX_LENGTH_OF_PRIZE = 5;
-    public static final int AMPLITUDE_OF_PERIOD_BRIDGE = 13;
+    public static final int AMPLITUDE_OF_PERIOD = 13;
     public static final int CONNECTED_BRIDGE_FINDING_DAYS = 10;
     public static final int CONNECTED_BRIDGE_MAX_DISPLAY = 20;
     public static final int CLAW_BRIDGE_MAX_DISPLAY = 8;
@@ -28,13 +27,15 @@ public class Const {
     public static final String LOTTO_TOUCH_BRIDGE_NAME = "Cầu chạm lô tô";
     public static final String MAPPING_BRIDGE_NAME = "Cầu ánh xạ";
     public static final String MAPPING_BRIDGE_NAME_1 = "Cầu ánh xạ 1";
+    public static final String RIGHT_MAPPING_BRIDGE_NAME = "Cầu ánh xạ P";
+    public static final String COMPACT_MAPPING_BRIDGE_NAME = "Cầu ánh xạ P1";
     public static final String TRIAD_MAPPING_BRIDGE_NAME = "Cầu 3 ánh xạ";
     public static final String MATCH_MAPPING_BRIDGE_NAME = "Cầu ánh xạ hợp";
     public static final String COMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi hợp";
     public static final String INCOMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi khắc";
     public static final String SHADOW_MAPPING_BRIDGE_NAME = "Cầu ánh xạ bóng";
     public static final String SHADOW_EXCHANGE_BRIDGE_NAME = "Cầu đổi bóng";
-    public static final String PERIOD_BRIDGE_NAME = "Cầu khoảng";
+    public static final String ESTIMATED_BRIDGE_NAME = "Cầu ước lượng";
     public static final String CONNECTED_BRIDGE_NAME = "Cầu liên thông";
     public static final String NEGATIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng -";
     public static final String POSITIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng +";
@@ -108,25 +109,6 @@ public class Const {
     public static final String TIME_URL = "https://lichvannien365.com/";
     public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua9.net/bang-dac-biet-nam\nchu16";
     public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua9.net/so-ket-qua\nwatermark";
-    // file name
-    public static final String TIME_FILE_NAME = "time.txt";
-    public static final String CYCLE_TODAY_FILE_NAME = "cycle_today.txt";
-    public static final String CYCLE_NEXT_DAY_FILE_NAME = "cycle_tomorrow.txt";
-    public static final String CYCLE_1_FILE_NAME = "cycle_1.txt";
-    public static final String CYCLE_2_FILE_NAME = "cycle_2.txt";
-    public static final String LOTTERY_FILE_NAME = "lottery.txt";
-    public static final String JACKPOT_YEARS_FILE_NAME = "jackpot_years.txt";
-    public static final String JACKPOT_URL_FILE_NAME = "jackpot_url.txt";
-    public static final String LOTTERY_URL_FILE_NAME = "lottery_url.txt";
-    public static final String NOTE_FILE_NAME = "note.txt";
-    public static final String TRIAD_FILE_NAME = "triad.txt";
-    public static final String ITRIAD_FILE_NAME = "itriad.txt";
-    public static final String TABLE_A_FILE_NAME = "table_a.txt";
-    public static final String TABLE_B_FILE_NAME = "table_b.txt";
-    public static final String ITABLE_A_FILE_NAME = "itable_a.txt";
-    public static final String ITABLE_B_FILE_NAME = "itable_b.txt";
-    public static final String NUMBER_ARRAY_FILE_NAME = "number_array.txt";
-    public static final String SELECTED_NUMBER_FILE_NAME = "selected_number.txt";
 
     public static final String BRIDGE_ANNOTATION =
             " * Ghi chú: " +

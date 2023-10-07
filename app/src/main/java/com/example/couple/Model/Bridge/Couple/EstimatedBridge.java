@@ -13,15 +13,15 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class PeriodBridge extends Bridge {
+public class EstimatedBridge extends Bridge {
     List<PeriodHistory> periodHistories3;
     List<PeriodHistory> periodHistories4;
     JackpotHistory jackpotHistory;
     List<PeriodHistory> periodHistories;
     List<Integer> numbers;
 
-    public PeriodBridge(List<PeriodHistory> periodHistories3,
-                        List<PeriodHistory> periodHistories4, JackpotHistory jackpotHistory) {
+    public EstimatedBridge(List<PeriodHistory> periodHistories3,
+                           List<PeriodHistory> periodHistories4, JackpotHistory jackpotHistory) {
         this.periodHistories3 = periodHistories3;
         this.periodHistories4 = periodHistories4;
         this.jackpotHistory = jackpotHistory;
@@ -39,7 +39,7 @@ public class PeriodBridge extends Bridge {
         List<Integer> inits = new ArrayList<>();
         for (PeriodHistory periodHistory : periodHistories) {
             inits.addAll(CoupleHandler
-                    .getPeriodNumbers(periodHistory.getLastNumber(), Const.AMPLITUDE_OF_PERIOD_BRIDGE));
+                    .getPeriodNumbers(periodHistory.getLastNumber(), Const.AMPLITUDE_OF_PERIOD));
         }
 
         for (int number : inits) {
@@ -52,8 +52,8 @@ public class PeriodBridge extends Bridge {
 
     }
 
-    public static PeriodBridge getEmpty() {
-        return new PeriodBridge(new ArrayList<>(), new ArrayList<>(), JackpotHistory.getEmpty());
+    public static EstimatedBridge getEmpty() {
+        return new EstimatedBridge(new ArrayList<>(), new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {
@@ -67,7 +67,7 @@ public class PeriodBridge extends Bridge {
 
     @Override
     public String getBridgeName() {
-        return Const.PERIOD_BRIDGE_NAME;
+        return Const.ESTIMATED_BRIDGE_NAME;
     }
 
 }

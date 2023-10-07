@@ -23,6 +23,7 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Model.Display.Number;
@@ -350,7 +351,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
     @Override
     public void VerifyCoupleArraySuccess(String numbersArr) {
-        IOFileBase.saveDataToFile(getActivity(), Const.NUMBER_ARRAY_FILE_NAME, numbersArr, 0);
+        IOFileBase.saveDataToFile(getActivity(), FileName.NUMBER_ARRAY, numbersArr, 0);
         RECEIVE_DATA = true;
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.beginTransaction().show(MainActivity.fragment2).hide(MainActivity.active).commit();

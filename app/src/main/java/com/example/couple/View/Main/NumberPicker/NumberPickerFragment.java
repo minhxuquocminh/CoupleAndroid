@@ -29,6 +29,7 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Model.Display.Number;
@@ -547,7 +548,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             tvShowPrediction.setText("m: " + mpStr + ", " + listMP);
 
             String selected = mp < 0 ? "" : mpStr;
-            IOFileBase.saveDataToFile(getActivity(), Const.SELECTED_NUMBER_FILE_NAME, selected, 0);
+            IOFileBase.saveDataToFile(getActivity(), FileName.SELECTED_NUMBER, selected, 0);
         }
     }
 
@@ -995,8 +996,8 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     public void setDataToTable() {
-        String numbersStr = IOFileBase.readDataFromFile(getActivity(), Const.NUMBER_ARRAY_FILE_NAME);
-        IOFileBase.saveDataToFile(getActivity(), Const.NUMBER_ARRAY_FILE_NAME, "", 0);
+        String numbersStr = IOFileBase.readDataFromFile(getActivity(), FileName.NUMBER_ARRAY);
+        IOFileBase.saveDataToFile(getActivity(), FileName.NUMBER_ARRAY, "", 0);
         if (isFirstNumberPicker) {
             List<Number> numbers = NumberBase.verifyNumberArr(numbersStr, 2);
             if (numbers.size() != 0) {

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
-import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsView;
@@ -21,7 +21,7 @@ public class AddJackpotManyYearsViewModel {
     }
 
     public void GetStartYear() {
-        String data = IOFileBase.readDataFromFile(context, Const.JACKPOT_YEARS_FILE_NAME);
+        String data = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
         if (data.equals("")) {
             view.ShowStartYear(TimeInfo.CURRENT_YEAR - 4);
             return;
@@ -46,7 +46,7 @@ public class AddJackpotManyYearsViewModel {
             return;
         }
 
-        String years = IOFileBase.readDataFromFile(context, Const.JACKPOT_YEARS_FILE_NAME);
+        String years = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
         if (years.equals("")) {
             availableData = false;
         }
@@ -83,7 +83,7 @@ public class AddJackpotManyYearsViewModel {
             }
         }
         if (countYear == TimeInfo.CURRENT_YEAR - startYear + 1) {
-            IOFileBase.saveDataToFile(context, Const.JACKPOT_YEARS_FILE_NAME, yearData, 0);
+            IOFileBase.saveDataToFile(context, FileName.JACKPOT_YEARS, yearData, 0);
             view.GetJackpotDataSuccess("Thêm dữ liệu thành công!");
         } else {
             view.ShowError("Lỗi nạp dữ liệu!");

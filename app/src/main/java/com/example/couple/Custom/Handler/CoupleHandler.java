@@ -133,6 +133,48 @@ public class CoupleHandler {
         return numbers;
     }
 
+    public static List<Integer> getMappingLeftBottomNumbers(int number) {
+        if (number < 0 || number > 99) return new ArrayList<>();
+        int first = number / 10;
+        int second = number % 10;
+
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i <= first; i++) {
+            int topLeft = (first - i) * 10 + second - i;
+            if (second - i >= 0 && topLeft >= 0) {
+                numbers.add(topLeft);
+            }
+        }
+        for (int i = 1; first + i <= 9; i++) {
+            int bottomRight = (first + i) * 10 + second + i;
+            if (second + i <= 9 && bottomRight <= 99) {
+                numbers.add(bottomRight);
+            }
+        }
+        numbers.add(number);
+        return numbers;
+    }
+
+    public static List<Integer> getMappingRightTopNumbers(int number) {
+        if (number < 0 || number > 99) return new ArrayList<>();
+        int first = number / 10;
+        int second = number % 10;
+
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i <= first; i++) {
+            if (second + i <= 9) {
+                numbers.add((first - i) * 10 + second + i);
+            }
+        }
+        for (int i = 1; first + i <= 9; i++) {
+            if (second - i >= 0) {
+                numbers.add((first + i) * 10 + second - i);
+            }
+        }
+        numbers.add(number);
+        return numbers;
+    }
+
     public static String showCouple(int number) {
         if (number < 0 || number > 99) return "";
         return number < 10 ? 0 + "" + number : number + "";

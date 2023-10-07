@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.JsoupBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Model.Time.DateBase;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class Api {
 
     public static String GetJackpotDataFromInternet(Context context, int year)
             throws ExecutionException, InterruptedException {
-        String urlAndParams = IOFileBase.readDataFromFile(context, Const.JACKPOT_URL_FILE_NAME);
+        String urlAndParams = IOFileBase.readDataFromFile(context, FileName.JACKPOT_URL);
         String arr[] = urlAndParams.split("\n");
 
         String link = arr[0].trim();
@@ -58,7 +59,7 @@ public class Api {
 
     public static String GetLotteryDataFromInternet(Context context, int numberOfDays)
             throws ExecutionException, InterruptedException {
-        String urlAndParams = IOFileBase.readDataFromFile(context, Const.LOTTERY_URL_FILE_NAME);
+        String urlAndParams = IOFileBase.readDataFromFile(context, FileName.LOTTERY_URL);
         String arr[] = urlAndParams.split("\n");
 
         String link = arr[0].trim();

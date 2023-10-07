@@ -3,7 +3,7 @@ package com.example.couple.ViewModel.SubScreen;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.View.SubScreen.NoteInfoView;
 
 public class NoteInfoViewModel {
@@ -16,7 +16,7 @@ public class NoteInfoViewModel {
     }
 
     public void AddNote(String note) {
-        IOFileBase.saveDataToFile(context, Const.NOTE_FILE_NAME, note + "===", 1);
+        IOFileBase.saveDataToFile(context, FileName.NOTE, note + "===", 1);
         noteInfoView.AddNoteSuccess("Thêm ghi chú thành công!");
     }
 }

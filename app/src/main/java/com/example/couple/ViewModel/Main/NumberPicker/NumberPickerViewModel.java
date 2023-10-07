@@ -2,9 +2,9 @@ package com.example.couple.ViewModel.Main.NumberPicker;
 
 import android.content.Context;
 
-import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
@@ -12,6 +12,7 @@ import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.Model.Display.Number;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.View.Main.NumberPicker.NumberPickerView;
 
 import java.util.ArrayList;
@@ -111,11 +112,11 @@ public class NumberPickerViewModel {
         String data = "";
         String importantData = "";
         if (isTableA) {
-            data = IOFileBase.readDataFromFile(context, Const.TABLE_A_FILE_NAME);
-            importantData = IOFileBase.readDataFromFile(context, Const.ITABLE_A_FILE_NAME);
+            data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
+            importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_A);
         } else {
-            data = IOFileBase.readDataFromFile(context, Const.TABLE_B_FILE_NAME);
-            importantData = IOFileBase.readDataFromFile(context, Const.ITABLE_B_FILE_NAME);
+            data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
+            importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
         }
         if (data.equals("") && importantData.equals("")) {
             numberPickerView.ShowTableType1(new ArrayList<>());
@@ -143,11 +144,11 @@ public class NumberPickerViewModel {
         String data = "";
         String importantData = "";
         if (isTableA) {
-            data = IOFileBase.readDataFromFile(context, Const.TABLE_A_FILE_NAME);
-            importantData = IOFileBase.readDataFromFile(context, Const.ITABLE_A_FILE_NAME);
+            data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
+            importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_A);
         } else {
-            data = IOFileBase.readDataFromFile(context, Const.TABLE_B_FILE_NAME);
-            importantData = IOFileBase.readDataFromFile(context, Const.ITABLE_B_FILE_NAME);
+            data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
+            importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
         }
         if (data.equals("") && importantData.equals("")) {
             numberPickerView.ShowTableType2(new ArrayList<>());
@@ -191,15 +192,15 @@ public class NumberPickerViewModel {
                 data2 += numbers.get(i).getNumber() + ",";
             }
         }
-        String fileName = isTableA ? Const.TABLE_A_FILE_NAME : Const.TABLE_B_FILE_NAME;
+        String fileName = isTableA ? FileName.TABLE_A : FileName.TABLE_B;
         IOFileBase.saveDataToFile(context, fileName, data1, 0);
         IOFileBase.saveDataToFile(context, "i" + fileName, data2, 0);
         numberPickerView.SaveDataSuccess("Lưu dữ liệu thành công!");
     }
 
     public void GetTableAList() {
-        String data = IOFileBase.readDataFromFile(context, Const.TABLE_A_FILE_NAME);
-        String importantData = IOFileBase.readDataFromFile(context, Const.ITABLE_A_FILE_NAME);
+        String data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
+        String importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_A);
         if (data.equals("") && importantData.equals("")) {
             numberPickerView.ShowTableAList(new ArrayList<>());
         } else {
@@ -223,8 +224,8 @@ public class NumberPickerViewModel {
     }
 
     public void GetTableBList() {
-        String data = IOFileBase.readDataFromFile(context, Const.TABLE_B_FILE_NAME);
-        String importantData = IOFileBase.readDataFromFile(context, Const.ITABLE_B_FILE_NAME);
+        String data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
+        String importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
         if (data.equals("") && importantData.equals("")) {
             numberPickerView.ShowTableBList(new ArrayList<>());
         } else {
@@ -248,7 +249,7 @@ public class NumberPickerViewModel {
     }
 
     public void DeleteAllData(boolean isTableA) {
-        String fileName = isTableA ? Const.TABLE_A_FILE_NAME : Const.TABLE_B_FILE_NAME;
+        String fileName = isTableA ? FileName.TABLE_A : FileName.TABLE_B;
         IOFileBase.saveDataToFile(context, fileName, "", 0);
         IOFileBase.saveDataToFile(context, "i" + fileName, "", 0);
         numberPickerView.DeleteAllDataSuccess("Xóa dữ liệu thành công!", isTableA);

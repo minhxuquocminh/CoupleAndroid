@@ -11,13 +11,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotByYearViewModel;
 
@@ -82,7 +82,7 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
         DateBase selectedDate = lastDate.plusDays(1);
         int row = selectedDate.getDay() - 1;
         int col = selectedDate.getMonth() - 1;
-        String selected = IOFileBase.readDataFromFile(this, Const.SELECTED_NUMBER_FILE_NAME);
+        String selected = IOFileBase.readDataFromFile(this, FileName.SELECTED_NUMBER);
         if (year == TimeInfo.CURRENT_YEAR) {
             matrix[row][col] = selected.equals("") ? "" : "888" + selected;
         }

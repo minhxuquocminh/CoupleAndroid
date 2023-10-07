@@ -8,6 +8,7 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Origin.Jackpot;
 
@@ -58,11 +59,11 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         try {
             if (checkUpdateTime) {
                 String time = Api.GetTimeDataFromInternet(context);
-                IOFileBase.saveDataToFile(context, Const.TIME_FILE_NAME, time, 0);
+                IOFileBase.saveDataToFile(context, FileName.TIME, time, 0);
             }
             if (checkUpdateLottery) {
                 String lottery = Api.GetLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-                IOFileBase.saveDataToFile(context, Const.LOTTERY_FILE_NAME, lottery, 0);
+                IOFileBase.saveDataToFile(context, FileName.LOTTERY, lottery, 0);
             }
             if (checkUpdateCycle) {
                 TimeHandler.updateAllSexagenaryCycle(context);
