@@ -160,7 +160,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cầu ánh xạ, cầu khoảng"
+                    android:text="Cầu ánh xạ, cầu ước lượng"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
@@ -438,22 +438,6 @@
                     android:textColor="@color/colorThemeLight"
                     android:textSize="@dimen/text_size_big" />
 
-            </LinearLayout>
-
-            <!--show data-->
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin_5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvShowCombineBridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
             </LinearLayout>
 
         </LinearLayout>

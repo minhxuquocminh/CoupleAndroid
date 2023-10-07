@@ -27,9 +27,9 @@ import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Model.Display.Number;
-import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.R;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
@@ -44,7 +44,7 @@ import java.util.List;
 
 public class CreateNumberArrayFragment extends Fragment implements CreateNumberArrayView {
     TextView tvViewBridge;
-    TextView tvSpecialNumbersHistory;
+    TextView tvWayToRun;
     TextView tvViewCycle;
     TextView tvViewCycleByYear;
     EditText edtSet;
@@ -89,7 +89,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         viewParent = inflater.inflate(R.layout.fragment_create_number_array, container, false);
 
         tvViewBridge = viewParent.findViewById(R.id.tvViewBridge);
-        tvSpecialNumbersHistory = viewParent.findViewById(R.id.tvSpecialNumbersHistory);
+        tvWayToRun = viewParent.findViewById(R.id.tvWayToRun);
         tvViewCycle = viewParent.findViewById(R.id.tvViewCycle);
         tvViewCycleByYear = viewParent.findViewById(R.id.tvViewCycleByYear);
         edtSet = viewParent.findViewById(R.id.edtSet);
@@ -299,11 +299,11 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
     @Override
     public void ShowLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
-        tvSpecialNumbersHistory.setOnClickListener(new View.OnClickListener() {
+        tvWayToRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(getActivity());
-                viewModel.GetSpecialNumbersHistory(jackpotList);
+                viewModel.GetPeriodHistory(jackpotList);
             }
         });
 
@@ -325,14 +325,17 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void ShowSpecialNumbersHistory(List<SpecialSetHistory> histories) {
-        String title = "Lịch sử các số đặc biệt";
-        String content = " * Lịch sử các số đặc biệt trong ngày:\n";
-        for (SpecialSetHistory history : histories) {
-            content += history.showHistory() + "\n";
+    public void ShowPeriodHistory(List<PeriodHistory> periodHistoryList) {
+        String show = "Lịch sử các cách chạy gần giống khoảng gần đây:\n";
+        for (PeriodHistory periodHistory : periodHistoryList) {
+            show += periodHistory.show() + "\n";
         }
-        WidgetBase.showDialogCanBeCopied(getActivity(),
-                title, content.trim(), histories.get(0).getSpecialSet().showNumbers());
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Lịch sử")
+                .setMessage(show)
+                .setNegativeButton("OK", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     @Override

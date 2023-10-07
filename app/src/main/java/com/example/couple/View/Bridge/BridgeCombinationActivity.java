@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -52,7 +51,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     //
     Button btnFindingBridge;
     Button btnBridgeAnnotation;
-    TextView tvShowCombineBridge;
 
     BridgeCombinationViewModel viewModel;
 
@@ -90,7 +88,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         // button
         btnFindingBridge = findViewById(R.id.btnFindingBridge);
         btnBridgeAnnotation = findViewById(R.id.btnBridgeAnnotation);
-        tvShowCombineBridge = findViewById(R.id.tvShowCombineBridge);
 
         edtDayNumber.setText("18");
         edtDayNumber.setSelection(edtDayNumber.getText().length());

@@ -39,7 +39,7 @@ public class BalanceCoupleViewModel {
         balanceCoupleView.ShowPeriodHistory(periodHistoryList);
     }
 
-    public void GetCombineBridge(List<Jackpot> jackpotList, String dayNumberBeforeStr, int bridgeType) {
+    public void GetCombinePeriod(List<Jackpot> jackpotList, String dayNumberBeforeStr, int bridgeType) {
         int dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         EstimatedBridge estimatedBridge = JackpotBridgeHandler.GetEstimatedBridge(jackpotList, dayNumberBefore);

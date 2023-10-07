@@ -25,12 +25,12 @@ import com.example.couple.ViewModel.Couple.BalanceCoupleViewModel;
 import java.util.List;
 
 public class BanlanceCoupleActivity extends AppCompatActivity implements BalanceCoupleView {
-    CheckBox cboCombineBridgeCheck;
+    CheckBox cboCombineCheck;
     EditText edtNumberOfDays;
     EditText edtDayNumberBefore;
     EditText edtFilterDays;
-    TextView tvViewPeriodBridge;
-    TextView tvViewCombineBridge;
+    TextView tvViewPeriodHistory;
+    TextView tvViewCombinePeriod;
     TextView tvGetData;
     LinearLayout linearLayout;
 
@@ -43,12 +43,12 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance_couple);
 
-        cboCombineBridgeCheck = findViewById(R.id.cboCombineBridgeCheck);
+        cboCombineCheck = findViewById(R.id.cboCombineCheck);
         edtNumberOfDays = findViewById(R.id.edtFindingDays);
         edtDayNumberBefore = findViewById(R.id.edtDayNumberBefore);
         edtFilterDays = findViewById(R.id.edtFilterDays);
-        tvViewPeriodBridge = findViewById(R.id.tvViewPeriodBridge);
-        tvViewCombineBridge = findViewById(R.id.tvViewCombineBridge);
+        tvViewPeriodHistory = findViewById(R.id.tvViewPeriodHistory);
+        tvViewCombinePeriod = findViewById(R.id.tvViewCombinePeriod);
         tvGetData = findViewById(R.id.tvGetData);
         linearLayout = findViewById(R.id.linearLayout);
 
@@ -84,7 +84,7 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
             }
         });
 
-        tvViewPeriodBridge.setOnClickListener(new View.OnClickListener() {
+        tvViewPeriodHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
@@ -95,14 +95,15 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
                 }
             }
         });
-        tvViewCombineBridge.setOnClickListener(new View.OnClickListener() {
+
+        tvViewCombinePeriod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
                 String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
-                int bridgeType = cboCombineBridgeCheck.isChecked() ? 1 : 0;
+                int bridgeType = cboCombineCheck.isChecked() ? 1 : 0;
                 if (!dayNumberBefore.equals("")) {
-                    viewModel.GetCombineBridge(jackpotList, dayNumberBefore, bridgeType);
+                    viewModel.GetCombinePeriod(jackpotList, dayNumberBefore, bridgeType);
                 }
             }
         });
@@ -121,12 +122,12 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
     @Override
     public void ShowPeriodHistory(List<PeriodHistory> periodHistoryList) {
         String show = periodHistoryList.isEmpty() ? "Không có khoảng cần tìm"
-                : "Các khoảng gần giống khoảng gần đây:\n";
+                : "Lịch sử các cách chạy gần giống khoảng gần đây:\n";
         for (PeriodHistory periodHistory : periodHistoryList) {
             show += periodHistory.show() + "\n";
         }
         new AlertDialog.Builder(this)
-                .setTitle("Cầu tìm khoảng")
+                .setTitle("Lịch sử")
                 .setMessage(show)
                 .setNegativeButton("OK", null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
