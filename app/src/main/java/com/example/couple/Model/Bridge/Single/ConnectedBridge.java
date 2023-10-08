@@ -1,7 +1,8 @@
 package com.example.couple.Model.Bridge.Single;
 
+import com.example.couple.Base.Handler.CoupleBase;
+import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.ConnectedSupport;
@@ -24,14 +25,14 @@ public class ConnectedBridge extends Bridge {
         this.jackpotHistory = jackpotHistory;
         this.touchs = new ArrayList<>();
         if (!connectedSupports.isEmpty()) {
-            int smallShadow0 = CoupleHandler.getSmallShadow(connectedSupports.get(0).getValue());
+            int smallShadow0 = CoupleBase.getSmallShadow(connectedSupports.get(0).getValue());
             touchs.add(smallShadow0);
-            touchs.add(CoupleHandler.getShadow(smallShadow0));
+            touchs.add(SingleBase.getShadow(smallShadow0));
             for (int i = 0; i < connectedSupports.size(); i++) {
-                int smallShadow = CoupleHandler.getSmallShadow(connectedSupports.get(i).getValue());
+                int smallShadow = CoupleBase.getSmallShadow(connectedSupports.get(i).getValue());
                 if (smallShadow0 != smallShadow) {
                     touchs.add(smallShadow);
-                    touchs.add(CoupleHandler.getShadow(smallShadow));
+                    touchs.add(SingleBase.getShadow(smallShadow));
                     break;
                 }
             }

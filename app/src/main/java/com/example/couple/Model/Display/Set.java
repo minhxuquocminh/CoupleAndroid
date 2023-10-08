@@ -1,7 +1,7 @@
 package com.example.couple.Model.Display;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Origin.Couple;
 
 import java.util.ArrayList;
@@ -15,8 +15,8 @@ public class Set {
     int second;
 
     public Set(int first, int second) {
-        int cache1 = CoupleHandler.getSmallShadow(first);
-        int cache2 = CoupleHandler.getSmallShadow(second);
+        int cache1 = CoupleBase.getSmallShadow(first);
+        int cache2 = CoupleBase.getSmallShadow(second);
         this.first = cache1 < cache2 ? cache1 : cache2;
         this.second = cache1 < cache2 ? cache2 : cache1;
     }
@@ -25,18 +25,18 @@ public class Set {
         if (couple < 0) return;
         if (couple < 10) {
             this.first = 0;
-            this.second = CoupleHandler.getSmallShadow(couple);
+            this.second = CoupleBase.getSmallShadow(couple);
         } else {
             String coupleStr = couple + "";
             int first = Integer.parseInt(coupleStr.charAt(0) + "");
             int second = Integer.parseInt(coupleStr.charAt(1) + "");
-            this.first = CoupleHandler.getSmallShadow(first);
-            this.second = CoupleHandler.getSmallShadow(second);
+            this.first = CoupleBase.getSmallShadow(first);
+            this.second = CoupleBase.getSmallShadow(second);
         }
     }
 
     public boolean isItMatch(Couple couple) {
-        int shadow = CoupleHandler.getSmallShadow(couple.getCoupleInt());
+        int shadow = CoupleBase.getSmallShadow(couple.getCoupleInt());
         return shadow == getSetInt();
     }
 

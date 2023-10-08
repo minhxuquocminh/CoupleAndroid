@@ -1,7 +1,7 @@
 package com.example.couple.Model.Time.Cycle;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.CoupleHandler;
 
 import lombok.Getter;
 
@@ -11,7 +11,7 @@ public class YearCycle {
     Cycle cycle;
 
     public String getCouple() {
-        return CoupleHandler.showCouple(year % 100);
+        return CoupleBase.showCouple(year % 100);
     }
 
     public int getCoupleInt() {

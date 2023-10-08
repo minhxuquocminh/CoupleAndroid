@@ -1,6 +1,8 @@
 package com.example.couple.Model.Origin;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Display.BCouple;
@@ -24,16 +26,16 @@ public class Couple {
 
     public List<Integer> getShadowExchange() {
         List<Integer> firstList = new ArrayList<>();
-        firstList.add(CoupleHandler.getNegativeShadow(first));
-        firstList.add(CoupleHandler.getShadow(first));
+        firstList.add(SingleBase.getNegativeShadow(first));
+        firstList.add(SingleBase.getShadow(first));
         List<Integer> secondList = new ArrayList<>();
-        secondList.add(CoupleHandler.getNegativeShadow(second));
-        secondList.add(CoupleHandler.getShadow(second));
+        secondList.add(SingleBase.getNegativeShadow(second));
+        secondList.add(SingleBase.getShadow(second));
         List<Integer> results = new ArrayList<>();
         for (int fi : firstList) {
             for (int se : secondList) {
                 results.add(fi * 10 + se);
-                results.add(CoupleHandler.reverse(fi * 10 + se));
+                results.add(CoupleBase.reverse(fi * 10 + se));
             }
         }
         return NumberBase.filterDuplicatedNumbers(results);
@@ -56,31 +58,31 @@ public class Couple {
     private static List<Single> getFirstList(int first) {
         List<Single> firstList = new ArrayList<>();
         firstList.add(new Single(first, 1, 1));
-        firstList.add(new Single(CoupleHandler.getShadow(first), 1, 1));
-        firstList.add(new Single(CoupleHandler.getNegativeShadow(first), 1, 2));
+        firstList.add(new Single(SingleBase.getShadow(first), 1, 1));
+        firstList.add(new Single(SingleBase.getNegativeShadow(first), 1, 2));
         return firstList;
     }
 
     private static List<Single> getSecondList(int second) {
         List<Single> secondList = new ArrayList<>();
-        int shadowSecond = CoupleHandler.getShadow(second);
-        int negativeShadowOfSecond = CoupleHandler.getNegativeShadow(second);
-        int negativeShadowOfShadowSecond = CoupleHandler.getNegativeShadow(shadowSecond);
+        int shadowSecond = SingleBase.getShadow(second);
+        int negativeShadowOfSecond = SingleBase.getNegativeShadow(second);
+        int negativeShadowOfShadowSecond = SingleBase.getNegativeShadow(shadowSecond);
         secondList.add(new Single(second, 2, 1));
         secondList.add(new Single(shadowSecond, 2, 1));
-        secondList.add(new Single(CoupleHandler.minusOne(second), 2, 4));
-        secondList.add(new Single(CoupleHandler.minusOne(shadowSecond), 2, 4));
+        secondList.add(new Single(SingleBase.minusOne(second), 2, 4));
+        secondList.add(new Single(SingleBase.minusOne(shadowSecond), 2, 4));
 
         secondList.add(new Single(negativeShadowOfSecond, 2, 2));
-        secondList.add(new Single(CoupleHandler.getShadow(negativeShadowOfSecond), 2, 5));
-        secondList.add(new Single(CoupleHandler.minusOne(negativeShadowOfSecond), 2, 2));
-        secondList.add(new Single(CoupleHandler.minusOne(CoupleHandler
+        secondList.add(new Single(SingleBase.getShadow(negativeShadowOfSecond), 2, 5));
+        secondList.add(new Single(SingleBase.minusOne(negativeShadowOfSecond), 2, 2));
+        secondList.add(new Single(SingleBase.minusOne(SingleBase
                 .getShadow(negativeShadowOfSecond)), 2, 5));
 
         secondList.add(new Single(negativeShadowOfShadowSecond, 2, 3));
-        secondList.add(new Single(CoupleHandler.getShadow(negativeShadowOfShadowSecond), 2, 3));
-        secondList.add(new Single(CoupleHandler.minusOne(negativeShadowOfShadowSecond), 2, 6));
-        secondList.add(new Single(CoupleHandler.minusOne(CoupleHandler
+        secondList.add(new Single(SingleBase.getShadow(negativeShadowOfShadowSecond), 2, 3));
+        secondList.add(new Single(SingleBase.minusOne(negativeShadowOfShadowSecond), 2, 6));
+        secondList.add(new Single(SingleBase.minusOne(SingleBase
                 .getShadow(negativeShadowOfShadowSecond)), 2, 6));
         return secondList;
     }
@@ -213,7 +215,7 @@ public class Couple {
 
     public boolean isDouble() {
         // kép = hoặc lệch
-        return first == second || first == CoupleHandler.getShadow(second);
+        return first == second || first == SingleBase.getShadow(second);
     }
 
     public boolean isDeviatedDouble() {

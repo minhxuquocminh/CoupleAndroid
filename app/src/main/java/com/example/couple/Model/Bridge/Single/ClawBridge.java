@@ -1,5 +1,6 @@
 package com.example.couple.Model.Bridge.Single;
 
+import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Support.JackpotHistory;
@@ -31,7 +32,7 @@ public class ClawBridge {
     }
 
     public String showTouchs() {
-        return CoupleHandler.showTouchs(touchs);
+        return SingleBase.showTouchs(touchs);
     }
 
     public static ClawBridge getEmpty() {

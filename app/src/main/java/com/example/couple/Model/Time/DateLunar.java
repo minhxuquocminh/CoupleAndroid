@@ -1,6 +1,6 @@
 package com.example.couple.Model.Time;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Base.Handler.CoupleBase;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +26,7 @@ public class DateLunar {
     }
 
     public String showDDMM(String delimiter) {
-        return CoupleHandler.showCouple(day) + delimiter + CoupleHandler.showCouple(month);
+        return CoupleBase.showCouple(day) + delimiter + CoupleBase.showCouple(month);
     }
 
 }

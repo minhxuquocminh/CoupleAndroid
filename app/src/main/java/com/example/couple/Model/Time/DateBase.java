@@ -1,8 +1,8 @@
 package com.example.couple.Model.Time;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.CoupleHandler;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -134,7 +134,7 @@ public class DateBase implements Serializable {
     }
 
     public String showDDMM(String delimiter) {
-        return CoupleHandler.showCouple(day) + delimiter + CoupleHandler.showCouple(month);
+        return CoupleBase.showCouple(day) + delimiter + CoupleBase.showCouple(month);
     }
 
 }

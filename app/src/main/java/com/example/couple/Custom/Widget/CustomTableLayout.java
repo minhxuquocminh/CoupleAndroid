@@ -11,12 +11,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Handler.CoupleBridgeHandler;
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.Model.Display.NearestTime;
@@ -50,8 +50,8 @@ public class CustomTableLayout {
         for (int i = monday_start; i >= 0; i--) {
             count++;
             String couple = reverseJackpotList.get(i).getCouple().show();
-            int firstNegativeShadow = CoupleHandler.getNegativeShadow(Integer.parseInt(couple.charAt(0) + ""));
-            int secondNegativeShadow = CoupleHandler.getNegativeShadow(Integer.parseInt(couple.charAt(1) + ""));
+            int firstNegativeShadow = SingleBase.getNegativeShadow(Integer.parseInt(couple.charAt(0) + ""));
+            int secondNegativeShadow = SingleBase.getNegativeShadow(Integer.parseInt(couple.charAt(1) + ""));
             row.addView(CustomLinearLayout.GetItemCoupleByWeekLinearLayout(context,
                     couple, firstNegativeShadow, secondNegativeShadow));
             if (i == 0) {

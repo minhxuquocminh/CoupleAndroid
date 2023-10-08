@@ -11,10 +11,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Time.Cycle.Branch;
 import com.example.couple.Model.Time.Cycle.YearCycle;
 import com.example.couple.Model.UI.RowUI;
@@ -64,7 +64,7 @@ public class CycleByYearActivity extends AppCompatActivity implements CycleByYea
                     numbers.add(i % 100);
                 }
                 WidgetBase.copyToClipboard(CycleByYearActivity.this,
-                        "numbers", CoupleHandler.showCoupleNumbers(numbers));
+                        "numbers", CoupleBase.showCoupleNumbers(numbers));
                 Toast.makeText(CycleByYearActivity.this, "Đã copy.", Toast.LENGTH_SHORT).show();
             }
         });

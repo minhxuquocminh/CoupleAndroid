@@ -1,5 +1,7 @@
 package com.example.couple.Model.Bridge;
 
+import com.example.couple.Base.Handler.CoupleBase;
+import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -30,11 +32,11 @@ public abstract class Bridge {
     }
 
     public String showTouchs() {
-        return CoupleHandler.showTouchs(getTouchs());
+        return SingleBase.showTouchs(getTouchs());
     }
 
     public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(getNumbers());
+        return CoupleBase.showCoupleNumbers(getNumbers());
     }
 
     public abstract List<Integer> getTouchs();

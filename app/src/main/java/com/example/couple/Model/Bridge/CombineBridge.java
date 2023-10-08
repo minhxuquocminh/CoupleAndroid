@@ -1,5 +1,6 @@
 package com.example.couple.Model.Bridge;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Support.JackpotHistory;
@@ -39,7 +40,7 @@ public class CombineBridge {
     }
 
     public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(numbers);
+        return CoupleBase.showCoupleNumbers(numbers);
     }
 
 }

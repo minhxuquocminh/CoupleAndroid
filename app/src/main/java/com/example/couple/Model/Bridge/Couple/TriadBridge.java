@@ -1,6 +1,6 @@
 package com.example.couple.Model.Bridge.Couple;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Display.Set;
@@ -37,9 +37,9 @@ public class TriadBridge {
 
     public List<Integer> getSortedSmallShadowSingles() {
         List<Integer> singles = new ArrayList<>();
-        singles.add(CoupleHandler.getSmallShadow(firstBridge.getValue()));
-        singles.add(CoupleHandler.getSmallShadow(secondBridge.getValue()));
-        singles.add(CoupleHandler.getSmallShadow(thirdBridge.getValue()));
+        singles.add(CoupleBase.getSmallShadow(firstBridge.getValue()));
+        singles.add(CoupleBase.getSmallShadow(secondBridge.getValue()));
+        singles.add(CoupleBase.getSmallShadow(thirdBridge.getValue()));
         Collections.sort(singles);
         return singles;
     }

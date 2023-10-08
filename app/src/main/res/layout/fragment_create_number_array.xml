@@ -65,7 +65,7 @@
                     android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
-                    android:text="Cách chạy"
+                    android:text="Lịch sử"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />

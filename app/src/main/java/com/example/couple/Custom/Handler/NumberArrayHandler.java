@@ -1,7 +1,9 @@
 package com.example.couple.Custom.Handler;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.Time.Cycle.Branch;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +11,13 @@ import java.util.List;
 
 public class NumberArrayHandler {
 
+    public static List<Integer> getBranches(List<Integer> branchList) {
+        List<Integer> data = new ArrayList<>();
+        for (int branch : branchList) {
+            data.addAll(new Branch(branch).getIntYearCycles());
+        }
+        return data;
+    }
 
     public static List<Integer> getHeads(List<Integer> headList) {
         List<Integer> data = new ArrayList<>();
@@ -78,7 +87,7 @@ public class NumberArrayHandler {
     public static List<Integer> getSetsBySingles(List<Integer> singleSetList) {
         List<Integer> smallShadowList = new ArrayList<>();
         for (int i = 0; i < singleSetList.size(); i++) {
-            smallShadowList.add(CoupleHandler.getSmallShadow(singleSetList.get(i)));
+            smallShadowList.add(CoupleBase.getSmallShadow(singleSetList.get(i)));
         }
 
         List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(smallShadowList);
@@ -107,7 +116,7 @@ public class NumberArrayHandler {
         if (coupleSetList.size() == 0) return new ArrayList<>();
         List<Integer> smallShadowList = new ArrayList<>();
         for (int i = 0; i < coupleSetList.size(); i++) {
-            smallShadowList.add(CoupleHandler.getSmallShadow(coupleSetList.get(i)));
+            smallShadowList.add(CoupleBase.getSmallShadow(coupleSetList.get(i)));
         }
 
         List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(smallShadowList);
@@ -124,7 +133,7 @@ public class NumberArrayHandler {
     public static List<Set> getSetListBySingles(List<Integer> singleSetList) {
         List<Integer> smallShadowList = new ArrayList<>();
         for (int i = 0; i < singleSetList.size(); i++) {
-            smallShadowList.add(CoupleHandler.getSmallShadow(singleSetList.get(i)));
+            smallShadowList.add(CoupleBase.getSmallShadow(singleSetList.get(i)));
         }
 
         List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(smallShadowList);
@@ -189,6 +198,5 @@ public class NumberArrayHandler {
         }
         return numbers;
     }
-
 
 }

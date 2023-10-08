@@ -2,16 +2,18 @@ package com.example.couple.ViewModel.Bridge;
 
 import android.content.Context;
 
+import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.JackpotBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
+import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
-import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
+import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
 import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
@@ -89,7 +91,9 @@ public class BridgeCombinationViewModel {
                                      boolean mapping, boolean shadowMapping, boolean estimated, boolean rightMapping,
                                      boolean compatible, boolean incompatible, boolean compactRightMapping,
                                      boolean triadMapping, boolean shadowExchange,
-                                     boolean bigDouble, boolean sameDouble, boolean nearDouble) {
+                                     boolean bigDouble, boolean sameDouble, boolean nearDouble,
+                                     String setData, String touchData, String sumData, String branchData,
+                                     String headData, String tailData, String combineData) {
         List<CombineBridge> combineBridges = new ArrayList<>();
         if (connected && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
             view.ShowError("Đặt lại giới hạn số ngày cho cầu liên thông là " +
@@ -197,6 +201,71 @@ public class BridgeCombinationViewModel {
                         Const.NEAR_DOUBLE_SET, new JackpotHistory(i, jackpot));
                 bridgeList.add(nearDoubleSet);
             }
+            // other set
+            String notifMessage = "";
+            List<Integer> setList1 = NumberBase.verifyNumberArray(setData, 1);
+            List<Integer> setList2 = NumberBase.verifyNumberArray(setData, 2);
+            if (!setData.equals("") && setList1.isEmpty() && setList2.isEmpty())
+                notifMessage += "bộ;";
+            if (!setList1.isEmpty()) {
+                SpecialSetBridge set = new SpecialSetBridge("Bộ số",
+                        NumberArrayHandler.getSetsBySingles(setList1), new JackpotHistory(i, jackpot));
+                bridgeList.add(set);
+            } else {
+                if (!setList2.isEmpty()) {
+                    SpecialSetBridge set = new SpecialSetBridge("Bộ số",
+                            NumberArrayHandler.getSetsByCouples(setList2), new JackpotHistory(i, jackpot));
+                    bridgeList.add(set);
+                }
+            }
+
+            List<Integer> touchList = NumberBase.verifyNumberArray(touchData, 1);
+            if (!touchData.equals("") && touchList.isEmpty()) notifMessage += "chạm;";
+            if (!touchList.isEmpty()) {
+                SpecialSetBridge set = new SpecialSetBridge("Chạm",
+                        NumberArrayHandler.getTouchs(touchList), new JackpotHistory(i, jackpot));
+                bridgeList.add(set);
+            }
+            List<Integer> sumList = NumberBase.verifyNumberArray(sumData, 1);
+            if (!sumData.equals("") && sumList.isEmpty()) notifMessage += "tổng;";
+            if (!sumList.isEmpty()) {
+                SpecialSetBridge set = new SpecialSetBridge("Tổng",
+                        NumberArrayHandler.getSums(sumList), new JackpotHistory(i, jackpot));
+                bridgeList.add(set);
+            }
+            List<Integer> branchList = NumberBase.verifyNumberArray(branchData, 2);
+            if (!branchData.equals("") && branchList.isEmpty()) notifMessage += "chi;";
+            if (!branchList.isEmpty()) {
+                SpecialSetBridge set = new SpecialSetBridge("Chi",
+                        NumberArrayHandler.getBranches(branchList), new JackpotHistory(i, jackpot));
+                bridgeList.add(set);
+            }
+            List<Integer> headList = NumberBase.verifyNumberArray(headData, 1);
+            if (!headData.equals("") && headList.isEmpty()) notifMessage += "đầu;";
+            if (!headList.isEmpty()) {
+                SpecialSetBridge set = new SpecialSetBridge("Đầu",
+                        NumberArrayHandler.getHeads(headList), new JackpotHistory(i, jackpot));
+                bridgeList.add(set);
+            }
+            List<Integer> tailList = NumberBase.verifyNumberArray(tailData, 1);
+            if (!tailData.equals("") && tailList.isEmpty()) notifMessage += "đuôi;";
+            if (!tailList.isEmpty()) {
+                SpecialSetBridge set = new SpecialSetBridge("Đuôi",
+                        NumberArrayHandler.getTails(tailList), new JackpotHistory(i, jackpot));
+                bridgeList.add(set);
+            }
+            List<Integer> combineList = NumberBase.verifyNumberArray(combineData, 2);
+            if (!combineData.equals("") && combineList.isEmpty()) notifMessage += "kết hợp;";
+            if (!combineList.isEmpty()) {
+                SpecialSetBridge set = new SpecialSetBridge("Kết hợp",
+                        combineList, new JackpotHistory(i, jackpot));
+                bridgeList.add(set);
+            }
+
+            if (!notifMessage.equals("")) {
+                view.ShowError("Có lỗi nhập tại: " + notifMessage);
+            }
+
             CombineBridge combineBridge = new CombineBridge(bridgeList, new JackpotHistory(i, jackpot));
             combineBridges.add(combineBridge);
         }

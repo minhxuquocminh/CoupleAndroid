@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,11 +23,15 @@ import com.example.couple.ViewModel.Bridge.BridgeCombinationViewModel;
 import java.util.List;
 
 public class BridgeCombinationActivity extends AppCompatActivity implements BridgeCombinationView {
+    ImageView imgBridgeAnnotation;
     EditText edtDayNumber;
-    CheckBox cboSets;
-    EditText edtSets;
-    CheckBox cboTouchs;
-    EditText edtTouchs;
+    EditText edtSet;
+    EditText edtTouch;
+    EditText edtSum;
+    EditText edtBranch;
+    EditText edtHead;
+    EditText edtTail;
+    EditText edtCombine;
     //
     CheckBox cboLottoTouchBridge;
     CheckBox cboCombineTouchBridge;
@@ -50,7 +55,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     CheckBox cboNearDoubleSet;
     //
     Button btnFindingBridge;
-    Button btnBridgeAnnotation;
 
     BridgeCombinationViewModel viewModel;
 
@@ -59,11 +63,15 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bridge_combination);
 
+        imgBridgeAnnotation = findViewById(R.id.imgBridgeAnnotation);
         edtDayNumber = findViewById(R.id.edtDayNumber);
-        cboSets = findViewById(R.id.cboSets);
-        edtSets = findViewById(R.id.edtSets);
-        cboTouchs = findViewById(R.id.cboTouchs);
-        edtTouchs = findViewById(R.id.edtTouchs);
+        edtSet = findViewById(R.id.edtSet);
+        edtTouch = findViewById(R.id.edtTouch);
+        edtSum = findViewById(R.id.edtSum);
+        edtBranch = findViewById(R.id.edtBranch);
+        edtHead = findViewById(R.id.edtHead);
+        edtTail = findViewById(R.id.edtTail);
+        edtCombine = findViewById(R.id.edtCombine);
         // touch
         cboLottoTouchBridge = findViewById(R.id.cboLottoTouchBridge);
         cboCombineTouchBridge = findViewById(R.id.cboCombineTouchBridge);
@@ -87,7 +95,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboNearDoubleSet = findViewById(R.id.cboNearDoubleSet);
         // button
         btnFindingBridge = findViewById(R.id.btnFindingBridge);
-        btnBridgeAnnotation = findViewById(R.id.btnBridgeAnnotation);
 
         edtDayNumber.setText("18");
         edtDayNumber.setSelection(edtDayNumber.getText().length());
@@ -133,6 +140,14 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 boolean bigDouble = cboBigDoubleSet.isChecked();
                 boolean sameDouble = cboSameDoubleSet.isChecked();
                 boolean nearDouble = cboNearDoubleSet.isChecked();
+                // other set
+                String setData = edtSet.getText().toString().trim();
+                String touchData = edtTouch.getText().toString().trim();
+                String sumData = edtSum.getText().toString().trim();
+                String branchData = edtBranch.getText().toString().trim();
+                String headData = edtHead.getText().toString().trim();
+                String tailData = edtTail.getText().toString().trim();
+                String combineData = edtCombine.getText().toString().trim();
                 if (!numberOfDayStr.equals("")) {
                     int numberOfDay = connected && Integer.parseInt(numberOfDayStr) >
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
@@ -141,12 +156,14 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                     viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseNextDay, numberOfDay,
                             combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
                             mapping, shadowMapping, estimated, rightMapping, compatible, incompatible,
-                            compactRightMapping, triadMapping, shadowExchange, bigDouble, sameDouble, nearDouble);
+                            compactRightMapping, triadMapping, shadowExchange, bigDouble, sameDouble, nearDouble,
+                            setData, touchData, sumData, branchData, headData, tailData, combineData
+                    );
                 }
             }
         });
 
-        btnBridgeAnnotation.setOnClickListener(new View.OnClickListener() {
+        imgBridgeAnnotation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
@@ -166,7 +183,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboPositiveShadowBridge.setText("bóng dương " + combineBridge.getBridgeList().get(5).showTouchs());
         cboMappingBridge.setText("ánh xạ " + combineBridge.getBridgeList().get(6).getNumbers().size());
         cboShadowMappingBridge.setText("ánh xạ bóng " + combineBridge.getBridgeList().get(7).getNumbers().size());
-        cboEstimatedBridge.setText("ước lượng " + combineBridge.getBridgeList().get(8).getNumbers().size());
+        cboEstimatedBridge.setText("ước lg " + combineBridge.getBridgeList().get(8).getNumbers().size());
     }
 
     @Override

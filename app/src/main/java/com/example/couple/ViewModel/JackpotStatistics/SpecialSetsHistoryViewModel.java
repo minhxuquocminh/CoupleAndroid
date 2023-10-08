@@ -32,54 +32,6 @@ public class SpecialSetsHistoryViewModel {
         specialSetsHistoryView.ShowJackpotListAndTimeBaseData(jackpotList, timeBaseNextDay);
     }
 
-    public void GetSortSpecialSetsHistory(List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
-        List<SpecialSetHistory> historyList = new ArrayList<>();
-        // for cycle
-        for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
-            SpecialSetHistory branch = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
-                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getIntYearCycles());
-            historyList.add(branch);
-        }
-        Branch nextDayBranch = timeBaseNextDay.getDateCycle().getDay().getBranch();
-        for (int i = -6; i < 6; i++) {
-            String specialSetName = i < 0 ? "KC" + i : "KC+" + i;
-            SpecialSetHistory branch = JackpotBridgeHandler
-                    .GetSpecialSetHistoryByBranchDistance(jackpotList, specialSetName, i, nextDayBranch);
-            historyList.add(branch);
-        }
-
-        // others
-        for (int i = 0; i < 10; i++) {
-            SpecialSetHistory head = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
-                    Const.HEAD + " " + i, NumberArrayHandler.getHeads(i));
-            historyList.add(head);
-            SpecialSetHistory tail = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
-                    Const.TAIL + " " + i, NumberArrayHandler.getTails(i));
-            historyList.add(tail);
-            SpecialSetHistory sum = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
-                    Const.SUM + " " + i, NumberArrayHandler.getSums(i));
-            historyList.add(sum);
-        }
-        for (int i : Const.SMALL_SETS) {
-            SpecialSetHistory set = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
-                    Const.SET + " " + i, (new Set(i)).getSetsDetail());
-            historyList.add(set);
-        }
-        SpecialSetHistory doubleHistory = JackpotBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.DOUBLE, Const.DOUBLE_SET);
-        historyList.add(doubleHistory);
-        SpecialSetHistory deviatedHistory = JackpotBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.DEVIATED_DOUBLE, Const.DEVIATED_DOUBLE_SET);
-        historyList.add(deviatedHistory);
-        SpecialSetHistory nearHistory = JackpotBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE, Const.NEAR_DOUBLE_SET);
-        historyList.add(nearHistory);
-        Collections.sort(historyList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
-        if (!historyList.isEmpty()) {
-            specialSetsHistoryView.ShowSpecialSetsHistory(historyList);
-        }
-    }
-
     public void GetSpecialSetsHistory(List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
         List<SpecialSetHistory> historyList = new ArrayList<>();
         // for cycle
@@ -91,17 +43,31 @@ public class SpecialSetsHistoryViewModel {
         }
         Collections.sort(branches1, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         historyList.addAll(branches1);
-        
+
         List<SpecialSetHistory> branches2 = new ArrayList<>();
         Branch nextDayBranch = timeBaseNextDay.getDateCycle().getDay().getBranch();
         for (int i = -6; i < 6; i++) {
             String specialSetName = i < 0 ? "KC" + i : "KC+" + i;
             SpecialSetHistory branch = JackpotBridgeHandler
-                    .GetSpecialSetHistoryByBranchDistance(jackpotList, specialSetName, i, nextDayBranch);
+                    .GetBranchDistanceHistory(jackpotList, specialSetName, i, nextDayBranch);
             branches2.add(branch);
         }
         Collections.sort(branches2, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         historyList.addAll(branches2);
+
+        List<SpecialSetHistory> branches3 = new ArrayList<>();
+        for (int i = -6; i < 6; i++) {
+            String specialSetName = i < 0 ? "TS" + i : "TS+" + i;
+            SpecialSetHistory branch = JackpotBridgeHandler
+                    .GetBranchDistanceHistoryEach2Days(jackpotList, specialSetName, i);
+            branches3.add(branch);
+        }
+        Collections.sort(branches3, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+        historyList.addAll(branches3);
+
+        SpecialSetHistory branch4 = JackpotBridgeHandler
+                .GetPositiveBranchDistanceHistoryEach2Days(jackpotList, "TST5");
+        historyList.add(branch4);
 
         // others
         List<SpecialSetHistory> headtails = new ArrayList<>();

@@ -1,6 +1,6 @@
 package com.example.couple.Model.Display;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Base.Handler.CoupleBase;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class SpecialSet {
     List<Integer> numbers;
 
     public String showNumbers() {
-        return CoupleHandler.showCoupleNumbers(numbers);
+        return CoupleBase.showCoupleNumbers(numbers);
     }
 
 }

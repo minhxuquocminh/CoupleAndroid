@@ -22,6 +22,15 @@
             android:textSize="@dimen/text_size_header"
             android:typeface="normal" />
 
+        <ImageView
+            android:id="@+id/imgBridgeAnnotation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/margin_5dp"
+            android:padding="@dimen/padding_10dp"
+            android:src="@drawable/ic_right_anno" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
@@ -34,27 +43,34 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="3">
+                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/edtDayNumber"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:hint="Số ngày lấy cầu"
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:text="18"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:textStyle="bold" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="3">
+
+                    <EditText
+                        android:id="@+id/edtDayNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="Số ngày lấy cầu"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:text="18"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -199,7 +215,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="ước lượng"
+                    android:text="ước lg"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
@@ -350,62 +366,165 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_8dp"
+                android:layout_marginRight="@dimen/padding_8dp"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:text="Bộ số:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
 
-                    <CheckBox
-                        android:id="@+id/cboSets"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="bộ số:"
-                        android:textColor="@color/colorText"
-                        android:textSize="@dimen/text_size" />
-
-                    <EditText
-                        android:id="@+id/edtSets"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/margin_5dp"
-                        android:hint="ex: 1 8"
-                        android:lineSpacingExtra="2dp"
-                        android:textColor="@color/colorText"
-                        android:textSize="@dimen/text_size" />
-                </LinearLayout>
-
-                <LinearLayout
+                <EditText
+                    android:id="@+id/edtSet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_marginRight="@dimen/margin_5dp"
+                    android:layout_weight="2"
+                    android:hint="ex: 3 8"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
 
-                    <CheckBox
-                        android:id="@+id/cboTouchs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chạm:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="chạm:"
-                        android:textColor="@color/colorText"
-                        android:textSize="@dimen/text_size" />
+                <EditText
+                    android:id="@+id/edtTouch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="ex: 4 8"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
 
-                    <EditText
-                        android:id="@+id/edtTouchs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="ex: 2 8"
-                        android:lineSpacingExtra="2dp"
-                        android:textColor="@color/colorText"
-                        android:textSize="@dimen/text_size" />
-                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_8dp"
+                android:layout_marginRight="@dimen/padding_8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tổng:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:id="@+id/edtSum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_5dp"
+                    android:layout_weight="2"
+                    android:hint="ex: 5 8"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chi:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:id="@+id/edtBranch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="ex: 6 8"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_8dp"
+                android:layout_marginRight="@dimen/padding_8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Đầu:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:id="@+id/edtHead"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_5dp"
+                    android:layout_weight="2"
+                    android:hint="ex: 7 8"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Đuôi:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:id="@+id/edtTail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="ex: 8 8"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_8dp"
+                android:layout_marginRight="@dimen/padding_8dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="K.hợp:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:id="@+id/edtCombine"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_5dp"
+                    android:layout_weight="5"
+                    android:hint="ex: 78 88"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
 
             </LinearLayout>
 
@@ -420,25 +539,6 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorThemeLight"
                 android:textSize="@dimen/text_size_big" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnBridgeAnnotation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
-                    android:text="chú giải"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size_big" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
