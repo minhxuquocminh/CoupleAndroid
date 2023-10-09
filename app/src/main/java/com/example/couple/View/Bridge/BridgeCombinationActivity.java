@@ -52,7 +52,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     //
     CheckBox cboBigDoubleSet;
     CheckBox cboSameDoubleSet;
-    CheckBox cboNearDoubleSet;
+    CheckBox cboPositiveDoubleSet;
     //
     Button btnFindingBridge;
 
@@ -92,7 +92,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         // special set
         cboBigDoubleSet = findViewById(R.id.cboBigDoubleSet);
         cboSameDoubleSet = findViewById(R.id.cboSameDoubleSet);
-        cboNearDoubleSet = findViewById(R.id.cboNearDoubleSet);
+        cboPositiveDoubleSet = findViewById(R.id.cboPositiveDoubleSet);
         // button
         btnFindingBridge = findViewById(R.id.btnFindingBridge);
 
@@ -139,7 +139,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 // special set
                 boolean bigDouble = cboBigDoubleSet.isChecked();
                 boolean sameDouble = cboSameDoubleSet.isChecked();
-                boolean nearDouble = cboNearDoubleSet.isChecked();
+                boolean positiveDouble = cboPositiveDoubleSet.isChecked();
                 // other set
                 String setData = edtSet.getText().toString().trim();
                 String touchData = edtTouch.getText().toString().trim();
@@ -156,7 +156,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                     viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseNextDay, numberOfDay,
                             combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
                             mapping, shadowMapping, estimated, rightMapping, compatible, incompatible,
-                            compactRightMapping, triadMapping, shadowExchange, bigDouble, sameDouble, nearDouble,
+                            compactRightMapping, triadMapping, shadowExchange, bigDouble, sameDouble, positiveDouble,
                             setData, touchData, sumData, branchData, headData, tailData, combineData
                     );
                 }

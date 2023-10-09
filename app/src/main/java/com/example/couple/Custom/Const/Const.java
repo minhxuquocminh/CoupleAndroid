@@ -43,13 +43,13 @@ public class Const {
     public static final String BIG_DOUBLE_SET_NAME = "Bộ kép to";
     public static final String DOUBLE_SET_NAME = "Bộ kép bằng";
     public static final String NEAR_DOUBLE_SET_NAME = "Bộ sát kép";
+    public static final String POSITIVE_DOUBLE_SET_NAME = "Bộ kép dương";
     public static final String HEAD = "Đầu";
     public static final String TAIL = "Đuôi";
     public static final String SET = "Bộ";
     public static final String SUM = "Tổng";
     public static final String DOUBLE = "Kép bằng";
     public static final String NEAR_DOUBLE = "Sát kép";
-    public static final String DEVIATED_DOUBLE = "Kép lệch";
 
     public static final List<Integer> BIG_DOUBLE_SET = Arrays.asList
             (
@@ -95,7 +95,7 @@ public class Const {
                     88,
                     99
             );
-    public static final List<Integer> DEVIATED_DOUBLE_SET = Arrays.asList
+    public static final List<Integer> POSITIVE_DOUBLE_SET = Arrays.asList
             (
                     05, 50,
                     16, 61,

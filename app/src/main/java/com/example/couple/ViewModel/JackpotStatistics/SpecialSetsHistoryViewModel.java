@@ -66,8 +66,12 @@ public class SpecialSetsHistoryViewModel {
         historyList.addAll(branches3);
 
         SpecialSetHistory branch4 = JackpotBridgeHandler
-                .GetPositiveBranchDistanceHistoryEach2Days(jackpotList, "TST5");
+                .GetPositiveBranchDistanceHistoryEach2Days(jackpotList, "TST+");
         historyList.add(branch4);
+
+        SpecialSetHistory branch5 = JackpotBridgeHandler
+                .GetNegativeBranchDistanceHistoryEach2Days(jackpotList, "TST-");
+        historyList.add(branch5);
 
         // others
         List<SpecialSetHistory> headtails = new ArrayList<>();
@@ -105,7 +109,7 @@ public class SpecialSetsHistoryViewModel {
                 .GetSpecialSetHistory(jackpotList, Const.DOUBLE, Const.DOUBLE_SET);
         others.add(doubleHistory);
         SpecialSetHistory deviatedHistory = JackpotBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.DEVIATED_DOUBLE, Const.DEVIATED_DOUBLE_SET);
+                .GetSpecialSetHistory(jackpotList, Const.POSITIVE_DOUBLE_SET_NAME, Const.POSITIVE_DOUBLE_SET);
         others.add(deviatedHistory);
         SpecialSetHistory nearHistory = JackpotBridgeHandler
                 .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE, Const.NEAR_DOUBLE_SET);

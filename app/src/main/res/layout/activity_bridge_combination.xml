@@ -316,16 +316,16 @@
 
                 <CheckBox
                     android:id="@+id/cboBigDoubleSet"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="bộ kép to..."
+                    android:text="bộ kép to"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
                 <CheckBox
                     android:id="@+id/cboSameDoubleSet"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="bộ kép bằng"
@@ -333,11 +333,11 @@
                     android:textSize="@dimen/text_size" />
 
                 <CheckBox
-                    android:id="@+id/cboNearDoubleSet"
-                    android:layout_width="0dp"
+                    android:id="@+id/cboPositiveDoubleSet"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="bộ sát kép"
+                    android:text="bộ kép dg"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 

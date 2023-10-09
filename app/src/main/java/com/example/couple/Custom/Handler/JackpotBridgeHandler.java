@@ -175,7 +175,8 @@ public class JackpotBridgeHandler {
         }
         Collections.reverse(beatList);
         int nextBranchPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition() + distance;
-        return new SpecialSetHistory(specialSetName, new Branch(nextBranchPosition).getIntYearCycles(), beatList);
+        int validBranch = nextBranchPosition < 0 ? 12 + nextBranchPosition : nextBranchPosition;
+        return new SpecialSetHistory(specialSetName, new Branch(validBranch).getIntYearCycles(), beatList);
     }
 
     public static SpecialSetHistory GetPositiveBranchDistanceHistoryEach2Days(List<Jackpot> jackpotList,
@@ -187,38 +188,36 @@ public class JackpotBridgeHandler {
             beat++;
             int branchPosition = new Branch(jackpotList.get(i).getCoupleInt()).getPosition();
             int branchPosition1 = new Branch(jackpotList.get(i + 1).getCoupleInt()).getPosition();
-            if ((branchPosition + 5 <= 11 && branchPosition + 5 == branchPosition1) ||
-                    (branchPosition - 5 >= 0 && branchPosition - 5 == branchPosition1)) {
+            if (SingleBase.getShadow(branchPosition % 10) == branchPosition1 % 10) {
                 beatList.add(beat);
                 beat = 0;
             }
         }
         Collections.reverse(beatList);
         int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
-        int nextPosition = lastPosition <= 5 ? lastPosition + 5 : lastPosition - 5;
+        int nextPosition = SingleBase.getShadow(lastPosition % 10);
         return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
     }
 
-//    public static SpecialSetHistory GetNegativeBranchDistanceHistoryEach2Days(List<Jackpot> jackpotList,
-//                                                                     String specialSetName) {
-//        if (jackpotList.isEmpty()) return new SpecialSetHistory();
-//        List<Integer> beatList = new ArrayList<>();
-//        int beat = 0;
-//        for (int i = 0; i < jackpotList.size() - 1; i++) {
-//            beat++;
-//            int branchPosition = new Branch(jackpotList.get(i).getCoupleInt()).getPosition();
-//            int branchPosition1 = new Branch(jackpotList.get(i + 1).getCoupleInt()).getPosition();
-//            if ((branchPosition + xDistance <= 11 && branchPosition + xDistance == branchPosition1) ||
-//                    (branchPosition - xDistance >= 0 && branchPosition - xDistance == branchPosition1)) {
-//                beatList.add(beat);
-//                beat = 0;
-//            }
-//        }
-//        Collections.reverse(beatList);
-//        int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
-//        int nextPosition = lastPosition <= xDistance ? lastPosition + xDistance : lastPosition - xDistance;
-//        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
-//    }
+    public static SpecialSetHistory GetNegativeBranchDistanceHistoryEach2Days(List<Jackpot> jackpotList,
+                                                                              String specialSetName) {
+        if (jackpotList.isEmpty()) return new SpecialSetHistory();
+        List<Integer> beatList = new ArrayList<>();
+        int beat = 0;
+        for (int i = 0; i < jackpotList.size() - 1; i++) {
+            beat++;
+            int branchPosition = new Branch(jackpotList.get(i).getCoupleInt()).getPosition();
+            int branchPosition1 = new Branch(jackpotList.get(i + 1).getCoupleInt()).getPosition();
+            if (SingleBase.getNegativeShadow(branchPosition % 10) == branchPosition1 % 10) {
+                beatList.add(beat);
+                beat = 0;
+            }
+        }
+        Collections.reverse(beatList);
+        int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
+        int nextPosition = SingleBase.getNegativeShadow(lastPosition % 10);
+        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
+    }
 
     public static ShadowMappingBridge GetShadowMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < dayNumberBefore + 2)
@@ -243,8 +242,7 @@ public class JackpotBridgeHandler {
             }
         }
         Collections.sort(firstList);
-        Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new MappingBridge(Const.MATCH_MAPPING_BRIDGE_NAME,
                 results, new JackpotHistory(dayNumberBefore, jackpot));
     }

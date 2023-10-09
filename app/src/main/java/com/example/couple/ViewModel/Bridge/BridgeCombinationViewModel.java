@@ -91,7 +91,7 @@ public class BridgeCombinationViewModel {
                                      boolean mapping, boolean shadowMapping, boolean estimated, boolean rightMapping,
                                      boolean compatible, boolean incompatible, boolean compactRightMapping,
                                      boolean triadMapping, boolean shadowExchange,
-                                     boolean bigDouble, boolean sameDouble, boolean nearDouble,
+                                     boolean bigDouble, boolean sameDouble, boolean positiveDouble,
                                      String setData, String touchData, String sumData, String branchData,
                                      String headData, String tailData, String combineData) {
         List<CombineBridge> combineBridges = new ArrayList<>();
@@ -196,9 +196,9 @@ public class BridgeCombinationViewModel {
                         Const.DOUBLE_SET, new JackpotHistory(i, jackpot));
                 bridgeList.add(sameDoubleSet);
             }
-            if (nearDouble) {
-                SpecialSetBridge nearDoubleSet = new SpecialSetBridge(Const.NEAR_DOUBLE_SET_NAME,
-                        Const.NEAR_DOUBLE_SET, new JackpotHistory(i, jackpot));
+            if (positiveDouble) {
+                SpecialSetBridge nearDoubleSet = new SpecialSetBridge(Const.POSITIVE_DOUBLE_SET_NAME,
+                        Const.POSITIVE_DOUBLE_SET, new JackpotHistory(i, jackpot));
                 bridgeList.add(nearDoubleSet);
             }
             // other set
