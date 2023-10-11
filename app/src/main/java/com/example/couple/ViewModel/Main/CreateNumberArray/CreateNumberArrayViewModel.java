@@ -265,8 +265,8 @@ public class CreateNumberArrayViewModel {
         if (data.equals("") && importantData.equals("")) {
             view.ShowTriadTable(new ArrayList<>());
         } else {
-            String arr[] = data.trim().split(",");
-            String importantArr[] = importantData.trim().split(",");
+            String[] arr = data.trim().split(",");
+            String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
             if (!data.equals("")) {
                 for (int i = 0; i < arr.length; i++) {
@@ -315,8 +315,8 @@ public class CreateNumberArrayViewModel {
         if (data.equals("") && importantData.equals("")) {
             view.ShowTriadList(new ArrayList<>());
         } else {
-            String arr[] = data.trim().split(",");
-            String importantArr[] = importantData.trim().split(",");
+            String[] arr = data.trim().split(",");
+            String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
             if (!data.equals("")) {
                 for (int i = 0; i < arr.length; i++) {

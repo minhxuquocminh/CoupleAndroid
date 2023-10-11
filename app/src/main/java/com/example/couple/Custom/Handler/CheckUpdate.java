@@ -15,7 +15,7 @@ public class CheckUpdate {
     public static boolean checkUpdateTime(Context context) {
         String data = IOFileBase.readDataFromFile(context, FileName.TIME);
         if (data.equals("")) return true;
-        String sub[] = data.split("===");
+        String[] sub = data.split("===");
         int calendarDay = Integer.parseInt(sub[1]);
         String[] monthData = sub[2].split(" ");
         int calendarMonth = Integer.parseInt(monthData[1]);

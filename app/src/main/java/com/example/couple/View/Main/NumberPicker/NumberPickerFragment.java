@@ -92,7 +92,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     Drawable pinkDrawable;
 
     // for table type 2, matrix dùng để lưu các danh sách số bị phân mảnh và đếm số đc chọn
-    int matrix[] = new int[Const.MAX_ROW_COUNT_TABLE];
+    int[] matrix = new int[Const.MAX_ROW_COUNT_TABLE];
 
 
     @Override

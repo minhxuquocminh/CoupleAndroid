@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Statistics {
 
-    public static int ranges[] = {0, 33, 66, 100};
+    public static int[] ranges = {0, 33, 66, 100};
 
     public static List<Integer> getRangeOfResults(List<Couple> couples, int startPosition, int distance) {
         List<Integer> rangeOfResults = new ArrayList<>();

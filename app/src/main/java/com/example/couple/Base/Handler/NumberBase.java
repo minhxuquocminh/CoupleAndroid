@@ -82,7 +82,7 @@ public class NumberBase {
         if (numberArray.equals("")) return new ArrayList<>();
         int LIMIT = (int) (Math.pow(10, numberLength) - 1);
         List<Number> numbers = new ArrayList<>();
-        String numberArr[] = numberArray.split(" ");
+        String[] numberArr = numberArray.split(" ");
         try {
             for (String numberStr : numberArr) {
                 int number = Integer.parseInt(numberStr.trim());
@@ -103,7 +103,7 @@ public class NumberBase {
         if (numberArray.equals("")) return new ArrayList<>();
         List<Integer> numbers = new ArrayList<>();
         int LIMIT = (int) (Math.pow(10, numberLength) - 1);
-        String numberArr[] = numberArray.split(" ");
+        String[] numberArr = numberArray.split(" ");
         try {
             for (String numberStr : numberArr) {
                 if (numberStr.trim().length() == 0) continue;
@@ -156,7 +156,7 @@ public class NumberBase {
 
     public static List<Integer> parseString(String data, String split) {
         if (data.trim().equals("")) return new ArrayList<>();
-        String arr[] = data.split(split);
+        String[] arr = data.split(split);
         List<Integer> numbers = new ArrayList<>();
         try {
             for (String s : arr) {

@@ -11,7 +11,7 @@ public class SingleBase {
 
     public static int getNegativeShadow(int single) {
         if (single > 9 || single < 0) return -1;
-        int arr[] = {7, 4, 9, 6, 1, 8, 3, 0, 5, 2};
+        int[] arr = {7, 4, 9, 6, 1, 8, 3, 0, 5, 2};
         return arr[single];
     }
 

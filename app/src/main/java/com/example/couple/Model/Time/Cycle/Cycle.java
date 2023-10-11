@@ -49,7 +49,7 @@ public class Cycle {
 
     public static Cycle getCycle(String cycleName) {
         if (cycleName.equals("")) return Cycle.getEmpty();
-        String cycleArr[] = cycleName.split(" ");
+        String[] cycleArr = cycleName.split(" ");
         String stemsName = cycleArr[0].trim();
         String branchesName = cycleArr[1].trim();
         int stemsPos = TimeInfo.HEAVENLY_STEMS.indexOf(stemsName);

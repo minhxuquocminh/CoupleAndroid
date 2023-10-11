@@ -20,9 +20,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Couple {
-    private int first;
-    private int second;
-    private DateBase dateBase;
+    private final int first;
+    private final int second;
+    private final DateBase dateBase;
 
     public List<Integer> getShadowExchange() {
         List<Integer> firstList = new ArrayList<>();

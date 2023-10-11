@@ -14,10 +14,10 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Lottery {
-    private String timeShow;
-    private String characters;
-    private List<String> lottery;
-    private DateBase dateBase;
+    private final String timeShow;
+    private final String characters;
+    private final List<String> lottery;
+    private final DateBase dateBase;
 
     public int getValueAtPosition(Position position) {
         return Integer.parseInt(lottery.get(position.getFirstLevel()).
@@ -64,7 +64,7 @@ public class Lottery {
 
     public List<Lotto> getHeadLotoList() {
         List<Lotto> lottos = new ArrayList<>();
-        int a[] = new int[100];
+        int[] a = new int[100];
         for (String numberString : lottery) {
             int length_number = numberString.length();
             int first = Integer.parseInt(numberString.charAt(length_number - 2) + "");
@@ -85,7 +85,7 @@ public class Lottery {
 
     public List<Lotto> getTailLotoList() {
         List<Lotto> lottos = new ArrayList<>();
-        int a[] = new int[100];
+        int[] a = new int[100];
         for (String numberString : lottery) {
             int length_number = numberString.length();
             int first = Integer.parseInt(numberString.charAt(length_number - 2) + "");

@@ -57,7 +57,7 @@ public class JackpotAllYearViewModel {
     }
 
     private int[][] GetCoupleCountingMatrix(int yearNumber) {
-        int startAndEndYearFile[] = JackpotStatistics.GetStartAndEndYearFile(context);
+        int[] startAndEndYearFile = JackpotStatistics.GetStartAndEndYearFile(context);
         if (startAndEndYearFile == null) {
             view.ShowError("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được bảng" +
                     " số lần xuất hiện của Kép bằng theo năm!");

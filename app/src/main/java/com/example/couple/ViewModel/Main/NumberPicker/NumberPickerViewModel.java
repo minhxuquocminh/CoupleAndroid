@@ -121,8 +121,8 @@ public class NumberPickerViewModel {
         if (data.equals("") && importantData.equals("")) {
             numberPickerView.ShowTableType1(new ArrayList<>());
         } else {
-            String arr[] = data.trim().split(",");
-            String importantArr[] = importantData.trim().split(",");
+            String[] arr = data.trim().split(",");
+            String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
             if (!data.equals("")) {
                 for (int i = 0; i < arr.length; i++) {
@@ -153,8 +153,8 @@ public class NumberPickerViewModel {
         if (data.equals("") && importantData.equals("")) {
             numberPickerView.ShowTableType2(new ArrayList<>());
         } else {
-            String arr[] = data.trim().split(",");
-            String importantArr[] = importantData.trim().split(",");
+            String[] arr = data.trim().split(",");
+            String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
             if (!data.equals("")) {
                 for (int i = 0; i < arr.length; i++) {
@@ -204,8 +204,8 @@ public class NumberPickerViewModel {
         if (data.equals("") && importantData.equals("")) {
             numberPickerView.ShowTableAList(new ArrayList<>());
         } else {
-            String arr[] = data.trim().split(",");
-            String importantArr[] = importantData.trim().split(",");
+            String[] arr = data.trim().split(",");
+            String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
             if (!data.equals("")) {
                 for (int i = 0; i < arr.length; i++) {
@@ -229,8 +229,8 @@ public class NumberPickerViewModel {
         if (data.equals("") && importantData.equals("")) {
             numberPickerView.ShowTableBList(new ArrayList<>());
         } else {
-            String arr[] = data.trim().split(",");
-            String importantArr[] = importantData.trim().split(",");
+            String[] arr = data.trim().split(",");
+            String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
             if (!data.equals("")) {
                 for (int i = 0; i < arr.length; i++) {

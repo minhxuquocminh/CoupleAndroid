@@ -18,8 +18,8 @@ public class UrlAndParamsViewModel {
     public void GetUrlAndParams() {
         String urlJackpot = IOFileBase.readDataFromFile(context, FileName.JACKPOT_URL);
         String urlLottery = IOFileBase.readDataFromFile(context, FileName.LOTTERY_URL);
-        String arrUrlJackpot[] = urlJackpot.split("\n");
-        String arrUrlLottery[] = urlLottery.split("\n");
+        String[] arrUrlJackpot = urlJackpot.split("\n");
+        String[] arrUrlLottery = urlLottery.split("\n");
         view.ShowUrlAndParams(arrUrlJackpot, arrUrlLottery);
     }
 

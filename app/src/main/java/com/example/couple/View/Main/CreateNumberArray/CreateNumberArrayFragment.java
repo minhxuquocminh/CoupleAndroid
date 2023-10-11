@@ -81,7 +81,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
     CreateNumberArrayViewModel viewModel;
     List<Jackpot> subJackpot = new ArrayList<>();
-    int matrix[] = new int[1000];
+    int[] matrix = new int[1000];
     public static Boolean RECEIVE_DATA;
 
     @Override
@@ -525,7 +525,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
     private void SetCounterForAll() {
         int countAll = 0;
-        int countThirdClaw[] = new int[10];
+        int[] countThirdClaw = new int[10];
         for (int i = 0; i < 1000; i++) {
             if (matrix[i] > 0) {
                 countAll++;

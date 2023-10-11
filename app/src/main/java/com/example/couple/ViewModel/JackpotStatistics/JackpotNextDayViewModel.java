@@ -33,7 +33,7 @@ public class JackpotNextDayViewModel {
         } else if (dayNumberBeforeStr.equals("")) {
             view.ShowError("Vui lòng nhập số ngày trước đó!");
         } else {
-            int startAndEndYearFile[] = JackpotStatistics.GetStartAndEndYearFile(context);
+            int[] startAndEndYearFile = JackpotStatistics.GetStartAndEndYearFile(context);
             if (startAndEndYearFile == null) {
                 view.ShowError("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được giải " +
                         "Đặc biệt trong những ngày tiếp theo!");

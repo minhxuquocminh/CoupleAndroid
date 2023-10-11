@@ -15,7 +15,7 @@ import com.example.couple.R;
 
 public class TableLayoutBase {
 
-    public static TableLayout getTableLayout(Context context, String matrix[][], int row, int col) {
+    public static TableLayout getTableLayout(Context context, String[][] matrix, int row, int col) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout
                 .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));

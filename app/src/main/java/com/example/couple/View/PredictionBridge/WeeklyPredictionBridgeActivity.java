@@ -214,7 +214,7 @@ public class WeeklyPredictionBridgeActivity extends AppCompatActivity implements
                 setCheckedCbo(i);
             }
         } else {
-            String arr[] = checkboxList.split("-");
+            String[] arr = checkboxList.split("-");
 
             cboClearCheck();
             for (String ptu : arr) {

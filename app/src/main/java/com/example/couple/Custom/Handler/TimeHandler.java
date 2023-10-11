@@ -111,9 +111,7 @@ public class TimeHandler {
         DateBase previousPreviousMonth = timeBase1.getDateBase().plusDays(-timeBase1.getDateLunar().getDay());
 
         boolean check2 = updateSexagenaryCycle(context, previousPreviousMonth, FileName.CYCLE_2);
-        if (!check2) return false;
-
-        return true;
+        return check2;
     }
 
     private static boolean updateSexagenaryCycle(Context context, DateBase dateBase, String fileName) {
@@ -132,21 +130,21 @@ public class TimeHandler {
     private static TimeBase getSexagenaryCycle(Context context, String fileName) {
         String data = IOFileBase.readDataFromFile(context, fileName);
         try {
-            String arr[] = data.split("Âm lịch:");
-            String calendarArr[] = arr[0].trim().split(" ");
-            String calendarArr1[] = calendarArr[calendarArr.length - 1].trim().split("/");
+            String[] arr = data.split("Âm lịch:");
+            String[] calendarArr = arr[0].trim().split(" ");
+            String[] calendarArr1 = calendarArr[calendarArr.length - 1].trim().split("/");
             int day = Integer.parseInt(calendarArr1[0].trim());
             int month = Integer.parseInt(calendarArr1[1].trim());
             int year = Integer.parseInt(calendarArr1[2].trim());
             DateBase dateBase = new DateBase(day, month, year);
 
-            String lunnarCalendarArr[] = arr[1].trim().split(" ")[1].trim().split("/");
+            String[] lunnarCalendarArr = arr[1].trim().split(" ")[1].trim().split("/");
             int lunnarDay = Integer.parseInt(lunnarCalendarArr[0].trim());
             int lunnarMonth = Integer.parseInt(lunnarCalendarArr[1].trim());
             int lunnarYear = Integer.parseInt(lunnarCalendarArr[2].trim());
             DateLunar dateLunar = new DateLunar(lunnarDay, lunnarMonth, lunnarYear);
 
-            String cycleArr[] = arr[1].trim().split("Hành")[0].trim().split(",");
+            String[] cycleArr = arr[1].trim().split("Hành")[0].trim().split(",");
             String cycleDay = cycleArr[0].trim().split("Tức ngày")[1].trim();
             String cycleMonth = cycleArr[1].trim().split("tháng")[1].trim();
             String cycleYear = cycleArr[2].trim().split("năm")[1].trim();

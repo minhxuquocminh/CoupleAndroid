@@ -5,5 +5,5 @@ import java.util.List;
 public interface JackpotByYearView {
     void ShowError(String message);
     void ShowYearList(List<Integer> yearList);
-    void ShowTableOfJackpot(String matrix[][], int year);
+    void ShowTableOfJackpot(String[][] matrix, int year);
 }

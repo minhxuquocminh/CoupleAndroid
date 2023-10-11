@@ -50,7 +50,7 @@ public class JackpotFileHD {
     }
 
     public static String[][] GetCoupleMatrix(String data, int m, int n) {
-        String matrix[][] = new String[m][n];
+        String[][] matrix = new String[m][n];
 
         String[] lines = data.split("\n");
         for (int i = 0; i < lines.length; i++) {
@@ -70,7 +70,7 @@ public class JackpotFileHD {
     }
 
     public static String[][] GetJackpotMatrix(String data, int m, int n) {
-        String matrix[][] = new String[m][n];
+        String[][] matrix = new String[m][n];
 
         String[] lines = data.split("\n");
         for (int i = 0; i < lines.length; i++) {
@@ -87,7 +87,7 @@ public class JackpotFileHD {
         return matrix;
     }
 
-    public static List<Couple> getCoupleListVertically(String matrix[][], int m, int n, int startYear) {
+    public static List<Couple> getCoupleListVertically(String[][] matrix, int m, int n, int startYear) {
         List<Couple> coupleList = new ArrayList<>();
         int t = m / 31;
         for (int j = n - 1; j >= 0; j--) {
@@ -112,7 +112,7 @@ public class JackpotFileHD {
         return coupleList;
     }
 
-    public static List<Jackpot> GetJackpotList(String matrix[][], int m, int n, int startYear) {
+    public static List<Jackpot> GetJackpotList(String[][] matrix, int m, int n, int startYear) {
         List<Jackpot> listJackpots = new ArrayList<>();
         int t = m / 31;
         for (int j = n - 1; j >= 0; j--) {
@@ -139,7 +139,7 @@ public class JackpotFileHD {
         try {
             FileWriter fw = new FileWriter(file, append);
             BufferedWriter bw = new BufferedWriter(fw);
-            String lines[] = data[1].split("\n");
+            String[] lines = data[1].split("\n");
             for (int i = 0; i < lines.length; i++) {
                 bw.write(lines[i]);
                 bw.newLine();

@@ -18,19 +18,19 @@ public class LotteryHandler {
         String data = IOFileBase.readDataFromFile(context, FileName.LOTTERY);
         if (data.equals("")) return new ArrayList<>();
         List<Lottery> lotteries = new ArrayList<>();
-        String elements[] = data.split("---");
+        String[] elements = data.split("---");
         int length_lotteries = (numberOfDays < elements.length) ? numberOfDays : elements.length;
         for (int i = 0; i < length_lotteries; i++) {
-            String part[] = elements[i].split("Ký tự");
+            String[] part = elements[i].split("Ký tự");
             String timeShow = part[0].trim();
-            String times[] = timeShow.split(" ");
-            String day[] = times[times.length - 1].trim().split("-");
+            String[] times = timeShow.split(" ");
+            String[] day = times[times.length - 1].trim().split("-");
             DateBase dateBase = new DateBase(Integer.parseInt(day[0]),
                     Integer.parseInt(day[1]), Integer.parseInt(day[2]));
 
-            String afterTimeShow[] = part[1].trim().split("Đặc biệt");
+            String[] afterTimeShow = part[1].trim().split("Đặc biệt");
             String characters = afterTimeShow[0].trim();
-            String numbers[] = afterTimeShow[1].trim().split(" ");
+            String[] numbers = afterTimeShow[1].trim().split(" ");
             List<String> lotteryString = new ArrayList<>();
             for (String number : numbers) {
                 try {

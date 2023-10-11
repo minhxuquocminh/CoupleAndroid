@@ -23,7 +23,7 @@ public class NoteViewModel {
         if (data.equals("")) {
             noteView.HideNoteList();
         } else {
-            String arr[] = data.split("===");
+            String[] arr = data.split("===");
             List<String> notes = new ArrayList<>();
             for (int i = 0; i < arr.length; i++) {
                 if (!arr[i].trim().equals("")) {

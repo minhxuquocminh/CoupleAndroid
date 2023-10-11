@@ -74,7 +74,7 @@ public class MonthlyPredictionBridgeActivity extends AppCompatActivity implement
             Prediction pb = (Prediction) intent.getSerializableExtra("PB");
             id = pb.getId();
             edtName.setText(pb.getName());
-            String timeArr[] = pb.getTime().trim().split("-");
+            String[] timeArr = pb.getTime().trim().split("-");
             edtStartDate.setText(timeArr[0].trim());
             edtStartDate.setSelection(edtStartDate.length());
             String endDate = timeArr[1].trim();

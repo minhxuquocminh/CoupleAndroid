@@ -26,7 +26,7 @@ public class AddJackpotManyYearsViewModel {
             view.ShowStartYear(TimeInfo.CURRENT_YEAR - 4);
             return;
         }
-        String arr[] = data.split("-");
+        String[] arr = data.split("-");
         view.ShowStartYear(Integer.parseInt(arr[0].trim()));
     }
 
@@ -55,7 +55,7 @@ public class AddJackpotManyYearsViewModel {
         String yearData = "";
         for (int i = startYear; i <= TimeInfo.CURRENT_YEAR; i++) {
             if (availableData) {
-                String yearArr[] = years.split("-");
+                String[] yearArr = years.split("-");
                 int count = 0;
                 for (int j = 0; j < yearArr.length; j++) {
                     if (Integer.parseInt(yearArr[j]) == i) {

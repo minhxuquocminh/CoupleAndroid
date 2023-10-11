@@ -248,7 +248,7 @@ public class CustomTableLayout {
         return tableLayout;
     }
 
-    public static TableLayout getCountSameDoubleTableLayout(Context context, int matrix[][],
+    public static TableLayout getCountSameDoubleTableLayout(Context context, int[][] matrix,
                                                             int m, int n, int startingYear, int[] dayNumberArr) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -265,7 +265,7 @@ public class CustomTableLayout {
         }
         rowHeader.addView(getHeaderCell(context, "Tổng"));
         tableLayout.addView(rowHeader);
-        int sumK[] = new int[n];
+        int[] sumK = new int[n];
         for (int i = 0; i < m; i++) {
             TableRow row = new TableRow(context);
             int sumOfRow = 0;
@@ -306,7 +306,7 @@ public class CustomTableLayout {
         return tableLayout;
     }
 
-    public static TableLayout getCountCoupleTableLayout(Context context, int matrix[][],
+    public static TableLayout getCountCoupleTableLayout(Context context, int[][] matrix,
                                                         int m, int n, int startingYear) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -336,7 +336,7 @@ public class CustomTableLayout {
         return tableLayout;
     }
 
-    public static TableLayout getNormalTableLayout(Context context, String matrix[][], int m, int n) {
+    public static TableLayout getNormalTableLayout(Context context, String[][] matrix, int m, int n) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         tableLayout.setShrinkAllColumns(true);
@@ -362,7 +362,7 @@ public class CustomTableLayout {
         return tableLayout;
     }
 
-    public static TableLayout getPaddingTableLayout(Context context, String matrix[][], int m, int n) {
+    public static TableLayout getPaddingTableLayout(Context context, String[][] matrix, int m, int n) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         tableLayout.setShrinkAllColumns(true);
@@ -509,7 +509,7 @@ public class CustomTableLayout {
         return tableLayout;
     }
 
-    public static TableLayout getJackpotMatrixByYear(Context context, String matrix[][], int m, int n, int year) {
+    public static TableLayout getJackpotMatrixByYear(Context context, String[][] matrix, int m, int n, int year) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));

@@ -24,7 +24,7 @@ public class UrlAndParamsInfoViewModel {
             fileName = FileName.LOTTERY_URL;
         }
         data = IOFileBase.readDataFromFile(context, fileName);
-        String arr[] = data.split("\n");
+        String[] arr = data.split("\n");
         view.ShowUrlAndParams(arr);
     }
 

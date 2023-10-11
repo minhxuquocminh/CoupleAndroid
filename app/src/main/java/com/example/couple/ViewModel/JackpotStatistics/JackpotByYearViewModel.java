@@ -20,7 +20,7 @@ public class JackpotByYearViewModel {
     }
 
     public void GetYearList() {
-        int startAndEndYearFile[] = JackpotStatistics.GetStartAndEndYearFile(context);
+        int[] startAndEndYearFile = JackpotStatistics.GetStartAndEndYearFile(context);
         List<Integer> yearList = new ArrayList<>();
         if (startAndEndYearFile == null) {
             yearList.add(TimeInfo.CURRENT_YEAR);
@@ -35,7 +35,7 @@ public class JackpotByYearViewModel {
     }
 
     public void GetTableOfJackpot(int year) {
-        String matrix[][] = JackpotHandler.GetJackpotMaxtrixByYear(context, year);
+        String[][] matrix = JackpotHandler.GetJackpotMaxtrixByYear(context, year);
         if (matrix == null) {
             jackpotByYearView.ShowError("Lỗi không lấy được thông tin bảng XS Đặc biệt năm " + year + ".");
         } else {

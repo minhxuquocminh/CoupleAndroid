@@ -84,7 +84,7 @@ public class CoupleBridgeHandler {
             balance2.add(couples2.get(i).getSecond());
         }
 
-        int arr[] = new int[10];
+        int[] arr = new int[10];
         for (int i = 0; i < balance1.size(); i++) {
             for (int j = 0; j < balance2.size(); j++) {
                 if (balance1.get(i) == balance2.get(j)) {

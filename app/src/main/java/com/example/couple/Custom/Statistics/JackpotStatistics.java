@@ -25,13 +25,13 @@ public class JackpotStatistics {
     // nếu status = 0 thì ko sắp xếp, status = 1 thì sx năm gần nhất, status = 2 thì sx tổng.
     public static int[][] GetSortMatrix(int[][] matrix, int m, int n, int status) {
         if (matrix == null) return null;
-        int arr[] = new int[m];
-        int index[] = new int[m];
+        int[] arr = new int[m];
+        int[] index = new int[m];
         for (int i = 0; i < m; i++) {
             index[i] = i;
         }
 
-        int new_matrix[][] = new int[m][n];
+        int[][] new_matrix = new int[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 new_matrix[i][j] = matrix[i][j];
@@ -107,8 +107,8 @@ public class JackpotStatistics {
     public static int[] GetStartAndEndYearFile(Context context) {
         String yearData = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
         if (yearData.equals("")) return null;
-        String yearArr[] = yearData.split("-");
-        int results[] = new int[2];
+        String[] yearArr = yearData.split("-");
+        int[] results = new int[2];
         results[0] = Integer.parseInt(yearArr[0]);
         results[1] = Integer.parseInt(yearArr[yearArr.length - 1]);
         return results;
@@ -121,7 +121,7 @@ public class JackpotStatistics {
         return numberOfYearsFile < START_NUMBER_OF_YEARS ? numberOfYearsFile : START_NUMBER_OF_YEARS;
     }
 
-    public static int[] GetDayNumberByYear(int matrix[][], int m, int n) {
+    public static int[] GetDayNumberByYear(int[][] matrix, int m, int n) {
         if (matrix == null) return null;
         int[] dayNumberArr = new int[n];
         for (int i = 0; i < m; i++) {
@@ -134,10 +134,10 @@ public class JackpotStatistics {
 
     public static List<NearestTime> GetHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
         List<NearestTime> nearestTimeList = new ArrayList<>();
-        int appearanceTimes1[] = new int[10];
-        int nearestIndex1[] = new int[10];
-        int appearanceTimes2[] = new int[10];
-        int nearestIndex2[] = new int[10];
+        int[] appearanceTimes1 = new int[10];
+        int[] nearestIndex1 = new int[10];
+        int[] appearanceTimes2 = new int[10];
+        int[] nearestIndex2 = new int[10];
 
         for (int i = 0; i < 10; i++) {
             nearestIndex1[i] = -1;
@@ -182,8 +182,8 @@ public class JackpotStatistics {
 
     public static List<NearestTime> GetSameDoubleInNearestTime(List<Jackpot> jackpotList) {
         List<NearestTime> nearestTimeList = new ArrayList<>();
-        int appearanceTimes[] = new int[10];
-        int nearestIndex[] = new int[10];
+        int[] appearanceTimes = new int[10];
+        int[] nearestIndex = new int[10];
 
         for (int i = 0; i < 10; i++) {
             nearestIndex[i] = -1;

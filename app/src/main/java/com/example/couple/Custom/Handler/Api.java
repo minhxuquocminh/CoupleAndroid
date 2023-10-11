@@ -43,7 +43,7 @@ public class Api {
     public static String GetJackpotDataFromInternet(Context context, int year)
             throws ExecutionException, InterruptedException {
         String urlAndParams = IOFileBase.readDataFromFile(context, FileName.JACKPOT_URL);
-        String arr[] = urlAndParams.split("\n");
+        String[] arr = urlAndParams.split("\n");
 
         String link = arr[0].trim();
         List<String> listClassName = new ArrayList<>();
@@ -60,7 +60,7 @@ public class Api {
     public static String GetLotteryDataFromInternet(Context context, int numberOfDays)
             throws ExecutionException, InterruptedException {
         String urlAndParams = IOFileBase.readDataFromFile(context, FileName.LOTTERY_URL);
-        String arr[] = urlAndParams.split("\n");
+        String[] arr = urlAndParams.split("\n");
 
         String link = arr[0].trim();
         List<String> listClassName = new ArrayList<>();

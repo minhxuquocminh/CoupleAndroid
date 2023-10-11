@@ -163,14 +163,14 @@ public class HomePageViewModel {
         String data = IOFileBase.readDataFromFile(context, FileName.TIME);
         String time = "Lỗi cập nhật thời gian!";
         try {
-            String sub[] = data.split("===");
+            String[] sub = data.split("===");
             String calendarWeek = sub[0];
 
             String calendarDay = sub[1];
             String calendarMonth = sub[2];
             String lunarDay = sub[3];
 
-            String elements[] = lunarDay.split(",");
+            String[] elements = lunarDay.split(",");
             String day = elements[1].trim().split(" ")[1].trim();
             String month = elements[2].trim().split(" ")[1].trim();
 
@@ -217,7 +217,7 @@ public class HomePageViewModel {
 
     public void GetNote() {
         String data = IOFileBase.readDataFromFile(context, FileName.NOTE);
-        String arr[] = data.split("===");
+        String[] arr = data.split("===");
         String note = "";
         for (int i = 0; i < arr.length; i++) {
             note += " + " + arr[i];

@@ -118,7 +118,7 @@ public class DateBase implements Serializable {
     }
 
     public static DateBase fromString(String s, String splitRegex) {
-        String sub[] = s.split(splitRegex);
+        String[] sub = s.split(splitRegex);
         if (sub.length < 3) return null;
         return new DateBase(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]), Integer.parseInt(sub[2]));
     }

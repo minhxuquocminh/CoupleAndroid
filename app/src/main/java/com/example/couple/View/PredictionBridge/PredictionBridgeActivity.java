@@ -33,7 +33,7 @@ public class PredictionBridgeActivity extends AppCompatActivity implements Predi
     RecyclerView rvMonthlyBridge;
 
     PredictionBridgeViewModel viewModel;
-    String dayOfWeek[] = {"CN", "T2", "T3", "T4", "T5", "T6", "T7"};
+    String[] dayOfWeek = {"CN", "T2", "T3", "T4", "T5", "T6", "T7"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

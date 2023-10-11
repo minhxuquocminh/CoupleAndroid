@@ -51,7 +51,7 @@ public class CoupleByYearViewModel {
         int[][] matrix = GetMatrixCountCouple(numberOfYears);
         if (matrix != null) {
             if (tens.equals("") && unit.equals("")) {
-                int matrix_sort[][] = JackpotStatistics.GetSortMatrix(matrix,
+                int[][] matrix_sort = JackpotStatistics.GetSortMatrix(matrix,
                         Const.MAX_ROW_COUNT_TABLE, numberOfYears + 1, status);
                 view.ShowCoupleCountingTable(matrix_sort,
                         Const.MAX_ROW_COUNT_TABLE, numberOfYears + 1, startYear);
@@ -62,7 +62,7 @@ public class CoupleByYearViewModel {
                 for (int j = 1; j < numberOfYears + 1; j++) {
                     new_matrix[0][j] = matrix[Integer.parseInt(tens + "" + unit)][j];
                 }
-                int matrix_sort[][] = JackpotStatistics.GetSortMatrix(new_matrix,
+                int[][] matrix_sort = JackpotStatistics.GetSortMatrix(new_matrix,
                         rowNumber, numberOfYears + 1, status);
                 view.ShowCoupleCountingTable(matrix_sort, rowNumber, numberOfYears + 1, startYear);
             } else {
@@ -80,7 +80,7 @@ public class CoupleByYearViewModel {
                         }
                     }
                 }
-                int matrix_sort[][] = JackpotStatistics.GetSortMatrix(new_matrix,
+                int[][] matrix_sort = JackpotStatistics.GetSortMatrix(new_matrix,
                         rowNumber, numberOfYears + 1, status);
                 view.ShowCoupleCountingTable(matrix_sort, rowNumber, numberOfYears + 1, startYear);
             }

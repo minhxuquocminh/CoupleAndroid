@@ -55,7 +55,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
     private String methodGET() throws IOException {
         String data = "";
 
-        Document doc = (Document) Jsoup.connect(link).get();
+        Document doc = Jsoup.connect(link).get();
         if (listClassName == null || listClassName.isEmpty()) return doc.text();
 
         for (int i = 0; i < listClassName.size(); i++) {

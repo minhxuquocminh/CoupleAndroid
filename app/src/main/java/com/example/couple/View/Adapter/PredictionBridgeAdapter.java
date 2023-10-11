@@ -93,12 +93,12 @@ public class PredictionBridgeAdapter extends
                     if (pb.getType() == 1) {
                         Intent intent = new Intent(context, WeeklyPredictionBridgeActivity.class);
                         intent.putExtra("POSITION", position);
-                        intent.putExtra("PB", (Serializable) pb);
+                        intent.putExtra("PB", pb);
                         context.startActivity(intent);
                     } else {
                         Intent intent = new Intent(context, MonthlyPredictionBridgeActivity.class);
                         intent.putExtra("POSITION", position);
-                        intent.putExtra("PB", (Serializable) pb);
+                        intent.putExtra("PB", pb);
                         context.startActivity(intent);
                     }
                 } else {

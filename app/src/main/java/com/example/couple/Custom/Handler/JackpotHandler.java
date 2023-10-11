@@ -34,7 +34,7 @@ public class JackpotHandler {
 
         for (int i = startYear; i <= endYear; i++) {
             String data = IOFileBase.readDataFromFile(context, "jackpot" + i + ".txt");
-            String matrix[][] = GetJackpotMatrix(data, Const.MAX_DAY_OF_MONTH, Const.MONTH_OF_YEAR);
+            String[][] matrix = GetJackpotMatrix(data, Const.MAX_DAY_OF_MONTH, Const.MONTH_OF_YEAR);
             List<Jackpot> jackpotList = GetJackpotList(matrix, Const.MAX_DAY_OF_MONTH, Const.MONTH_OF_YEAR, i);
             jackpots.addAll(jackpotList);
         }
@@ -79,7 +79,7 @@ public class JackpotHandler {
         return jackpotList;
     }
 
-    private static List<Jackpot> GetReverseJackpotList(String matrix[][], int m, int n, int year) {
+    private static List<Jackpot> GetReverseJackpotList(String[][] matrix, int m, int n, int year) {
         if (matrix == null) return new ArrayList<>();
         List<Jackpot> listJackpots = new ArrayList<>();
         for (int j = n - 1; j >= 0; j--) {
@@ -93,7 +93,7 @@ public class JackpotHandler {
         return listJackpots;
     }
 
-    private static List<Jackpot> GetJackpotList(String matrix[][], int m, int n, int year) {
+    private static List<Jackpot> GetJackpotList(String[][] matrix, int m, int n, int year) {
         if (matrix == null) return new ArrayList<>();
         List<Jackpot> listJackpots = new ArrayList<>();
         for (int j = 0; j < n; j++) {
@@ -109,7 +109,7 @@ public class JackpotHandler {
 
     private static String[][] GetJackpotMatrix(String data, int m, int n) {
         if (data.equals("")) return null;
-        String matrix[][] = new String[m][n];
+        String[][] matrix = new String[m][n];
 
         String[] numbers = data.split("---");
         for (int i = 0; i < m; i++) {
