@@ -179,8 +179,8 @@ public class JackpotBridgeHandler {
         return new SpecialSetHistory(specialSetName, new Branch(validBranch).getIntYearCycles(), beatList);
     }
 
-    public static SpecialSetHistory GetPositiveBranchDistanceHistoryEach2Days(List<Jackpot> jackpotList,
-                                                                              String specialSetName) {
+    public static SpecialSetHistory GetPositive12BranchHistory(List<Jackpot> jackpotList,
+                                                               String specialSetName) {
         if (jackpotList.isEmpty()) return new SpecialSetHistory();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
@@ -199,8 +199,8 @@ public class JackpotBridgeHandler {
         return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
     }
 
-    public static SpecialSetHistory GetNegativeBranchDistanceHistoryEach2Days(List<Jackpot> jackpotList,
-                                                                              String specialSetName) {
+    public static SpecialSetHistory GetNegative12BranchHistory(List<Jackpot> jackpotList,
+                                                               String specialSetName) {
         if (jackpotList.isEmpty()) return new SpecialSetHistory();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
@@ -208,6 +208,44 @@ public class JackpotBridgeHandler {
             beat++;
             int branchPosition = new Branch(jackpotList.get(i).getCoupleInt()).getPosition();
             int branchPosition1 = new Branch(jackpotList.get(i + 1).getCoupleInt()).getPosition();
+            if (SingleBase.getNegativeShadow(branchPosition % 10) == branchPosition1 % 10) {
+                beatList.add(beat);
+                beat = 0;
+            }
+        }
+        Collections.reverse(beatList);
+        int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
+        int nextPosition = SingleBase.getNegativeShadow(lastPosition % 10);
+        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
+    }
+
+    public static SpecialSetHistory GetPositive13BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
+        if (jackpotList.isEmpty()) return new SpecialSetHistory();
+        List<Integer> beatList = new ArrayList<>();
+        int beat = 0;
+        for (int i = 0; i < jackpotList.size() - 2; i++) {
+            beat++;
+            int branchPosition = new Branch(jackpotList.get(i).getCoupleInt()).getPosition();
+            int branchPosition1 = new Branch(jackpotList.get(i + 2).getCoupleInt()).getPosition();
+            if (SingleBase.getShadow(branchPosition % 10) == branchPosition1 % 10) {
+                beatList.add(beat);
+                beat = 0;
+            }
+        }
+        Collections.reverse(beatList);
+        int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
+        int nextPosition = SingleBase.getShadow(lastPosition % 10);
+        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
+    }
+
+    public static SpecialSetHistory GetNegative13BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
+        if (jackpotList.isEmpty()) return new SpecialSetHistory();
+        List<Integer> beatList = new ArrayList<>();
+        int beat = 0;
+        for (int i = 0; i < jackpotList.size() - 2; i++) {
+            beat++;
+            int branchPosition = new Branch(jackpotList.get(i).getCoupleInt()).getPosition();
+            int branchPosition1 = new Branch(jackpotList.get(i + 2).getCoupleInt()).getPosition();
             if (SingleBase.getNegativeShadow(branchPosition % 10) == branchPosition1 % 10) {
                 beatList.add(beat);
                 beat = 0;

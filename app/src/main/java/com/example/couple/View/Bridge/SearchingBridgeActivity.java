@@ -157,6 +157,8 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                     ShowError("Vui lòng nhập đầy đủ dữ liệu!");
                 } else if (Integer.parseInt(enoughTouchsStr) > 2) {
                     ShowError("Số ngày chạm đầy đủ không được lớn hơn 2!");
+                } else if (Integer.parseInt(dayNumberBeforeStr) > 50) {
+                    ShowError("Số ngày trước đó không được lớn hơn 50!");
                 } else {
                     dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
                     tvDayNumberBefore.setText(dayNumberBefore + "");
@@ -309,7 +311,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                     ShowError("Số ngày chạm đầy đủ không được lớn hơn 2!");
                 } else {
                     dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
-                    if (dayNumberBefore + 1 <= 18) {
+                    if (dayNumberBefore + 1 <= 50) {
                         dayNumberBefore++;
                         tvDayNumberBefore.setText(dayNumberBefore + "");
                         edtDayNumberBefore.setText(dayNumberBefore + "");
@@ -377,7 +379,6 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
     public void ShowTriadBridge(List<TriadBridge> triadBridges) {
         String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
         int enoughTouchs = Integer.parseInt(enoughTouchsStr);
-        Log.d("MINHTRAN", enoughTouchs + "");
         boolean sortBySet = cboSortBySet.isChecked();
         viewModel.GetTriadBridgeWithCondition(triadBridges, enoughTouchs, sortBySet);
         tvSub1.setOnClickListener(new View.OnClickListener() {

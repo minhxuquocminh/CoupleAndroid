@@ -42,14 +42,14 @@ public class Const {
     public static final String COMBINE_TOUCH_BRIDGE_NAME = "Chạm kết hợp";
     public static final String BIG_DOUBLE_SET_NAME = "Bộ kép to";
     public static final String DOUBLE_SET_NAME = "Bộ kép bằng";
-    public static final String NEAR_DOUBLE_SET_NAME = "Bộ sát kép";
     public static final String POSITIVE_DOUBLE_SET_NAME = "Bộ kép dương";
     public static final String HEAD = "Đầu";
     public static final String TAIL = "Đuôi";
     public static final String SET = "Bộ";
     public static final String SUM = "Tổng";
     public static final String DOUBLE = "Kép bằng";
-    public static final String NEAR_DOUBLE = "Sát kép";
+    public static final String NEAR_DOUBLE_INCREASE = "Sát kép tăng";
+    public static final String NEAR_DOUBLE_DECREASE = "Sát kép giảm";
 
     public static final List<Integer> BIG_DOUBLE_SET = Arrays.asList
             (
@@ -70,17 +70,29 @@ public class Const {
                     58, 85,
                     79, 97
             );
-    public static final List<Integer> NEAR_DOUBLE_SET = Arrays.asList
+    public static final List<Integer> NEAR_DOUBLE_INCREASE_SET = Arrays.asList
             (
-                    01, 10,
-                    12, 21,
-                    23, 32,
-                    34, 43,
-                    45, 54,
-                    56, 65,
-                    67, 76,
-                    78, 87,
-                    89, 98
+                    01,
+                    12,
+                    23,
+                    34,
+                    45,
+                    56,
+                    67,
+                    78,
+                    89
+            );
+    public static final List<Integer> NEAR_DOUBLE_DECREASE_SET = Arrays.asList
+            (
+                    10,
+                    21,
+                    32,
+                    43,
+                    54,
+                    65,
+                    76,
+                    87,
+                    98
             );
     public static final List<Integer> DOUBLE_SET = Arrays.asList
             (
@@ -104,7 +116,9 @@ public class Const {
                     49, 94
             );
     public static final List<Integer> SMALL_SETS =
-            Arrays.asList(0, 1, 2, 3, 4, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
+            Arrays.asList(00, 01, 02, 03, 04, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
+    public static final List<Integer> SMALL_SETS_NOT_DOUBLE =
+            Arrays.asList(01, 02, 03, 04, 12, 13, 14, 23, 24, 34);
     // url and params
     public static final String TIME_URL = "https://lichvannien365.com/";
     public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua9.net/bang-dac-biet-nam\nchu16";

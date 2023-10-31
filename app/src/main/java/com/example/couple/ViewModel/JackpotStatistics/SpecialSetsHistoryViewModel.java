@@ -66,12 +66,20 @@ public class SpecialSetsHistoryViewModel {
         historyList.addAll(branches3);
 
         SpecialSetHistory branch4 = JackpotBridgeHandler
-                .GetPositiveBranchDistanceHistoryEach2Days(jackpotList, "TST+");
+                .GetPositive12BranchHistory(jackpotList, "Chi 12 dương");
         historyList.add(branch4);
 
         SpecialSetHistory branch5 = JackpotBridgeHandler
-                .GetNegativeBranchDistanceHistoryEach2Days(jackpotList, "TST-");
+                .GetNegative12BranchHistory(jackpotList, "Chi 12 âm");
         historyList.add(branch5);
+
+        SpecialSetHistory branch6 = JackpotBridgeHandler
+                .GetPositive13BranchHistory(jackpotList, "Chi 13 dương");
+        historyList.add(branch6);
+
+        SpecialSetHistory branch7 = JackpotBridgeHandler
+                .GetNegative13BranchHistory(jackpotList, "Chi 13 âm");
+        historyList.add(branch7);
 
         // others
         List<SpecialSetHistory> headtails = new ArrayList<>();
@@ -96,7 +104,7 @@ public class SpecialSetsHistoryViewModel {
         historyList.addAll(sums);
 
         List<SpecialSetHistory> sets = new ArrayList<>();
-        for (int i : Const.SMALL_SETS) {
+        for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
             SpecialSetHistory set = JackpotBridgeHandler.GetSpecialSetHistory(jackpotList,
                     Const.SET + " " + i, (new Set(i)).getSetsDetail());
             sets.add(set);
@@ -111,9 +119,12 @@ public class SpecialSetsHistoryViewModel {
         SpecialSetHistory deviatedHistory = JackpotBridgeHandler
                 .GetSpecialSetHistory(jackpotList, Const.POSITIVE_DOUBLE_SET_NAME, Const.POSITIVE_DOUBLE_SET);
         others.add(deviatedHistory);
-        SpecialSetHistory nearHistory = JackpotBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE, Const.NEAR_DOUBLE_SET);
-        others.add(nearHistory);
+        SpecialSetHistory nearIncreaseHistory = JackpotBridgeHandler
+                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_INCREASE, Const.NEAR_DOUBLE_INCREASE_SET);
+        others.add(nearIncreaseHistory);
+        SpecialSetHistory nearDecreaseHistory = JackpotBridgeHandler
+                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_DECREASE, Const.NEAR_DOUBLE_DECREASE_SET);
+        others.add(nearDecreaseHistory);
         Collections.sort(others, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         historyList.addAll(others);
 
