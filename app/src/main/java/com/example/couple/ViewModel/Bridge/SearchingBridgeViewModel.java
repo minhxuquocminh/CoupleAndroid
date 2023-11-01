@@ -48,7 +48,7 @@ public class SearchingBridgeViewModel {
 
     public boolean GetConnectedBridge(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         ConnectedBridge connectedBridge = JackpotBridgeHandler.GetConnectedBridge(lotteries,
-                findingDays, dayNumberBefore, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+                dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
         if (dayNumberBefore < lotteries.size()) {
             String jackpotThatDay = "";
             if (dayNumberBefore - 1 < 0) {

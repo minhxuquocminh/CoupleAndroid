@@ -140,7 +140,7 @@ public class ReferenceBridgeViewModel {
 
     public void GetConnectedBridge(List<Lottery> lotteries) {
         ConnectedBridge connectedBridge = JackpotBridgeHandler.GetConnectedBridge(lotteries,
-                10, 0, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+                0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
         for (int i = 0; i < connectedBridge.getConnectedSupports().size(); i++) {
             for (int j = i + 1; j < connectedBridge.getConnectedSupports().size(); j++) {
                 if (connectedBridge.getConnectedSupports().get(j).getValue()

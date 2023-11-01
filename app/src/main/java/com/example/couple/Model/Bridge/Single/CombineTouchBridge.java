@@ -1,6 +1,7 @@
 package com.example.couple.Model.Bridge.Single;
 
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
@@ -57,6 +58,11 @@ public class CombineTouchBridge extends Bridge {
 
     public boolean isEmpty() {
         return numbers.isEmpty();
+    }
+
+    @Override
+    public String showCompactNumbers() {
+        return SingleBase.showTouchs(touchs);
     }
 
     public String getBridgeName() {

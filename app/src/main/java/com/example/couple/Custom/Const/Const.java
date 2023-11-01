@@ -37,6 +37,7 @@ public class Const {
     public static final String SHADOW_EXCHANGE_BRIDGE_NAME = "Cầu đổi bóng";
     public static final String ESTIMATED_BRIDGE_NAME = "Cầu ước lượng";
     public static final String CONNECTED_BRIDGE_NAME = "Cầu liên thông";
+    public static final String CONNECTED_SET_BRIDGE_NAME = "Cầu liên bộ";
     public static final String NEGATIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng -";
     public static final String POSITIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng +";
     public static final String COMBINE_TOUCH_BRIDGE_NAME = "Chạm kết hợp";

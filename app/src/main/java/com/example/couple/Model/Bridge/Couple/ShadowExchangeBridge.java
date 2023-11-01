@@ -4,9 +4,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Support.ShadowSingle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -24,8 +22,8 @@ public class ShadowExchangeBridge extends Bridge {
     }
 
     @Override
-    public List<Integer> getTouchs() {
-        return new ArrayList<>();
+    public String showCompactNumbers() {
+        return "";
     }
 
     @Override

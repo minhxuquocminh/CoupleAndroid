@@ -1,5 +1,6 @@
 package com.example.couple.Model.Bridge.Single;
 
+import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.JackpotHistory;
@@ -31,4 +32,8 @@ public class ShadowTouchBridge extends Bridge {
         return bridgeName.equals("") || touchs.isEmpty();
     }
 
+    @Override
+    public String showCompactNumbers() {
+        return SingleBase.showTouchs(touchs);
+    }
 }

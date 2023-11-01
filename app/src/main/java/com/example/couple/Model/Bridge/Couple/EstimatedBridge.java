@@ -3,8 +3,8 @@ package com.example.couple.Model.Bridge.Couple;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Bridge.Bridge;
-import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Support.PeriodHistory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,8 +61,8 @@ public class EstimatedBridge extends Bridge {
     }
 
     @Override
-    public List<Integer> getTouchs() {
-        return new ArrayList<>();
+    public String showCompactNumbers() {
+        return "";
     }
 
     @Override

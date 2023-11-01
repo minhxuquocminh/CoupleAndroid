@@ -41,7 +41,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     CheckBox cboPositiveShadowBridge;
     //
     CheckBox cboMappingBridge;
-    CheckBox cboShadowMappingBridge;
+    CheckBox cboConnectedSetBridge;
     CheckBox cboEstimatedBridge;
     CheckBox cboCompactRightMappingBridge;
     CheckBox cboCompatible;
@@ -84,7 +84,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboRightMappingBridge = findViewById(R.id.cboRightMappingBridge);
         cboCompatible = findViewById(R.id.cboCompatible);
         cboIncompatible = findViewById(R.id.cboIncompatible);
-        cboShadowMappingBridge = findViewById(R.id.cboShadowMappingBridge);
+        cboConnectedSetBridge = findViewById(R.id.cboConnectedSetBridge);
         cboEstimatedBridge = findViewById(R.id.cboEstimatedBridge);
         cboCompactRightMappingBridge = findViewById(R.id.cboCompactRightMappingBridge);
         cboTriadMappingBridge = findViewById(R.id.cboTriadMappingBridge);
@@ -128,7 +128,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 boolean positiveShadow = cboPositiveShadowBridge.isChecked();
                 // mapping, estimated
                 boolean mapping = cboMappingBridge.isChecked();
-                boolean shadowMapping = cboShadowMappingBridge.isChecked();
+                boolean connectedSet = cboConnectedSetBridge.isChecked();
                 boolean estimated = cboEstimatedBridge.isChecked();
                 boolean rightMapping = cboRightMappingBridge.isChecked();
                 boolean compatible = cboCompatible.isChecked();
@@ -155,7 +155,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             Integer.parseInt(numberOfDayStr);
                     viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseNextDay, numberOfDay,
                             combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
-                            mapping, shadowMapping, estimated, rightMapping, compatible, incompatible,
+                            mapping, connectedSet, estimated, rightMapping, compatible, incompatible,
                             compactRightMapping, triadMapping, shadowExchange, bigDouble, sameDouble, positiveDouble,
                             setData, touchData, sumData, branchData, headData, tailData, combineData
                     );
@@ -175,14 +175,14 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
 
     @Override
     public void ShowAllBridgeToday(CombineBridge combineBridge) {
-        cboCombineTouchBridge.setText("kết hợp " + combineBridge.getBridgeList().get(0).showTouchs());
-        cboConnectedBridge.setText("liên thông " + combineBridge.getBridgeList().get(1).showTouchs());
-        cboShadowTouchBridge.setText("bóng " + combineBridge.getBridgeList().get(2).showTouchs());
-        cboLottoTouchBridge.setText("lô tô " + combineBridge.getBridgeList().get(3).showTouchs());
-        cboNegativeShadowBridge.setText("bóng âm " + combineBridge.getBridgeList().get(4).showTouchs());
-        cboPositiveShadowBridge.setText("bóng dương " + combineBridge.getBridgeList().get(5).showTouchs());
+        cboCombineTouchBridge.setText("kết hợp " + combineBridge.getBridgeList().get(0).showCompactNumbers());
+        cboConnectedBridge.setText("liên thông " + combineBridge.getBridgeList().get(1).showCompactNumbers());
+        cboShadowTouchBridge.setText("bóng " + combineBridge.getBridgeList().get(2).showCompactNumbers());
+        cboLottoTouchBridge.setText("lô tô " + combineBridge.getBridgeList().get(3).showCompactNumbers());
+        cboNegativeShadowBridge.setText("bóng âm " + combineBridge.getBridgeList().get(4).showCompactNumbers());
+        cboPositiveShadowBridge.setText("bóng dương " + combineBridge.getBridgeList().get(5).showCompactNumbers());
         cboMappingBridge.setText("ánh xạ " + combineBridge.getBridgeList().get(6).getNumbers().size());
-        cboShadowMappingBridge.setText("ánh xạ bóng " + combineBridge.getBridgeList().get(7).getNumbers().size());
+        cboConnectedSetBridge.setText("liên bộ " + combineBridge.getBridgeList().get(7).showCompactNumbers());
         cboEstimatedBridge.setText("ước lg " + combineBridge.getBridgeList().get(8).getNumbers().size());
     }
 

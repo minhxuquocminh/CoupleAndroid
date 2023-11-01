@@ -25,8 +25,8 @@ public class MappingBridge extends Bridge {
     }
 
     @Override
-    public List<Integer> getTouchs() {
-        return new ArrayList<>();
+    public String showCompactNumbers() {
+        return "";
     }
 
 }

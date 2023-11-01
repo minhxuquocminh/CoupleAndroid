@@ -11,11 +11,11 @@ import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
 import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
-import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
 import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
@@ -55,7 +55,7 @@ public class BridgeCombinationViewModel {
                     JackpotBridgeHandler.GetCombineTouchBridge(jackpotList, lotteryList, 0);
             bridgeList.add(combineTouchBridge);
             ConnectedBridge connectedBridge = JackpotBridgeHandler.GetConnectedBridge(lotteryList,
-                    Const.CONNECTED_BRIDGE_FINDING_DAYS, 0, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+                    0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
             bridgeList.add(connectedBridge);
             ShadowTouchBridge shadowTouchBridge = JackpotBridgeHandler
                     .GetShadowTouchBridge(jackpotList, 0);
@@ -73,9 +73,10 @@ public class BridgeCombinationViewModel {
             MappingBridge mappingBridge =
                     JackpotBridgeHandler.GetMappingBridge(jackpotList, Const.MAPPING_ALL, 0);
             bridgeList.add(mappingBridge);
-            ShadowMappingBridge shadowMappingBridge =
-                    JackpotBridgeHandler.GetShadowMappingBridge(jackpotList, 0);
-            bridgeList.add(shadowMappingBridge);
+            ConnectedSetBridge connectedSetBridge =
+                    JackpotBridgeHandler.GetConnectedSetBridge(lotteryList, 0,
+                            Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+            bridgeList.add(connectedSetBridge);
             EstimatedBridge estimatedBridge = JackpotBridgeHandler.GetEstimatedBridge(jackpotList, 0);
             bridgeList.add(estimatedBridge);
             CombineBridge combineBridge = new CombineBridge(bridgeList,
@@ -88,7 +89,7 @@ public class BridgeCombinationViewModel {
                                      TimeBase timeBaseNextDay, int numberOfDay,
                                      boolean combineTouch, boolean connected, boolean shadowTouch,
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
-                                     boolean mapping, boolean shadowMapping, boolean estimated, boolean rightMapping,
+                                     boolean mapping, boolean connectedSet, boolean estimated, boolean rightMapping,
                                      boolean compatible, boolean incompatible, boolean compactRightMapping,
                                      boolean triadMapping, boolean shadowExchange,
                                      boolean bigDouble, boolean sameDouble, boolean positiveDouble,
@@ -112,7 +113,7 @@ public class BridgeCombinationViewModel {
             }
             if (connected) {
                 ConnectedBridge connectedBridge = JackpotBridgeHandler
-                        .GetConnectedBridge(lotteryList, Const.CONNECTED_BRIDGE_FINDING_DAYS, i,
+                        .GetConnectedBridge(lotteryList, i, Const.CONNECTED_BRIDGE_FINDING_DAYS,
                                 Const.CONNECTED_BRIDGE_MAX_DISPLAY);
                 bridgeList.add(connectedBridge);
             }
@@ -142,10 +143,11 @@ public class BridgeCombinationViewModel {
                         .GetMappingBridge(jackpotList, Const.MAPPING_ALL, i);
                 bridgeList.add(mappingBridge);
             }
-            if (shadowMapping) {
-                ShadowMappingBridge shadowMappingBridge = JackpotBridgeHandler
-                        .GetShadowMappingBridge(jackpotList, i);
-                bridgeList.add(shadowMappingBridge);
+            if (connectedSet) {
+                ConnectedSetBridge connectedSetBridge = JackpotBridgeHandler
+                        .GetConnectedSetBridge(lotteryList, i,
+                                Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+                bridgeList.add(connectedSetBridge);
             }
             if (estimated) {
                 EstimatedBridge estimatedBridge = JackpotBridgeHandler

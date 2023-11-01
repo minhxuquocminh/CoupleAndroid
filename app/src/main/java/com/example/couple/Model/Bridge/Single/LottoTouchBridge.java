@@ -1,5 +1,6 @@
 package com.example.couple.Model.Bridge.Single;
 
+import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
@@ -51,6 +52,11 @@ public class LottoTouchBridge extends Bridge {
         }
         this.jackpotHistory = jackpotHistory;
         this.numbers = NumberArrayHandler.getTouchs(touchs);
+    }
+
+    @Override
+    public String showCompactNumbers() {
+        return SingleBase.showTouchs(touchs);
     }
 
     public String getBridgeName() {

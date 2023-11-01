@@ -17,8 +17,8 @@ public class SpecialSetBridge extends Bridge {
     JackpotHistory jackpotHistory;
 
     @Override
-    public List<Integer> getTouchs() {
-        return new ArrayList<>();
+    public String showCompactNumbers() {
+        return "";
     }
 
     public static SpecialSetBridge getEmpty() {

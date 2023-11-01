@@ -1,7 +1,6 @@
 package com.example.couple.Model.Bridge;
 
 import com.example.couple.Base.Handler.CoupleBase;
-import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -9,20 +8,10 @@ import java.util.List;
 
 public abstract class Bridge {
 
-    public String showBridge() {
-        String show = "";
-        String win = getJackpotHistory().isEmpty() ? "" : (isWin() ? "trúng" : "trượt");
-        String showDetail = !getTouchs().isEmpty() ? showTouchs() :
-                showNumbers() + " (" + getNumbers().size() + " số).";
-        show += " * " + getJackpotHistory().show() + " - " + win + "\n";
-        show += "    - " + getBridgeName() + ": " + showDetail;
-        return show;
-    }
-
     public String showCompactBridge() {
         String show = "";
         String win = getJackpotHistory().isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        String showDetail = !getTouchs().isEmpty() ? showTouchs() : getNumbers().size() + " số.";
+        String showDetail = !showCompactNumbers().equals("") ? showCompactNumbers() : getNumbers().size() + " số.";
         show += "    - " + getBridgeName() + win + ": " + showDetail;
         return show;
     }
@@ -31,15 +20,11 @@ public abstract class Bridge {
         return CoupleHandler.isWin(getJackpotHistory(), getNumbers());
     }
 
-    public String showTouchs() {
-        return SingleBase.showTouchs(getTouchs());
-    }
-
     public String showNumbers() {
         return CoupleBase.showCoupleNumbers(getNumbers());
     }
 
-    public abstract List<Integer> getTouchs();
+    public abstract String showCompactNumbers();
 
     public abstract String getBridgeName();
 
