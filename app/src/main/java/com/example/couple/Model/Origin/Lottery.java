@@ -32,16 +32,9 @@ public class Lottery {
         return new Jackpot(lottery.get(0), dateBase);
     }
 
-    public int getThirdClaw() {
-        return Integer.parseInt(lottery.get(0).charAt(2) + "");
-    }
-
-    public int getSecondClaw() {
-        return Integer.parseInt(lottery.get(0).charAt(3) + "");
-    }
-
-    public int getFirstClaw() {
-        return Integer.parseInt(lottery.get(0).charAt(4) + "");
+    // clawType được đánh dấu theo thứ tự 54321
+    public int getClaw(int clawType) {
+        return Integer.parseInt(lottery.get(0).charAt(5 - clawType) + "");
     }
 
     public Couple getJackpotCouple() {

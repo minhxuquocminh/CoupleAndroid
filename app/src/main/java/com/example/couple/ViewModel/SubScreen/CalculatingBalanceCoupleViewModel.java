@@ -1,6 +1,6 @@
 package com.example.couple.ViewModel.SubScreen;
 
-import com.example.couple.Custom.Handler.CoupleBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleView;
 
@@ -28,7 +28,7 @@ public class CalculatingBalanceCoupleViewModel {
             BCouple BCouple1 = new BCouple(first / 10, first % 10);
             BCouple BCouple2 = new BCouple(second / 10, second % 10);
 
-            List<BCouple> balanceBCouples = CoupleBridgeHandler.GetBalanceCouples(BCouple1, BCouple2);
+            List<BCouple> balanceBCouples = BCoupleBridgeHandler.GetBalanceCouples(BCouple1, BCouple2);
             int count = 0;
             String result = "Các bộ số tính toán được: \n";
             for (BCouple cp : balanceBCouples) {

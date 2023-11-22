@@ -6,7 +6,7 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Custom.Handler.JackpotBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
@@ -37,7 +37,7 @@ public class CreateNumberArrayViewModel {
     }
 
     public void GetPeriodHistory(List<Jackpot> jackpotList) {
-        List<PeriodHistory> periodHistoryList = JackpotBridgeHandler.GetPeriodHistoryList(jackpotList,
+        List<PeriodHistory> periodHistoryList = EstimatedBridgeHandler.GetPeriodHistoryList(jackpotList,
                 0, 2, Const.AMPLITUDE_OF_PERIOD);
         if (periodHistoryList.isEmpty()) {
             view.ShowError("Không lấy được lịch sử các cách chạy.");

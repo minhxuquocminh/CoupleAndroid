@@ -2,7 +2,7 @@ package com.example.couple.Model.Bridge.Single;
 
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.JackpotBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.ConnectedSupport;
@@ -23,7 +23,7 @@ public class ConnectedBridge extends Bridge {
     public ConnectedBridge(List<ConnectedSupport> connectedSupports, JackpotHistory jackpotHistory) {
         this.connectedSupports = connectedSupports;
         this.jackpotHistory = jackpotHistory;
-        this.touchs = JackpotBridgeHandler.GetConnectedTouchs(connectedSupports);
+        this.touchs = ConnectedBridgeHandler.GetConnectedTouchs(connectedSupports);
         this.numbers = NumberArrayHandler.getTouchs(touchs);
     }
 

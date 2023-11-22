@@ -1,4 +1,4 @@
-package com.example.couple.Custom.Handler;
+package com.example.couple.Custom.Handler.Bridge;
 
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.BSingle;
@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class CoupleBridgeHandler {
+public class BCoupleBridgeHandler {
 
     // work with jackpot
 
@@ -73,8 +73,8 @@ public class CoupleBridgeHandler {
         BCouple cp2 = jackpotList.get(2).getBCouple();
         BCouple cp1 = jackpotList.get(1).getBCouple();
         BCouple cp0 = jackpotList.get(0).getBCouple();
-        List<BCouple> couples1 = CoupleBridgeHandler.GetBalanceCouples(cp3, cp2);
-        List<BCouple> couples2 = CoupleBridgeHandler.GetBalanceCouples(cp1, cp0);
+        List<BCouple> couples1 = BCoupleBridgeHandler.GetBalanceCouples(cp3, cp2);
+        List<BCouple> couples2 = BCoupleBridgeHandler.GetBalanceCouples(cp1, cp0);
         List<Integer> balance1 = new ArrayList<>();
         List<Integer> balance2 = new ArrayList<>();
         for (int i = 0; i < couples1.size(); i++) {

@@ -10,7 +10,7 @@ import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.CheckUpdate;
-import com.example.couple.Custom.Handler.CoupleBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.TimeHandler;
@@ -203,14 +203,14 @@ public class HomePageViewModel {
 
     public void GetTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() >= 2) {
-            List<BSingle> touchList = CoupleBridgeHandler.GetTouchBridge(jackpotList);
+            List<BSingle> touchList = BCoupleBridgeHandler.GetTouchBridge(jackpotList);
             homePageView.ShowTouchBridge(touchList);
         }
     }
 
     public void GetSpecialTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() >= 4) {
-            List<Integer> touchList = CoupleBridgeHandler.GetSpecialTouchBridge(jackpotList);
+            List<Integer> touchList = BCoupleBridgeHandler.GetSpecialTouchBridge(jackpotList);
             homePageView.ShowSpecialTouchBridge(touchList);
         }
     }

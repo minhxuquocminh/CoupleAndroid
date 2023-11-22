@@ -1,0 +1,70 @@
+package com.example.couple.Custom.Handler.Bridge;
+
+import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
+import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Support.PeriodHistory;
+import com.example.couple.Model.Time.DateBase;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class EstimatedBridgeHandler {
+
+    public static EstimatedBridge GetEstimatedBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        List<PeriodHistory> periodHistories3 = GetPeriodHistoryList(jackpotList,
+                dayNumberBefore, 3, Const.AMPLITUDE_OF_PERIOD);
+        List<PeriodHistory> periodHistories4 = GetPeriodHistoryList(jackpotList,
+                dayNumberBefore, 4, Const.AMPLITUDE_OF_PERIOD);
+        Jackpot jackpot = dayNumberBefore == 0 ?
+                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        return new EstimatedBridge(periodHistories3, periodHistories4,
+                new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
+    public static List<PeriodHistory> GetPeriodHistoryList(List<Jackpot> jackpotList,
+                                                           int dayNumberBefore, int periodNumber, int range) {
+        if (jackpotList.size() < dayNumberBefore + periodNumber) return new ArrayList<>();
+        List<Integer> lastNumbers = new ArrayList<>();
+        for (int i = dayNumberBefore; i < dayNumberBefore + periodNumber; i++) {
+            lastNumbers.add(jackpotList.get(i).getCoupleInt());
+        }
+
+        List<PeriodHistory> periodHistoryList = new ArrayList<>();
+        for (int i = dayNumberBefore + periodNumber; i < jackpotList.size() - periodNumber; i++) {
+            int count = 0;
+            List<Integer> numbers = new ArrayList<>();
+            for (int j = 0; j < periodNumber; j++) {
+                int coupleCheck = jackpotList.get(i + j).getCoupleInt();
+                if (isInPeriod(lastNumbers.get(j), coupleCheck, range)) {
+                    count++;
+                    numbers.add(coupleCheck);
+                }
+            }
+            if (count == periodNumber) {
+                Collections.reverse(numbers);
+                DateBase start = jackpotList.get(i + periodNumber).getDateBase();
+                DateBase end = jackpotList.get(i).getDateBase();
+                if (i - 1 < jackpotList.size() - 1) {
+                    numbers.add(jackpotList.get(i - 1).getCoupleInt());
+                    end = jackpotList.get(i - 1).getDateBase();
+                }
+                periodHistoryList.add(new PeriodHistory(start, end, numbers));
+            }
+        }
+
+        Collections.reverse(periodHistoryList);
+
+        return periodHistoryList;
+    }
+
+    private static boolean isInPeriod(int number, int numberCheck, int range) {
+        if (number < 0 || number > 99) return false;
+        if (number <= range) return numberCheck >= 0 && numberCheck <= number + range;
+        if (number >= 99 - range) return numberCheck <= 99 && numberCheck >= number - range;
+        return numberCheck >= number - range && numberCheck <= number + range;
+    }
+
+}

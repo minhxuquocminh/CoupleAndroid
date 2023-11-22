@@ -16,7 +16,7 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
-import com.example.couple.Custom.Handler.CoupleBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.Model.Display.NearestTime;
@@ -415,7 +415,7 @@ public class CustomTableLayout {
 
             Couple dgFirst = jackpotList.get(i).getCouple(); //the day before 2 day
             Couple dgSecond = jackpotList.get(i - 1).getCouple(); // the day before 1 day
-            List<BCouple> balanceBCouples = CoupleBridgeHandler.GetBalanceCouples(
+            List<BCouple> balanceBCouples = BCoupleBridgeHandler.GetBalanceCouples(
                     dgFirst.toBCouple(), dgSecond.toBCouple());
 
             //Current row is at i - 2 position

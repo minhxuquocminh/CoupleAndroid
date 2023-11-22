@@ -3,7 +3,8 @@ package com.example.couple.ViewModel.Couple;
 import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.JackpotBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
@@ -34,7 +35,7 @@ public class BalanceCoupleViewModel {
     }
 
     public void GetPeriodHistory(List<Jackpot> jackpotList, String dayNumberBefore, String filterDays) {
-        List<PeriodHistory> periodHistoryList = JackpotBridgeHandler.GetPeriodHistoryList(jackpotList,
+        List<PeriodHistory> periodHistoryList = EstimatedBridgeHandler.GetPeriodHistoryList(jackpotList,
                 Integer.parseInt(dayNumberBefore), Integer.parseInt(filterDays), Const.AMPLITUDE_OF_PERIOD);
         balanceCoupleView.ShowPeriodHistory(periodHistoryList);
     }
@@ -42,8 +43,8 @@ public class BalanceCoupleViewModel {
     public void GetCombinePeriod(List<Jackpot> jackpotList, String dayNumberBeforeStr, int bridgeType) {
         int dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        EstimatedBridge estimatedBridge = JackpotBridgeHandler.GetEstimatedBridge(jackpotList, dayNumberBefore);
-        List<Integer> touchs = JackpotBridgeHandler.GetTouchsByClawSupport(lotteries,
+        EstimatedBridge estimatedBridge = EstimatedBridgeHandler.GetEstimatedBridge(jackpotList, dayNumberBefore);
+        List<Integer> touchs = ConnectedBridgeHandler.GetTouchsByClawSupport(lotteries,
                 Const.CLAW_BRIDGE_SEARCHING_DAYS, Integer.parseInt(dayNumberBeforeStr), 8, bridgeType);
         if (touchs.isEmpty()) {
             balanceCoupleView.ShowError("Không tìm thấy cầu.");

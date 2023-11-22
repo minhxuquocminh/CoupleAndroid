@@ -4,8 +4,9 @@ import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.CoupleBridgeHandler;
-import com.example.couple.Custom.Handler.JackpotBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
@@ -46,20 +47,20 @@ public class ReferenceBridgeViewModel {
 
     public void GetTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() >= 2) {
-            List<BSingle> touchList = CoupleBridgeHandler.GetTouchBridge(jackpotList);
+            List<BSingle> touchList = BCoupleBridgeHandler.GetTouchBridge(jackpotList);
             referenceBridgeView.ShowTouchBridge(touchList);
         }
     }
 
     public void GetSpecialTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() >= 4) {
-            List<Integer> touchList = CoupleBridgeHandler.GetSpecialTouchBridge(jackpotList);
+            List<Integer> touchList = BCoupleBridgeHandler.GetSpecialTouchBridge(jackpotList);
             referenceBridgeView.ShowSpecialTouchBridge(touchList);
         }
     }
 
     public void GetTouchThirdClawBridge(List<Jackpot> jackpotList) {
-        List<BSingle> BSingleList = JackpotBridgeHandler.GetTouchsByThirdClawBridge(jackpotList, 0);
+        List<BSingle> BSingleList = OtherBridgeHandler.GetTouchsByThirdClawBridge(jackpotList, 0);
         referenceBridgeView.ShowTouchThirdClawBridge(BSingleList, jackpotList.size());
     }
 
@@ -139,7 +140,7 @@ public class ReferenceBridgeViewModel {
     }
 
     public void GetConnectedBridge(List<Lottery> lotteries) {
-        ConnectedBridge connectedBridge = JackpotBridgeHandler.GetConnectedBridge(lotteries,
+        ConnectedBridge connectedBridge = ConnectedBridgeHandler.GetConnectedBridge(lotteries,
                 0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
         for (int i = 0; i < connectedBridge.getConnectedSupports().size(); i++) {
             for (int j = i + 1; j < connectedBridge.getConnectedSupports().size(); j++) {
@@ -153,13 +154,13 @@ public class ReferenceBridgeViewModel {
     }
 
     public void GetTriadClawBridge(List<Lottery> lotteryList) {
-        List<ClawSupport> clawSupportList = JackpotBridgeHandler.GetClawSupport(lotteryList,
+        List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteryList,
                 10, 0, 3, Const.CLAW_BRIDGE_MAX_DISPLAY);
         referenceBridgeView.ShowThirdClawBridge(clawSupportList);
     }
 
     public void GetTriadBridge(List<Lottery> lotteryList) {
-        List<TriadBridge> triadBridgeList = JackpotBridgeHandler.GetTriadBridge(lotteryList,
+        List<TriadBridge> triadBridgeList = ConnectedBridgeHandler.GetTriadBridge(lotteryList,
                 Const.TRIAD_SET_BRIDGE_SEARCHING_DAYS, 0, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
 
         List<Set> triadSetList = new ArrayList<>();

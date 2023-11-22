@@ -1,7 +1,7 @@
 package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.JackpotBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Support.ConnectedSupport;
@@ -22,7 +22,7 @@ public class ConnectedSetBridge extends Bridge {
     public ConnectedSetBridge(List<ConnectedSupport> connectedSupports, JackpotHistory jackpotHistory) {
         this.connectedSupports = connectedSupports;
         this.jackpotHistory = jackpotHistory;
-        this.sets = JackpotBridgeHandler.GetConnectedSets(connectedSupports);
+        this.sets = ConnectedBridgeHandler.GetConnectedSets(connectedSupports);
         this.numbers = new ArrayList<>();
         for (Set set : sets) {
             numbers.addAll(set.getSetsDetail());
