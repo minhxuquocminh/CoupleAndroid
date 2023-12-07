@@ -154,6 +154,34 @@
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
+                <TextView
+                    android:id="@+id/tvTestConnectedBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Thông tin cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvTest2ConnectedBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15dp"
+                    android:layout_marginRight="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorThemeLight"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/padding_2dp"
+                    android:text="Thông tin cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

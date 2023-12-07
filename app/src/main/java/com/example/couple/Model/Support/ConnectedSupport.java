@@ -14,11 +14,9 @@ public class ConnectedSupport {
     Position position;
     List<Integer> typeList;
     int numberOfRuns;
-    JackpotHistory jackpotHistory;
 
     public String show() {
-        String show = "Số " + value + " (G" + LotteryHandler.swapPrizeName[position.getFirstLevel()] +
-                " - VT" + (position.getSecondLevel() + 1) + " - B: ";
+        String show = "Số " + value + " (" + LotteryHandler.showPrize(position) + " - B: ";
         for (int i = 0; i < typeList.size(); i++) {
             int type = typeList.get(i);
             show += type < 0 ? "+" + type * -1 : type + "";

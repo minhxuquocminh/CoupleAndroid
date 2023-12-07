@@ -29,8 +29,7 @@ public class ClawSupport {
     }
 
     public String showStatus() {
-        String show = "Càng " + claw + " (G" + LotteryHandler.swapPrizeName[position.getFirstLevel()] + " - VT" +
-                (position.getSecondLevel() + 1) + " - N: ";
+        String show = "Càng " + claw + " (" + LotteryHandler.showPrize(position) + " - N: ";
         for (int i = 0; i < beatList.size(); i++) {
             show += beatList.get(i) + "";
             if (i != beatList.size() - 1) {

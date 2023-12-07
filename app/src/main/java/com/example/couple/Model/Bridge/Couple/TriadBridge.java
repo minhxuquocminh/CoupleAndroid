@@ -6,7 +6,6 @@ import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Display.Status;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Support.Position;
 import com.example.couple.Model.Support.SupportTriad;
 
 import java.util.ArrayList;
@@ -65,17 +64,10 @@ public class TriadBridge {
     }
 
     public String show() {
-        Position first = firstBridge.getPosition();
-        Position second = secondBridge.getPosition();
-        Position third = thirdBridge.getPosition();
-
         String show = "Các số: " + firstBridge.getValue() + ", " + secondBridge.getValue() + ", "
-                + thirdBridge.getValue() + " - G" + LotteryHandler.swapPrizeName[first.getFirstLevel()] +
-                " VT" + (first.getSecondLevel() + 1) + ", G" +
-                LotteryHandler.swapPrizeName[second.getFirstLevel()] +
-                " VT" + (second.getSecondLevel() + 1) + ", G" +
-                LotteryHandler.swapPrizeName[third.getFirstLevel()] +
-                " VT" + (third.getSecondLevel() + 1) + " \n TT: ";
+                + thirdBridge.getValue() + " - " + LotteryHandler.showPrize(firstBridge.getPosition()) +
+                ", " + LotteryHandler.showPrize(secondBridge.getPosition()) + ", " +
+                LotteryHandler.showPrize(thirdBridge.getPosition()) + " \n TT: ";
         for (int i = 0; i < statusList.size(); i++) {
             show += statusList.get(i).show();
             if (i != statusList.size() - 1) {

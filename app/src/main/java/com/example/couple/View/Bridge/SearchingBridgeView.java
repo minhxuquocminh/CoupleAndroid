@@ -8,6 +8,8 @@ import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.PairConnectedSupport;
+import com.example.couple.Model.Support.TriangleConnectedSupport;
 
 import java.util.List;
 
@@ -24,4 +26,8 @@ public interface SearchingBridgeView {
     void ShowThirdClawBridge(List<ClawSupport> clawSupportList);
     void ShowJackpotThirdClawBridge(List<BSingle> BSingleList, int frame);
     void ShowThreeSetBridgeStatus(List<Integer> statusList);
+
+    void ShowTest(List<TriangleConnectedSupport> connectedBridge);
+
+    void ShowTest2(List<PairConnectedSupport> supports);
 }

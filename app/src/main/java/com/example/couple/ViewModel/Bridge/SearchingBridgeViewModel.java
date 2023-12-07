@@ -15,7 +15,9 @@ import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.ClawSupport;
+import com.example.couple.Model.Support.PairConnectedSupport;
 import com.example.couple.Model.Support.TriadSets;
+import com.example.couple.Model.Support.TriangleConnectedSupport;
 import com.example.couple.View.Bridge.SearchingBridgeView;
 
 import java.util.ArrayList;
@@ -243,4 +245,17 @@ public class SearchingBridgeViewModel {
         searchingBridgeView.ShowJackpotThirdClawBridge(BSingleList, jackpotList.size());
     }
 
+    public void Test(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
+        List<TriangleConnectedSupport> connectedBridge = ConnectedBridgeHandler.GetTriangleConnectedSupports(lotteries,
+                dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY,true);
+       if(!connectedBridge.isEmpty())
+            searchingBridgeView.ShowTest(connectedBridge);
+    }
+
+    public void Test2(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
+        List<PairConnectedSupport> supports = ConnectedBridgeHandler.GetPairConnectedSupports(lotteries,
+                dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY,true);
+        if(!supports.isEmpty())
+            searchingBridgeView.ShowTest2(supports);
+    }
 }

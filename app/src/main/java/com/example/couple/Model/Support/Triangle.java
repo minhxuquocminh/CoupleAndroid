@@ -5,7 +5,13 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Doublet {
+public class Triangle {
     int first;
     int second;
+    int third;
+
+    public String show(String split) {
+        return first + split + second + split + third;
+    }
+
 }

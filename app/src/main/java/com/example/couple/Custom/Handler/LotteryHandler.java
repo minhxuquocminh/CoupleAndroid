@@ -5,13 +5,14 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Support.Position;
 import com.example.couple.Model.Time.DateBase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LotteryHandler {
-    public static final double[] swapPrizeName = {0, 1, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6,
+    private static final double[] swapPrizeName = {0, 1, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6,
             4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 7.1, 7.2, 7.3, 7.4};
 
     public static List<Lottery> getLotteryListFromFile(Context context, int numberOfDays) {
@@ -45,5 +46,9 @@ public class LotteryHandler {
         return lotteries;
     }
 
+    public static String showPrize(Position position) {
+        return "G" + LotteryHandler.swapPrizeName[position.getFirstLevel()] +
+                " VT" + (position.getSecondLevel() + 1);
+    }
 
 }

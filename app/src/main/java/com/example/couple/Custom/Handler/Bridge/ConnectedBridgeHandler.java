@@ -5,6 +5,7 @@ import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
+import com.example.couple.Model.Bridge.Couple.PairConnectedBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.Single.ClawBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
@@ -16,11 +17,16 @@ import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.Model.Support.ConnectedSupport;
 import com.example.couple.Model.Support.DayPositions;
-import com.example.couple.Model.Support.Doublet;
 import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Support.Pair;
+import com.example.couple.Model.Support.PairConnectedSupport;
+import com.example.couple.Model.Support.PairPosition;
 import com.example.couple.Model.Support.Position;
 import com.example.couple.Model.Support.SupportTriad;
 import com.example.couple.Model.Support.TriadSets;
+import com.example.couple.Model.Support.Triangle;
+import com.example.couple.Model.Support.TriangleConnectedSupport;
+import com.example.couple.Model.Support.TrianglePosition;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,34 +35,114 @@ import java.util.List;
 
 public class ConnectedBridgeHandler {
 
-    public static ConnectedSetBridge GetConnectedSetBridge(List<Lottery> lotteries,
-                                                           int dayNumberBefore,
-                                                           int searchingDays,
-                                                           int maxDisplay) {
-        if (lotteries.isEmpty()) return ConnectedSetBridge.getEmpty();
-        List<ConnectedSupport> connectedSupports =
-                GetConnectedSupportList(lotteries, dayNumberBefore, searchingDays, maxDisplay);
+
+    public static PairConnectedBridge GetConnectedVer2Bridge(List<Lottery> lotteries, int dayNumberBefore,
+                                                             int searchingDays, int maxDisplay) {
+        if (lotteries.isEmpty()) return PairConnectedBridge.getEmpty();
+        List<PairConnectedSupport> connectedSupports =
+                GetPairConnectedSupports(lotteries, dayNumberBefore, searchingDays, maxDisplay, false);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
-        return new ConnectedSetBridge(connectedSupports, new JackpotHistory(dayNumberBefore, jackpot));
+        return new PairConnectedBridge("2 cửa", connectedSupports, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static ConnectedBridge GetConnectedBridge(List<Lottery> lotteries, int dayNumberBefore,
-                                                     int searchingDays, int maxDisplay) {
-        if (lotteries.isEmpty()) return ConnectedBridge.getEmpty();
-        List<ConnectedSupport> connectedSupports =
-                GetConnectedSupportList(lotteries, dayNumberBefore, searchingDays, maxDisplay);
-        Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
-        return new ConnectedBridge(connectedSupports, new JackpotHistory(dayNumberBefore, jackpot));
-    }
-
-    public static List<ConnectedSupport> GetConnectedSupportList(List<Lottery> lotteries,
-                                                                 int dayNumberBefore,
-                                                                 int searchingDays,
-                                                                 int maxDisplay) {
+    public static List<PairConnectedSupport> GetPairConnectedSupports(List<Lottery> lotteries, int dayNumberBefore,
+                                                                      int searchingDays, int maxDisplay,
+                                                                      boolean useShadow) {
         if (lotteries.isEmpty()) return new ArrayList<>();
-        List<DayPositions> dayPositionsList = GetDayPositionsList(lotteries, searchingDays, dayNumberBefore);
+        List<ConnectedSupport> connectedSupports = GetConnectedSupportList(lotteries,
+                dayNumberBefore, searchingDays, maxDisplay, useShadow, false);
+        if (connectedSupports.size() < 2) return new ArrayList<>();
+
+        List<PairConnectedSupport> supports = new ArrayList<>();
+        for (int i = 0; i < connectedSupports.size(); i++) {
+            for (int j = i + 1; j < connectedSupports.size(); j++) {
+                List<Integer> firstTypes = connectedSupports.get(i).getTypeList();
+                List<Integer> secondTypes = connectedSupports.get(j).getTypeList();
+                int size = firstTypes.size() < secondTypes.size() ? firstTypes.size() : secondTypes.size();
+                int time = 0;
+                List<Pair> pairTypes = new ArrayList<>();
+                for (int k = 0; k < size; k++) {
+                    if (firstTypes.get(k) + secondTypes.get(k) != 3) {
+                        break;
+                    }
+                    time++;
+                    pairTypes.add(new Pair(firstTypes.get(k), secondTypes.get(k)));
+                }
+                if (time > 1) {
+                    Position firstPosition = connectedSupports.get(i).getPosition();
+                    Position secondPosition = connectedSupports.get(j).getPosition();
+                    int first = lotteries.get(dayNumberBefore).getValueAtPosition(firstPosition);
+                    int second = lotteries.get(dayNumberBefore).getValueAtPosition(secondPosition);
+                    PairPosition pairPosition = new PairPosition(firstPosition, secondPosition);
+                    supports.add(new PairConnectedSupport(new Pair(first, second), pairPosition, pairTypes, time));
+                }
+            }
+        }
+
+        Collections.sort(supports, (x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
+        int sizeOfShow = maxDisplay < supports.size() ? maxDisplay : supports.size();
+
+        return supports.subList(0, sizeOfShow);
+    }
+
+    public static List<TriangleConnectedSupport> GetTriangleConnectedSupports(List<Lottery> lotteries, int dayNumberBefore,
+                                                                              int searchingDays, int maxDisplay,
+                                                                              boolean useShadow) {
+        if (lotteries.isEmpty()) return new ArrayList<>();
+        List<ConnectedSupport> connectedSupports = GetConnectedSupportList(lotteries,
+                dayNumberBefore, searchingDays, maxDisplay, useShadow, true);
+        if (connectedSupports.size() < 2) return new ArrayList<>();
+
+        List<TriangleConnectedSupport> supports = new ArrayList<>();
+        for (int i = 0; i < connectedSupports.size(); i++) {
+            for (int j = i + 1; j < connectedSupports.size(); j++) {
+                for (int k = j + 1; k < connectedSupports.size(); k++) {
+                    List<Integer> firstTypes = connectedSupports.get(i).getTypeList();
+                    List<Integer> secondTypes = connectedSupports.get(j).getTypeList();
+                    List<Integer> thirdTypes = connectedSupports.get(k).getTypeList();
+                    int size = firstTypes.size() < secondTypes.size() ? firstTypes.size() : secondTypes.size();
+                    size = size < thirdTypes.size() ? size : thirdTypes.size();
+                    int time = 0;
+                    List<Triangle> types = new ArrayList<>();
+                    for (int t = 0; t < size; t++) {
+                        if (firstTypes.get(t) + secondTypes.get(t) + thirdTypes.get(t) != 6) {
+                            break;
+                        }
+                        if (firstTypes.get(t) == 2 && secondTypes.get(t) == 2 && thirdTypes.get(t) == 2) {
+                            break;
+                        }
+                        time++;
+                        types.add(new Triangle(firstTypes.get(t), secondTypes.get(t), thirdTypes.get(t)));
+                    }
+                    if (time > 1) {
+                        Position firstPosition = connectedSupports.get(i).getPosition();
+                        Position secondPosition = connectedSupports.get(j).getPosition();
+                        Position thirdPosition = connectedSupports.get(k).getPosition();
+                        int first = lotteries.get(dayNumberBefore).getValueAtPosition(firstPosition);
+                        int second = lotteries.get(dayNumberBefore).getValueAtPosition(secondPosition);
+                        int third = lotteries.get(dayNumberBefore).getValueAtPosition(thirdPosition);
+                        TrianglePosition trianglePosition =
+                                new TrianglePosition(firstPosition, secondPosition, thirdPosition);
+                        supports.add(new TriangleConnectedSupport(new Triangle(first, second, third),
+                                trianglePosition, types, time));
+                    }
+                }
+            }
+        }
+
+        Collections.sort(supports, (x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
+        int sizeOfShow = maxDisplay < supports.size() ? maxDisplay : supports.size();
+
+        return supports.subList(0, sizeOfShow);
+    }
+
+    public static List<ConnectedSupport> GetConnectedSupportList(List<Lottery> lotteries, int dayNumberBefore,
+                                                                 int searchingDays, int maxDisplay,
+                                                                 boolean useShadow, boolean addThirdClaw) {
+        if (lotteries.isEmpty()) return new ArrayList<>();
+        List<DayPositions> dayPositionsList =
+                GetDayPositionsList(lotteries, dayNumberBefore, searchingDays, useShadow, addThirdClaw);
         if (dayPositionsList.size() < 2) return new ArrayList<>();
         List<Position> startPositions = dayPositionsList.get(0).getPositions();
         List<DayPositions> searchDayPositionsList = dayPositionsList.subList(1, dayPositionsList.size());
@@ -86,10 +172,143 @@ public class ConnectedBridgeHandler {
             }
             if (times > 1) {
                 int value = lotteries.get(dayNumberBefore).getValueAtPosition(startPosition);
-                Jackpot jackpot = dayNumberBefore == 0 ?
-                        Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
-                ConnectedSupport connectedSupport = new ConnectedSupport(value,
-                        startPosition, typeList, times, new JackpotHistory(dayNumberBefore, jackpot));
+                ConnectedSupport connectedSupport = new ConnectedSupport(value, startPosition, typeList, times);
+                connectedSupportList.add(connectedSupport);
+            }
+        }
+
+        Collections.sort(connectedSupportList, (x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
+        int sizeOfShow = maxDisplay < connectedSupportList.size() ? maxDisplay : connectedSupportList.size();
+
+        return connectedSupportList.subList(0, sizeOfShow);
+    }
+
+    private static List<DayPositions> GetDayPositionsList(List<Lottery> lotteries, int dayNumberBefore,
+                                                          int searchingDays, boolean useShadow,
+                                                          boolean addThirdClaw) {
+        if (lotteries.size() < 2) return new ArrayList<>();
+        int size = searchingDays < lotteries.size() - dayNumberBefore ?
+                searchingDays - 1 : lotteries.size() - dayNumberBefore - 1;
+        List<DayPositions> dayPositionsList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            int firstClaw = lotteries.get(dayNumberBefore + i).getClaw(1);
+            int secondClaw = lotteries.get(dayNumberBefore + i).getClaw(2);
+            int thirdClaw = lotteries.get(dayNumberBefore + i).getClaw(3);
+            List<String> lotterySet = lotteries.get(dayNumberBefore + i + 1).getLottery();
+            List<Position> positions = new ArrayList<>();
+            for (int j = 0; j < lotterySet.size(); j++) {
+                String numberStr = lotterySet.get(j);
+                for (int k = 0; k < numberStr.length(); k++) {
+                    int single = Integer.parseInt(numberStr.charAt(k) + "");
+                    if (equalsWithShadow(single, firstClaw, useShadow)) {
+                        positions.add(new Position(j, k, 1));
+                    }
+                    if (equalsWithShadow(single, secondClaw, useShadow)) {
+                        positions.add(new Position(j, k, 2));
+                    }
+                    if (addThirdClaw && equalsWithShadow(single, thirdClaw, useShadow)) {
+                        positions.add(new Position(j, k, 3));
+                    }
+                }
+            }
+            DayPositions dayPositions =
+                    new DayPositions(lotteries.get(dayNumberBefore + i).getDateBase(), positions);
+            dayPositionsList.add(dayPositions);
+        }
+        return dayPositionsList;
+    }
+
+    private static boolean equalsWithShadow(int first, int second, boolean useShadow) {
+        if (!useShadow) return first == second;
+        return first == second || first == SingleBase.getShadow(second);
+    }
+
+    private static List<DayPositions> GetDayPositionsListByClawType(List<Lottery> lotteries,
+                                                                    int dayNumberBefore,
+                                                                    int searchingDays,
+                                                                    int clawType, boolean useShadow) {
+        if (lotteries.size() < 2) return new ArrayList<>();
+        int size = searchingDays < lotteries.size() - dayNumberBefore ?
+                searchingDays - 1 : lotteries.size() - dayNumberBefore - 1;
+        List<DayPositions> dayPositionsList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            int claw = lotteries.get(dayNumberBefore + i).getClaw(clawType);
+            List<String> lotterySet = lotteries.get(dayNumberBefore + i + 1).getLottery();
+            List<Position> positions = new ArrayList<>();
+            for (int j = 0; j < lotterySet.size(); j++) {
+                String numberStr = lotterySet.get(j);
+                for (int k = 0; k < numberStr.length(); k++) {
+                    int single = Integer.parseInt(numberStr.charAt(k) + "");
+                    if (single == claw || (useShadow && single == SingleBase.getShadow(claw))) {
+                        positions.add(new Position(j, k, clawType));
+                    }
+                }
+            }
+            DayPositions dayPositions =
+                    new DayPositions(lotteries.get(dayNumberBefore + i).getDateBase(), positions);
+            dayPositionsList.add(dayPositions);
+        }
+        return dayPositionsList;
+    }
+
+    public static ConnectedSetBridge GetConnectedSetBridge(List<Lottery> lotteries,
+                                                           int dayNumberBefore,
+                                                           int searchingDays,
+                                                           int maxDisplay) {
+        if (lotteries.isEmpty()) return ConnectedSetBridge.getEmpty();
+        List<ConnectedSupport> connectedSupports =
+                GetConnectedSupportList(lotteries, dayNumberBefore, searchingDays, maxDisplay);
+        Jackpot jackpot = dayNumberBefore == 0 ?
+                Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
+        return new ConnectedSetBridge(connectedSupports, new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
+    public static ConnectedBridge GetConnectedBridge(List<Lottery> lotteries, int dayNumberBefore,
+                                                     int searchingDays, int maxDisplay) {
+        if (lotteries.isEmpty()) return ConnectedBridge.getEmpty();
+        List<ConnectedSupport> connectedSupports =
+                GetConnectedSupportList(lotteries, dayNumberBefore, searchingDays, maxDisplay);
+        Jackpot jackpot = dayNumberBefore == 0 ?
+                Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
+        return new ConnectedBridge(connectedSupports, new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
+    public static List<ConnectedSupport> GetConnectedSupportList(List<Lottery> lotteries,
+                                                                 int dayNumberBefore,
+                                                                 int searchingDays,
+                                                                 int maxDisplay) {
+        if (lotteries.isEmpty()) return new ArrayList<>();
+        List<DayPositions> dayPositionsList = GetDayPositionsList(lotteries, dayNumberBefore, searchingDays);
+        if (dayPositionsList.size() < 2) return new ArrayList<>();
+        List<Position> startPositions = dayPositionsList.get(0).getPositions();
+        List<DayPositions> searchDayPositionsList = dayPositionsList.subList(1, dayPositionsList.size());
+
+        List<ConnectedSupport> connectedSupportList = new ArrayList<>();
+        for (Position startPosition : startPositions) {
+            List<Integer> typeList = new ArrayList<>();
+            typeList.add(startPosition.getType());
+            int times = 1;
+            for (DayPositions dayPositions : searchDayPositionsList) {
+                List<Position> positions = dayPositions.getPositions();
+                int count = 0;
+                for (Position position : positions) {
+                    if (position.equalsOnlyPosition(startPosition)) {
+                        count++;
+                        times++;
+                        if (count == 1) {
+                            typeList.add(position.getType());
+                        } else {
+                            typeList.add(position.getType() * -1);
+                        }
+                    }
+                }
+                if (count == 0) {
+                    break;
+                }
+            }
+            if (times > 1) {
+                int value = lotteries.get(dayNumberBefore).getValueAtPosition(startPosition);
+                ConnectedSupport connectedSupport = new ConnectedSupport(value, startPosition, typeList, times);
                 connectedSupportList.add(connectedSupport);
             }
         }
@@ -199,36 +418,8 @@ public class ConnectedBridgeHandler {
         return results;
     }
 
-    private static List<DayPositions> GetDayPositionsListByClawType(List<Lottery> lotteries,
-                                                                    int dayNumberBefore,
-                                                                    int searchingDays,
-                                                                    int clawType) {
-        if (lotteries.size() < 2) return new ArrayList<>();
-        int size = searchingDays < lotteries.size() - dayNumberBefore ?
-                searchingDays - 1 : lotteries.size() - dayNumberBefore - 1;
-        List<DayPositions> dayPositionsList = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            int claw = lotteries.get(dayNumberBefore + i).getClaw(clawType);
-            List<String> lotterySet = lotteries.get(dayNumberBefore + i + 1).getLottery();
-            List<Position> positions = new ArrayList<>();
-            for (int j = 0; j < lotterySet.size(); j++) {
-                String numberStr = lotterySet.get(j);
-                for (int k = 0; k < numberStr.length(); k++) {
-                    int single = Integer.parseInt(numberStr.charAt(k) + "");
-                    if (single == claw) {
-                        positions.add(new Position(j, k, claw));
-                    }
-                }
-            }
-            DayPositions dayPositions =
-                    new DayPositions(lotteries.get(dayNumberBefore + i).getDateBase(), positions);
-            dayPositionsList.add(dayPositions);
-        }
-        return dayPositionsList;
-    }
-
     private static List<DayPositions> GetDayPositionsList(List<Lottery> lotteries,
-                                                          int searchingDays, int dayNumberBefore) {
+                                                          int dayNumberBefore, int searchingDays) {
         if (lotteries.size() < 2) return new ArrayList<>();
         int size = searchingDays < lotteries.size() - dayNumberBefore ?
                 searchingDays - 1 : lotteries.size() - dayNumberBefore - 1;
@@ -335,7 +526,7 @@ public class ConnectedBridgeHandler {
                                                          int dayNumberBefore, int maxDisplay) {
         if (lotteries.size() == 0) return new ArrayList<>();
 
-        List<DayPositions> dayPositionsList = GetDayPositionsList(lotteries, searchingDays, dayNumberBefore);
+        List<DayPositions> dayPositionsList = GetDayPositionsList(lotteries, dayNumberBefore, searchingDays);
 
         int[][] count = new int[Const.NUMBER_OF_PRIZES][Const.MAX_LENGTH_OF_PRIZE];
         for (DayPositions dayPositions : dayPositionsList) {
@@ -457,7 +648,7 @@ public class ConnectedBridgeHandler {
     // lấy biên rồi so sánh các vị trí bên trong để quyết định biên nào được chọn
     public static List<Integer> GetTouchsByClawSupport(List<Lottery> lotteries, List<Integer> searchingDaysList,
                                                        int dayNumberBefore, int maxDisplay, int bridgeType) {
-        List<Doublet> doublets = new ArrayList<>();
+        List<Pair> pairs = new ArrayList<>();
         for (int searchDays : searchingDaysList) {
             List<ClawSupport> firstList = GetClawSupport(lotteries,
                     searchDays, dayNumberBefore, 1, maxDisplay);
@@ -465,19 +656,19 @@ public class ConnectedBridgeHandler {
                     searchDays, dayNumberBefore, 2, maxDisplay);
             if (!firstList.isEmpty() && !secondList.isEmpty()) {
                 if (bridgeType == 0)
-                    doublets.add(new Doublet(firstList.get(0).getClaw(), secondList.get(0).getClaw()));
+                    pairs.add(new Pair(firstList.get(0).getClaw(), secondList.get(0).getClaw()));
                 if (bridgeType == 1 && secondList.size() >= 2)
-                    doublets.add(new Doublet(secondList.get(0).getClaw(), secondList.get(1).getClaw()));
+                    pairs.add(new Pair(secondList.get(0).getClaw(), secondList.get(1).getClaw()));
             }
         }
-        if (doublets.size() < 2) return new ArrayList<>();
+        if (pairs.size() < 2) return new ArrayList<>();
         int firstStart = 0;
         int secondStart = 0;
-        for (int i = 1; i < doublets.size() - 1; i++) {
-            int startFirst = doublets.get(0).getFirst();
-            int startSecond = doublets.get(0).getSecond();
-            int runFirst = doublets.get(i).getFirst();
-            int runSecond = doublets.get(i).getSecond();
+        for (int i = 1; i < pairs.size() - 1; i++) {
+            int startFirst = pairs.get(0).getFirst();
+            int startSecond = pairs.get(0).getSecond();
+            int runFirst = pairs.get(i).getFirst();
+            int runSecond = pairs.get(i).getSecond();
             if (CoupleBase.getSmallShadow(startFirst) == CoupleBase.getSmallShadow(runFirst))
                 firstStart++;
             if (CoupleBase.getSmallShadow(startSecond) == CoupleBase.getSmallShadow(runSecond))
@@ -486,11 +677,11 @@ public class ConnectedBridgeHandler {
 
         int firstEnd = 0;
         int secondEnd = 0;
-        for (int i = doublets.size() - 2; i > 0; i--) {
-            int endFirst = doublets.get(doublets.size() - 1).getFirst();
-            int endSecond = doublets.get(doublets.size() - 1).getSecond();
-            int runFirst = doublets.get(i).getFirst();
-            int runSecond = doublets.get(i).getSecond();
+        for (int i = pairs.size() - 2; i > 0; i--) {
+            int endFirst = pairs.get(pairs.size() - 1).getFirst();
+            int endSecond = pairs.get(pairs.size() - 1).getSecond();
+            int runFirst = pairs.get(i).getFirst();
+            int runSecond = pairs.get(i).getSecond();
             if (CoupleBase.getSmallShadow(endFirst) == CoupleBase.getSmallShadow(runFirst))
                 firstEnd++;
             if (CoupleBase.getSmallShadow(endSecond) == CoupleBase.getSmallShadow(runSecond))
@@ -501,9 +692,9 @@ public class ConnectedBridgeHandler {
         int secondSub = secondStart - secondEnd;
 
         List<Integer> results = new ArrayList<>();
-        int resultIndex = firstSub + secondSub >= 0 ? 0 : doublets.size() - 1;
-        int first = doublets.get(resultIndex).getFirst();
-        int second = doublets.get(resultIndex).getSecond();
+        int resultIndex = firstSub + secondSub >= 0 ? 0 : pairs.size() - 1;
+        int first = pairs.get(resultIndex).getFirst();
+        int second = pairs.get(resultIndex).getSecond();
         results.add(first);
         results.add(second);
         results.add(SingleBase.getShadow(first));

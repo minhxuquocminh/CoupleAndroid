@@ -26,6 +26,8 @@ import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.Model.Support.ConnectedSupport;
+import com.example.couple.Model.Support.PairConnectedSupport;
+import com.example.couple.Model.Support.TriangleConnectedSupport;
 import com.example.couple.R;
 import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.ViewModel.Bridge.SearchingBridgeViewModel;
@@ -60,6 +62,9 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
     TextView tvSub1;
     TextView tvDayNumberBefore;
     TextView tvPlus1;
+
+    TextView tvTestConnectedBridge;
+    TextView tvTest2ConnectedBridge;
 
     SearchingBridgeViewModel viewModel;
     List<Jackpot> jackpotList = new ArrayList<>();
@@ -98,6 +103,9 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvSub2 = findViewById(R.id.tvSub2);
         tvDayNumberBefore = findViewById(R.id.tvDayNumberBefore);
         tvPlus2 = findViewById(R.id.tvPlus2);
+
+        tvTestConnectedBridge = findViewById(R.id.tvTestConnectedBridge);
+        tvTest2ConnectedBridge = findViewById(R.id.tvTest2ConnectedBridge);
 
         viewModel = new SearchingBridgeViewModel(this, this);
         viewModel.GetLotteryListAndJackpotList();
@@ -141,6 +149,8 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
     @Override
     public void ShowLotteryList(List<Lottery> lotteries) {
         viewModel.GetConnectedBridge(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+        viewModel.Test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+        viewModel.Test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
         viewModel.GetTriadBridge(lotteries,
                 TRIAD_BRIDGE_FINDING_DAYS, dayNumberBefore);
         viewModel.FindingFirstClawBridge(lotteries, 12, dayNumberBefore);
@@ -164,6 +174,8 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                     tvDayNumberBefore.setText(dayNumberBefore + "");
                     int findingDays = Integer.parseInt(findingDaysStr);
                     int count = 0;
+                    viewModel.Test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                    viewModel.Test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
                     if (viewModel.GetConnectedBridge(lotteries,
                             Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                         count++;
@@ -272,6 +284,8 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                         edtDayNumberBefore.setSelection(edtDayNumberBefore.length());
                         int findingDays = Integer.parseInt(findingDaysStr);
                         int count = 0;
+                        viewModel.Test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                        viewModel.Test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
                         if (viewModel.GetConnectedBridge(lotteries,
                                 Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                             count++;
@@ -318,6 +332,8 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                         edtDayNumberBefore.setSelection(edtDayNumberBefore.length());
                         int findingDays = Integer.parseInt(findingDaysStr);
                         int count = 0;
+                        viewModel.Test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                        viewModel.Test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
                         if (viewModel.GetConnectedBridge(lotteries,
                                 Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                             count++;
@@ -530,6 +546,30 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    @Override
+    public void ShowTest(List<TriangleConnectedSupport> supports) {
+        String info = "";
+        for (int i = 0; i < supports.size(); i++) {
+            info += " - " + supports.get(i).show();
+            if (i != supports.size() - 1) {
+                info += "\n";
+            }
+        }
+        tvTestConnectedBridge.setText(info);
+    }
+
+    @Override
+    public void ShowTest2(List<PairConnectedSupport> supports) {
+        String info = "";
+        for (int i = 0; i < supports.size(); i++) {
+            info += " - " + supports.get(i).show();
+            if (i != supports.size() - 1) {
+                info += "\n";
+            }
+        }
+        tvTest2ConnectedBridge.setText(info);
     }
 
 }
