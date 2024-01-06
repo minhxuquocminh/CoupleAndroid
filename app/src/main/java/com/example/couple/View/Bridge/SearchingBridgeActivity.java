@@ -469,7 +469,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         }
         show += "\n * Chi tiết cầu:\n";
         for (int i = 0; i < triadBridgeList.size(); i++) {
-            show += " - " + triadBridgeList.get(i).show();
+            show += triadBridgeList.get(i).show();
             if (i != triadBridgeList.size() - 1) {
                 show += "\n";
             }

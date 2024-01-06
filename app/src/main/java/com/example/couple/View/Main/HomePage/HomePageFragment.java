@@ -88,7 +88,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
         homePageViewModel.UpdateAllDataIfNeeded();
         homePageViewModel.GetTimeDataFromFile();
         homePageViewModel.GetJackpotDataFromFile();
-        homePageViewModel.GetLotteryList(Const.MAX_DAYS_TO_GET_LOTTERY + "");
+        homePageViewModel.GetLotteryList(Const.MAX_DAYS_TO_GET_LOTTERY);
 
         homePageViewModel.GetNote();
 

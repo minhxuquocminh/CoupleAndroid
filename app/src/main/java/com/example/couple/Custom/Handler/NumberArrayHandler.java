@@ -14,7 +14,7 @@ public class NumberArrayHandler {
     public static List<Integer> getBranches(List<Integer> branchList) {
         List<Integer> data = new ArrayList<>();
         for (int branch : branchList) {
-            data.addAll(new Branch(branch).getIntYearCycles());
+            data.addAll(new Branch(branch).getIntYears());
         }
         return data;
     }

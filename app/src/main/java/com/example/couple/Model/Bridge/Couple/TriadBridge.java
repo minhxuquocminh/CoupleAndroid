@@ -64,10 +64,10 @@ public class TriadBridge {
     }
 
     public String show() {
-        String show = "Các số: " + firstBridge.getValue() + ", " + secondBridge.getValue() + ", "
+        String show = "  + Các số: " + firstBridge.getValue() + ", " + secondBridge.getValue() + ", "
                 + thirdBridge.getValue() + " - " + LotteryHandler.showPrize(firstBridge.getPosition()) +
                 ", " + LotteryHandler.showPrize(secondBridge.getPosition()) + ", " +
-                LotteryHandler.showPrize(thirdBridge.getPosition()) + " \n TT: ";
+                LotteryHandler.showPrize(thirdBridge.getPosition()) + " \n  TT: ";
         for (int i = 0; i < statusList.size(); i++) {
             show += statusList.get(i).show();
             if (i != statusList.size() - 1) {

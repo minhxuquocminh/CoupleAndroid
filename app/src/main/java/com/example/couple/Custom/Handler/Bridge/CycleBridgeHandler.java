@@ -63,7 +63,7 @@ public class CycleBridgeHandler {
             }
         }
         Collections.reverse(beatList);
-        return new SpecialSetHistory(specialSetName, nextDayBranch.plusDays(distance).getIntYearCycles(), beatList);
+        return new SpecialSetHistory(specialSetName, nextDayBranch.plusDays(distance).getIntYears(), beatList);
     }
 
     public static SpecialSetHistory GetBranchDistanceHistoryEach2Days(List<Jackpot> jackpotList,
@@ -84,7 +84,7 @@ public class CycleBridgeHandler {
         Collections.reverse(beatList);
         int nextBranchPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition() + distance;
         int validBranch = nextBranchPosition < 0 ? 12 + nextBranchPosition : nextBranchPosition;
-        return new SpecialSetHistory(specialSetName, new Branch(validBranch).getIntYearCycles(), beatList);
+        return new SpecialSetHistory(specialSetName, new Branch(validBranch).getIntYears(), beatList);
     }
 
     public static SpecialSetHistory GetPositive12BranchHistory(List<Jackpot> jackpotList,
@@ -104,7 +104,7 @@ public class CycleBridgeHandler {
         Collections.reverse(beatList);
         int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
         int nextPosition = SingleBase.getShadow(lastPosition % 10);
-        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
+        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYears(), beatList);
     }
 
     public static SpecialSetHistory GetNegative12BranchHistory(List<Jackpot> jackpotList,
@@ -124,7 +124,7 @@ public class CycleBridgeHandler {
         Collections.reverse(beatList);
         int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
         int nextPosition = SingleBase.getNegativeShadow(lastPosition % 10);
-        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
+        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYears(), beatList);
     }
 
     public static SpecialSetHistory GetPositive13BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
@@ -143,7 +143,7 @@ public class CycleBridgeHandler {
         Collections.reverse(beatList);
         int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
         int nextPosition = SingleBase.getShadow(lastPosition % 10);
-        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
+        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYears(), beatList);
     }
 
     public static SpecialSetHistory GetNegative13BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
@@ -162,7 +162,7 @@ public class CycleBridgeHandler {
         Collections.reverse(beatList);
         int lastPosition = new Branch(jackpotList.get(0).getCoupleInt()).getPosition();
         int nextPosition = SingleBase.getNegativeShadow(lastPosition % 10);
-        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYearCycles(), beatList);
+        return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYears(), beatList);
     }
 
 }

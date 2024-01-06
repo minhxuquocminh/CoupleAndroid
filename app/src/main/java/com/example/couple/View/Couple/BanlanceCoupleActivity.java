@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Custom.Widget.CustomTextView;
 import com.example.couple.Model.Origin.Jackpot;
@@ -75,7 +75,7 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
                 String numberOfDaysStr = edtNumberOfDays.getText().toString().trim();
                 if (numberOfDaysStr.length() == 0) {
                     ShowError("Bạn chưa nhập số ngày để lấy dữ liệu!");
-                } else if (Integer.parseInt(numberOfDaysStr) > Const.DAY_OF_YEAR
+                } else if (Integer.parseInt(numberOfDaysStr) > TimeInfo.DAY_OF_YEAR
                         || Integer.parseInt(numberOfDaysStr) < 0) {
                     ShowError("Nằm ngoài phạm vi!");
                 } else {

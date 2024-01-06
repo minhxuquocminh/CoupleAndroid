@@ -56,21 +56,30 @@ public class Branch {
         return status;
     }
 
+    public List<Integer> getIntYears() {
+        List<Integer> results = new ArrayList<>();
+        for (int i = position; i <= 99; i += 12) {
+            YearCycle yearCycle = new YearCycle(i);
+            results.add(yearCycle.getCoupleInt());
+        }
+        return results;
+    }
+
+    public List<Integer> getIntYears(int currentYear) {
+        List<Integer> results = new ArrayList<>();
+        for (int i = position; i <= 100 + (currentYear % 100); i += 12) {
+            YearCycle yearCycle = new YearCycle(i);
+            results.add(yearCycle.getCoupleInt());
+        }
+        return results;
+    }
+
     // chỉ lấy từ năm 1900 -> 1999
     public List<YearCycle> getYearCycles() {
         List<YearCycle> results = new ArrayList<>();
         for (int i = position; i <= 99; i += 12) {
             YearCycle yearCycle = new YearCycle(i);
             results.add(yearCycle);
-        }
-        return results;
-    }
-
-    public List<Integer> getIntYearCycles() {
-        List<Integer> results = new ArrayList<>();
-        for (int i = position; i <= 99; i += 12) {
-            YearCycle yearCycle = new YearCycle(i);
-            results.add(yearCycle.getCoupleInt());
         }
         return results;
     }
@@ -114,14 +123,22 @@ public class Branch {
         return results;
     }
 
-    public static List<Branch> getYearBranchList(int couple, int currentYear) {
-        List<Branch> branchList = new ArrayList<>();
-        for (int i = 0; i <= 1; i++) {
-            int custom = i * 100 + couple;
-            if (i == 1 && couple > currentYear % 100) break;
-            branchList.add(new Branch(custom % 12));
+    // yearCouple là đuôi của năm tính từ 1900
+    public static List<Branch> getYearBranchList(int yearCouple, int currentYear) {
+        List<Branch> branches = new ArrayList<>();
+        branches.add(new Branch(yearCouple % 12));
+        if (yearCouple <= currentYear % 100) {
+            branches.add(new Branch((yearCouple + 4) % 12));
         }
-        return branchList;
+        return branches;
+    }
+
+    public boolean isYearBranch(int yearCouple, int currentYear) {
+        if (position == yearCouple % 12) return true;
+        if (yearCouple <= currentYear % 100) {
+            return position == (yearCouple + 4) % 12;
+        }
+        return false;
     }
 
     public int getDistance(Branch branch) {

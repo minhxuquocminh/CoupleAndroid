@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Time.TimeBase;
@@ -33,7 +33,7 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
 
     SpecialSetsHistoryViewModel viewModel;
 
-    private static final int NUMBER_OF_DAYS_START = Const.DAY_OF_YEAR;
+    private static final int NUMBER_OF_DAYS_START = TimeInfo.DAY_OF_YEAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -79,13 +79,13 @@
                     android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
-                    android:text="Can chi 1"
+                    android:text="Can chi"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
                 <TextView
-                    android:id="@+id/tvViewCycleByYear"
+                    android:id="@+id/tvReference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
@@ -93,7 +93,7 @@
                     android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
-                    android:text="Can chi 2"
+                    android:text="Tham khảo"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size" />

@@ -37,6 +37,8 @@
 
         <activity android:name=".View.Bridge.SearchingBridgeActivity" />
 
+        <activity android:name=".View.Bridge.SelectiveBridgeActivity" />
+
         <activity android:name=".View.JackpotStatistics.JackpotNextDayActivity" />
 
         <activity

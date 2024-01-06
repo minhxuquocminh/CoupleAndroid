@@ -51,5 +51,4 @@ public class CheckUpdate {
         if (jackpotList.isEmpty() || lotteries.isEmpty()) return false;
         return jackpotList.get(0).getDateBase().equals(lotteries.get(0).getDateBase());
     }
-
 }

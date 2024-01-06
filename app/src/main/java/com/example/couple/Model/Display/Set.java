@@ -2,6 +2,7 @@ package com.example.couple.Model.Display;
 
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Origin.Couple;
 
 import java.util.ArrayList;
@@ -15,10 +16,23 @@ public class Set {
     int second;
 
     public Set(int first, int second) {
+        if (first < 0 || second < 0) {
+            this.first = first;
+            this.second = second;
+            return;
+        }
         int cache1 = CoupleBase.getSmallShadow(first);
         int cache2 = CoupleBase.getSmallShadow(second);
         this.first = cache1 < cache2 ? cache1 : cache2;
         this.second = cache1 < cache2 ? cache2 : cache1;
+    }
+
+    public static Set getEmpty() {
+        return new Set(Const.EMPTY_VALUE, Const.EMPTY_VALUE);
+    }
+
+    public boolean isEmpty() {
+        return first == Const.EMPTY_VALUE || second == Const.EMPTY_VALUE;
     }
 
     public Set(int couple) {

@@ -1,9 +1,7 @@
 package com.example.couple.Model.Display;
 
-import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.NumberArrayHandler;
 
 import java.util.List;
 
@@ -26,8 +24,12 @@ public class SpecialSetHistory {
         this.beatList = beatList;
     }
 
-    public String showHistory() {
-        return "  - " + specialSet.getName() + ": " + NumberBase.showNumbers(beatList, ", ") + ".";
+    public String showCompact() {
+        return "  + " + specialSet.getName() + " (" + dayNumberBefore + " ngày)";
+    }
+
+    public String show() {
+        return "  + " + specialSet.getName() + ": " + NumberBase.showNumbers(beatList, ", ") + ".";
     }
 
 }

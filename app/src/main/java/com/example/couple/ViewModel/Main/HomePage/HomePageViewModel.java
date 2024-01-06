@@ -9,8 +9,8 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
-import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
+import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.TimeHandler;
@@ -128,7 +128,7 @@ public class HomePageViewModel {
             IOFileBase.saveDataToFile(context, "jackpot" + TimeInfo.CURRENT_YEAR + ".txt",
                     jackpotData, 0);
             List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
-            if (jackpotList.size() < Const.DAY_OF_WEEK) {
+            if (jackpotList.size() < TimeInfo.DAY_OF_WEEK) {
                 String lastJackpotData = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR - 1);
                 IOFileBase.saveDataToFile(context, "jackpot" + (TimeInfo.CURRENT_YEAR - 1)
                         + ".txt", lastJackpotData, 0);
@@ -188,8 +188,7 @@ public class HomePageViewModel {
         homePageView.ShowJackpotDataFromFile(jackpotList);
     }
 
-    public void GetLotteryList(String dayNumberStr) {
-        int numberOfDays = Integer.parseInt(dayNumberStr);
+    public void GetLotteryList(int numberOfDays) {
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
         if (lotteries.isEmpty()) return;
         homePageView.ShowLotteryList(lotteries);

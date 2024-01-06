@@ -103,34 +103,12 @@ public class BCoupleBridgeHandler {
         return touchList;
     }
 
-    public static List<BCouple> GetBalanceCouples(BCouple BCouple1, BCouple BCouple2) {
-        List<BCouple> BCouples = new ArrayList<>();
-
-        BCouple cp1 = BCouple1.balanceOne(BCouple2);
-        if (cp1.getSecond() > 9) {
-            cp1.setSecond((20 - cp1.getSecond()) % 10);
-        }
-        BCouples.add(cp1);
-
-        BCouple cp2 = BCouple1.balanceTwo(BCouple2);
-        if (cp2.getSecond() > 9) {
-            cp2.setSecond((20 - cp2.getSecond()) % 10);
-        }
-        BCouples.add(cp2);
-
-        BCouple cp3 = BCouple1.balanceThree(BCouple2);
-        if (cp3.getSecond() > 9) {
-            cp3.setSecond((20 - cp3.getSecond()) % 10);
-        }
-        BCouples.add(cp3);
-
-        BCouple cp4 = BCouple1.balanceFour(BCouple2);
-        if (cp4.getSecond() > 9) {
-            cp4.setSecond((20 - cp4.getSecond()) % 10);
-        }
-        BCouples.add(cp4);
-
-        return BCouples;
+    public static List<BCouple> GetBalanceCouples(BCouple bcp1, BCouple bcp2) {
+        List<BCouple> results = new ArrayList<>();
+        results.add(bcp1.balanceOne(bcp2));
+        results.add(bcp1.balanceTwo(bcp2));
+        results.add(bcp1.balanceThree(bcp2));
+        results.add(bcp1.balanceFour(bcp2));
+        return results;
     }
-
 }

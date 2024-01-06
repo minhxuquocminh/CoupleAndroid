@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
@@ -130,7 +131,7 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                 List<YearCycle> yearBranch = branch.getYearCycles(TimeInfo.CURRENT_YEAR);
                 String yearBranchStr = "";
                 for (YearCycle cycle : yearBranch) {
-                    yearBranchStr += cycle.getCouple() + " ";
+                    yearBranchStr += CoupleBase.showCouple(cycle.getCoupleInt()) + " ";
                 }
                 List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stem, branches,
                         coupleBranches1, coupleBranches2, distanceStr, jackpot, status, yearBranchStr);

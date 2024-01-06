@@ -3,6 +3,7 @@ package com.example.couple.ViewModel.Bridge;
 import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
@@ -41,7 +42,7 @@ public class SearchingBridgeViewModel {
             searchingBridgeView.ShowLotteryList(lotteries);
         }
         List<Jackpot> jackpotList =
-                JackpotHandler.GetReserveJackpotListFromFile(context, Const.DAY_OF_YEAR);
+                JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.size() == 0) {
             searchingBridgeView.ShowError("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {
@@ -67,7 +68,7 @@ public class SearchingBridgeViewModel {
     public boolean GetTriadBridge(List<Lottery> lotteries, int findingDays,
                                   int dayNumberBefore) {
         List<TriadBridge> triadBridges = ConnectedBridgeHandler.
-                GetTriadBridge(lotteries, findingDays, dayNumberBefore, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
+                GetTriadBridge(lotteries, dayNumberBefore, findingDays, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
         searchingBridgeView.ShowTriadBridge(triadBridges);
         return triadBridges.size() != 0;
     }
@@ -76,7 +77,7 @@ public class SearchingBridgeViewModel {
         List<Integer> statusList = new ArrayList<>();
         for (int i = 1; i <= dayNumberBefore; i++) {
             List<TriadBridge> triadBridgeList = ConnectedBridgeHandler.
-                    GetTriadBridge(lotteries, findingDays, i, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
+                    GetTriadBridge(lotteries, i, findingDays, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
             List<Set> setList = new ArrayList<>();
             for (int j = 0; j < triadBridgeList.size(); j++) {
                 setList.addAll(triadBridgeList.get(j).getSetList());
@@ -221,21 +222,21 @@ public class SearchingBridgeViewModel {
 
     public boolean FindingFirstClawBridge(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteries,
-                findingDays, dayNumberBefore, 1, Const.CLAW_BRIDGE_MAX_DISPLAY);
+                dayNumberBefore, findingDays, Const.CLAW_BRIDGE_MAX_DISPLAY, 1);
         searchingBridgeView.ShowFirstClawBridge(clawSupportList);
         return clawSupportList.size() != 0;
     }
 
     public boolean FindingSecondClawBridge(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteries,
-                findingDays, dayNumberBefore, 2, Const.CLAW_BRIDGE_MAX_DISPLAY);
+                dayNumberBefore, findingDays, Const.CLAW_BRIDGE_MAX_DISPLAY, 2);
         searchingBridgeView.ShowSecondClawBridge(clawSupportList);
         return clawSupportList.size() != 0;
     }
 
     public boolean FindingThirdClawBridge(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteries,
-                findingDays, dayNumberBefore, 3, Const.CLAW_BRIDGE_MAX_DISPLAY);
+                dayNumberBefore, findingDays, Const.CLAW_BRIDGE_MAX_DISPLAY, 3);
         searchingBridgeView.ShowThirdClawBridge(clawSupportList);
         return clawSupportList.size() != 0;
     }
@@ -247,15 +248,15 @@ public class SearchingBridgeViewModel {
 
     public void Test(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<TriangleConnectedSupport> connectedBridge = ConnectedBridgeHandler.GetTriangleConnectedSupports(lotteries,
-                dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY,true);
-       if(!connectedBridge.isEmpty())
+                dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY, true);
+        if (!connectedBridge.isEmpty())
             searchingBridgeView.ShowTest(connectedBridge);
     }
 
     public void Test2(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<PairConnectedSupport> supports = ConnectedBridgeHandler.GetPairConnectedSupports(lotteries,
-                dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY,true);
-        if(!supports.isEmpty())
+                dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY, true);
+        if (!supports.isEmpty())
             searchingBridgeView.ShowTest2(supports);
     }
 }

@@ -4,25 +4,29 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Const {
+
+    /**
+     * set value
+     */
     public static final int EMPTY_VALUE = -999;
-    public static final int MAX_DAY_OF_MONTH = 31;
-    public static final int DAY_OF_WEEK = 7;
-    public static final int DAY_OF_YEAR = 365;
-    public static final int MONTH_OF_YEAR = 12;
-    public static final int MAX_ROW_COUNT_TABLE = 100;
-    public static final int MAX_DAY_NUMBER_BEFORE = 999;
     public static final int NUMBER_OF_PRIZES = 27;
-    public static final int MAX_DAYS_TO_GET_LOTTERY = 60;
     public static final int MAX_LENGTH_OF_PRIZE = 5;
     public static final int AMPLITUDE_OF_PERIOD = 13;
+    public static final int MAX_ROW_COUNT_TABLE = 100;
+    public static final int MAX_DAY_NUMBER_BEFORE = 999;
+    public static final int MAX_DAYS_TO_GET_LOTTERY = 60;
+    public static final int BRANCH_IN_DAY_BRIDGE_FINDING_DAYS = 60;
     public static final int CONNECTED_BRIDGE_FINDING_DAYS = 10;
     public static final int CONNECTED_BRIDGE_MAX_DISPLAY = 20;
-    public static final int CLAW_BRIDGE_MAX_DISPLAY = 8;
-    public static final List<Integer> CLAW_BRIDGE_SEARCHING_DAYS = Arrays.asList(12, 14, 16, 18);
+    public static final int TRIAD_SET_BRIDGE_FINDING_DAYS = 10;
     public static final int TRIAD_SET_BRIDGE_MAX_DISPLAY = 25;
-    public static final int TRIAD_SET_BRIDGE_SEARCHING_DAYS = 10;
+    public static final List<Integer> CLAW_BRIDGE_FINDING_DAYS = Arrays.asList(12, 14, 16, 18);
+    public static final int CLAW_BRIDGE_MAX_DISPLAY = 8;
     public static final int MAPPING_ALL = 999;
 
+    /**
+     * set text
+     */
     public static final String SHADOW_TOUCH_BRIDGE_NAME = "Cầu chạm bóng";
     public static final String LOTTO_TOUCH_BRIDGE_NAME = "Cầu chạm lô tô";
     public static final String MAPPING_BRIDGE_NAME = "Cầu ánh xạ";
@@ -52,6 +56,9 @@ public class Const {
     public static final String NEAR_DOUBLE_INCREASE = "Sát kép tăng";
     public static final String NEAR_DOUBLE_DECREASE = "Sát kép giảm";
 
+    /**
+     * set array
+     */
     public static final List<Integer> BIG_DOUBLE_SET = Arrays.asList
             (
                     03, 30,
@@ -120,11 +127,17 @@ public class Const {
             Arrays.asList(00, 01, 02, 03, 04, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
     public static final List<Integer> SMALL_SETS_NOT_DOUBLE =
             Arrays.asList(01, 02, 03, 04, 12, 13, 14, 23, 24, 34);
-    // url and params
+
+    /**
+     * set url and params
+     */
     public static final String TIME_URL = "https://lichvannien365.com/";
     public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua9.net/bang-dac-biet-nam\nchu16";
     public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua9.net/so-ket-qua\nwatermark";
 
+    /**
+     * set paragraph
+     */
     public static final String BRIDGE_ANNOTATION =
             " * Ghi chú: " +
                     "    - Đối với cầu khoảng: nên chơi khi số lượng KQ tổ hợp lớn hơn hoặc bằng 55, " +

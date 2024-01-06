@@ -3,6 +3,7 @@ package com.example.couple.ViewModel.Couple;
 import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
@@ -25,7 +26,7 @@ public class BalanceCoupleViewModel {
     }
 
     public void GetJackpotDataFromFile() {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, Const.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.isEmpty()) balanceCoupleView.ShowError("Không lấy được dữ liệu !");
         balanceCoupleView.ShowJackpotData(jackpotList);
     }
@@ -45,7 +46,7 @@ public class BalanceCoupleViewModel {
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         EstimatedBridge estimatedBridge = EstimatedBridgeHandler.GetEstimatedBridge(jackpotList, dayNumberBefore);
         List<Integer> touchs = ConnectedBridgeHandler.GetTouchsByClawSupport(lotteries,
-                Const.CLAW_BRIDGE_SEARCHING_DAYS, Integer.parseInt(dayNumberBeforeStr), 8, bridgeType);
+                Integer.parseInt(dayNumberBeforeStr), Const.CLAW_BRIDGE_FINDING_DAYS, 8, bridgeType);
         if (touchs.isEmpty()) {
             balanceCoupleView.ShowError("Không tìm thấy cầu.");
         } else {

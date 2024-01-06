@@ -155,13 +155,13 @@ public class ReferenceBridgeViewModel {
 
     public void GetTriadClawBridge(List<Lottery> lotteryList) {
         List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteryList,
-                10, 0, 3, Const.CLAW_BRIDGE_MAX_DISPLAY);
+                0, 10, Const.CLAW_BRIDGE_MAX_DISPLAY, 3);
         referenceBridgeView.ShowThirdClawBridge(clawSupportList);
     }
 
     public void GetTriadBridge(List<Lottery> lotteryList) {
         List<TriadBridge> triadBridgeList = ConnectedBridgeHandler.GetTriadBridge(lotteryList,
-                Const.TRIAD_SET_BRIDGE_SEARCHING_DAYS, 0, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
+                0, Const.TRIAD_SET_BRIDGE_FINDING_DAYS, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
 
         List<Set> triadSetList = new ArrayList<>();
         List<Set> cancelSetList = new ArrayList<>();

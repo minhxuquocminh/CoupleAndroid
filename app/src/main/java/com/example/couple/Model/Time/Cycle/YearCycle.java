@@ -3,20 +3,15 @@ package com.example.couple.Model.Time.Cycle;
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 
 @Getter
 public class YearCycle {
     int year;
     Cycle cycle;
-
-    public String getCouple() {
-        return CoupleBase.showCouple(year % 100);
-    }
-
-    public int getCoupleInt() {
-        return year % 100;
-    }
 
     public static YearCycle getEmpty() {
         return new YearCycle(Const.EMPTY_VALUE);
@@ -35,7 +30,11 @@ public class YearCycle {
         this.cycle = new Cycle(stem, branch);
     }
 
+    public int getCoupleInt() {
+        return year % 100;
+    }
+
     public String showByCouple() {
-        return cycle.getCycle() + " (" + getCouple() + ")";
+        return cycle.getCycle() + " (" + getCoupleInt() + ")";
     }
 }

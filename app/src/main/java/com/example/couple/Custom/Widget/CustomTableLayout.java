@@ -16,6 +16,7 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.JackpotNextDay;
@@ -38,8 +39,8 @@ public class CustomTableLayout {
 
         int count = 0;
         TableRow row = new TableRow(context);
-        int start = numberOfWeek * Const.DAY_OF_WEEK < reverseJackpotList.size() ?
-                numberOfWeek * Const.DAY_OF_WEEK - 1 : reverseJackpotList.size() - 1;
+        int start = numberOfWeek * TimeInfo.DAY_OF_WEEK < reverseJackpotList.size() ?
+                numberOfWeek * TimeInfo.DAY_OF_WEEK - 1 : reverseJackpotList.size() - 1;
         int monday_start = 0;
         for (int i = start; i >= 0; i--) {
             if (reverseJackpotList.get(i).getDateBase().getDayOfWeek() == 2) {
@@ -55,13 +56,13 @@ public class CustomTableLayout {
             row.addView(CustomLinearLayout.GetItemCoupleByWeekLinearLayout(context,
                     couple, firstNegativeShadow, secondNegativeShadow));
             if (i == 0) {
-                int emptyLength = Const.DAY_OF_WEEK - count;
+                int emptyLength = TimeInfo.DAY_OF_WEEK - count;
                 for (int j = 0; j < emptyLength; j++) {
                     count++;
                     row.addView(CustomLinearLayout.GetEmptyLinearLayout(context));
                 }
             }
-            if (count == Const.DAY_OF_WEEK) {
+            if (count == TimeInfo.DAY_OF_WEEK) {
                 tableLayout.addView(row);
                 count = 0;
                 row = new TableRow(context);

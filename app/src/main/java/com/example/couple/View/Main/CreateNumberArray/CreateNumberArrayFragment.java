@@ -32,10 +32,10 @@ import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.R;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
+import com.example.couple.View.Bridge.SelectiveBridgeActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Main.MainActivity;
-import com.example.couple.View.SubScreen.CycleByYearActivity;
 import com.example.couple.ViewModel.Main.CreateNumberArray.CreateNumberArrayViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -46,7 +46,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     TextView tvViewBridge;
     TextView tvWayToRun;
     TextView tvViewCycle;
-    TextView tvViewCycleByYear;
+    TextView tvReference;
     EditText edtSet;
     EditText edtTouch;
     EditText edtSum;
@@ -91,7 +91,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         tvViewBridge = viewParent.findViewById(R.id.tvViewBridge);
         tvWayToRun = viewParent.findViewById(R.id.tvWayToRun);
         tvViewCycle = viewParent.findViewById(R.id.tvViewCycle);
-        tvViewCycleByYear = viewParent.findViewById(R.id.tvViewCycleByYear);
+        tvReference = viewParent.findViewById(R.id.tvReference);
         edtSet = viewParent.findViewById(R.id.edtSet);
         edtTouch = viewParent.findViewById(R.id.edtTouch);
         edtSum = viewParent.findViewById(R.id.edtSum);
@@ -315,11 +315,11 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             }
         });
 
-        tvViewCycleByYear.setOnClickListener(new View.OnClickListener() {
+        tvReference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(getActivity());
-                startActivity(new Intent(getActivity(), CycleByYearActivity.class));
+                startActivity(new Intent(getActivity(), SelectiveBridgeActivity.class));
             }
         });
     }

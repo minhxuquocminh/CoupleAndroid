@@ -3,6 +3,7 @@ package com.example.couple.Custom.Handler.Bridge;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
@@ -19,10 +20,10 @@ import java.util.List;
 public class TouchBridgeHandler {
 
     public static ShadowTouchBridge GetNegativeShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
-        if (reverseJackpotList.size() < Const.DAY_OF_WEEK + dayNumberBefore)
+        if (reverseJackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
-        Couple coupleLastWeek = reverseJackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
+        Couple coupleLastWeek = reverseJackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
         int first = coupleLastWeek.getFirst();
         int second = coupleLastWeek.getSecond();
         touchs.add(SingleBase.getNegativeShadow(first));
@@ -37,10 +38,10 @@ public class TouchBridgeHandler {
     }
 
     public static ShadowTouchBridge GetPositiveShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
-        if (reverseJackpotList.size() < Const.DAY_OF_WEEK + dayNumberBefore)
+        if (reverseJackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
-        Couple coupleLastWeek = reverseJackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
+        Couple coupleLastWeek = reverseJackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
         int first = coupleLastWeek.getFirst();
         int second = coupleLastWeek.getSecond();
         touchs.add(SingleBase.getShadow(first));
@@ -55,10 +56,10 @@ public class TouchBridgeHandler {
     }
 
     public static ShadowTouchBridge GetShadowTouchBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
-        if (jackpotList.size() - Const.DAY_OF_WEEK < dayNumberBefore)
+        if (jackpotList.size() - TimeInfo.DAY_OF_WEEK < dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
-        Couple coupleLastWeek = jackpotList.get(Const.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
+        Couple coupleLastWeek = jackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
         int first = coupleLastWeek.getFirst();
         int second = coupleLastWeek.getSecond();
         touchs.add(SingleBase.getNegativeShadow(first));
@@ -85,7 +86,7 @@ public class TouchBridgeHandler {
 
     public static CombineTouchBridge GetCombineTouchBridge(List<Jackpot> jackpotList,
                                                            List<Lottery> lotteries, int dayNumberBefore) {
-        if (jackpotList.size() - Const.DAY_OF_WEEK < dayNumberBefore ||
+        if (jackpotList.size() - TimeInfo.DAY_OF_WEEK < dayNumberBefore ||
                 lotteries.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS < dayNumberBefore)
             return CombineTouchBridge.getEmpty();
         ShadowTouchBridge shadowTouchBridge = GetShadowTouchBridge(jackpotList, dayNumberBefore);

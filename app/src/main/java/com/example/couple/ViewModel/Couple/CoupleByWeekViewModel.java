@@ -2,7 +2,7 @@ package com.example.couple.ViewModel.Couple;
 
 import android.content.Context;
 
-import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.Couple.CoupleByWeekView;
@@ -19,7 +19,7 @@ public class CoupleByWeekViewModel {
     }
 
     public void GetJackpotByWeek(int weekNumber) {
-        int dayNumber = weekNumber * Const.DAY_OF_WEEK;
+        int dayNumber = weekNumber * TimeInfo.DAY_OF_WEEK;
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, dayNumber);
         if (jackpotList.isEmpty()) {
             view.ShowError("Không có dữ liệu XS Đặc biệt.");

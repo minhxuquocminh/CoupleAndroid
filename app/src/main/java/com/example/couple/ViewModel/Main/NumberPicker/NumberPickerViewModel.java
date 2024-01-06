@@ -3,7 +3,6 @@ package com.example.couple.ViewModel.Main.NumberPicker;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
@@ -73,7 +72,7 @@ public class NumberPickerViewModel {
         int year = nextDateBase.getYear();
         int numberOfYears = 1;
         if (month == 0) {
-            month = Const.MONTH_OF_YEAR;
+            month = TimeInfo.MONTH_OF_YEAR;
             year--;
             numberOfYears = 2;
         }

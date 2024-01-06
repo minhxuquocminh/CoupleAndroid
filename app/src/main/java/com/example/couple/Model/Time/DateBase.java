@@ -113,6 +113,10 @@ public class DateBase implements Serializable {
         }
     }
 
+    public long distance(DateBase dateBase) {
+        return (long) ((dateBase.toDate().getTime() - toDate().getTime()) / (24 * 60 * 60 * 1000));
+    }
+
     public static DateBase getCurrentDate() {
         return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
     }
