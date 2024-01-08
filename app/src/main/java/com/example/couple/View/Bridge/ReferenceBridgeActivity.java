@@ -105,7 +105,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ReferenceBridgeActivity.this,
-                        SearchingBridgeActivity.class));
+                        FindingBridgeActivity.class));
             }
         });
 
@@ -113,7 +113,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ReferenceBridgeActivity.this,
-                        SearchingBridgeActivity.class));
+                        FindingBridgeActivity.class));
             }
         });
 

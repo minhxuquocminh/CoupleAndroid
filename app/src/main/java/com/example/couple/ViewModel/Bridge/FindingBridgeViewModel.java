@@ -19,17 +19,17 @@ import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.Model.Support.PairConnectedSupport;
 import com.example.couple.Model.Support.TriadSets;
 import com.example.couple.Model.Support.TriangleConnectedSupport;
-import com.example.couple.View.Bridge.SearchingBridgeView;
+import com.example.couple.View.Bridge.FindingBridgeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchingBridgeViewModel {
-    SearchingBridgeView searchingBridgeView;
+public class FindingBridgeViewModel {
+    FindingBridgeView findingBridgeView;
     Context context;
 
-    public SearchingBridgeViewModel(SearchingBridgeView searchingBridgeView, Context context) {
-        this.searchingBridgeView = searchingBridgeView;
+    public FindingBridgeViewModel(FindingBridgeView findingBridgeView, Context context) {
+        this.findingBridgeView = findingBridgeView;
         this.context = context;
     }
 
@@ -37,16 +37,16 @@ public class SearchingBridgeViewModel {
         List<Lottery> lotteries =
                 LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         if (lotteries.size() == 0) {
-            searchingBridgeView.ShowError("Lỗi không lấy được thông tin XSMB!");
+            findingBridgeView.ShowError("Lỗi không lấy được thông tin XSMB!");
         } else {
-            searchingBridgeView.ShowLotteryList(lotteries);
+            findingBridgeView.ShowLotteryList(lotteries);
         }
         List<Jackpot> jackpotList =
                 JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.size() == 0) {
-            searchingBridgeView.ShowError("Lỗi không lấy được thông tin XS Đặc biệt!");
+            findingBridgeView.ShowError("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {
-            searchingBridgeView.ShowJackpotList(jackpotList);
+            findingBridgeView.ShowJackpotList(jackpotList);
         }
     }
 
@@ -60,7 +60,7 @@ public class SearchingBridgeViewModel {
             } else {
                 jackpotThatDay = lotteries.get(dayNumberBefore - 1).getJackpotString();
             }
-            searchingBridgeView.ShowConnectedBridge(connectedBridge, jackpotThatDay);
+            findingBridgeView.ShowConnectedBridge(connectedBridge, jackpotThatDay);
         }
         return !connectedBridge.getConnectedSupports().isEmpty();
     }
@@ -69,7 +69,7 @@ public class SearchingBridgeViewModel {
                                   int dayNumberBefore) {
         List<TriadBridge> triadBridges = ConnectedBridgeHandler.
                 GetTriadBridge(lotteries, dayNumberBefore, findingDays, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
-        searchingBridgeView.ShowTriadBridge(triadBridges);
+        findingBridgeView.ShowTriadBridge(triadBridges);
         return triadBridges.size() != 0;
     }
 
@@ -106,7 +106,7 @@ public class SearchingBridgeViewModel {
                 statusList.add(0);
             }
         }
-        searchingBridgeView.ShowThreeSetBridgeStatus(statusList);
+        findingBridgeView.ShowThreeSetBridgeStatus(statusList);
     }
 
     public void GetTriadBridgeWithCondition(List<TriadBridge> allTriadBridges,
@@ -216,47 +216,47 @@ public class SearchingBridgeViewModel {
             }
         }
 
-        searchingBridgeView.ShowTriadBridgeWithCondition(triadBridgeList,
+        findingBridgeView.ShowTriadBridgeWithCondition(triadBridgeList,
                 mainSets, longestSets, cancelSets, enoughTouchs);
     }
 
     public boolean FindingFirstClawBridge(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteries,
                 dayNumberBefore, findingDays, Const.CLAW_BRIDGE_MAX_DISPLAY, 1);
-        searchingBridgeView.ShowFirstClawBridge(clawSupportList);
+        findingBridgeView.ShowFirstClawBridge(clawSupportList);
         return clawSupportList.size() != 0;
     }
 
     public boolean FindingSecondClawBridge(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteries,
                 dayNumberBefore, findingDays, Const.CLAW_BRIDGE_MAX_DISPLAY, 2);
-        searchingBridgeView.ShowSecondClawBridge(clawSupportList);
+        findingBridgeView.ShowSecondClawBridge(clawSupportList);
         return clawSupportList.size() != 0;
     }
 
     public boolean FindingThirdClawBridge(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteries,
                 dayNumberBefore, findingDays, Const.CLAW_BRIDGE_MAX_DISPLAY, 3);
-        searchingBridgeView.ShowThirdClawBridge(clawSupportList);
+        findingBridgeView.ShowThirdClawBridge(clawSupportList);
         return clawSupportList.size() != 0;
     }
 
     public void FindingJackpotThirdClawBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         List<BSingle> BSingleList = OtherBridgeHandler.GetTouchsByThirdClawBridge(jackpotList, dayNumberBefore);
-        searchingBridgeView.ShowJackpotThirdClawBridge(BSingleList, jackpotList.size());
+        findingBridgeView.ShowJackpotThirdClawBridge(BSingleList, jackpotList.size());
     }
 
     public void Test(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<TriangleConnectedSupport> connectedBridge = ConnectedBridgeHandler.GetTriangleConnectedSupports(lotteries,
                 dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY, true);
         if (!connectedBridge.isEmpty())
-            searchingBridgeView.ShowTest(connectedBridge);
+            findingBridgeView.ShowTest(connectedBridge);
     }
 
     public void Test2(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {
         List<PairConnectedSupport> supports = ConnectedBridgeHandler.GetPairConnectedSupports(lotteries,
                 dayNumberBefore, findingDays, Const.CONNECTED_BRIDGE_MAX_DISPLAY, true);
         if (!supports.isEmpty())
-            searchingBridgeView.ShowTest2(supports);
+            findingBridgeView.ShowTest2(supports);
     }
 }

@@ -213,9 +213,12 @@ public class Couple {
         return first == second;
     }
 
-    public boolean isDouble() {
-        // kép = hoặc lệch
+    public boolean isDoubleAndShadow() {
         return first == second || first == SingleBase.getShadow(second);
+    }
+
+    public boolean isDouble() {
+        return first == second;
     }
 
     public boolean isDeviatedDouble() {

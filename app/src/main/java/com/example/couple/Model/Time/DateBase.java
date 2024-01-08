@@ -58,6 +58,75 @@ public class DateBase implements Serializable {
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
+    public boolean isLastMonthOf(DateBase dateBase) {
+        if (!this.isValid() || !dateBase.isValid()) return false;
+        if (dateBase.getMonth() == 1) {
+            return day == dateBase.getDay() && month == 12 && year == dateBase.getYear() - 1;
+        }
+
+        return day == dateBase.getDay() && month == dateBase.getMonth() - 1 && year == dateBase.getYear();
+    }
+
+    public DateBase getLastMonth() {
+        DateBase newDate = DateBase.getEmpty();
+        if (month == 1) {
+            newDate = new DateBase(day, 12, year - 1);
+        } else {
+            newDate = new DateBase(day, month - 1, year);
+        }
+        return newDate.isValid() ? newDate : DateBase.getEmpty();
+    }
+
+    public boolean isUpLastMonthOf(DateBase dateBase) {
+        if (!this.isValid() || !dateBase.isValid()) return false;
+        if (dateBase.getDay() == 1) return false;
+        if (dateBase.getMonth() == 1) {
+            return day == dateBase.getDay() - 1 && month == 12 && year == dateBase.getYear() - 1;
+        }
+
+        return day == dateBase.getDay() - 1 && month == dateBase.getMonth() - 1 && year == dateBase.getYear();
+    }
+
+    public DateBase getUpLastMonth() {
+        DateBase newDate = DateBase.getEmpty();
+        if (month == 1) {
+            newDate = new DateBase(day - 1, 12, year - 1);
+        } else {
+            newDate = new DateBase(day - 1, month - 1, year);
+        }
+        return newDate.isValid() ? newDate : DateBase.getEmpty();
+    }
+
+    public boolean isDownLastMonthOf(DateBase dateBase) {
+        if (!this.isValid() || !dateBase.isValid()) return false;
+        DateBase lastMonth = dateBase.getLastMonth();
+        DateBase addDay = lastMonth.plusDays(1);
+        if (addDay.getMonth() != lastMonth.getMonth()) return false;
+        if (dateBase.getMonth() == 1) {
+            return day == dateBase.getDay() + 1 && month == 12 && year == dateBase.getYear() - 1;
+        }
+
+        return day == dateBase.getDay() + 1 && month == dateBase.getMonth() - 1 && year == dateBase.getYear();
+    }
+
+    public DateBase getDownLastMonth() {
+        DateBase newDate = DateBase.getEmpty();
+        if (month == 1) {
+            newDate = new DateBase(day + 1, 12, year - 1);
+        } else {
+            newDate = new DateBase(day + 1, month - 1, year);
+        }
+        return newDate.isValid() ? newDate : DateBase.getEmpty();
+    }
+
+    public boolean isLastWeekOf(DateBase dateBase) {
+        return this.plusDays(7).equals(dateBase);
+    }
+
+    public DateBase getLastWeek() {
+        return this.plusDays(-7);
+    }
+
     public boolean isToday() {
         return day == TimeInfo.CURRENT_DAY && month == TimeInfo.CURRENT_MONTH && year == TimeInfo.CURRENT_YEAR;
     }

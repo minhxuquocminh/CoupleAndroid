@@ -53,6 +53,7 @@ public class Const {
     public static final String SET = "Bộ";
     public static final String SUM = "Tổng";
     public static final String DOUBLE = "Kép bằng";
+    public static final String BRANCH_IN_DAY = "Chi trong ngày";
     public static final String NEAR_DOUBLE_INCREASE = "Sát kép tăng";
     public static final String NEAR_DOUBLE_DECREASE = "Sát kép giảm";
 

@@ -4,6 +4,7 @@ import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
+import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
@@ -43,6 +44,24 @@ public class CycleBridgeHandler {
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new CycleBridge(Const.INCOMPATIBLE_CYCLE_BRIDGE_NAME,
                 yearCycles, new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
+    public static BranchInDayBridge GetBranchInDayBridges(List<Jackpot> jackpotList, Branch nextDayBranch) {
+        if (jackpotList.isEmpty()) return BranchInDayBridge.getEmpty();
+        List<Integer> beatList = new ArrayList<>();
+        int beat = 0;
+        int count = 0;
+        for (Jackpot jackpot : jackpotList) {
+            beat++;
+            count++;
+            Branch dayBranch = nextDayBranch.plusDays(-count);
+            if (dayBranch.isYearBranch(jackpot.getCoupleInt(), TimeInfo.CURRENT_YEAR)) {
+                beatList.add(beat);
+                beat = 0;
+            }
+        }
+        Collections.reverse(beatList);
+        return new BranchInDayBridge(nextDayBranch, beatList);
     }
 
     public static SpecialSetHistory GetBranchDistanceHistory(List<Jackpot> jackpotList,

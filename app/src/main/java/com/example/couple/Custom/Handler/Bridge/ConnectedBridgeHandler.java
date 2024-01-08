@@ -464,7 +464,7 @@ public class ConnectedBridgeHandler {
                         int second = secondStatus.get(t);
                         int third = thirdStatus.get(t);
                         Couple couple = lotteries.get(dayNumberBefore + t).getJackpotCouple();
-                        boolean isDouble = couple.isDouble();
+                        boolean isDouble = couple.isDoubleAndShadow();
                         if (checkThreeNumber(first, second, third, isDouble)) {
                             Status status = new Status(first, second, third);
                             statusList.add(status);

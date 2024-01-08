@@ -12,6 +12,7 @@ import com.example.couple.Model.Time.TimeBase;
 import java.util.List;
 
 public class CheckUpdate {
+
     public static boolean checkUpdateTime(Context context) {
         String data = IOFileBase.readDataFromFile(context, FileName.TIME);
         if (data.equals("")) return true;
@@ -22,7 +23,6 @@ public class CheckUpdate {
         int calendarYear = Integer.parseInt(monthData[4]);
         return !(TimeInfo.CURRENT_DAY == calendarDay && TimeInfo.CURRENT_MONTH == calendarMonth
                 && TimeInfo.CURRENT_YEAR == calendarYear);
-
     }
 
     public static boolean checkUpdateCycle(Context context) {

@@ -2,18 +2,86 @@ package com.example.couple.Custom.Handler.Bridge;
 
 import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
+import com.example.couple.Model.Bridge.Sign.DayDoubleSign;
+import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.ShadowSingle;
+import com.example.couple.Model.Time.DateBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class OtherBridgeHandler {
+
+    public static SignOfDouble GetSignOfDouble(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore) return SignOfDouble.getEmpty();
+        DateBase dateBase = dayNumberBefore == 0 ?
+                jackpotList.get(0).getDateBase().plusDays(1) : jackpotList.get(dayNumberBefore - 1).getDateBase();
+        List<Integer> upMonthList = new ArrayList<>();
+        List<Integer> monthList = new ArrayList<>();
+        List<Integer> downMonthList = new ArrayList<>();
+        List<Integer> weekList = new ArrayList<>();
+        List<DayDoubleSign> dayList = new ArrayList<>();
+        DateBase upMonth2 = DateBase.getEmpty();
+        DateBase month2 = DateBase.getEmpty();
+        DateBase downMonth2 = DateBase.getEmpty();
+        DateBase week2 = DateBase.getEmpty();
+        int count = 0;
+        boolean hasDouble = false;
+        for (Jackpot jackpot : jackpotList) {
+            DateBase dateCheck = jackpot.getDateBase();
+
+            if (dateCheck.isUpLastMonthOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+                upMonthList.add(jackpot.getCoupleInt());
+                upMonth2 = dateCheck.getUpLastMonth();
+            }
+            if (!upMonth2.isEmpty() && dateCheck.equals(upMonth2)) {
+                upMonthList.add(jackpot.getCoupleInt());
+            }
+
+            if (dateCheck.isLastMonthOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+                monthList.add(jackpot.getCoupleInt());
+                month2 = dateCheck.getLastMonth();
+            }
+            if (!month2.isEmpty() && dateCheck.equals(month2)) {
+                monthList.add(jackpot.getCoupleInt());
+            }
+
+            if (dateCheck.isUpLastMonthOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+                downMonthList.add(jackpot.getCoupleInt());
+                downMonth2 = dateCheck.getDownLastMonth();
+            }
+            if (!downMonth2.isEmpty() && dateCheck.equals(downMonth2)) {
+                downMonthList.add(jackpot.getCoupleInt());
+            }
+
+            if (dateCheck.isLastWeekOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+                weekList.add(jackpot.getCoupleInt());
+                week2 = dateCheck.getLastWeek();
+            }
+            if (!week2.isEmpty() && dateCheck.equals(week2)) {
+                weekList.add(jackpot.getCoupleInt());
+            }
+
+            // check double
+            if (jackpot.getCouple().isDouble()) {
+                hasDouble = true;
+            }
+            count++;
+            if (!hasDouble && jackpot.isSameSequentlySign()) {
+                dayList.add(new DayDoubleSign(jackpot, count));
+            }
+
+            if (dateBase.plusDays(-70).equals(dateCheck)) break;
+        }
+        return new SignOfDouble(upMonthList, monthList, downMonthList, weekList, dayList);
+    }
+
 
     public static ShadowExchangeBridge GetShadowExchangeBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore + 2)

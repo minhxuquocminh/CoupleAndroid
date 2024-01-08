@@ -4,8 +4,10 @@ import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
-import com.example.couple.Custom.Handler.Bridge.LongBeatBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.TouchBridgeHandler;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
@@ -15,11 +17,13 @@ import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
+import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Time.Cycle.Branch;
 import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.View.Bridge.SelectiveBridgeView;
 
@@ -35,12 +39,12 @@ public class SelectiveBridgeViewModel {
     }
 
     public void GetAllData() {
-        List<TimeBase> timeBaseList = TimeHandler.getAllSexagenaryCycle(context, Const.BRANCH_IN_DAY_BRIDGE_FINDING_DAYS);
+        TimeBase nextDay = TimeHandler.getTimeBaseNextDay(context);
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.size() == 0) {
             view.ShowError("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {
-            view.ShowJackpotAndTimeBaseList(jackpotList, timeBaseList);
+            view.ShowNextDayTimeAndJackpotList(nextDay, jackpotList);
         }
 
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
@@ -52,7 +56,7 @@ public class SelectiveBridgeViewModel {
     }
 
     public void GetAfterDoubleBridge(List<Jackpot> jackpotList) {
-        List<AfterDoubleBridge> bridges = LongBeatBridgeHandler.GetAfterDoubleBridges(jackpotList);
+        List<AfterDoubleBridge> bridges = BCoupleBridgeHandler.GetAfterDoubleBridges(jackpotList);
         view.ShowAfterDoubleBridge(bridges);
     }
 
@@ -62,6 +66,8 @@ public class SelectiveBridgeViewModel {
     }
 
     public void GetSignOfDouble(List<Jackpot> jackpotList) {
+        SignOfDouble sign = OtherBridgeHandler.GetSignOfDouble(jackpotList, 0);
+        view.ShowSignOfDouble(sign);
     }
 
     public void GetShadowTouchs(List<Jackpot> jackpotList) {
@@ -69,8 +75,8 @@ public class SelectiveBridgeViewModel {
         view.ShowShadowTouchs(bridge.getTouchs());
     }
 
-    public void GetBranchInDayBridge(List<Jackpot> jackpotList, List<TimeBase> timeBaseList) {
-        BranchInDayBridge bridge = LongBeatBridgeHandler.GetBranchInDayBridges(jackpotList, timeBaseList);
+    public void GetBranchInDayBridge(List<Jackpot> jackpotList, Branch nextDayBranch) {
+        BranchInDayBridge bridge = CycleBridgeHandler.GetBranchInDayBridges(jackpotList, nextDayBranch);
         view.ShowBranchInDayBridge(bridge);
     }
 

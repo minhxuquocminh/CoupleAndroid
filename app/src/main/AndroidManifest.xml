@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".View.Bridge.SearchingBridgeActivity" />
+        <activity android:name=".View.Bridge.FindingBridgeActivity" />
 
         <activity android:name=".View.Bridge.SelectiveBridgeActivity" />
 

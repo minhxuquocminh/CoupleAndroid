@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.couple.R;
-import com.example.couple.View.Bridge.SearchingBridgeActivity;
+import com.example.couple.View.Bridge.FindingBridgeActivity;
 import com.example.couple.View.BridgeHistory.SpecialSetsHistoryActivity;
 import com.example.couple.View.Couple.BanlanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
@@ -55,7 +55,7 @@ public class FunctionDisplayFragment extends Fragment {
         cvLotteryFindingBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SearchingBridgeActivity.class));
+                startActivity(new Intent(getActivity(), FindingBridgeActivity.class));
             }
         });
 

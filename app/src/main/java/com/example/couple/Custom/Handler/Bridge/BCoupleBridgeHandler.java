@@ -1,7 +1,9 @@
 package com.example.couple.Custom.Handler.Bridge;
 
+import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.BSingle;
+import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.ArrayList;
@@ -11,7 +13,40 @@ import java.util.List;
 
 public class BCoupleBridgeHandler {
 
-    // work with jackpot
+    public static List<AfterDoubleBridge> GetAfterDoubleBridges(List<Jackpot> jackpotList) {
+        List<AfterDoubleBridge> bridges = new ArrayList<>();
+        List<AfterDoubleBridge> checkList = new ArrayList<>();
+        int maxSize = jackpotList.size() < 20 ? jackpotList.size() : 20;
+        for (int i = 0; i < maxSize - 1; i++) {
+            if (jackpotList.get(i).getCouple().isDoubleAndShadow()) {
+                List<Couple> lastDoubleRange = new ArrayList<>();
+                lastDoubleRange.add(jackpotList.get(i + 1).getCouple());
+                lastDoubleRange.add(jackpotList.get(i).getCouple());
+                if (i - 1 >= 0) {
+                    lastDoubleRange.add(jackpotList.get(i - 1).getCouple());
+                }
+                checkList.add(new AfterDoubleBridge(lastDoubleRange, i));
+            }
+        }
+        for (AfterDoubleBridge bridge : checkList) {
+            int count = 0;
+            for (int i = bridge.getDayNumberBefore(); i >= 0; i--) {
+                if (!bridge.getFirstSet().isEmpty() &&
+                        bridge.getFirstSet().isItMatch(jackpotList.get(i).getCouple())) {
+                    count++;
+                }
+                if (!bridge.getSecondSet().isEmpty() &&
+                        bridge.getSecondSet().isItMatch(jackpotList.get(i).getCouple())) {
+                    count++;
+                }
+
+            }
+            if (count <= 1) {
+                bridges.add(bridge);
+            }
+        }
+        return bridges;
+    }
 
     public static List<BSingle> GetTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() < 2) return new ArrayList<>();

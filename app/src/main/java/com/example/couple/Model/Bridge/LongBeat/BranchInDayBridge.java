@@ -1,55 +1,57 @@
 package com.example.couple.Model.Bridge.LongBeat;
 
 import com.example.couple.Base.Handler.CoupleBase;
+import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Time.TimeBase;
+import com.example.couple.Model.Support.BranchInDaySupport;
+import com.example.couple.Model.Time.Cycle.Branch;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BranchInDayBridge {
-    TimeBase nextDay;
-    List<TimeBase> lastCyclesToday;
-    List<Integer> dayNumbersBefore;
+    Branch nextDayBranch;
+    List<Integer> beatList;
+    List<BranchInDaySupport> supports;
     List<Integer> numbers;
 
     public static BranchInDayBridge getEmpty() {
-        return new BranchInDayBridge(TimeBase.getEmpty(), new ArrayList<>());
+        return new BranchInDayBridge(Branch.getEmpty(), new ArrayList<>());
     }
 
     public boolean isEmpty() {
-        return nextDay.isEmpty() || lastCyclesToday.isEmpty();
+        return nextDayBranch.isEmpty() || supports.isEmpty();
     }
 
-    public BranchInDayBridge(TimeBase nextDay, List<TimeBase> lastCyclesToday) {
-        this.nextDay = nextDay;
-        this.lastCyclesToday = lastCyclesToday;
-        this.dayNumbersBefore = new ArrayList<>();
+    public BranchInDayBridge(Branch nextDayBranch, List<Integer> beatList) {
+        this.nextDayBranch = nextDayBranch;
+        this.beatList = beatList;
+        this.supports = new ArrayList<>();
         this.numbers = new ArrayList<>();
-        if (!lastCyclesToday.isEmpty()) {
+        if (!beatList.isEmpty()) {
             boolean runFlag = false;
-            for (TimeBase timeBase : lastCyclesToday) {
-                int diff = (int) timeBase.getDateBase().distance(nextDay.getDateBase());
-                this.dayNumbersBefore.add(diff);
-                if (diff == 6 || diff == 11 || diff == 16 || diff == 21) {
+            int dayNumberBefore = 0;
+            for (int i = beatList.size() - 1; i >= 0; i--) {
+                dayNumberBefore += beatList.get(i);
+                Branch dayBranch = nextDayBranch.plusDays(-dayNumberBefore);
+                this.supports.add(new BranchInDaySupport(dayBranch, dayNumberBefore));
+                if (dayNumberBefore == 6 || dayNumberBefore == 11 ||
+                        dayNumberBefore == 16 || dayNumberBefore == 21) {
                     runFlag = true;
                 }
+                if (dayNumberBefore > 20) break;
             }
             if (runFlag) {
-                this.numbers = nextDay.getDateCycle().getDay()
-                        .getBranch().getIntYears(TimeInfo.CURRENT_YEAR);
+                this.numbers = nextDayBranch.getIntYears(TimeInfo.CURRENT_YEAR);
             }
         }
     }
 
     public String show() {
-        String show = "";
-        for (int i = 0; i < lastCyclesToday.size(); i++) {
-            int position = lastCyclesToday.get(i).getDateCycle().getDay().getBranch().getPosition();
-            show += "  + Chi " + position + " đã chạy cách đây " + dayNumbersBefore.get(i) + " ngày.";
-            if (i != lastCyclesToday.size() - 1) {
-                show += "\n";
-            }
+        String show = "  + Nhịp chạy: " + NumberBase.showNumbers(beatList, ", ") + ".";
+        for (BranchInDaySupport support : supports) {
+            int position = support.getLastBranchInDay().getPosition();
+            show += "\n  + Chi " + position + " đã chạy cách đây " + support.getDayNumberBefore() + " ngày.";
         }
         if (!numbers.isEmpty()) {
             show += "\n=> Ngày tiếp theo: " + CoupleBase.showCoupleNumbers(numbers);

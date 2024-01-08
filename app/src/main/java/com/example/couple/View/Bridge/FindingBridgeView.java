@@ -13,7 +13,7 @@ import com.example.couple.Model.Support.TriangleConnectedSupport;
 
 import java.util.List;
 
-public interface SearchingBridgeView {
+public interface FindingBridgeView {
     void ShowError(String message);
     void ShowLotteryList(List<Lottery> lotteries);
     void ShowJackpotList(List<Jackpot> jackpotList);

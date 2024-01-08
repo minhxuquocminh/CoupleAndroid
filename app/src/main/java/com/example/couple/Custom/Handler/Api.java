@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Api {
+
     public static String GetTimeDataFromInternet(Context context)
             throws ExecutionException, InterruptedException {
         String link = Const.TIME_URL;

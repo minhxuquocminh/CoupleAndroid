@@ -1,5 +1,6 @@
 package com.example.couple.View.Bridge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,20 +13,24 @@ import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
+import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.R;
+import com.example.couple.View.BridgeHistory.SpecialSetsHistoryActivity;
 import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
 
 import java.util.List;
 
 public class SelectiveBridgeActivity extends AppCompatActivity implements SelectiveBridgeView {
+    TextView tvLongBridge;
     TextView tvAfterDoubleBridge;
     TextView tvBranchInDayBridge;
     TextView tvLongBeatBridge;
 
+    TextView tvBridgeInDay;
     TextView tvSignOfDouble;
     TextView tvConnectedSetBridge;
     TextView tvTriadSetBridge;
@@ -39,9 +44,11 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selective_bridge);
 
+        tvLongBridge = findViewById(R.id.tvLongBridge);
         tvAfterDoubleBridge = findViewById(R.id.tvAfterDoubleBridge);
         tvBranchInDayBridge = findViewById(R.id.tvBranchInDayBridge);
         tvLongBeatBridge = findViewById(R.id.tvLongBeatBridge);
+        tvBridgeInDay = findViewById(R.id.tvBridgeInDay);
         tvSignOfDouble = findViewById(R.id.tvSignOfDouble);
         tvConnectedSetBridge = findViewById(R.id.tvConnectedSetBridge);
         tvTriadSetBridge = findViewById(R.id.tvTriadSetBridge);
@@ -52,6 +59,20 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
 
         viewModel.GetAllData();
 
+        tvLongBridge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SelectiveBridgeActivity.this, SpecialSetsHistoryActivity.class));
+            }
+        });
+
+        tvBridgeInDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SelectiveBridgeActivity.this, FindingBridgeActivity.class));
+            }
+        });
+
     }
 
     @Override
@@ -60,16 +81,15 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowJackpotAndTimeBaseList(List<Jackpot> jackpotList, List<TimeBase> timeBaseList) {
+    public void ShowNextDayTimeAndJackpotList(TimeBase nextDay, List<Jackpot> jackpotList) {
         // from jackpot
         viewModel.GetAfterDoubleBridge(jackpotList);
         viewModel.GetLongBeatBridge(jackpotList);
         viewModel.GetSignOfDouble(jackpotList);
         viewModel.GetShadowTouchs(jackpotList);
         // from time and jackpot
-        if (timeBaseList.size() >= 2 &&
-                timeBaseList.get(1).getDateBase().equals(jackpotList.get(0).getDateBase())) {
-            viewModel.GetBranchInDayBridge(jackpotList, timeBaseList);
+        if (!nextDay.isEmpty()) {
+            viewModel.GetBranchInDayBridge(jackpotList, nextDay.getDateCycle().getDay().getBranch());
         }
     }
 
@@ -105,6 +125,17 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
                 show += history.showCompact() + "\n";
             }
             tvLongBeatBridge.setText(show.trim());
+        }
+    }
+
+    @Override
+    public void ShowSignOfDouble(SignOfDouble sign) {
+        if (sign.isEmpty()) {
+            tvSignOfDouble.setVisibility(View.GONE);
+        } else {
+            tvSignOfDouble.setVisibility(View.VISIBLE);
+            String show = "Dấu hiệu ra kép:\n" + sign.show();
+            tvSignOfDouble.setText(show.trim());
         }
     }
 

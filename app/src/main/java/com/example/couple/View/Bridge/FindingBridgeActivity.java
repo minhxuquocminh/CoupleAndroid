@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -30,12 +29,12 @@ import com.example.couple.Model.Support.PairConnectedSupport;
 import com.example.couple.Model.Support.TriangleConnectedSupport;
 import com.example.couple.R;
 import com.example.couple.View.Lottery.LotteryActivity;
-import com.example.couple.ViewModel.Bridge.SearchingBridgeViewModel;
+import com.example.couple.ViewModel.Bridge.FindingBridgeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchingBridgeActivity extends AppCompatActivity implements SearchingBridgeView {
+public class FindingBridgeActivity extends AppCompatActivity implements FindingBridgeView {
     EditText edtDayNumberBefore;
     TextView tvUpdate1;
     TextView tvViewLottery1;
@@ -66,7 +65,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
     TextView tvTestConnectedBridge;
     TextView tvTest2ConnectedBridge;
 
-    SearchingBridgeViewModel viewModel;
+    FindingBridgeViewModel viewModel;
     List<Jackpot> jackpotList = new ArrayList<>();
     int dayNumberBefore = 0;
     boolean isFastView = true;
@@ -107,7 +106,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvTestConnectedBridge = findViewById(R.id.tvTestConnectedBridge);
         tvTest2ConnectedBridge = findViewById(R.id.tvTest2ConnectedBridge);
 
-        viewModel = new SearchingBridgeViewModel(this, this);
+        viewModel = new FindingBridgeViewModel(this, this);
         viewModel.GetLotteryListAndJackpotList();
 
         dayNumberBefore = 0;
@@ -122,21 +121,21 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvViewLottery1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SearchingBridgeActivity.this, LotteryActivity.class));
+                startActivity(new Intent(FindingBridgeActivity.this, LotteryActivity.class));
             }
         });
 
         tvViewLottery2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SearchingBridgeActivity.this, LotteryActivity.class));
+                startActivity(new Intent(FindingBridgeActivity.this, LotteryActivity.class));
             }
         });
 
         tvViewLottery3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SearchingBridgeActivity.this, LotteryActivity.class));
+                startActivity(new Intent(FindingBridgeActivity.this, LotteryActivity.class));
             }
         });
     }
@@ -159,7 +158,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvUpdate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(SearchingBridgeActivity.this);
+                WidgetBase.hideKeyboard(FindingBridgeActivity.this);
                 String dayNumberBeforeStr = edtDayNumberBefore.getText().toString().trim();
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 String findingDaysStr = edtFindingDays.getText().toString().trim();
@@ -197,7 +196,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                     if (count < 5) {
                         ShowError("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
                     } else {
-                        Toast.makeText(SearchingBridgeActivity.this, "Cập nhật thành công!",
+                        Toast.makeText(FindingBridgeActivity.this, "Cập nhật thành công!",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -208,7 +207,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
             @Override
             public boolean onLongClick(View v) {
                 String statusFastView = isFastView ? "tắt" : "bật";
-                new AlertDialog.Builder(SearchingBridgeActivity.this)
+                new AlertDialog.Builder(FindingBridgeActivity.this)
                         .setTitle("Chế độ xem nhanh")
                         .setMessage("Bạn có muốn " + statusFastView +
                                 " chế độ xem nhanh dữ liệu theo số ngày trước đó không?")
@@ -236,7 +235,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvUpdate3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(SearchingBridgeActivity.this);
+                WidgetBase.hideKeyboard(FindingBridgeActivity.this);
                 String findingDaysStr = edtFindingDays.getText().toString().trim();
                 if (findingDaysStr.equals("")) {
                     ShowError("Vui lòng nhập số ngày soi cầu!");
@@ -257,7 +256,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                     if (count < 3) {
                         ShowError("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
                     } else {
-                        Toast.makeText(SearchingBridgeActivity.this, "Cập nhật thành công!",
+                        Toast.makeText(FindingBridgeActivity.this, "Cập nhật thành công!",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -267,7 +266,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvSub2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(SearchingBridgeActivity.this);
+                WidgetBase.hideKeyboard(FindingBridgeActivity.this);
                 String dayNumberBeforeStr = tvDayNumberBefore.getText().toString().trim();
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 String findingDaysStr = edtFindingDays.getText().toString().trim();
@@ -315,7 +314,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvPlus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(SearchingBridgeActivity.this);
+                WidgetBase.hideKeyboard(FindingBridgeActivity.this);
                 String dayNumberBeforeStr = tvDayNumberBefore.getText().toString().trim();
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 String findingDaysStr = edtFindingDays.getText().toString().trim();
@@ -400,7 +399,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvSub1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(SearchingBridgeActivity.this);
+                WidgetBase.hideKeyboard(FindingBridgeActivity.this);
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 int enoughTouchs = Integer.parseInt(enoughTouchsStr);
                 boolean sortBySet = cboSortBySet.isChecked();
@@ -415,7 +414,7 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
         tvPlus1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(SearchingBridgeActivity.this);
+                WidgetBase.hideKeyboard(FindingBridgeActivity.this);
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 int enoughTouchs = Integer.parseInt(enoughTouchsStr);
                 boolean sortBySet = cboSortBySet.isChecked();
@@ -538,8 +537,8 @@ public class SearchingBridgeActivity extends AppCompatActivity implements Search
                 .setMessage("Thứ tự trúng cầu bộ 3 từ sau ra trước: " + show)
                 .setPositiveButton("Copy", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        WidgetBase.copyToClipboard(SearchingBridgeActivity.this, "triad", finalShow);
-                        Toast.makeText(SearchingBridgeActivity.this,
+                        WidgetBase.copyToClipboard(FindingBridgeActivity.this, "triad", finalShow);
+                        Toast.makeText(FindingBridgeActivity.this,
                                 "Đã copy thứ tự!", Toast.LENGTH_SHORT).show();
                     }
                 })
