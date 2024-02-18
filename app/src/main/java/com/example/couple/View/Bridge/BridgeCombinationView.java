@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface BridgeCombinationView {
     void ShowError(String message);
-    void ShowLotteryAndJackpotAndTimeBaseList(List<Jackpot> jackpotList,
-                                              List<Lottery> lotteryList, TimeBase timeBaseNextDay);
+    void ShowAllData(List<Jackpot> allJackpotList, List<Jackpot> jackpotList,
+                     List<Lottery> lotteryList, TimeBase timeBaseNextDay);
     void ShowAllBridgeToday(CombineBridge combineBridge);
     void ShowCombineBridgeList(List<CombineBridge> combineBridges);
 }

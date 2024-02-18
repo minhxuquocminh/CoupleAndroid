@@ -5,6 +5,7 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
+import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
@@ -86,9 +87,15 @@ public class HistoryHandler {
         return histories;
     }
 
-    public static List<SpecialSetHistory> GetSpecialSetsHistory(List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
+    public static List<SpecialSetHistory> GetSpecialSetsHistory(List<Jackpot> allJackpotList,
+                                                                List<Jackpot> jackpotList,
+                                                                TimeBase timeBaseNextDay) {
         List<SpecialSetHistory> historyList = new ArrayList<>();
         // for cycle
+        BranchInDayBridge branchBridge = CycleBridgeHandler
+                .GetBranchInDayBridges(allJackpotList, timeBaseNextDay.getDateCycle().getDay().getBranch());
+        historyList.add(branchBridge.toSpecialSetHistory());
+
         List<SpecialSetHistory> branches1 = new ArrayList<>();
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
             SpecialSetHistory branch = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,

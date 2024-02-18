@@ -1,7 +1,8 @@
 package com.example.couple.Model.Origin;
 
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Display.BCouple;
+import com.example.couple.Model.Time.DateBase;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,12 +13,16 @@ public class Jackpot {
     String jackpot;
     DateBase dateBase;
 
+    public static Jackpot getEmpty(DateBase dateBase) {
+        return new Jackpot(Const.EMPTY_JACKPOT, dateBase);
+    }
+
     public static Jackpot getEmpty() {
-        return new Jackpot("-99999", new DateBase());
+        return new Jackpot(Const.EMPTY_JACKPOT, DateBase.getEmpty());
     }
 
     public boolean isEmpty() {
-        return jackpot != null && jackpot.equals("-99999");
+        return jackpot.equals(Const.EMPTY_JACKPOT);
     }
 
     public boolean isSameSequentlySign() {

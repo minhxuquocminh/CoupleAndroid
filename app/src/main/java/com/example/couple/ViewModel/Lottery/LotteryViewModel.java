@@ -25,8 +25,6 @@ public class LotteryViewModel {
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
         if (lotteries.isEmpty()) {
             lotteryView.ShowError("Lỗi không tải được dữ liệu!");
-        } else if (lotteries.size() < numberOfDays) {
-            lotteryView.ShowRequestToUpdateLottery(lotteries.size(), numberOfDays);
         } else {
             lotteryView.ShowLotteryList(lotteries);
         }

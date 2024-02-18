@@ -10,7 +10,6 @@ import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Time.Cycle.Branch;
 import com.example.couple.Model.Time.Cycle.YearCycle;
-import com.example.couple.Model.Time.TimeBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,40 +17,38 @@ import java.util.List;
 
 public class CycleBridgeHandler {
 
-    public static CycleBridge GetCompatibleCycleBridge(List<Jackpot> jackpotList,
-                                                       TimeBase timeBaseNextDay, int dayNumberBefore) {
-        if (jackpotList.size() < dayNumberBefore || timeBaseNextDay.isEmpty())
-            return CycleBridge.getEmpty();
-        int positionNextDay = timeBaseNextDay.getDateCycle().getDay().getBranch().getPosition();
+    public static CycleBridge GetCompatibleCycleBridge(List<Jackpot> allJackpotList,
+                                                       Branch branchNextDay, int dayNumberBefore) {
+        if (allJackpotList.size() < dayNumberBefore) return CycleBridge.getEmpty();
+        int positionNextDay = branchNextDay.getPosition();
         int currentPosition = (positionNextDay - dayNumberBefore) > 0 ?
                 (positionNextDay - dayNumberBefore) : 12 + (positionNextDay - dayNumberBefore) % 12;
         Branch currentBranch = new Branch(currentPosition);
         List<YearCycle> yearCycles = currentBranch.getCompatibleYearCycles(TimeInfo.CURRENT_YEAR);
-        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : allJackpotList.get(dayNumberBefore - 1);
         return new CycleBridge(Const.COMPATIBLE_CYCLE_BRIDGE_NAME,
                 yearCycles, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static CycleBridge GetIncompatibleCycleBridge(List<Jackpot> jackpotList,
-                                                         TimeBase timeBaseNextDay, int dayNumberBefore) {
-        if (jackpotList.size() < dayNumberBefore || timeBaseNextDay.isEmpty())
-            return CycleBridge.getEmpty();
-        int positionNextDay = timeBaseNextDay.getDateCycle().getDay().getBranch().getPosition();
+    public static CycleBridge GetIncompatibleCycleBridge(List<Jackpot> allJackpotList,
+                                                         Branch branchNextDay, int dayNumberBefore) {
+        if (allJackpotList.size() < dayNumberBefore) return CycleBridge.getEmpty();
+        int positionNextDay = branchNextDay.getPosition();
         int currentPosition = (positionNextDay - dayNumberBefore) > 0 ?
                 (positionNextDay - dayNumberBefore) : 12 + (positionNextDay - dayNumberBefore) % 12;
         Branch currentBranch = new Branch(currentPosition);
         List<YearCycle> yearCycles = currentBranch.getIncompatibleYearCycles(TimeInfo.CURRENT_YEAR);
-        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : allJackpotList.get(dayNumberBefore - 1);
         return new CycleBridge(Const.INCOMPATIBLE_CYCLE_BRIDGE_NAME,
                 yearCycles, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static BranchInDayBridge GetBranchInDayBridges(List<Jackpot> jackpotList, Branch nextDayBranch) {
-        if (jackpotList.isEmpty()) return BranchInDayBridge.getEmpty();
+    public static BranchInDayBridge GetBranchInDayBridges(List<Jackpot> allJackpotList, Branch nextDayBranch) {
+        if (allJackpotList.isEmpty()) return BranchInDayBridge.getEmpty();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
         int count = 0;
-        for (Jackpot jackpot : jackpotList) {
+        for (Jackpot jackpot : allJackpotList) {
             beat++;
             count++;
             Branch dayBranch = nextDayBranch.plusDays(-count);
@@ -106,8 +103,7 @@ public class CycleBridgeHandler {
         return new SpecialSetHistory(specialSetName, new Branch(validBranch).getIntYears(), beatList);
     }
 
-    public static SpecialSetHistory GetPositive12BranchHistory(List<Jackpot> jackpotList,
-                                                               String specialSetName) {
+    public static SpecialSetHistory GetPositive12BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
         if (jackpotList.isEmpty()) return new SpecialSetHistory();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
@@ -126,8 +122,7 @@ public class CycleBridgeHandler {
         return new SpecialSetHistory(specialSetName, new Branch(nextPosition).getIntYears(), beatList);
     }
 
-    public static SpecialSetHistory GetNegative12BranchHistory(List<Jackpot> jackpotList,
-                                                               String specialSetName) {
+    public static SpecialSetHistory GetNegative12BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
         if (jackpotList.isEmpty()) return new SpecialSetHistory();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;

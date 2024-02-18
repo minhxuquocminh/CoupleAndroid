@@ -3,6 +3,7 @@ package com.example.couple.Custom.Handler;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.Position;
@@ -33,13 +34,16 @@ public class LotteryHandler {
             String characters = afterTimeShow[0].trim();
             String[] numbers = afterTimeShow[1].trim().split(" ");
             List<String> lotteryString = new ArrayList<>();
+            int count = 0;
             for (String number : numbers) {
                 try {
                     Integer.parseInt(number);
                     lotteryString.add(number);
+                    count++;
                 } catch (Exception e) {
                 }
             }
+            if (count != Const.NUMBER_OF_PRIZES) continue;
             Lottery lottery = new Lottery(timeShow, characters, lotteryString, dateBase);
             lotteries.add(lottery);
         }

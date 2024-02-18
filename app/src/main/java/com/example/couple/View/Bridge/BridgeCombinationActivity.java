@@ -100,7 +100,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         edtDayNumber.setSelection(edtDayNumber.getText().length());
 
         viewModel = new BridgeCombinationViewModel(this, this);
-        viewModel.GetTimeBaseNextDayAndLotteryAndJackpotList();
+        viewModel.GetAllData();
 
 
     }
@@ -111,8 +111,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void ShowLotteryAndJackpotAndTimeBaseList(List<Jackpot> jackpotList,
-                                                     List<Lottery> lotteryList, TimeBase timeBaseNextDay) {
+    public void ShowAllData(List<Jackpot> allJackpotList, List<Jackpot> jackpotList,
+                            List<Lottery> lotteryList, TimeBase timeBaseNextDay) {
         viewModel.GetAllBridgeToday(jackpotList, lotteryList);
         btnFindingBridge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,11 +153,12 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
                             Integer.parseInt(numberOfDayStr);
-                    viewModel.GetCombineBridgeList(jackpotList, lotteryList, timeBaseNextDay, numberOfDay,
-                            combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
-                            mapping, connectedSet, estimated, rightMapping, compatible, incompatible,
-                            compactRightMapping, triadMapping, shadowExchange, bigDouble, sameDouble, positiveDouble,
-                            setData, touchData, sumData, branchData, headData, tailData, combineData
+                    viewModel.GetCombineBridgeList(allJackpotList, jackpotList, lotteryList, timeBaseNextDay,
+                            numberOfDay, combineTouch, connected, shadowTouch, lottoTouch, negativeShadow,
+                            positiveShadow, mapping, connectedSet, estimated, rightMapping, compatible,
+                            incompatible, compactRightMapping, triadMapping, shadowExchange, bigDouble,
+                            sameDouble, positiveDouble, setData, touchData, sumData, branchData,
+                            headData, tailData, combineData
                     );
                 }
             }

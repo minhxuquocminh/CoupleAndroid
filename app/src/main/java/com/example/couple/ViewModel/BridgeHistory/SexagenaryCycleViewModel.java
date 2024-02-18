@@ -26,12 +26,12 @@ public class SexagenaryCycleViewModel {
             view.ShowUpdateSuccess();
         }
         List<TimeBase> cycleList = TimeHandler.getAllSexagenaryCycle(context, numberOfDays);
-        List<Jackpot> jackpotList = JackpotHandler
-                .GetReserveJackpotListFromFile(context, numberOfDays);
+        List<Jackpot> allJackpotList = JackpotHandler
+                .GetAllReserveJackpotListFromFile(context, numberOfDays);
         if (cycleList.isEmpty()) {
             view.ShowError("Lỗi không lấy đc thông tin.");
         } else {
-            view.ShowSexagenaryCycle(cycleList, jackpotList);
+            view.ShowSexagenaryCycle(cycleList, allJackpotList);
         }
 
     }

@@ -40,11 +40,12 @@ public class SelectiveBridgeViewModel {
 
     public void GetAllData() {
         TimeBase nextDay = TimeHandler.getTimeBaseNextDay(context);
+        List<Jackpot> allJackpotList = JackpotHandler.GetAllReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.size() == 0) {
             view.ShowError("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {
-            view.ShowNextDayTimeAndJackpotList(nextDay, jackpotList);
+            view.ShowNextDayTimeAndJackpotList(nextDay, allJackpotList, jackpotList);
         }
 
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
@@ -75,8 +76,8 @@ public class SelectiveBridgeViewModel {
         view.ShowShadowTouchs(bridge.getTouchs());
     }
 
-    public void GetBranchInDayBridge(List<Jackpot> jackpotList, Branch nextDayBranch) {
-        BranchInDayBridge bridge = CycleBridgeHandler.GetBranchInDayBridges(jackpotList, nextDayBranch);
+    public void GetBranchInDayBridge(List<Jackpot> allJackpotList, Branch nextDayBranch) {
+        BranchInDayBridge bridge = CycleBridgeHandler.GetBranchInDayBridges(allJackpotList, nextDayBranch);
         view.ShowBranchInDayBridge(bridge);
     }
 

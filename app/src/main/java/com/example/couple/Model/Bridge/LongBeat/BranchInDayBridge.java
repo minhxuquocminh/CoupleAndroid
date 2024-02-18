@@ -3,6 +3,7 @@ package com.example.couple.Model.Bridge.LongBeat;
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Support.BranchInDaySupport;
 import com.example.couple.Model.Time.Cycle.Branch;
 
@@ -45,6 +46,10 @@ public class BranchInDayBridge {
                 this.numbers = nextDayBranch.getIntYears(TimeInfo.CURRENT_YEAR);
             }
         }
+    }
+
+    public SpecialSetHistory toSpecialSetHistory() {
+        return new SpecialSetHistory("CTN", numbers, beatList);
     }
 
     public String show() {

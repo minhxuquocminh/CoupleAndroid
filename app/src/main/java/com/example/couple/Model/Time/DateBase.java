@@ -39,6 +39,15 @@ public class DateBase implements Serializable {
         return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
     }
 
+    public boolean isFutureDay() {
+        DateBase today = DateBase.TO_DAY();
+        if (this.year < today.getYear()) return false;
+        if (this.year > today.getYear()) return true;
+        if (this.month < today.getMonth()) return false;
+        if (this.month > today.getMonth()) return true;
+        return this.day > today.getDay();
+    }
+
     public DateBase plusDays(int numberOfDays) {
         Date date = toDate();
         if (date == null) return null;
@@ -183,7 +192,7 @@ public class DateBase implements Serializable {
     }
 
     public long distance(DateBase dateBase) {
-        return (long) ((dateBase.toDate().getTime() - toDate().getTime()) / (24 * 60 * 60 * 1000));
+        return (long) ((dateBase.toDate().getTime() - this.toDate().getTime()) / (24 * 60 * 60 * 1000));
     }
 
     public static DateBase getCurrentDate() {

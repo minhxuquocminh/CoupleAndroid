@@ -75,13 +75,13 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
     }
 
     @Override
-    public void ShowSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> jackpotList) {
+    public void ShowSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> allJackpotList) {
         List<String> headers = new ArrayList<>();
         List<RowUI> rows = new ArrayList<>();
         int index = -1;
         for (TimeBase timeBase : cycleList) {
-            for (int i = 0; i < jackpotList.size(); i++) {
-                if (timeBase.getDateBase().equals(jackpotList.get(i).getDateBase())) {
+            for (int i = 0; i < allJackpotList.size(); i++) {
+                if (timeBase.getDateBase().equals(allJackpotList.get(i).getDateBase())) {
                     index = i;
                     break;
                 }
@@ -106,7 +106,7 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
             int count = index;
             List<Jackpot> jackpots = new ArrayList<>();
             jackpots.add(Jackpot.getEmpty());
-            jackpots.addAll(jackpotList);
+            jackpots.addAll(allJackpotList);
 //            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
 //                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp khắc", "Năm hợp", "Năm khắc");
             for (TimeBase timeBase : cycleList) {

@@ -31,6 +31,7 @@ import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Time.Cycle.Branch;
 import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.View.Bridge.BridgeCombinationView;
 
@@ -46,11 +47,12 @@ public class BridgeCombinationViewModel {
         this.context = context;
     }
 
-    public void GetTimeBaseNextDayAndLotteryAndJackpotList() {
+    public void GetAllData() {
+        List<Jackpot> allJackpotList = JackpotHandler.GetAllReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         TimeBase timeBaseNextDay = TimeHandler.getTimeBaseNextDay(context);
-        view.ShowLotteryAndJackpotAndTimeBaseList(jackpotList, lotteryList, timeBaseNextDay);
+        view.ShowAllData(allJackpotList, jackpotList, lotteryList, timeBaseNextDay);
     }
 
     public void GetAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
@@ -91,7 +93,7 @@ public class BridgeCombinationViewModel {
         }
     }
 
-    public void GetCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList,
+    public void GetCombineBridgeList(List<Jackpot> allJackpotList, List<Jackpot> jackpotList, List<Lottery> lotteryList,
                                      TimeBase timeBaseNextDay, int numberOfDay,
                                      boolean combineTouch, boolean connected, boolean shadowTouch,
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
@@ -109,6 +111,7 @@ public class BridgeCombinationViewModel {
         int newDayNumber = connected && numberOfDay >
                 lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                 lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS : numberOfDay;
+        Branch branchNextDay = timeBaseNextDay.getDateCycle().getDay().getBranch();
         for (int i = 0; i < newDayNumber; i++) {
             List<Bridge> bridgeList = new ArrayList<>();
             // touch
@@ -167,12 +170,12 @@ public class BridgeCombinationViewModel {
             }
             if (compatible) {
                 CycleBridge compatibleBridge = CycleBridgeHandler
-                        .GetCompatibleCycleBridge(jackpotList, timeBaseNextDay, i);
+                        .GetCompatibleCycleBridge(allJackpotList, branchNextDay, i);
                 bridgeList.add(compatibleBridge);
             }
             if (incompatible) {
                 CycleBridge incompatibleBridge = CycleBridgeHandler
-                        .GetIncompatibleCycleBridge(jackpotList, timeBaseNextDay, i);
+                        .GetIncompatibleCycleBridge(allJackpotList, branchNextDay, i);
                 bridgeList.add(incompatibleBridge);
             }
             if (compactRightMapping) {

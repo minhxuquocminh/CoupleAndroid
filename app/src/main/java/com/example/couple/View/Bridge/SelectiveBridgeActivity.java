@@ -81,7 +81,8 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowNextDayTimeAndJackpotList(TimeBase nextDay, List<Jackpot> jackpotList) {
+    public void ShowNextDayTimeAndJackpotList(TimeBase nextDay,
+                                              List<Jackpot> allJackpotList, List<Jackpot> jackpotList) {
         // from jackpot
         viewModel.GetAfterDoubleBridge(jackpotList);
         viewModel.GetLongBeatBridge(jackpotList);
@@ -89,7 +90,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
         viewModel.GetShadowTouchs(jackpotList);
         // from time and jackpot
         if (!nextDay.isEmpty()) {
-            viewModel.GetBranchInDayBridge(jackpotList, nextDay.getDateCycle().getDay().getBranch());
+            viewModel.GetBranchInDayBridge(allJackpotList, nextDay.getDateCycle().getDay().getBranch());
         }
     }
 

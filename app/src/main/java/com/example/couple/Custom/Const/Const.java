@@ -27,6 +27,10 @@ public class Const {
     /**
      * set text
      */
+    public static final String DAY_OFF = "day_off";
+    public static final String EMPTY_JACKPOT = "-99999";
+    public static final String FUTURE_DAY = "future_day";
+    public static final String INVALID_DATE = "invalid_date";
     public static final String SHADOW_TOUCH_BRIDGE_NAME = "Cầu chạm bóng";
     public static final String LOTTO_TOUCH_BRIDGE_NAME = "Cầu chạm lô tô";
     public static final String MAPPING_BRIDGE_NAME = "Cầu ánh xạ";

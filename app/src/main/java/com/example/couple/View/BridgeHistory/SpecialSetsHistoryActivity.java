@@ -57,8 +57,9 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
     }
 
     @Override
-    public void ShowJackpotListAndTimeBaseData(List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
-        viewModel.GetSpecialSetsHistory(jackpotList, timeBaseNextDay);
+    public void ShowJackpotListAndTimeBaseData(List<Jackpot> allJackpotList,
+                                               List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
+        viewModel.GetSpecialSetsHistory(allJackpotList, jackpotList, timeBaseNextDay);
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +70,7 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
                 } else if (Integer.parseInt(dayNumberStr) > NUMBER_OF_DAYS_START) {
                     ShowError("Nằm ngoài phạm vi.");
                 } else {
-                    viewModel.GetSpecialSetsHistory(jackpotList
+                    viewModel.GetSpecialSetsHistory(allJackpotList, jackpotList
                             .subList(0, Integer.parseInt(dayNumberStr) - 1), timeBaseNextDay);
                 }
 

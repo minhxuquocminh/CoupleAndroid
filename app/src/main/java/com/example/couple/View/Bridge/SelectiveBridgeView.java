@@ -14,7 +14,8 @@ import java.util.List;
 
 public interface SelectiveBridgeView {
     void ShowError(String message);
-    void ShowNextDayTimeAndJackpotList(TimeBase nextDay, List<Jackpot> jackpotList);
+    void ShowNextDayTimeAndJackpotList(TimeBase nextDay,
+                                       List<Jackpot> allJackpotList, List<Jackpot> jackpotList);
     void ShowLotteryList(List<Lottery> lotteries);
     void ShowAfterDoubleBridge(List<AfterDoubleBridge> bridges);
     void ShowLongBeatBridge(List<SpecialSetHistory> histories);
