@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.example.couple.Base.Handler.ThreadBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NearestTime;
@@ -85,12 +86,11 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
         homePageViewModel.setUrlAndParamsIfNoData();
         homePageViewModel.registerBackgoundRuntime();
-        homePageViewModel.UpdateAllDataIfNeeded();
-        homePageViewModel.GetTimeDataFromFile();
-        homePageViewModel.GetJackpotDataFromFile();
-        homePageViewModel.GetLotteryList(Const.MAX_DAYS_TO_GET_LOTTERY);
+        homePageViewModel.getTimeDataFromFile();
+        homePageViewModel.getJackpotDataFromFile();
+        homePageViewModel.getLotteryList(Const.MAX_DAYS_TO_GET_LOTTERY);
 
-        homePageViewModel.GetNote();
+        homePageViewModel.getNote();
 
         imgViewLottery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +114,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
                         .setMessage("Bạn có muốn cập nhật thời gian, XS Đặc biệt và XSMB không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.UpdateAllData();
+                                homePageViewModel.updateAllData(true);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -132,7 +132,8 @@ public class HomePageFragment extends Fragment implements HomePageView {
                                 Const.MAX_DAYS_TO_GET_LOTTERY + " ngày không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.UpdateLottery(Const.MAX_DAYS_TO_GET_LOTTERY, true);
+                                homePageViewModel.updateLottery(Const.MAX_DAYS_TO_GET_LOTTERY,
+                                        true, true);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -149,7 +150,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
                         .setMessage("Bạn có muốn cập nhật XS Đặc biệt của năm nay không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.UpdateJackpot(true);
+                                homePageViewModel.updateJackpot(true, true);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -199,38 +200,50 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
-    public void ShowError(String message) {
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getActivity(), "Đang cập nhật...", Toast.LENGTH_SHORT).show();
+        new ThreadBase<>(
+                (param) -> {
+                    homePageViewModel.updateAllDataIfNeeded(false);
+                },
+                ""
+        ).start();
+    }
+
+    @Override
+    public void showError(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowAllDataStatus(String message) {
+    public void showAllDataStatus(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void UpdateJackpotSuccess(String message) {
+    public void updateJackpotSuccess(String message) {
         if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        homePageViewModel.GetJackpotDataFromFile();
+        homePageViewModel.getJackpotDataFromFile();
     }
 
     @Override
-    public void UpdateLotterySuccess(String message) {
+    public void updateLotterySuccess(String message) {
         if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowTimeDataFromFile(String time) {
+    public void showTimeDataFromFile(String time) {
         tvCalendar.setText(time);
     }
 
     @Override
-    public void ShowJackpotDataFromFile(List<Jackpot> jackpotList) {
+    public void showJackpotDataFromFile(List<Jackpot> jackpotList) {
         tvJackpotToday.setText("Xổ số Đặc Biệt hôm nay về: " + jackpotList.get(0).getJackpot());
         tvJackpotLastDay.setText("Xổ số Đ.Biệt ngày trước đó: " + jackpotList.get(1).getJackpot());
-        homePageViewModel.GetHeadAndTailInLongestTime(jackpotList);
-        homePageViewModel.GetTouchBridge(jackpotList);
-        homePageViewModel.GetSpecialTouchBridge(jackpotList);
+        homePageViewModel.getHeadAndTailInLongestTime(jackpotList);
+        homePageViewModel.getTouchBridge(jackpotList);
+        homePageViewModel.getSpecialTouchBridge(jackpotList);
         int size_to_show = (jackpotList.size() > 7) ? 7 : jackpotList.size();
         String de2Cang7Ngay = "Kết quả: ";
         for (int i = 0; i < size_to_show - 1; i++) {
@@ -241,11 +254,11 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
-    public void ShowLotteryList(List<Lottery> lotteries) {
+    public void showLotteryList(List<Lottery> lotteries) {
     }
 
     @Override
-    public void ShowHeadAndTailInLongestTime(List<NearestTime> nearestTimeList) {
+    public void showHeadAndTailInLongestTime(List<NearestTime> nearestTimeList) {
         String show = "Những đầu đuôi đã chạy lâu nhất: ";
         int length = nearestTimeList.size() < 1 ? nearestTimeList.size() : 1;
         for (int i = 0; i < 1; i++) {
@@ -260,7 +273,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
-    public void ShowTouchBridge(List<BSingle> touchList) {
+    public void showTouchBridge(List<BSingle> touchList) {
         String touchBridge = "Từ bộ số CB lấy các chạm: ";
         for (int i = 0; i < touchList.size(); i++) {
             touchBridge += touchList.get(i).showTouchBalanceCouple();
@@ -272,7 +285,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
-    public void ShowSpecialTouchBridge(List<Integer> touchList) {
+    public void showSpecialTouchBridge(List<Integer> touchList) {
         String touchBridge = "Các chạm đặc biệt từ BSCB: ";
         for (int i = 0; i < touchList.size(); i++) {
             touchBridge += touchList.get(i);
@@ -284,7 +297,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
-    public void ShowNote(String note) {
+    public void showNote(String note) {
         if (note.equals("")) {
             tvNote.setText("Bạn chưa lưu ghi chú nào cả.");
         } else {

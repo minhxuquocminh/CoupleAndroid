@@ -6,7 +6,7 @@ import java.util.List;
 public class Const {
 
     /**
-     * set value
+     * value
      */
     public static final int EMPTY_VALUE = -999;
     public static final int NUMBER_OF_PRIZES = 27;
@@ -25,8 +25,9 @@ public class Const {
     public static final int MAPPING_ALL = 999;
 
     /**
-     * set text
+     * text
      */
+    public static final String SUCCESS = "success";
     public static final String DAY_OFF = "day_off";
     public static final String EMPTY_JACKPOT = "-99999";
     public static final String FUTURE_DAY = "future_day";
@@ -62,7 +63,7 @@ public class Const {
     public static final String NEAR_DOUBLE_DECREASE = "Sát kép giảm";
 
     /**
-     * set array
+     * array
      */
     public static final List<Integer> BIG_DOUBLE_SET = Arrays.asList
             (
@@ -134,14 +135,15 @@ public class Const {
             Arrays.asList(01, 02, 03, 04, 12, 13, 14, 23, 24, 34);
 
     /**
-     * set url and params
+     * url and params
      */
+    public static final String GOOGLE_URL = "www.google.com";
     public static final String TIME_URL = "https://lichvannien365.com/";
     public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua9.net/bang-dac-biet-nam\nchu16";
     public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua9.net/so-ket-qua\nwatermark";
 
     /**
-     * set paragraph
+     * paragraph
      */
     public static final String BRIDGE_ANNOTATION =
             " * Ghi chú: " +
