@@ -23,6 +23,7 @@ public class Const {
     public static final List<Integer> CLAW_BRIDGE_FINDING_DAYS = Arrays.asList(12, 14, 16, 18);
     public static final int CLAW_BRIDGE_MAX_DISPLAY = 8;
     public static final int MAPPING_ALL = 999;
+    public static final int TIME_OUT = 3000;
 
     /**
      * text

@@ -11,7 +11,7 @@ public class AsyncTaskBase<K, T> extends AsyncTask<K, Void, T> {
 
     @Override
     protected T doInBackground(K... inputs) {
-        return (T) callback.handler(inputs);
+        return (T) callback.handle(inputs);
     }
 
 }

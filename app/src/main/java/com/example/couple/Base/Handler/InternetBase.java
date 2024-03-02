@@ -9,6 +9,7 @@ import com.example.couple.Custom.Const.Const;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.concurrent.ExecutionException;
 
 public class InternetBase {
 
@@ -32,17 +33,32 @@ public class InternetBase {
     }
 
     public static boolean pingWebsite(String url, int timeout) {
+        AsyncTaskBase<String, Boolean> task = new AsyncTaskBase<>(new AsyncTaskCallback() {
+            @Override
+            public Object handle(Object[] inputs) {
+                try {
+                    InetAddress address = InetAddress.getByName(url);
+                    return address.isReachable(timeout);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        });
+
         try {
-            InetAddress address = InetAddress.getByName(url);
-            return address.isReachable(timeout);
-        } catch (IOException e) {
+            task.execute();
+            return task.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return false;
     }
 
     public static boolean isInternetAvailable(Context context) {
-        return checkNetworkStatus(context) && pingWebsite(Const.GOOGLE_URL, 3000);
+        return checkNetworkStatus(context) && pingWebsite(Const.GOOGLE_URL, Const.TIME_OUT);
     }
 
 }

@@ -17,25 +17,33 @@ import java.util.Map;
 public class JsoupBase extends AsyncTask<String, Void, String> {
     Context context;
     String link;
+    int timeout;
     List<String> listClassName;
     HashMap<String, String> hashMap = new HashMap<>();
 
-    public JsoupBase(Context context, String link, List<String> listClassName) {
+    boolean isInternetAvailable;
+
+    public JsoupBase(Context context, String link, int timeout, List<String> listClassName) {
+        this.isInternetAvailable = InternetBase.isInternetAvailable(context);
         this.context = context;
         this.link = link;
+        this.timeout = timeout;
         this.listClassName = listClassName;
     }
 
-    public JsoupBase(Context context, String link, List<String> listClassName, HashMap<String, String> hashMap) {
+    public JsoupBase(Context context, String link, int timeout,
+                     List<String> listClassName, HashMap<String, String> hashMap) {
+        this.isInternetAvailable = InternetBase.isInternetAvailable(context);
         this.context = context;
         this.link = link;
+        this.timeout = timeout;
         this.listClassName = listClassName;
         this.hashMap = hashMap;
     }
 
     @Override
     protected String doInBackground(String... strings) {
-        if (!InternetBase.isInternetAvailable(context)) return "";
+        if (!isInternetAvailable) return "";
         String data = "";
 
         try {
@@ -55,7 +63,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
     private String methodGET() throws IOException {
         String data = "";
 
-        Document doc = Jsoup.connect(link).get();
+        Document doc = Jsoup.connect(link).timeout(timeout).get();
         if (listClassName == null || listClassName.isEmpty()) return doc.text();
 
         for (int i = 0; i < listClassName.size(); i++) {
@@ -76,7 +84,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
     private String methodPOST() throws IOException {
         String data = "";
 
-        Connection conn = Jsoup.connect(link);
+        Connection conn = Jsoup.connect(link).timeout(timeout);
 
         for (Map.Entry<String, String> entry : hashMap.entrySet()) {
             String key = entry.getKey();

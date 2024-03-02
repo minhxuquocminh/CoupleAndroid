@@ -84,13 +84,17 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
         homePageViewModel = new HomePageViewModel(this, getActivity());
 
-        homePageViewModel.setUrlAndParamsIfNoData();
-        homePageViewModel.registerBackgoundRuntime();
-        homePageViewModel.getTimeDataFromFile();
-        homePageViewModel.getJackpotDataFromFile();
-        homePageViewModel.getLotteryList(Const.MAX_DAYS_TO_GET_LOTTERY);
-
+        homePageViewModel.getTimeDataFromFile(true);
+        homePageViewModel.getJackpotDataFromFile(true);
+        homePageViewModel.getLotteryList(Const.MAX_DAYS_TO_GET_LOTTERY, true);
         homePageViewModel.getNote();
+
+        new ThreadBase((param) -> {
+            homePageViewModel.setUrlAndParamsIfNoData();
+            homePageViewModel.registerBackgoundRuntime();
+            homePageViewModel.updateAllDataIfNeeded(false);
+            return null;
+        }, "").start();
 
         imgViewLottery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +118,10 @@ public class HomePageFragment extends Fragment implements HomePageView {
                         .setMessage("Bạn có muốn cập nhật thời gian, XS Đặc biệt và XSMB không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.updateAllData(true);
+                                new ThreadBase((param) -> {
+                                    homePageViewModel.updateAllData(false);
+                                    return null;
+                                }, "").start();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -200,19 +207,18 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Toast.makeText(getActivity(), "Đang cập nhật...", Toast.LENGTH_SHORT).show();
-        new ThreadBase<>(
-                (param) -> {
-                    homePageViewModel.updateAllDataIfNeeded(false);
-                },
-                ""
-        ).start();
+    public void onStart() {
+        super.onStart();
+
     }
 
     @Override
     public void showError(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
@@ -224,7 +230,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
     @Override
     public void updateJackpotSuccess(String message) {
         if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        homePageViewModel.getJackpotDataFromFile();
+        homePageViewModel.getJackpotDataFromFile(true);
     }
 
     @Override

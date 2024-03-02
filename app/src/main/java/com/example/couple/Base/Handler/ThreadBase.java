@@ -1,12 +1,13 @@
 package com.example.couple.Base.Handler;
 
-import android.os.Handler;
-import android.os.Looper;
+import lombok.Getter;
 
-public class ThreadBase <T> extends Thread{
+public class ThreadBase<T> extends Thread {
 
     private ThreadCallback<T> callback;
     private T param;
+    @Getter
+    private Object result; // dùng threadBase.join() trước khi get result...
 
     public ThreadBase(ThreadCallback<T> callback, T param) {
         this.callback = callback;
@@ -15,7 +16,7 @@ public class ThreadBase <T> extends Thread{
 
     @Override
     public void run() {
-        callback.run(param);
+        result = callback.run(param);
     }
 
 }

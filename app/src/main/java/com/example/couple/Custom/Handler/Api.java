@@ -24,7 +24,7 @@ public class Api {
         listClassName.add("lvn-cld-monthyear");
         listClassName.add("lvn-cld-timebott-main");
 
-        JsoupBase jsoupBase = new JsoupBase(context, link, listClassName);
+        JsoupBase jsoupBase = new JsoupBase(context, link, Const.TIME_OUT, listClassName);
         jsoupBase.execute();
         return jsoupBase.get();
     }
@@ -36,7 +36,7 @@ public class Api {
         List<String> listClassName = new ArrayList<>();
         listClassName.add("lvn-xoneday-blocktop");
 
-        JsoupBase jsoupBase = new JsoupBase(context, link, listClassName);
+        JsoupBase jsoupBase = new JsoupBase(context, link, Const.TIME_OUT, listClassName);
         jsoupBase.execute();
         return jsoupBase.get();
     }
@@ -52,7 +52,7 @@ public class Api {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("year", year + "");
 
-        JsoupBase jsoupBase = new JsoupBase(context, link, listClassName, hashMap);
+        JsoupBase jsoupBase = new JsoupBase(context, link, Const.TIME_OUT, listClassName, hashMap);
         jsoupBase.execute();
 
         return jsoupBase.get();
@@ -69,7 +69,7 @@ public class Api {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("count", numberOfDays + "");
 
-        JsoupBase jsoupBase = new JsoupBase(context, link, listClassName, hashMap);
+        JsoupBase jsoupBase = new JsoupBase(context, link, Const.TIME_OUT, listClassName, hashMap);
         jsoupBase.execute();
 
         return jsoupBase.get();
