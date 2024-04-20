@@ -13,6 +13,7 @@ import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.TimeHandler;
+import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
@@ -66,14 +67,26 @@ public class SelectiveBridgeViewModel {
         view.ShowLongBeatBridge(histories);
     }
 
-    public void GetSignOfDouble(List<Jackpot> jackpotList) {
-        SignOfDouble sign = OtherBridgeHandler.GetSignOfDouble(jackpotList, 0);
-        view.ShowSignOfDouble(sign);
+    public void GetBranchInTwoDaysBridge(List<Jackpot> jackpotList) {
+        BranchInTwoDaysBridge bridge = CycleBridgeHandler.GetBranchInTwoDaysBridge(jackpotList,
+                0);
+        view.ShowBranchInTwoDaysBridge(bridge);
+    }
+
+    public void GetConnectedTouchs(List<Lottery> lotteries) {
+        ConnectedBridge bridge = ConnectedBridgeHandler.GetConnectedBridge(lotteries,
+                0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
+        view.ShowConnectedTouchs(bridge.getTouchs());
     }
 
     public void GetShadowTouchs(List<Jackpot> jackpotList) {
         ShadowTouchBridge bridge = TouchBridgeHandler.GetShadowTouchBridge(jackpotList, 0);
         view.ShowShadowTouchs(bridge.getTouchs());
+    }
+
+    public void GetSignOfDouble(List<Jackpot> jackpotList) {
+        SignOfDouble sign = OtherBridgeHandler.GetSignOfDouble(jackpotList, 0);
+        view.ShowSignOfDouble(sign);
     }
 
     public void GetBranchInDayBridge(List<Jackpot> allJackpotList, Branch nextDayBranch) {
@@ -94,9 +107,4 @@ public class SelectiveBridgeViewModel {
 
     }
 
-    public void GetConnectedTouchs(List<Lottery> lotteries) {
-        ConnectedBridge bridge = ConnectedBridgeHandler.GetConnectedBridge(lotteries,
-                0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-        view.ShowConnectedTouchs(bridge.getTouchs());
-    }
 }

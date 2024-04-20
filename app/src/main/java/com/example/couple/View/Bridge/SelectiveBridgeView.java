@@ -1,5 +1,6 @@
 package com.example.couple.View.Bridge;
 
+import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
@@ -19,10 +20,11 @@ public interface SelectiveBridgeView {
     void ShowLotteryList(List<Lottery> lotteries);
     void ShowAfterDoubleBridge(List<AfterDoubleBridge> bridges);
     void ShowLongBeatBridge(List<SpecialSetHistory> histories);
-    void ShowSignOfDouble(SignOfDouble sign);
+    void ShowConnectedTouchs(List<Integer> touchs);
+    void ShowBranchInTwoDaysBridge(BranchInTwoDaysBridge bridge);
     void ShowShadowTouchs(List<Integer> touchs);
+    void ShowSignOfDouble(SignOfDouble sign);
     void ShowBranchInDayBridge(BranchInDayBridge bridge);
     void ShowConnectedSetBridge(ConnectedSetBridge bridge);
     void ShowTriadSetBridge(List<TriadBridge> bridges);
-    void ShowConnectedTouchs(List<Integer> touchs);
 }

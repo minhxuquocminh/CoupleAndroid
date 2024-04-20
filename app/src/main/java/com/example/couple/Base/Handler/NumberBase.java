@@ -1,7 +1,6 @@
 package com.example.couple.Base.Handler;
 
 import com.example.couple.Model.Display.Number;
-import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,6 +75,14 @@ public class NumberBase {
         return results;
     }
 
+    public static List<Integer> getReverseList(List<Integer> numbers) {
+        if (numbers.size() == 0) return new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
+        for (int i = numbers.size() - 1; i >= 0; i--) {
+            result.add(numbers.get(i));
+        }
+        return result;
+    }
 
     // numberLength = 1 : số nhỏ hơn 10, numberLength = 2 số nhỏ hơn 100,....
     public static List<Number> verifyNumberArr(String numberArray, int numberLength) {

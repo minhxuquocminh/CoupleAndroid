@@ -1,5 +1,6 @@
 package com.example.couple.Model.Time.Cycle;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 
@@ -23,20 +24,16 @@ public class Branch {
         this.name = position == Const.EMPTY_VALUE ? "" : TimeInfo.EARTHLY_BRANCHES.get(position % 12);
     }
 
-    private List<Integer> getCompatibleBranches() {
-        List<Integer> results = new ArrayList<>();
-        for (int i = 4; i < 12; i += 4) {
-            results.add((position + i) % 12);
-        }
-        return results;
+    public boolean equalsBranch(Branch branch) {
+        return this.position == branch.getPosition();
     }
 
-    private List<Integer> getIncompatibleBranches() {
-        List<Integer> results = new ArrayList<>();
-        for (int i = 3; i < 12; i += 3) {
-            results.add((position + i) % 12);
-        }
-        return results;
+    public static boolean isSameBranch(int firstCouple, int secondCouple, int currentyear) {
+        if (secondCouple < currentyear % 100)
+            return firstCouple % 12 == secondCouple % 12 || firstCouple % 12 == (secondCouple + 4) % 12;
+        if (firstCouple < currentyear % 100)
+            return firstCouple % 12 == secondCouple % 12 || secondCouple % 12 == (firstCouple + 4) % 12;
+        return firstCouple % 12 == secondCouple % 12;
     }
 
     public String getStatus(int couple, int currentYear) {
@@ -56,7 +53,7 @@ public class Branch {
         return status;
     }
 
-    public List<Integer> getIntYears() {
+    public List<Integer> getTailsOfYear() {
         List<Integer> results = new ArrayList<>();
         for (int i = position; i <= 99; i += 12) {
             YearCycle yearCycle = new YearCycle(i);
@@ -65,11 +62,20 @@ public class Branch {
         return results;
     }
 
-    public List<Integer> getIntYears(int currentYear) {
+    public List<Integer> getTailsOfYear(int currentYear) {
         List<Integer> results = new ArrayList<>();
         for (int i = position; i <= 100 + (currentYear % 100); i += 12) {
             YearCycle yearCycle = new YearCycle(i);
             results.add(yearCycle.getCoupleInt());
+        }
+        return results;
+    }
+
+    public List<Integer> getReverseTailsOfYear(int currentYear) {
+        List<Integer> tails = getTailsOfYear(currentYear);
+        List<Integer> results = new ArrayList<>();
+        for (int tail : tails) {
+            results.add(CoupleBase.reverse(tail));
         }
         return results;
     }
@@ -97,7 +103,7 @@ public class Branch {
         List<YearCycle> results = new ArrayList<>();
         List<Integer> compatibles = new ArrayList<>();
         compatibles.add(position);
-        compatibles.addAll(getCompatibleBranches());
+        compatibles.addAll(getCompatibleNumbers());
         Collections.sort(compatibles);
         for (int branch : compatibles) {
             for (int i = branch; i <= 100 + (currentYear % 100); i += 12) {
@@ -112,7 +118,7 @@ public class Branch {
         List<YearCycle> results = new ArrayList<>();
         List<Integer> incompatibles = new ArrayList<>();
         incompatibles.add(position);
-        incompatibles.addAll(getIncompatibleBranches());
+        incompatibles.addAll(getIncompatibleNumbers());
         Collections.sort(incompatibles);
         for (int branch : incompatibles) {
             for (int i = branch; i <= 100 + (currentYear % 100); i += 12) {
@@ -124,7 +130,7 @@ public class Branch {
     }
 
     // yearCouple là đuôi của năm tính từ 1900
-    public static List<Branch> getYearBranchList(int yearCouple, int currentYear) {
+    public static List<Branch> getBranchsByYear(int yearCouple, int currentYear) {
         List<Branch> branches = new ArrayList<>();
         branches.add(new Branch(yearCouple % 12));
         if (yearCouple <= currentYear % 100) {
@@ -132,6 +138,12 @@ public class Branch {
         }
         return branches;
     }
+
+    // yearCouple là đuôi của năm tính từ 1900
+    public static List<Branch> getReverseBranchsByYear(int yearCouple, int currentYear) {
+        return getBranchsByYear(CoupleBase.reverse(yearCouple), currentYear);
+    }
+
 
     public boolean isYearBranch(int yearCouple, int currentYear) {
         if (position == yearCouple % 12) return true;
@@ -164,5 +176,21 @@ public class Branch {
 
     public boolean isEmpty() {
         return position == Const.EMPTY_VALUE || name.equals("");
+    }
+
+    private List<Integer> getCompatibleNumbers() {
+        List<Integer> results = new ArrayList<>();
+        for (int i = 4; i < 12; i += 4) {
+            results.add((position + i) % 12);
+        }
+        return results;
+    }
+
+    private List<Integer> getIncompatibleNumbers() {
+        List<Integer> results = new ArrayList<>();
+        for (int i = 3; i < 12; i += 3) {
+            results.add((position + i) % 12);
+        }
+        return results;
     }
 }

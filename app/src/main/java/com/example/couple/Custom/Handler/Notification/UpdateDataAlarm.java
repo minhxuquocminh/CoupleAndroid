@@ -1,4 +1,4 @@
-package com.example.couple.Custom.Handler;
+package com.example.couple.Custom.Handler.Notification;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,7 +9,12 @@ import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Custom.Const.NotifyId;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Handler.Api;
+import com.example.couple.Custom.Handler.CheckUpdate;
+import com.example.couple.Custom.Handler.JackpotHandler;
+import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.List;
@@ -24,7 +29,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         } else {
             String title = "XSMB";
             String content = "Lỗi lấy kết quả XS Đặc biệt Miền Bắc (Lỗi không có mạng).";
-            NotificationBase.pushNotification(context, title, content);
+            NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
         }
     }
 
@@ -41,7 +46,8 @@ public class UpdateDataAlarm extends BroadcastReceiver {
                             .GetReserveJackpotListFromFile(context, 1);
                     content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
                             jackpotList.get(0).getJackpot() + ".";
-                    NotificationBase.pushNotification(context, title, content);
+                    NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
+                    NotifyNewBridge.notify(context, jackpotList);
                     getDataIfNeeded(context);
                 }
             } catch (ExecutionException e) {

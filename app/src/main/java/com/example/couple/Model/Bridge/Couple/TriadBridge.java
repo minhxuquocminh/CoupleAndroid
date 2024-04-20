@@ -4,7 +4,7 @@ import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Display.Status;
+import com.example.couple.Model.Display.TriadStatus;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.SupportTriad;
 
@@ -21,13 +21,13 @@ public class TriadBridge {
     SupportTriad firstBridge;
     SupportTriad secondBridge;
     SupportTriad thirdBridge;
-    List<Status> statusList;
+    List<TriadStatus> triadStatusList;
     JackpotHistory jackpotHistory;
 
     public int getEnoughTouchs() {
         int count = 0;
-        for (int i = 0; i < statusList.size(); i++) {
-            if (!statusList.get(i).haveZeroTouch()) {
+        for (int i = 0; i < triadStatusList.size(); i++) {
+            if (!triadStatusList.get(i).haveZeroTouch()) {
                 count++;
             }
         }
@@ -68,9 +68,9 @@ public class TriadBridge {
                 + thirdBridge.getValue() + " - " + LotteryHandler.showPrize(firstBridge.getPosition()) +
                 ", " + LotteryHandler.showPrize(secondBridge.getPosition()) + ", " +
                 LotteryHandler.showPrize(thirdBridge.getPosition()) + " \n  TT: ";
-        for (int i = 0; i < statusList.size(); i++) {
-            show += statusList.get(i).show();
-            if (i != statusList.size() - 1) {
+        for (int i = 0; i < triadStatusList.size(); i++) {
+            show += triadStatusList.get(i).show();
+            if (i != triadStatusList.size() - 1) {
                 show += ", ";
             }
         }

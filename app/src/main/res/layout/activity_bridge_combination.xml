@@ -261,15 +261,6 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/cboCompactRightMappingBridge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ánh xạ P1"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
                     android:id="@+id/cboTriadMappingBridge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -279,11 +270,20 @@
                     android:textSize="@dimen/text_size" />
 
                 <CheckBox
-                    android:id="@+id/cboShadowExchangeBridge"
+                    android:id="@+id/cboUnappearedBigDoubleBridge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="đổi bóng"
+                    android:text="kép chưa ra"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranchInTwoDaysBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="chi 2 ngày"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 

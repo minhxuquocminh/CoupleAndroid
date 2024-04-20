@@ -43,12 +43,12 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     CheckBox cboMappingBridge;
     CheckBox cboConnectedSetBridge;
     CheckBox cboEstimatedBridge;
-    CheckBox cboCompactRightMappingBridge;
+    CheckBox cboUnappearedBigDoubleBridge;
     CheckBox cboCompatible;
     CheckBox cboIncompatible;
     CheckBox cboRightMappingBridge;
     CheckBox cboTriadMappingBridge;
-    CheckBox cboShadowExchangeBridge;
+    CheckBox cboBranchInTwoDaysBridge;
     //
     CheckBox cboBigDoubleSet;
     CheckBox cboSameDoubleSet;
@@ -86,9 +86,9 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboIncompatible = findViewById(R.id.cboIncompatible);
         cboConnectedSetBridge = findViewById(R.id.cboConnectedSetBridge);
         cboEstimatedBridge = findViewById(R.id.cboEstimatedBridge);
-        cboCompactRightMappingBridge = findViewById(R.id.cboCompactRightMappingBridge);
+        cboUnappearedBigDoubleBridge = findViewById(R.id.cboUnappearedBigDoubleBridge);
         cboTriadMappingBridge = findViewById(R.id.cboTriadMappingBridge);
-        cboShadowExchangeBridge = findViewById(R.id.cboShadowExchangeBridge);
+        cboBranchInTwoDaysBridge = findViewById(R.id.cboBranchInTwoDaysBridge);
         // special set
         cboBigDoubleSet = findViewById(R.id.cboBigDoubleSet);
         cboSameDoubleSet = findViewById(R.id.cboSameDoubleSet);
@@ -133,9 +133,9 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 boolean rightMapping = cboRightMappingBridge.isChecked();
                 boolean compatible = cboCompatible.isChecked();
                 boolean incompatible = cboIncompatible.isChecked();
-                boolean compactRightMapping = cboCompactRightMappingBridge.isChecked();
+                boolean unappearedDouble = cboUnappearedBigDoubleBridge.isChecked();
                 boolean triadMapping = cboTriadMappingBridge.isChecked();
-                boolean shadowExchange = cboShadowExchangeBridge.isChecked();
+                boolean branchIn2Days = cboBranchInTwoDaysBridge.isChecked();
                 // special set
                 boolean bigDouble = cboBigDoubleSet.isChecked();
                 boolean sameDouble = cboSameDoubleSet.isChecked();
@@ -156,7 +156,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                     viewModel.GetCombineBridgeList(allJackpotList, jackpotList, lotteryList, timeBaseNextDay,
                             numberOfDay, combineTouch, connected, shadowTouch, lottoTouch, negativeShadow,
                             positiveShadow, mapping, connectedSet, estimated, rightMapping, compatible,
-                            incompatible, compactRightMapping, triadMapping, shadowExchange, bigDouble,
+                            incompatible, unappearedDouble, triadMapping, branchIn2Days, bigDouble,
                             sameDouble, positiveDouble, setData, touchData, sumData, branchData,
                             headData, tailData, combineData
                     );

@@ -2,6 +2,7 @@ package com.example.couple.Custom.Handler.Bridge;
 
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
+import com.example.couple.Model.Display.DualStatus;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.PeriodHistory;
@@ -60,11 +61,74 @@ public class EstimatedBridgeHandler {
         return periodHistoryList;
     }
 
+    public static List<PeriodHistory> GetEstimatedHistoryList(List<Jackpot> jackpotList,
+                                                              int dayNumberBefore, int periodNumber, int range) {
+        if (jackpotList.size() < dayNumberBefore + periodNumber) return new ArrayList<>();
+        List<Integer> lastNumbers = new ArrayList<>();
+        for (int i = dayNumberBefore; i < dayNumberBefore + periodNumber; i++) {
+            lastNumbers.add(jackpotList.get(i).getCoupleInt());
+        }
+        List<DualStatus> statusList = getStatusList(lastNumbers);
+
+        List<PeriodHistory> periodHistoryList = new ArrayList<>();
+        for (int i = dayNumberBefore + periodNumber; i < jackpotList.size() - periodNumber; i++) {
+            int count = 0;
+            List<Integer> numbers = new ArrayList<>();
+            for (int j = 0; j < periodNumber; j++) {
+                int coupleCheck = jackpotList.get(i + j).getCoupleInt();
+                if (isInPeriod(lastNumbers.get(j), coupleCheck, range)) {
+                    count++;
+                    numbers.add(coupleCheck);
+                }
+            }
+            if (count == periodNumber) {
+                boolean checkStatus = compareStatusList(statusList, getStatusList(numbers));
+                if (!checkStatus) continue;
+                Collections.reverse(numbers);
+                DateBase start = jackpotList.get(i + periodNumber).getDateBase();
+                DateBase end = jackpotList.get(i).getDateBase();
+                if (i - 1 < jackpotList.size() - 1) {
+                    numbers.add(jackpotList.get(i - 1).getCoupleInt());
+                    end = jackpotList.get(i - 1).getDateBase();
+                }
+                periodHistoryList.add(new PeriodHistory(start, end, numbers));
+            }
+        }
+
+        Collections.reverse(periodHistoryList);
+
+        return periodHistoryList;
+    }
+
     private static boolean isInPeriod(int number, int numberCheck, int range) {
         if (number < 0 || number > 99) return false;
         if (number <= range) return numberCheck >= 0 && numberCheck <= number + range;
         if (number >= 99 - range) return numberCheck <= 99 && numberCheck >= number - range;
         return numberCheck >= number - range && numberCheck <= number + range;
+    }
+
+    private static List<DualStatus> getStatusList(List<Integer> coupleList) {
+        List<DualStatus> statusList = new ArrayList<>();
+        for (int i = 0; i < coupleList.size() - 1; i++) {
+            int firstCouple = coupleList.get(i);
+            int secondCouple = coupleList.get(i + 1);
+            int headSub = firstCouple / 10 - secondCouple / 10;
+            int tailSub = firstCouple % 10 - secondCouple % 10;
+            int firstStatus = headSub == 0 ? 0 : headSub / Math.abs(headSub);
+            int secondStatus = tailSub == 0 ? 0 : tailSub / Math.abs(tailSub);
+            statusList.add(new DualStatus(firstStatus, secondStatus));
+        }
+        return statusList;
+    }
+
+    private static boolean compareStatusList(List<DualStatus> firstList, List<DualStatus> secondList) {
+        if (firstList.size() != secondList.size()) return false;
+        for (int i = 0; i < firstList.size(); i++) {
+            if (!firstList.get(i).equals(secondList.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

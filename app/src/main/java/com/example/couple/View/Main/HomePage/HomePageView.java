@@ -14,9 +14,9 @@ public interface HomePageView {
     void updateJackpotSuccess(String message);
     void updateLotterySuccess(String message);
     // show data
-    void showTimeDataFromFile(String time);
-    void showJackpotDataFromFile(List<Jackpot> jackpotList);
-    void showLotteryList(List<Lottery> lotteries);
+    void showTimeData(String time);
+    void showJackpotData(List<Jackpot> jackpotList);
+    void showLotteryData(List<Lottery> lotteries);
     // show bridge
     void showHeadAndTailInLongestTime(List<NearestTime> nearestTimeList);
     void showTouchBridge(List<BSingle> touchList);

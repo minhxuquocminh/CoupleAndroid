@@ -1,7 +1,10 @@
 package com.example.couple.Custom.Handler.Bridge;
 
+import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
 import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
+import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
 import com.example.couple.Model.Bridge.Sign.DayDoubleSign;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Display.BSingle;
@@ -17,6 +20,24 @@ import java.util.Collections;
 import java.util.List;
 
 public class OtherBridgeHandler {
+
+    public static UnappearedBigDoubleBridge getUnappearedBigDoubleBridge(List<Jackpot> jackpotList,
+                                                                         int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore) return UnappearedBigDoubleBridge.getEmpty();
+        List<Integer> bigDoubleSet = new ArrayList<>(Const.BIG_DOUBLE_SET);
+        for (int i = dayNumberBefore; i < jackpotList.size(); i++) {
+            if (jackpotList.get(i).getDateBase().isDateLastYear()) {
+                break;
+            }
+
+            Integer couple = jackpotList.get(i).getCoupleInt();
+            if (bigDoubleSet.contains(couple)) {
+                bigDoubleSet.remove(couple);
+            }
+        }
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        return new UnappearedBigDoubleBridge(bigDoubleSet, new JackpotHistory(dayNumberBefore, jackpot));
+    }
 
     public static SignOfDouble GetSignOfDouble(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore) return SignOfDouble.getEmpty();
@@ -79,9 +100,15 @@ public class OtherBridgeHandler {
 
             if (dateBase.plusDays(-70).equals(dateCheck)) break;
         }
-        return new SignOfDouble(upMonthList, monthList, downMonthList, weekList, dayList);
-    }
 
+        List<DayDoubleSign> reverseDayList = new ArrayList<>();
+        for (int i = dayList.size() - 1; i >= 0; i--) {
+            reverseDayList.add(dayList.get(i));
+        }
+
+        return new SignOfDouble(NumberBase.getReverseList(upMonthList), NumberBase.getReverseList(monthList),
+                NumberBase.getReverseList(downMonthList), NumberBase.getReverseList(weekList), reverseDayList);
+    }
 
     public static ShadowExchangeBridge GetShadowExchangeBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore + 2)

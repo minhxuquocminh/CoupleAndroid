@@ -8,6 +8,7 @@ import com.example.couple.Model.Support.BranchInDaySupport;
 import com.example.couple.Model.Time.Cycle.Branch;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BranchInDayBridge {
@@ -29,6 +30,7 @@ public class BranchInDayBridge {
         this.beatList = beatList;
         this.supports = new ArrayList<>();
         this.numbers = new ArrayList<>();
+        List<Integer> dayList = Arrays.asList(4, 5, 9, 10, 14, 15, 19, 20);
         if (!beatList.isEmpty()) {
             boolean runFlag = false;
             int dayNumberBefore = 0;
@@ -36,14 +38,13 @@ public class BranchInDayBridge {
                 dayNumberBefore += beatList.get(i);
                 Branch dayBranch = nextDayBranch.plusDays(-dayNumberBefore);
                 this.supports.add(new BranchInDaySupport(dayBranch, dayNumberBefore));
-                if (dayNumberBefore == 6 || dayNumberBefore == 11 ||
-                        dayNumberBefore == 16 || dayNumberBefore == 21) {
+                if (dayList.contains(dayNumberBefore)) {
                     runFlag = true;
                 }
                 if (dayNumberBefore > 20) break;
             }
             if (runFlag) {
-                this.numbers = nextDayBranch.getIntYears(TimeInfo.CURRENT_YEAR);
+                this.numbers = nextDayBranch.getTailsOfYear(TimeInfo.CURRENT_YEAR);
             }
         }
     }
@@ -56,7 +57,8 @@ public class BranchInDayBridge {
         String show = "  + Nhịp chạy: " + NumberBase.showNumbers(beatList, ", ") + ".";
         for (BranchInDaySupport support : supports) {
             int position = support.getLastBranchInDay().getPosition();
-            show += "\n  + Chi " + position + " đã chạy cách đây " + support.getDayNumberBefore() + " ngày.";
+            show += "\n  + Chi " + CoupleBase.showCouple(position)
+                    + " đã chạy cách đây " + CoupleBase.showCouple(support.getDayNumberBefore()) + " ngày.";
         }
         if (!numbers.isEmpty()) {
             show += "\n=> Ngày tiếp theo: " + CoupleBase.showCoupleNumbers(numbers);

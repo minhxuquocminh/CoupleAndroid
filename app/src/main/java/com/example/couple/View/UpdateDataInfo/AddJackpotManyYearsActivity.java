@@ -16,15 +16,11 @@ import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.CheckUpdate;
-import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class AddJackpotManyYearsActivity extends AppCompatActivity implements AddJackpotManyYearsView {
@@ -137,26 +133,8 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
 
     public void getData(Context context) {
         String title = "XSMB";
-        String content = "";
-        if (CheckUpdate.checkUpdateJackpot(context)) {
-            try {
-                String jackpot = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
-                IOFileBase.saveDataToFile(context, "jackpot" +
-                        TimeInfo.CURRENT_YEAR + ".txt", jackpot, 0);
-                if (!CheckUpdate.checkUpdateJackpot(context)) {
-                    List<Jackpot> jackpotList = JackpotHandler
-                            .GetReserveJackpotListFromFile(context, 1);
-                    content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
-                            jackpotList.get(0).getJackpot() + ".";
-                    NotificationBase.pushNotification(context, title, content);
-                    getDataIfNeeded(context);
-                }
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        String content = 1 + "";
+        NotificationBase.pushNotification(context, Integer.parseInt(content), title, content);
     }
 
     private void getDataIfNeeded(Context context) {

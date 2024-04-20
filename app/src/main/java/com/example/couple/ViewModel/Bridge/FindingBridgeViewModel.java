@@ -12,7 +12,6 @@ import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.ClawSupport;
@@ -93,10 +92,10 @@ public class FindingBridgeViewModel {
 
             int count = 0;
             boolean isInList = false;
-            Couple couple = lotteries.get(i - 1).getJackpotCouple();
+            int coupleInt = lotteries.get(i - 1).getJackpotCouple().getCoupleInt();
             for (int j = setList.size() - 1; j >= 0; j--) {
                 count++;
-                if (setList.get(j).isItMatch(couple)) {
+                if (setList.get(j).isItMatch(coupleInt)) {
                     statusList.add(count);
                     isInList = true;
                     break;
@@ -145,7 +144,7 @@ public class FindingBridgeViewModel {
         List<Set> mainSets = new ArrayList<>();
         List<Set> longestSets = new ArrayList<>();
         for (int i = 0; i < triadBridgeList.size(); i++) {
-            if (triadBridgeList.get(i).getStatusList().size() > 6) {
+            if (triadBridgeList.get(i).getTriadStatusList().size() > 6) {
                 longestSets.addAll(triadBridgeList.get(i).getSetList());
             } else {
                 mainSets.addAll(triadBridgeList.get(i).getSetList());

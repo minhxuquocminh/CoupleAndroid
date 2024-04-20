@@ -3,7 +3,6 @@ package com.example.couple.Model.Display;
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Origin.Couple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +15,23 @@ public class Set {
     int second;
 
     public Set(int first, int second) {
-        if (first < 0 || second < 0) {
-            this.first = first;
-            this.second = second;
+        if (first < 0 || first > 9 || second < 0 || second > 9) {
+            this.first = Const.EMPTY_VALUE;
+            this.second = Const.EMPTY_VALUE;
             return;
         }
-        int cache1 = CoupleBase.getSmallShadow(first);
-        int cache2 = CoupleBase.getSmallShadow(second);
-        this.first = cache1 < cache2 ? cache1 : cache2;
-        this.second = cache1 < cache2 ? cache2 : cache1;
+        this.first = first;
+        this.second = second;
+    }
+
+    public Set(int couple) {
+        if (couple < 0 || couple > 99) {
+            this.first = Const.EMPTY_VALUE;
+            this.second = Const.EMPTY_VALUE;
+            return;
+        }
+        this.first = couple / 10;
+        this.second = couple % 10;
     }
 
     public static Set getEmpty() {
@@ -35,23 +42,21 @@ public class Set {
         return first == Const.EMPTY_VALUE || second == Const.EMPTY_VALUE;
     }
 
-    public Set(int couple) {
-        if (couple < 0) return;
-        if (couple < 10) {
-            this.first = 0;
-            this.second = CoupleBase.getSmallShadow(couple);
-        } else {
-            String coupleStr = couple + "";
-            int first = Integer.parseInt(coupleStr.charAt(0) + "");
-            int second = Integer.parseInt(coupleStr.charAt(1) + "");
-            this.first = CoupleBase.getSmallShadow(first);
-            this.second = CoupleBase.getSmallShadow(second);
-        }
+    public boolean isItMatch(int coupleInt) {
+        int shadow = CoupleBase.getSmallShadow(coupleInt);
+        return shadow == CoupleBase.getSmallShadow(getSetInt());
     }
 
-    public boolean isItMatch(Couple couple) {
-        int shadow = CoupleBase.getSmallShadow(couple.getCoupleInt());
-        return shadow == getSetInt();
+    public Set getSmallSet() {
+        return new Set(CoupleBase.getSmallShadow(getSetInt()));
+    }
+
+    public int getSetInt() {
+        return first * 10 + second;
+    }
+
+    public int getSmallSetInt() {
+        return CoupleBase.getSmallShadow(getSetInt());
     }
 
     @Override
@@ -59,31 +64,30 @@ public class Set {
         return first + "" + second + ", ";
     }
 
-    public int getSetInt() {
-        return Integer.parseInt(first + "" + second);
-    }
-
     public String show() {
         return first + "" + second;
     }
 
     public boolean equalsSet(Set set) {
-        return first == set.getFirst() && second == set.getSecond();
+        return CoupleBase.getSmallShadow(getSetInt()) == CoupleBase.getSmallShadow(set.getSetInt());
     }
 
     public List<Integer> getSetsDetail() {
-        int shadowOfFirst = first + 5;
-        int shadowOfSecond = second + 5;
+        int smallShadow = CoupleBase.getSmallShadow(getSetInt());
+        int smallFirst = smallShadow / 10;
+        int smallSecond = smallShadow % 10;
+        int bigFirst = smallFirst + 5;
+        int bigSecond = smallSecond + 5;
 
         List<Integer> numbers = new ArrayList<>();
-        numbers.add(Integer.valueOf(first + "" + second));
-        numbers.add(Integer.valueOf(second + "" + first));
-        numbers.add(Integer.valueOf(first + "" + shadowOfSecond));
-        numbers.add(Integer.valueOf(shadowOfSecond + "" + first));
-        numbers.add(Integer.valueOf(shadowOfFirst + "" + second));
-        numbers.add(Integer.valueOf(second + "" + shadowOfFirst));
-        numbers.add(Integer.valueOf(shadowOfFirst + "" + shadowOfSecond));
-        numbers.add(Integer.valueOf(shadowOfSecond + "" + shadowOfFirst));
+        numbers.add(smallFirst * 10 + smallSecond);
+        numbers.add(smallSecond * 10 + smallFirst);
+        numbers.add(smallFirst * 10 + bigSecond);
+        numbers.add(bigSecond * 10 + smallFirst);
+        numbers.add(bigFirst * 10 + smallSecond);
+        numbers.add(smallSecond * 10 + bigFirst);
+        numbers.add(bigFirst * 10 + bigSecond);
+        numbers.add(bigSecond * 10 + bigFirst);
 
         return NumberBase.filterDuplicatedNumbers(numbers);
     }

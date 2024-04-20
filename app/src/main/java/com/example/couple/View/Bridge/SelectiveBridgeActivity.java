@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.Handler.SingleBase;
+import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
@@ -25,17 +26,18 @@ import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
 import java.util.List;
 
 public class SelectiveBridgeActivity extends AppCompatActivity implements SelectiveBridgeView {
-    TextView tvLongBridge;
+    TextView tvViewLongBeatBridge;
     TextView tvAfterDoubleBridge;
     TextView tvBranchInDayBridge;
     TextView tvLongBeatBridge;
 
-    TextView tvBridgeInDay;
+    TextView tvViewBridgeInDay;
+    TextView tvBranchIn2DaysBridge;
+    TextView tvConnectedTouch;
+    TextView tvShadowTouch;
     TextView tvSignOfDouble;
     TextView tvConnectedSetBridge;
     TextView tvTriadSetBridge;
-    TextView tvConnectedTouch;
-    TextView tvShadowTouch;
 
     SelectiveBridgeViewModel viewModel;
 
@@ -44,29 +46,31 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selective_bridge);
 
-        tvLongBridge = findViewById(R.id.tvLongBridge);
+        tvViewLongBeatBridge = findViewById(R.id.tvViewLongBeatBridge);
         tvAfterDoubleBridge = findViewById(R.id.tvAfterDoubleBridge);
         tvBranchInDayBridge = findViewById(R.id.tvBranchInDayBridge);
         tvLongBeatBridge = findViewById(R.id.tvLongBeatBridge);
-        tvBridgeInDay = findViewById(R.id.tvBridgeInDay);
+
+        tvViewBridgeInDay = findViewById(R.id.tvViewBridgeInDay);
+        tvBranchIn2DaysBridge = findViewById(R.id.tvBranchIn2DaysBridge);
+        tvConnectedTouch = findViewById(R.id.tvConnectedTouch);
+        tvShadowTouch = findViewById(R.id.tvShadowTouch);
         tvSignOfDouble = findViewById(R.id.tvSignOfDouble);
         tvConnectedSetBridge = findViewById(R.id.tvConnectedSetBridge);
         tvTriadSetBridge = findViewById(R.id.tvTriadSetBridge);
-        tvConnectedTouch = findViewById(R.id.tvConnectedTouch);
-        tvShadowTouch = findViewById(R.id.tvShadowTouch);
 
         viewModel = new SelectiveBridgeViewModel(this, this);
 
         viewModel.GetAllData();
 
-        tvLongBridge.setOnClickListener(new View.OnClickListener() {
+        tvViewLongBeatBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SelectiveBridgeActivity.this, SpecialSetsHistoryActivity.class));
             }
         });
 
-        tvBridgeInDay.setOnClickListener(new View.OnClickListener() {
+        tvViewBridgeInDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SelectiveBridgeActivity.this, FindingBridgeActivity.class));
@@ -86,6 +90,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
         // from jackpot
         viewModel.GetAfterDoubleBridge(jackpotList);
         viewModel.GetLongBeatBridge(jackpotList);
+        viewModel.GetBranchInTwoDaysBridge(jackpotList);
         viewModel.GetSignOfDouble(jackpotList);
         viewModel.GetShadowTouchs(jackpotList);
         // from time and jackpot
@@ -130,13 +135,24 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowSignOfDouble(SignOfDouble sign) {
-        if (sign.isEmpty()) {
-            tvSignOfDouble.setVisibility(View.GONE);
+    public void ShowBranchInTwoDaysBridge(BranchInTwoDaysBridge bridge) {
+        if (bridge.getRunningTimes() == 0) {
+            tvBranchIn2DaysBridge.setVisibility(View.GONE);
         } else {
-            tvSignOfDouble.setVisibility(View.VISIBLE);
-            String show = "Dấu hiệu ra kép:\n" + sign.show();
-            tvSignOfDouble.setText(show.trim());
+            tvBranchIn2DaysBridge.setVisibility(View.VISIBLE);
+            String show = "Cầu chi trong 2 ngày (" + bridge.getRunningTimes() + " lần): " + bridge.showNumbers();
+            tvBranchIn2DaysBridge.setText(show.trim());
+        }
+    }
+
+    @Override
+    public void ShowConnectedTouchs(List<Integer> touchs) {
+        if (touchs.isEmpty()) {
+            tvConnectedTouch.setVisibility(View.GONE);
+        } else {
+            tvConnectedTouch.setVisibility(View.VISIBLE);
+            String show = "Chạm liên thông: " + SingleBase.showTouchs(touchs, ", ");
+            tvConnectedTouch.setText(show.trim());
         }
     }
 
@@ -148,6 +164,17 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
             tvShadowTouch.setVisibility(View.VISIBLE);
             String show = "Chạm bóng: " + SingleBase.showTouchs(touchs, ", ");
             tvShadowTouch.setText(show.trim());
+        }
+    }
+
+    @Override
+    public void ShowSignOfDouble(SignOfDouble sign) {
+        if (sign.isEmpty()) {
+            tvSignOfDouble.setVisibility(View.GONE);
+        } else {
+            tvSignOfDouble.setVisibility(View.VISIBLE);
+            String show = "Dấu hiệu ra kép:\n" + sign.show();
+            tvSignOfDouble.setText(show.trim());
         }
     }
 
@@ -182,7 +209,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
             String show = "Cầu bộ ba:\n";
             for (TriadBridge bridge : bridges) {
                 show += bridge.show() + "\n";
-                if (bridge.getStatusList().size() == 5) {
+                if (bridge.getTriadStatusList().size() == 5) {
                     break;
                 }
             }
@@ -190,14 +217,4 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
         }
     }
 
-    @Override
-    public void ShowConnectedTouchs(List<Integer> touchs) {
-        if (touchs.isEmpty()) {
-            tvConnectedTouch.setVisibility(View.GONE);
-        } else {
-            tvConnectedTouch.setVisibility(View.VISIBLE);
-            String show = "Chạm liên thông: " + SingleBase.showTouchs(touchs, ", ");
-            tvConnectedTouch.setText(show.trim());
-        }
-    }
 }

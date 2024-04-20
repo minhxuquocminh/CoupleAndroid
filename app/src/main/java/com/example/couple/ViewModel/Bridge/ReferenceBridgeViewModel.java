@@ -166,7 +166,7 @@ public class ReferenceBridgeViewModel {
         List<Set> triadSetList = new ArrayList<>();
         List<Set> cancelSetList = new ArrayList<>();
         for (int i = 0; i < triadBridgeList.size(); i++) {
-            if (triadBridgeList.get(i).getStatusList().size() > 6) {
+            if (triadBridgeList.get(i).getTriadStatusList().size() > 6) {
                 cancelSetList.addAll(triadBridgeList.get(i).getSetList());
             } else {
                 triadSetList.addAll(triadBridgeList.get(i).getSetList());

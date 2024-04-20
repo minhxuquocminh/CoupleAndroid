@@ -117,7 +117,7 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                 String stem = timeBase.getDateCycle().getDay().getStem().getPosition() + "";
                 String branches = branch.getPosition() % 10 + "";
                 List<Branch> branchList = count == 0 ? Arrays.asList(branch) :
-                        Branch.getYearBranchList(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);
+                        Branch.getBranchsByYear(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);
                 String coupleBranches1 = "";
                 String coupleBranches2 = "";
                 if (!branchList.isEmpty()) coupleBranches1 = branchList.get(0).show();

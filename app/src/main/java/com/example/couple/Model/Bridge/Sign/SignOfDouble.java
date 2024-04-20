@@ -29,6 +29,14 @@ public class SignOfDouble {
 
     public String show() {
         String show = "";
+        for (DayDoubleSign sign : dayList) {
+            show += "  + GĐB " + sign.getJackpot().getJackpot()
+                    + " đã ra cách đây " + CoupleBase.showCouple(sign.getDayNumberBefore()) + " ngày.\n";
+        }
+
+        if (!weekList.isEmpty()) {
+            show += "  + Đường chạy tuần: " + CoupleBase.showCoupleNumbers(weekList, " ") + "\n";
+        }
 
         if (!upMonthList.isEmpty()) {
             show += "  + Đường chéo tháng trên: " + CoupleBase.showCoupleNumbers(upMonthList, " ") + "\n";
@@ -40,20 +48,6 @@ public class SignOfDouble {
 
         if (!downMonthList.isEmpty()) {
             show += "  + Đường chéo tháng dưới: " + CoupleBase.showCoupleNumbers(downMonthList, " ") + "\n";
-        }
-
-        if (!weekList.isEmpty()) {
-            show += "  + Đường chạy tuần: " + CoupleBase.showCoupleNumbers(weekList, " ") + "\n";
-        }
-
-        int count = 0;
-        for (DayDoubleSign sign : dayList) {
-            count++;
-            show += "  + GĐB " + sign.getJackpot().getJackpot() +
-                    " đã ra cách đây " + sign.getDayNumberBefore() + " ngày.";
-            if (count != dayList.size()) {
-                show += "\n";
-            }
         }
 
         return show;

@@ -17,9 +17,10 @@ public class BCoupleBridgeHandler {
         List<AfterDoubleBridge> bridges = new ArrayList<>();
         List<AfterDoubleBridge> checkList = new ArrayList<>();
         int maxSize = jackpotList.size() < 20 ? jackpotList.size() : 20;
-        for (int i = 0; i < maxSize - 1; i++) {
+        for (int i = 0; i < maxSize - 2; i++) {
             if (jackpotList.get(i).getCouple().isDoubleAndShadow()) {
                 List<Couple> lastDoubleRange = new ArrayList<>();
+                lastDoubleRange.add(jackpotList.get(i + 2).getCouple());
                 lastDoubleRange.add(jackpotList.get(i + 1).getCouple());
                 lastDoubleRange.add(jackpotList.get(i).getCouple());
                 if (i - 1 >= 0) {
@@ -29,19 +30,15 @@ public class BCoupleBridgeHandler {
             }
         }
         for (AfterDoubleBridge bridge : checkList) {
-            int count = 0;
             for (int i = bridge.getDayNumberBefore(); i >= 0; i--) {
-                if (!bridge.getFirstSet().isEmpty() &&
-                        bridge.getFirstSet().isItMatch(jackpotList.get(i).getCouple())) {
-                    count++;
+                for (int j = 1; j <= 4; j++) {
+                    if (bridge.getSetMap().containsKey(j) &&
+                            bridge.getSetMap().get(j).isItMatch(jackpotList.get(i).getCoupleInt())) {
+                        bridge.getSetMap().remove(j);
+                    }
                 }
-                if (!bridge.getSecondSet().isEmpty() &&
-                        bridge.getSecondSet().isItMatch(jackpotList.get(i).getCouple())) {
-                    count++;
-                }
-
             }
-            if (count <= 1) {
+            if (!bridge.getSetMap().isEmpty()) {
                 bridges.add(bridge);
             }
         }

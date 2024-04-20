@@ -52,10 +52,10 @@ public class NotificationBase {
                 .setContentIntent(pendingIntent);
     }
 
-    public static void pushNotification(Context context, String title, String content) {
+    public static void pushNotification(Context context, int notifyId, String title, String content) {
         initNotification(context);
         NotificationCompat.Builder nb = getChannelNotification(context, title, content);
-        mManager.notify(1, nb.build());
+        mManager.notify(notifyId, nb.build());
     }
 
 

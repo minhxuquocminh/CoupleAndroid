@@ -57,7 +57,7 @@ public class HistoryHandler {
         List<SpecialSetHistory> branches = new ArrayList<>();
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
             SpecialSetHistory branch = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
-                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getIntYears());
+                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getTailsOfYear());
             branches.add(branch);
         }
         eightNumbersList.addAll(branches);
@@ -99,7 +99,7 @@ public class HistoryHandler {
         List<SpecialSetHistory> branches1 = new ArrayList<>();
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
             SpecialSetHistory branch = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
-                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getIntYears());
+                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getTailsOfYear());
             branches1.add(branch);
         }
         Collections.sort(branches1, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());

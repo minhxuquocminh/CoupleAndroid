@@ -14,8 +14,9 @@ import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
 import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
+import com.example.couple.Custom.Handler.Notification.NotifyNewBridge;
+import com.example.couple.Custom.Handler.Notification.UpdateDataAlarm;
 import com.example.couple.Custom.Handler.TimeHandler;
-import com.example.couple.Custom.Handler.UpdateDataAlarm;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NearestTime;
@@ -83,17 +84,17 @@ public class HomePageViewModel {
 
         String timeStatus = checkUpdateTime ? "(hoàn thành)" : "(thất bại)";
         if (checkUpdateTime) {
-            updateTime(isMainThread);
+            getTimeData(isMainThread);
         }
 
         String jackpotStatus = checkUpdateJackpot ? "(hoàn thành)" : "(thất bại)";
         if (checkUpdateJackpot) {
-            updateJackpot(false, isMainThread);
+            getJackpotData(isMainThread);
         }
 
         String lotteryStatus = checkUpdateLottery ? "(hoàn thành)" : "(thất bại)";
         if (checkUpdateLottery) {
-            updateJackpot(false, isMainThread);
+            getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, isMainThread);
         }
 
         String cycleStatus = checkUpdateCycle ? "(hoàn thành)" : "(thất bại)";
@@ -129,6 +130,7 @@ public class HomePageViewModel {
                     showError("Lỗi không lấy được thông tin XS Đặc biệt.", isMainThread);
                 return false;
             }
+
             IOFileBase.saveDataToFile(context, "jackpot" + TimeInfo.CURRENT_YEAR + ".txt",
                     jackpotData, 0);
             List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
@@ -137,6 +139,7 @@ public class HomePageViewModel {
                 IOFileBase.saveDataToFile(context, "jackpot" + (TimeInfo.CURRENT_YEAR - 1)
                         + ".txt", lastJackpotData, 0);
             }
+
             if (showMessage) {
                 new MainThreadBase(() -> {
                     homePageView.updateJackpotSuccess("Cập nhật XS Đặc biệt thành công.");
@@ -171,7 +174,7 @@ public class HomePageViewModel {
         }
     }
 
-    public void getTimeDataFromFile(boolean isMainThread) {
+    public void getTimeData(boolean isMainThread) {
         String data = IOFileBase.readDataFromFile(context, FileName.TIME);
         String time = "Lỗi cập nhật thời gian!";
         try {
@@ -193,23 +196,24 @@ public class HomePageViewModel {
         }
         String finalTime = time;
         new MainThreadBase(() -> {
-            homePageView.showTimeDataFromFile(finalTime);
+            homePageView.showTimeData(finalTime);
         }, isMainThread).post();
     }
 
-    public void getJackpotDataFromFile(boolean isMainThread) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 7);
+    public void getJackpotData(boolean isMainThread) {
+        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 18);
         if (jackpotList.isEmpty()) return;
+        NotifyNewBridge.notify(context, jackpotList);
         new MainThreadBase(() -> {
-            homePageView.showJackpotDataFromFile(jackpotList);
+            homePageView.showJackpotData(jackpotList);
         }, isMainThread).post();
     }
 
-    public void getLotteryList(int numberOfDays, boolean isMainThread) {
+    public void getLotteryData(int numberOfDays, boolean isMainThread) {
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
         if (lotteries.isEmpty()) return;
         new MainThreadBase(() -> {
-            homePageView.showLotteryList(lotteries);
+            homePageView.showLotteryData(lotteries);
         }, isMainThread).post();
     }
 

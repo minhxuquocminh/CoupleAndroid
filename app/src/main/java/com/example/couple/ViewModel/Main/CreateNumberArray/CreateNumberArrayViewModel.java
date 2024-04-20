@@ -38,8 +38,9 @@ public class CreateNumberArrayViewModel {
     }
 
     public void GetPeriodHistory(List<Jackpot> jackpotList) {
-        List<PeriodHistory> periodHistoryList = EstimatedBridgeHandler.GetPeriodHistoryList(jackpotList,
-                0, 2, Const.AMPLITUDE_OF_PERIOD);
+        List<PeriodHistory> periodHistoryList =
+                EstimatedBridgeHandler.GetEstimatedHistoryList(jackpotList,
+                        0, 2, Const.AMPLITUDE_OF_PERIOD);
         if (periodHistoryList.isEmpty()) {
             view.ShowError("Không lấy được lịch sử các cách chạy.");
         } else {

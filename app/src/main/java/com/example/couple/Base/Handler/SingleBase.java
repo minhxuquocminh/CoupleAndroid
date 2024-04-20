@@ -15,6 +15,12 @@ public class SingleBase {
         return arr[single];
     }
 
+    public static int getSmallShadow(int single) {
+        if (single > 9 || single < 0) return -1;
+        if (single < 5) return single;
+        return single - 5;
+    }
+
     public static int getShadow(int single) {
         if (single > 9 || single < 0) return -1;
         if (single - 5 >= 0) return single - 5;

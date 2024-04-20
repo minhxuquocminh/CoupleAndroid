@@ -17,13 +17,14 @@ import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
 import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
-import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
 import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
+import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
@@ -98,8 +99,8 @@ public class BridgeCombinationViewModel {
                                      boolean combineTouch, boolean connected, boolean shadowTouch,
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
                                      boolean mapping, boolean connectedSet, boolean estimated, boolean rightMapping,
-                                     boolean compatible, boolean incompatible, boolean compactRightMapping,
-                                     boolean triadMapping, boolean shadowExchange,
+                                     boolean compatible, boolean incompatible, boolean unappearedDouble,
+                                     boolean triadMapping, boolean branchIn2Days,
                                      boolean bigDouble, boolean sameDouble, boolean positiveDouble,
                                      String setData, String touchData, String sumData, String branchData,
                                      String headData, String tailData, String combineData) {
@@ -178,10 +179,10 @@ public class BridgeCombinationViewModel {
                         .GetIncompatibleCycleBridge(allJackpotList, branchNextDay, i);
                 bridgeList.add(incompatibleBridge);
             }
-            if (compactRightMapping) {
-                MappingBridge mappingBridge1 = MappingBridgeHandler
-                        .GetCompactRightMappingBridge(jackpotList, i);
-                bridgeList.add(mappingBridge1);
+            if (unappearedDouble) {
+                UnappearedBigDoubleBridge unappearedBigDoubleBridge =
+                        OtherBridgeHandler.getUnappearedBigDoubleBridge(jackpotList, i);
+                bridgeList.add(unappearedBigDoubleBridge);
             }
 
             if (triadMapping) {
@@ -189,10 +190,10 @@ public class BridgeCombinationViewModel {
                         .GetTriadMappingBridge(jackpotList, i);
                 bridgeList.add(triadMappingBridge);
             }
-            if (shadowExchange) {
-                ShadowExchangeBridge shadowExchangeBridge = OtherBridgeHandler
-                        .GetShadowExchangeBridge(jackpotList, i);
-                bridgeList.add(shadowExchangeBridge);
+            if (branchIn2Days) {
+                BranchInTwoDaysBridge branchInTwoDaysBridge = CycleBridgeHandler
+                        .GetBranchInTwoDaysBridge(jackpotList, i);
+                bridgeList.add(branchInTwoDaysBridge);
             }
             // jackpot
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();

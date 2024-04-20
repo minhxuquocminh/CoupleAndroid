@@ -10,7 +10,7 @@ import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.Single.ClawBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Display.Status;
+import com.example.couple.Model.Display.TriadStatus;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -458,7 +458,7 @@ public class ConnectedBridgeHandler {
                 for (int k = j + 1; k < supportTriadList.size(); k++) {
                     List<Integer> thirdStatus = supportTriadList.get(k).getStatusList();
                     int min = minThreeNumber(firstStatus.size(), secondStatus.size(), thirdStatus.size());
-                    List<Status> statusList = new ArrayList<>();
+                    List<TriadStatus> triadStatusList = new ArrayList<>();
                     for (int t = 0; t < min; t++) {
                         int first = firstStatus.get(t);
                         int second = secondStatus.get(t);
@@ -466,17 +466,17 @@ public class ConnectedBridgeHandler {
                         Couple couple = lotteries.get(dayNumberBefore + t).getJackpotCouple();
                         boolean isDouble = couple.isDoubleAndShadow();
                         if (checkThreeNumber(first, second, third, isDouble)) {
-                            Status status = new Status(first, second, third);
-                            statusList.add(status);
+                            TriadStatus triadStatus = new TriadStatus(first, second, third);
+                            triadStatusList.add(triadStatus);
                         } else {
                             break;
                         }
                     }
-                    if (statusList.size() > 2) {
+                    if (triadStatusList.size() > 2) {
                         Jackpot jackpot = dayNumberBefore == 0 ?
                                 Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
                         TriadBridge triadBridge = new TriadBridge(supportTriadList.get(i), supportTriadList.get(j),
-                                supportTriadList.get(k), statusList, new JackpotHistory(dayNumberBefore, jackpot));
+                                supportTriadList.get(k), triadStatusList, new JackpotHistory(dayNumberBefore, jackpot));
                         triadBridgeList.add(triadBridge);
                     }
                 }
@@ -493,8 +493,8 @@ public class ConnectedBridgeHandler {
         Collections.sort(results, new Comparator<TriadBridge>() {
             @Override
             public int compare(TriadBridge o1, TriadBridge o2) {
-                int size1 = o1.getStatusList().size();
-                int size2 = o2.getStatusList().size();
+                int size1 = o1.getTriadStatusList().size();
+                int size2 = o2.getTriadStatusList().size();
                 if (size1 < size2) return 1;
                 else if (size1 == size2) return 0;
                 else return -1;

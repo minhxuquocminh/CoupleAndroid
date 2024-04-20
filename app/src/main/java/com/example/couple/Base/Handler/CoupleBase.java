@@ -9,20 +9,13 @@ public class CoupleBase {
         return (couple % 10) * 10 + (couple / 10);
     }
 
-
     public static int getSmallShadow(int couple) {
         if (couple < 0 || couple > 99) return -1;
-        if (couple < 10) {
-            if (couple >= 5) return couple - 5;
-            else return couple;
-        }
-        String numberStr = couple + "";
-        int first = Integer.parseInt(numberStr.charAt(0) + "");
-        int second = Integer.parseInt(numberStr.charAt(1) + "");
-        int shadow1 = getSmallShadow(first);
-        int shadow2 = getSmallShadow(second);
-        return shadow1 < shadow2 ? Integer.parseInt(shadow1 + "" + shadow2) :
-                Integer.parseInt(shadow2 + "" + shadow1);
+        if (couple < 5) return couple;
+        if (couple < 10) return couple - 5;
+        int shadow1 = getSmallShadow(couple / 10);
+        int shadow2 = getSmallShadow(couple % 10);
+        return shadow1 < shadow2 ? shadow1 * 10 + shadow2 : shadow2 * 10 + shadow1;
     }
 
     public static String showCoupleNumbers(List<Integer> couples) {

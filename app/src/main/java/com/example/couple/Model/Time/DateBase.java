@@ -39,6 +39,10 @@ public class DateBase implements Serializable {
         return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
     }
 
+    public boolean isDateLastYear() {
+        return this.year == TimeInfo.CURRENT_YEAR - 1;
+    }
+
     public boolean isFutureDay() {
         DateBase today = DateBase.TO_DAY();
         if (this.year < today.getYear()) return false;

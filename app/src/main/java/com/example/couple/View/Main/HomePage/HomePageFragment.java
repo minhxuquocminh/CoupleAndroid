@@ -84,9 +84,9 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
         homePageViewModel = new HomePageViewModel(this, getActivity());
 
-        homePageViewModel.getTimeDataFromFile(true);
-        homePageViewModel.getJackpotDataFromFile(true);
-        homePageViewModel.getLotteryList(Const.MAX_DAYS_TO_GET_LOTTERY, true);
+        homePageViewModel.getTimeData(true);
+        homePageViewModel.getJackpotData(true);
+        homePageViewModel.getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, true);
         homePageViewModel.getNote();
 
         new ThreadBase((param) -> {
@@ -230,7 +230,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
     @Override
     public void updateJackpotSuccess(String message) {
         if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        homePageViewModel.getJackpotDataFromFile(true);
+        homePageViewModel.getJackpotData(true);
     }
 
     @Override
@@ -239,28 +239,28 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
-    public void showTimeDataFromFile(String time) {
+    public void showTimeData(String time) {
         tvCalendar.setText(time);
     }
 
     @Override
-    public void showJackpotDataFromFile(List<Jackpot> jackpotList) {
+    public void showJackpotData(List<Jackpot> jackpotList) {
         tvJackpotToday.setText("Xổ số Đặc Biệt hôm nay về: " + jackpotList.get(0).getJackpot());
         tvJackpotLastDay.setText("Xổ số Đ.Biệt ngày trước đó: " + jackpotList.get(1).getJackpot());
         homePageViewModel.getHeadAndTailInLongestTime(jackpotList);
         homePageViewModel.getTouchBridge(jackpotList);
         homePageViewModel.getSpecialTouchBridge(jackpotList);
         int size_to_show = (jackpotList.size() > 7) ? 7 : jackpotList.size();
-        String de2Cang7Ngay = "Kết quả: ";
+        String show = "Kết quả: ";
         for (int i = 0; i < size_to_show - 1; i++) {
-            de2Cang7Ngay += jackpotList.get(i).getCouple().show() + ", ";
+            show += jackpotList.get(i).getCouple().show() + ", ";
         }
-        de2Cang7Ngay += jackpotList.get(size_to_show - 1).getCouple().show();
-        tvSubJackpot.setText(de2Cang7Ngay);
+        show += jackpotList.get(size_to_show - 1).getCouple().show();
+        tvSubJackpot.setText(show);
     }
 
     @Override
-    public void showLotteryList(List<Lottery> lotteries) {
+    public void showLotteryData(List<Lottery> lotteries) {
     }
 
     @Override

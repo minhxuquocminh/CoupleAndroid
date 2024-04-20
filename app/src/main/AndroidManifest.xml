@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <receiver
-            android:name=".Custom.Handler.UpdateDataAlarm"
+            android:name=".Custom.Handler.Notification.UpdateDataAlarm"
             android:enabled="true"
             android:exported="true"></receiver>
 

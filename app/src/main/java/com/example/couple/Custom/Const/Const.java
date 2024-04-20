@@ -39,10 +39,12 @@ public class Const {
     public static final String MAPPING_BRIDGE_NAME_1 = "Cầu ánh xạ 1";
     public static final String RIGHT_MAPPING_BRIDGE_NAME = "Cầu ánh xạ P";
     public static final String COMPACT_MAPPING_BRIDGE_NAME = "Cầu ánh xạ P1";
+    public static final String UNAPPEARED_BIG_DOUBLE_BRIDGE_NAME = "kép chưa ra";
     public static final String TRIAD_MAPPING_BRIDGE_NAME = "Cầu 2 ánh xạ";
     public static final String MATCH_MAPPING_BRIDGE_NAME = "Cầu ánh xạ hợp";
     public static final String COMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi hợp";
     public static final String INCOMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi khắc";
+    public static final String BRANCH_IN_TWO_DAYS_BRIDGE = "Chi trong 2 ngày";
     public static final String SHADOW_MAPPING_BRIDGE_NAME = "Cầu ánh xạ bóng";
     public static final String SHADOW_EXCHANGE_BRIDGE_NAME = "Cầu đổi bóng";
     public static final String ESTIMATED_BRIDGE_NAME = "Cầu ước lượng";

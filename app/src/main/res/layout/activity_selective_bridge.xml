@@ -50,7 +50,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvLongBridge"
+                    android:id="@+id/tvViewLongBeatBridge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/padding_5dp"
@@ -115,7 +115,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvBridgeInDay"
+                    android:id="@+id/tvViewBridgeInDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/padding_5dp"
@@ -124,6 +124,19 @@
                     android:textSize="@dimen/text_size" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvBranchIn2DaysBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Cầu chi chạy 2 ngày: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:id="@+id/tvConnectedTouch"
