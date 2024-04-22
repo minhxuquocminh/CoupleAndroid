@@ -43,7 +43,8 @@ public class UpdateDataAlarm extends BroadcastReceiver {
                         TimeInfo.CURRENT_YEAR + ".txt", jackpot, 0);
                 if (!CheckUpdate.checkUpdateJackpot(context)) {
                     List<Jackpot> jackpotList = JackpotHandler
-                            .GetReserveJackpotListFromFile(context, 1);
+                            .GetReserveJackpotListFromFile(context, 18);
+                    if (jackpotList.isEmpty()) return;
                     content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
                             jackpotList.get(0).getJackpot() + ".";
                     NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);

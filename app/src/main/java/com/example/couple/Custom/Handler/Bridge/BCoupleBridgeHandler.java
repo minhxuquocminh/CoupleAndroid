@@ -16,7 +16,7 @@ public class BCoupleBridgeHandler {
     public static List<AfterDoubleBridge> GetAfterDoubleBridges(List<Jackpot> jackpotList) {
         List<AfterDoubleBridge> bridges = new ArrayList<>();
         List<AfterDoubleBridge> checkList = new ArrayList<>();
-        int maxSize = jackpotList.size() < 20 ? jackpotList.size() : 20;
+        int maxSize = jackpotList.size() < 30 ? jackpotList.size() : 30;
         for (int i = 0; i < maxSize - 2; i++) {
             if (jackpotList.get(i).getCouple().isDoubleAndShadow()) {
                 List<Couple> lastDoubleRange = new ArrayList<>();

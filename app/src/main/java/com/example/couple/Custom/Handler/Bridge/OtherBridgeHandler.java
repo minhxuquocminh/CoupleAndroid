@@ -73,7 +73,7 @@ public class OtherBridgeHandler {
                 monthList.add(jackpot.getCoupleInt());
             }
 
-            if (dateCheck.isUpLastMonthOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+            if (dateCheck.isDownLastMonthOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
                 downMonthList.add(jackpot.getCoupleInt());
                 downMonth2 = dateCheck.getDownLastMonth();
             }
