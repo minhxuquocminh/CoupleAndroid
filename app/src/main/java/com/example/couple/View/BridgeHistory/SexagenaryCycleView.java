@@ -6,7 +6,7 @@ import com.example.couple.Model.Time.TimeBase;
 import java.util.List;
 
 public interface SexagenaryCycleView {
-    void ShowError(String message);
-    void ShowUpdateSuccess();
-    void ShowSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> allJackpotList);
+    void showMessage(String message);
+    void updateSuccess();
+    void showSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> allJackpotList);
 }

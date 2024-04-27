@@ -7,8 +7,8 @@ import com.example.couple.Model.Time.TimeBase;
 import java.util.List;
 
 public interface SpecialSetsHistoryView {
-    void ShowError(String message);
-    void ShowJackpotListAndTimeBaseData(List<Jackpot> allJackpotList,
+    void showMessage(String message);
+    void showJackpotListAndTimeBaseData(List<Jackpot> allJackpotList,
                                         List<Jackpot> jackpotList, TimeBase timeBaseNextDay);
-    void ShowSpecialSetsHistory(List<SpecialSetHistory> historyList);
+    void showSpecialSetsHistory(List<SpecialSetHistory> historyList);
 }

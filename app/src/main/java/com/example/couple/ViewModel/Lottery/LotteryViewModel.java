@@ -21,28 +21,26 @@ public class LotteryViewModel {
         this.context = context;
     }
 
-    public void GetLotteryList(int numberOfDays) {
+    public void getLotteryList(int numberOfDays) {
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
         if (lotteries.isEmpty()) {
-            lotteryView.ShowError("Lỗi không tải được dữ liệu!");
+            lotteryView.showMessage("Lỗi không tải được dữ liệu!");
         } else {
-            lotteryView.ShowLotteryList(lotteries);
+            lotteryView.showLotteryList(lotteries);
         }
     }
 
-    public void UpdateLottery(int numberOfDays) {
+    public void updateLottery(int numberOfDays) {
         try {
-            String lotteryData = Api.GetLotteryDataFromInternet(context, numberOfDays);
-            if (lotteryData.equals("")) {
-                lotteryView.ShowError("Lỗi không lấy được thông tin XSMB!");
+            String lotteryData = Api.getLotteryDataFromInternet(context, numberOfDays);
+            if (lotteryData.isEmpty()) {
+                lotteryView.showMessage("Lỗi không lấy được thông tin XSMB!");
             } else {
                 IOFileBase.saveDataToFile(context, FileName.LOTTERY, lotteryData, 0);
-                lotteryView.UpdateLotterySuccess("Cập nhật dữ liệu thành công!", numberOfDays);
+                lotteryView.updateLotterySuccess("Cập nhật dữ liệu thành công!", numberOfDays);
             }
-        } catch (ExecutionException e) {
-            lotteryView.ShowError("Lỗi mạng!");
-        } catch (InterruptedException e) {
-            lotteryView.ShowError("Lỗi mạng!");
+        } catch (ExecutionException | InterruptedException e) {
+            lotteryView.showMessage("Lỗi mạng!");
         }
     }
 }

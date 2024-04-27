@@ -116,7 +116,7 @@ public class TimeHandler {
 
     private static boolean updateSexagenaryCycle(Context context, DateBase dateBase, String fileName) {
         try {
-            String data = Api.GetSexagenaryCycleByDay(context, dateBase);
+            String data = Api.getSexagenaryCycleByDay(context, dateBase);
             if (data.equals("")) return false;
             IOFileBase.saveDataToFile(context, fileName, data, 0);
             return true;

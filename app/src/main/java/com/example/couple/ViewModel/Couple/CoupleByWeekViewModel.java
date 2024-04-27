@@ -18,13 +18,13 @@ public class CoupleByWeekViewModel {
         this.view = view;
     }
 
-    public void GetJackpotByWeek(int weekNumber) {
+    public void getJackpotByWeek(int weekNumber) {
         int dayNumber = weekNumber * TimeInfo.DAY_OF_WEEK;
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, dayNumber);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, dayNumber);
         if (jackpotList.isEmpty()) {
-            view.ShowError("Không có dữ liệu XS Đặc biệt.");
+            view.showMessage("Không có dữ liệu XS Đặc biệt.");
         } else {
-            view.ShowJackpotByWeek(jackpotList, weekNumber);
+            view.showJackpotByWeek(jackpotList, weekNumber);
         }
     }
 }

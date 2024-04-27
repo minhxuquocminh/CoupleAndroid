@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NotificationBase;
+import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Handler.Api;
@@ -21,6 +22,7 @@ import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class AddJackpotManyYearsActivity extends AppCompatActivity implements AddJackpotManyYearsView {
@@ -45,16 +47,16 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
 
         viewModel = new AddJackpotManyYearsViewModel(this, this);
 
-        viewModel.GetStartYear();
+        viewModel.getStartYear();
 
         btnLoadAllData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String startingYear = edtStart.getText().toString().trim();
-                if (startingYear.equals("")) {
-                    ShowError("Vui lòng nhập năm bắt đầu!");
+                if (startingYear.isEmpty()) {
+                    showMessage("Vui lòng nhập năm bắt đầu!");
                 } else if (!InternetBase.isInternetAvailable(AddJackpotManyYearsActivity.this)) {
-                    ShowError("Bạn đang offline.");
+                    showMessage("Bạn đang offline.");
                 } else {
                     new AlertDialog.Builder(AddJackpotManyYearsActivity.this)
                             .setTitle("Nạp dữ liệu")
@@ -62,7 +64,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                                     "tất cả các năm kể từ năm " + startingYear + " không?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    viewModel.GetJackpotDataInManyYears(Integer.parseInt(startingYear), false);
+                                    viewModel.updateJackpotDataInManyYears(Integer.parseInt(startingYear), true);
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null)
@@ -76,8 +78,8 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
             @Override
             public void onClick(View v) {
                 String startingYear = edtStart.getText().toString().trim();
-                if (startingYear.equals("")) {
-                    ShowError("Vui lòng nhập năm bắt đầu!");
+                if (startingYear.isEmpty()) {
+                    showMessage("Vui lòng nhập năm bắt đầu!");
                 } else {
                     new AlertDialog.Builder(AddJackpotManyYearsActivity.this)
                             .setTitle("Nạp dữ liệu")
@@ -86,9 +88,9 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     if (InternetBase.isInternetAvailable(AddJackpotManyYearsActivity.this)) {
-                                        viewModel.GetJackpotDataInManyYears(Integer.parseInt(startingYear), true);
+                                        viewModel.updateJackpotDataInManyYears(Integer.parseInt(startingYear), false);
                                     } else {
-                                        ShowError("Bạn đang offline!");
+                                        showMessage("Bạn đang offline!");
                                     }
                                 }
                             })
@@ -115,20 +117,21 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowStartYear(int year) {
+    public void showStartYear(int year) {
         edtStart.setText(year + "");
         edtStart.setSelection(edtStart.length());
     }
 
     @Override
-    public void GetJackpotDataSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        viewModel.GetStartYear();
+    public void updateJackpotDataInManyYearsError(List<Integer> years) {
+        String show = "Đã cập nhật dữ liệu. Các năm chưa được cập nhật là: \n[" +
+                NumberBase.showNumbers(years, ", ") + "]";
+        Toast.makeText(this, show, Toast.LENGTH_LONG).show();
     }
 
     public void getData(Context context) {
@@ -142,16 +145,14 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         boolean checkUpdateLottery = CheckUpdate.checkUpdateLottery(context);
         try {
             if (checkUpdateTime) {
-                String time = Api.GetTimeDataFromInternet(context);
+                String time = Api.getTimeDataFromInternet(context);
                 IOFileBase.saveDataToFile(context, FileName.TIME, time, 0);
             }
             if (checkUpdateLottery) {
-                String lottery = Api.GetLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
+                String lottery = Api.getLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
                 IOFileBase.saveDataToFile(context, FileName.LOTTERY, lottery, 0);
             }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -53,13 +53,13 @@ public class CustomTableLayout {
             String couple = reverseJackpotList.get(i).getCouple().show();
             int firstNegativeShadow = SingleBase.getNegativeShadow(Integer.parseInt(couple.charAt(0) + ""));
             int secondNegativeShadow = SingleBase.getNegativeShadow(Integer.parseInt(couple.charAt(1) + ""));
-            row.addView(CustomLinearLayout.GetItemCoupleByWeekLinearLayout(context,
+            row.addView(CustomLinearLayout.getItemCoupleByWeekLinearLayout(context,
                     couple, firstNegativeShadow, secondNegativeShadow));
             if (i == 0) {
                 int emptyLength = TimeInfo.DAY_OF_WEEK - count;
                 for (int j = 0; j < emptyLength; j++) {
                     count++;
-                    row.addView(CustomLinearLayout.GetEmptyLinearLayout(context));
+                    row.addView(CustomLinearLayout.getEmptyLinearLayout(context));
                 }
             }
             if (count == TimeInfo.DAY_OF_WEEK) {
@@ -416,7 +416,7 @@ public class CustomTableLayout {
 
             Couple dgFirst = jackpotList.get(i).getCouple(); //the day before 2 day
             Couple dgSecond = jackpotList.get(i - 1).getCouple(); // the day before 1 day
-            List<BCouple> balanceBCouples = BCoupleBridgeHandler.GetBalanceCouples(
+            List<BCouple> balanceBCouples = BCoupleBridgeHandler.getBalanceCouples(
                     dgFirst.toBCouple(), dgSecond.toBCouple());
 
             //Current row is at i - 2 position

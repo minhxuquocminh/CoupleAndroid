@@ -42,16 +42,10 @@ public class Couple {
     }
 
     public ShadowSingle getShadowSingle() {
-        List<Single> firstsTens = new ArrayList<>();
-        List<Single> secondsTens = new ArrayList<>();
-        List<Single> firstsUnits = new ArrayList<>();
-        List<Single> secondsUnits = new ArrayList<>();
-
-        firstsTens.addAll(Couple.getFirstList(first));
-        secondsTens.addAll(Couple.getSecondList(second));
-        firstsUnits.addAll(Couple.getFirstList(second));
-        secondsUnits.addAll(Couple.getSecondList(first));
-
+        List<Single> firstsTens = new ArrayList<>(Couple.getFirstList(first));
+        List<Single> secondsTens = new ArrayList<>(Couple.getSecondList(second));
+        List<Single> firstsUnits = new ArrayList<>(Couple.getFirstList(second));
+        List<Single> secondsUnits = new ArrayList<>(Couple.getSecondList(first));
         return new ShadowSingle(firstsTens, secondsTens, firstsUnits, secondsUnits);
     }
 

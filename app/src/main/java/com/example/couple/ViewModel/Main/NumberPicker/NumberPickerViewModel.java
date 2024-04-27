@@ -28,30 +28,30 @@ public class NumberPickerViewModel {
         this.context = context;
     }
 
-    public void GetSubCoupleList(int length) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, length);
-        int size = jackpotList.size() < length ? jackpotList.size() : length;
+    public void getSubCoupleList(int length) {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, length);
+        int size = Math.min(jackpotList.size(), length);
         List<Couple> subCoupleList = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             subCoupleList.add(jackpotList.get(i).getCouple());
         }
         Collections.reverse(subCoupleList);
-        if (subCoupleList.size() > 0) {
-            numberPickerView.ShowSubCoupleList(subCoupleList);
+        if (!subCoupleList.isEmpty()) {
+            numberPickerView.showSubCoupleList(subCoupleList);
         }
 
     }
 
-    public void GetSubCoupleNextDay(int digit2D, int length) {
-        int[] startEndYearFile = JackpotStatistics.GetStartAndEndYearFile(context);
+    public void getSubCoupleNextDay(int digit2D, int length) {
+        int[] startEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
         if (startEndYearFile != null) {
             int startYearFile = startEndYearFile[0];
             int endYearFile = startEndYearFile[1];
             if (endYearFile == TimeInfo.CURRENT_YEAR) {
                 int numberOfYearsFile = endYearFile - startYearFile + 1;
-                int numberOfYears = numberOfYearsFile < 3 ? numberOfYearsFile : 3;
-                List<Jackpot> jackpotList = JackpotHandler.GetJackpotListManyYears(context, numberOfYears);
-                List<JackpotNextDay> jackpotNextDayList = JackpotStatistics.GetJackpotNextDayList(jackpotList, digit2D);
+                int numberOfYears = Math.min(numberOfYearsFile, 3);
+                List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, numberOfYears);
+                List<JackpotNextDay> jackpotNextDayList = JackpotStatistics.getJackpotNextDayList(jackpotList, digit2D);
                 int count = 0;
                 List<Couple> subCoupleList = new ArrayList<>();
                 for (int i = 0; i < jackpotNextDayList.size(); i++) {
@@ -60,13 +60,13 @@ public class NumberPickerViewModel {
                     if (count == length) break;
                 }
                 Collections.reverse(subCoupleList);
-                if (subCoupleList.size() > 0)
-                    numberPickerView.ShowSubCoupleNextDay(subCoupleList);
+                if (!subCoupleList.isEmpty())
+                    numberPickerView.showSubCoupleNextDay(subCoupleList);
             }
         }
     }
 
-    public void GetSubCoupleLastMonth(DateBase dateBase) {
+    public void getSubCoupleLastMonth(DateBase dateBase) {
         DateBase nextDateBase = dateBase.plusDays(1);
         int month = nextDateBase.getMonth() - 1;
         int year = nextDateBase.getYear();
@@ -76,8 +76,8 @@ public class NumberPickerViewModel {
             year--;
             numberOfYears = 2;
         }
-        List<Jackpot> jackpotList = JackpotHandler.GetJackpotListManyYears(context, numberOfYears);
-        List<Jackpot> monthJackpotList = JackpotStatistics.GetMonthJackpotList(jackpotList, month, year);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, numberOfYears);
+        List<Jackpot> monthJackpotList = JackpotStatistics.getMonthJackpotList(jackpotList, month, year);
         List<Couple> subCoupleList = new ArrayList<>();
         for (int i = 0; i < monthJackpotList.size(); i++) {
             DateBase date = monthJackpotList.get(i).getDateBase();
@@ -104,10 +104,10 @@ public class NumberPickerViewModel {
                 }
             }
         }
-        if (subCoupleList.size() > 0) numberPickerView.ShowSubCoupleLastMonth(subCoupleList);
+        if (!subCoupleList.isEmpty()) numberPickerView.showSubCoupleLastMonth(subCoupleList);
     }
 
-    public void GetTableType1(boolean isTableA) {
+    public void getTableType1(boolean isTableA) {
         String data = "";
         String importantData = "";
         if (isTableA) {
@@ -117,29 +117,29 @@ public class NumberPickerViewModel {
             data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
             importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
         }
-        if (data.equals("") && importantData.equals("")) {
-            numberPickerView.ShowTableType1(new ArrayList<>());
+        if (data.isEmpty() && importantData.isEmpty()) {
+            numberPickerView.showTableType1(new ArrayList<>());
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
-            if (!data.equals("")) {
-                for (int i = 0; i < arr.length; i++) {
-                    int number = Integer.parseInt(arr[i].trim());
+            if (!data.isEmpty()) {
+                for (String num : arr) {
+                    int number = Integer.parseInt(num.trim());
                     numbers.add(new Number(number, 1));
                 }
             }
-            if (!importantData.equals("")) {
-                for (int i = 0; i < importantArr.length; i++) {
-                    int number = Integer.parseInt(importantArr[i].trim());
+            if (!importantData.isEmpty()) {
+                for (String imp : importantArr) {
+                    int number = Integer.parseInt(imp.trim());
                     numbers.add(new Number(number, 2));
                 }
             }
-            numberPickerView.ShowTableType1(numbers);
+            numberPickerView.showTableType1(numbers);
         }
     }
 
-    public void GetTableType2(boolean isTableA) {
+    public void getTableType2(boolean isTableA) {
         String data = "";
         String importantData = "";
         if (isTableA) {
@@ -149,109 +149,105 @@ public class NumberPickerViewModel {
             data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
             importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
         }
-        if (data.equals("") && importantData.equals("")) {
-            numberPickerView.ShowTableType2(new ArrayList<>());
+        if (data.isEmpty() && importantData.isEmpty()) {
+            numberPickerView.showTableType2(new ArrayList<>());
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
-            if (!data.equals("")) {
-                for (int i = 0; i < arr.length; i++) {
-                    int number = Integer.parseInt(arr[i].trim());
+            if (!data.isEmpty()) {
+                for (String s : arr) {
+                    int number = Integer.parseInt(s.trim());
                     numbers.add(new Number(number, 1));
                 }
             }
-            if (!importantData.equals("")) {
-                for (int i = 0; i < importantArr.length; i++) {
-                    int number = Integer.parseInt(importantArr[i].trim());
+            if (!importantData.isEmpty()) {
+                for (String imp : importantArr) {
+                    int number = Integer.parseInt(imp.trim());
                     numbers.add(new Number(number, 2));
                 }
             }
-            numberPickerView.ShowTableType2(numbers);
+            numberPickerView.showTableType2(numbers);
         }
     }
 
-    public void SaveDataToFile(List<Number> numbers, boolean isTableA) {
-        String data1 = "";
-        String data2 = "";
+    public void saveDataToFile(List<Number> numbers, boolean isTableA) {
+        StringBuilder data1 = new StringBuilder();
+        StringBuilder data2 = new StringBuilder();
         Collections.sort(numbers, new Comparator<Number>() {
             @Override
             public int compare(Number o1, Number o2) {
-                if (o1.getNumber() > o2.getNumber()) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return Integer.compare(o1.getNumber(), o2.getNumber());
             }
         });
         for (int i = 0; i < numbers.size(); i++) {
             if (numbers.get(i).getLevel() == 1) {
-                data1 += numbers.get(i).getNumber() + ",";
+                data1.append(numbers.get(i).getNumber()).append(",");
             } else {
-                data2 += numbers.get(i).getNumber() + ",";
+                data2.append(numbers.get(i).getNumber()).append(",");
             }
         }
         String fileName = isTableA ? FileName.TABLE_A : FileName.TABLE_B;
-        IOFileBase.saveDataToFile(context, fileName, data1, 0);
-        IOFileBase.saveDataToFile(context, "i" + fileName, data2, 0);
-        numberPickerView.SaveDataSuccess("Lưu dữ liệu thành công!");
+        IOFileBase.saveDataToFile(context, fileName, data1.toString(), 0);
+        IOFileBase.saveDataToFile(context, "i" + fileName, data2.toString(), 0);
+        numberPickerView.saveDataSuccess("Lưu dữ liệu thành công!");
     }
 
-    public void GetTableAList() {
+    public void getTableAList() {
         String data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
         String importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_A);
-        if (data.equals("") && importantData.equals("")) {
-            numberPickerView.ShowTableAList(new ArrayList<>());
+        if (data.isEmpty() && importantData.isEmpty()) {
+            numberPickerView.showTableAList(new ArrayList<>());
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
-            if (!data.equals("")) {
-                for (int i = 0; i < arr.length; i++) {
-                    int number = Integer.parseInt(arr[i].trim());
+            if (!data.isEmpty()) {
+                for (String num : arr) {
+                    int number = Integer.parseInt(num.trim());
                     numbers.add(new Number(number, 1));
                 }
             }
-            if (!importantData.equals("")) {
-                for (int i = 0; i < importantArr.length; i++) {
-                    int number = Integer.parseInt(importantArr[i].trim());
+            if (!importantData.isEmpty()) {
+                for (String imp : importantArr) {
+                    int number = Integer.parseInt(imp.trim());
                     numbers.add(new Number(number, 2));
                 }
             }
-            numberPickerView.ShowTableAList(numbers);
+            numberPickerView.showTableAList(numbers);
         }
     }
 
-    public void GetTableBList() {
+    public void getTableBList() {
         String data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
         String importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
-        if (data.equals("") && importantData.equals("")) {
-            numberPickerView.ShowTableBList(new ArrayList<>());
+        if (data.isEmpty() && importantData.isEmpty()) {
+            numberPickerView.showTableBList(new ArrayList<>());
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
-            if (!data.equals("")) {
-                for (int i = 0; i < arr.length; i++) {
-                    int number = Integer.parseInt(arr[i].trim());
+            if (!data.isEmpty()) {
+                for (String num : arr) {
+                    int number = Integer.parseInt(num.trim());
                     numbers.add(new Number(number, 1));
                 }
             }
-            if (!importantData.equals("")) {
-                for (int i = 0; i < importantArr.length; i++) {
-                    int number = Integer.parseInt(importantArr[i].trim());
+            if (!importantData.isEmpty()) {
+                for (String imp : importantArr) {
+                    int number = Integer.parseInt(imp.trim());
                     numbers.add(new Number(number, 2));
                 }
             }
-            numberPickerView.ShowTableBList(numbers);
+            numberPickerView.showTableBList(numbers);
         }
     }
 
-    public void DeleteAllData(boolean isTableA) {
+    public void deleteAllData(boolean isTableA) {
         String fileName = isTableA ? FileName.TABLE_A : FileName.TABLE_B;
         IOFileBase.saveDataToFile(context, fileName, "", 0);
         IOFileBase.saveDataToFile(context, "i" + fileName, "", 0);
-        numberPickerView.DeleteAllDataSuccess("Xóa dữ liệu thành công!", isTableA);
+        numberPickerView.deleteAllDataSuccess("Xóa dữ liệu thành công!", isTableA);
     }
 
 

@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Api {
 
-    public static String GetTimeDataFromInternet(Context context)
+    public static String getTimeDataFromInternet(Context context)
             throws ExecutionException, InterruptedException {
         String link = Const.TIME_URL;
         List<String> listClassName = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Api {
         return jsoupBase.get();
     }
 
-    public static String GetSexagenaryCycleByDay(Context context, DateBase dateBase)
+    public static String getSexagenaryCycleByDay(Context context, DateBase dateBase)
             throws ExecutionException, InterruptedException {
         String link = Const.TIME_URL + "xem-ngay-tot-xau-ngay-" +
                 dateBase.getDay() + "-" + dateBase.getMonth() + "-" + dateBase.getYear();
@@ -41,7 +41,7 @@ public class Api {
         return jsoupBase.get();
     }
 
-    public static String GetJackpotDataFromInternet(Context context, int year)
+    public static String getJackpotDataFromInternet(Context context, int year)
             throws ExecutionException, InterruptedException {
         String urlAndParams = IOFileBase.readDataFromFile(context, FileName.JACKPOT_URL);
         String[] arr = urlAndParams.split("\n");
@@ -54,11 +54,10 @@ public class Api {
 
         JsoupBase jsoupBase = new JsoupBase(context, link, Const.TIME_OUT, listClassName, hashMap);
         jsoupBase.execute();
-
         return jsoupBase.get();
     }
 
-    public static String GetLotteryDataFromInternet(Context context, int numberOfDays)
+    public static String getLotteryDataFromInternet(Context context, int numberOfDays)
             throws ExecutionException, InterruptedException {
         String urlAndParams = IOFileBase.readDataFromFile(context, FileName.LOTTERY_URL);
         String[] arr = urlAndParams.split("\n");
@@ -71,7 +70,6 @@ public class Api {
 
         JsoupBase jsoupBase = new JsoupBase(context, link, Const.TIME_OUT, listClassName, hashMap);
         jsoupBase.execute();
-
         return jsoupBase.get();
     }
 

@@ -41,9 +41,9 @@ public class JackpotNextDayActivity extends AppCompatActivity implements Jackpot
         linearJackpotNextDay = findViewById(R.id.linearJackpotNextDay);
 
         viewModel = new JackpotNextDayViewModel(this, this);
-        viewModel.GetNumberOfYears();
+        viewModel.getNumberOfYears();
         String numberOfYearsStr = edtYearNumber.getText().toString().trim();
-        viewModel.GetJackpotNextDay(numberOfYearsStr, 0 + "");
+        viewModel.getJackpotNextDay(numberOfYearsStr, 0 + "");
 
         edtYearNumber.setSelection(numberOfYearsStr.length());
 
@@ -53,30 +53,30 @@ public class JackpotNextDayActivity extends AppCompatActivity implements Jackpot
                 WidgetBase.hideKeyboard(JackpotNextDayActivity.this);
                 String yearNumber = edtYearNumber.getText().toString().trim();
                 String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
-                viewModel.GetJackpotNextDay(yearNumber, dayNumberBefore);
+                viewModel.getJackpotNextDay(yearNumber, dayNumberBefore);
             }
         });
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowNumberOfYears(int numberOfYears) {
+    public void showNumberOfYears(int numberOfYears) {
         edtYearNumber.setText(numberOfYears + "");
     }
 
     @Override
-    public void ShowJackpotNextDay(List<JackpotNextDay> jackpotNextDayList) {
+    public void showJackpotNextDay(List<JackpotNextDay> jackpotNextDayList) {
         TableLayout tableLayout = CustomTableLayout.getJackpotNextDayTableLayout(this, jackpotNextDayList);
         linearJackpotNextDay.removeAllViews();
         linearJackpotNextDay.addView(tableLayout);
     }
 
     @Override
-    public void ShowRequestLoadMoreData(int startYear_file, int endYear_file) {
+    public void showRequestLoadMoreData(int startYear_file, int endYear_file) {
         new AlertDialog.Builder(this)
                 .setTitle("Cập nhật XS Đặc biệt?")
                 .setMessage("Dữ liệu hiện có từ năm " + startYear_file + " đến năm " + endYear_file +

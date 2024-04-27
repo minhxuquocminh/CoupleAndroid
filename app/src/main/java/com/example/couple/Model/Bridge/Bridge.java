@@ -11,7 +11,7 @@ public abstract class Bridge {
     public String showCompactBridge() {
         String show = "";
         String win = getJackpotHistory().isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
-        String showDetail = !showCompactNumbers().equals("") ? showCompactNumbers() : getNumbers().size() + " số.";
+        String showDetail = !showCompactNumbers().isEmpty() ? showCompactNumbers() : getNumbers().size() + " số.";
         show += "    - " + getBridgeName() + win + ": " + showDetail;
         return show;
     }

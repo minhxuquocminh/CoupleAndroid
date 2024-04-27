@@ -15,7 +15,7 @@ public class CheckUpdate {
 
     public static boolean checkUpdateTime(Context context) {
         String data = IOFileBase.readDataFromFile(context, FileName.TIME);
-        if (data.equals("")) return true;
+        if (data.isEmpty()) return true;
         String[] sub = data.split("===");
         int calendarDay = Integer.parseInt(sub[1]);
         String[] monthData = sub[2].split(" ");
@@ -28,13 +28,13 @@ public class CheckUpdate {
     public static boolean checkUpdateCycle(Context context) {
         List<TimeBase> timeBaseList = TimeHandler.getAllSexagenaryCycle(context, 1);
         if (timeBaseList.isEmpty()) return true;
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 1);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 1);
         if (jackpotList.isEmpty()) return true;
         return !jackpotList.get(0).getDateBase().plusDays(1).equals(timeBaseList.get(0).getDateBase());
     }
 
     public static boolean checkUpdateJackpot(Context context) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 1);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 1);
         if (jackpotList.isEmpty()) return true;
         return !jackpotList.get(0).getDateBase().isToday();
     }
@@ -46,7 +46,7 @@ public class CheckUpdate {
     }
 
     public static boolean checkDataSync(Context context) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 1);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 1);
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, 1);
         if (jackpotList.isEmpty() || lotteries.isEmpty()) return false;
         return jackpotList.get(0).getDateBase().equals(lotteries.get(0).getDateBase());

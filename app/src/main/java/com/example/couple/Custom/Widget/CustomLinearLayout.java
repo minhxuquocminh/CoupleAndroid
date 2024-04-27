@@ -12,7 +12,7 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.R;
 
 public class CustomLinearLayout {
-    public static LinearLayout GetItemCoupleByWeekLinearLayout(Context context, String couple,
+    public static LinearLayout getItemCoupleByWeekLinearLayout(Context context, String couple,
                                                                int firstNegativeShadow,
                                                                int secondNegativeShadow) {
         LinearLayout linearLayout = new LinearLayout(context);
@@ -52,7 +52,7 @@ public class CustomLinearLayout {
         return linearLayout;
     }
 
-    public static LinearLayout GetEmptyLinearLayout(Context context) {
+    public static LinearLayout getEmptyLinearLayout(Context context) {
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setLayoutParams(new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));

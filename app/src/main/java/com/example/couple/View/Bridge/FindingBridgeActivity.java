@@ -107,7 +107,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
         tvTest2ConnectedBridge = findViewById(R.id.tvTest2ConnectedBridge);
 
         viewModel = new FindingBridgeViewModel(this, this);
-        viewModel.GetLotteryListAndJackpotList();
+        viewModel.getLotteryListAndJackpotList();
 
         dayNumberBefore = 0;
         edtDayNumberBefore.setText(dayNumberBefore + "");
@@ -141,20 +141,20 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowLotteryList(List<Lottery> lotteries) {
-        viewModel.GetConnectedBridge(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-        viewModel.Test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-        viewModel.Test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-        viewModel.GetTriadBridge(lotteries,
+    public void showLotteryList(List<Lottery> lotteries) {
+        viewModel.getConnectedBridge(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+        viewModel.test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+        viewModel.test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+        viewModel.getTriadBridge(lotteries,
                 TRIAD_BRIDGE_FINDING_DAYS, dayNumberBefore);
-        viewModel.FindingFirstClawBridge(lotteries, 12, dayNumberBefore);
-        viewModel.FindingSecondClawBridge(lotteries, 12, dayNumberBefore);
-        viewModel.FindingThirdClawBridge(lotteries, 12, dayNumberBefore);
+        viewModel.findingFirstClawBridge(lotteries, 12, dayNumberBefore);
+        viewModel.findingSecondClawBridge(lotteries, 12, dayNumberBefore);
+        viewModel.findingThirdClawBridge(lotteries, 12, dayNumberBefore);
         tvUpdate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,39 +162,39 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                 String dayNumberBeforeStr = edtDayNumberBefore.getText().toString().trim();
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 String findingDaysStr = edtFindingDays.getText().toString().trim();
-                if (dayNumberBeforeStr.equals("") || enoughTouchsStr.equals("") || findingDaysStr.equals("")) {
-                    ShowError("Vui lòng nhập đầy đủ dữ liệu!");
+                if (dayNumberBeforeStr.isEmpty() || enoughTouchsStr.isEmpty() || findingDaysStr.isEmpty()) {
+                    showMessage("Vui lòng nhập đầy đủ dữ liệu!");
                 } else if (Integer.parseInt(enoughTouchsStr) > 2) {
-                    ShowError("Số ngày chạm đầy đủ không được lớn hơn 2!");
+                    showMessage("Số ngày chạm đầy đủ không được lớn hơn 2!");
                 } else if (Integer.parseInt(dayNumberBeforeStr) > 50) {
-                    ShowError("Số ngày trước đó không được lớn hơn 50!");
+                    showMessage("Số ngày trước đó không được lớn hơn 50!");
                 } else {
                     dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
                     tvDayNumberBefore.setText(dayNumberBefore + "");
                     int findingDays = Integer.parseInt(findingDaysStr);
                     int count = 0;
-                    viewModel.Test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-                    viewModel.Test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-                    if (viewModel.GetConnectedBridge(lotteries,
+                    viewModel.test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                    viewModel.test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                    if (viewModel.getConnectedBridge(lotteries,
                             Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                         count++;
                     }
-                    if (viewModel.GetTriadBridge(lotteries,
+                    if (viewModel.getTriadBridge(lotteries,
                             TRIAD_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                         count++;
                     }
-                    if (viewModel.FindingFirstClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                    if (viewModel.findingFirstClawBridge(lotteries, findingDays, dayNumberBefore)) {
                         count++;
                     }
-                    if (viewModel.FindingSecondClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                    if (viewModel.findingSecondClawBridge(lotteries, findingDays, dayNumberBefore)) {
                         count++;
                     }
-                    if (viewModel.FindingThirdClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                    if (viewModel.findingThirdClawBridge(lotteries, findingDays, dayNumberBefore)) {
                         count++;
                     }
-                    viewModel.FindingJackpotThirdClawBridge(jackpotList, dayNumberBefore);
+                    viewModel.findingJackpotThirdClawBridge(jackpotList, dayNumberBefore);
                     if (count < 5) {
-                        ShowError("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
+                        showMessage("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
                     } else {
                         Toast.makeText(FindingBridgeActivity.this, "Cập nhật thành công!",
                                 Toast.LENGTH_SHORT).show();
@@ -237,24 +237,24 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(FindingBridgeActivity.this);
                 String findingDaysStr = edtFindingDays.getText().toString().trim();
-                if (findingDaysStr.equals("")) {
-                    ShowError("Vui lòng nhập số ngày soi cầu!");
+                if (findingDaysStr.isEmpty()) {
+                    showMessage("Vui lòng nhập số ngày soi cầu!");
                 } else if (Integer.parseInt(findingDaysStr) > 30) {
-                    ShowError("Số ngày không được quá 30!");
+                    showMessage("Số ngày không được quá 30!");
                 } else {
                     int findingDays = Integer.parseInt(findingDaysStr);
                     int count = 0;
-                    if (viewModel.FindingFirstClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                    if (viewModel.findingFirstClawBridge(lotteries, findingDays, dayNumberBefore)) {
                         count++;
                     }
-                    if (viewModel.FindingSecondClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                    if (viewModel.findingSecondClawBridge(lotteries, findingDays, dayNumberBefore)) {
                         count++;
                     }
-                    if (viewModel.FindingThirdClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                    if (viewModel.findingThirdClawBridge(lotteries, findingDays, dayNumberBefore)) {
                         count++;
                     }
                     if (count < 3) {
-                        ShowError("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
+                        showMessage("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
                     } else {
                         Toast.makeText(FindingBridgeActivity.this, "Cập nhật thành công!",
                                 Toast.LENGTH_SHORT).show();
@@ -270,10 +270,10 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                 String dayNumberBeforeStr = tvDayNumberBefore.getText().toString().trim();
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 String findingDaysStr = edtFindingDays.getText().toString().trim();
-                if (enoughTouchsStr.equals("") || findingDaysStr.equals("")) {
-                    ShowError("Vui lòng nhập đầy đủ dữ liệu!");
+                if (enoughTouchsStr.isEmpty() || findingDaysStr.isEmpty()) {
+                    showMessage("Vui lòng nhập đầy đủ dữ liệu!");
                 } else if (Integer.parseInt(enoughTouchsStr) > 2) {
-                    ShowError("Số ngày chạm đầy đủ không được lớn hơn 2!");
+                    showMessage("Số ngày chạm đầy đủ không được lớn hơn 2!");
                 } else {
                     dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
                     if (dayNumberBefore - 1 >= 0) {
@@ -283,28 +283,28 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                         edtDayNumberBefore.setSelection(edtDayNumberBefore.length());
                         int findingDays = Integer.parseInt(findingDaysStr);
                         int count = 0;
-                        viewModel.Test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-                        viewModel.Test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-                        if (viewModel.GetConnectedBridge(lotteries,
+                        viewModel.test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                        viewModel.test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                        if (viewModel.getConnectedBridge(lotteries,
                                 Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                             count++;
                         }
-                        if (viewModel.GetTriadBridge(lotteries,
+                        if (viewModel.getTriadBridge(lotteries,
                                 TRIAD_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                             count++;
                         }
-                        if (viewModel.FindingFirstClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                        if (viewModel.findingFirstClawBridge(lotteries, findingDays, dayNumberBefore)) {
                             count++;
                         }
-                        if (viewModel.FindingSecondClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                        if (viewModel.findingSecondClawBridge(lotteries, findingDays, dayNumberBefore)) {
                             count++;
                         }
-                        if (viewModel.FindingThirdClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                        if (viewModel.findingThirdClawBridge(lotteries, findingDays, dayNumberBefore)) {
                             count++;
                         }
-                        viewModel.FindingJackpotThirdClawBridge(jackpotList, dayNumberBefore);
+                        viewModel.findingJackpotThirdClawBridge(jackpotList, dayNumberBefore);
                         if (count < 5) {
-                            ShowError("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
+                            showMessage("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
                         }
                     }
                 }
@@ -318,10 +318,10 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                 String dayNumberBeforeStr = tvDayNumberBefore.getText().toString().trim();
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 String findingDaysStr = edtFindingDays.getText().toString().trim();
-                if (enoughTouchsStr.equals("") || findingDaysStr.equals("")) {
-                    ShowError("Vui lòng nhập đầy đủ dữ liệu!");
+                if (enoughTouchsStr.isEmpty() || findingDaysStr.isEmpty()) {
+                    showMessage("Vui lòng nhập đầy đủ dữ liệu!");
                 } else if (Integer.parseInt(enoughTouchsStr) > 2) {
-                    ShowError("Số ngày chạm đầy đủ không được lớn hơn 2!");
+                    showMessage("Số ngày chạm đầy đủ không được lớn hơn 2!");
                 } else {
                     dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
                     if (dayNumberBefore + 1 <= 50) {
@@ -331,28 +331,28 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                         edtDayNumberBefore.setSelection(edtDayNumberBefore.length());
                         int findingDays = Integer.parseInt(findingDaysStr);
                         int count = 0;
-                        viewModel.Test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-                        viewModel.Test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
-                        if (viewModel.GetConnectedBridge(lotteries,
+                        viewModel.test(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                        viewModel.test2(lotteries, Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                        if (viewModel.getConnectedBridge(lotteries,
                                 Const.CONNECTED_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                             count++;
                         }
-                        if (viewModel.GetTriadBridge(lotteries,
+                        if (viewModel.getTriadBridge(lotteries,
                                 TRIAD_BRIDGE_FINDING_DAYS, dayNumberBefore)) {
                             count++;
                         }
-                        if (viewModel.FindingFirstClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                        if (viewModel.findingFirstClawBridge(lotteries, findingDays, dayNumberBefore)) {
                             count++;
                         }
-                        if (viewModel.FindingSecondClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                        if (viewModel.findingSecondClawBridge(lotteries, findingDays, dayNumberBefore)) {
                             count++;
                         }
-                        if (viewModel.FindingThirdClawBridge(lotteries, findingDays, dayNumberBefore)) {
+                        if (viewModel.findingThirdClawBridge(lotteries, findingDays, dayNumberBefore)) {
                             count++;
                         }
-                        viewModel.FindingJackpotThirdClawBridge(jackpotList, dayNumberBefore);
+                        viewModel.findingJackpotThirdClawBridge(jackpotList, dayNumberBefore);
                         if (count < 5) {
-                            ShowError("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
+                            showMessage("Đã xảy ra lỗi trong quá trình xử lý dữ liệu!");
                         }
                     }
                 }
@@ -362,23 +362,23 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
         imgGetBridgeStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.GetThreeSetBridgeStatus(lotteries, TRIAD_BRIDGE_FINDING_DAYS, dayNumberBefore);
+                viewModel.getThreeSetBridgeStatus(lotteries, TRIAD_BRIDGE_FINDING_DAYS, dayNumberBefore);
             }
         });
 
     }
 
     @Override
-    public void ShowJackpotList(List<Jackpot> jackpots) {
+    public void showJackpotList(List<Jackpot> jackpots) {
         jackpotList = jackpots;
-        viewModel.FindingJackpotThirdClawBridge(jackpotList, 0);
+        viewModel.findingJackpotThirdClawBridge(jackpotList, 0);
     }
 
     @Override
-    public void ShowConnectedBridge(ConnectedBridge connectedBridge, String jackpotThatDay) {
+    public void showConnectedBridge(ConnectedBridge connectedBridge, String jackpotThatDay) {
         tvJackpotNextDay1.setText(" * Kết quả: " + jackpotThatDay);
         tvJackpotNextDay2.setText(" * Kết quả: " + jackpotThatDay);
-        tvJackpotNextDay3.setText("* Kết quả: " + jackpotThatDay);
+        tvJackpotNextDay3.setText(" * Kết quả: " + jackpotThatDay);
         String info = "";
         List<ConnectedSupport> connectedSupports = connectedBridge.getConnectedSupports();
         for (int i = 0; i < connectedSupports.size(); i++) {
@@ -391,11 +391,11 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowTriadBridge(List<TriadBridge> triadBridges) {
+    public void showTriadBridge(List<TriadBridge> triadBridges) {
         String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
         int enoughTouchs = Integer.parseInt(enoughTouchsStr);
         boolean sortBySet = cboSortBySet.isChecked();
-        viewModel.GetTriadBridgeWithCondition(triadBridges, enoughTouchs, sortBySet);
+        viewModel.getTriadBridgeWithCondition(triadBridges, enoughTouchs, sortBySet);
         tvSub1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -406,7 +406,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                 if (enoughTouchs - 1 >= 0) {
                     enoughTouchs--;
                     tvEnoughTouchs.setText(enoughTouchs + "");
-                    viewModel.GetTriadBridgeWithCondition(triadBridges, enoughTouchs, sortBySet);
+                    viewModel.getTriadBridgeWithCondition(triadBridges, enoughTouchs, sortBySet);
                 }
             }
         });
@@ -421,7 +421,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                 if (enoughTouchs + 1 <= 2) {
                     enoughTouchs++;
                     tvEnoughTouchs.setText(enoughTouchs + "");
-                    viewModel.GetTriadBridgeWithCondition(triadBridges, enoughTouchs, sortBySet);
+                    viewModel.getTriadBridgeWithCondition(triadBridges, enoughTouchs, sortBySet);
                 }
             }
         });
@@ -431,7 +431,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String enoughTouchsStr = tvEnoughTouchs.getText().toString().trim();
                 int enoughTouchs = Integer.parseInt(enoughTouchsStr);
-                viewModel.GetTriadBridgeWithCondition(triadBridges, enoughTouchs, isChecked);
+                viewModel.getTriadBridgeWithCondition(triadBridges, enoughTouchs, isChecked);
             }
         });
 
@@ -439,7 +439,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowTriadBridgeWithCondition(List<TriadBridge> triadBridgeList, List<Set> mainSets,
+    public void showTriadBridgeWithCondition(List<TriadBridge> triadBridgeList, List<Set> mainSets,
                                              List<Set> longestSets, List<Set> cancelSets, int enoughTouchs) {
         String show = " * Bao gồm các bộ: ";
         for (int i = 0; i < mainSets.size(); i++) {
@@ -448,7 +448,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                 show += ", ";
             }
         }
-        if (longestSets.size() > 0) {
+        if (!longestSets.isEmpty()) {
             show += "\n * Các bộ về hơn 6 lần: ";
             for (int i = 0; i < longestSets.size(); i++) {
                 show += longestSets.get(i).show();
@@ -457,7 +457,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
                 }
             }
         }
-        if (cancelSets.size() > 0) {
+        if (!cancelSets.isEmpty()) {
             show += "\n * Các bộ khác có từ " + (enoughTouchs - 1) + " chạm đầy đủ: ";
             for (int i = 0; i < cancelSets.size(); i++) {
                 show += cancelSets.get(i).show();
@@ -477,7 +477,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowFirstClawBridge(List<ClawSupport> clawSupportList) {
+    public void showFirstClawBridge(List<ClawSupport> clawSupportList) {
         String show = "";
         for (int i = 0; i < clawSupportList.size(); i++) {
             show += " - " + clawSupportList.get(i).showStatus();
@@ -489,7 +489,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowSecondClawBridge(List<ClawSupport> clawSupportList) {
+    public void showSecondClawBridge(List<ClawSupport> clawSupportList) {
         String show = "";
         for (int i = 0; i < clawSupportList.size(); i++) {
             show += " - " + clawSupportList.get(i).showStatus();
@@ -501,7 +501,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowThirdClawBridge(List<ClawSupport> clawSupportList) {
+    public void showThirdClawBridge(List<ClawSupport> clawSupportList) {
         String show = "";
         for (int i = 0; i < clawSupportList.size(); i++) {
             show += " - " + clawSupportList.get(i).showStatus();
@@ -513,7 +513,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowJackpotThirdClawBridge(List<BSingle> BSingleList, int frame) {
+    public void showJackpotThirdClawBridge(List<BSingle> BSingleList, int frame) {
         tvJackpotThirdClawTitle.setText("Cầu càng 3 giải ĐB (khung " + frame + " ngày): ");
         String show = " - Các số: ";
         for (int i = 0; i < BSingleList.size(); i++) {
@@ -526,7 +526,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowThreeSetBridgeStatus(List<Integer> statusList) {
+    public void showThreeSetBridgeStatus(List<Integer> statusList) {
         String show = "";
         for (int n : statusList) {
             show += n + " ";
@@ -548,7 +548,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowTest(List<TriangleConnectedSupport> supports) {
+    public void showTest(List<TriangleConnectedSupport> supports) {
         String info = "";
         for (int i = 0; i < supports.size(); i++) {
             info += " - " + supports.get(i).show();
@@ -560,7 +560,7 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
     }
 
     @Override
-    public void ShowTest2(List<PairConnectedSupport> supports) {
+    public void showTest2(List<PairConnectedSupport> supports) {
         String info = "";
         for (int i = 0; i < supports.size(); i++) {
             info += " - " + supports.get(i).show();

@@ -26,7 +26,7 @@ public class SpecialSetBridge extends Bridge {
     }
 
     public boolean isEmpty() {
-        return bridgeName.equals("") || numbers.isEmpty();
+        return bridgeName.isEmpty() || numbers.isEmpty();
     }
 
 }

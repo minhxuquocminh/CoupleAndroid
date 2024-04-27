@@ -4,13 +4,13 @@ import java.util.List;
 
 public class StringBase {
     public static String getDelimiterString(List<Integer> numbers, int numberLength, String delimiter) {
-        String results = "";
+        StringBuilder results = new StringBuilder();
         for (int i = 0; i < numbers.size(); i++) {
-            results += NumberBase.showNumberString(numbers.get(i), numberLength);
+            results.append(NumberBase.showNumberString(numbers.get(i), numberLength));
             if (i != numbers.size() - 1) {
-                results += delimiter;
+                results.append(delimiter);
             }
         }
-        return results;
+        return results.toString();
     }
 }

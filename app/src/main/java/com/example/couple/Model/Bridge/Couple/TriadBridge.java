@@ -1,6 +1,7 @@
 package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Base.Handler.CoupleBase;
+import com.example.couple.Base.Handler.GenericBase;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Display.Set;
@@ -48,7 +49,7 @@ public class TriadBridge {
         List<Integer> secondList = triadBridge.getSortedSmallShadowSingles();
         int count = 0;
         for (int i = 0; i < firstList.size(); i++) {
-            if (firstList.get(i) == secondList.get(i)) {
+            if (firstList.get(i).equals(secondList.get(i))) {
                 count++;
             }
         }
@@ -64,17 +65,11 @@ public class TriadBridge {
     }
 
     public String show() {
-        String show = "  + Các số: " + firstBridge.getValue() + ", " + secondBridge.getValue() + ", "
+        return "  + Các số: " + firstBridge.getValue() + ", " + secondBridge.getValue() + ", "
                 + thirdBridge.getValue() + " - " + LotteryHandler.showPrize(firstBridge.getPosition()) +
                 ", " + LotteryHandler.showPrize(secondBridge.getPosition()) + ", " +
-                LotteryHandler.showPrize(thirdBridge.getPosition()) + " \n  TT: ";
-        for (int i = 0; i < triadStatusList.size(); i++) {
-            show += triadStatusList.get(i).show();
-            if (i != triadStatusList.size() - 1) {
-                show += ", ";
-            }
-        }
-        return show;
+                LotteryHandler.showPrize(thirdBridge.getPosition()) + " \n  TT: " +
+                GenericBase.getDelimiterString(triadStatusList, ", ");
     }
 
 }

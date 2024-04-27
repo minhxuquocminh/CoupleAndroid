@@ -35,40 +35,42 @@ public class JackpotThisYearActivity extends AppCompatActivity implements Jackpo
         linearHeadAndTail = findViewById(R.id.linearHeadAndTail);
 
         viewModel = new JackpotThisYearViewModel(this, this);
-        viewModel.GetReserveJackpotListThisYear();
+        viewModel.getReserveJackpotListThisYear();
 
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowReserveJackpotListThisYear(List<Jackpot> jackpotList) {
-        viewModel.GetSameDoubleAndDayNumberTotal(jackpotList);
-        viewModel.GetSameDoubleInNearestTime(jackpotList);
-        viewModel.GetHeadAndTailInNearestTime(jackpotList);
+    public void showReserveJackpotListThisYear(List<Jackpot> jackpotList) {
+        viewModel.getSameDoubleAndDayNumberTotal(jackpotList);
+        viewModel.getSameDoubleInNearestTime(jackpotList);
+        viewModel.getHeadAndTailInNearestTime(jackpotList);
     }
 
     @Override
-    public void ShowSameDoubleAndDayNumberTotal(int sameDoubleTotal, int numberOfDaysTotal) {
+    public void showSameDoubleAndDayNumberTotal(int sameDoubleTotal, int numberOfDaysTotal) {
         double times = (sameDoubleTotal == 0) ? 0 :
-                (double) Math.round(numberOfDaysTotal * 100 / sameDoubleTotal) / 100;
-        tvDoubleSame.setText("Thống kê kép bằng (trong " + numberOfDaysTotal + " ngày có tất cả " +
-                sameDoubleTotal + " con kép bằng, tương đương cứ " + times + " ngày lại có 1 con kép bằng):");
-        tvHeadAndTail.setText("Thống kê đầu đuôi:");
+                (double) Math.round((float) (numberOfDaysTotal * 100) / sameDoubleTotal) / 100;
+        String doubleShow = "Thống kê kép bằng (trong " + numberOfDaysTotal + " ngày có tất cả " +
+                sameDoubleTotal + " con kép bằng, tương đương cứ " + times + " ngày lại có 1 con kép bằng):";
+        String statisticShow = "Thống kê đầu đuôi:";
+        tvDoubleSame.setText(doubleShow);
+        tvHeadAndTail.setText(statisticShow);
     }
 
     @Override
-    public void ShowSameDoubleInNearestTime(List<NearestTime> nearestTimeList) {
+    public void showSameDoubleInNearestTime(List<NearestTime> nearestTimeList) {
         TableLayout tableLayout = CustomTableLayout.getNearestTimeTableLayout(this, nearestTimeList);
         linearDoubleSame.removeAllViews();
         linearDoubleSame.addView(tableLayout);
     }
 
     @Override
-    public void ShowHeadAndTailInNearestTime(List<NearestTime> nearestTimeList) {
+    public void showHeadAndTailInNearestTime(List<NearestTime> nearestTimeList) {
         TableLayout tableLayout = CustomTableLayout.getNearestTimeTableLayout(this, nearestTimeList);
         linearHeadAndTail.removeAllViews();
         linearHeadAndTail.addView(tableLayout);

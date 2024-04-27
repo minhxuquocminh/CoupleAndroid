@@ -27,8 +27,8 @@ public class CoupleHandler {
 
     public static List<Integer> getPeriodNumbers(int weight, int ampliude) {
         List<Integer> numbers = new ArrayList<>();
-        int start = weight - ampliude < 0 ? 0 : weight - ampliude;
-        int end = weight + ampliude > 99 ? 99 : weight + ampliude;
+        int start = Math.max(weight - ampliude, 0);
+        int end = Math.min(weight + ampliude, 99);
         for (int i = start; i <= end; i++) {
             numbers.add(i);
         }

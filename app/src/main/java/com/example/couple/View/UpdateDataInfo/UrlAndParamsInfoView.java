@@ -1,7 +1,7 @@
 package com.example.couple.View.UpdateDataInfo;
 
 public interface UrlAndParamsInfoView {
-    void ShowError(String message);
-    void ShowUrlAndParams(String[] arr);
-    void SaveDataSuccess(int status);
+    void showMessage(String message);
+    void showUrlAndParams(String[] arr);
+    void saveDataSuccess(int status);
 }

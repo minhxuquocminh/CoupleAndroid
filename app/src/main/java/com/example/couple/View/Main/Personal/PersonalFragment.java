@@ -50,7 +50,7 @@ public class PersonalFragment extends Fragment implements PersonalView {
 
         viewModel = new PersonalViewModel(getActivity(), this);
 
-        viewModel.CheckLoggedIn();
+        viewModel.checkLoggedIn();
 
         linearBaseUrl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,12 +70,12 @@ public class PersonalFragment extends Fragment implements PersonalView {
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void LoggedIn(String name, String email) {
+    public void loginSuccess(String name, String email) {
         tvName.setVisibility(View.VISIBLE);
         tvUserName.setVisibility(View.VISIBLE);
         tvSignIn.setVisibility(View.GONE);
@@ -96,16 +96,16 @@ public class PersonalFragment extends Fragment implements PersonalView {
             @Override
             public void onClick(View view) {
                 if (InternetBase.isInternetAvailable(getActivity())) {
-                    viewModel.SignOut();
+                    viewModel.signOut();
                 } else {
-                    ShowError("Bạn đang offline.");
+                    showMessage("Bạn đang offline.");
                 }
             }
         });
     }
 
     @Override
-    public void NotLoggedIn() {
+    public void loginError() {
         tvName.setVisibility(View.GONE);
         tvUserName.setVisibility(View.GONE);
         tvSignIn.setVisibility(View.VISIBLE);
@@ -129,7 +129,7 @@ public class PersonalFragment extends Fragment implements PersonalView {
     }
 
     @Override
-    public void SignOutSuccess() {
+    public void signOutSuccess() {
         Toast.makeText(getActivity(), "Bạn đã đăng xuất!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), SignInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

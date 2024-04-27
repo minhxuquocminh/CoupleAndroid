@@ -1,5 +1,6 @@
 package com.example.couple.Model.Bridge.Couple;
 
+import com.example.couple.Base.Handler.GenericBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Model.Bridge.Bridge;
@@ -22,7 +23,7 @@ public class ConnectedSetBridge extends Bridge {
     public ConnectedSetBridge(List<ConnectedSupport> connectedSupports, JackpotHistory jackpotHistory) {
         this.connectedSupports = connectedSupports;
         this.jackpotHistory = jackpotHistory;
-        this.sets = ConnectedBridgeHandler.GetConnectedSets(connectedSupports);
+        this.sets = ConnectedBridgeHandler.getConnectedSets(connectedSupports);
         this.numbers = new ArrayList<>();
         for (Set set : sets) {
             numbers.addAll(set.getSetsDetail());
@@ -31,11 +32,7 @@ public class ConnectedSetBridge extends Bridge {
 
     @Override
     public String showCompactNumbers() {
-        String show = "";
-        for (Set set : sets) {
-            show += set.show() + " ";
-        }
-        return show.trim();
+        return GenericBase.getDelimiterString(sets, " ");
     }
 
     @Override

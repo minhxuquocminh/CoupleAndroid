@@ -25,7 +25,7 @@ import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
 import com.example.couple.View.Bridge.FindingBridgeActivity;
-import com.example.couple.View.Couple.BanlanceCoupleActivity;
+import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleActivity;
@@ -33,6 +33,7 @@ import com.example.couple.View.SubScreen.NoteActivity;
 import com.example.couple.ViewModel.Main.HomePage.HomePageViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HomePageFragment extends Fragment implements HomePageView {
     ImageView imgViewLottery;
@@ -176,7 +177,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
         cvBalanceCouple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), BanlanceCoupleActivity.class));
+                startActivity(new Intent(getActivity(), BalanceCoupleActivity.class));
             }
         });
 
@@ -184,7 +185,8 @@ public class HomePageFragment extends Fragment implements HomePageView {
             @Override
             public void onClick(View view) {
                 EnterPasswordDialog dialog = new EnterPasswordDialog(getActivity());
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Objects.requireNonNull(dialog.getWindow())
+                        .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
@@ -213,11 +215,6 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
-    public void showError(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
@@ -229,13 +226,13 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
     @Override
     public void updateJackpotSuccess(String message) {
-        if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        if (!message.isEmpty()) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         homePageViewModel.getJackpotData(true);
     }
 
     @Override
     public void updateLotterySuccess(String message) {
-        if (!message.equals("")) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        if (!message.isEmpty()) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -250,7 +247,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
         homePageViewModel.getHeadAndTailInLongestTime(jackpotList);
         homePageViewModel.getTouchBridge(jackpotList);
         homePageViewModel.getSpecialTouchBridge(jackpotList);
-        int size_to_show = (jackpotList.size() > 7) ? 7 : jackpotList.size();
+        int size_to_show = Math.min(jackpotList.size(), 7);
         String show = "Kết quả: ";
         for (int i = 0; i < size_to_show - 1; i++) {
             show += jackpotList.get(i).getCouple().show() + ", ";
@@ -266,7 +263,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
     @Override
     public void showHeadAndTailInLongestTime(List<NearestTime> nearestTimeList) {
         String show = "Những đầu đuôi đã chạy lâu nhất: ";
-        int length = nearestTimeList.size() < 1 ? nearestTimeList.size() : 1;
+        int length = Math.min(nearestTimeList.size(), 1);
         for (int i = 0; i < 1; i++) {
             NearestTime nearestTime = nearestTimeList.get(i);
             show += nearestTime.getType() + " " + nearestTime.getNumber() +
@@ -304,7 +301,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
 
     @Override
     public void showNote(String note) {
-        if (note.equals("")) {
+        if (note.isEmpty()) {
             tvNote.setText("Bạn chưa lưu ghi chú nào cả.");
         } else {
             tvNote.setText(note);

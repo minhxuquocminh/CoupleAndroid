@@ -1,5 +1,6 @@
 package com.example.couple.View.Main.NumberPicker;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -35,7 +37,7 @@ import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Model.Display.Number;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.R;
-import com.example.couple.View.Couple.BanlanceCoupleActivity;
+import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.Couple.CoupleByWeekActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
@@ -131,7 +133,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         hsTableToChooseNumber = viewParent.findViewById(R.id.hsTableToChooseNumber);
 
         viewModel = new NumberPickerViewModel(this, getActivity());
-        viewModel.GetSubCoupleList(4);
+        viewModel.getSubCoupleList(4);
 
         pinkDrawable = WidgetBase.getDrawable(getActivity(), R.drawable.cell_pink_table);
         greenDrawable = WidgetBase.getDrawable(getActivity(), R.drawable.cell_light_green_table);
@@ -149,7 +151,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         tvBalanceCouple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), BanlanceCoupleActivity.class));
+                startActivity(new Intent(getActivity(), BalanceCoupleActivity.class));
             }
         });
 
@@ -226,9 +228,9 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                 if (isChecked) {
                     cboTableB.setChecked(false);
                     if (isFirstNumberPicker) {
-                        viewModel.GetTableType1(true);
+                        viewModel.getTableType1(true);
                     } else {
-                        viewModel.GetTableType2(true);
+                        viewModel.getTableType2(true);
                     }
                 } else {
                     if (!cboTableB.isChecked()) {
@@ -244,9 +246,9 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                 if (isChecked) {
                     cboTableA.setChecked(false);
                     if (isFirstNumberPicker) {
-                        viewModel.GetTableType1(false);
+                        viewModel.getTableType1(false);
                     } else {
-                        viewModel.GetTableType2(false);
+                        viewModel.getTableType2(false);
                     }
                 } else {
                     if (!cboTableA.isChecked()) {
@@ -266,7 +268,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                         SetCounterForTableType1();
                     }
                 } else {
-                    ShowTableType2(new ArrayList<>());
+                    showTableType2(new ArrayList<>());
                 }
             }
         });
@@ -291,7 +293,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                                             numbers.add(new Number(i, 2));
                                         }
                                     }
-                                    viewModel.SaveDataToFile(numbers, cboTableA.isChecked());
+                                    viewModel.saveDataToFile(numbers, cboTableA.isChecked());
                                 } else {
                                     List<Number> numbers = new ArrayList<>();
                                     for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
@@ -299,7 +301,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                                             numbers.add(new Number(i, matrix[i]));
                                         }
                                     }
-                                    viewModel.SaveDataToFile(numbers, cboTableA.isChecked());
+                                    viewModel.saveDataToFile(numbers, cboTableA.isChecked());
                                 }
                             }
                         })
@@ -333,7 +335,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                                         }
                                     }
                                 }
-                                WidgetBase.copyToClipboard(getActivity(), "numbers", data);
+                                WidgetBase.copyToClipboard(requireActivity(), "numbers", data);
                                 Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard.",
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -344,11 +346,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             }
         });
 
-        BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
-        FragmentManager fm = getActivity().getSupportFragmentManager();
+        BottomNavigationView navigationView = requireActivity().findViewById(R.id.bottom_navigation);
+        FragmentManager fm = requireActivity().getSupportFragmentManager();
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.itHome:
                         if (MainActivity.active != MainActivity.fragment1) {
@@ -429,8 +432,8 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     private void SaveListIsChecked() {
         isFirstNumberPicker = false;
         cboNumberPicker.setChecked(false);
-        viewModel.GetTableAList();
-        viewModel.GetTableBList();
+        viewModel.getTableAList();
+        viewModel.getTableBList();
 
         cboTableA.setVisibility(View.GONE);
         cboTableB.setVisibility(View.GONE);
@@ -455,7 +458,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         cboSavedList.setChecked(false);
         cboNumberPicker.setChecked(true);
         cboTableA.setChecked(true);
-        viewModel.GetTableType1(true);
+        viewModel.getTableType1(true);
 
         cboTableA.setVisibility(View.VISIBLE);
         cboTableB.setVisibility(View.VISIBLE);
@@ -480,7 +483,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         cboSavedList.setChecked(false);
         cboNumberPicker.setChecked(true);
         cboTableA.setChecked(true);
-        viewModel.GetTableType2(true);
+        viewModel.getTableType2(true);
 
         cboTableA.setVisibility(View.VISIBLE);
         cboTableB.setVisibility(View.VISIBLE);
@@ -500,20 +503,20 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowSubCoupleList(List<Couple> subCoupleList) {
+    public void showSubCoupleList(List<Couple> subCoupleList) {
         TableLayout tableLayout = CustomTableLayout.
                 getCoupleTableLayout(getActivity(), subCoupleList, 0);
         linearCouple.removeAllViews();
         linearCouple.addView(tableLayout);
         coupleTableIsExist = true;
         Couple lastCouple = subCoupleList.get(subCoupleList.size() - 1);
-        viewModel.GetSubCoupleNextDay(lastCouple.getCoupleInt(), 4);
-        viewModel.GetSubCoupleLastMonth(lastCouple.getDateBase());
+        viewModel.getSubCoupleNextDay(lastCouple.getCoupleInt(), 4);
+        viewModel.getSubCoupleLastMonth(lastCouple.getDateBase());
         listMP = "";
         for (int i = subCoupleList.size() - 1; i >= 0; i--) {
             listMP += subCoupleList.get(i).show();
@@ -525,7 +528,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     private void UpdateMyPrediction(int mp, String listMP) {
-        if (listMP.equals("")) {
+        if (listMP.isEmpty()) {
             tvShowPrediction.setText("m: ");
         } else {
             String mpStr = "";
@@ -553,7 +556,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void ShowSubCoupleNextDay(List<Couple> subCoupleList) {
+    public void showSubCoupleNextDay(List<Couple> subCoupleList) {
         TableLayout tableLayout = CustomTableLayout.getCoupleTableLayout(getActivity(),
                 subCoupleList, 1);
         linearCoupleNextDay.removeAllViews();
@@ -562,7 +565,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void ShowSubCoupleLastMonth(List<Couple> subCoupleList) {
+    public void showSubCoupleLastMonth(List<Couple> subCoupleList) {
         TableLayout tableLayout = CustomTableLayout.getCoupleTableLayout(getActivity(),
                 subCoupleList, -1);
         linearCoupleLastMonth.removeAllViews();
@@ -570,7 +573,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void ShowTableType1(List<Number> numbers) {
+    public void showTableType1(List<Number> numbers) {
         hsNumberTable.removeAllViews();
         hsNumberTable.addView(CustomTableLayout.getNumberTableLayout(getActivity()));
         hsChooseHeadTailTable.removeAllViews();
@@ -688,7 +691,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void ShowTableType2(List<Number> numbers) {
+    public void showTableType2(List<Number> numbers) {
         hsFilteredNumberTable.removeAllViews();
         hsFilteredNumberTable.addView(CustomTableLayout.getFilteredNumberTableLayout(getActivity(), 0));
         hsTableToChooseNumber.removeAllViews();
@@ -879,12 +882,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void SaveDataSuccess(String message) {
+    public void saveDataSuccess(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowTableAList(List<Number> numbers) {
+    public void showTableAList(List<Number> numbers) {
         if (numbers.isEmpty()) {
             tvTableA.setText("Bảng A trống.");
             imgCancelA.setVisibility(View.GONE);
@@ -903,7 +906,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                             .setMessage("Bạn có muốn xóa hết dữ liệu trong bảng A không?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    viewModel.DeleteAllData(true);
+                                    viewModel.deleteAllData(true);
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null)
@@ -919,7 +922,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                             .setMessage("Bạn có muốn xuất dữ liệu ra clipboard không?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    WidgetBase.copyToClipboard(getActivity(), "numbers",
+                                    WidgetBase.copyToClipboard(requireActivity(), "numbers",
                                             spannableText.subSequence(title.length() - 1,
                                                     spannableText.length()).toString());
                                     Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard.",
@@ -935,7 +938,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void ShowTableBList(List<Number> numbers) {
+    public void showTableBList(List<Number> numbers) {
         if (numbers.isEmpty()) {
             tvTableB.setText("Bảng B trống.");
             imgCancelB.setVisibility(View.GONE);
@@ -954,7 +957,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                             .setMessage("Bạn có muốn xóa hết dữ liệu trong bảng B không?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    viewModel.DeleteAllData(false);
+                                    viewModel.deleteAllData(false);
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null)
@@ -970,7 +973,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                             .setMessage("Bạn có muốn xuất dữ liệu ra clipboard không?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    WidgetBase.copyToClipboard(getActivity(), "numbers",
+                                    WidgetBase.copyToClipboard(requireActivity(), "numbers",
                                             spannableText.subSequence(title.length() - 1,
                                                     spannableText.length()).toString());
                                     Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard.",
@@ -986,22 +989,22 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void DeleteAllDataSuccess(String message, boolean isTableA) {
+    public void deleteAllDataSuccess(String message, boolean isTableA) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         if (isTableA) {
-            viewModel.GetTableAList();
+            viewModel.getTableAList();
         } else {
-            viewModel.GetTableBList();
+            viewModel.getTableBList();
         }
     }
 
     public void setDataToTable() {
-        String numbersStr = IOFileBase.readDataFromFile(getActivity(), FileName.NUMBER_ARRAY);
+        String numbersStr = IOFileBase.readDataFromFile(requireActivity(), FileName.NUMBER_ARRAY);
         IOFileBase.saveDataToFile(getActivity(), FileName.NUMBER_ARRAY, "", 0);
         if (isFirstNumberPicker) {
             List<Number> numbers = NumberBase.verifyNumberArr(numbersStr, 2);
-            if (numbers.size() != 0) {
-                ShowTableType1(numbers);
+            if (!numbers.isEmpty()) {
+                showTableType1(numbers);
                 Toast.makeText(getActivity(), "Đã nạp dữ liệu!", Toast.LENGTH_LONG).show();
             }
         } else {

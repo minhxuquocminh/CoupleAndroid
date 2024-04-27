@@ -15,19 +15,19 @@ public class PersonalViewModel {
         this.personalView = personalView;
     }
 
-    public void SignOut() {
+    public void signOut() {
         FirebaseAuth.getInstance().signOut();
-        personalView.SignOutSuccess();
+        personalView.signOutSuccess();
     }
 
-    public void CheckLoggedIn() {
+    public void checkLoggedIn() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
-            personalView.NotLoggedIn();
+            personalView.loginError();
         } else {
             String name = user.getDisplayName();
             String email = user.getEmail();
-            personalView.LoggedIn(name, email);
+            personalView.loginSuccess(name, email);
         }
     }
 }

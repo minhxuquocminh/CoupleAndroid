@@ -21,8 +21,7 @@ public class IOFileBase {
             FileOutputStream out = context.openFileOutput(fileName, mode);
             out.write(data.getBytes());
             out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
 
     }

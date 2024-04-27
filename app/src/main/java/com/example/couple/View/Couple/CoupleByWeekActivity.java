@@ -40,28 +40,28 @@ public class CoupleByWeekActivity extends AppCompatActivity implements CoupleByW
         viewModel = new CoupleByWeekViewModel(this, this);
         edtWeekNumber.setText(WEEK_NUMBER_START + "");
         edtWeekNumber.setSelection(edtWeekNumber.getText().length());
-        viewModel.GetJackpotByWeek(WEEK_NUMBER_START);
+        viewModel.getJackpotByWeek(WEEK_NUMBER_START);
         tvGetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(CoupleByWeekActivity.this);
                 String dayNumber = edtWeekNumber.getText().toString().trim();
-                if (dayNumber.equals("")) {
-                    ShowError("Bạn chưa nhập số tuần.");
+                if (dayNumber.isEmpty()) {
+                    showMessage("Bạn chưa nhập số tuần.");
                 } else {
-                    viewModel.GetJackpotByWeek(Integer.parseInt(dayNumber));
+                    viewModel.getJackpotByWeek(Integer.parseInt(dayNumber));
                 }
             }
         });
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowJackpotByWeek(List<Jackpot> jackpotList, int weekNumber) {
+    public void showJackpotByWeek(List<Jackpot> jackpotList, int weekNumber) {
         TableLayout tableLayout = CustomTableLayout.getCoupleByWeekTableLayout(this,
                 jackpotList, weekNumber);
         linearCoupleByWeek.removeAllViews();

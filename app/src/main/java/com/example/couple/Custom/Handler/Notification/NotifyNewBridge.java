@@ -12,7 +12,7 @@ import java.util.List;
 
 public class NotifyNewBridge {
     public static void notify(Context context, List<Jackpot> jackpotList) {
-        BranchInTwoDaysBridge bridge = CycleBridgeHandler.GetBranchInTwoDaysBridge(jackpotList, 0);
+        BranchInTwoDaysBridge bridge = CycleBridgeHandler.getBranchInTwoDaysBridge(jackpotList, 0);
         if (bridge.getRunningTimes() != 0) {
             String title = "Có cầu mới";
             String content = "Cầu can chi trong 2 ngày đã chạy được " + bridge.getRunningTimes() + " lần.";

@@ -32,7 +32,7 @@ public class ExperianceInfoActivity extends AppCompatActivity implements Experia
 
         Intent intent = getIntent();
         String experiance = intent.getStringExtra("EXPERIANCE");
-        if (experiance != null || !experiance.equals("")) {
+        if (experiance != null || !experiance.isEmpty()) {
             edtExperiance.setText(experiance);
         }
 
@@ -40,7 +40,7 @@ public class ExperianceInfoActivity extends AppCompatActivity implements Experia
             @Override
             public void onClick(View v) {
                 String experiance = edtExperiance.getText().toString().trim();
-                viewModel.UpdateExperiance(experiance);
+                viewModel.updateExperiance(experiance);
             }
         });
 
@@ -53,14 +53,14 @@ public class ExperianceInfoActivity extends AppCompatActivity implements Experia
     }
 
     @Override
-    public void UpdateExperianceSuccess(String message) {
+    public void updateExperianceSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish();
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

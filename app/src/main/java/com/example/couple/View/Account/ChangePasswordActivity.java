@@ -38,12 +38,12 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
                 String newPassword = edtOldPassword.getText().toString().trim();
                 String repeatPassword = edtRepeatPassword.getText().toString().trim();
 
-                if (oldPassword.equals("") || newPassword.equals("") || repeatPassword.equals("")) {
-                    ShowError("Bạn phải nhập đầy đủ các trường!");
+                if (oldPassword.isEmpty() || newPassword.isEmpty() || repeatPassword.isEmpty()) {
+                    showMessage("Bạn phải nhập đầy đủ các trường!");
                 } else if (!newPassword.equals(repeatPassword)) {
-                    ShowError("Mật khẩu nhập lại không khớp!");
+                    showMessage("Mật khẩu nhập lại không khớp!");
                 } else {
-                    viewModel.CheckOldPassword(oldPassword, newPassword);
+                    viewModel.checkOldPassword(oldPassword, newPassword);
                 }
             }
         });
@@ -51,17 +51,17 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void OldPasswordIsRight(String newPassword) {
-        viewModel.UpdatePassword(newPassword);
+    public void checkOldPasswordSuccess(String newPassword) {
+        viewModel.updatePassword(newPassword);
     }
 
     @Override
-    public void ChangePasswordSuccess(String message) {
+    public void updatePasswordSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         finish();
     }

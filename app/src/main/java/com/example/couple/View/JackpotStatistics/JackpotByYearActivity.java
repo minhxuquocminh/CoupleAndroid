@@ -46,26 +46,26 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
         tvNote.setVisibility(View.GONE);
 
         viewModel = new JackpotByYearViewModel(this, this);
-        viewModel.GetYearList();
+        viewModel.getYearList();
 
         tvGetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(JackpotByYearActivity.this);
                 String year = spnYear.getSelectedItem().toString().split(" ")[1].trim();
-                viewModel.GetTableOfJackpot(Integer.parseInt(year));
+                viewModel.getTableOfJackpot(Integer.parseInt(year));
             }
         });
 
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowYearList(List<Integer> yearList) {
+    public void showYearList(List<Integer> yearList) {
         List<String> yearStrList = new ArrayList<String>();
         for (int year : yearList) {
             yearStrList.add("Năm " + year);
@@ -73,18 +73,18 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
         ArrayAdapter adapter = new ArrayAdapter(this,
                 R.layout.custom_item_spinner, R.id.tvItemSpinner, yearStrList);
         spnYear.setAdapter(adapter);
-        viewModel.GetTableOfJackpot(TimeInfo.CURRENT_YEAR);
+        viewModel.getTableOfJackpot(TimeInfo.CURRENT_YEAR);
     }
 
     @Override
-    public void ShowTableOfJackpot(String[][] matrix, int year) {
+    public void showTableOfJackpot(String[][] matrix, int year) {
         DateBase lastDate = JackpotHandler.getLastDate(this);
         DateBase selectedDate = lastDate.plusDays(1);
         int row = selectedDate.getDay() - 1;
         int col = selectedDate.getMonth() - 1;
         String selected = IOFileBase.readDataFromFile(this, FileName.SELECTED_NUMBER);
         if (year == TimeInfo.CURRENT_YEAR) {
-            matrix[row][col] = selected.equals("") ? "" : "888" + selected;
+            matrix[row][col] = selected.isEmpty() ? "" : "888" + selected;
         }
         tvNote.setVisibility(View.VISIBLE);
         TableLayout tableLayout = CustomTableLayout.getJackpotMatrixByYear(this, matrix,

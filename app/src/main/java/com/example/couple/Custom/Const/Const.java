@@ -142,7 +142,7 @@ public class Const {
      */
     public static final String GOOGLE_URL = "www.google.com";
     public static final String TIME_URL = "https://lichvannien365.com/";
-    public static final String JACKPOT_URL_AND_PARAMS = "http://ketqua9.net/bang-dac-biet-nam\nchu16";
+    public static final String JACKPOT_URL_AND_PARAMS = "https://ketqua9.net/bang-dac-biet-nam\nchu16";
     public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua9.net/so-ket-qua\nwatermark";
 
     /**

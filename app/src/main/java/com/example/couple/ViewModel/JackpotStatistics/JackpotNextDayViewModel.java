@@ -22,20 +22,20 @@ public class JackpotNextDayViewModel {
         this.context = context;
     }
 
-    public void GetNumberOfYears() {
-        int numberOfYears = JackpotStatistics.GetMaxStartNumberOfYears(context, START_NUMBER_OF_YEARS);
-        view.ShowNumberOfYears(numberOfYears);
+    public void getNumberOfYears() {
+        int numberOfYears = JackpotStatistics.getMaxStartNumberOfYears(context, START_NUMBER_OF_YEARS);
+        view.showNumberOfYears(numberOfYears);
     }
 
-    public void GetJackpotNextDay(String yearNumber, String dayNumberBeforeStr) {
-        if (yearNumber.equals("")) {
-            view.ShowError("Vui lòng nhập số năm hiển thị!");
-        } else if (dayNumberBeforeStr.equals("")) {
-            view.ShowError("Vui lòng nhập số ngày trước đó!");
+    public void getJackpotNextDay(String yearNumber, String dayNumberBeforeStr) {
+        if (yearNumber.isEmpty()) {
+            view.showMessage("Vui lòng nhập số năm hiển thị!");
+        } else if (dayNumberBeforeStr.isEmpty()) {
+            view.showMessage("Vui lòng nhập số ngày trước đó!");
         } else {
-            int[] startAndEndYearFile = JackpotStatistics.GetStartAndEndYearFile(context);
+            int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
             if (startAndEndYearFile == null) {
-                view.ShowError("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được giải " +
+                view.showMessage("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được giải " +
                         "Đặc biệt trong những ngày tiếp theo!");
             } else {
                 int startYear_file = startAndEndYearFile[0];
@@ -43,15 +43,15 @@ public class JackpotNextDayViewModel {
                 int numberOfYears_file = endYear_file - startYear_file + 1;
                 int yearInt = Integer.parseInt(yearNumber);
                 if (endYear_file < TimeInfo.CURRENT_YEAR || numberOfYears_file < yearInt) {
-                    view.ShowRequestLoadMoreData(startYear_file, endYear_file);
+                    view.showRequestLoadMoreData(startYear_file, endYear_file);
                 } else {
-                    List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 10);
+                    List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 10);
                     int dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
                     int couple = jackpotList.get(dayNumberBefore).getCoupleInt();
-                    List<Jackpot> jackpotListManyYears = JackpotHandler.GetJackpotListManyYears(context, yearInt);
+                    List<Jackpot> jackpotListManyYears = JackpotHandler.getJackpotListManyYears(context, yearInt);
                     List<JackpotNextDay> jackpotNextDayList =
-                            JackpotStatistics.GetJackpotNextDayList(jackpotListManyYears, couple);
-                    view.ShowJackpotNextDay(jackpotNextDayList);
+                            JackpotStatistics.getJackpotNextDayList(jackpotListManyYears, couple);
+                    view.showJackpotNextDay(jackpotNextDayList);
                 }
             }
         }

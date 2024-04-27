@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.couple.R;
 import com.example.couple.View.Bridge.FindingBridgeActivity;
 import com.example.couple.View.BridgeHistory.SpecialSetsHistoryActivity;
-import com.example.couple.View.Couple.BanlanceCoupleActivity;
+import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotAllYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
@@ -69,7 +69,7 @@ public class FunctionDisplayFragment extends Fragment {
         cvBalanceCouple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), BanlanceCoupleActivity.class));
+                startActivity(new Intent(getActivity(), BalanceCoupleActivity.class));
             }
         });
 

@@ -44,14 +44,14 @@ public class UrlAndParamsInfoActivity extends AppCompatActivity implements UrlAn
             tvTitleToolbar.setText("Sửa đường dẫn và tham số XSMB");
         }
 
-        viewModel.GetUrlAndParams(type);
+        viewModel.getUrlAndParams(type);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = edtUrl.getText().toString().trim();
                 String className = edtClassName.getText().toString().trim();
-                viewModel.SaveData(url, className);
+                viewModel.saveData(url, className);
             }
         });
 
@@ -64,19 +64,19 @@ public class UrlAndParamsInfoActivity extends AppCompatActivity implements UrlAn
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowUrlAndParams(String[] arr) {
+    public void showUrlAndParams(String[] arr) {
         edtUrl.setText(arr[0].trim());
         edtUrl.setSelection(edtUrl.length());
         edtClassName.setText(arr[1].trim());
     }
 
     @Override
-    public void SaveDataSuccess(int status) {
+    public void saveDataSuccess(int status) {
         if (status == 0) {
             setResult(RESULT_CANCELED);
         } else if (status == 1) {

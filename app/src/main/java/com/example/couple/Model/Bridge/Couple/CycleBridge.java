@@ -39,7 +39,7 @@ public class CycleBridge extends Bridge {
     }
 
     public boolean isEmpty() {
-        return bridgeName.equals("") || yearCycles.isEmpty() || numbers.isEmpty();
+        return bridgeName.isEmpty() || yearCycles.isEmpty() || numbers.isEmpty();
     }
 
 }

@@ -26,6 +26,7 @@ import com.example.couple.ViewModel.BridgeHistory.SexagenaryCycleViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SexagenaryCycleActivity extends AppCompatActivity implements SexagenaryCycleView {
@@ -48,34 +49,34 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
         edtDayNumber.setSelection(edtDayNumber.length());
 
         viewModel = new SexagenaryCycleViewModel(this, this);
-        viewModel.GetSexagenaryCycle(18);
+        viewModel.getSexagenaryCycle(18);
 
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(SexagenaryCycleActivity.this);
                 String dayNumberStr = edtDayNumber.getText().toString().trim();
-                if (dayNumberStr.equals("")) {
-                    ShowError("Bạn chưa nhập số ngày.");
+                if (dayNumberStr.isEmpty()) {
+                    showMessage("Bạn chưa nhập số ngày.");
                     return;
                 }
-                viewModel.GetSexagenaryCycle(Integer.parseInt(dayNumberStr));
+                viewModel.getSexagenaryCycle(Integer.parseInt(dayNumberStr));
             }
         });
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowUpdateSuccess() {
+    public void updateSuccess() {
         Toast.makeText(this, "Cập nhật thông tin can chi thành công.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> allJackpotList) {
+    public void showSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> allJackpotList) {
         List<String> headers = new ArrayList<>();
         List<RowUI> rows = new ArrayList<>();
         int index = -1;
@@ -116,7 +117,7 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                 Branch branch = timeBase.getDateCycle().getDay().getBranch();
                 String stem = timeBase.getDateCycle().getDay().getStem().getPosition() + "";
                 String branches = branch.getPosition() % 10 + "";
-                List<Branch> branchList = count == 0 ? Arrays.asList(branch) :
+                List<Branch> branchList = count == 0 ? Collections.singletonList(branch) :
                         Branch.getBranchsByYear(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);
                 String coupleBranches1 = "";
                 String coupleBranches2 = "";

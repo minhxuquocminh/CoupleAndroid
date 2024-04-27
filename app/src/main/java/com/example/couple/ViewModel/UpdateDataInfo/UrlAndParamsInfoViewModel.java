@@ -17,7 +17,7 @@ public class UrlAndParamsInfoViewModel {
         this.context = context;
     }
 
-    public void GetUrlAndParams(String type) {
+    public void getUrlAndParams(String type) {
         if (type.equals("jackpot")) {
             fileName = FileName.JACKPOT_URL;
         } else if (type.equals("lottery")) {
@@ -25,18 +25,18 @@ public class UrlAndParamsInfoViewModel {
         }
         data = IOFileBase.readDataFromFile(context, fileName);
         String[] arr = data.split("\n");
-        view.ShowUrlAndParams(arr);
+        view.showUrlAndParams(arr);
     }
 
-    public void SaveData(String url, String className) {
+    public void saveData(String url, String className) {
         String data2 = url + "\n" + className;
-        if (url.equals("") || className.equals("")) {
-            view.ShowError("Vui lòng nhập url và Class Name!");
+        if (url.isEmpty() || className.isEmpty()) {
+            view.showMessage("Vui lòng nhập url và Class Name!");
         } else if (data2.equals(data)) {
-            view.SaveDataSuccess(0);
+            view.saveDataSuccess(0);
         } else {
             IOFileBase.saveDataToFile(context, fileName, data2, 0);
-            view.SaveDataSuccess(1);
+            view.saveDataSuccess(1);
         }
     }
 }

@@ -2,6 +2,8 @@ package com.example.couple.ViewModel.SubScreen;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.example.couple.Base.Handler.FirebaseBase;
 import com.example.couple.View.SubScreen.ExperianceView;
 import com.google.firebase.database.DataSnapshot;
@@ -17,21 +19,21 @@ public class ExperianceViewModel {
         this.context = context;
     }
 
-    public void GetExperiance() {
+    public void getExperiance() {
         FirebaseBase firebaseBase = new FirebaseBase("experiance");
-        firebaseBase.getmRef().addValueEventListener(new ValueEventListener() {
+        firebaseBase.getMRef().addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String data = snapshot.getValue(String.class);
-                if (data == null || data.equals("")) {
-                    experianceView.HideExperiance();
+                if (data == null || data.isEmpty()) {
+                    experianceView.hideExperiance();
                 } else {
-                    experianceView.ShowExperiance(data);
+                    experianceView.showExperiance(data);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

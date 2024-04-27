@@ -14,33 +14,33 @@ import com.example.couple.Model.Origin.Lottery;
 import java.util.List;
 
 public interface ReferenceBridgeView {
-    void ShowError(String message);
+    void showMessage(String message);
     //
-    void ShowJackpotList(List<Jackpot> jackpotList);
-    void ShowTouchBridge(List<BSingle> touchList);
-    void ShowSpecialTouchBridge(List<Integer> touchList);
-    void ShowTouchThirdClawBridge(List<BSingle> BSingleList, int frame);
+    void showJackpotList(List<Jackpot> jackpotList);
+    void showTouchBridge(List<BSingle> touchList);
+    void showSpecialTouchBridge(List<Integer> touchList);
+    void showTouchThirdClawBridge(List<BSingle> BSingleList, int frame);
     //
-    void ShowJackpotListThisYear(List<Jackpot> jackpotList);
-    void ShowRareSameDoubleList(List<NearestTime> subNearestTimeList);
-    void ShowCoupleDoNotAppearThisYear(List<Integer> numbers);
+    void showJackpotListThisYear(List<Jackpot> jackpotList);
+    void showRareSameDoubleList(List<NearestTime> subNearestTimeList);
+    void showCoupleDoNotAppearThisYear(List<Integer> numbers);
     //
-    void ShowJackpotListLastYear(List<Jackpot> jackpotList);
-    void ShowRareCoupleLastYear(List<Integer> noAppearanceList, List<Integer> oneAppearanceList);
+    void showJackpotListLastYear(List<Jackpot> jackpotList);
+    void showRareCoupleLastYear(List<Integer> noAppearanceList, List<Integer> oneAppearanceList);
     //
-    void ShowLotteryList(List<Lottery> lotteryList);
-    void ShowConnectedBridge(ConnectedBridge connectedBridge);
-    void ShowThirdClawBridge(List<ClawSupport> clawSupportList);
-    void ShowTriadBridge(List<Set> triadSetList, List<Set> cancelSetList);
-    void ShowSignInLottery(List<Integer> numberList);
+    void showLotteryList(List<Lottery> lotteryList);
+    void showConnectedBridge(ConnectedBridge connectedBridge);
+    void showThirdClawBridge(List<ClawSupport> clawSupportList);
+    void showTriadBridge(List<Set> triadSetList, List<Set> cancelSetList);
+    void showSignInLottery(List<Integer> numberList);
     //
-    void ShowJackpotListInManyDays(List<Jackpot> jackpotList);
-    void ShowNumberOfDaysBeforeSDB(int numberOfDays);
-    void ShowBeatOfSameDouble(List<Integer> beatList);
-    void ShowSignInJackpot(List<JackpotSign> jackpotSignList);
-    void ShowNumberBeforeSameDoubleAppear(List<NumberDouble> numberDoubleList);
-    void ShowHeadForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList);
-    void ShowTailForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList);
-    void ShowHeadAndTaiFromPreviousDaySHead(int runningDayNumber, int head, HeadTail headTail);
-    void ShowHeadAndTaiFromPreviousDaySTail(int runningDayNumber, int tail, HeadTail headTail);
+    void showJackpotListInManyDays(List<Jackpot> jackpotList);
+    void showNumberOfDaysBeforeSDB(int numberOfDays);
+    void showBeatOfSameDouble(List<Integer> beatList);
+    void showSignInJackpot(List<JackpotSign> jackpotSignList);
+    void showNumberBeforeSameDoubleAppear(List<NumberDouble> numberDoubleList);
+    void showHeadForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList);
+    void showTailForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList);
+    void showHeadAndTaiFromPreviousDaySHead(int runningDayNumber, int head, HeadTail headTail);
+    void showHeadAndTaiFromPreviousDaySTail(int runningDayNumber, int tail, HeadTail headTail);
 }

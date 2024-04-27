@@ -39,7 +39,7 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
         imgDelete = findViewById(R.id.imgDelete);
 
         viewModel = new NoteViewModel(this, this);
-        viewModel.GetNoteList();
+        viewModel.getNoteList();
 
         imgAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
                         .setMessage("Bạn có muốn xóa tất cả các Ghi chú không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                viewModel.DeleteNoteList();
+                                viewModel.deleteNoteList();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -68,12 +68,12 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowNoteList(List<String> notes) {
+    public void showNoteList(List<String> notes) {
         tvTitle.setText("Các ghi chú bạn đã lưu:");
         rvNote.setVisibility(View.VISIBLE);
         imgDelete.setVisibility(View.VISIBLE);
@@ -84,16 +84,16 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
     }
 
     @Override
-    public void HideNoteList() {
+    public void hideNoteList() {
         tvTitle.setText("Không có Ghi chú nào!");
         rvNote.setVisibility(View.GONE);
         imgDelete.setVisibility(View.GONE);
     }
 
     @Override
-    public void DeleteNoteListSuccess(String message) {
+    public void deleteNoteListSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        HideNoteList();
+        hideNoteList();
         isChanged = true;
     }
 
@@ -101,7 +101,7 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            viewModel.GetNoteList();
+            viewModel.getNoteList();
             isChanged = true;
         }
     }

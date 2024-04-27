@@ -89,7 +89,7 @@ public class CycleByYearActivity extends AppCompatActivity implements CycleByYea
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

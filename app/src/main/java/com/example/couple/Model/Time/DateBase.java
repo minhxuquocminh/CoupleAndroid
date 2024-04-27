@@ -1,5 +1,7 @@
 package com.example.couple.Model.Time;
 
+import android.annotation.SuppressLint;
+
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
@@ -149,7 +151,7 @@ public class DateBase implements Serializable {
         if (date == null) return false;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        return calendar.get(Calendar.DAY_OF_WEEK) == 1;
+        return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
     }
 
     public boolean isItOnSaturday() {
@@ -157,7 +159,7 @@ public class DateBase implements Serializable {
         if (date == null) return false;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        return calendar.get(Calendar.DAY_OF_WEEK) == 7;
+        return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY;
     }
 
     public int getDayOfWeek() {
@@ -185,6 +187,7 @@ public class DateBase implements Serializable {
         return day <= 31 && day >= 1;
     }
 
+    @SuppressLint("SimpleDateFormat")
     public Date toDate() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");

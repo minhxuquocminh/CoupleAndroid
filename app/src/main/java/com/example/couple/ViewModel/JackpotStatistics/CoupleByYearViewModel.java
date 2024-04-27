@@ -22,67 +22,67 @@ public class CoupleByYearViewModel {
         this.context = context;
     }
 
-    private int[][] GetMatrixCountCouple(int numberOfYears) {
-        int[] startAndEndYearFile = JackpotStatistics.GetStartAndEndYearFile(context);
+    private int[][] getMatrixCountCouple(int numberOfYears) {
+        int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
         if (startAndEndYearFile == null) {
-            view.ShowError("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được bảng" +
+            view.showMessage("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được bảng" +
                     " số lần xuất hiện của các số theo năm!");
         } else {
             int startYear_file = startAndEndYearFile[0];
             int endYear_file = startAndEndYearFile[1];
             int numberOfYears_file = endYear_file - startYear_file + 1;
             if (endYear_file < TimeInfo.CURRENT_YEAR || numberOfYears_file < numberOfYears) {
-                view.ShowRequestLoadMoreData(startYear_file, endYear_file);
+                view.showRequestLoadMoreData(startYear_file, endYear_file);
             } else {
                 startYear = endYear_file - numberOfYears + 1;
-                List<com.example.couple.Model.Origin.Jackpot> jackpotList = JackpotHandler.GetJackpotListManyYears(context, numberOfYears);
+                List<com.example.couple.Model.Origin.Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, numberOfYears);
                 // numberOfYears + 1 vì 1 là cột của số đề
-                return JackpotStatistics.GetCountCoupleMatrix(jackpotList,
+                return JackpotStatistics.getCountCoupleMatrix(jackpotList,
                         Const.MAX_ROW_COUNT_TABLE, numberOfYears + 1, startYear);
             }
         }
         return null;
     }
 
-    public void GetCoupleCountingTable(String yearNumber, String tens, String unit, int status) {
-        int numberOfYears = yearNumber.equals("") || yearNumber.equals("0") ?
-                JackpotStatistics.GetMaxStartNumberOfYears(context, START_NUMBER_OF_YEARS) :
+    public void getCoupleCountingTable(String yearNumber, String tens, String unit, int status) {
+        int numberOfYears = yearNumber.isEmpty() || yearNumber.equals("0") ?
+                JackpotStatistics.getMaxStartNumberOfYears(context, START_NUMBER_OF_YEARS) :
                 Integer.parseInt(yearNumber);
-        int[][] matrix = GetMatrixCountCouple(numberOfYears);
+        int[][] matrix = getMatrixCountCouple(numberOfYears);
         if (matrix != null) {
-            if (tens.equals("") && unit.equals("")) {
-                int[][] matrix_sort = JackpotStatistics.GetSortMatrix(matrix,
+            if (tens.isEmpty() && unit.isEmpty()) {
+                int[][] matrix_sort = JackpotStatistics.getSortMatrix(matrix,
                         Const.MAX_ROW_COUNT_TABLE, numberOfYears + 1, status);
-                view.ShowCoupleCountingTable(matrix_sort,
+                view.showCoupleCountingTable(matrix_sort,
                         Const.MAX_ROW_COUNT_TABLE, numberOfYears + 1, startYear);
-            } else if (!tens.equals("") && !unit.equals("")) {
+            } else if (!tens.isEmpty() && !unit.isEmpty()) {
                 int rowNumber = 1;
                 int[][] new_matrix = new int[rowNumber][numberOfYears + 1];
-                new_matrix[0][0] = Integer.parseInt(tens + "" + unit);
+                new_matrix[0][0] = Integer.parseInt(tens + unit);
                 for (int j = 1; j < numberOfYears + 1; j++) {
-                    new_matrix[0][j] = matrix[Integer.parseInt(tens + "" + unit)][j];
+                    new_matrix[0][j] = matrix[Integer.parseInt(tens + unit)][j];
                 }
-                int[][] matrix_sort = JackpotStatistics.GetSortMatrix(new_matrix,
+                int[][] matrix_sort = JackpotStatistics.getSortMatrix(new_matrix,
                         rowNumber, numberOfYears + 1, status);
-                view.ShowCoupleCountingTable(matrix_sort, rowNumber, numberOfYears + 1, startYear);
+                view.showCoupleCountingTable(matrix_sort, rowNumber, numberOfYears + 1, startYear);
             } else {
                 int rowNumber = 10;
                 int[][] new_matrix = new int[rowNumber][numberOfYears + 1];
                 for (int i = 0; i < rowNumber; i++) {
-                    int digit2d = unit.equals("") ?
-                            Integer.parseInt(tens + "" + i) : Integer.parseInt(i + "" + unit);
+                    int digit2d = unit.isEmpty() ?
+                            Integer.parseInt(tens + i) : Integer.parseInt(i + unit);
                     new_matrix[i][0] = digit2d;
                     for (int j = 1; j < numberOfYears + 1; j++) {
-                        if (unit.equals("")) {
-                            new_matrix[i][j] = matrix[Integer.parseInt(tens + "" + i)][j];
+                        if (unit.isEmpty()) {
+                            new_matrix[i][j] = matrix[Integer.parseInt(tens + i)][j];
                         } else {
-                            new_matrix[i][j] = matrix[Integer.parseInt(i + "" + unit)][j];
+                            new_matrix[i][j] = matrix[Integer.parseInt(i + unit)][j];
                         }
                     }
                 }
-                int[][] matrix_sort = JackpotStatistics.GetSortMatrix(new_matrix,
+                int[][] matrix_sort = JackpotStatistics.getSortMatrix(new_matrix,
                         rowNumber, numberOfYears + 1, status);
-                view.ShowCoupleCountingTable(matrix_sort, rowNumber, numberOfYears + 1, startYear);
+                view.showCoupleCountingTable(matrix_sort, rowNumber, numberOfYears + 1, startYear);
             }
         }
     }

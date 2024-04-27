@@ -6,9 +6,9 @@ import com.example.couple.Model.Support.PeriodHistory;
 import java.util.List;
 
 public interface BalanceCoupleView {
-    void ShowError(String message);
-    void ShowJackpotData(List<Jackpot> jackpotList);
-    void ShowTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays);
-    void ShowPeriodHistory(List<PeriodHistory> periodHistoryList);
-    void ShowTest(List<Integer> touchs);
+    void showMessage(String message);
+    void showJackpotData(List<Jackpot> jackpotList);
+    void showTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays);
+    void showPeriodHistory(List<PeriodHistory> periodHistoryList);
+    void showTest(List<Integer> touchs);
 }

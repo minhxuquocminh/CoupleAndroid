@@ -65,10 +65,10 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
             public void onClick(View view) {
                 String username = edtUsername.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
-                if (username.equals("") || password.equals("")) {
-                    ShowError("Bạn phải nhập đầy đủ tên đăng nhập và mật khẩu!");
+                if (username.isEmpty() || password.isEmpty()) {
+                    showMessage("Bạn phải nhập đầy đủ tên đăng nhập và mật khẩu!");
                 } else {
-                    viewModel.SignIn(username, password);
+                    viewModel.signIn(username, password);
                 }
             }
         });
@@ -76,12 +76,12 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void SignInSuccess() {
+    public void signInSuccess() {
         startActivity(new Intent(this, MainActivity.class));
     }
 }

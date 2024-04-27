@@ -8,7 +8,6 @@ import com.example.couple.Model.Origin.Lottery;
 import java.util.List;
 
 public interface HomePageView {
-    void showError(String message);
     void showMessage(String message);
     void showAllDataStatus(String message);
     void updateJackpotSuccess(String message);

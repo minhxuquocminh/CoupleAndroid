@@ -1,5 +1,6 @@
 package com.example.couple.Model.Support;
 
+import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Handler.LotteryHandler;
 
 import java.util.ArrayList;
@@ -29,15 +30,8 @@ public class ClawSupport {
     }
 
     public String showStatus() {
-        String show = "Càng " + claw + " (" + LotteryHandler.showPrize(position) + " - N: ";
-        for (int i = 0; i < beatList.size(); i++) {
-            show += beatList.get(i) + "";
-            if (i != beatList.size() - 1) {
-                show += ", ";
-            }
-        }
-        show += ")";
-        return show;
+        return "Càng " + claw + " (" + LotteryHandler.showPrize(position) + " - N: " +
+                NumberBase.showNumbers(beatList, ", ") + ")";
     }
 
     List<Integer> getStatusList(List<Integer> numbers) {

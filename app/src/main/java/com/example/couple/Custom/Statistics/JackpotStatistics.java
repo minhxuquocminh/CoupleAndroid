@@ -23,7 +23,7 @@ import java.util.List;
 public class JackpotStatistics {
 
     // nếu status = 0 thì ko sắp xếp, status = 1 thì sx năm gần nhất, status = 2 thì sx tổng.
-    public static int[][] GetSortMatrix(int[][] matrix, int m, int n, int status) {
+    public static int[][] getSortMatrix(int[][] matrix, int m, int n, int status) {
         if (matrix == null) return null;
         int[] arr = new int[m];
         int[] index = new int[m];
@@ -89,7 +89,7 @@ public class JackpotStatistics {
         return new_matrix;
     }
 
-    public static int[][] GetCountCoupleMatrix(List<Jackpot> jackpotList, int m, int n, int startYear) {
+    public static int[][] getCountCoupleMatrix(List<Jackpot> jackpotList, int m, int n, int startYear) {
         int[][] matrix = new int[m][n];
         for (int i = 0; i < m; i++) {
             matrix[i][0] = i;
@@ -104,9 +104,9 @@ public class JackpotStatistics {
         return matrix;
     }
 
-    public static int[] GetStartAndEndYearFile(Context context) {
+    public static int[] getStartAndEndYearFile(Context context) {
         String yearData = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
-        if (yearData.equals("")) return null;
+        if (yearData.isEmpty()) return null;
         String[] yearArr = yearData.split("-");
         int[] results = new int[2];
         results[0] = Integer.parseInt(yearArr[0]);
@@ -114,14 +114,14 @@ public class JackpotStatistics {
         return results;
     }
 
-    public static int GetMaxStartNumberOfYears(Context context, int START_NUMBER_OF_YEARS) {
+    public static int getMaxStartNumberOfYears(Context context, int START_NUMBER_OF_YEARS) {
         String yearData = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
-        if (yearData.equals("")) return 0;
+        if (yearData.isEmpty()) return 0;
         int numberOfYearsFile = yearData.split("-").length;
-        return numberOfYearsFile < START_NUMBER_OF_YEARS ? numberOfYearsFile : START_NUMBER_OF_YEARS;
+        return Math.min(numberOfYearsFile, START_NUMBER_OF_YEARS);
     }
 
-    public static int[] GetDayNumberByYear(int[][] matrix, int m, int n) {
+    public static int[] getDayNumberByYear(int[][] matrix, int m, int n) {
         if (matrix == null) return null;
         int[] dayNumberArr = new int[n];
         for (int i = 0; i < m; i++) {
@@ -132,7 +132,7 @@ public class JackpotStatistics {
         return dayNumberArr;
     }
 
-    public static List<NearestTime> GetHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
+    public static List<NearestTime> getHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
         List<NearestTime> nearestTimeList = new ArrayList<>();
         int[] appearanceTimes1 = new int[10];
         int[] nearestIndex1 = new int[10];
@@ -169,18 +169,14 @@ public class JackpotStatistics {
         Collections.sort(nearestTimeList, new Comparator<NearestTime>() {
             @Override
             public int compare(NearestTime o1, NearestTime o2) {
-                if (o1.getDayNumberBefore() < o2.getDayNumberBefore()) { // sx giảm dần
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return Integer.compare(o2.getDayNumberBefore(), o1.getDayNumberBefore());
             }
         });
 
         return nearestTimeList;
     }
 
-    public static List<NearestTime> GetSameDoubleInNearestTime(List<Jackpot> jackpotList) {
+    public static List<NearestTime> getSameDoubleInNearestTime(List<Jackpot> jackpotList) {
         List<NearestTime> nearestTimeList = new ArrayList<>();
         int[] appearanceTimes = new int[10];
         int[] nearestIndex = new int[10];
@@ -208,18 +204,14 @@ public class JackpotStatistics {
         Collections.sort(nearestTimeList, new Comparator<NearestTime>() {
             @Override
             public int compare(NearestTime o1, NearestTime o2) {
-                if (o1.getDayNumberBefore() < o2.getDayNumberBefore()) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return Integer.compare(o2.getDayNumberBefore(), o1.getDayNumberBefore());
             }
         });
 
         return nearestTimeList;
     }
 
-    public static List<JackpotNextDay> GetJackpotNextDayList(List<Jackpot> jackpotList, int digit2D) {
+    public static List<JackpotNextDay> getJackpotNextDayList(List<Jackpot> jackpotList, int digit2D) {
         List<JackpotNextDay> jackpotNextDayList = new ArrayList<>();
         for (int i = jackpotList.size() - 2; i >= 0; i--) {
             if (jackpotList.get(i).getCoupleInt() == digit2D) {
@@ -231,10 +223,10 @@ public class JackpotStatistics {
         return jackpotNextDayList;
     }
 
-    public static List<Integer> GetBeatOfSameDouble(List<Jackpot> jackpotList) {
-        if (jackpotList.size() == 0) return new ArrayList<>();
+    public static List<Integer> getBeatOfSameDouble(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
         List<Integer> beatList = new ArrayList<>();
-        int runningSize = jackpotList.size() < 150 ? jackpotList.size() : 150;
+        int runningSize = Math.min(jackpotList.size(), 150);
         int beat = 0;
         int sizeOfBeat = 0;
         for (int i = 0; i < runningSize; i++) {
@@ -250,7 +242,7 @@ public class JackpotStatistics {
         return beatList;
     }
 
-    public static List<Integer> GetSignInLottery(Lottery lastLottery) {
+    public static List<Integer> getSignInLottery(Lottery lastLottery) {
         List<Integer> numberList = new ArrayList<>();
         List<Couple> coupleList = lastLottery.getCoupleList();
         for (int i = 0; i < coupleList.size(); i++) {
@@ -261,10 +253,10 @@ public class JackpotStatistics {
         return numberList;
     }
 
-    public static List<JackpotSign> GetSignInJackpot(List<Jackpot> jackpotList) {
-        if (jackpotList.size() == 0) return new ArrayList<>();
+    public static List<JackpotSign> getSignInJackpot(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
         List<JackpotSign> jackpotSignList = new ArrayList<>();
-        int runningSize = jackpotList.size() < 150 ? jackpotList.size() : 150;
+        int runningSize = Math.min(jackpotList.size(), 150);
         List<Jackpot> subJackpotList = new ArrayList<>();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
@@ -292,11 +284,11 @@ public class JackpotStatistics {
         return jackpotSignList;
     }
 
-    public static List<NumberDouble> GetNumberBeforeSameDoubleAppear(List<Jackpot> jackpotList) {
-        if (jackpotList.size() == 0) return new ArrayList<>();
+    public static List<NumberDouble> getNumberBeforeSameDoubleAppear(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
         List<NumberDouble> numberDoubleList = new ArrayList<>();
         numberDoubleList.add(new NumberDouble(jackpotList.get(0).getCoupleInt(), -1));
-        int runningSize = jackpotList.size() < 150 ? jackpotList.size() : 150;
+        int runningSize = Math.min(jackpotList.size(), 150);
         int sizeOfNumberDouble = 0;
         for (int i = 0; i < runningSize - 1; i++) {
             if (jackpotList.get(i).getCouple().isSameDouble()) {
@@ -312,8 +304,8 @@ public class JackpotStatistics {
         return numberDoubleList;
     }
 
-    public static int[] GetCoupleCounting(List<Jackpot> jackpotList, int m) {
-        if (jackpotList.size() == 0) return null;
+    public static int[] getCoupleCounting(List<Jackpot> jackpotList, int m) {
+        if (jackpotList.isEmpty()) return null;
         int[] numberArr = new int[m];
         for (int i = 0; i < jackpotList.size(); i++) {
             numberArr[jackpotList.get(i).getCoupleInt()]++;
@@ -321,11 +313,11 @@ public class JackpotStatistics {
         return numberArr;
     }
 
-    public static HeadTail GetHeadAndTaiFromPreviousDaySCouple(List<Jackpot> jackpotList, int number, int type) {
-        if (jackpotList.size() == 0) return null;
+    public static HeadTail getHeadAndTaiFromPreviousDaySCouple(List<Jackpot> jackpotList, int number, int type) {
+        if (jackpotList.isEmpty()) return null;
         int[] headArr = new int[10];
         int[] tailArr = new int[10];
-        int runningSize = jackpotList.size() < 150 ? jackpotList.size() : 150;
+        int runningSize = Math.min(jackpotList.size(), 150);
         for (int i = 1; i < runningSize; i++) {
             if (type == 1) {
                 if (jackpotList.get(i).getCouple().getFirst() == number) {
@@ -352,22 +344,14 @@ public class JackpotStatistics {
         Collections.sort(headList, new Comparator<BSingle>() {
             @Override
             public int compare(BSingle o1, BSingle o2) {
-                if (o1.getLevel() < o2.getLevel()) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return Integer.compare(o2.getLevel(), o1.getLevel());
             }
         });
 
         Collections.sort(tailList, new Comparator<BSingle>() {
             @Override
             public int compare(BSingle o1, BSingle o2) {
-                if (o1.getLevel() < o2.getLevel()) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return Integer.compare(o2.getLevel(), o1.getLevel());
             }
         });
 
@@ -390,8 +374,8 @@ public class JackpotStatistics {
         return new HeadTail(filteredHeadList, filteredTailList);
     }
 
-    public static List<Jackpot> GetMonthJackpotList(List<Jackpot> jackpotList, int month, int year) {
-        if (jackpotList.size() == 0) return new ArrayList<>();
+    public static List<Jackpot> getMonthJackpotList(List<Jackpot> jackpotList, int month, int year) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
         List<Jackpot> monthJackpotList = new ArrayList<>();
         for (int i = 0; i < jackpotList.size(); i++) {
             if (jackpotList.get(i).getDateBase().getMonth() == month

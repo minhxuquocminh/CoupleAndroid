@@ -43,7 +43,7 @@ public class NumberArrayHandler {
     }
 
     public static List<Integer> getThreeClaws(List<Integer> coupleList, List<Integer> thirdClawList) {
-        if (coupleList.size() == 0 || thirdClawList.size() == 0) return new ArrayList<>();
+        if (coupleList.isEmpty() || thirdClawList.isEmpty()) return new ArrayList<>();
         List<Integer> compactCouples = NumberBase.filterDuplicatedNumbers(coupleList);
         List<Integer> compactClaw = NumberBase.filterDuplicatedNumbers(thirdClawList);
 
@@ -59,7 +59,7 @@ public class NumberArrayHandler {
     }
 
     public static List<Integer> getSums(List<Integer> singleSumList) {
-        if (singleSumList.size() == 0) return new ArrayList<>();
+        if (singleSumList.isEmpty()) return new ArrayList<>();
         List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(singleSumList);
 
         List<Integer> results = new ArrayList<>();
@@ -72,7 +72,7 @@ public class NumberArrayHandler {
     }
 
     public static List<Integer> getTouchs(List<Integer> singleTouchList) {
-        if (singleTouchList.size() == 0) return new ArrayList<>();
+        if (singleTouchList.isEmpty()) return new ArrayList<>();
         List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(singleTouchList);
 
         List<Integer> touchList = new ArrayList<>();
@@ -113,7 +113,7 @@ public class NumberArrayHandler {
     }
 
     public static List<Integer> getSetsByCouples(List<Integer> coupleSetList) {
-        if (coupleSetList.size() == 0) return new ArrayList<>();
+        if (coupleSetList.isEmpty()) return new ArrayList<>();
         List<Integer> smallShadowList = new ArrayList<>();
         for (int i = 0; i < coupleSetList.size(); i++) {
             smallShadowList.add(CoupleBase.getSmallShadow(coupleSetList.get(i)));
@@ -192,9 +192,8 @@ public class NumberArrayHandler {
         if (sum > 9 || sum < 0) return new ArrayList<>();
         List<Integer> numbers = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            int first = i;
-            int second = sum - i < 0 ? 10 + sum - i : sum - i;
-            numbers.add(first * 10 + second);
+            int unit = sum - i < 0 ? 10 + sum - i : sum - i;
+            numbers.add(i * 10 + unit);
         }
         return numbers;
     }

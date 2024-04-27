@@ -31,24 +31,24 @@ public class CreateNumberArrayViewModel {
         this.context = context;
     }
 
-    public void GetLotteryAndJackpotList() {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+    public void getLotteryAndJackpotList() {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        view.ShowLotteryAndJackpotList(jackpotList, lotteryList);
+        view.showLotteryAndJackpotList(jackpotList, lotteryList);
     }
 
-    public void GetPeriodHistory(List<Jackpot> jackpotList) {
+    public void getPeriodHistory(List<Jackpot> jackpotList) {
         List<PeriodHistory> periodHistoryList =
-                EstimatedBridgeHandler.GetEstimatedHistoryList(jackpotList,
+                EstimatedBridgeHandler.getEstimatedHistoryList(jackpotList,
                         0, 2, Const.AMPLITUDE_OF_PERIOD);
         if (periodHistoryList.isEmpty()) {
-            view.ShowError("Không lấy được lịch sử các cách chạy.");
+            view.showMessage("Không lấy được lịch sử các cách chạy.");
         } else {
-            view.ShowPeriodHistory(periodHistoryList);
+            view.showPeriodHistory(periodHistoryList);
         }
     }
 
-    public void CreateNumberArray(String set, String touch, String sum, String thirdClaw,
+    public void createNumberArray(String set, String touch, String sum, String thirdClaw,
                                   String head, String tail, String combine, String add, String remove) {
 
         String error = "Vui lòng kiểm tra nhập tại";
@@ -58,11 +58,10 @@ public class CreateNumberArrayViewModel {
 
         List<Integer> setListIn = NumberBase.verifyNumberArray(set, 1);
         List<Integer> setListOut = new ArrayList<>();
-        if (setListIn.size() == 0) {
-            setListIn = new ArrayList<>();
+        if (setListIn.isEmpty()) {
             setListIn = NumberBase.verifyNumberArray(set, 2);
-            if (setListIn.size() == 0) {
-                if (!set.equals("")) {
+            if (setListIn.isEmpty()) {
+                if (!set.isEmpty()) {
                     countError++;
                     error += " bộ;";
                 }
@@ -77,8 +76,8 @@ public class CreateNumberArrayViewModel {
 
         List<Integer> touchListIn = NumberBase.verifyNumberArray(touch, 1);
         List<Integer> touchListOut = new ArrayList<>();
-        if (touchListIn.size() == 0) {
-            if (!touch.equals("")) {
+        if (touchListIn.isEmpty()) {
+            if (!touch.isEmpty()) {
                 countError++;
                 error += " chạm;";
             }
@@ -90,8 +89,8 @@ public class CreateNumberArrayViewModel {
 
         List<Integer> sumListIn = NumberBase.verifyNumberArray(sum, 1);
         List<Integer> sumListOut = new ArrayList<>();
-        if (sumListIn.size() == 0) {
-            if (!sum.equals("")) {
+        if (sumListIn.isEmpty()) {
+            if (!sum.isEmpty()) {
                 countError++;
                 error += " tổng;";
             }
@@ -103,8 +102,8 @@ public class CreateNumberArrayViewModel {
 
         List<Integer> headListIn = NumberBase.verifyNumberArray(head, 1);
         List<Integer> headListOut = new ArrayList<>();
-        if (headListIn.size() == 0) {
-            if (!head.equals("")) {
+        if (headListIn.isEmpty()) {
+            if (!head.isEmpty()) {
                 countError++;
                 error += " đầu;";
             }
@@ -116,8 +115,8 @@ public class CreateNumberArrayViewModel {
 
         List<Integer> tailListIn = NumberBase.verifyNumberArray(tail, 1);
         List<Integer> tailListOut = new ArrayList<>();
-        if (tailListIn.size() == 0) {
-            if (!tail.equals("")) {
+        if (tailListIn.isEmpty()) {
+            if (!tail.isEmpty()) {
                 countError++;
                 error += " đuôi;";
             }
@@ -128,8 +127,8 @@ public class CreateNumberArrayViewModel {
         // add
 
         List<Integer> addList = NumberBase.verifyNumberArray(add, 2);
-        if (addList.size() == 0) {
-            if (!add.equals("")) {
+        if (addList.isEmpty()) {
+            if (!add.isEmpty()) {
                 countError++;
                 error += " thêm;";
             }
@@ -138,8 +137,8 @@ public class CreateNumberArrayViewModel {
         // remove
 
         List<Integer> removeList = NumberBase.verifyNumberArray(remove, 2);
-        if (removeList.size() == 0) {
-            if (!remove.equals("")) {
+        if (removeList.isEmpty()) {
+            if (!remove.isEmpty()) {
                 countError++;
                 error += " bỏ;";
             }
@@ -148,8 +147,8 @@ public class CreateNumberArrayViewModel {
         // combine
 
         List<Integer> combineList = NumberBase.verifyNumberArray(combine, 2);
-        if (combineList.size() == 0) {
-            if (!combine.equals("")) {
+        if (combineList.isEmpty()) {
+            if (!combine.isEmpty()) {
                 countError++;
                 error += " kết hợp;";
             }
@@ -197,8 +196,8 @@ public class CreateNumberArrayViewModel {
         List<Integer> thirdClawListIn = NumberBase.verifyNumberArray(thirdClaw, 1);
         List<Integer> numbers = new ArrayList<>();
         int typeOfNumber = 0;
-        if (thirdClawListIn.size() == 0) {
-            if (!thirdClaw.equals("")) {
+        if (thirdClawListIn.isEmpty()) {
+            if (!thirdClaw.isEmpty()) {
                 countError++;
                 error += " càng 3;";
             }
@@ -208,141 +207,133 @@ public class CreateNumberArrayViewModel {
             numbers = NumberArrayHandler.getThreeClaws(results, thirdClawListIn);
             typeOfNumber = 3;
         }
-        view.ShowNumberArray(numbers, typeOfNumber);
+        view.showNumberArray(numbers, typeOfNumber);
 
         if (countError > 0) {
-            view.ShowError(error);
+            view.showMessage(error);
         }
     }
 
-    public void GetNumberArrayCounter(String array) {
+    public void getNumberArrayCounter(String array) {
         List<Integer> numbers = NumberBase.verifyNumberArray(array, 2);
-        if (numbers.size() == 0) {
+        if (numbers.isEmpty()) {
             numbers = NumberBase.verifyNumberArray(array, 3);
         }
-        view.ShowNumberArrayCounter(numbers.size());
+        view.showNumberArrayCounter(numbers.size());
     }
 
-    public void VerifyCoupleArray(String numberArray) {
+    public void verifyCoupleArray(String numberArray) {
         List<Integer> numbers = NumberBase.verifyNumberArray(numberArray, 2);
-        if (numbers.size() == 0) {
-            view.ShowError("Chuỗi không hợp lệ!");
+        if (numbers.isEmpty()) {
+            view.showMessage("Chuỗi không hợp lệ!");
         } else {
-            view.VerifyCoupleArraySuccess(numberArray);
+            view.verifyCoupleArraySuccess(numberArray);
         }
     }
 
-    public void VerifyTriadArray(String numberArray) {
+    public void verifyTriadArray(String numberArray) {
         List<Number> numbers = NumberBase.verifyNumberArr(numberArray, 3);
-        if (numbers.size() == 0) {
-            view.ShowError("Chuỗi không hợp lệ!");
+        if (numbers.isEmpty()) {
+            view.showMessage("Chuỗi không hợp lệ!");
         } else {
-            view.VerifyTriadArraySuccess(numbers);
+            view.verifyTriadArraySuccess(numbers);
         }
     }
 
-    public void VerifyString(String numberArray) {
+    public void verifyString(String numberArray) {
         int typeOfNumber = 2;
         List<Integer> numbers = NumberBase.verifyNumberArray(numberArray, 2);
-        if (numbers.size() == 0) {
+        if (numbers.isEmpty()) {
             numbers = NumberBase.verifyNumberArray(numberArray, 3);
             typeOfNumber = 3;
         }
-        if (numbers.size() == 0) {
-            view.ShowError("Chuỗi không hợp lệ!");
+        if (numbers.isEmpty()) {
+            view.showMessage("Chuỗi không hợp lệ!");
         } else {
-            view.ShowVerifyStringSuccess(numbers, typeOfNumber);
+            view.showVerifyStringSuccess(numbers, typeOfNumber);
         }
     }
 
-    public void GetSubJackpotList(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, numberOfDays);
-        view.ShowSubJackpotList(jackpotList);
+    public void getSubJackpotList(int numberOfDays) {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
+        view.showSubJackpotList(jackpotList);
     }
 
-    public void GetTriadTable() {
+    public void getTriadTable() {
         String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
         String importantData = IOFileBase.readDataFromFile(context, FileName.ITRIAD);
 
-        if (data.equals("") && importantData.equals("")) {
-            view.ShowTriadTable(new ArrayList<>());
+        if (data.isEmpty() && importantData.isEmpty()) {
+            view.showTriadTable(new ArrayList<>());
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
-            if (!data.equals("")) {
-                for (int i = 0; i < arr.length; i++) {
-                    int number = Integer.parseInt(arr[i].trim());
+            if (!data.isEmpty()) {
+                for (String num : arr) {
+                    int number = Integer.parseInt(num.trim());
                     numbers.add(new Number(number, 1));
                 }
             }
-            if (!importantData.equals("")) {
-                for (int i = 0; i < importantArr.length; i++) {
-                    int number = Integer.parseInt(importantArr[i].trim());
+            if (!importantData.isEmpty()) {
+                for (String imp : importantArr) {
+                    int number = Integer.parseInt(imp.trim());
                     numbers.add(new Number(number, 2));
                 }
             }
-            view.ShowTriadTable(numbers);
+            view.showTriadTable(numbers);
         }
     }
 
-    public void SaveDataToFile(List<Number> numbers) {
+    public void saveDataToFile(List<Number> numbers) {
         Collections.sort(numbers, new Comparator<Number>() {
             @Override
             public int compare(Number o1, Number o2) {
-                if (o1.getNumber() > o2.getNumber()) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return Integer.compare(o1.getNumber(), o2.getNumber());
             }
         });
-        String data1 = "";
-        String data2 = "";
+        StringBuilder data1 = new StringBuilder();
+        StringBuilder data2 = new StringBuilder();
         for (int i = 0; i < numbers.size(); i++) {
             if (numbers.get(i).getLevel() == 1) {
-                data1 += numbers.get(i).getNumber() + ",";
+                data1.append(numbers.get(i).getNumber()).append(",");
             } else {
-                data2 += numbers.get(i).getNumber() + ",";
+                data2.append(numbers.get(i).getNumber()).append(",");
             }
         }
-        IOFileBase.saveDataToFile(context, FileName.TRIAD, data1, 0);
-        IOFileBase.saveDataToFile(context, FileName.ITRIAD, data2, 0);
-        view.SaveDataSuccess("Lưu dữ liệu thành công!");
+        IOFileBase.saveDataToFile(context, FileName.TRIAD, data1.toString(), 0);
+        IOFileBase.saveDataToFile(context, FileName.ITRIAD, data2.toString(), 0);
+        view.saveDataSuccess("Lưu dữ liệu thành công!");
     }
 
-    public void GetTriadList() {
+    public void getTriadList() {
         String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
         String importantData = IOFileBase.readDataFromFile(context, FileName.ITRIAD);
-        if (data.equals("") && importantData.equals("")) {
-            view.ShowTriadList(new ArrayList<>());
+        if (data.isEmpty() && importantData.isEmpty()) {
+            view.showTriadList(new ArrayList<>());
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
             List<Number> numbers = new ArrayList<>();
-            if (!data.equals("")) {
-                for (int i = 0; i < arr.length; i++) {
-                    int number = Integer.parseInt(arr[i].trim());
+            if (!data.isEmpty()) {
+                for (String num : arr) {
+                    int number = Integer.parseInt(num.trim());
                     numbers.add(new Number(number, 1));
                 }
             }
-            if (!importantData.equals("")) {
-                for (int i = 0; i < importantArr.length; i++) {
-                    int number = Integer.parseInt(importantArr[i].trim());
+            if (!importantData.isEmpty()) {
+                for (String imp : importantArr) {
+                    int number = Integer.parseInt(imp.trim());
                     numbers.add(new Number(number, 2));
                 }
             }
             Collections.sort(numbers, new Comparator<Number>() {
                 @Override
                 public int compare(Number o1, Number o2) {
-                    if (o1.getNumber() > o2.getNumber()) {
-                        return 1;
-                    } else {
-                        return -1;
-                    }
+                    return Integer.compare(o1.getNumber(), o2.getNumber());
                 }
             });
-            view.ShowTriadList(numbers);
+            view.showTriadList(numbers);
         }
     }
 

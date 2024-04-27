@@ -15,8 +15,8 @@ public class NoteInfoViewModel {
         this.context = context;
     }
 
-    public void AddNote(String note) {
+    public void addNote(String note) {
         IOFileBase.saveDataToFile(context, FileName.NOTE, note + "===", 1);
-        noteInfoView.AddNoteSuccess("Thêm ghi chú thành công!");
+        noteInfoView.addNoteSuccess("Thêm ghi chú thành công!");
     }
 }

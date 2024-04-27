@@ -18,10 +18,10 @@ public class LotteryHandler {
 
     public static List<Lottery> getLotteryListFromFile(Context context, int numberOfDays) {
         String data = IOFileBase.readDataFromFile(context, FileName.LOTTERY);
-        if (data.equals("")) return new ArrayList<>();
+        if (data.isEmpty()) return new ArrayList<>();
         List<Lottery> lotteries = new ArrayList<>();
         String[] elements = data.split("---");
-        int length_lotteries = (numberOfDays < elements.length) ? numberOfDays : elements.length;
+        int length_lotteries = Math.min(numberOfDays, elements.length);
         for (int i = 0; i < length_lotteries; i++) {
             String[] part = elements[i].split("Ký tự");
             String timeShow = part[0].trim();
@@ -40,7 +40,7 @@ public class LotteryHandler {
                     Integer.parseInt(number);
                     lotteryString.add(number);
                     count++;
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
             if (count != Const.NUMBER_OF_PRIZES) continue;

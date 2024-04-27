@@ -119,10 +119,10 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         tvShowTriadList = viewParent.findViewById(R.id.tvShowTriadList);
 
         viewModel = new CreateNumberArrayViewModel(this, getActivity());
-        viewModel.GetLotteryAndJackpotList();
+        viewModel.getLotteryAndJackpotList();
         RECEIVE_DATA = false;
-        viewModel.GetSubJackpotList(5);
-        viewModel.GetTriadTable();
+        viewModel.getSubJackpotList(5);
+        viewModel.getTriadTable();
 
         pink = R.drawable.cell_pink_table;
         green = R.drawable.cell_light_green_table;
@@ -131,7 +131,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         tvViewBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 startActivity(new Intent(getActivity(), BridgeCombinationActivity.class));
             }
         });
@@ -139,7 +139,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         tvCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 String set = edtSet.getText().toString().trim();
                 String touch = edtTouch.getText().toString().trim();
                 String sum = edtSum.getText().toString().trim();
@@ -149,14 +149,14 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                 String combine = edtCombineNumber.getText().toString().trim();
                 String add = edtAddingNumber.getText().toString().trim();
                 String remove = edtRemovingNumber.getText().toString().trim();
-                viewModel.CreateNumberArray(set, touch, sum, thirdClaw, head, tail, combine, add, remove);
+                viewModel.createNumberArray(set, touch, sum, thirdClaw, head, tail, combine, add, remove);
             }
         });
 
         tvClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 edtSet.setText("");
                 edtTouch.setText("");
                 edtSum.setText("");
@@ -178,7 +178,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.GetNumberArrayCounter(s.toString());
+                viewModel.getNumberArrayCounter(s.toString());
             }
 
             @Override
@@ -190,32 +190,32 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         tvExportCouple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 String numberArray = edtNumberArray.getText().toString().trim();
-                viewModel.VerifyCoupleArray(numberArray);
+                viewModel.verifyCoupleArray(numberArray);
             }
         });
 
         tvExportTriad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 String numberArray = edtNumberArray.getText().toString().trim();
-                viewModel.VerifyTriadArray(numberArray);
+                viewModel.verifyTriadArray(numberArray);
             }
         });
 
         tvExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Xuất?")
                         .setMessage("Bạn có muốn xuất dữ liệu ra clipboard không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String numberArray = edtNumberArray.getText().toString().trim();
-                                viewModel.VerifyString(numberArray);
+                                viewModel.verifyString(numberArray);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -227,7 +227,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         tvViewJackpot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 startActivity(new Intent(getActivity(),
                         JackpotByYearActivity.class));
             }
@@ -236,7 +236,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         imgClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowTriadTable(new ArrayList<>());
+                showTriadTable(new ArrayList<>());
             }
         });
 
@@ -254,7 +254,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                                         numbers.add(new Number(i, matrix[i]));
                                     }
                                 }
-                                viewModel.SaveDataToFile(numbers);
+                                viewModel.saveDataToFile(numbers);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -277,8 +277,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                                         data += NumberBase.showNumberString(i, 3) + " ";
                                     }
                                 }
-                                WidgetBase.copyToClipboard(getActivity(),
-                                        "numbers", data.trim());
+                                WidgetBase.copyToClipboard(requireActivity(), "numbers", data.trim());
                                 Toast.makeText(getActivity(),
                                         "Đã xuất dữ liệu ra clipboard.", Toast.LENGTH_SHORT).show();
                             }
@@ -293,24 +292,24 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
+    public void showLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
         tvWayToRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
-                viewModel.GetPeriodHistory(jackpotList);
+                WidgetBase.hideKeyboard(requireActivity());
+                viewModel.getPeriodHistory(jackpotList);
             }
         });
 
         tvViewCycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 startActivity(new Intent(getActivity(), SexagenaryCycleActivity.class));
             }
         });
@@ -318,14 +317,14 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         tvReference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(getActivity());
+                WidgetBase.hideKeyboard(requireActivity());
                 startActivity(new Intent(getActivity(), SelectiveBridgeActivity.class));
             }
         });
     }
 
     @Override
-    public void ShowPeriodHistory(List<PeriodHistory> periodHistoryList) {
+    public void showPeriodHistory(List<PeriodHistory> periodHistoryList) {
         String show = "Lịch sử các cách chạy gần giống khoảng gần đây:\n";
         for (PeriodHistory periodHistory : periodHistoryList) {
             show += periodHistory.show() + "\n";
@@ -339,7 +338,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void ShowNumberArray(List<Integer> numbers, int typeOfNumber) {
+    public void showNumberArray(List<Integer> numbers, int typeOfNumber) {
         String show = "";
         for (int i = 0; i < numbers.size(); i++) {
             show += NumberBase.showNumberString(numbers.get(i), typeOfNumber) + " ";
@@ -348,39 +347,39 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void ShowNumberArrayCounter(int size) {
+    public void showNumberArrayCounter(int size) {
         tvArrayCounter.setText(size + " số");
     }
 
     @Override
-    public void VerifyCoupleArraySuccess(String numbersArr) {
+    public void verifyCoupleArraySuccess(String numbersArr) {
         IOFileBase.saveDataToFile(getActivity(), FileName.NUMBER_ARRAY, numbersArr, 0);
         RECEIVE_DATA = true;
-        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentManager fm = requireActivity().getSupportFragmentManager();
         fm.beginTransaction().show(MainActivity.fragment2).hide(MainActivity.active).commit();
-        BottomNavigationView navigationView = getActivity().findViewById(R.id.bottom_navigation);
+        BottomNavigationView navigationView = requireActivity().findViewById(R.id.bottom_navigation);
         navigationView.setSelectedItemId(R.id.itCreateNumbers);
         //finish();
     }
 
     @Override
-    public void VerifyTriadArraySuccess(List<Number> numbers) {
-        ShowTriadTable(numbers);
+    public void verifyTriadArraySuccess(List<Number> numbers) {
+        showTriadTable(numbers);
         Toast.makeText(getActivity(), "Nạp dữ liệu thành công!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowVerifyStringSuccess(List<Integer> numbers, int typeOfNumber) {
+    public void showVerifyStringSuccess(List<Integer> numbers, int typeOfNumber) {
         String data = "";
         for (int i = 0; i < numbers.size(); i++) {
             data += NumberBase.showNumberString(numbers.get(i), typeOfNumber) + " ";
         }
-        WidgetBase.copyToClipboard(getActivity(), "numbers", data.trim());
+        WidgetBase.copyToClipboard(requireActivity(), "numbers", data.trim());
         Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowSubJackpotList(List<Jackpot> jackpotList) {
+    public void showSubJackpotList(List<Jackpot> jackpotList) {
         subJackpot = jackpotList;
         SetTextForSubJackpot(subJackpot, -1);
     }
@@ -405,7 +404,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void ShowTriadTable(List<Number> numbers) {
+    public void showTriadTable(List<Number> numbers) {
         hsThirdClaw.removeAllViews();
         hsThirdClaw.addView(CustomTableLayout.getChooseThirdClawTableLayout(getActivity()));
         hsNumberTable.removeAllViews();
@@ -416,7 +415,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         SetColorForNumberTextView(0);
         SetOnClickForNumberTextView(0);
         SetOnCLickForThirdClawTextView();
-        viewModel.GetTriadList();
+        viewModel.getTriadList();
     }
 
     private void SetStartMatrix(List<Number> numbers) {
@@ -540,13 +539,13 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void SaveDataSuccess(String message) {
+    public void saveDataSuccess(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        viewModel.GetTriadList();
+        viewModel.getTriadList();
     }
 
     @Override
-    public void ShowTriadList(List<Number> numbers) {
+    public void showTriadList(List<Number> numbers) {
         String show = "Dàn số 3 càng (đã lưu): \n";
         for (int i = 0; i < 10; i++) {
             show += " - Đầu " + i + ": ";

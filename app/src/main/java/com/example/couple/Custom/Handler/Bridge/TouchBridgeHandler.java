@@ -19,7 +19,7 @@ import java.util.List;
 
 public class TouchBridgeHandler {
 
-    public static ShadowTouchBridge GetNegativeShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
+    public static ShadowTouchBridge getNegativeShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
@@ -37,7 +37,7 @@ public class TouchBridgeHandler {
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static ShadowTouchBridge GetPositiveShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
+    public static ShadowTouchBridge getPositiveShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
@@ -55,7 +55,7 @@ public class TouchBridgeHandler {
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static ShadowTouchBridge GetShadowTouchBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+    public static ShadowTouchBridge getShadowTouchBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() - TimeInfo.DAY_OF_WEEK < dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         List<Integer> touchs = new ArrayList<>();
@@ -75,7 +75,7 @@ public class TouchBridgeHandler {
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static LottoTouchBridge GetLottoTouchBridge(List<Lottery> lotteries, int dayNumberBefore) {
+    public static LottoTouchBridge getLottoTouchBridge(List<Lottery> lotteries, int dayNumberBefore) {
         if (lotteries.size() - dayNumberBefore < 1) return LottoTouchBridge.getEmpty();
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : lotteries.get(dayNumberBefore - 1).getJackpot();
@@ -84,15 +84,15 @@ public class TouchBridgeHandler {
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static CombineTouchBridge GetCombineTouchBridge(List<Jackpot> jackpotList,
+    public static CombineTouchBridge getCombineTouchBridge(List<Jackpot> jackpotList,
                                                            List<Lottery> lotteries, int dayNumberBefore) {
         if (jackpotList.size() - TimeInfo.DAY_OF_WEEK < dayNumberBefore ||
                 lotteries.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS < dayNumberBefore)
             return CombineTouchBridge.getEmpty();
-        ShadowTouchBridge shadowTouchBridge = GetShadowTouchBridge(jackpotList, dayNumberBefore);
-        ConnectedBridge connectedBridge = ConnectedBridgeHandler.GetConnectedBridge(lotteries, dayNumberBefore,
+        ShadowTouchBridge shadowTouchBridge = getShadowTouchBridge(jackpotList, dayNumberBefore);
+        ConnectedBridge connectedBridge = ConnectedBridgeHandler.getConnectedBridge(lotteries, dayNumberBefore,
                 Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-        LottoTouchBridge lottoTouchBridge = GetLottoTouchBridge(lotteries, dayNumberBefore);
+        LottoTouchBridge lottoTouchBridge = getLottoTouchBridge(lotteries, dayNumberBefore);
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new CombineTouchBridge(shadowTouchBridge, connectedBridge, lottoTouchBridge,
                 new JackpotHistory(dayNumberBefore, jackpot));

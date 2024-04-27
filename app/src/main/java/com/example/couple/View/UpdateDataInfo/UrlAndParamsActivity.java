@@ -37,7 +37,7 @@ public class UrlAndParamsActivity extends AppCompatActivity implements UrlAndPar
         tvParamsLottery = findViewById(R.id.tvParamsLottery);
 
         viewModel = new UrlAndParamsViewModel(this, this);
-        viewModel.GetUrlAndParams();
+        viewModel.getUrlAndParams();
 
         imgEditUrlJackpot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,18 +63,18 @@ public class UrlAndParamsActivity extends AppCompatActivity implements UrlAndPar
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            viewModel.GetUrlAndParams();
+            viewModel.getUrlAndParams();
         }
 
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowUrlAndParams(String[] urlJackpotArr, String[] urlLotteryArr) {
+    public void showUrlAndParams(String[] urlJackpotArr, String[] urlLotteryArr) {
         tvUrlJackpot.setText(urlJackpotArr[0].trim());
         tvParamsJackpot.setText(urlJackpotArr[1].trim());
         tvUrlLottery.setText(urlLotteryArr[0].trim());

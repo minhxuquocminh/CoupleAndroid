@@ -175,7 +175,7 @@ public class Branch {
     }
 
     public boolean isEmpty() {
-        return position == Const.EMPTY_VALUE || name.equals("");
+        return position == Const.EMPTY_VALUE || name.isEmpty();
     }
 
     private List<Integer> getCompatibleNumbers() {

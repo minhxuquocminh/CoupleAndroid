@@ -18,24 +18,24 @@ public class NoteViewModel {
         this.context = context;
     }
 
-    public void GetNoteList() {
+    public void getNoteList() {
         String data = IOFileBase.readDataFromFile(context, FileName.NOTE);
-        if (data.equals("")) {
-            noteView.HideNoteList();
+        if (data.isEmpty()) {
+            noteView.hideNoteList();
         } else {
             String[] arr = data.split("===");
             List<String> notes = new ArrayList<>();
-            for (int i = 0; i < arr.length; i++) {
-                if (!arr[i].trim().equals("")) {
-                    notes.add(arr[i].trim());
+            for (String note : arr) {
+                if (!note.trim().isEmpty()) {
+                    notes.add(note.trim());
                 }
             }
-            noteView.ShowNoteList(notes);
+            noteView.showNoteList(notes);
         }
     }
 
-    public void DeleteNoteList() {
+    public void deleteNoteList() {
         IOFileBase.saveDataToFile(context, FileName.NOTE, "", 0);
-        noteView.DeleteNoteListSuccess("Xóa Ghi chú thành công!");
+        noteView.deleteNoteListSuccess("Xóa Ghi chú thành công!");
     }
 }

@@ -19,7 +19,7 @@ public class CompactSingles {
                 show += ", ";
             }
         }
-        if (duplicateList.size() > 0) show += "; lặp lại: ";
+        if (!duplicateList.isEmpty()) show += "; lặp lại: ";
         for (int i = 0; i < duplicateList.size(); i++) {
             show += duplicateList.get(i);
             if (i != duplicateList.size() - 1) {

@@ -1,5 +1,7 @@
 package com.example.couple.Model.Bridge.LongBeat;
 
+import androidx.annotation.NonNull;
+
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.Set;
@@ -8,6 +10,7 @@ import com.example.couple.Model.Origin.Couple;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,13 +49,14 @@ public class AfterDoubleBridge {
 
     }
 
-    public String show() {
-        String show = "";
-        show = "  + " + CoupleBase.showCouple(doubleInt) +
+    @NonNull
+    @Override
+    public String toString() { // for GenericBase
+        String show = "  + " + CoupleBase.showCouple(doubleInt) +
                 " (" + CoupleBase.showCouple(dayNumberBefore) + " ngày): các bộ";
         for (int i = 1; i <= 4; i++) {
             if (this.setMap.containsKey(i)) {
-                show += " " + setMap.get(i).getSetInt() + " (" + i + ");";
+                show += " " + Objects.requireNonNull(setMap.get(i)).getSetInt() + " (" + i + ");";
             }
         }
         return show;

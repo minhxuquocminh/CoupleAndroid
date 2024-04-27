@@ -116,9 +116,9 @@ public class MonthlyPredictionBridgeActivity extends AppCompatActivity implement
                 String adds = edtAdds.getText().toString().trim();
                 String removes = edtRemoves.getText().toString().trim();
                 String info = edtInfo.getText().toString().trim();
-                boolean checkEmpty = name.equals("") || startDate.equals("") || endDate.equals("")
-                        || (sets.equals("") && sums.equals("") && touchs.equals("") && heads.equals("")
-                        && tails.equals("") && adds.equals(""));
+                boolean checkEmpty = name.isEmpty() || startDate.isEmpty() || endDate.isEmpty()
+                        || (sets.isEmpty() && sums.isEmpty() && touchs.isEmpty() && heads.isEmpty()
+                        && tails.isEmpty() && adds.isEmpty());
                 if (checkEmpty) {
                     Toast.makeText(MonthlyPredictionBridgeActivity.this,
                             "Vui lòng nhập đầy đủ các trường cần thiết!", Toast.LENGTH_SHORT).show();
@@ -144,8 +144,8 @@ public class MonthlyPredictionBridgeActivity extends AppCompatActivity implement
                         Toast.makeText(MonthlyPredictionBridgeActivity.this,
                                 "Vui lòng nhập đúng định dạng của các số !", Toast.LENGTH_SHORT).show();
                     } else {
-                        int runsInt = runs.equals("") ? -1 : Integer.parseInt(runs);
-                        int lostsInt = losts.equals("") ? -1 : Integer.parseInt(losts);
+                        int runsInt = runs.isEmpty() ? -1 : Integer.parseInt(runs);
+                        int lostsInt = losts.isEmpty() ? -1 : Integer.parseInt(losts);
                         String setsStr = NumberBase.showNumbers(setList, " ");
                         String sumsStr = NumberBase.showNumbers(sumList, " ");
                         String touchsStr = NumberBase.showNumbers(touchList, " ");
@@ -181,21 +181,21 @@ public class MonthlyPredictionBridgeActivity extends AppCompatActivity implement
     }
 
     private boolean checkEmptyListFromStringHaveData(String data, List<Integer> numbers) {
-        return !data.trim().equals("") && numbers.isEmpty();
+        return !data.trim().isEmpty() && numbers.isEmpty();
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void AddPredictionBridgeSuccess() {
+    public void addPredictionBridgeSuccess() {
         finish();
     }
 
     @Override
-    public void UpdatePredictionBridgeSuccess() {
+    public void updatePredictionBridgeSuccess() {
         finish();
     }
 

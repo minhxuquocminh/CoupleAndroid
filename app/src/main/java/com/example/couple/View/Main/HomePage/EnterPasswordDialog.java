@@ -41,10 +41,10 @@ public class EnterPasswordDialog extends Dialog implements EnterPasswordView {
             @Override
             public void onClick(View view) {
                 String password = edtPassword.getText().toString().trim();
-                if (password.equals("")) {
-                    ShowError("Bạn chưa nhập mật khẩu.");
+                if (password.isEmpty()) {
+                    showMessage("Bạn chưa nhập mật khẩu.");
                 } else {
-                    viewModel.CheckPassword(password);
+                    viewModel.checkPassword(password);
                 }
 
             }
@@ -53,12 +53,12 @@ public class EnterPasswordDialog extends Dialog implements EnterPasswordView {
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void PasswordIsRight() {
+    public void checkPasswordSuccess() {
         activity.startActivity(new Intent(activity, ExperianceActivity.class));
     }
 }

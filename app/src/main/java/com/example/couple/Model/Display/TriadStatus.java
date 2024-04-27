@@ -1,5 +1,7 @@
 package com.example.couple.Model.Display;
 
+import androidx.annotation.NonNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,7 +16,9 @@ public class TriadStatus { // để lưu trạng thái cầu bộ 3
         return first == 0 || second == 0 || third == 0;
     }
 
-    public String show() {
+    @NonNull
+    @Override
+    public String toString() {
         return first + "-" + second + "-" + third;
     }
 }

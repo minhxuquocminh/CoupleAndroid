@@ -38,12 +38,12 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         String content = "";
         if (CheckUpdate.checkUpdateJackpot(context)) {
             try {
-                String jackpot = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
+                String jackpot = Api.getJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
                 IOFileBase.saveDataToFile(context, "jackpot" +
                         TimeInfo.CURRENT_YEAR + ".txt", jackpot, 0);
                 if (!CheckUpdate.checkUpdateJackpot(context)) {
                     List<Jackpot> jackpotList = JackpotHandler
-                            .GetReserveJackpotListFromFile(context, 18);
+                            .getReserveJackpotListFromFile(context, 18);
                     if (jackpotList.isEmpty()) return;
                     content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
                             jackpotList.get(0).getJackpot() + ".";
@@ -51,9 +51,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
                     NotifyNewBridge.notify(context, jackpotList);
                     getDataIfNeeded(context);
                 }
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -65,19 +63,17 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         boolean checkUpdateCycle = CheckUpdate.checkUpdateCycle(context);
         try {
             if (checkUpdateTime) {
-                String time = Api.GetTimeDataFromInternet(context);
+                String time = Api.getTimeDataFromInternet(context);
                 IOFileBase.saveDataToFile(context, FileName.TIME, time, 0);
             }
             if (checkUpdateLottery) {
-                String lottery = Api.GetLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
+                String lottery = Api.getLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
                 IOFileBase.saveDataToFile(context, FileName.LOTTERY, lottery, 0);
             }
             if (checkUpdateCycle) {
                 TimeHandler.updateAllSexagenaryCycle(context);
             }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -39,7 +39,7 @@ public class ShadowMappingBridge extends Bridge {
         List<ShadowCouple> shadowCouples2 = shadowSingle2.getAllShadowCouples();
         for (ShadowCouple couple1 : shadowCouples1) {
             for (ShadowCouple couple2 : shadowCouples2) {
-                if (couple1.getNumber() == couple2.getNumber()) {
+                if (couple1.getNumber().equals(couple2.getNumber())) {
                     int type = couple1.getType() > couple2.getType() ? couple1.getType() : couple2.getType();
                     results.add(new ShadowCouple(couple1.getNumber(), type));
                 }

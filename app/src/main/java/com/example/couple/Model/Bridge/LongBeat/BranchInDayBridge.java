@@ -1,5 +1,7 @@
 package com.example.couple.Model.Bridge.LongBeat;
 
+import androidx.annotation.NonNull;
+
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.TimeInfo;
@@ -53,7 +55,9 @@ public class BranchInDayBridge {
         return new SpecialSetHistory("CTN", numbers, beatList);
     }
 
-    public String show() {
+    @NonNull
+    @Override
+    public String toString() {
         String show = "  + Nhịp chạy: " + NumberBase.showNumbers(beatList, ", ") + ".";
         for (BranchInDaySupport support : supports) {
             int position = support.getLastBranchInDay().getPosition();

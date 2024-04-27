@@ -21,7 +21,7 @@ public class ChangePasswordViewModel {
         this.view = view;
     }
 
-    public void CheckOldPassword(String oldPassword, String newPassword) {
+    public void checkOldPassword(String oldPassword, String newPassword) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentEmail = firebaseUser.getEmail();
         AuthCredential credential = EmailAuthProvider.getCredential(currentEmail, oldPassword);
@@ -31,24 +31,24 @@ public class ChangePasswordViewModel {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            view.OldPasswordIsRight(newPassword);
+                            view.checkOldPasswordSuccess(newPassword);
                         } else {
-                            view.ShowError("Sai mật khẩu!");
+                            view.showMessage("Sai mật khẩu!");
                         }
                     }
                 });
     }
 
-    public void UpdatePassword(String newPassword) {
+    public void updatePassword(String newPassword) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseUser.updatePassword(newPassword)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            view.ChangePasswordSuccess("Đã thay đổi mật khẩu!");
+                            view.updatePasswordSuccess("Đã thay đổi mật khẩu!");
                         } else {
-                            view.ShowError("Đã xảy ra lỗi khi cập nhật mật khẩu!");
+                            view.showMessage("Đã xảy ra lỗi khi cập nhật mật khẩu!");
                         }
                     }
                 });

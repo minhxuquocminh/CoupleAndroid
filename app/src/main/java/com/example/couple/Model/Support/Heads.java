@@ -3,7 +3,6 @@ package com.example.couple.Model.Support;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter

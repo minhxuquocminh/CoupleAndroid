@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.couple.Base.Handler.GenericBase;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
@@ -61,7 +62,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
 
         viewModel = new SelectiveBridgeViewModel(this, this);
 
-        viewModel.GetAllData();
+        viewModel.getAllData();
 
         tvViewLongBeatBridge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,48 +81,45 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowNextDayTimeAndJackpotList(TimeBase nextDay,
+    public void showNextDayTimeAndJackpotList(TimeBase nextDay,
                                               List<Jackpot> allJackpotList, List<Jackpot> jackpotList) {
         // from jackpot
-        viewModel.GetAfterDoubleBridge(jackpotList);
-        viewModel.GetLongBeatBridge(jackpotList);
-        viewModel.GetBranchInTwoDaysBridge(jackpotList);
-        viewModel.GetSignOfDouble(jackpotList);
-        viewModel.GetShadowTouchs(jackpotList);
+        viewModel.getAfterDoubleBridge(jackpotList);
+        viewModel.getLongBeatBridge(jackpotList);
+        viewModel.getBranchInTwoDaysBridge(jackpotList);
+        viewModel.getSignOfDouble(jackpotList);
+        viewModel.getShadowTouchs(jackpotList);
         // from time and jackpot
         if (!nextDay.isEmpty()) {
-            viewModel.GetBranchInDayBridge(allJackpotList, nextDay.getDateCycle().getDay().getBranch());
+            viewModel.getBranchInDayBridge(allJackpotList, nextDay.getDateCycle().getDay().getBranch());
         }
     }
 
     @Override
-    public void ShowLotteryList(List<Lottery> lotteries) {
-        viewModel.GetConnectedSetBridge(lotteries);
-        viewModel.GetTriadSetBridge(lotteries);
-        viewModel.GetConnectedTouchs(lotteries);
+    public void showLotteryList(List<Lottery> lotteries) {
+        viewModel.getConnectedSetBridge(lotteries);
+        viewModel.getTriadSetBridge(lotteries);
+        viewModel.getConnectedTouchs(lotteries);
     }
 
     @Override
-    public void ShowAfterDoubleBridge(List<AfterDoubleBridge> bridges) {
+    public void showAfterDoubleBridge(List<AfterDoubleBridge> bridges) {
         if (bridges.isEmpty()) {
             tvAfterDoubleBridge.setVisibility(View.GONE);
         } else {
             tvAfterDoubleBridge.setVisibility(View.VISIBLE);
-            String show = "Cầu sau khi ra kép:\n";
-            for (AfterDoubleBridge bridge : bridges) {
-                show += bridge.show() + "\n";
-            }
+            String show = "Cầu sau khi ra kép:\n"+ GenericBase.getDelimiterString(bridges, "\n");
             tvAfterDoubleBridge.setText(show.trim());
         }
     }
 
     @Override
-    public void ShowLongBeatBridge(List<SpecialSetHistory> histories) {
+    public void showLongBeatBridge(List<SpecialSetHistory> histories) {
         if (histories.isEmpty()) {
             tvLongBeatBridge.setVisibility(View.GONE);
         } else {
@@ -135,7 +133,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowBranchInTwoDaysBridge(BranchInTwoDaysBridge bridge) {
+    public void showBranchInTwoDaysBridge(BranchInTwoDaysBridge bridge) {
         if (bridge.getRunningTimes() == 0) {
             tvBranchIn2DaysBridge.setVisibility(View.GONE);
         } else {
@@ -146,7 +144,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowConnectedTouchs(List<Integer> touchs) {
+    public void showConnectedTouchs(List<Integer> touchs) {
         if (touchs.isEmpty()) {
             tvConnectedTouch.setVisibility(View.GONE);
         } else {
@@ -157,7 +155,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowShadowTouchs(List<Integer> touchs) {
+    public void showShadowTouchs(List<Integer> touchs) {
         if (touchs.isEmpty()) {
             tvShadowTouch.setVisibility(View.GONE);
         } else {
@@ -168,7 +166,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowSignOfDouble(SignOfDouble sign) {
+    public void showSignOfDouble(SignOfDouble sign) {
         if (sign.isEmpty()) {
             tvSignOfDouble.setVisibility(View.GONE);
         } else {
@@ -179,18 +177,18 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowBranchInDayBridge(BranchInDayBridge bridge) {
+    public void showBranchInDayBridge(BranchInDayBridge bridge) {
         if (bridge.isEmpty()) {
             tvBranchInDayBridge.setVisibility(View.GONE);
         } else {
             tvBranchInDayBridge.setVisibility(View.VISIBLE);
-            String show = "Cầu chi theo ngày:\n" + bridge.show();
+            String show = "Cầu chi theo ngày:\n" + bridge.toString();
             tvBranchInDayBridge.setText(show.trim());
         }
     }
 
     @Override
-    public void ShowConnectedSetBridge(ConnectedSetBridge bridge) {
+    public void showConnectedSetBridge(ConnectedSetBridge bridge) {
         if (bridge.isEmpty()) {
             tvConnectedSetBridge.setVisibility(View.GONE);
         } else {
@@ -201,7 +199,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void ShowTriadSetBridge(List<TriadBridge> bridges) {
+    public void showTriadSetBridge(List<TriadBridge> bridges) {
         if (bridges.isEmpty()) {
             tvTriadSetBridge.setVisibility(View.GONE);
         } else {

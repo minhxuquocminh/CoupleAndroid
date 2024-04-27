@@ -48,29 +48,29 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
         edtDayNumber.setSelection(edtDayNumber.length());
 
         viewModel = new SpecialSetsHistoryViewModel(this, this);
-        viewModel.GetJackpotListAndTimeBaseData(NUMBER_OF_DAYS_START);
+        viewModel.getJackpotListAndTimeBaseData(NUMBER_OF_DAYS_START);
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowJackpotListAndTimeBaseData(List<Jackpot> allJackpotList,
+    public void showJackpotListAndTimeBaseData(List<Jackpot> allJackpotList,
                                                List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
-        viewModel.GetSpecialSetsHistory(allJackpotList, jackpotList, timeBaseNextDay);
+        viewModel.getSpecialSetsHistory(allJackpotList, jackpotList, timeBaseNextDay);
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(SpecialSetsHistoryActivity.this);
                 String dayNumberStr = edtDayNumber.getText().toString().trim();
-                if (dayNumberStr.equals("")) {
-                    ShowError("Bạn chưa nhập số ngày.");
+                if (dayNumberStr.isEmpty()) {
+                    showMessage("Bạn chưa nhập số ngày.");
                 } else if (Integer.parseInt(dayNumberStr) > NUMBER_OF_DAYS_START) {
-                    ShowError("Nằm ngoài phạm vi.");
+                    showMessage("Nằm ngoài phạm vi.");
                 } else {
-                    viewModel.GetSpecialSetsHistory(allJackpotList, jackpotList
+                    viewModel.getSpecialSetsHistory(allJackpotList, jackpotList
                             .subList(0, Integer.parseInt(dayNumberStr) - 1), timeBaseNextDay);
                 }
 
@@ -79,7 +79,7 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
     }
 
     @Override
-    public void ShowSpecialSetsHistory(List<SpecialSetHistory> historyList) {
+    public void showSpecialSetsHistory(List<SpecialSetHistory> historyList) {
         List<String> headers = new ArrayList<>();
         List<RowUI> rows = new ArrayList<>();
 

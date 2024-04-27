@@ -27,19 +27,19 @@ public class JackpotAllYearViewModel {
         this.context = context;
     }
 
-    public void GetAllStatistics(String yearNumberBCPString, String yearNumberSDBString) {
-        int numberOfYears_BCP = yearNumberBCPString.equals("") || yearNumberBCPString.equals("0") ?
-                JackpotStatistics.GetMaxStartNumberOfYears(context, START_YEAR_NUMBER_SDB) :
+    public void getAllStatistics(String yearNumberBCPString, String yearNumberSDBString) {
+        int numberOfYears_BCP = yearNumberBCPString.isEmpty() || yearNumberBCPString.equals("0") ?
+                JackpotStatistics.getMaxStartNumberOfYears(context, START_YEAR_NUMBER_SDB) :
                 Integer.parseInt(yearNumberBCPString);
-        int numberOfYears_SDB = yearNumberSDBString.equals("") || yearNumberSDBString.equals("0") ?
-                JackpotStatistics.GetMaxStartNumberOfYears(context, START_YEAR_NUMBER_SDB) :
+        int numberOfYears_SDB = yearNumberSDBString.isEmpty() || yearNumberSDBString.equals("0") ?
+                JackpotStatistics.getMaxStartNumberOfYears(context, START_YEAR_NUMBER_SDB) :
                 Integer.parseInt(yearNumberSDBString);
         if (numberOfYears_BCP != numberOfYearsBCP) {
 
         }
         if (numberOfYears_SDB != numberOfYearsSDB) {
             numberOfYearsSDB = numberOfYears_SDB;
-            int[][] matrixSDB = GetCoupleCountingMatrix(numberOfYearsSDB);
+            int[][] matrixSDB = getCoupleCountingMatrix(numberOfYearsSDB);
             if (matrixSDB != null) {
                 int rowNumber = 10;
                 int[][] new_matrix = new int[rowNumber][numberOfYearsSDB + 1];
@@ -48,29 +48,29 @@ public class JackpotAllYearViewModel {
                         new_matrix[i][j] = matrixSDB[i * 11][j];
                     }
                 }
-                int[] dayNumberArr = JackpotStatistics.GetDayNumberByYear(matrixSDB,
+                int[] dayNumberArr = JackpotStatistics.getDayNumberByYear(matrixSDB,
                         Const.MAX_ROW_COUNT_TABLE, numberOfYearsSDB + 1);
-                view.ShowSameDoubleCountingManyYears(new_matrix, rowNumber, numberOfYearsSDB + 1,
+                view.showSameDoubleCountingManyYears(new_matrix, rowNumber, numberOfYearsSDB + 1,
                         startYearSDB, dayNumberArr);
             }
         }
     }
 
-    private int[][] GetCoupleCountingMatrix(int yearNumber) {
-        int[] startAndEndYearFile = JackpotStatistics.GetStartAndEndYearFile(context);
+    private int[][] getCoupleCountingMatrix(int yearNumber) {
+        int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
         if (startAndEndYearFile == null) {
-            view.ShowError("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được bảng" +
+            view.showMessage("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được bảng" +
                     " số lần xuất hiện của Kép bằng theo năm!");
         } else {
             int startYear_file = startAndEndYearFile[0];
             int endYear_file = startAndEndYearFile[1];
             int numberOfYears_file = endYear_file - startYear_file + 1;
             if (endYear_file < TimeInfo.CURRENT_YEAR || numberOfYears_file < yearNumber) {
-                view.ShowRequestLoadMoreData(startYear_file, endYear_file);
+                view.showRequestLoadMoreData(startYear_file, endYear_file);
             } else {
                 startYearSDB = endYear_file - numberOfYearsSDB + 1;
-                List<Jackpot> jackpotList = JackpotHandler.GetJackpotListManyYears(context, numberOfYearsSDB);
-                return JackpotStatistics.GetCountCoupleMatrix(jackpotList,
+                List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, numberOfYearsSDB);
+                return JackpotStatistics.getCountCoupleMatrix(jackpotList,
                         Const.MAX_ROW_COUNT_TABLE, numberOfYearsSDB + 1, startYearSDB);
             }
         }

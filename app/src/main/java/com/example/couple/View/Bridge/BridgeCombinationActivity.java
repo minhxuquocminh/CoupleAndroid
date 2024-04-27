@@ -100,20 +100,20 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         edtDayNumber.setSelection(edtDayNumber.getText().length());
 
         viewModel = new BridgeCombinationViewModel(this, this);
-        viewModel.GetAllData();
+        viewModel.getAllData();
 
 
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowAllData(List<Jackpot> allJackpotList, List<Jackpot> jackpotList,
+    public void showAllData(List<Jackpot> allJackpotList, List<Jackpot> jackpotList,
                             List<Lottery> lotteryList, TimeBase timeBaseNextDay) {
-        viewModel.GetAllBridgeToday(jackpotList, lotteryList);
+        viewModel.getAllBridgeToday(jackpotList, lotteryList);
         btnFindingBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,12 +148,12 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 String headData = edtHead.getText().toString().trim();
                 String tailData = edtTail.getText().toString().trim();
                 String combineData = edtCombine.getText().toString().trim();
-                if (!numberOfDayStr.equals("")) {
+                if (!numberOfDayStr.isEmpty()) {
                     int numberOfDay = connected && Integer.parseInt(numberOfDayStr) >
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
                             Integer.parseInt(numberOfDayStr);
-                    viewModel.GetCombineBridgeList(allJackpotList, jackpotList, lotteryList, timeBaseNextDay,
+                    viewModel.getCombineBridgeList(allJackpotList, jackpotList, lotteryList, timeBaseNextDay,
                             numberOfDay, combineTouch, connected, shadowTouch, lottoTouch, negativeShadow,
                             positiveShadow, mapping, connectedSet, estimated, rightMapping, compatible,
                             incompatible, unappearedDouble, triadMapping, branchIn2Days, bigDouble,
@@ -175,7 +175,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void ShowAllBridgeToday(CombineBridge combineBridge) {
+    public void showAllBridgeToday(CombineBridge combineBridge) {
         cboCombineTouchBridge.setText("kết hợp " + combineBridge.getBridgeList().get(0).showCompactNumbers());
         cboConnectedBridge.setText("liên thông " + combineBridge.getBridgeList().get(1).showCompactNumbers());
         cboShadowTouchBridge.setText("bóng " + combineBridge.getBridgeList().get(2).showCompactNumbers());
@@ -188,11 +188,11 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void ShowCombineBridgeList(List<CombineBridge> combineBridges) {
-        String show = "";
+    public void showCombineBridgeList(List<CombineBridge> combineBridges) {
+        StringBuilder show = new StringBuilder();
         int count = 0;
         for (CombineBridge bridge : combineBridges) {
-            show += bridge.showBridge() + "\n";
+            show.append(bridge.showBridge()).append("\n");
             if (bridge.isWin()) count++;
         }
         WidgetBase.showDialogCanBeCopied(this,

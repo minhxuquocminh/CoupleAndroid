@@ -25,32 +25,32 @@ public class BalanceCoupleViewModel {
         this.context = context;
     }
 
-    public void GetJackpotDataFromFile() {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
-        if (jackpotList.isEmpty()) balanceCoupleView.ShowError("Không lấy được dữ liệu !");
-        balanceCoupleView.ShowJackpotData(jackpotList);
+    public void getJackpotDataFromFile() {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+        if (jackpotList.isEmpty()) balanceCoupleView.showMessage("Không lấy được dữ liệu !");
+        balanceCoupleView.showJackpotData(jackpotList);
     }
 
-    public void GetTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays) {
-        balanceCoupleView.ShowTableOfBalanceCouple(jackpotList, numberOfDays);
+    public void getTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays) {
+        balanceCoupleView.showTableOfBalanceCouple(jackpotList, numberOfDays);
     }
 
-    public void GetPeriodHistory(List<Jackpot> jackpotList, String dayNumberBefore, String filterDays) {
-        List<PeriodHistory> periodHistoryList = EstimatedBridgeHandler.GetPeriodHistoryList(jackpotList,
+    public void getPeriodHistory(List<Jackpot> jackpotList, String dayNumberBefore, String filterDays) {
+        List<PeriodHistory> periodHistoryList = EstimatedBridgeHandler.getPeriodHistoryList(jackpotList,
                 Integer.parseInt(dayNumberBefore), Integer.parseInt(filterDays), Const.AMPLITUDE_OF_PERIOD);
-        balanceCoupleView.ShowPeriodHistory(periodHistoryList);
+        balanceCoupleView.showPeriodHistory(periodHistoryList);
     }
 
-    public void GetCombinePeriod(List<Jackpot> jackpotList, String dayNumberBeforeStr, int bridgeType) {
+    public void getCombinePeriod(List<Jackpot> jackpotList, String dayNumberBeforeStr, int bridgeType) {
         int dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        EstimatedBridge estimatedBridge = EstimatedBridgeHandler.GetEstimatedBridge(jackpotList, dayNumberBefore);
-        List<Integer> touchs = ConnectedBridgeHandler.GetTouchsByClawSupport(lotteries,
+        EstimatedBridge estimatedBridge = EstimatedBridgeHandler.getEstimatedBridge(jackpotList, dayNumberBefore);
+        List<Integer> touchs = ConnectedBridgeHandler.getTouchsByClawSupport(lotteries,
                 Integer.parseInt(dayNumberBeforeStr), Const.CLAW_BRIDGE_FINDING_DAYS, 8, bridgeType);
         if (touchs.isEmpty()) {
-            balanceCoupleView.ShowError("Không tìm thấy cầu.");
+            balanceCoupleView.showMessage("Không tìm thấy cầu.");
         } else {
-            balanceCoupleView.ShowTest(touchs);
+            balanceCoupleView.showTest(touchs);
         }
     }
 

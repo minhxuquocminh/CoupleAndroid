@@ -30,7 +30,7 @@ public class ExperianceActivity extends AppCompatActivity implements ExperianceV
         tvExperiance = findViewById(R.id.tvExperiance);
 
         viewModel = new ExperianceViewModel(this, this);
-        viewModel.GetExperiance();
+        viewModel.getExperiance();
 
         imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +43,7 @@ public class ExperianceActivity extends AppCompatActivity implements ExperianceV
     }
 
     @Override
-    public void ShowExperiance(String experiance) {
+    public void showExperiance(String experiance) {
         tvTitle.setText("Những kinh nghiệm về cầu kèo, chọn số:");
         tvExperiance.setVisibility(View.VISIBLE);
         tvExperiance.setText(experiance);
@@ -51,13 +51,13 @@ public class ExperianceActivity extends AppCompatActivity implements ExperianceV
     }
 
     @Override
-    public void HideExperiance() {
+    public void hideExperiance() {
         tvTitle.setText("Chưa có thông tin nào!");
         tvExperiance.setVisibility(View.GONE);
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -65,7 +65,7 @@ public class ExperianceActivity extends AppCompatActivity implements ExperianceV
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            viewModel.GetExperiance();
+            viewModel.getExperiance();
         }
     }
 }

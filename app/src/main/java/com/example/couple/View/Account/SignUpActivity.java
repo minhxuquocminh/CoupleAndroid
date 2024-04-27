@@ -46,10 +46,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
                 String username = edtUsername.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
                 String repeatPassword = edtRepeatPassword.getText().toString().trim();
-                if (name.equals("") || email.equals("") || password.equals("") || repeatPassword.equals("")) {
-                    ShowError("Bạn cần nhập đầy đủ các trường!");
+                if (name.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
+                    showMessage("Bạn cần nhập đầy đủ các trường!");
                 } else if (!password.equals(repeatPassword)) {
-                    ShowError("Mật khẩu nhập lại không đúng!");
+                    showMessage("Mật khẩu nhập lại không đúng!");
                 } else {
                     viewModel.signUp(name, email, password);
                 }
@@ -58,13 +58,13 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void SignUpSuccess(String name) {
-        viewModel.UpdateDisplayName(name);
+    public void signUpSuccess(String name) {
+        viewModel.updateDisplayName(name);
         Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, SignInActivity.class));
     }

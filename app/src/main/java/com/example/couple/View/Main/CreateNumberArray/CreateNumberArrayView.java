@@ -1,7 +1,6 @@
 package com.example.couple.View.Main.CreateNumberArray;
 
 import com.example.couple.Model.Display.Number;
-import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.PeriodHistory;
@@ -9,16 +8,16 @@ import com.example.couple.Model.Support.PeriodHistory;
 import java.util.List;
 
 public interface CreateNumberArrayView {
-    void ShowError(String message);
-    void ShowLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList);
-    void ShowPeriodHistory(List<PeriodHistory> periodHistoryList);
-    void ShowNumberArray(List<Integer> numbers, int typeOfNumber);
-    void ShowNumberArrayCounter(int size);
-    void VerifyCoupleArraySuccess(String numbersArr);
-    void VerifyTriadArraySuccess(List<Number> numbers);
-    void ShowVerifyStringSuccess(List<Integer> numbers, int typeOfNumber);
-    void ShowSubJackpotList(List<Jackpot> jackpotList);
-    void ShowTriadTable(List<Number> numbers);
-    void SaveDataSuccess(String message);
-    void ShowTriadList(List<Number> numbers);
+    void showMessage(String message);
+    void showLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList);
+    void showPeriodHistory(List<PeriodHistory> periodHistoryList);
+    void showNumberArray(List<Integer> numbers, int typeOfNumber);
+    void showNumberArrayCounter(int size);
+    void verifyCoupleArraySuccess(String numbersArr);
+    void verifyTriadArraySuccess(List<Number> numbers);
+    void showVerifyStringSuccess(List<Integer> numbers, int typeOfNumber);
+    void showSubJackpotList(List<Jackpot> jackpotList);
+    void showTriadTable(List<Number> numbers);
+    void saveDataSuccess(String message);
+    void showTriadList(List<Number> numbers);
 }

@@ -42,7 +42,7 @@ public class HomePageViewModel {
     public void setUrlAndParamsIfNoData() {
         String data1 = IOFileBase.readDataFromFile(context, FileName.JACKPOT_URL);
         String data2 = IOFileBase.readDataFromFile(context, FileName.LOTTERY_URL);
-        if (data1.equals("") || data2.equals("")) {
+        if (data1.isEmpty() || data2.isEmpty()) {
             IOFileBase.saveDataToFile(context,
                     FileName.JACKPOT_URL, Const.JACKPOT_URL_AND_PARAMS, 0);
             IOFileBase.saveDataToFile(context,
@@ -108,24 +108,22 @@ public class HomePageViewModel {
 
     public boolean updateTime(boolean isMainThread) {
         try {
-            String timeData = Api.GetTimeDataFromInternet(context);
-            if (timeData.equals("")) {
+            String timeData = Api.getTimeDataFromInternet(context);
+            if (timeData.isEmpty()) {
                 showError("Lỗi không lấy được thông tin thời gian!", isMainThread);
                 return false;
             }
             IOFileBase.saveDataToFile(context, FileName.TIME, timeData, 0);
             return true;
-        } catch (ExecutionException e) {
-            return false;
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             return false;
         }
     }
 
     public boolean updateJackpot(boolean showMessage, boolean isMainThread) {
         try {
-            String jackpotData = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
-            if (jackpotData.equals("")) {
+            String jackpotData = Api.getJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
+            if (jackpotData.isEmpty()) {
                 if (showMessage)
                     showError("Lỗi không lấy được thông tin XS Đặc biệt.", isMainThread);
                 return false;
@@ -133,9 +131,9 @@ public class HomePageViewModel {
 
             IOFileBase.saveDataToFile(context, "jackpot" + TimeInfo.CURRENT_YEAR + ".txt",
                     jackpotData, 0);
-            List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
+            List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
             if (jackpotList.size() < TimeInfo.DAY_OF_WEEK) {
-                String lastJackpotData = Api.GetJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR - 1);
+                String lastJackpotData = Api.getJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR - 1);
                 IOFileBase.saveDataToFile(context, "jackpot" + (TimeInfo.CURRENT_YEAR - 1)
                         + ".txt", lastJackpotData, 0);
             }
@@ -146,17 +144,15 @@ public class HomePageViewModel {
                 }, isMainThread).post();
             }
             return true;
-        } catch (ExecutionException e) {
-            return false;
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             return false;
         }
     }
 
     public boolean updateLottery(int numberOfDays, boolean showMessage, boolean isMainThread) {
         try {
-            String lotteryData = Api.GetLotteryDataFromInternet(context, numberOfDays);
-            if (lotteryData.equals("")) {
+            String lotteryData = Api.getLotteryDataFromInternet(context, numberOfDays);
+            if (lotteryData.isEmpty()) {
                 if (showMessage) showError("Lỗi không lấy được thông tin XSMB!", isMainThread);
                 return false;
             }
@@ -167,9 +163,7 @@ public class HomePageViewModel {
                 }, isMainThread).post();
             }
             return true;
-        } catch (ExecutionException e) {
-            return false;
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             return false;
         }
     }
@@ -201,7 +195,7 @@ public class HomePageViewModel {
     }
 
     public void getJackpotData(boolean isMainThread) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, 18);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 18);
         if (jackpotList.isEmpty()) return;
         NotifyNewBridge.notify(context, jackpotList);
         new MainThreadBase(() -> {
@@ -218,21 +212,21 @@ public class HomePageViewModel {
     }
 
     public void getHeadAndTailInLongestTime(List<Jackpot> jackpotList) {
-        List<NearestTime> nearestTimeList = JackpotStatistics.GetHeadAndTailInNearestTime(jackpotList);
+        List<NearestTime> nearestTimeList = JackpotStatistics.getHeadAndTailInNearestTime(jackpotList);
         if (nearestTimeList.isEmpty()) return;
         homePageView.showHeadAndTailInLongestTime(nearestTimeList);
     }
 
     public void getTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() >= 2) {
-            List<BSingle> touchList = BCoupleBridgeHandler.GetTouchBridge(jackpotList);
+            List<BSingle> touchList = BCoupleBridgeHandler.getTouchBridge(jackpotList);
             homePageView.showTouchBridge(touchList);
         }
     }
 
     public void getSpecialTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() >= 4) {
-            List<Integer> touchList = BCoupleBridgeHandler.GetSpecialTouchBridge(jackpotList);
+            List<Integer> touchList = BCoupleBridgeHandler.getSpecialTouchBridge(jackpotList);
             homePageView.showSpecialTouchBridge(touchList);
         }
     }
@@ -240,20 +234,20 @@ public class HomePageViewModel {
     public void getNote() {
         String data = IOFileBase.readDataFromFile(context, FileName.NOTE);
         String[] arr = data.split("===");
-        String note = "";
+        StringBuilder note = new StringBuilder();
         for (int i = 0; i < arr.length; i++) {
-            note += " + " + arr[i];
+            note.append(" + ").append(arr[i]);
             if (i != arr.length - 1) {
-                note += "\n";
+                note.append("\n");
             }
         }
-        if (note.equals(" + ")) note = "";
-        homePageView.showNote(note);
+        if (note.toString().equals(" + ")) note = new StringBuilder();
+        homePageView.showNote(note.toString());
     }
 
     private void showError(String message, boolean isMainThread) {
         new MainThreadBase(() -> {
-            homePageView.showError(message);
+            homePageView.showMessage(message);
         }, isMainThread).post();
     }
 }

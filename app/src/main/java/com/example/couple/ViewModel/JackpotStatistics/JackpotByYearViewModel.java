@@ -19,8 +19,8 @@ public class JackpotByYearViewModel {
         this.context = context;
     }
 
-    public void GetYearList() {
-        int[] startAndEndYearFile = JackpotStatistics.GetStartAndEndYearFile(context);
+    public void getYearList() {
+        int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
         List<Integer> yearList = new ArrayList<>();
         if (startAndEndYearFile == null) {
             yearList.add(TimeInfo.CURRENT_YEAR);
@@ -31,15 +31,15 @@ public class JackpotByYearViewModel {
                 yearList.add(year);
             }
         }
-        jackpotByYearView.ShowYearList(yearList);
+        jackpotByYearView.showYearList(yearList);
     }
 
-    public void GetTableOfJackpot(int year) {
-        String[][] matrix = JackpotHandler.GetJackpotMaxtrixByYear(context, year);
+    public void getTableOfJackpot(int year) {
+        String[][] matrix = JackpotHandler.getJackpotMaxtrixByYear(context, year);
         if (matrix == null) {
-            jackpotByYearView.ShowError("Lỗi không lấy được thông tin bảng XS Đặc biệt năm " + year + ".");
+            jackpotByYearView.showMessage("Lỗi không lấy được thông tin bảng XS Đặc biệt năm " + year + ".");
         } else {
-            jackpotByYearView.ShowTableOfJackpot(matrix, year);
+            jackpotByYearView.showTableOfJackpot(matrix, year);
         }
     }
 

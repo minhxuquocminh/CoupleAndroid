@@ -18,12 +18,12 @@ public class MonthlyPredictionBridgeViewModel {
     public void addPredictionBridge(Prediction pb) {
         FirebaseBase fb = new FirebaseBase("monthly");
         fb.addObject(pb, pb.getId());
-        view.AddPredictionBridgeSuccess();
+        view.addPredictionBridgeSuccess();
     }
 
     public void updatePredictionBridge(Prediction pb, String id) {
         FirebaseBase fb = new FirebaseBase("monthly");
         fb.updateObject(pb.toMap(), id);
-        view.UpdatePredictionBridgeSuccess();
+        view.updatePredictionBridgeSuccess();
     }
 }

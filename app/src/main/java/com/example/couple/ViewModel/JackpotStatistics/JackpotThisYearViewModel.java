@@ -20,30 +20,30 @@ public class JackpotThisYearViewModel {
         this.context = context;
     }
 
-    public void GetReserveJackpotListThisYear() {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
-        if (jackpotList.size() > 0) {
-            view.ShowReserveJackpotListThisYear(jackpotList);
+    public void getReserveJackpotListThisYear() {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
+        if (!jackpotList.isEmpty()) {
+            view.showReserveJackpotListThisYear(jackpotList);
         }
     }
 
-    public void GetSameDoubleAndDayNumberTotal(List<Jackpot> jackpotList) {
+    public void getSameDoubleAndDayNumberTotal(List<Jackpot> jackpotList) {
         int countSameDouble = 0;
         for (int i = 0; i < jackpotList.size(); i++) {
             if (jackpotList.get(i).getCouple().isSameDouble()) {
                 countSameDouble++;
             }
         }
-        view.ShowSameDoubleAndDayNumberTotal(countSameDouble, jackpotList.size());
+        view.showSameDoubleAndDayNumberTotal(countSameDouble, jackpotList.size());
     }
 
-    public void GetSameDoubleInNearestTime(List<Jackpot> jackpotList) {
-        List<NearestTime> nearestTimeList = JackpotStatistics.GetSameDoubleInNearestTime(jackpotList);
-        view.ShowSameDoubleInNearestTime(nearestTimeList);
+    public void getSameDoubleInNearestTime(List<Jackpot> jackpotList) {
+        List<NearestTime> nearestTimeList = JackpotStatistics.getSameDoubleInNearestTime(jackpotList);
+        view.showSameDoubleInNearestTime(nearestTimeList);
     }
 
-    public void GetHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
-        List<NearestTime> nearestTimeList = JackpotStatistics.GetHeadAndTailInNearestTime(jackpotList);
-        view.ShowHeadAndTailInNearestTime(nearestTimeList);
+    public void getHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
+        List<NearestTime> nearestTimeList = JackpotStatistics.getHeadAndTailInNearestTime(jackpotList);
+        view.showHeadAndTailInNearestTime(nearestTimeList);
     }
 }

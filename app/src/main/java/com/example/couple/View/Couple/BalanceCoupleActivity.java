@@ -24,7 +24,7 @@ import com.example.couple.ViewModel.Couple.BalanceCoupleViewModel;
 
 import java.util.List;
 
-public class BanlanceCoupleActivity extends AppCompatActivity implements BalanceCoupleView {
+public class BalanceCoupleActivity extends AppCompatActivity implements BalanceCoupleView {
     CheckBox cboCombineCheck;
     EditText edtNumberOfDays;
     EditText edtDayNumberBefore;
@@ -56,30 +56,30 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
         edtNumberOfDays.setSelection(edtNumberOfDays.getText().length());
 
         viewModel = new BalanceCoupleViewModel(this, this);
-        viewModel.GetJackpotDataFromFile();
+        viewModel.getJackpotDataFromFile();
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowJackpotData(List<Jackpot> jackpotList) {
-        viewModel.GetTableOfBalanceCouple(jackpotList, NUMBER_OF_DAYS);
+    public void showJackpotData(List<Jackpot> jackpotList) {
+        viewModel.getTableOfBalanceCouple(jackpotList, NUMBER_OF_DAYS);
 
         tvGetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
+                WidgetBase.hideKeyboard(BalanceCoupleActivity.this);
                 String numberOfDaysStr = edtNumberOfDays.getText().toString().trim();
-                if (numberOfDaysStr.length() == 0) {
-                    ShowError("Bạn chưa nhập số ngày để lấy dữ liệu!");
+                if (numberOfDaysStr.isEmpty()) {
+                    showMessage("Bạn chưa nhập số ngày để lấy dữ liệu!");
                 } else if (Integer.parseInt(numberOfDaysStr) > TimeInfo.DAY_OF_YEAR
                         || Integer.parseInt(numberOfDaysStr) < 0) {
-                    ShowError("Nằm ngoài phạm vi!");
+                    showMessage("Nằm ngoài phạm vi!");
                 } else {
-                    viewModel.GetTableOfBalanceCouple(jackpotList, Integer.parseInt(numberOfDaysStr));
+                    viewModel.getTableOfBalanceCouple(jackpotList, Integer.parseInt(numberOfDaysStr));
                 }
             }
         });
@@ -87,11 +87,11 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
         tvViewPeriodHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
+                WidgetBase.hideKeyboard(BalanceCoupleActivity.this);
                 String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
                 String filterDays = edtFilterDays.getText().toString().trim();
-                if (!dayNumberBefore.equals("") && !filterDays.equals("")) {
-                    viewModel.GetPeriodHistory(jackpotList, dayNumberBefore, filterDays);
+                if (!dayNumberBefore.isEmpty() && !filterDays.isEmpty()) {
+                    viewModel.getPeriodHistory(jackpotList, dayNumberBefore, filterDays);
                 }
             }
         });
@@ -99,11 +99,11 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
         tvViewCombinePeriod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WidgetBase.hideKeyboard(BanlanceCoupleActivity.this);
+                WidgetBase.hideKeyboard(BalanceCoupleActivity.this);
                 String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
                 int bridgeType = cboCombineCheck.isChecked() ? 1 : 0;
-                if (!dayNumberBefore.equals("")) {
-                    viewModel.GetCombinePeriod(jackpotList, dayNumberBefore, bridgeType);
+                if (!dayNumberBefore.isEmpty()) {
+                    viewModel.getCombinePeriod(jackpotList, dayNumberBefore, bridgeType);
                 }
             }
         });
@@ -111,7 +111,7 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
     }
 
     @Override
-    public void ShowTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays) {
+    public void showTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays) {
         TableLayout tableLayout = CustomTableLayout.getBalanceCoupleTableLayout(this,
                 jackpotList, numberOfDays);
         linearLayout.removeAllViews();
@@ -120,7 +120,7 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
     }
 
     @Override
-    public void ShowPeriodHistory(List<PeriodHistory> periodHistoryList) {
+    public void showPeriodHistory(List<PeriodHistory> periodHistoryList) {
         String show = periodHistoryList.isEmpty() ? "Không có khoảng cần tìm"
                 : "Lịch sử các cách chạy gần giống khoảng gần đây:\n";
         for (PeriodHistory periodHistory : periodHistoryList) {
@@ -135,7 +135,7 @@ public class BanlanceCoupleActivity extends AppCompatActivity implements Balance
     }
 
     @Override
-    public void ShowTest(List<Integer> touchs) {
+    public void showTest(List<Integer> touchs) {
         String message = "Chạm: ";
         message += SingleBase.showTouchs(touchs);
         WidgetBase.showDialogCanBeCopied(this,

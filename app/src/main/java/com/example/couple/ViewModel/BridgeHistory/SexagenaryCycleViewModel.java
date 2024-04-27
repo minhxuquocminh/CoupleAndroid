@@ -19,19 +19,19 @@ public class SexagenaryCycleViewModel {
         this.view = view;
     }
 
-    public void GetSexagenaryCycle(int numberOfDays) {
+    public void getSexagenaryCycle(int numberOfDays) {
         boolean sync = TimeHandler.hasSyncedCycleToday(context);
         if (!sync) {
             TimeHandler.updateAllSexagenaryCycle(context);
-            view.ShowUpdateSuccess();
+            view.updateSuccess();
         }
         List<TimeBase> cycleList = TimeHandler.getAllSexagenaryCycle(context, numberOfDays);
         List<Jackpot> allJackpotList = JackpotHandler
-                .GetAllReserveJackpotListFromFile(context, numberOfDays);
+                .getAllReserveJackpotListFromFile(context, numberOfDays);
         if (cycleList.isEmpty()) {
-            view.ShowError("Lỗi không lấy đc thông tin.");
+            view.showMessage("Lỗi không lấy đc thông tin.");
         } else {
-            view.ShowSexagenaryCycle(cycleList, allJackpotList);
+            view.showSexagenaryCycle(cycleList, allJackpotList);
         }
 
     }

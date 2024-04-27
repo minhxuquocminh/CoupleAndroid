@@ -48,53 +48,57 @@ public class BridgeCombinationViewModel {
         this.context = context;
     }
 
-    public void GetAllData() {
-        List<Jackpot> allJackpotList = JackpotHandler.GetAllReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+    public void getAllData() {
+        List<Jackpot> allJackpotList = JackpotHandler.getAllReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         TimeBase timeBaseNextDay = TimeHandler.getTimeBaseNextDay(context);
-        view.ShowAllData(allJackpotList, jackpotList, lotteryList, timeBaseNextDay);
+        if (jackpotList.isEmpty() || lotteryList.isEmpty()) {
+            view.showMessage("Lỗi không láy được dữ liệu Xổ số.");
+            return;
+        }
+        view.showAllData(allJackpotList, jackpotList, lotteryList, timeBaseNextDay);
     }
 
-    public void GetAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
+    public void getAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
         if (!jackpotList.isEmpty()) {
             List<Bridge> bridgeList = new ArrayList<>();
             // touch
             CombineTouchBridge combineTouchBridge =
-                    TouchBridgeHandler.GetCombineTouchBridge(jackpotList, lotteryList, 0);
+                    TouchBridgeHandler.getCombineTouchBridge(jackpotList, lotteryList, 0);
             bridgeList.add(combineTouchBridge);
-            ConnectedBridge connectedBridge = ConnectedBridgeHandler.GetConnectedBridge(lotteryList,
+            ConnectedBridge connectedBridge = ConnectedBridgeHandler.getConnectedBridge(lotteryList,
                     0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
             bridgeList.add(connectedBridge);
             ShadowTouchBridge shadowTouchBridge = TouchBridgeHandler
-                    .GetShadowTouchBridge(jackpotList, 0);
+                    .getShadowTouchBridge(jackpotList, 0);
             bridgeList.add(shadowTouchBridge);
             LottoTouchBridge lottoTouchBridge =
-                    TouchBridgeHandler.GetLottoTouchBridge(lotteryList, 0);
+                    TouchBridgeHandler.getLottoTouchBridge(lotteryList, 0);
             bridgeList.add(lottoTouchBridge);
             ShadowTouchBridge negativeShadowBridge =
-                    TouchBridgeHandler.GetNegativeShadowTouchBridge(jackpotList, 0);
+                    TouchBridgeHandler.getNegativeShadowTouchBridge(jackpotList, 0);
             bridgeList.add(negativeShadowBridge);
             ShadowTouchBridge positiveShadowBridge =
-                    TouchBridgeHandler.GetPositiveShadowTouchBridge(jackpotList, 0);
+                    TouchBridgeHandler.getPositiveShadowTouchBridge(jackpotList, 0);
             bridgeList.add(positiveShadowBridge);
             // mapping, estimated
             MappingBridge mappingBridge =
-                    MappingBridgeHandler.GetMappingBridge(jackpotList, Const.MAPPING_ALL, 0);
+                    MappingBridgeHandler.getMappingBridge(jackpotList, Const.MAPPING_ALL, 0);
             bridgeList.add(mappingBridge);
             ConnectedSetBridge connectedSetBridge =
-                    ConnectedBridgeHandler.GetConnectedSetBridge(lotteryList, 0,
+                    ConnectedBridgeHandler.getConnectedSetBridge(lotteryList, 0,
                             Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
             bridgeList.add(connectedSetBridge);
-            EstimatedBridge estimatedBridge = EstimatedBridgeHandler.GetEstimatedBridge(jackpotList, 0);
+            EstimatedBridge estimatedBridge = EstimatedBridgeHandler.getEstimatedBridge(jackpotList, 0);
             bridgeList.add(estimatedBridge);
             CombineBridge combineBridge = new CombineBridge(bridgeList,
                     new JackpotHistory(0, Jackpot.getEmpty()));
-            view.ShowAllBridgeToday(combineBridge);
+            view.showAllBridgeToday(combineBridge);
         }
     }
 
-    public void GetCombineBridgeList(List<Jackpot> allJackpotList, List<Jackpot> jackpotList, List<Lottery> lotteryList,
+    public void getCombineBridgeList(List<Jackpot> allJackpotList, List<Jackpot> jackpotList, List<Lottery> lotteryList,
                                      TimeBase timeBaseNextDay, int numberOfDay,
                                      boolean combineTouch, boolean connected, boolean shadowTouch,
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
@@ -106,7 +110,7 @@ public class BridgeCombinationViewModel {
                                      String headData, String tailData, String combineData) {
         List<CombineBridge> combineBridges = new ArrayList<>();
         if (connected && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
-            view.ShowError("Đặt lại giới hạn số ngày cho cầu liên thông là " +
+            view.showMessage("Đặt lại giới hạn số ngày cho cầu liên thông là " +
                     (lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) + " ngày");
         }
         int newDayNumber = connected && numberOfDay >
@@ -118,65 +122,65 @@ public class BridgeCombinationViewModel {
             // touch
             if (combineTouch) {
                 CombineTouchBridge combineTouchBridge = TouchBridgeHandler
-                        .GetCombineTouchBridge(jackpotList, lotteryList, i);
+                        .getCombineTouchBridge(jackpotList, lotteryList, i);
                 bridgeList.add(combineTouchBridge);
             }
             if (connected) {
                 ConnectedBridge connectedBridge = ConnectedBridgeHandler
-                        .GetConnectedBridge(lotteryList, i, Const.CONNECTED_BRIDGE_FINDING_DAYS,
+                        .getConnectedBridge(lotteryList, i, Const.CONNECTED_BRIDGE_FINDING_DAYS,
                                 Const.CONNECTED_BRIDGE_MAX_DISPLAY);
                 bridgeList.add(connectedBridge);
             }
             if (shadowTouch) {
                 ShadowTouchBridge shadowTouchBridge = TouchBridgeHandler
-                        .GetShadowTouchBridge(jackpotList, i);
+                        .getShadowTouchBridge(jackpotList, i);
                 bridgeList.add(shadowTouchBridge);
             }
             if (lottoTouch) {
                 LottoTouchBridge lottoTouchBridge = TouchBridgeHandler
-                        .GetLottoTouchBridge(lotteryList, i);
+                        .getLottoTouchBridge(lotteryList, i);
                 bridgeList.add(lottoTouchBridge);
             }
             if (negativeShadow) {
                 ShadowTouchBridge negativeShadowBridge = TouchBridgeHandler
-                        .GetNegativeShadowTouchBridge(jackpotList, i);
+                        .getNegativeShadowTouchBridge(jackpotList, i);
                 bridgeList.add(negativeShadowBridge);
             }
             if (positiveShadow) {
                 ShadowTouchBridge positiveShadowBridge = TouchBridgeHandler
-                        .GetPositiveShadowTouchBridge(jackpotList, i);
+                        .getPositiveShadowTouchBridge(jackpotList, i);
                 bridgeList.add(positiveShadowBridge);
             }
             // mapping, estimated
             if (mapping) {
                 MappingBridge mappingBridge = MappingBridgeHandler
-                        .GetMappingBridge(jackpotList, Const.MAPPING_ALL, i);
+                        .getMappingBridge(jackpotList, Const.MAPPING_ALL, i);
                 bridgeList.add(mappingBridge);
             }
             if (connectedSet) {
                 ConnectedSetBridge connectedSetBridge = ConnectedBridgeHandler
-                        .GetConnectedSetBridge(lotteryList, i,
+                        .getConnectedSetBridge(lotteryList, i,
                                 Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
                 bridgeList.add(connectedSetBridge);
             }
             if (estimated) {
                 EstimatedBridge estimatedBridge = EstimatedBridgeHandler
-                        .GetEstimatedBridge(jackpotList, i);
+                        .getEstimatedBridge(jackpotList, i);
                 bridgeList.add(estimatedBridge);
             }
             if (rightMapping) {
                 MappingBridge rightMappingBridge = MappingBridgeHandler
-                        .GetRightMappingBridge(jackpotList, i);
+                        .getRightMappingBridge(jackpotList, i);
                 bridgeList.add(rightMappingBridge);
             }
             if (compatible) {
                 CycleBridge compatibleBridge = CycleBridgeHandler
-                        .GetCompatibleCycleBridge(allJackpotList, branchNextDay, i);
+                        .getCompatibleCycleBridge(allJackpotList, branchNextDay, i);
                 bridgeList.add(compatibleBridge);
             }
             if (incompatible) {
                 CycleBridge incompatibleBridge = CycleBridgeHandler
-                        .GetIncompatibleCycleBridge(allJackpotList, branchNextDay, i);
+                        .getIncompatibleCycleBridge(allJackpotList, branchNextDay, i);
                 bridgeList.add(incompatibleBridge);
             }
             if (unappearedDouble) {
@@ -187,12 +191,12 @@ public class BridgeCombinationViewModel {
 
             if (triadMapping) {
                 TriadMappingBridge triadMappingBridge = MappingBridgeHandler
-                        .GetTriadMappingBridge(jackpotList, i);
+                        .getTriadMappingBridge(jackpotList, i);
                 bridgeList.add(triadMappingBridge);
             }
             if (branchIn2Days) {
                 BranchInTwoDaysBridge branchInTwoDaysBridge = CycleBridgeHandler
-                        .GetBranchInTwoDaysBridge(jackpotList, i);
+                        .getBranchInTwoDaysBridge(jackpotList, i);
                 bridgeList.add(branchInTwoDaysBridge);
             }
             // jackpot
@@ -217,7 +221,7 @@ public class BridgeCombinationViewModel {
             String notifMessage = "";
             List<Integer> setList1 = NumberBase.verifyNumberArray(setData, 1);
             List<Integer> setList2 = NumberBase.verifyNumberArray(setData, 2);
-            if (!setData.equals("") && setList1.isEmpty() && setList2.isEmpty())
+            if (!setData.isEmpty() && setList1.isEmpty() && setList2.isEmpty())
                 notifMessage += "bộ;";
             if (!setList1.isEmpty()) {
                 SpecialSetBridge set = new SpecialSetBridge("Bộ số",
@@ -232,59 +236,59 @@ public class BridgeCombinationViewModel {
             }
 
             List<Integer> touchList = NumberBase.verifyNumberArray(touchData, 1);
-            if (!touchData.equals("") && touchList.isEmpty()) notifMessage += "chạm;";
+            if (!touchData.isEmpty() && touchList.isEmpty()) notifMessage += "chạm;";
             if (!touchList.isEmpty()) {
                 SpecialSetBridge set = new SpecialSetBridge("Chạm",
                         NumberArrayHandler.getTouchs(touchList), new JackpotHistory(i, jackpot));
                 bridgeList.add(set);
             }
             List<Integer> sumList = NumberBase.verifyNumberArray(sumData, 1);
-            if (!sumData.equals("") && sumList.isEmpty()) notifMessage += "tổng;";
+            if (!sumData.isEmpty() && sumList.isEmpty()) notifMessage += "tổng;";
             if (!sumList.isEmpty()) {
                 SpecialSetBridge set = new SpecialSetBridge("Tổng",
                         NumberArrayHandler.getSums(sumList), new JackpotHistory(i, jackpot));
                 bridgeList.add(set);
             }
             List<Integer> branchList = NumberBase.verifyNumberArray(branchData, 2);
-            if (!branchData.equals("") && branchList.isEmpty()) notifMessage += "chi;";
+            if (!branchData.isEmpty() && branchList.isEmpty()) notifMessage += "chi;";
             if (!branchList.isEmpty()) {
                 SpecialSetBridge set = new SpecialSetBridge("Chi",
                         NumberArrayHandler.getBranches(branchList), new JackpotHistory(i, jackpot));
                 bridgeList.add(set);
             }
             List<Integer> headList = NumberBase.verifyNumberArray(headData, 1);
-            if (!headData.equals("") && headList.isEmpty()) notifMessage += "đầu;";
+            if (!headData.isEmpty() && headList.isEmpty()) notifMessage += "đầu;";
             if (!headList.isEmpty()) {
                 SpecialSetBridge set = new SpecialSetBridge("Đầu",
                         NumberArrayHandler.getHeads(headList), new JackpotHistory(i, jackpot));
                 bridgeList.add(set);
             }
             List<Integer> tailList = NumberBase.verifyNumberArray(tailData, 1);
-            if (!tailData.equals("") && tailList.isEmpty()) notifMessage += "đuôi;";
+            if (!tailData.isEmpty() && tailList.isEmpty()) notifMessage += "đuôi;";
             if (!tailList.isEmpty()) {
                 SpecialSetBridge set = new SpecialSetBridge("Đuôi",
                         NumberArrayHandler.getTails(tailList), new JackpotHistory(i, jackpot));
                 bridgeList.add(set);
             }
             List<Integer> combineList = NumberBase.verifyNumberArray(combineData, 2);
-            if (!combineData.equals("") && combineList.isEmpty()) notifMessage += "kết hợp;";
+            if (!combineData.isEmpty() && combineList.isEmpty()) notifMessage += "kết hợp;";
             if (!combineList.isEmpty()) {
                 SpecialSetBridge set = new SpecialSetBridge("Kết hợp",
                         combineList, new JackpotHistory(i, jackpot));
                 bridgeList.add(set);
             }
 
-            if (!notifMessage.equals("")) {
-                view.ShowError("Có lỗi nhập tại: " + notifMessage);
+            if (!notifMessage.isEmpty()) {
+                view.showMessage("Có lỗi nhập tại: " + notifMessage);
             }
 
             CombineBridge combineBridge = new CombineBridge(bridgeList, new JackpotHistory(i, jackpot));
             combineBridges.add(combineBridge);
         }
         if (combineBridges.isEmpty()) {
-            view.ShowError("Không tìm thấy cầu.");
+            view.showMessage("Không tìm thấy cầu.");
         } else {
-            view.ShowCombineBridgeList(combineBridges);
+            view.showCombineBridgeList(combineBridges);
         }
     }
 }

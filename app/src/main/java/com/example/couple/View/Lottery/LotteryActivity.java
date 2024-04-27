@@ -38,32 +38,32 @@ public class LotteryActivity extends AppCompatActivity implements LotteryView {
 
         lotteryViewModel = new LotteryViewModel(this, this);
 
-        int startDayNumber = 20;
-        edtDayNumber.setText(startDayNumber + "");
+        String startDayNumber = 20 + "";
+        edtDayNumber.setText(startDayNumber);
         edtDayNumber.setSelection(edtDayNumber.length());
-        lotteryViewModel.GetLotteryList(startDayNumber);
+        lotteryViewModel.getLotteryList(Integer.parseInt(startDayNumber));
 
         tvGetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(LotteryActivity.this);
                 String numberOfDaysStr = edtDayNumber.getText().toString().trim();
-                if (numberOfDaysStr.equals("")) {
-                    ShowError("Bạn chưa nhập số ngày để lấy dữ liệu!");
+                if (numberOfDaysStr.isEmpty()) {
+                    showMessage("Bạn chưa nhập số ngày để lấy dữ liệu!");
                 } else {
-                    lotteryViewModel.GetLotteryList(Integer.parseInt(numberOfDaysStr));
+                    lotteryViewModel.getLotteryList(Integer.parseInt(numberOfDaysStr));
                 }
             }
         });
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowLotteryList(List<Lottery> lotteries) {
+    public void showLotteryList(List<Lottery> lotteries) {
         LotteryAdapter adapter = new LotteryAdapter(this,
                 R.layout.custom_item_rv_lottery, lotteries);
         rvTableOfLottery.removeAllViews();
@@ -72,14 +72,14 @@ public class LotteryActivity extends AppCompatActivity implements LotteryView {
     }
 
     @Override
-    public void ShowRequestToUpdateLottery(int maxDayNumber, int dayNumber) {
+    public void showRequestToUpdateLottery(int maxDayNumber, int dayNumber) {
         new AlertDialog.Builder(this)
                 .setTitle("Cập nhật XSMB?")
                 .setMessage("Database hiện có dữ liệu XSMB trong vòng " + maxDayNumber + " ngày," +
                         " bạn có muốn cập nhật thêm dữ liệu để xem không?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        lotteryViewModel.UpdateLottery(dayNumber);
+                        lotteryViewModel.updateLottery(dayNumber);
                     }
                 })
                 .setNegativeButton(android.R.string.no, null)
@@ -88,8 +88,8 @@ public class LotteryActivity extends AppCompatActivity implements LotteryView {
     }
 
     @Override
-    public void UpdateLotterySuccess(String message, int numberOfDays) {
-        lotteryViewModel.GetLotteryList(numberOfDays);
+    public void updateLotterySuccess(String message, int numberOfDays) {
+        lotteryViewModel.getLotteryList(numberOfDays);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 

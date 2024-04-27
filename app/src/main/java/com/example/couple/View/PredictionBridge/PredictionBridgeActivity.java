@@ -1,5 +1,6 @@
 package com.example.couple.View.PredictionBridge;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -52,10 +53,10 @@ public class PredictionBridgeActivity extends AppCompatActivity implements Predi
         if (InternetBase.isInternetAvailable(this)) {
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (firebaseUser != null) {
-                viewModel.GetPredictionBridge();
+                viewModel.getPredictionBridge();
             }
         } else {
-            ShowError("Bạn đang offline.");
+            showMessage("Bạn đang offline.");
         }
 
         Calendar current = Calendar.getInstance();
@@ -88,12 +89,13 @@ public class PredictionBridgeActivity extends AppCompatActivity implements Predi
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void ShowWeeklyPredictionBridge(List<Prediction> weeklyList) {
+    public void showWeeklyPredictionBridge(List<Prediction> weeklyList) {
         PredictionBridgeAdapter adapter =
                 new PredictionBridgeAdapter(this, R.layout.custom_item_rv_bridge, weeklyList);
         rvWeeklyBridge.setLayoutManager(new LinearLayoutManager(this));
@@ -102,7 +104,7 @@ public class PredictionBridgeActivity extends AppCompatActivity implements Predi
     }
 
     @Override
-    public void ShowMonthlyPredictionBridge(List<Prediction> monthlyList) {
+    public void showMonthlyPredictionBridge(List<Prediction> monthlyList) {
         PredictionBridgeAdapter adapter =
                 new PredictionBridgeAdapter(this, R.layout.custom_item_rv_bridge, monthlyList);
         rvMonthlyBridge.setLayoutManager(new LinearLayoutManager(this));

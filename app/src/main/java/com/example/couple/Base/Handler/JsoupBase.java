@@ -61,7 +61,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
     }
 
     private String methodGET() throws IOException {
-        String data = "";
+        StringBuilder data = new StringBuilder();
 
         Document doc = Jsoup.connect(link).timeout(timeout).get();
         if (listClassName == null || listClassName.isEmpty()) return doc.text();
@@ -69,20 +69,20 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
         for (int i = 0; i < listClassName.size(); i++) {
             Elements elements = doc.getElementsByClass(listClassName.get(i));
             for (int j = 0; j < elements.size(); j++) {
-                data += elements.get(j).text();
+                data.append(elements.get(j).text());
                 if (j != elements.size() - 1) {
-                    data += "---";
+                    data.append("---");
                 }
             }
             if (i != listClassName.size() - 1) {
-                data += "===";
+                data.append("===");
             }
         }
-        return data;
+        return data.toString();
     }
 
     private String methodPOST() throws IOException {
-        String data = "";
+        StringBuilder data = new StringBuilder();
 
         Connection conn = Jsoup.connect(link).timeout(timeout);
 
@@ -98,15 +98,15 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
         for (int i = 0; i < listClassName.size(); i++) {
             Elements elements = doc.getElementsByClass(listClassName.get(i));
             for (int j = 0; j < elements.size(); j++) {
-                data += elements.get(j).text();
+                data.append(elements.get(j).text());
                 if (j != elements.size() - 1) {
-                    data += "---";
+                    data.append("---");
                 }
             }
             if (i != listClassName.size() - 1) {
-                data += "===";
+                data.append("===");
             }
         }
-        return data;
+        return data.toString();
     }
 }

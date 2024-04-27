@@ -14,10 +14,10 @@ import java.util.List;
 
 public class EstimatedBridgeHandler {
 
-    public static EstimatedBridge GetEstimatedBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
-        List<PeriodHistory> periodHistories3 = GetPeriodHistoryList(jackpotList,
+    public static EstimatedBridge getEstimatedBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        List<PeriodHistory> periodHistories3 = getPeriodHistoryList(jackpotList,
                 dayNumberBefore, 3, Const.AMPLITUDE_OF_PERIOD);
-        List<PeriodHistory> periodHistories4 = GetPeriodHistoryList(jackpotList,
+        List<PeriodHistory> periodHistories4 = getPeriodHistoryList(jackpotList,
                 dayNumberBefore, 4, Const.AMPLITUDE_OF_PERIOD);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
@@ -25,7 +25,7 @@ public class EstimatedBridgeHandler {
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static List<PeriodHistory> GetPeriodHistoryList(List<Jackpot> jackpotList,
+    public static List<PeriodHistory> getPeriodHistoryList(List<Jackpot> jackpotList,
                                                            int dayNumberBefore, int periodNumber, int range) {
         if (jackpotList.size() < dayNumberBefore + periodNumber) return new ArrayList<>();
         List<Integer> lastNumbers = new ArrayList<>();
@@ -61,7 +61,7 @@ public class EstimatedBridgeHandler {
         return periodHistoryList;
     }
 
-    public static List<PeriodHistory> GetEstimatedHistoryList(List<Jackpot> jackpotList,
+    public static List<PeriodHistory> getEstimatedHistoryList(List<Jackpot> jackpotList,
                                                               int dayNumberBefore, int periodNumber, int range) {
         if (jackpotList.size() < dayNumberBefore + periodNumber) return new ArrayList<>();
         List<Integer> lastNumbers = new ArrayList<>();

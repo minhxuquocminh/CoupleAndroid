@@ -1,5 +1,6 @@
 package com.example.couple.Base.View;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
@@ -61,6 +62,7 @@ public class WidgetBase {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     public static Drawable getDrawable(Context context, int drawableId) {
         Drawable drawable;
         if (Build.VERSION.SDK_INT > 21) {

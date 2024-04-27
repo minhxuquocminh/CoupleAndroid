@@ -4,8 +4,8 @@ import lombok.Getter;
 
 public class ThreadBase<T> extends Thread {
 
-    private ThreadCallback<T> callback;
-    private T param;
+    private final ThreadCallback<T> callback;
+    private final T param;
     @Getter
     private Object result; // dùng threadBase.join() trước khi get result...
 

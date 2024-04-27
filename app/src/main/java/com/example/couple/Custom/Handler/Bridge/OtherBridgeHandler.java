@@ -31,15 +31,13 @@ public class OtherBridgeHandler {
             }
 
             Integer couple = jackpotList.get(i).getCoupleInt();
-            if (bigDoubleSet.contains(couple)) {
-                bigDoubleSet.remove(couple);
-            }
+            bigDoubleSet.remove(couple);
         }
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new UnappearedBigDoubleBridge(bigDoubleSet, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static SignOfDouble GetSignOfDouble(List<Jackpot> jackpotList, int dayNumberBefore) {
+    public static SignOfDouble getSignOfDouble(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore) return SignOfDouble.getEmpty();
         DateBase dateBase = dayNumberBefore == 0 ?
                 jackpotList.get(0).getDateBase().plusDays(1) : jackpotList.get(dayNumberBefore - 1).getDateBase();
@@ -110,7 +108,7 @@ public class OtherBridgeHandler {
                 NumberBase.getReverseList(downMonthList), NumberBase.getReverseList(weekList), reverseDayList);
     }
 
-    public static ShadowExchangeBridge GetShadowExchangeBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+    public static ShadowExchangeBridge getShadowExchangeBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore + 2)
             return ShadowExchangeBridge.getEmpty();
         Couple couple = jackpotList.get(dayNumberBefore + 1).getCouple();
@@ -118,7 +116,7 @@ public class OtherBridgeHandler {
         return new ShadowExchangeBridge(couple, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static SpecialSetHistory GetSpecialSetHistory(List<Jackpot> jackpotList,
+    public static SpecialSetHistory getSpecialSetHistory(List<Jackpot> jackpotList,
                                                          String specialSetName, List<Integer> numbers) {
         if (jackpotList.isEmpty()) return new SpecialSetHistory();
         List<Integer> beatList = new ArrayList<>();
@@ -134,7 +132,7 @@ public class OtherBridgeHandler {
         return new SpecialSetHistory(specialSetName, numbers, beatList);
     }
 
-    public static ShadowMappingBridge GetShadowMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
+    public static ShadowMappingBridge getShadowMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < dayNumberBefore + 2)
             return ShadowMappingBridge.getEmpty();
         ShadowSingle first = reverseJackpotList.get(dayNumberBefore + 1).getCouple().getShadowSingle();
@@ -144,8 +142,8 @@ public class OtherBridgeHandler {
     }
 
     // cầu này để tìm càng thứ 3 dựa trên lịch sử càng giống càng chạy gần đây
-    public static List<BSingle> GetTouchsByThirdClawBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
-        int sizeTest = jackpotList.size() - dayNumberBefore < 5 ? jackpotList.size() - dayNumberBefore : 5;
+    public static List<BSingle> getTouchsByThirdClawBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        int sizeTest = Math.min(jackpotList.size() - dayNumberBefore, 5);
 
         List<Integer> nearestThirdClaw = new ArrayList<>();
         for (int i = 0; i < sizeTest; i++) {

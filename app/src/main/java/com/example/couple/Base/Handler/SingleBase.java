@@ -28,19 +28,19 @@ public class SingleBase {
     }
 
     public static String showTouchs(List<Integer> touchs) {
-        String show = "";
+        StringBuilder show = new StringBuilder();
         for (int touch : touchs) {
-            show += touch + " ";
+            show.append(touch).append(" ");
         }
-        return show.trim();
+        return show.toString().trim();
     }
 
     public static String showTouchs(List<Integer> touchs, String delimiter) {
-        String show = "";
+        StringBuilder show = new StringBuilder();
         for (int i = 0; i < touchs.size(); i++) {
-            show += touchs.get(i) + (i == touchs.size() - 1 ? "" : delimiter);
+            show.append(touchs.get(i)).append(i == touchs.size() - 1 ? "" : delimiter);
         }
-        return show.trim();
+        return show.toString().trim();
     }
 
 }

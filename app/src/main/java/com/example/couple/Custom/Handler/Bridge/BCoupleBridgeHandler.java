@@ -13,10 +13,10 @@ import java.util.List;
 
 public class BCoupleBridgeHandler {
 
-    public static List<AfterDoubleBridge> GetAfterDoubleBridges(List<Jackpot> jackpotList) {
+    public static List<AfterDoubleBridge> getAfterDoubleBridges(List<Jackpot> jackpotList) {
         List<AfterDoubleBridge> bridges = new ArrayList<>();
         List<AfterDoubleBridge> checkList = new ArrayList<>();
-        int maxSize = jackpotList.size() < 30 ? jackpotList.size() : 30;
+        int maxSize = Math.min(jackpotList.size(), 30);
         for (int i = 0; i < maxSize - 2; i++) {
             if (jackpotList.get(i).getCouple().isDoubleAndShadow()) {
                 List<Couple> lastDoubleRange = new ArrayList<>();
@@ -45,12 +45,12 @@ public class BCoupleBridgeHandler {
         return bridges;
     }
 
-    public static List<BSingle> GetTouchBridge(List<Jackpot> jackpotList) {
+    public static List<BSingle> getTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() < 2) return new ArrayList<>();
         List<BSingle> touchList = new ArrayList<>();
         BCouple cp1 = jackpotList.get(1).getBCouple();
         BCouple cp0 = jackpotList.get(0).getBCouple();
-        List<BCouple> BCouples = GetBalanceCouples(cp1, cp0);
+        List<BCouple> BCouples = getBalanceCouples(cp1, cp0);
         for (int i = 0; i < BCouples.size(); i++) {
             int first = BCouples.get(i).getFirst();
             int second = BCouples.get(i).getSecond();
@@ -72,13 +72,7 @@ public class BCoupleBridgeHandler {
         Collections.sort(touchList, new Comparator<BSingle>() {
             @Override
             public int compare(BSingle o1, BSingle o2) {
-                if (o1.getNumber() > o2.getNumber()) {
-                    return 1;
-                } else if (o1.getNumber() == o2.getNumber()) {
-                    return 0;
-                } else {
-                    return -1;
-                }
+                return Integer.compare(o1.getNumber(), o2.getNumber());
             }
         });
 
@@ -99,14 +93,14 @@ public class BCoupleBridgeHandler {
         return touchList;
     }
 
-    public static List<Integer> GetSpecialTouchBridge(List<Jackpot> jackpotList) {
+    public static List<Integer> getSpecialTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() < 4) return new ArrayList<>();
         BCouple cp3 = jackpotList.get(3).getBCouple();
         BCouple cp2 = jackpotList.get(2).getBCouple();
         BCouple cp1 = jackpotList.get(1).getBCouple();
         BCouple cp0 = jackpotList.get(0).getBCouple();
-        List<BCouple> couples1 = BCoupleBridgeHandler.GetBalanceCouples(cp3, cp2);
-        List<BCouple> couples2 = BCoupleBridgeHandler.GetBalanceCouples(cp1, cp0);
+        List<BCouple> couples1 = BCoupleBridgeHandler.getBalanceCouples(cp3, cp2);
+        List<BCouple> couples2 = BCoupleBridgeHandler.getBalanceCouples(cp1, cp0);
         List<Integer> balance1 = new ArrayList<>();
         List<Integer> balance2 = new ArrayList<>();
         for (int i = 0; i < couples1.size(); i++) {
@@ -119,7 +113,7 @@ public class BCoupleBridgeHandler {
         int[] arr = new int[10];
         for (int i = 0; i < balance1.size(); i++) {
             for (int j = 0; j < balance2.size(); j++) {
-                if (balance1.get(i) == balance2.get(j)) {
+                if (balance1.get(i).equals(balance2.get(j))) {
                     arr[balance1.get(i)]++;
                 }
             }
@@ -135,7 +129,7 @@ public class BCoupleBridgeHandler {
         return touchList;
     }
 
-    public static List<BCouple> GetBalanceCouples(BCouple bcp1, BCouple bcp2) {
+    public static List<BCouple> getBalanceCouples(BCouple bcp1, BCouple bcp2) {
         List<BCouple> results = new ArrayList<>();
         results.add(bcp1.balanceOne(bcp2));
         results.add(bcp1.balanceTwo(bcp2));

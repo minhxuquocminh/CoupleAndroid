@@ -18,57 +18,47 @@ import java.util.List;
 
 public class HistoryHandler {
 
-    public static List<SpecialSetHistory> GetCompactSpecialSetsHistory(List<Jackpot> jackpotList) {
+    public static List<SpecialSetHistory> getCompactSpecialSetsHistory(List<Jackpot> jackpotList) {
         List<SpecialSetHistory> tenNumbersList = new ArrayList<>();
-        List<SpecialSetHistory> headtails = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            SpecialSetHistory head = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            SpecialSetHistory head = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     Const.HEAD + " " + i, NumberArrayHandler.getHeads(i));
-            headtails.add(head);
-            SpecialSetHistory tail = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            tenNumbersList.add(head);
+            SpecialSetHistory tail = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     Const.TAIL + " " + i, NumberArrayHandler.getTails(i));
-            headtails.add(tail);
-        }
-        tenNumbersList.addAll(headtails);
-
-        List<SpecialSetHistory> sums = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            SpecialSetHistory sum = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            tenNumbersList.add(tail);
+            SpecialSetHistory sum = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     Const.SUM + " " + i, NumberArrayHandler.getSums(i));
-            sums.add(sum);
+            tenNumbersList.add(sum);
         }
-        tenNumbersList.addAll(sums);
 
         SpecialSetHistory doubleHistory = OtherBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.DOUBLE, Const.DOUBLE_SET);
+                .getSpecialSetHistory(jackpotList, Const.DOUBLE, Const.DOUBLE_SET);
         tenNumbersList.add(doubleHistory);
         SpecialSetHistory deviatedHistory = OtherBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.POSITIVE_DOUBLE_SET_NAME, Const.POSITIVE_DOUBLE_SET);
+                .getSpecialSetHistory(jackpotList, Const.POSITIVE_DOUBLE_SET_NAME, Const.POSITIVE_DOUBLE_SET);
         tenNumbersList.add(deviatedHistory);
         SpecialSetHistory nearIncreaseHistory = OtherBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_INCREASE, Const.NEAR_DOUBLE_INCREASE_SET);
+                .getSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_INCREASE, Const.NEAR_DOUBLE_INCREASE_SET);
         tenNumbersList.add(nearIncreaseHistory);
         SpecialSetHistory nearDecreaseHistory = OtherBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_DECREASE, Const.NEAR_DOUBLE_DECREASE_SET);
+                .getSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_DECREASE, Const.NEAR_DOUBLE_DECREASE_SET);
         tenNumbersList.add(nearDecreaseHistory);
         Collections.sort(tenNumbersList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
 
         List<SpecialSetHistory> eightNumbersList = new ArrayList<>();
-        List<SpecialSetHistory> branches = new ArrayList<>();
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
-            SpecialSetHistory branch = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            SpecialSetHistory branch = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getTailsOfYear());
-            branches.add(branch);
+            eightNumbersList.add(branch);
         }
-        eightNumbersList.addAll(branches);
 
-        List<SpecialSetHistory> sets = new ArrayList<>();
         for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
-            SpecialSetHistory set = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            SpecialSetHistory set = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     Const.SET + " " + i, (new Set(i)).getSetsDetail());
-            sets.add(set);
+            eightNumbersList.add(set);
         }
-        eightNumbersList.addAll(sets);
+
         Collections.sort(eightNumbersList, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
 
         List<SpecialSetHistory> histories = new ArrayList<>();
@@ -87,18 +77,18 @@ public class HistoryHandler {
         return histories;
     }
 
-    public static List<SpecialSetHistory> GetSpecialSetsHistory(List<Jackpot> allJackpotList,
+    public static List<SpecialSetHistory> getSpecialSetsHistory(List<Jackpot> allJackpotList,
                                                                 List<Jackpot> jackpotList,
                                                                 TimeBase timeBaseNextDay) {
         List<SpecialSetHistory> historyList = new ArrayList<>();
         // for cycle
         BranchInDayBridge branchBridge = CycleBridgeHandler
-                .GetBranchInDayBridges(allJackpotList, timeBaseNextDay.getDateCycle().getDay().getBranch());
+                .getBranchInDayBridges(allJackpotList, timeBaseNextDay.getDateCycle().getDay().getBranch());
         historyList.add(branchBridge.toSpecialSetHistory());
 
         List<SpecialSetHistory> branches1 = new ArrayList<>();
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
-            SpecialSetHistory branch = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            SpecialSetHistory branch = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getTailsOfYear());
             branches1.add(branch);
         }
@@ -110,7 +100,7 @@ public class HistoryHandler {
         for (int i = -6; i < 6; i++) {
             String specialSetName = i < 0 ? "KC" + i : "KC+" + i;
             SpecialSetHistory branch = CycleBridgeHandler
-                    .GetBranchDistanceHistory(jackpotList, specialSetName, i, nextDayBranch);
+                    .getBranchDistanceHistory(jackpotList, specialSetName, i, nextDayBranch);
             branches2.add(branch);
         }
         Collections.sort(branches2, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
@@ -120,35 +110,35 @@ public class HistoryHandler {
         for (int i = -6; i < 6; i++) {
             String specialSetName = i < 0 ? "TS" + i : "TS+" + i;
             SpecialSetHistory branch = CycleBridgeHandler
-                    .GetBranchDistanceHistoryEach2Days(jackpotList, specialSetName, i);
+                    .getBranchDistanceHistoryEach2Days(jackpotList, specialSetName, i);
             branches3.add(branch);
         }
         Collections.sort(branches3, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         historyList.addAll(branches3);
 
         SpecialSetHistory branch4 = CycleBridgeHandler
-                .GetPositive12BranchHistory(jackpotList, "Chi 12 dương");
+                .getPositive12BranchHistory(jackpotList, "Chi 12 dương");
         historyList.add(branch4);
 
         SpecialSetHistory branch5 = CycleBridgeHandler
-                .GetNegative12BranchHistory(jackpotList, "Chi 12 âm");
+                .getNegative12BranchHistory(jackpotList, "Chi 12 âm");
         historyList.add(branch5);
 
         SpecialSetHistory branch6 = CycleBridgeHandler
-                .GetPositive13BranchHistory(jackpotList, "Chi 13 dương");
+                .getPositive13BranchHistory(jackpotList, "Chi 13 dương");
         historyList.add(branch6);
 
         SpecialSetHistory branch7 = CycleBridgeHandler
-                .GetNegative13BranchHistory(jackpotList, "Chi 13 âm");
+                .getNegative13BranchHistory(jackpotList, "Chi 13 âm");
         historyList.add(branch7);
 
         // others
         List<SpecialSetHistory> headtails = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            SpecialSetHistory head = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            SpecialSetHistory head = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     Const.HEAD + " " + i, NumberArrayHandler.getHeads(i));
             headtails.add(head);
-            SpecialSetHistory tail = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            SpecialSetHistory tail = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     Const.TAIL + " " + i, NumberArrayHandler.getTails(i));
             headtails.add(tail);
         }
@@ -157,7 +147,7 @@ public class HistoryHandler {
 
         List<SpecialSetHistory> sums = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            SpecialSetHistory sum = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            SpecialSetHistory sum = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     Const.SUM + " " + i, NumberArrayHandler.getSums(i));
             sums.add(sum);
         }
@@ -166,7 +156,7 @@ public class HistoryHandler {
 
         List<SpecialSetHistory> sets = new ArrayList<>();
         for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
-            SpecialSetHistory set = OtherBridgeHandler.GetSpecialSetHistory(jackpotList,
+            SpecialSetHistory set = OtherBridgeHandler.getSpecialSetHistory(jackpotList,
                     Const.SET + " " + i, (new Set(i)).getSetsDetail());
             sets.add(set);
         }
@@ -175,16 +165,16 @@ public class HistoryHandler {
 
         List<SpecialSetHistory> others = new ArrayList<>();
         SpecialSetHistory doubleHistory = OtherBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.DOUBLE, Const.DOUBLE_SET);
+                .getSpecialSetHistory(jackpotList, Const.DOUBLE, Const.DOUBLE_SET);
         others.add(doubleHistory);
         SpecialSetHistory deviatedHistory = OtherBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.POSITIVE_DOUBLE_SET_NAME, Const.POSITIVE_DOUBLE_SET);
+                .getSpecialSetHistory(jackpotList, Const.POSITIVE_DOUBLE_SET_NAME, Const.POSITIVE_DOUBLE_SET);
         others.add(deviatedHistory);
         SpecialSetHistory nearIncreaseHistory = OtherBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_INCREASE, Const.NEAR_DOUBLE_INCREASE_SET);
+                .getSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_INCREASE, Const.NEAR_DOUBLE_INCREASE_SET);
         others.add(nearIncreaseHistory);
         SpecialSetHistory nearDecreaseHistory = OtherBridgeHandler
-                .GetSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_DECREASE, Const.NEAR_DOUBLE_DECREASE_SET);
+                .getSpecialSetHistory(jackpotList, Const.NEAR_DOUBLE_DECREASE, Const.NEAR_DOUBLE_DECREASE_SET);
         others.add(nearDecreaseHistory);
         Collections.sort(others, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         historyList.addAll(others);

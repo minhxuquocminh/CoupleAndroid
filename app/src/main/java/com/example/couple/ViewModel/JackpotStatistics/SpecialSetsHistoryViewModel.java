@@ -19,19 +19,19 @@ public class SpecialSetsHistoryViewModel {
     Context context;
     SpecialSetsHistoryView specialSetsHistoryView;
 
-    public void GetJackpotListAndTimeBaseData(int numberOfDays) {
-        List<Jackpot> allJackpotList = JackpotHandler.GetAllReserveJackpotListFromFile(context, numberOfDays);
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, numberOfDays);
+    public void getJackpotListAndTimeBaseData(int numberOfDays) {
+        List<Jackpot> allJackpotList = JackpotHandler.getAllReserveJackpotListFromFile(context, numberOfDays);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
         TimeBase timeBaseNextDay = TimeHandler.getTimeBaseNextDay(context);
-        specialSetsHistoryView.ShowJackpotListAndTimeBaseData(allJackpotList, jackpotList, timeBaseNextDay);
+        specialSetsHistoryView.showJackpotListAndTimeBaseData(allJackpotList, jackpotList, timeBaseNextDay);
     }
 
-    public void GetSpecialSetsHistory(List<Jackpot> allJackpotList,
+    public void getSpecialSetsHistory(List<Jackpot> allJackpotList,
                                       List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
         List<SpecialSetHistory> historyList =
-                HistoryHandler.GetSpecialSetsHistory(allJackpotList, jackpotList, timeBaseNextDay);
+                HistoryHandler.getSpecialSetsHistory(allJackpotList, jackpotList, timeBaseNextDay);
         if (!historyList.isEmpty()) {
-            specialSetsHistoryView.ShowSpecialSetsHistory(historyList);
+            specialSetsHistoryView.showSpecialSetsHistory(historyList);
         }
     }
 }

@@ -39,19 +39,19 @@ public class CalculatingBalanceCoupleActivity extends AppCompatActivity implemen
                 WidgetBase.hideKeyboard(CalculatingBalanceCoupleActivity.this);
                 String firstNumber = edtFirstNumber.getText().toString().trim();
                 String secondNumber = edtSecondNumber.getText().toString().trim();
-                viewModel.CalculateBalance2D(firstNumber, secondNumber);
+                viewModel.calculateBalance2D(firstNumber, secondNumber);
             }
         });
 
     }
 
     @Override
-    public void ShowResult(String result) {
+    public void showResult(String result) {
         tvShow.setText(result);
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

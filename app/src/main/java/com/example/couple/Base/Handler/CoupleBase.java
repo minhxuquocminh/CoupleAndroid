@@ -19,19 +19,19 @@ public class CoupleBase {
     }
 
     public static String showCoupleNumbers(List<Integer> couples) {
-        String show = "";
+        StringBuilder show = new StringBuilder();
         for (int couple : couples) {
-            show += showCouple(couple) + " ";
+            show.append(showCouple(couple)).append(" ");
         }
-        return show.trim();
+        return show.toString().trim();
     }
 
     public static String showCoupleNumbers(List<Integer> couples, String delimiter) {
-        String show = "";
+        StringBuilder show = new StringBuilder();
         for (int i = 0; i < couples.size(); i++) {
-            show += showCouple(couples.get(i)) + (i == couples.size() - 1 ? "" : delimiter);
+            show.append(showCouple(couples.get(i))).append(i == couples.size() - 1 ? "" : delimiter);
         }
-        return show.trim();
+        return show.toString().trim();
     }
 
     public static String showCouple(int couple) {

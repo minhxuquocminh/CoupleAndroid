@@ -8,9 +8,9 @@ import com.example.couple.Model.Time.TimeBase;
 import java.util.List;
 
 public interface BridgeCombinationView {
-    void ShowError(String message);
-    void ShowAllData(List<Jackpot> allJackpotList, List<Jackpot> jackpotList,
+    void showMessage(String message);
+    void showAllData(List<Jackpot> allJackpotList, List<Jackpot> jackpotList,
                      List<Lottery> lotteryList, TimeBase timeBaseNextDay);
-    void ShowAllBridgeToday(CombineBridge combineBridge);
-    void ShowCombineBridgeList(List<CombineBridge> combineBridges);
+    void showAllBridgeToday(CombineBridge combineBridge);
+    void showCombineBridgeList(List<CombineBridge> combineBridges);
 }

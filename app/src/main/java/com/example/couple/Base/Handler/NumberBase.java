@@ -51,7 +51,7 @@ public class NumberBase {
     }
 
     public static List<Integer> filterDuplicatedNumbers(List<Integer> numbers) {
-        if (numbers.size() == 0) return new ArrayList<>();
+        if (numbers.isEmpty()) return new ArrayList<>();
         List<Integer> filteredNumber = new ArrayList<>();
         for (int number : numbers) {
             if (!filteredNumber.contains(number)) {
@@ -62,7 +62,7 @@ public class NumberBase {
     }
 
     public static List<Integer> getDuplicatedNumbers(List<Integer> numbers) {
-        if (numbers.size() == 0) return new ArrayList<>();
+        if (numbers.isEmpty()) return new ArrayList<>();
         List<Integer> results = new ArrayList<>();
         List<Integer> initNumbers = new ArrayList<>();
         for (int number : numbers) {
@@ -76,7 +76,7 @@ public class NumberBase {
     }
 
     public static List<Integer> getReverseList(List<Integer> numbers) {
-        if (numbers.size() == 0) return new ArrayList<>();
+        if (numbers.isEmpty()) return new ArrayList<>();
         List<Integer> result = new ArrayList<>();
         for (int i = numbers.size() - 1; i >= 0; i--) {
             result.add(numbers.get(i));
@@ -86,7 +86,7 @@ public class NumberBase {
 
     // numberLength = 1 : số nhỏ hơn 10, numberLength = 2 số nhỏ hơn 100,....
     public static List<Number> verifyNumberArr(String numberArray, int numberLength) {
-        if (numberArray.equals("")) return new ArrayList<>();
+        if (numberArray.isEmpty()) return new ArrayList<>();
         int LIMIT = (int) (Math.pow(10, numberLength) - 1);
         List<Number> numbers = new ArrayList<>();
         String[] numberArr = numberArray.split(" ");
@@ -99,7 +99,7 @@ public class NumberBase {
                 }
                 numbers.add(new Number(number, 1));
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return numbers;
@@ -107,13 +107,13 @@ public class NumberBase {
 
     // numberLength = 1 : số nhỏ hơn 10, numberLength = 2 số nhỏ hơn 100,....
     public static List<Integer> verifyNumberArray(String numberArray, int numberLength) {
-        if (numberArray.equals("")) return new ArrayList<>();
+        if (numberArray.isEmpty()) return new ArrayList<>();
         List<Integer> numbers = new ArrayList<>();
         int LIMIT = (int) (Math.pow(10, numberLength) - 1);
         String[] numberArr = numberArray.split(" ");
         try {
             for (String numberStr : numberArr) {
-                if (numberStr.trim().length() == 0) continue;
+                if (numberStr.trim().isEmpty()) continue;
                 int number = Integer.parseInt(numberStr.trim());
                 // check giá trị và trường hợp đầu có số 0
                 if (number < 0 || number > LIMIT || numberStr.trim().length() > numberLength) {
@@ -121,7 +121,7 @@ public class NumberBase {
                 }
                 numbers.add(number);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return numbers;
@@ -129,29 +129,29 @@ public class NumberBase {
 
     public static String showNumbers(List<Integer> numbers, String delimiter) {
         if (numbers.isEmpty()) return "";
-        String data = "";
+        StringBuilder data = new StringBuilder();
         for (int i = 0; i < numbers.size(); i++) {
-            data += numbers.get(i) + (i == numbers.size() - 1 ? "" : delimiter);
+            data.append(numbers.get(i)).append(i == numbers.size() - 1 ? "" : delimiter);
         }
-        return data;
+        return data.toString();
     }
 
     public static String showNumbers(List<Integer> numbers, String delimiter, int limitOfNumber) {
         if (numbers.isEmpty()) return "";
-        String data = "";
+        StringBuilder data = new StringBuilder();
         for (int i = 0; i < numbers.size(); i++) {
-            data += showNumberString(numbers.get(i), limitOfNumber) + (i == numbers.size() - 1 ? "" : delimiter);
+            data.append(showNumberString(numbers.get(i), limitOfNumber)).append(i == numbers.size() - 1 ? "" : delimiter);
         }
-        return data;
+        return data.toString();
     }
 
     public static String showNumberString(int number, int lengthStr) {
         if (number < 0 || number > Math.pow(10, lengthStr) - 1) return "";
         if (lengthStr == 1) return number + "";
         int lengthNum = (number + "").length();
-        String numberStr = "";
+        StringBuilder numberStr = new StringBuilder();
         for (int i = lengthNum; i < lengthStr; i++) {
-            numberStr += "0";
+            numberStr.append("0");
         }
         return numberStr + "" + number;
     }
@@ -162,14 +162,14 @@ public class NumberBase {
     }
 
     public static List<Integer> parseString(String data, String split) {
-        if (data.trim().equals("")) return new ArrayList<>();
+        if (data.trim().isEmpty()) return new ArrayList<>();
         String[] arr = data.split(split);
         List<Integer> numbers = new ArrayList<>();
         try {
             for (String s : arr) {
                 numbers.add(Integer.parseInt(s.trim()));
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return numbers;

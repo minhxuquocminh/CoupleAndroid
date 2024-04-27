@@ -36,46 +36,46 @@ public class ReferenceBridgeViewModel {
     }
 
     //
-    public void GetJackpotList(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, numberOfDays);
-        if (jackpotList.size() == 0) {
-            referenceBridgeView.ShowError("Lỗi không lấy được các cầu theo XS Đặc biệt!");
+    public void getJackpotList(int numberOfDays) {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
+        if (jackpotList.isEmpty()) {
+            referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt!");
         } else {
-            referenceBridgeView.ShowJackpotList(jackpotList);
+            referenceBridgeView.showJackpotList(jackpotList);
         }
     }
 
-    public void GetTouchBridge(List<Jackpot> jackpotList) {
+    public void getTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() >= 2) {
-            List<BSingle> touchList = BCoupleBridgeHandler.GetTouchBridge(jackpotList);
-            referenceBridgeView.ShowTouchBridge(touchList);
+            List<BSingle> touchList = BCoupleBridgeHandler.getTouchBridge(jackpotList);
+            referenceBridgeView.showTouchBridge(touchList);
         }
     }
 
-    public void GetSpecialTouchBridge(List<Jackpot> jackpotList) {
+    public void getSpecialTouchBridge(List<Jackpot> jackpotList) {
         if (jackpotList.size() >= 4) {
-            List<Integer> touchList = BCoupleBridgeHandler.GetSpecialTouchBridge(jackpotList);
-            referenceBridgeView.ShowSpecialTouchBridge(touchList);
+            List<Integer> touchList = BCoupleBridgeHandler.getSpecialTouchBridge(jackpotList);
+            referenceBridgeView.showSpecialTouchBridge(touchList);
         }
     }
 
-    public void GetTouchThirdClawBridge(List<Jackpot> jackpotList) {
-        List<BSingle> BSingleList = OtherBridgeHandler.GetTouchsByThirdClawBridge(jackpotList, 0);
-        referenceBridgeView.ShowTouchThirdClawBridge(BSingleList, jackpotList.size());
+    public void getTouchThirdClawBridge(List<Jackpot> jackpotList) {
+        List<BSingle> BSingleList = OtherBridgeHandler.getTouchsByThirdClawBridge(jackpotList, 0);
+        referenceBridgeView.showTouchThirdClawBridge(BSingleList, jackpotList.size());
     }
 
     //
-    public void GetJackpotListThisYear() {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
-        if (jackpotList.size() == 0) {
-            referenceBridgeView.ShowError("Lỗi không lấy được các cầu theo XS Đặc biệt năm nay!");
+    public void getJackpotListThisYear() {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
+        if (jackpotList.isEmpty()) {
+            referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt năm nay!");
         } else {
-            referenceBridgeView.ShowJackpotListThisYear(jackpotList);
+            referenceBridgeView.showJackpotListThisYear(jackpotList);
         }
     }
 
-    public void GetRareSameDoubleList(List<Jackpot> jackpotList) {
-        List<NearestTime> nearestTimeList = JackpotStatistics.GetSameDoubleInNearestTime(jackpotList);
+    public void getRareSameDoubleList(List<Jackpot> jackpotList) {
+        List<NearestTime> nearestTimeList = JackpotStatistics.getSameDoubleInNearestTime(jackpotList);
         List<NearestTime> subNearestTimeList = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nearestTimeList.size(); i++) {
@@ -86,11 +86,11 @@ public class ReferenceBridgeViewModel {
                 subNearestTimeList.add(nearestTimeList.get(i));
             }
         }
-        if (count <= 5) referenceBridgeView.ShowRareSameDoubleList(subNearestTimeList);
+        if (count <= 5) referenceBridgeView.showRareSameDoubleList(subNearestTimeList);
     }
 
-    public void GetCoupleDoNotAppearThisYear(List<Jackpot> jackpotList) {
-        int[] coupleCounting = JackpotStatistics.GetCoupleCounting(jackpotList, Const.MAX_ROW_COUNT_TABLE);
+    public void getCoupleDoNotAppearThisYear(List<Jackpot> jackpotList) {
+        int[] coupleCounting = JackpotStatistics.getCoupleCounting(jackpotList, Const.MAX_ROW_COUNT_TABLE);
         List<Integer> numbers = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
@@ -100,22 +100,22 @@ public class ReferenceBridgeViewModel {
             }
             if (count > 50) break;
         }
-        if (count <= 50) referenceBridgeView.ShowCoupleDoNotAppearThisYear(numbers);
+        if (count <= 50) referenceBridgeView.showCoupleDoNotAppearThisYear(numbers);
     }
 
     //
-    public void GetJackpotListLastYear() {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListByYear(context,
+    public void getJackpotListLastYear() {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListByYear(context,
                 TimeInfo.CURRENT_YEAR - 1);
-        if (jackpotList.size() == 0) {
-            referenceBridgeView.ShowError("Lỗi không lấy được các cầu theo XS Đặc biệt năm ngoái!");
+        if (jackpotList.isEmpty()) {
+            referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt năm ngoái!");
         } else {
-            referenceBridgeView.ShowJackpotListLastYear(jackpotList);
+            referenceBridgeView.showJackpotListLastYear(jackpotList);
         }
     }
 
-    public void GetRareCoupleLastYear(List<Jackpot> jackpotList) {
-        int[] coupleCounting = JackpotStatistics.GetCoupleCounting(jackpotList, Const.MAX_ROW_COUNT_TABLE);
+    public void getRareCoupleLastYear(List<Jackpot> jackpotList) {
+        int[] coupleCounting = JackpotStatistics.getCoupleCounting(jackpotList, Const.MAX_ROW_COUNT_TABLE);
         List<Integer> noAppearanceList = new ArrayList<>();
         List<Integer> oneAppearanceList = new ArrayList<>();
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
@@ -126,21 +126,21 @@ public class ReferenceBridgeViewModel {
                 oneAppearanceList.add(i);
             }
         }
-        referenceBridgeView.ShowRareCoupleLastYear(noAppearanceList, oneAppearanceList);
+        referenceBridgeView.showRareCoupleLastYear(noAppearanceList, oneAppearanceList);
     }
 
     //
-    public void GetLotteryList(int numberOfDays) {
+    public void getLotteryList(int numberOfDays) {
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
-        if (lotteryList.size() == 0) {
-            referenceBridgeView.ShowError("Lỗi không lấy được các cầu theo XSMB!");
+        if (lotteryList.isEmpty()) {
+            referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XSMB!");
         } else {
-            referenceBridgeView.ShowLotteryList(lotteryList);
+            referenceBridgeView.showLotteryList(lotteryList);
         }
     }
 
-    public void GetConnectedBridge(List<Lottery> lotteries) {
-        ConnectedBridge connectedBridge = ConnectedBridgeHandler.GetConnectedBridge(lotteries,
+    public void getConnectedBridge(List<Lottery> lotteries) {
+        ConnectedBridge connectedBridge = ConnectedBridgeHandler.getConnectedBridge(lotteries,
                 0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
         for (int i = 0; i < connectedBridge.getConnectedSupports().size(); i++) {
             for (int j = i + 1; j < connectedBridge.getConnectedSupports().size(); j++) {
@@ -150,17 +150,17 @@ public class ReferenceBridgeViewModel {
                 }
             }
         }
-        referenceBridgeView.ShowConnectedBridge(connectedBridge);
+        referenceBridgeView.showConnectedBridge(connectedBridge);
     }
 
-    public void GetTriadClawBridge(List<Lottery> lotteryList) {
-        List<ClawSupport> clawSupportList = ConnectedBridgeHandler.GetClawSupport(lotteryList,
+    public void getTriadClawBridge(List<Lottery> lotteryList) {
+        List<ClawSupport> clawSupportList = ConnectedBridgeHandler.getClawSupport(lotteryList,
                 0, 10, Const.CLAW_BRIDGE_MAX_DISPLAY, 3);
-        referenceBridgeView.ShowThirdClawBridge(clawSupportList);
+        referenceBridgeView.showThirdClawBridge(clawSupportList);
     }
 
-    public void GetTriadBridge(List<Lottery> lotteryList) {
-        List<TriadBridge> triadBridgeList = ConnectedBridgeHandler.GetTriadBridge(lotteryList,
+    public void getTriadBridge(List<Lottery> lotteryList) {
+        List<TriadBridge> triadBridgeList = ConnectedBridgeHandler.getTriadBridge(lotteryList,
                 0, Const.TRIAD_SET_BRIDGE_FINDING_DAYS, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
 
         List<Set> triadSetList = new ArrayList<>();
@@ -201,29 +201,29 @@ public class ReferenceBridgeViewModel {
             }
         }
 
-        referenceBridgeView.ShowTriadBridge(triadSetList, cancelSetList);
+        referenceBridgeView.showTriadBridge(triadSetList, cancelSetList);
 
     }
 
-    public void GetSignInLottery(Lottery lotteryToday) {
-        List<Integer> numberList = JackpotStatistics.GetSignInLottery(lotteryToday);
-        referenceBridgeView.ShowSignInLottery(numberList);
+    public void getSignInLottery(Lottery lotteryToday) {
+        List<Integer> numberList = JackpotStatistics.getSignInLottery(lotteryToday);
+        referenceBridgeView.showSignInLottery(numberList);
     }
 
     //
-    public void GetJackpotListInManyDays(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, numberOfDays);
-        if (jackpotList.size() > 0) {
+    public void getJackpotListInManyDays(int numberOfDays) {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
+        if (!jackpotList.isEmpty()) {
             if (jackpotList.size() < numberOfDays) {
-                referenceBridgeView.ShowError("Vui lòng nạp dữ liệu XS Đặc biệt nhiều năm để xem " +
+                referenceBridgeView.showMessage("Vui lòng nạp dữ liệu XS Đặc biệt nhiều năm để xem " +
                         "được nhiều thông tin hơn!");
             } else {
-                referenceBridgeView.ShowJackpotListInManyDays(jackpotList);
+                referenceBridgeView.showJackpotListInManyDays(jackpotList);
             }
         }
     }
 
-    public void GetNumberOfDaysBeforeSDB(List<Jackpot> jackpotList) {
+    public void getNumberOfDaysBeforeSDB(List<Jackpot> jackpotList) {
         int numberOfDays = 0;
         for (int i = 0; i < jackpotList.size(); i++) {
             numberOfDays++;
@@ -232,29 +232,29 @@ public class ReferenceBridgeViewModel {
             }
         }
         if (numberOfDays != 0) {
-            referenceBridgeView.ShowNumberOfDaysBeforeSDB(numberOfDays);
+            referenceBridgeView.showNumberOfDaysBeforeSDB(numberOfDays);
         }
     }
 
-    public void GetBeatOfSameDouble(List<Jackpot> jackpotList) {
-        List<Integer> beatList = JackpotStatistics.GetBeatOfSameDouble(jackpotList);
-        referenceBridgeView.ShowBeatOfSameDouble(beatList);
+    public void getBeatOfSameDouble(List<Jackpot> jackpotList) {
+        List<Integer> beatList = JackpotStatistics.getBeatOfSameDouble(jackpotList);
+        referenceBridgeView.showBeatOfSameDouble(beatList);
     }
 
-    public void GetSignInJackpot(List<Jackpot> jackpotList) {
-        List<JackpotSign> jackpotSignList = JackpotStatistics.GetSignInJackpot(jackpotList);
-        referenceBridgeView.ShowSignInJackpot(jackpotSignList);
+    public void getSignInJackpot(List<Jackpot> jackpotList) {
+        List<JackpotSign> jackpotSignList = JackpotStatistics.getSignInJackpot(jackpotList);
+        referenceBridgeView.showSignInJackpot(jackpotSignList);
     }
 
-    public void GetNumberBeforeSameDoubleAppear(List<Jackpot> jackpotList) {
-        List<NumberDouble> numberDoubleList = JackpotStatistics.GetNumberBeforeSameDoubleAppear(jackpotList);
-        referenceBridgeView.ShowNumberBeforeSameDoubleAppear(numberDoubleList);
+    public void getNumberBeforeSameDoubleAppear(List<Jackpot> jackpotList) {
+        List<NumberDouble> numberDoubleList = JackpotStatistics.getNumberBeforeSameDoubleAppear(jackpotList);
+        referenceBridgeView.showNumberBeforeSameDoubleAppear(numberDoubleList);
     }
 
-    public void GetHeadForALongTime(List<Jackpot> jackpotList) {
-        int runningDayNumber = jackpotList.size() < 150 ? jackpotList.size() : 150;
+    public void getHeadForALongTime(List<Jackpot> jackpotList) {
+        int runningDayNumber = Math.min(jackpotList.size(), 150);
         List<NearestTime> nearestTimeList = JackpotStatistics
-                .GetHeadAndTailInNearestTime(jackpotList.subList(0, runningDayNumber - 1));
+                .getHeadAndTailInNearestTime(jackpotList.subList(0, runningDayNumber - 1));
         List<NearestTime> subNearestTimeList = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nearestTimeList.size(); i++) {
@@ -264,13 +264,13 @@ public class ReferenceBridgeViewModel {
             }
             if (count > 2) break;
         }
-        referenceBridgeView.ShowHeadForALongTime(runningDayNumber, subNearestTimeList);
+        referenceBridgeView.showHeadForALongTime(runningDayNumber, subNearestTimeList);
     }
 
-    public void GetTailForALongTime(List<Jackpot> jackpotList) {
-        int runningDayNumber = jackpotList.size() < 150 ? jackpotList.size() : 150;
+    public void getTailForALongTime(List<Jackpot> jackpotList) {
+        int runningDayNumber = Math.min(jackpotList.size(), 150);
         List<NearestTime> nearestTimeList = JackpotStatistics
-                .GetHeadAndTailInNearestTime(jackpotList.subList(0, runningDayNumber - 1));
+                .getHeadAndTailInNearestTime(jackpotList.subList(0, runningDayNumber - 1));
         List<NearestTime> subNearestTimeList = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < nearestTimeList.size(); i++) {
@@ -280,20 +280,20 @@ public class ReferenceBridgeViewModel {
             }
             if (count > 2) break;
         }
-        referenceBridgeView.ShowTailForALongTime(runningDayNumber, subNearestTimeList);
+        referenceBridgeView.showTailForALongTime(runningDayNumber, subNearestTimeList);
     }
 
-    public void GetHeadAndTailFromPreviousDaySHead(List<Jackpot> jackpotList, int head) {
-        int runningDayNumber = jackpotList.size() < 150 ? jackpotList.size() : 150;
-        HeadTail headTail = JackpotStatistics.GetHeadAndTaiFromPreviousDaySCouple(jackpotList.subList(0,
+    public void getHeadAndTailFromPreviousDaySHead(List<Jackpot> jackpotList, int head) {
+        int runningDayNumber = Math.min(jackpotList.size(), 150);
+        HeadTail headTail = JackpotStatistics.getHeadAndTaiFromPreviousDaySCouple(jackpotList.subList(0,
                 runningDayNumber - 1), head, 1);
-        referenceBridgeView.ShowHeadAndTaiFromPreviousDaySHead(runningDayNumber, head, headTail);
+        referenceBridgeView.showHeadAndTaiFromPreviousDaySHead(runningDayNumber, head, headTail);
     }
 
-    public void GetHeadAndTailFromPreviousDaySTail(List<Jackpot> jackpotList, int tail) {
-        int runningDayNumber = jackpotList.size() < 150 ? jackpotList.size() : 150;
-        HeadTail headTail = JackpotStatistics.GetHeadAndTaiFromPreviousDaySCouple(jackpotList.subList(0,
+    public void getHeadAndTailFromPreviousDaySTail(List<Jackpot> jackpotList, int tail) {
+        int runningDayNumber = Math.min(jackpotList.size(), 150);
+        HeadTail headTail = JackpotStatistics.getHeadAndTaiFromPreviousDaySCouple(jackpotList.subList(0,
                 runningDayNumber - 1), tail, 2);
-        referenceBridgeView.ShowHeadAndTaiFromPreviousDaySTail(runningDayNumber, tail, headTail);
+        referenceBridgeView.showHeadAndTaiFromPreviousDaySTail(runningDayNumber, tail, headTail);
     }
 }

@@ -19,7 +19,7 @@ import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.ClawSupport;
 import com.example.couple.R;
-import com.example.couple.View.Couple.BanlanceCoupleActivity;
+import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
 import com.example.couple.ViewModel.Bridge.ReferenceBridgeViewModel;
 
@@ -87,17 +87,17 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
 
         viewModel = new ReferenceBridgeViewModel(this, this);
 
-        viewModel.GetJackpotList(365);
-        viewModel.GetJackpotListThisYear();
-        viewModel.GetJackpotListLastYear();
-        viewModel.GetLotteryList(22);
-        viewModel.GetJackpotListInManyDays(150);
+        viewModel.getJackpotList(365);
+        viewModel.getJackpotListThisYear();
+        viewModel.getJackpotListLastYear();
+        viewModel.getLotteryList(22);
+        viewModel.getJackpotListInManyDays(150);
 
         tvViewBalanceCouple.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ReferenceBridgeActivity.this,
-                        BanlanceCoupleActivity.class));
+                        BalanceCoupleActivity.class));
             }
         });
 
@@ -129,21 +129,21 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowJackpotList(List<Jackpot> jackpotList) {
+    public void showJackpotList(List<Jackpot> jackpotList) {
         tvJackpotToday.setText("Xổ số Đặc Biệt hôm nay về: " + jackpotList.get(0).getJackpot());
         tvLastJackpot.setText("Xổ số Đ.Biệt ngày trước đó: " + jackpotList.get(1).getJackpot());
-        viewModel.GetTouchBridge(jackpotList);
-        viewModel.GetSpecialTouchBridge(jackpotList);
-        viewModel.GetTouchThirdClawBridge(jackpotList);
+        viewModel.getTouchBridge(jackpotList);
+        viewModel.getSpecialTouchBridge(jackpotList);
+        viewModel.getTouchThirdClawBridge(jackpotList);
     }
 
     @Override
-    public void ShowTouchBridge(List<BSingle> touchList) {
+    public void showTouchBridge(List<BSingle> touchList) {
         String touchBridge = "Từ bộ số CB lấy các chạm: ";
         for (int i = 0; i < touchList.size(); i++) {
             touchBridge += touchList.get(i).showTouchBalanceCouple();
@@ -155,7 +155,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowSpecialTouchBridge(List<Integer> touchList) {
+    public void showSpecialTouchBridge(List<Integer> touchList) {
         String touchBridge = "Các chạm đặc biệt từ BSCB: ";
         for (int i = 0; i < touchList.size(); i++) {
             touchBridge += touchList.get(i);
@@ -167,7 +167,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowTouchThirdClawBridge(List<BSingle> BSingleList, int frame) {
+    public void showTouchThirdClawBridge(List<BSingle> BSingleList, int frame) {
         String show = "Cầu càng 3 giải ĐB (khung " + frame + " ngày): ";
         for (int i = 0; i < BSingleList.size(); i++) {
             show += BSingleList.get(i).show();
@@ -179,13 +179,13 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowJackpotListThisYear(List<Jackpot> jackpotList) {
-        viewModel.GetRareSameDoubleList(jackpotList);
-        viewModel.GetCoupleDoNotAppearThisYear(jackpotList);
+    public void showJackpotListThisYear(List<Jackpot> jackpotList) {
+        viewModel.getRareSameDoubleList(jackpotList);
+        viewModel.getCoupleDoNotAppearThisYear(jackpotList);
     }
 
     @Override
-    public void ShowRareSameDoubleList(List<NearestTime> subNearestTimeList) {
+    public void showRareSameDoubleList(List<NearestTime> subNearestTimeList) {
         String show = "Kép bằng ít về trong năm nay: ";
         for (int i = 0; i < subNearestTimeList.size(); i++) {
             show += "\n - Kép " + subNearestTimeList.get(i).show();
@@ -197,7 +197,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowCoupleDoNotAppearThisYear(List<Integer> numbers) {
+    public void showCoupleDoNotAppearThisYear(List<Integer> numbers) {
         String show = "Các số chưa về trong năm nay: ";
         for (int i = 0; i < numbers.size(); i++) {
             show += numbers.get(i);
@@ -209,12 +209,12 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowJackpotListLastYear(List<Jackpot> jackpotList) {
-        viewModel.GetRareCoupleLastYear(jackpotList);
+    public void showJackpotListLastYear(List<Jackpot> jackpotList) {
+        viewModel.getRareCoupleLastYear(jackpotList);
     }
 
     @Override
-    public void ShowRareCoupleLastYear(List<Integer> noAppearanceList, List<Integer> oneAppearanceList) {
+    public void showRareCoupleLastYear(List<Integer> noAppearanceList, List<Integer> oneAppearanceList) {
         String show = "Các số ít về vào năm ngoái: ";
         show += "\n - Các số không về lần nào: ";
         for (int i = 0; i < noAppearanceList.size(); i++) {
@@ -234,15 +234,15 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowLotteryList(List<Lottery> lotteryList) {
-        viewModel.GetConnectedBridge(lotteryList);
-        viewModel.GetTriadClawBridge(lotteryList);
-        viewModel.GetTriadBridge(lotteryList); // bao gồm triad và cancel triad bridge
-        viewModel.GetSignInLottery(lotteryList.get(0));
+    public void showLotteryList(List<Lottery> lotteryList) {
+        viewModel.getConnectedBridge(lotteryList);
+        viewModel.getTriadClawBridge(lotteryList);
+        viewModel.getTriadBridge(lotteryList); // bao gồm triad và cancel triad bridge
+        viewModel.getSignInLottery(lotteryList.get(0));
     }
 
     @Override
-    public void ShowConnectedBridge(ConnectedBridge connectedBridge) {
+    public void showConnectedBridge(ConnectedBridge connectedBridge) {
         String show = "Cầu liên thông (*): ";
         for (int i = 0; i < connectedBridge.getConnectedSupports().size(); i++) {
             show += connectedBridge.getConnectedSupports().get(i).showShort();
@@ -254,7 +254,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowThirdClawBridge(List<ClawSupport> clawSupportList) {
+    public void showThirdClawBridge(List<ClawSupport> clawSupportList) {
         String show = "Cầu càng 3 (*): ";
         for (int i = 0; i < clawSupportList.size(); i++) {
             if (clawSupportList.get(i).getConnectedBeat() > 0) {
@@ -268,7 +268,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowTriadBridge(List<Set> triadSetList, List<Set> cancelSetList) {
+    public void showTriadBridge(List<Set> triadSetList, List<Set> cancelSetList) {
         String show = "Cầu bộ 3 (*): ";
         for (int i = 0; i < triadSetList.size(); i++) {
             show += triadSetList.get(i).show();
@@ -278,7 +278,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
         }
         tvTriadBridge.setText(show);
         show = "Cầu bộ 3 về hơn 6 lần (*): ";
-        if (cancelSetList.size() > 0) {
+        if (!cancelSetList.isEmpty()) {
             for (int i = 0; i < cancelSetList.size(); i++) {
                 show += cancelSetList.get(i).show();
                 if (i != cancelSetList.size() - 1) {
@@ -290,7 +290,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowSignInLottery(List<Integer> numberList) {
+    public void showSignInLottery(List<Integer> numberList) {
         String signInLottery = "Dấu hiệu trong XSMB: ";
         for (int i = 0; i < numberList.size(); i++) {
             signInLottery += numberList.get(i) + "";
@@ -303,25 +303,25 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowJackpotListInManyDays(List<Jackpot> jackpotList) {
-        viewModel.GetNumberOfDaysBeforeSDB(jackpotList);
-        viewModel.GetBeatOfSameDouble(jackpotList);
-        viewModel.GetSignInJackpot(jackpotList);
-        viewModel.GetNumberBeforeSameDoubleAppear(jackpotList);
-        viewModel.GetHeadForALongTime(jackpotList);
-        viewModel.GetTailForALongTime(jackpotList);
-        viewModel.GetHeadAndTailFromPreviousDaySHead(jackpotList, jackpotList.get(0).getCouple().getFirst());
-        viewModel.GetHeadAndTailFromPreviousDaySTail(jackpotList, jackpotList.get(0).getCouple().getSecond());
+    public void showJackpotListInManyDays(List<Jackpot> jackpotList) {
+        viewModel.getNumberOfDaysBeforeSDB(jackpotList);
+        viewModel.getBeatOfSameDouble(jackpotList);
+        viewModel.getSignInJackpot(jackpotList);
+        viewModel.getNumberBeforeSameDoubleAppear(jackpotList);
+        viewModel.getHeadForALongTime(jackpotList);
+        viewModel.getTailForALongTime(jackpotList);
+        viewModel.getHeadAndTailFromPreviousDaySHead(jackpotList, jackpotList.get(0).getCouple().getFirst());
+        viewModel.getHeadAndTailFromPreviousDaySTail(jackpotList, jackpotList.get(0).getCouple().getSecond());
     }
 
     @Override
-    public void ShowNumberOfDaysBeforeSDB(int numberOfDays) {
+    public void showNumberOfDaysBeforeSDB(int numberOfDays) {
         String sameDoubleTitle = "Cầu kép bằng (" + numberOfDays + " ngày trở lại)";
         tvSameDoubleTitle.setText(sameDoubleTitle);
     }
 
     @Override
-    public void ShowBeatOfSameDouble(List<Integer> beatList) {
+    public void showBeatOfSameDouble(List<Integer> beatList) {
         String beatOfSameDouble = "Nhịp của kép bằng: ";
         for (int i = 0; i < beatList.size(); i++) {
             beatOfSameDouble += beatList.get(i) + "";
@@ -333,7 +333,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowSignInJackpot(List<JackpotSign> jackpotSignList) {
+    public void showSignInJackpot(List<JackpotSign> jackpotSignList) {
         String signInJackpot = "Dấu hiệu trong giải ĐB: ";
         for (int i = 0; i < jackpotSignList.size(); i++) {
             signInJackpot += "\n - " + jackpotSignList.get(i).show();
@@ -345,7 +345,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowNumberBeforeSameDoubleAppear(List<NumberDouble> numberDoubleList) {
+    public void showNumberBeforeSameDoubleAppear(List<NumberDouble> numberDoubleList) {
         String show = "Các số đề trước khi về kép: ";
         for (int i = 0; i < numberDoubleList.size(); i++) {
             show += "\n - " + numberDoubleList.get(i).show() + "";
@@ -357,7 +357,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowHeadForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList) {
+    public void showHeadForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList) {
         String show = "Trong vòng " + runningDayNumber + " ngày: ";
         for (int i = 0; i < subNearestTimeList.size(); i++) {
             show += "\n - Đầu " + subNearestTimeList.get(i).show();
@@ -369,7 +369,7 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowTailForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList) {
+    public void showTailForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList) {
         String show = "Trong vòng " + runningDayNumber + " ngày: ";
         for (int i = 0; i < subNearestTimeList.size(); i++) {
             show += "\n - Đuôi " + subNearestTimeList.get(i).show();
@@ -381,14 +381,14 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     }
 
     @Override
-    public void ShowHeadAndTaiFromPreviousDaySHead(int runningDayNumber, int head, HeadTail headTail) {
+    public void showHeadAndTaiFromPreviousDaySHead(int runningDayNumber, int head, HeadTail headTail) {
         String show = "Trong " + runningDayNumber + " ngày, đầu " + head + " thường về:";
         show += headTail.show();
         tvHead.setText(show);
     }
 
     @Override
-    public void ShowHeadAndTaiFromPreviousDaySTail(int runningDayNumber, int tail, HeadTail headTail) {
+    public void showHeadAndTaiFromPreviousDaySTail(int runningDayNumber, int tail, HeadTail headTail) {
         String show = "Trong " + runningDayNumber + " ngày, đuôi " + tail + " thường về:";
         show += headTail.show();
         tvTail.setText(show);

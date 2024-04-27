@@ -6,11 +6,11 @@ import com.example.couple.Model.Origin.Jackpot;
 import java.util.List;
 
 public interface JackpotThisYearView {
-    void ShowError(String message);
-    void ShowReserveJackpotListThisYear(List<Jackpot> jackpotList);
-    void ShowSameDoubleAndDayNumberTotal(int sameDoubleTotal, int numberOfDaysTotal);
-    void ShowSameDoubleInNearestTime(List<NearestTime> nearestTimeList);
-    void ShowHeadAndTailInNearestTime(List<NearestTime> nearestTimeList);
+    void showMessage(String message);
+    void showReserveJackpotListThisYear(List<Jackpot> jackpotList);
+    void showSameDoubleAndDayNumberTotal(int sameDoubleTotal, int numberOfDaysTotal);
+    void showSameDoubleInNearestTime(List<NearestTime> nearestTimeList);
+    void showHeadAndTailInNearestTime(List<NearestTime> nearestTimeList);
 
 
 }

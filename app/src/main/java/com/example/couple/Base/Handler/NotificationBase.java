@@ -44,7 +44,8 @@ public class NotificationBase {
     private static NotificationCompat.Builder getChannelNotification(Context context, String title, String content) {
         Intent notificationIntent = new Intent(context, MainActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
+                0, notificationIntent, PendingIntent.FLAG_MUTABLE);
         return new NotificationCompat.Builder(context, channelID)
                 .setContentTitle(title)
                 .setContentText(content)

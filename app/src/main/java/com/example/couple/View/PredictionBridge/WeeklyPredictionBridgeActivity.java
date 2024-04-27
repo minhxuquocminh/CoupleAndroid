@@ -139,9 +139,9 @@ public class WeeklyPredictionBridgeActivity extends AppCompatActivity implements
                 String adds = edtAdds.getText().toString().trim();
                 String removes = edtRemoves.getText().toString().trim();
                 String info = edtInfo.getText().toString().trim();
-                boolean checkEmpty = name.equals("") || time.equals("") || (sets.equals("")
-                        && sums.equals("") && touchs.equals("") && heads.equals("")
-                        && tails.equals("") && adds.equals(""));
+                boolean checkEmpty = name.isEmpty() || time.isEmpty() || (sets.isEmpty()
+                        && sums.isEmpty() && touchs.isEmpty() && heads.isEmpty()
+                        && tails.isEmpty() && adds.isEmpty());
                 if (checkEmpty) {
                     Toast.makeText(WeeklyPredictionBridgeActivity.this,
                             "Vui lòng nhập đầy đủ các trường cần thiết !", Toast.LENGTH_SHORT).show();
@@ -167,8 +167,8 @@ public class WeeklyPredictionBridgeActivity extends AppCompatActivity implements
                         Toast.makeText(WeeklyPredictionBridgeActivity.this,
                                 "Vui lòng nhập đúng định dạng của các số !", Toast.LENGTH_SHORT).show();
                     } else {
-                        int runsInt = runs.equals("") ? -1 : Integer.parseInt(runs);
-                        int lostsInt = losts.equals("") ? -1 : Integer.parseInt(losts);
+                        int runsInt = runs.isEmpty() ? -1 : Integer.parseInt(runs);
+                        int lostsInt = losts.isEmpty() ? -1 : Integer.parseInt(losts);
                         String setsStr = NumberBase.showNumbers(setList, " ");
                         String sumsStr = NumberBase.showNumbers(sumList, " ");
                         String touchsStr = NumberBase.showNumbers(touchList, " ");
@@ -203,11 +203,11 @@ public class WeeklyPredictionBridgeActivity extends AppCompatActivity implements
     }
 
     private boolean checkEmptyListFromStringHaveData(String data, List<Integer> numbers) {
-        return !data.trim().equals("") && numbers.isEmpty();
+        return !data.trim().isEmpty() && numbers.isEmpty();
     }
 
     private void setCheckbox(String checkboxList) {
-        if (checkboxList.equals("")) return;
+        if (checkboxList.isEmpty()) return;
         if (checkboxList.equals("all")) {
             cboSelectAll.setChecked(true);
             for (int i = 1; i <= 7; i++) {
@@ -255,7 +255,7 @@ public class WeeklyPredictionBridgeActivity extends AppCompatActivity implements
             rs += "CN-";
             count++;
         }
-        if (!rs.equals("")) {
+        if (!rs.isEmpty()) {
             rs = rs.substring(0, rs.length() - 1);
         }
         return count == 7 ? "all" : rs;
@@ -306,18 +306,18 @@ public class WeeklyPredictionBridgeActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void UpdatePredictionBridgeSuccess() {
+    public void updatePredictionBridgeSuccess() {
         setResult(RESULT_OK);
         finish();
     }
 
     @Override
-    public void AddPredictionBridgeSuccess() {
+    public void addPredictionBridgeSuccess() {
         setResult(RESULT_OK);
         finish();
     }

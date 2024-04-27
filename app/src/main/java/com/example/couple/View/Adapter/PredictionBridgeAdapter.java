@@ -1,5 +1,6 @@
 package com.example.couple.View.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Base.Handler.FirebaseBase;
@@ -20,7 +22,6 @@ import com.example.couple.R;
 import com.example.couple.View.PredictionBridge.MonthlyPredictionBridgeActivity;
 import com.example.couple.View.PredictionBridge.WeeklyPredictionBridgeActivity;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class PredictionBridgeAdapter extends
@@ -35,7 +36,7 @@ public class PredictionBridgeAdapter extends
         this.layout = layout;
     }
 
-    public class PredictionBridgeViewHolder extends RecyclerView.ViewHolder {
+    public static class PredictionBridgeViewHolder extends RecyclerView.ViewHolder {
         TextView tvTimeName;
         TextView tvUpdatedDayNumber;
         TextView tvNumbers;
@@ -51,19 +52,16 @@ public class PredictionBridgeAdapter extends
         }
     }
 
+    @NonNull
     @Override
-    public PredictionBridgeAdapter.PredictionBridgeViewHolder
-    onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PredictionBridgeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(layout, parent, false);
-
-        PredictionBridgeAdapter.PredictionBridgeViewHolder viewHolder =
-                new PredictionBridgeAdapter.PredictionBridgeViewHolder(view);
-
-        return viewHolder;
+        return new PredictionBridgeViewHolder(view);
     }
 
+    @SuppressLint({"RecyclerView", "NotifyDataSetChanged"})
     @Override
     public void onBindViewHolder(PredictionBridgeAdapter.PredictionBridgeViewHolder holder, int position) {
         Prediction pb = predictionList.get(position);
@@ -71,9 +69,9 @@ public class PredictionBridgeAdapter extends
         holder.tvUpdatedDayNumber.setText(pb.getLastUpdate().countUp() + " ngày");
         String numbersStr = "";
         String triadsStr = pb.getTriads();
-        numbersStr = triadsStr.equals("") ? "" : "(Càng: ";
+        numbersStr = triadsStr.isEmpty() ? "" : "(Càng: ";
         numbersStr += triadsStr;
-        numbersStr += triadsStr.equals("") ? "" : ") ";
+        numbersStr += triadsStr.isEmpty() ? "" : ") ";
         numbersStr += pb.getNumberArray().getNumbers();
         holder.tvNumbers.setText(numbersStr);
         String finalNumbersStr = numbersStr;
@@ -123,7 +121,6 @@ public class PredictionBridgeAdapter extends
                                 } else {
                                     Toast.makeText(context, "Bạn đang offline.", Toast.LENGTH_SHORT).show();
                                 }
-
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)

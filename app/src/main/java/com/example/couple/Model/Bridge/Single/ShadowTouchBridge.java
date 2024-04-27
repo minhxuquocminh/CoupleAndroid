@@ -29,7 +29,7 @@ public class ShadowTouchBridge extends Bridge {
     }
 
     public boolean isEmpty() {
-        return bridgeName.equals("") || touchs.isEmpty();
+        return bridgeName.isEmpty() || touchs.isEmpty();
     }
 
     @Override

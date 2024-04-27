@@ -9,7 +9,7 @@ import android.content.Intent;
 import java.util.Calendar;
 
 public class AlarmBase {
-    @SuppressLint("NewApi")
+    @SuppressLint({"NewApi", "ScheduleExactAlarm"})
     public static void startAlarmEveryDay(Context context, Class<?> receiverClass, int REQUEST_CODE,
                                           int hour, int minute, int second) {
         Calendar calendar = Calendar.getInstance();
@@ -19,7 +19,7 @@ public class AlarmBase {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, receiverClass);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent,
-                PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_MUTABLE);
 
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1);

@@ -29,7 +29,7 @@ public class ShadowSingle {
         }
         for (int i = 0; i < shadowCouples.size(); i++) {
             for (int j = i + 1; j < shadowCouples.size(); j++) {
-                if (shadowCouples.get(i).getNumber() == shadowCouples.get(j).getNumber()) {
+                if (shadowCouples.get(i).getNumber().equals(shadowCouples.get(j).getNumber())) {
                     shadowCouples.remove(j);
                     j--;
                 }
@@ -55,7 +55,7 @@ public class ShadowSingle {
 
         for (int i = 0; i < results.size(); i++) {
             for (int j = i + 1; j < results.size(); j++) {
-                if (results.get(i).getNumber() == results.get(j).getNumber()) {
+                if (results.get(i).getNumber().equals(results.get(j).getNumber())) {
                     results.remove(j);
                     j--;
                 }

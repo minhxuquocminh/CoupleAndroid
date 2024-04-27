@@ -39,71 +39,71 @@ public class SelectiveBridgeViewModel {
         this.context = context;
     }
 
-    public void GetAllData() {
+    public void getAllData() {
         TimeBase nextDay = TimeHandler.getTimeBaseNextDay(context);
-        List<Jackpot> allJackpotList = JackpotHandler.GetAllReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
-        List<Jackpot> jackpotList = JackpotHandler.GetReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
-        if (jackpotList.size() == 0) {
-            view.ShowError("Lỗi không lấy được thông tin XS Đặc biệt!");
+        List<Jackpot> allJackpotList = JackpotHandler.getAllReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+        if (jackpotList.isEmpty()) {
+            view.showMessage("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {
-            view.ShowNextDayTimeAndJackpotList(nextDay, allJackpotList, jackpotList);
+            view.showNextDayTimeAndJackpotList(nextDay, allJackpotList, jackpotList);
         }
 
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        if (lotteries.size() == 0) {
-            view.ShowError("Lỗi không lấy được thông tin XSMB!");
+        if (lotteries.isEmpty()) {
+            view.showMessage("Lỗi không lấy được thông tin XSMB!");
         } else {
-            view.ShowLotteryList(lotteries);
+            view.showLotteryList(lotteries);
         }
     }
 
-    public void GetAfterDoubleBridge(List<Jackpot> jackpotList) {
-        List<AfterDoubleBridge> bridges = BCoupleBridgeHandler.GetAfterDoubleBridges(jackpotList);
-        view.ShowAfterDoubleBridge(bridges);
+    public void getAfterDoubleBridge(List<Jackpot> jackpotList) {
+        List<AfterDoubleBridge> bridges = BCoupleBridgeHandler.getAfterDoubleBridges(jackpotList);
+        view.showAfterDoubleBridge(bridges);
     }
 
-    public void GetLongBeatBridge(List<Jackpot> jackpotList) {
-        List<SpecialSetHistory> histories = HistoryHandler.GetCompactSpecialSetsHistory(jackpotList);
-        view.ShowLongBeatBridge(histories);
+    public void getLongBeatBridge(List<Jackpot> jackpotList) {
+        List<SpecialSetHistory> histories = HistoryHandler.getCompactSpecialSetsHistory(jackpotList);
+        view.showLongBeatBridge(histories);
     }
 
-    public void GetBranchInTwoDaysBridge(List<Jackpot> jackpotList) {
-        BranchInTwoDaysBridge bridge = CycleBridgeHandler.GetBranchInTwoDaysBridge(jackpotList,
+    public void getBranchInTwoDaysBridge(List<Jackpot> jackpotList) {
+        BranchInTwoDaysBridge bridge = CycleBridgeHandler.getBranchInTwoDaysBridge(jackpotList,
                 0);
-        view.ShowBranchInTwoDaysBridge(bridge);
+        view.showBranchInTwoDaysBridge(bridge);
     }
 
-    public void GetConnectedTouchs(List<Lottery> lotteries) {
-        ConnectedBridge bridge = ConnectedBridgeHandler.GetConnectedBridge(lotteries,
+    public void getConnectedTouchs(List<Lottery> lotteries) {
+        ConnectedBridge bridge = ConnectedBridgeHandler.getConnectedBridge(lotteries,
                 0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-        view.ShowConnectedTouchs(bridge.getTouchs());
+        view.showConnectedTouchs(bridge.getTouchs());
     }
 
-    public void GetShadowTouchs(List<Jackpot> jackpotList) {
-        ShadowTouchBridge bridge = TouchBridgeHandler.GetShadowTouchBridge(jackpotList, 0);
-        view.ShowShadowTouchs(bridge.getTouchs());
+    public void getShadowTouchs(List<Jackpot> jackpotList) {
+        ShadowTouchBridge bridge = TouchBridgeHandler.getShadowTouchBridge(jackpotList, 0);
+        view.showShadowTouchs(bridge.getTouchs());
     }
 
-    public void GetSignOfDouble(List<Jackpot> jackpotList) {
-        SignOfDouble sign = OtherBridgeHandler.GetSignOfDouble(jackpotList, 0);
-        view.ShowSignOfDouble(sign);
+    public void getSignOfDouble(List<Jackpot> jackpotList) {
+        SignOfDouble sign = OtherBridgeHandler.getSignOfDouble(jackpotList, 0);
+        view.showSignOfDouble(sign);
     }
 
-    public void GetBranchInDayBridge(List<Jackpot> allJackpotList, Branch nextDayBranch) {
-        BranchInDayBridge bridge = CycleBridgeHandler.GetBranchInDayBridges(allJackpotList, nextDayBranch);
-        view.ShowBranchInDayBridge(bridge);
+    public void getBranchInDayBridge(List<Jackpot> allJackpotList, Branch nextDayBranch) {
+        BranchInDayBridge bridge = CycleBridgeHandler.getBranchInDayBridges(allJackpotList, nextDayBranch);
+        view.showBranchInDayBridge(bridge);
     }
 
-    public void GetConnectedSetBridge(List<Lottery> lotteries) {
-        ConnectedSetBridge bridge = ConnectedBridgeHandler.GetConnectedSetBridge(lotteries,
+    public void getConnectedSetBridge(List<Lottery> lotteries) {
+        ConnectedSetBridge bridge = ConnectedBridgeHandler.getConnectedSetBridge(lotteries,
                 0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-        view.ShowConnectedSetBridge(bridge);
+        view.showConnectedSetBridge(bridge);
     }
 
-    public void GetTriadSetBridge(List<Lottery> lotteries) {
-        List<TriadBridge> bridges = ConnectedBridgeHandler.GetTriadBridge(lotteries,
+    public void getTriadSetBridge(List<Lottery> lotteries) {
+        List<TriadBridge> bridges = ConnectedBridgeHandler.getTriadBridge(lotteries,
                 0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-        view.ShowTriadSetBridge(bridges);
+        view.showTriadSetBridge(bridges);
 
     }
 

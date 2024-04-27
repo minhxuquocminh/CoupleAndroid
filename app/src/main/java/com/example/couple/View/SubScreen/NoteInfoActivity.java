@@ -33,7 +33,7 @@ public class NoteInfoActivity extends AppCompatActivity implements NoteInfoView 
             @Override
             public void onClick(View v) {
                 String note = edtNote.getText().toString().trim();
-                viewModel.AddNote(note);
+                viewModel.addNote(note);
             }
         });
 
@@ -46,14 +46,14 @@ public class NoteInfoActivity extends AppCompatActivity implements NoteInfoView 
     }
 
     @Override
-    public void AddNoteSuccess(String message) {
+    public void addNoteSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish();
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

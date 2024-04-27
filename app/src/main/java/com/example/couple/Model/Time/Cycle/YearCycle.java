@@ -1,10 +1,6 @@
 package com.example.couple.Model.Time.Cycle;
 
-import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.Getter;
 

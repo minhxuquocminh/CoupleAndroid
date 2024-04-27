@@ -41,7 +41,7 @@ public class JackpotAllYearActivity extends AppCompatActivity implements Jackpot
 
         viewModel = new JackpotAllYearViewModel(this, this);
 
-        viewModel.GetAllStatistics("", "");
+        viewModel.getAllStatistics("", "");
 
         tvView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,19 +49,19 @@ public class JackpotAllYearActivity extends AppCompatActivity implements Jackpot
                 WidgetBase.hideKeyboard(JackpotAllYearActivity.this);
                 String yearNumberBalanceCouple = edtYearNumberBalanceCouple.getText().toString().trim();
                 String yearNumberDoubleSame = edtYearNumberSDB.getText().toString().trim();
-                viewModel.GetAllStatistics(yearNumberBalanceCouple, yearNumberDoubleSame);
+                viewModel.getAllStatistics(yearNumberBalanceCouple, yearNumberDoubleSame);
             }
         });
 
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowSameDoubleCountingManyYears(int[][] matrixSDB, int m, int n, int startYear, int[] dayNumberArr) {
+    public void showSameDoubleCountingManyYears(int[][] matrixSDB, int m, int n, int startYear, int[] dayNumberArr) {
         TableLayout tableLayout = CustomTableLayout.getCountSameDoubleTableLayout(this,
                 matrixSDB, m, n, startYear, dayNumberArr);
         linearSDB.removeAllViews();
@@ -69,7 +69,7 @@ public class JackpotAllYearActivity extends AppCompatActivity implements Jackpot
     }
 
     @Override
-    public void ShowRequestLoadMoreData(int startYear_file, int endYear_file) {
+    public void showRequestLoadMoreData(int startYear_file, int endYear_file) {
         new AlertDialog.Builder(this)
                 .setTitle("Cập nhật XS Đặc biệt?")
                 .setMessage("Dữ liệu hiện có từ năm " + startYear_file + " đến năm " + endYear_file +

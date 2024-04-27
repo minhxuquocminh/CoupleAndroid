@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Model.Origin.Lottery;
@@ -24,7 +25,7 @@ public class LotteryAdapter extends RecyclerView.Adapter<LotteryAdapter.LotteryV
         this.layout = layout;
     }
 
-    public class LotteryViewHolder extends RecyclerView.ViewHolder {
+    public static class LotteryViewHolder extends RecyclerView.ViewHolder {
         TextView tvDate;
         TextView tvCharacters;
         TextView tvJackpots;
@@ -91,14 +92,12 @@ public class LotteryAdapter extends RecyclerView.Adapter<LotteryAdapter.LotteryV
         }
     }
 
+    @NonNull
     @Override
-    public LotteryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LotteryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(layout, parent, false);
-
-        LotteryViewHolder lotteryViewHolder = new LotteryViewHolder(view);
-
-        return lotteryViewHolder;
+        return new LotteryViewHolder(view);
     }
 
     @Override

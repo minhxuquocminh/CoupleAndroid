@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -20,14 +21,16 @@
         <receiver
             android:name=".Custom.Handler.Notification.UpdateDataAlarm"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver" />
 
         <activity
             android:name=".View.Main.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            tools:ignore="Instantiatable">
+            tools:ignore="DiscouragedApi,Instantiatable">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,7 +54,7 @@
 
         <activity android:name=".View.PredictionBridge.MonthlyPredictionBridgeActivity" />
 
-        <activity android:name=".View.Couple.BanlanceCoupleActivity" />
+        <activity android:name=".View.Couple.BalanceCoupleActivity" />
 
         <activity android:name=".View.Couple.CoupleByWeekActivity" />
 

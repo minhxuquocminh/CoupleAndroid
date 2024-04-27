@@ -18,15 +18,15 @@ public class SignInViewModel {
         this.signInView = signInView;
     }
 
-    public void SignIn(String username, String password) {
+    public void signIn(String username, String password) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            signInView.SignInSuccess();
+                            signInView.signInSuccess();
                         } else {
-                            signInView.ShowError("Bạn đã nhập sai tên đăng nhập hoặc mật khẩu!");
+                            signInView.showMessage("Bạn đã nhập sai tên đăng nhập hoặc mật khẩu!");
                             Log.d("MINHTRAN", task.getException().getMessage());
                         }
                     }

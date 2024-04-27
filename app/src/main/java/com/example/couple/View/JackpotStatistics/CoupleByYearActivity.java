@@ -48,7 +48,7 @@ public class CoupleByYearActivity extends AppCompatActivity implements CoupleByY
         linearFreqCouple = findViewById(R.id.linearFreqCouple);
 
         viewModel = new CoupleByYearViewModel(this, this);
-        viewModel.GetCoupleCountingTable("", "", "", 0);
+        viewModel.getCoupleCountingTable("", "", "", 0);
 
         tvFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class CoupleByYearActivity extends AppCompatActivity implements CoupleByY
                 String unit = edtUnit.getText().toString().trim();
                 boolean cbo1_isChecked = cboNearestYear.isChecked();
                 boolean cbo2_isChecked = cboSumOfYears.isChecked();
-                int status = 0;
+                int status;
                 if (cbo1_isChecked) {
                     status = 1;
                 } else if (cbo2_isChecked) {
@@ -67,7 +67,7 @@ public class CoupleByYearActivity extends AppCompatActivity implements CoupleByY
                 } else {
                     status = 0;
                 }
-                viewModel.GetCoupleCountingTable(numberOfYears, tens, unit, status);
+                viewModel.getCoupleCountingTable(numberOfYears, tens, unit, status);
             }
         });
 
@@ -91,12 +91,12 @@ public class CoupleByYearActivity extends AppCompatActivity implements CoupleByY
     }
 
     @Override
-    public void ShowError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void ShowCoupleCountingTable(int[][] matrix, int m, int n, int startYear) {
+    public void showCoupleCountingTable(int[][] matrix, int m, int n, int startYear) {
         TableLayout tableLayout =
                 CustomTableLayout.getCountCoupleTableLayout(this, matrix, m, n, startYear);
         linearFreqCouple.removeAllViews();
@@ -104,7 +104,7 @@ public class CoupleByYearActivity extends AppCompatActivity implements CoupleByY
     }
 
     @Override
-    public void ShowRequestLoadMoreData(int startYear_file, int endYear_file) {
+    public void showRequestLoadMoreData(int startYear_file, int endYear_file) {
         new AlertDialog.Builder(this)
                 .setTitle("Cập nhật XS Đặc biệt?")
                 .setMessage("Dữ liệu hiện có từ năm " + startYear_file + " đến năm " + endYear_file +

@@ -28,16 +28,16 @@ public class SignUpViewModel {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            signUpView.SignUpSuccess(name);
+                            signUpView.signUpSuccess(name);
                         } else {
-                            signUpView.ShowError("Lỗi đăng ký! Vui lòng thử lại sau!");
+                            signUpView.showMessage("Lỗi đăng ký! Vui lòng thử lại sau!");
                             Log.d("MINHTRAN", task.getException().getMessage());
                         }
                     }
                 });
     }
 
-    public void UpdateDisplayName(String name) {
+    public void updateDisplayName(String name) {
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
                 .build();
@@ -46,7 +46,7 @@ public class SignUpViewModel {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()) {
-                            signUpView.ShowError("Lỗi lưu tên");
+                            signUpView.showMessage("Lỗi lưu tên");
                         }
                     }
                 });

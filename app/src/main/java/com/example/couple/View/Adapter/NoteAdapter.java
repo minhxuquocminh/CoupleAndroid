@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Base.Handler.IOFileBase;
@@ -27,7 +28,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         this.layout = layout;
     }
 
-    public class NoteViewHolder extends RecyclerView.ViewHolder {
+    public static class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView tvNote;
 
         public NoteViewHolder(View itemView) {
@@ -38,20 +39,18 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         }
     }
 
+    @NonNull
     @Override
-    public NoteViewHolder
-    onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(layout, parent, false);
-
-        NoteViewHolder viewHolder = new NoteViewHolder(view);
-
-        return viewHolder;
+        return new NoteViewHolder(view);
     }
 
+    @SuppressLint({"NotifyDataSetChanged", "RecyclerView"})
     @Override
-    public void onBindViewHolder(NoteViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(NoteViewHolder holder, int position) {
         String note = notes.get(position);
         holder.tvNote.setText(note);
         holder.tvNote.setOnLongClickListener(new View.OnLongClickListener() {

@@ -5,8 +5,8 @@ import com.example.couple.Model.Origin.Lottery;
 import java.util.List;
 
 public interface LotteryView {
-    void ShowError(String message);
-    void ShowLotteryList(List<Lottery> lotteries);
-    void ShowRequestToUpdateLottery(int maxDayNumber, int dayNumber);
-    void UpdateLotterySuccess(String message,int numberOfDays);
+    void showMessage(String message);
+    void showLotteryList(List<Lottery> lotteries);
+    void showRequestToUpdateLottery(int maxDayNumber, int dayNumber);
+    void updateLotterySuccess(String message, int numberOfDays);
 }

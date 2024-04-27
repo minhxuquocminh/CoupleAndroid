@@ -23,7 +23,7 @@ public class ConnectedBridge extends Bridge {
     public ConnectedBridge(List<ConnectedSupport> connectedSupports, JackpotHistory jackpotHistory) {
         this.connectedSupports = connectedSupports;
         this.jackpotHistory = jackpotHistory;
-        this.touchs = ConnectedBridgeHandler.GetConnectedTouchs(connectedSupports);
+        this.touchs = ConnectedBridgeHandler.getConnectedTouchs(connectedSupports);
         this.numbers = NumberArrayHandler.getTouchs(touchs);
     }
 

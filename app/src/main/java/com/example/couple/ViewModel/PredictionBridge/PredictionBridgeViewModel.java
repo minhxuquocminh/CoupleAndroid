@@ -2,6 +2,8 @@ package com.example.couple.ViewModel.PredictionBridge;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.example.couple.Base.Handler.FirebaseBase;
 import com.example.couple.Model.Display.Prediction;
 import com.example.couple.View.PredictionBridge.PredictionBridgeView;
@@ -21,43 +23,43 @@ public class PredictionBridgeViewModel {
         this.context = context;
     }
 
-    public void GetPredictionBridge() {
+    public void getPredictionBridge() {
         FirebaseBase firebaseBase = new FirebaseBase("weekly");
-        firebaseBase.getmRef().addValueEventListener(new ValueEventListener() {
+        firebaseBase.getMRef().addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Prediction> pbList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Prediction pb = dataSnapshot.getValue(Prediction.class);
                     pbList.add(pb);
                 }
                 if (!pbList.isEmpty()) {
-                    view.ShowWeeklyPredictionBridge(pbList);
+                    view.showWeeklyPredictionBridge(pbList);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
         FirebaseBase firebaseBase2 = new FirebaseBase("monthly");
-        firebaseBase2.getmRef().addValueEventListener(new ValueEventListener() {
+        firebaseBase2.getMRef().addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Prediction> pbList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Prediction pb = dataSnapshot.getValue(Prediction.class);
                     pbList.add(pb);
                 }
                 if (!pbList.isEmpty()) {
-                    view.ShowMonthlyPredictionBridge(pbList);
+                    view.showMonthlyPredictionBridge(pbList);
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

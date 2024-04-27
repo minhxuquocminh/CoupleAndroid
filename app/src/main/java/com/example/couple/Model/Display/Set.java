@@ -1,5 +1,7 @@
 package com.example.couple.Model.Display;
 
+import androidx.annotation.NonNull;
+
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
@@ -59,9 +61,10 @@ public class Set {
         return CoupleBase.getSmallShadow(getSetInt());
     }
 
+    @NonNull
     @Override
-    public String toString() {
-        return first + "" + second + ", ";
+    public String toString() { // to show in GenericBase
+        return first + "" + second;
     }
 
     public String show() {

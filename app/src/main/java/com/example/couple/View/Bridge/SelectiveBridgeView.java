@@ -14,17 +14,17 @@ import com.example.couple.Model.Time.TimeBase;
 import java.util.List;
 
 public interface SelectiveBridgeView {
-    void ShowError(String message);
-    void ShowNextDayTimeAndJackpotList(TimeBase nextDay,
+    void showMessage(String message);
+    void showNextDayTimeAndJackpotList(TimeBase nextDay,
                                        List<Jackpot> allJackpotList, List<Jackpot> jackpotList);
-    void ShowLotteryList(List<Lottery> lotteries);
-    void ShowAfterDoubleBridge(List<AfterDoubleBridge> bridges);
-    void ShowLongBeatBridge(List<SpecialSetHistory> histories);
-    void ShowConnectedTouchs(List<Integer> touchs);
-    void ShowBranchInTwoDaysBridge(BranchInTwoDaysBridge bridge);
-    void ShowShadowTouchs(List<Integer> touchs);
-    void ShowSignOfDouble(SignOfDouble sign);
-    void ShowBranchInDayBridge(BranchInDayBridge bridge);
-    void ShowConnectedSetBridge(ConnectedSetBridge bridge);
-    void ShowTriadSetBridge(List<TriadBridge> bridges);
+    void showLotteryList(List<Lottery> lotteries);
+    void showAfterDoubleBridge(List<AfterDoubleBridge> bridges);
+    void showLongBeatBridge(List<SpecialSetHistory> histories);
+    void showConnectedTouchs(List<Integer> touchs);
+    void showBranchInTwoDaysBridge(BranchInTwoDaysBridge bridge);
+    void showShadowTouchs(List<Integer> touchs);
+    void showSignOfDouble(SignOfDouble sign);
+    void showBranchInDayBridge(BranchInDayBridge bridge);
+    void showConnectedSetBridge(ConnectedSetBridge bridge);
+    void showTriadSetBridge(List<TriadBridge> bridges);
 }

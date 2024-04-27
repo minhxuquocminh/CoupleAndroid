@@ -15,12 +15,12 @@ public class UrlAndParamsViewModel {
         this.context = context;
     }
 
-    public void GetUrlAndParams() {
+    public void getUrlAndParams() {
         String urlJackpot = IOFileBase.readDataFromFile(context, FileName.JACKPOT_URL);
         String urlLottery = IOFileBase.readDataFromFile(context, FileName.LOTTERY_URL);
         String[] arrUrlJackpot = urlJackpot.split("\n");
         String[] arrUrlLottery = urlLottery.split("\n");
-        view.ShowUrlAndParams(arrUrlJackpot, arrUrlLottery);
+        view.showUrlAndParams(arrUrlJackpot, arrUrlLottery);
     }
 
 }
