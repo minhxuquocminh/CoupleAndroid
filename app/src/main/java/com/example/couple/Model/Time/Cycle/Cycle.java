@@ -48,7 +48,7 @@ public class Cycle {
     }
 
     public static Cycle getCycle(String cycleName) {
-        if (cycleName.equals("")) return Cycle.getEmpty();
+        if (cycleName.isEmpty()) return Cycle.getEmpty();
         String[] cycleArr = cycleName.split(" ");
         String stemsName = cycleArr[0].trim();
         String branchesName = cycleArr[1].trim();
@@ -66,6 +66,12 @@ public class Cycle {
         Stem stem = new Stem(stemsPos);
         Branch branch = new Branch(branchesPos);
         return new Cycle(stem, branch);
+    }
+
+    public Cycle plusDays(int numberOfDays) {
+        int new_index = numberOfDays % 60 + position < 0 ?
+                60 + numberOfDays % 60 + position : numberOfDays % 60 + position;
+        return Cycle.getCycle(new_index);
     }
 
 }

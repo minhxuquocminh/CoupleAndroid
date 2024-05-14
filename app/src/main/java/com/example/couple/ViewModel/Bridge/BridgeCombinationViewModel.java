@@ -14,7 +14,6 @@ import com.example.couple.Custom.Handler.Bridge.TouchBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
@@ -32,8 +31,6 @@ import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Time.Cycle.Branch;
-import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.View.Bridge.BridgeCombinationView;
 
 import java.util.ArrayList;
@@ -49,15 +46,13 @@ public class BridgeCombinationViewModel {
     }
 
     public void getAllData() {
-        List<Jackpot> allJackpotList = JackpotHandler.getAllReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        TimeBase timeBaseNextDay = TimeHandler.getTimeBaseNextDay(context);
         if (jackpotList.isEmpty() || lotteryList.isEmpty()) {
             view.showMessage("Lỗi không láy được dữ liệu Xổ số.");
             return;
         }
-        view.showAllData(allJackpotList, jackpotList, lotteryList, timeBaseNextDay);
+        view.showAllData(jackpotList, lotteryList);
     }
 
     public void getAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
@@ -98,8 +93,7 @@ public class BridgeCombinationViewModel {
         }
     }
 
-    public void getCombineBridgeList(List<Jackpot> allJackpotList, List<Jackpot> jackpotList, List<Lottery> lotteryList,
-                                     TimeBase timeBaseNextDay, int numberOfDay,
+    public void getCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList, int numberOfDay,
                                      boolean combineTouch, boolean connected, boolean shadowTouch,
                                      boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
                                      boolean mapping, boolean connectedSet, boolean estimated, boolean rightMapping,
@@ -116,7 +110,6 @@ public class BridgeCombinationViewModel {
         int newDayNumber = connected && numberOfDay >
                 lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                 lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS : numberOfDay;
-        Branch branchNextDay = timeBaseNextDay.getDateCycle().getDay().getBranch();
         for (int i = 0; i < newDayNumber; i++) {
             List<Bridge> bridgeList = new ArrayList<>();
             // touch
@@ -175,12 +168,12 @@ public class BridgeCombinationViewModel {
             }
             if (compatible) {
                 CycleBridge compatibleBridge = CycleBridgeHandler
-                        .getCompatibleCycleBridge(allJackpotList, branchNextDay, i);
+                        .getCompatibleCycleBridge(jackpotList, i);
                 bridgeList.add(compatibleBridge);
             }
             if (incompatible) {
                 CycleBridge incompatibleBridge = CycleBridgeHandler
-                        .getIncompatibleCycleBridge(allJackpotList, branchNextDay, i);
+                        .getIncompatibleCycleBridge(jackpotList, i);
                 bridgeList.add(incompatibleBridge);
             }
             if (unappearedDouble) {

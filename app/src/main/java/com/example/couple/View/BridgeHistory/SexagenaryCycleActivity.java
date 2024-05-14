@@ -76,23 +76,23 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
     }
 
     @Override
-    public void showSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> allJackpotList) {
+    public void showSexagenaryCycle(List<TimeBase> timeBaseList, List<Jackpot> jackpotList) {
         List<String> headers = new ArrayList<>();
         List<RowUI> rows = new ArrayList<>();
-        int index = -1;
-        for (TimeBase timeBase : cycleList) {
-            for (int i = 0; i < allJackpotList.size(); i++) {
-                if (timeBase.getDateBase().equals(allJackpotList.get(i).getDateBase())) {
+        int index = -1; // timebase index
+        for (Jackpot jackpot : jackpotList) {
+            for (int i = 0; i < timeBaseList.size(); i++) {
+                if (timeBaseList.get(i).getDateBase().equals(jackpot.getDateBase())) {
                     index = i;
                     break;
                 }
             }
             if (index != -1) break;
         }
-        if (index < 0) {
+        if (index < 1) {
 //            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
 //                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp", "Năm khắc");
-            for (TimeBase timeBase : cycleList) {
+            for (TimeBase timeBase : timeBaseList) {
                 String dateBase = timeBase.getDateBase().showDDMM("-");
                 String dateLunar = timeBase.getDateLunar().showDDMM("-");
                 String dateCycle = timeBase.getDateCycle().show();
@@ -104,18 +104,18 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
                 rows.add(row);
             }
         } else {
-            int count = index;
+            int count = 0;
             List<Jackpot> jackpots = new ArrayList<>();
             jackpots.add(Jackpot.getEmpty());
-            jackpots.addAll(allJackpotList);
+            jackpots.addAll(jackpotList);
 //            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
 //                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp khắc", "Năm hợp", "Năm khắc");
-            for (TimeBase timeBase : cycleList) {
-                String dateBase = timeBase.getDateBase().showDDMM("-");
-                String dateLunar = timeBase.getDateLunar().showDDMM("-");
-                String dateCycle = timeBase.getDateCycle().show();
-                Branch branch = timeBase.getDateCycle().getDay().getBranch();
-                String stem = timeBase.getDateCycle().getDay().getStem().getPosition() + "";
+            for (int i = index - 1; i < timeBaseList.size(); i++) {
+                String dateBase = timeBaseList.get(i).getDateBase().showDDMM("-");
+                String dateLunar = timeBaseList.get(i).getDateLunar().showDDMM("-");
+                String dateCycle = timeBaseList.get(i).getDateCycle().show();
+                Branch branch = timeBaseList.get(i).getDateCycle().getDay().getBranch();
+                String stem = timeBaseList.get(i).getDateCycle().getDay().getStem().getPosition() + "";
                 String branches = branch.getPosition() % 10 + "";
                 List<Branch> branchList = count == 0 ? Collections.singletonList(branch) :
                         Branch.getBranchsByYear(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);

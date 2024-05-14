@@ -8,5 +8,5 @@ import java.util.List;
 public interface SexagenaryCycleView {
     void showMessage(String message);
     void updateSuccess();
-    void showSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> allJackpotList);
+    void showSexagenaryCycle(List<TimeBase> cycleList, List<Jackpot> jackpotList);
 }

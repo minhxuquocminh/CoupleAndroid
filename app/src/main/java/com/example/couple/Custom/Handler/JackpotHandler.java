@@ -4,20 +4,105 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Time.Cycle.Cycle;
 import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.Time.TimeBase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class JackpotHandler {
 
-    public static DateBase getLastDate(Context context) {
-        List<Jackpot> jackpotList = getReserveJackpotListFromFile(context, 1);
-        if (jackpotList.isEmpty()) return new DateBase();
-        return jackpotList.get(0).getDateBase();
+    public static boolean updateJackpot(Context context) {
+        try {
+            String jackpotData = Api.getJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
+            if (jackpotData.isEmpty()) {
+                return false;
+            }
+
+            IOFileBase.saveDataToFile(context, "jackpot" + TimeInfo.CURRENT_YEAR + ".txt",
+                    jackpotData, 0);
+            List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
+            if (jackpotList.size() < TimeInfo.DAY_OF_WEEK) {
+                String lastJackpotData = Api.getJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR - 1);
+                IOFileBase.saveDataToFile(context, "jackpot" + (TimeInfo.CURRENT_YEAR - 1)
+                        + ".txt", lastJackpotData, 0);
+            }
+            return true;
+        } catch (ExecutionException | InterruptedException e) {
+            return false;
+        }
+    }
+
+    // lấy tối đa 2 năm tức 365 * 2 ngày
+    public static List<Jackpot> getReserveJackpotListFromFile(Context context, int numberOfDays) {
+        String data = IOFileBase.readDataFromFile(context,
+                "jackpot" + TimeInfo.CURRENT_YEAR + ".txt");
+        if (data.isEmpty()) return new ArrayList<>();
+        String[][] matrix = getJackpotFlagMatrix(data,
+                TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR);
+        List<Jackpot> jackpotList = getAllReverseJackpotList(matrix,
+                TimeInfo.DAY_OF_MONTH, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
+        int sizeOfJackpotList = jackpotList.size();
+        if (jackpotList.size() >= numberOfDays) {
+            List<Jackpot> jackpots = new ArrayList<>(jackpotList.subList(0, numberOfDays));
+            setDayCycleForJackpotList(context, jackpots);
+            return jackpots;
+        }
+
+        String lastData = IOFileBase.readDataFromFile(context,
+                "jackpot" + (TimeInfo.CURRENT_YEAR - 1) + ".txt");
+        if (!lastData.isEmpty()) {
+            String[][] lastMatrix = getJackpotFlagMatrix(lastData,
+                    TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR - 1);
+            List<Jackpot> lastJackpotList = getAllReverseJackpotList(lastMatrix,
+                    TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR - 1);
+            // vd lấy 5 ngày mà jackpot có 3 ngày => last_jackpot lấy từ 0 đến 5-3-1
+            int lastNumberOfDays = Math.min(lastJackpotList.size(), (numberOfDays - sizeOfJackpotList));
+            jackpotList.addAll(lastJackpotList.subList(0, lastNumberOfDays));
+        }
+        setDayCycleForJackpotList(context, jackpotList);
+        return jackpotList;
+    }
+
+    public static Cycle getCycleNextDay(Context context) {
+        TimeBase today = CycleHandler.getTimeBaseToday(context);
+        DateBase jackpotLastDate = getLastDate(context);
+        if (today.isEmpty() || jackpotLastDate.isEmpty()) return Cycle.getEmpty();
+
+        if (today.getDateBase().equals(jackpotLastDate))
+            return CycleHandler.getTimeBaseNextDay(context).getDateCycle().getDay();
+        if (today.getDateBase().plusDays(-1).equals(jackpotLastDate))
+            return today.getDateCycle().getDay();
+        return Cycle.getEmpty();
+    }
+
+    // chỉ setCycle khi đủ data Jackpot (tính cả DAY_OFF)
+    private static void setDayCycleForJackpotList(Context context, List<Jackpot> jackpotList) {
+        Cycle nextDay = getCycleNextDay(context);
+        if (nextDay.isEmpty()) return;
+        for (int i = 0; i < jackpotList.size(); i++) {
+            Cycle dayCycle = nextDay.plusDays(-i - 1);
+            jackpotList.get(i).setDayCycle(dayCycle);
+            if (jackpotList.get(i).isEmpty()) {
+                jackpotList.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public static List<Jackpot> getReserveJackpotListByYear(Context context, int year) {
+        String data = IOFileBase.readDataFromFile(context, "jackpot" + year + ".txt");
+        if (data.isEmpty()) return new ArrayList<>();
+        String[][] matrix = getJackpotFlagMatrix(data,
+                TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, year);
+        return getReverseJackpotList(matrix,
+                TimeInfo.DAY_OF_MONTH, TimeInfo.CURRENT_MONTH, year);
     }
 
     public static List<Jackpot> getJackpotListManyYears(Context context, int numberOfYears) {
@@ -41,112 +126,63 @@ public class JackpotHandler {
         return jackpots;
     }
 
-    // lấy tối đa 2 năm tức 365 * 2 ngày
-    public static List<Jackpot> getReserveJackpotListFromFile(Context context, int numberOfDays) {
-        String data = IOFileBase.readDataFromFile(context,
-                "jackpot" + TimeInfo.CURRENT_YEAR + ".txt");
-        if (data.isEmpty()) return new ArrayList<>();
-        String[][] matrix = getJackpotFlagMatrix(data,
-                TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR);
-        List<Jackpot> jackpotList = getReverseJackpotList(matrix,
-                TimeInfo.DAY_OF_MONTH, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
-        int sizeOfJackpotList = jackpotList.size();
-        if (jackpotList.size() >= numberOfDays) return jackpotList.subList(0, numberOfDays);
-        String lastData = IOFileBase.readDataFromFile(context,
-                "jackpot" + (TimeInfo.CURRENT_YEAR - 1) + ".txt");
-        if (!lastData.isEmpty()) {
-            String[][] lastMatrix = getJackpotFlagMatrix(lastData,
-                    TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR - 1);
-            List<Jackpot> lastJackpotList = getReverseJackpotList(lastMatrix,
-                    TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR - 1);
-            // vd lấy 5 ngày mà jackpot có 3 ngày => last_jackpot lấy từ 0 đến 5-3-1
-            int lastNumberOfDays = Math.min(lastJackpotList.size(), (numberOfDays - sizeOfJackpotList));
-            jackpotList.addAll(lastJackpotList.subList(0, lastNumberOfDays));
-        }
-        return jackpotList;
+    public static void saveLastDate(Context context, List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return;
+        String lastDate = jackpotList.get(0).getDateBase().toString("-");
+        IOFileBase.saveDataToFile(context, FileName.JACKPOT_LAST_DATE, lastDate, Context.MODE_PRIVATE);
     }
 
-    // lấy tối đa 2 năm tức 365 * 2 ngày, all tức là lấy cả ngày ko quay
-    public static List<Jackpot> getAllReserveJackpotListFromFile(Context context, int numberOfDays) {
-        String data = IOFileBase.readDataFromFile(context,
-                "jackpot" + TimeInfo.CURRENT_YEAR + ".txt");
-        if (data.isEmpty()) return new ArrayList<>();
-        String[][] matrix = getJackpotFlagMatrix(data,
-                TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR);
-        List<Jackpot> jackpotList = getAllReverseJackpotList(matrix,
-                TimeInfo.DAY_OF_MONTH, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
-        int sizeOfJackpotList = jackpotList.size();
-        if (jackpotList.size() >= numberOfDays) return jackpotList.subList(0, numberOfDays);
-        String lastData = IOFileBase.readDataFromFile(context,
-                "jackpot" + (TimeInfo.CURRENT_YEAR - 1) + ".txt");
-        if (!lastData.isEmpty()) {
-            String[][] lastMatrix = getJackpotFlagMatrix(lastData,
-                    TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR - 1);
-            List<Jackpot> lastJackpotList = getAllReverseJackpotList(lastMatrix,
-                    TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, TimeInfo.CURRENT_YEAR - 1);
-            // vd lấy 5 ngày mà jackpot có 3 ngày => last_jackpot lấy từ 0 đến 5-3-1
-            int lastNumberOfDays = Math.min(lastJackpotList.size(), (numberOfDays - sizeOfJackpotList));
-            jackpotList.addAll(lastJackpotList.subList(0, lastNumberOfDays));
-        }
-        return jackpotList;
-    }
-
-
-    public static List<Jackpot> getReserveJackpotListByYear(Context context, int year) {
-        String data = IOFileBase.readDataFromFile(context, "jackpot" + year + ".txt");
-        if (data.isEmpty()) return new ArrayList<>();
-        String[][] matrix = getJackpotFlagMatrix(data,
-                TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, year);
-        return getReverseJackpotList(matrix,
-                TimeInfo.DAY_OF_MONTH, TimeInfo.CURRENT_MONTH, year);
+    public static DateBase getLastDate(Context context) {
+        String lastDateStr = IOFileBase.readDataFromFile(context, FileName.JACKPOT_LAST_DATE);
+        return DateBase.fromString(lastDateStr, "-");
     }
 
     private static List<Jackpot> getAllReverseJackpotList(String[][] matrix, int m, int n, int year) {
         if (matrix == null) return new ArrayList<>();
-        List<Jackpot> listJackpots = new ArrayList<>();
+        List<Jackpot> jackpotList = new ArrayList<>();
         for (int j = n - 1; j >= 0; j--) {
             for (int i = m - 1; i >= 0; i--) {
                 String cursor = matrix[i][j];
                 if (!cursor.equals(Const.INVALID_DATE) && !cursor.equals(Const.FUTURE_DAY)) {
                     String jackpot = cursor.equals(Const.DAY_OFF) ? Const.EMPTY_JACKPOT : cursor;
                     DateBase dateBase = new DateBase(i + 1, j + 1, year);
-                    listJackpots.add(new Jackpot(jackpot, dateBase));
+                    jackpotList.add(new Jackpot(jackpot, dateBase));
                 }
             }
         }
-        return listJackpots;
+        return jackpotList;
     }
 
     private static List<Jackpot> getReverseJackpotList(String[][] matrix, int m, int n, int year) {
         if (matrix == null) return new ArrayList<>();
-        List<Jackpot> listJackpots = new ArrayList<>();
+        List<Jackpot> jackpotList = new ArrayList<>();
         for (int j = n - 1; j >= 0; j--) {
             for (int i = m - 1; i >= 0; i--) {
                 String cursor = matrix[i][j];
                 if (!cursor.equals(Const.INVALID_DATE)
                         && !cursor.equals(Const.FUTURE_DAY) && !cursor.equals(Const.DAY_OFF)) {
                     DateBase dateBase = new DateBase(i + 1, j + 1, year);
-                    listJackpots.add(new Jackpot(cursor, dateBase));
+                    jackpotList.add(new Jackpot(cursor, dateBase));
                 }
             }
         }
-        return listJackpots;
+        return jackpotList;
     }
 
     private static List<Jackpot> getJackpotList(String[][] matrix, int m, int n, int year) {
         if (matrix == null) return new ArrayList<>();
-        List<Jackpot> listJackpots = new ArrayList<>();
+        List<Jackpot> jackpotList = new ArrayList<>();
         for (int j = 0; j < n; j++) {
             for (int i = 0; i < m; i++) {
                 String cursor = matrix[i][j];
                 if (!cursor.equals(Const.INVALID_DATE)
                         && !cursor.equals(Const.FUTURE_DAY) && !cursor.equals(Const.DAY_OFF)) {
                     DateBase dateBase = new DateBase(i + 1, j + 1, year);
-                    listJackpots.add(new Jackpot(cursor, dateBase));
+                    jackpotList.add(new Jackpot(cursor, dateBase));
                 }
             }
         }
-        return listJackpots;
+        return jackpotList;
     }
 
     private static String[][] getJackpotFlagMatrix(String data, int m, int n, int year) {
@@ -199,4 +235,5 @@ public class JackpotHandler {
         }
         return matrix;
     }
+
 }

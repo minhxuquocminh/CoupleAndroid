@@ -1,6 +1,6 @@
 package com.example.couple.Base.Handler;
 
-import com.example.couple.Model.Display.Number;
+import com.example.couple.Model.Display.Picker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,10 +85,10 @@ public class NumberBase {
     }
 
     // numberLength = 1 : số nhỏ hơn 10, numberLength = 2 số nhỏ hơn 100,....
-    public static List<Number> verifyNumberArr(String numberArray, int numberLength) {
+    public static List<Picker> verifyNumberArr(String numberArray, int numberLength) {
         if (numberArray.isEmpty()) return new ArrayList<>();
         int LIMIT = (int) (Math.pow(10, numberLength) - 1);
-        List<Number> numbers = new ArrayList<>();
+        List<Picker> pickers = new ArrayList<>();
         String[] numberArr = numberArray.split(" ");
         try {
             for (String numberStr : numberArr) {
@@ -97,12 +97,11 @@ public class NumberBase {
                 if (number < 0 || number > LIMIT || numberStr.trim().length() > numberLength) {
                     return new ArrayList<>();
                 }
-                numbers.add(new Number(number, 1));
+                pickers.add(new Picker(number, 1));
             }
         } catch (Exception ignored) {
-
         }
-        return numbers;
+        return pickers;
     }
 
     // numberLength = 1 : số nhỏ hơn 10, numberLength = 2 số nhỏ hơn 100,....
@@ -122,7 +121,6 @@ public class NumberBase {
                 numbers.add(number);
             }
         } catch (Exception ignored) {
-
         }
         return numbers;
     }
@@ -136,21 +134,21 @@ public class NumberBase {
         return data.toString();
     }
 
-    public static String showNumbers(List<Integer> numbers, String delimiter, int limitOfNumber) {
+    public static String showNumbers(List<Integer> numbers, int numberLength, String delimiter) {
         if (numbers.isEmpty()) return "";
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < numbers.size(); i++) {
-            data.append(showNumberString(numbers.get(i), limitOfNumber)).append(i == numbers.size() - 1 ? "" : delimiter);
+            data.append(showNumberString(numbers.get(i), numberLength)).append(i == numbers.size() - 1 ? "" : delimiter);
         }
         return data.toString();
     }
 
-    public static String showNumberString(int number, int lengthStr) {
-        if (number < 0 || number > Math.pow(10, lengthStr) - 1) return "";
-        if (lengthStr == 1) return number + "";
+    public static String showNumberString(int number, int numberLength) {
+        if (number < 0 || number > Math.pow(10, numberLength) - 1) return "";
+        if (numberLength == 1) return number + "";
         int lengthNum = (number + "").length();
         StringBuilder numberStr = new StringBuilder();
-        for (int i = lengthNum; i < lengthStr; i++) {
+        for (int i = lengthNum; i < numberLength; i++) {
             numberStr.append("0");
         }
         return numberStr + "" + number;
@@ -170,7 +168,6 @@ public class NumberBase {
                 numbers.add(Integer.parseInt(s.trim()));
             }
         } catch (Exception ignored) {
-
         }
         return numbers;
     }

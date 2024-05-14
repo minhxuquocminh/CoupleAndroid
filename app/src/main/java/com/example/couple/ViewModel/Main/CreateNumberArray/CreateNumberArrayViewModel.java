@@ -6,14 +6,10 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
-import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Display.Number;
+import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayView;
 
@@ -29,12 +25,6 @@ public class CreateNumberArrayViewModel {
     public CreateNumberArrayViewModel(CreateNumberArrayView view, Context context) {
         this.view = view;
         this.context = context;
-    }
-
-    public void getLotteryAndJackpotList() {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
-        List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        view.showLotteryAndJackpotList(jackpotList, lotteryList);
     }
 
     public void getPeriodHistory(List<Jackpot> jackpotList) {
@@ -223,20 +213,20 @@ public class CreateNumberArrayViewModel {
     }
 
     public void verifyCoupleArray(String numberArray) {
-        List<Integer> numbers = NumberBase.verifyNumberArray(numberArray, 2);
-        if (numbers.isEmpty()) {
+        List<Picker> pickers = NumberBase.verifyNumberArr(numberArray, 2);
+        if (pickers.isEmpty()) {
             view.showMessage("Chuỗi không hợp lệ!");
         } else {
-            view.verifyCoupleArraySuccess(numberArray);
+            view.verifyCoupleArraySuccess(pickers);
         }
     }
 
     public void verifyTriadArray(String numberArray) {
-        List<Number> numbers = NumberBase.verifyNumberArr(numberArray, 3);
-        if (numbers.isEmpty()) {
+        List<Picker> pickers = NumberBase.verifyNumberArr(numberArray, 3);
+        if (pickers.isEmpty()) {
             view.showMessage("Chuỗi không hợp lệ!");
         } else {
-            view.verifyTriadArraySuccess(numbers);
+            view.verifyTriadArraySuccess(pickers);
         }
     }
 
@@ -254,11 +244,6 @@ public class CreateNumberArrayViewModel {
         }
     }
 
-    public void getSubJackpotList(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
-        view.showSubJackpotList(jackpotList);
-    }
-
     public void getTriadTable() {
         String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
         String importantData = IOFileBase.readDataFromFile(context, FileName.ITRIAD);
@@ -268,37 +253,37 @@ public class CreateNumberArrayViewModel {
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
-            List<Number> numbers = new ArrayList<>();
+            List<Picker> pickers = new ArrayList<>();
             if (!data.isEmpty()) {
                 for (String num : arr) {
                     int number = Integer.parseInt(num.trim());
-                    numbers.add(new Number(number, 1));
+                    pickers.add(new Picker(number, 1));
                 }
             }
             if (!importantData.isEmpty()) {
                 for (String imp : importantArr) {
                     int number = Integer.parseInt(imp.trim());
-                    numbers.add(new Number(number, 2));
+                    pickers.add(new Picker(number, 2));
                 }
             }
-            view.showTriadTable(numbers);
+            view.showTriadTable(pickers);
         }
     }
 
-    public void saveDataToFile(List<Number> numbers) {
-        Collections.sort(numbers, new Comparator<Number>() {
+    public void saveDataToFile(List<Picker> pickers) {
+        Collections.sort(pickers, new Comparator<Picker>() {
             @Override
-            public int compare(Number o1, Number o2) {
+            public int compare(Picker o1, Picker o2) {
                 return Integer.compare(o1.getNumber(), o2.getNumber());
             }
         });
         StringBuilder data1 = new StringBuilder();
         StringBuilder data2 = new StringBuilder();
-        for (int i = 0; i < numbers.size(); i++) {
-            if (numbers.get(i).getLevel() == 1) {
-                data1.append(numbers.get(i).getNumber()).append(",");
+        for (int i = 0; i < pickers.size(); i++) {
+            if (pickers.get(i).getLevel() == 1) {
+                data1.append(pickers.get(i).getNumber()).append(",");
             } else {
-                data2.append(numbers.get(i).getNumber()).append(",");
+                data2.append(pickers.get(i).getNumber()).append(",");
             }
         }
         IOFileBase.saveDataToFile(context, FileName.TRIAD, data1.toString(), 0);
@@ -314,26 +299,26 @@ public class CreateNumberArrayViewModel {
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
-            List<Number> numbers = new ArrayList<>();
+            List<Picker> pickers = new ArrayList<>();
             if (!data.isEmpty()) {
                 for (String num : arr) {
                     int number = Integer.parseInt(num.trim());
-                    numbers.add(new Number(number, 1));
+                    pickers.add(new Picker(number, 1));
                 }
             }
             if (!importantData.isEmpty()) {
                 for (String imp : importantArr) {
                     int number = Integer.parseInt(imp.trim());
-                    numbers.add(new Number(number, 2));
+                    pickers.add(new Picker(number, 2));
                 }
             }
-            Collections.sort(numbers, new Comparator<Number>() {
+            Collections.sort(pickers, new Comparator<Picker>() {
                 @Override
-                public int compare(Number o1, Number o2) {
+                public int compare(Picker o1, Picker o2) {
                     return Integer.compare(o1.getNumber(), o2.getNumber());
                 }
             });
-            view.showTriadList(numbers);
+            view.showTriadList(pickers);
         }
     }
 

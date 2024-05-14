@@ -15,7 +15,6 @@ public class Const {
     public static final int MAX_ROW_COUNT_TABLE = 100;
     public static final int MAX_DAY_NUMBER_BEFORE = 999;
     public static final int MAX_DAYS_TO_GET_LOTTERY = 60;
-    public static final int BRANCH_IN_DAY_BRIDGE_FINDING_DAYS = 60;
     public static final int CONNECTED_BRIDGE_FINDING_DAYS = 10;
     public static final int CONNECTED_BRIDGE_MAX_DISPLAY = 20;
     public static final int TRIAD_SET_BRIDGE_FINDING_DAYS = 10;
@@ -28,7 +27,6 @@ public class Const {
     /**
      * text
      */
-    public static final String SUCCESS = "success";
     public static final String DAY_OFF = "day_off";
     public static final String EMPTY_JACKPOT = "-99999";
     public static final String FUTURE_DAY = "future_day";

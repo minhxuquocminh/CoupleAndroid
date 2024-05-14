@@ -1,5 +1,6 @@
 package com.example.couple.Base.Handler;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JsoupBase extends AsyncTask<String, Void, String> {
+    @SuppressLint("StaticFieldLeak")
     Context context;
     String link;
     int timeout;
@@ -52,8 +54,8 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
             } else {
                 data = methodPOST();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
+
         }
         Log.d("datajsoup", data);
 

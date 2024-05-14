@@ -16,7 +16,6 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.Model.UI.RowUI;
 import com.example.couple.Model.UI.TableUI;
 import com.example.couple.R;
@@ -48,7 +47,7 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
         edtDayNumber.setSelection(edtDayNumber.length());
 
         viewModel = new SpecialSetsHistoryViewModel(this, this);
-        viewModel.getJackpotListAndTimeBaseData(NUMBER_OF_DAYS_START);
+        viewModel.getJackpotList(NUMBER_OF_DAYS_START);
     }
 
     @Override
@@ -57,9 +56,8 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
     }
 
     @Override
-    public void showJackpotListAndTimeBaseData(List<Jackpot> allJackpotList,
-                                               List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
-        viewModel.getSpecialSetsHistory(allJackpotList, jackpotList, timeBaseNextDay);
+    public void showJackpotList(List<Jackpot> jackpotList) {
+        viewModel.getSpecialSetsHistory(jackpotList);
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,8 +68,8 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
                 } else if (Integer.parseInt(dayNumberStr) > NUMBER_OF_DAYS_START) {
                     showMessage("Nằm ngoài phạm vi.");
                 } else {
-                    viewModel.getSpecialSetsHistory(allJackpotList, jackpotList
-                            .subList(0, Integer.parseInt(dayNumberStr) - 1), timeBaseNextDay);
+                    viewModel.getSpecialSetsHistory(jackpotList
+                            .subList(0, Integer.parseInt(dayNumberStr) - 1));
                 }
 
             }

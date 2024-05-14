@@ -161,8 +161,8 @@ public class Branch {
     }
 
     public Branch plusDays(int numberOfDays) {
-        int new_index = position + numberOfDays < 0 ?
-                12 * (Math.abs(numberOfDays / 12) + 1) + position + numberOfDays : (position + numberOfDays) % 60;
+        int new_index = numberOfDays % 12 + position < 0 ?
+                12 + numberOfDays % 12 + position : numberOfDays % 12 + position;
         return new Branch(new_index);
     }
 

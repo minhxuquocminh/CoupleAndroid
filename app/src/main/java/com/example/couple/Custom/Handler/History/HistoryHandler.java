@@ -10,7 +10,6 @@ import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Time.Cycle.Branch;
-import com.example.couple.Model.Time.TimeBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,13 +76,11 @@ public class HistoryHandler {
         return histories;
     }
 
-    public static List<SpecialSetHistory> getSpecialSetsHistory(List<Jackpot> allJackpotList,
-                                                                List<Jackpot> jackpotList,
-                                                                TimeBase timeBaseNextDay) {
+    public static List<SpecialSetHistory> getSpecialSetsHistory(List<Jackpot> jackpotList) {
         List<SpecialSetHistory> historyList = new ArrayList<>();
         // for cycle
         BranchInDayBridge branchBridge = CycleBridgeHandler
-                .getBranchInDayBridges(allJackpotList, timeBaseNextDay.getDateCycle().getDay().getBranch());
+                .getBranchInDayBridges(jackpotList);
         historyList.add(branchBridge.toSpecialSetHistory());
 
         List<SpecialSetHistory> branches1 = new ArrayList<>();
@@ -96,11 +93,10 @@ public class HistoryHandler {
         historyList.addAll(branches1);
 
         List<SpecialSetHistory> branches2 = new ArrayList<>();
-        Branch nextDayBranch = timeBaseNextDay.getDateCycle().getDay().getBranch();
         for (int i = -6; i < 6; i++) {
             String specialSetName = i < 0 ? "KC" + i : "KC+" + i;
             SpecialSetHistory branch = CycleBridgeHandler
-                    .getBranchDistanceHistory(jackpotList, specialSetName, i, nextDayBranch);
+                    .getBranchDistanceHistory(jackpotList, specialSetName, i);
             branches2.add(branch);
         }
         Collections.sort(branches2, (x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());

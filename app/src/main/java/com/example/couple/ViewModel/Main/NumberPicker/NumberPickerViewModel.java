@@ -8,7 +8,7 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Display.JackpotNextDay;
-import com.example.couple.Model.Display.Number;
+import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Time.DateBase;
@@ -28,83 +28,38 @@ public class NumberPickerViewModel {
         this.context = context;
     }
 
-    public void getSubCoupleList(int length) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, length);
-        int size = Math.min(jackpotList.size(), length);
-        List<Couple> subCoupleList = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            subCoupleList.add(jackpotList.get(i).getCouple());
-        }
-        Collections.reverse(subCoupleList);
-        if (!subCoupleList.isEmpty()) {
-            numberPickerView.showSubCoupleList(subCoupleList);
-        }
-
+    public void getJackpotsManyYears(Couple lastCouple) {
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 2);
+        if (jackpotList.isEmpty()) return;
+        numberPickerView.showJackpotsManyYears(jackpotList, lastCouple);
     }
 
-    public void getSubCoupleNextDay(int digit2D, int length) {
-        int[] startEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
-        if (startEndYearFile != null) {
-            int startYearFile = startEndYearFile[0];
-            int endYearFile = startEndYearFile[1];
-            if (endYearFile == TimeInfo.CURRENT_YEAR) {
-                int numberOfYearsFile = endYearFile - startYearFile + 1;
-                int numberOfYears = Math.min(numberOfYearsFile, 3);
-                List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, numberOfYears);
-                List<JackpotNextDay> jackpotNextDayList = JackpotStatistics.getJackpotNextDayList(jackpotList, digit2D);
-                int count = 0;
-                List<Couple> subCoupleList = new ArrayList<>();
-                for (int i = 0; i < jackpotNextDayList.size(); i++) {
-                    count++;
-                    subCoupleList.add(jackpotNextDayList.get(i).getJackpotSecond().getCouple());
-                    if (count == length) break;
-                }
-                Collections.reverse(subCoupleList);
-                if (!subCoupleList.isEmpty())
-                    numberPickerView.showSubCoupleNextDay(subCoupleList);
-            }
+    public void getSubJackpotNextDay(List<Jackpot> jackpotList, int lastCouple, int length) {
+        List<JackpotNextDay> jackpotNextDayList =
+                JackpotStatistics.getJackpotNextDayList(jackpotList, lastCouple);
+        List<Jackpot> subJackpotList = new ArrayList<>();
+        for (int i = 0; i < jackpotNextDayList.size(); i++) {
+            subJackpotList.add(jackpotNextDayList.get(i).getJackpotSecond());
+            if (i + 1 == length) break;
         }
+        Collections.reverse(subJackpotList);
+        if (!subJackpotList.isEmpty())
+            numberPickerView.showSubJackpotNextDay(subJackpotList);
     }
 
-    public void getSubCoupleLastMonth(DateBase dateBase) {
-        DateBase nextDateBase = dateBase.plusDays(1);
-        int month = nextDateBase.getMonth() - 1;
-        int year = nextDateBase.getYear();
-        int numberOfYears = 1;
-        if (month == 0) {
-            month = TimeInfo.MONTH_OF_YEAR;
-            year--;
-            numberOfYears = 2;
-        }
-        List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, numberOfYears);
-        List<Jackpot> monthJackpotList = JackpotStatistics.getMonthJackpotList(jackpotList, month, year);
-        List<Couple> subCoupleList = new ArrayList<>();
-        for (int i = 0; i < monthJackpotList.size(); i++) {
-            DateBase date = monthJackpotList.get(i).getDateBase();
-            if (date.getDay() == nextDateBase.getDay()) {
-                DateBase toptopDate = new DateBase(date.getDay() - 2, month, year);
-                DateBase topDate = new DateBase(date.getDay() - 1, month, year);
-                DateBase centerDate = new DateBase(date.getDay(), month, year);
-                DateBase bottomDate = new DateBase(date.getDay() + 1, month, year);
-                DateBase bottombottomDate = new DateBase(date.getDay() + 2, month, year);
-                if (toptopDate.isValid()) {
-                    subCoupleList.add(monthJackpotList.get(i - 2).getCouple());
-                }
-                if (topDate.isValid()) {
-                    subCoupleList.add(monthJackpotList.get(i - 1).getCouple());
-                }
-                if (centerDate.isValid()) {
-                    subCoupleList.add(monthJackpotList.get(i).getCouple());
-                }
-                if (bottomDate.isValid()) {
-                    subCoupleList.add(monthJackpotList.get(i + 1).getCouple());
-                }
-                if (bottombottomDate.isValid()) {
-                    subCoupleList.add(monthJackpotList.get(i + 2).getCouple());
-                }
+    public void getSubJackpotLastMonth(List<Jackpot> jackpotList, DateBase lastDate) {
+        DateBase nextDate = lastDate.plusDays(1);
+        int month = nextDate.getMonth() - 1 == 0 ? TimeInfo.MONTH_OF_YEAR : nextDate.getMonth() - 1;
+        int year = nextDate.getMonth() - 1 == 0 ? nextDate.getYear() - 1 : nextDate.getYear();
+        List<DateBase> dateBases = new ArrayList<>();
+        for (int i = -2; i <= 2; i++) {
+            DateBase dateBase = new DateBase(nextDate.getDay() + i, month, year);
+            if (dateBase.isValid()) {
+                dateBases.add(dateBase);
             }
         }
-        if (!subCoupleList.isEmpty()) numberPickerView.showSubCoupleLastMonth(subCoupleList);
+        List<Jackpot> subJackpotList = JackpotStatistics.getJackpotListByDateList(jackpotList, dateBases);
+        if (!subJackpotList.isEmpty()) numberPickerView.showSubJackpotLastMonth(subJackpotList);
     }
 
     public void getTableType1(boolean isTableA) {
@@ -122,20 +77,20 @@ public class NumberPickerViewModel {
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
-            List<Number> numbers = new ArrayList<>();
+            List<Picker> pickers = new ArrayList<>();
             if (!data.isEmpty()) {
                 for (String num : arr) {
                     int number = Integer.parseInt(num.trim());
-                    numbers.add(new Number(number, 1));
+                    pickers.add(new Picker(number, 1));
                 }
             }
             if (!importantData.isEmpty()) {
                 for (String imp : importantArr) {
                     int number = Integer.parseInt(imp.trim());
-                    numbers.add(new Number(number, 2));
+                    pickers.add(new Picker(number, 2));
                 }
             }
-            numberPickerView.showTableType1(numbers);
+            numberPickerView.showTableType1(pickers);
         }
     }
 
@@ -154,37 +109,37 @@ public class NumberPickerViewModel {
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
-            List<Number> numbers = new ArrayList<>();
+            List<Picker> pickers = new ArrayList<>();
             if (!data.isEmpty()) {
                 for (String s : arr) {
                     int number = Integer.parseInt(s.trim());
-                    numbers.add(new Number(number, 1));
+                    pickers.add(new Picker(number, 1));
                 }
             }
             if (!importantData.isEmpty()) {
                 for (String imp : importantArr) {
                     int number = Integer.parseInt(imp.trim());
-                    numbers.add(new Number(number, 2));
+                    pickers.add(new Picker(number, 2));
                 }
             }
-            numberPickerView.showTableType2(numbers);
+            numberPickerView.showTableType2(pickers);
         }
     }
 
-    public void saveDataToFile(List<Number> numbers, boolean isTableA) {
+    public void saveDataToFile(List<Picker> pickers, boolean isTableA) {
         StringBuilder data1 = new StringBuilder();
         StringBuilder data2 = new StringBuilder();
-        Collections.sort(numbers, new Comparator<Number>() {
+        Collections.sort(pickers, new Comparator<Picker>() {
             @Override
-            public int compare(Number o1, Number o2) {
+            public int compare(Picker o1, Picker o2) {
                 return Integer.compare(o1.getNumber(), o2.getNumber());
             }
         });
-        for (int i = 0; i < numbers.size(); i++) {
-            if (numbers.get(i).getLevel() == 1) {
-                data1.append(numbers.get(i).getNumber()).append(",");
+        for (int i = 0; i < pickers.size(); i++) {
+            if (pickers.get(i).getLevel() == 1) {
+                data1.append(pickers.get(i).getNumber()).append(",");
             } else {
-                data2.append(numbers.get(i).getNumber()).append(",");
+                data2.append(pickers.get(i).getNumber()).append(",");
             }
         }
         String fileName = isTableA ? FileName.TABLE_A : FileName.TABLE_B;
@@ -201,20 +156,20 @@ public class NumberPickerViewModel {
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
-            List<Number> numbers = new ArrayList<>();
+            List<Picker> pickers = new ArrayList<>();
             if (!data.isEmpty()) {
                 for (String num : arr) {
                     int number = Integer.parseInt(num.trim());
-                    numbers.add(new Number(number, 1));
+                    pickers.add(new Picker(number, 1));
                 }
             }
             if (!importantData.isEmpty()) {
                 for (String imp : importantArr) {
                     int number = Integer.parseInt(imp.trim());
-                    numbers.add(new Number(number, 2));
+                    pickers.add(new Picker(number, 2));
                 }
             }
-            numberPickerView.showTableAList(numbers);
+            numberPickerView.showTableAList(pickers);
         }
     }
 
@@ -226,20 +181,20 @@ public class NumberPickerViewModel {
         } else {
             String[] arr = data.trim().split(",");
             String[] importantArr = importantData.trim().split(",");
-            List<Number> numbers = new ArrayList<>();
+            List<Picker> pickers = new ArrayList<>();
             if (!data.isEmpty()) {
                 for (String num : arr) {
                     int number = Integer.parseInt(num.trim());
-                    numbers.add(new Number(number, 1));
+                    pickers.add(new Picker(number, 1));
                 }
             }
             if (!importantData.isEmpty()) {
                 for (String imp : importantArr) {
                     int number = Integer.parseInt(imp.trim());
-                    numbers.add(new Number(number, 2));
+                    pickers.add(new Picker(number, 2));
                 }
             }
-            numberPickerView.showTableBList(numbers);
+            numberPickerView.showTableBList(pickers);
         }
     }
 
@@ -249,6 +204,5 @@ public class NumberPickerViewModel {
         IOFileBase.saveDataToFile(context, "i" + fileName, "", 0);
         numberPickerView.deleteAllDataSuccess("Xóa dữ liệu thành công!", isTableA);
     }
-
 
 }

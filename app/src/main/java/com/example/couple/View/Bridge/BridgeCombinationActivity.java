@@ -16,7 +16,6 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Bridge.BridgeCombinationViewModel;
 
@@ -111,8 +110,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void showAllData(List<Jackpot> allJackpotList, List<Jackpot> jackpotList,
-                            List<Lottery> lotteryList, TimeBase timeBaseNextDay) {
+    public void showAllData(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
         viewModel.getAllBridgeToday(jackpotList, lotteryList);
         btnFindingBridge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,13 +151,12 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
                             Integer.parseInt(numberOfDayStr);
-                    viewModel.getCombineBridgeList(allJackpotList, jackpotList, lotteryList, timeBaseNextDay,
-                            numberOfDay, combineTouch, connected, shadowTouch, lottoTouch, negativeShadow,
-                            positiveShadow, mapping, connectedSet, estimated, rightMapping, compatible,
-                            incompatible, unappearedDouble, triadMapping, branchIn2Days, bigDouble,
-                            sameDouble, positiveDouble, setData, touchData, sumData, branchData,
-                            headData, tailData, combineData
-                    );
+                    viewModel.getCombineBridgeList(jackpotList, lotteryList, numberOfDay,
+                            combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
+                            mapping, connectedSet, estimated, rightMapping, compatible, incompatible,
+                            unappearedDouble, triadMapping, branchIn2Days, bigDouble, sameDouble,
+                            positiveDouble, setData, touchData, sumData, branchData, headData,
+                            tailData, combineData);
                 }
             }
         });

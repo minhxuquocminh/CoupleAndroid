@@ -12,7 +12,6 @@ import com.example.couple.Custom.Handler.Bridge.TouchBridgeHandler;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
@@ -24,8 +23,6 @@ import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Time.Cycle.Branch;
-import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.View.Bridge.SelectiveBridgeView;
 
 import java.util.List;
@@ -40,13 +37,11 @@ public class SelectiveBridgeViewModel {
     }
 
     public void getAllData() {
-        TimeBase nextDay = TimeHandler.getTimeBaseNextDay(context);
-        List<Jackpot> allJackpotList = JackpotHandler.getAllReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.isEmpty()) {
             view.showMessage("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {
-            view.showNextDayTimeAndJackpotList(nextDay, allJackpotList, jackpotList);
+            view.showJackpotList(jackpotList);
         }
 
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
@@ -89,8 +84,8 @@ public class SelectiveBridgeViewModel {
         view.showSignOfDouble(sign);
     }
 
-    public void getBranchInDayBridge(List<Jackpot> allJackpotList, Branch nextDayBranch) {
-        BranchInDayBridge bridge = CycleBridgeHandler.getBranchInDayBridges(allJackpotList, nextDayBranch);
+    public void getBranchInDayBridge(List<Jackpot> jackpotList) {
+        BranchInDayBridge bridge = CycleBridgeHandler.getBranchInDayBridges(jackpotList);
         view.showBranchInDayBridge(bridge);
     }
 

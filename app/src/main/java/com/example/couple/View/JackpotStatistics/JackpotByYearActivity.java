@@ -82,7 +82,7 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
         DateBase selectedDate = lastDate.plusDays(1);
         int row = selectedDate.getDay() - 1;
         int col = selectedDate.getMonth() - 1;
-        String selected = IOFileBase.readDataFromFile(this, FileName.SELECTED_NUMBER);
+        String selected = IOFileBase.readDataFromFile(this, FileName.PICKED_NUMBER);
         if (year == TimeInfo.CURRENT_YEAR) {
             matrix[row][col] = selected.isEmpty() ? "" : "888" + selected;
         }

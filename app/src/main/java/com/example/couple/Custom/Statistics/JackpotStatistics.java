@@ -14,6 +14,7 @@ import com.example.couple.Model.Display.NumberDouble;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Time.DateBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -211,10 +212,10 @@ public class JackpotStatistics {
         return nearestTimeList;
     }
 
-    public static List<JackpotNextDay> getJackpotNextDayList(List<Jackpot> jackpotList, int digit2D) {
+    public static List<JackpotNextDay> getJackpotNextDayList(List<Jackpot> jackpotList, int lastCouple) {
         List<JackpotNextDay> jackpotNextDayList = new ArrayList<>();
         for (int i = jackpotList.size() - 2; i >= 0; i--) {
-            if (jackpotList.get(i).getCoupleInt() == digit2D) {
+            if (jackpotList.get(i).getCoupleInt() == lastCouple) {
                 Jackpot jackpotFirst = jackpotList.get(i);
                 Jackpot jackpotSecond = jackpotList.get(i + 1);
                 jackpotNextDayList.add(new JackpotNextDay(jackpotFirst, jackpotSecond));
@@ -374,15 +375,23 @@ public class JackpotStatistics {
         return new HeadTail(filteredHeadList, filteredTailList);
     }
 
-    public static List<Jackpot> getMonthJackpotList(List<Jackpot> jackpotList, int month, int year) {
+    public static List<Jackpot> getJackpotListByDateList(List<Jackpot> jackpotList, List<DateBase> dateBases) {
         if (jackpotList.isEmpty()) return new ArrayList<>();
-        List<Jackpot> monthJackpotList = new ArrayList<>();
-        for (int i = 0; i < jackpotList.size(); i++) {
-            if (jackpotList.get(i).getDateBase().getMonth() == month
-                    && jackpotList.get(i).getDateBase().getYear() == year) {
-                monthJackpotList.add(jackpotList.get(i));
+        List<Jackpot> results = new ArrayList<>();
+        List<DateBase> distinctList = new ArrayList<>();
+        for (DateBase dateBase : dateBases) {
+            if (!distinctList.contains(dateBase)) {
+                distinctList.add(dateBase);
             }
         }
-        return monthJackpotList;
+        int count = 0;
+        for (int i = jackpotList.size() - 1; i >= 0; i--) {
+            if (distinctList.contains(jackpotList.get(i).getDateBase())) {
+                results.add(jackpotList.get(i));
+                count++;
+            }
+            if (count == distinctList.size()) break;
+        }
+        return results;
     }
 }

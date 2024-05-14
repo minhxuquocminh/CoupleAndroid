@@ -1,7 +1,7 @@
 package com.example.couple.View.Main.NumberPicker;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,7 +11,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -25,28 +24,28 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Model.Display.Number;
+import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Origin.Couple;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.Couple.CoupleByWeekActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
-import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayFragment;
 import com.example.couple.View.Main.MainActivity;
 import com.example.couple.ViewModel.Main.NumberPicker.NumberPickerViewModel;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -87,7 +86,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     String listMP = "";
     boolean coupleTableIsExist = false;
     boolean coupleNextDayTableIsExist = false;
-    private static final int RC_CREATING_NUMBER_ARRAY = 111;
 
     Drawable greenDrawable;
     Drawable redDrawable;
@@ -96,6 +94,13 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     // for table type 2, matrix dùng để lưu các danh sách số bị phân mảnh và đếm số đc chọn
     int[] matrix = new int[Const.MAX_ROW_COUNT_TABLE];
 
+    MainActivity activity;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        activity = (MainActivity) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -132,8 +137,29 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         hsChooseHeadTailTable = viewParent.findViewById(R.id.hsChooseHeadTailTable);
         hsTableToChooseNumber = viewParent.findViewById(R.id.hsTableToChooseNumber);
 
+        activity.getJackpotList().observe(getViewLifecycleOwner(), new Observer<List<Jackpot>>() {
+            @Override
+            public void onChanged(List<Jackpot> jackpotList) {
+                showJackpotList(jackpotList);
+            }
+        });
+
+        activity.getCouplesToTransfer().observe(getViewLifecycleOwner(), new Observer<List<Picker>>() {
+            @Override
+            public void onChanged(List<Picker> pickers) {
+                if (!isFirstNumberPicker) {
+                    showMessage("Dữ liệu chỉ nên nạp vào bảng chọn số K1 rồi lưu để dùng lại!");
+                } else {
+                    if (!pickers.isEmpty()) {
+                        showTableType1(pickers);
+                        Toast.makeText(getActivity(), "Đã nạp dữ liệu!", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+            }
+        });
+
         viewModel = new NumberPickerViewModel(this, getActivity());
-        viewModel.getSubCoupleList(4);
 
         pinkDrawable = WidgetBase.getDrawable(getActivity(), R.drawable.cell_pink_table);
         greenDrawable = WidgetBase.getDrawable(getActivity(), R.drawable.cell_light_green_table);
@@ -283,25 +309,25 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 if (isFirstNumberPicker) {
-                                    List<Number> numbers = new ArrayList<>();
+                                    List<Picker> pickers = new ArrayList<>();
                                     for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
                                         TextView textView = viewParent.findViewById(i);
                                         if (textView.getBackground() == greenDrawable) {
-                                            numbers.add(new Number(i, 1));
+                                            pickers.add(new Picker(i, 1));
                                         }
                                         if (textView.getBackground() == redDrawable) {
-                                            numbers.add(new Number(i, 2));
+                                            pickers.add(new Picker(i, 2));
                                         }
                                     }
-                                    viewModel.saveDataToFile(numbers, cboTableA.isChecked());
+                                    viewModel.saveDataToFile(pickers, cboTableA.isChecked());
                                 } else {
-                                    List<Number> numbers = new ArrayList<>();
+                                    List<Picker> pickers = new ArrayList<>();
                                     for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
                                         if (matrix[i] > 0) {
-                                            numbers.add(new Number(i, matrix[i]));
+                                            pickers.add(new Picker(i, matrix[i]));
                                         }
                                     }
-                                    viewModel.saveDataToFile(numbers, cboTableA.isChecked());
+                                    viewModel.saveDataToFile(pickers, cboTableA.isChecked());
                                 }
                             }
                         })
@@ -343,61 +369,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                         .setNegativeButton(android.R.string.no, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-            }
-        });
-
-        BottomNavigationView navigationView = requireActivity().findViewById(R.id.bottom_navigation);
-        FragmentManager fm = requireActivity().getSupportFragmentManager();
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.itHome:
-                        if (MainActivity.active != MainActivity.fragment1) {
-                            fm.beginTransaction().show(MainActivity.fragment1).hide(MainActivity.active).commit();
-                            MainActivity.active = MainActivity.fragment1;
-                        }
-                        return true;
-                    case R.id.itCreateNumbers:
-                        if (MainActivity.active != MainActivity.fragment2) {
-                            fm.beginTransaction().show(MainActivity.fragment2).hide(MainActivity.active).commit();
-                            MainActivity.active = MainActivity.fragment2;
-                            if (CreateNumberArrayFragment.RECEIVE_DATA) {
-                                setDataToTable();
-                                CreateNumberArrayFragment.RECEIVE_DATA = false;
-                            }
-                        }
-                        return true;
-                    case R.id.itPredictionBridge:
-                        if (MainActivity.active != MainActivity.fragment3) {
-                            fm.beginTransaction().show(MainActivity.fragment3).hide(MainActivity.active).commit();
-                            MainActivity.active = MainActivity.fragment3;
-                        }
-//                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//                        if (firebaseUser == null) {
-//                            Toast.makeText(MainActivity.this,
-//                                    "Bạn cần phải đăng nhập trước khi sử dụng chức năng này!",
-//                                    Toast.LENGTH_SHORT).show();
-//                            return false;
-//                        } else {
-//
-//                        }
-                        return true;
-                    case R.id.itFunction:
-                        if (MainActivity.active != MainActivity.fragment4) {
-                            fm.beginTransaction().show(MainActivity.fragment4).hide(MainActivity.active).commit();
-                            MainActivity.active = MainActivity.fragment4;
-                        }
-                        return true;
-                    case R.id.itPersonal:
-                        if (MainActivity.active != MainActivity.fragment5) {
-                            fm.beginTransaction().show(MainActivity.fragment5).hide(MainActivity.active).commit();
-                            MainActivity.active = MainActivity.fragment5;
-                        }
-                        return true;
-                }
-                return false;
             }
         });
 
@@ -508,21 +479,28 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void showSubCoupleList(List<Couple> subCoupleList) {
+    public void showJackpotsManyYears(List<Jackpot> jackpotList, Couple lastCouple) {
+        viewModel.getSubJackpotLastMonth(jackpotList, lastCouple.getDateBase());
+        viewModel.getSubJackpotNextDay(jackpotList, lastCouple.getCoupleInt(), 4);
+    }
+
+    private void showJackpotList(List<Jackpot> jackpotList) {
+        showSubJackpotList(jackpotList);
+        viewModel.getJackpotsManyYears(jackpotList.get(0).getCouple());
+    }
+
+    private void showSubJackpotList(List<Jackpot> jackpotList) {
+        List<Jackpot> subJackpot = new ArrayList<>(jackpotList.subList(0, 4));
+        Collections.reverse(subJackpot);
         TableLayout tableLayout = CustomTableLayout.
-                getCoupleTableLayout(getActivity(), subCoupleList, 0);
+                getCoupleTableLayout(getActivity(), subJackpot, 0);
         linearCouple.removeAllViews();
         linearCouple.addView(tableLayout);
         coupleTableIsExist = true;
-        Couple lastCouple = subCoupleList.get(subCoupleList.size() - 1);
-        viewModel.getSubCoupleNextDay(lastCouple.getCoupleInt(), 4);
-        viewModel.getSubCoupleLastMonth(lastCouple.getDateBase());
+
         listMP = "";
-        for (int i = subCoupleList.size() - 1; i >= 0; i--) {
-            listMP += subCoupleList.get(i).show();
-            if (i != 0) {
-                listMP += ", ";
-            }
+        for (int i = subJackpot.size() - 1; i >= 0; i--) {
+            listMP += subJackpot.get(i).getCouple().show() + (i == 0 ? "" : ", ");
         }
         UpdateMyPrediction(-1, listMP);
     }
@@ -531,13 +509,9 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         if (listMP.isEmpty()) {
             tvShowPrediction.setText("m: ");
         } else {
-            String mpStr = "";
-            if (mp < 0) {
+            String mpStr = CoupleBase.showCouple(mp);
+            if (mpStr.isEmpty()) {
                 mpStr = "??";
-            } else if (mp < 10) {
-                mpStr = "0" + mp;
-            } else {
-                mpStr = mp + "";
             }
             if (coupleTableIsExist) {
                 TextView textView = viewParent.findViewById(IdStart.MY_PREDICTION);
@@ -551,41 +525,41 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             tvShowPrediction.setText("m: " + mpStr + ", " + listMP);
 
             String selected = mp < 0 ? "" : mpStr;
-            IOFileBase.saveDataToFile(getActivity(), FileName.SELECTED_NUMBER, selected, 0);
+            IOFileBase.saveDataToFile(getActivity(), FileName.PICKED_NUMBER, selected, 0);
         }
     }
 
     @Override
-    public void showSubCoupleNextDay(List<Couple> subCoupleList) {
+    public void showSubJackpotNextDay(List<Jackpot> subJackpotList) {
         TableLayout tableLayout = CustomTableLayout.getCoupleTableLayout(getActivity(),
-                subCoupleList, 1);
+                subJackpotList, 1);
         linearCoupleNextDay.removeAllViews();
         linearCoupleNextDay.addView(tableLayout);
         coupleNextDayTableIsExist = true;
     }
 
     @Override
-    public void showSubCoupleLastMonth(List<Couple> subCoupleList) {
+    public void showSubJackpotLastMonth(List<Jackpot> subJackpotList) {
         TableLayout tableLayout = CustomTableLayout.getCoupleTableLayout(getActivity(),
-                subCoupleList, -1);
+                subJackpotList, -1);
         linearCoupleLastMonth.removeAllViews();
         linearCoupleLastMonth.addView(tableLayout);
     }
 
     @Override
-    public void showTableType1(List<Number> numbers) {
+    public void showTableType1(List<Picker> pickers) {
         hsNumberTable.removeAllViews();
         hsNumberTable.addView(CustomTableLayout.getNumberTableLayout(getActivity()));
         hsChooseHeadTailTable.removeAllViews();
         hsChooseHeadTailTable.addView(CustomTableLayout.getChooseHeadTailTableLayout(getActivity()));
         SetOnClickForTextViewType1();
         SetOnClickForHeadTail();
-        for (int i = 0; i < numbers.size(); i++) {
-            TextView textView = viewParent.findViewById(numbers.get(i).getNumber());
-            if (numbers.get(i).getLevel() == 1) {
+        for (int i = 0; i < pickers.size(); i++) {
+            TextView textView = viewParent.findViewById(pickers.get(i).getNumber());
+            if (pickers.get(i).getLevel() == 1) {
                 textView.setBackground(greenDrawable);
             }
-            if (numbers.get(i).getLevel() == 2) {
+            if (pickers.get(i).getLevel() == 2) {
                 textView.setBackground(redDrawable);
             }
         }
@@ -691,12 +665,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void showTableType2(List<Number> numbers) {
+    public void showTableType2(List<Picker> pickers) {
         hsFilteredNumberTable.removeAllViews();
         hsFilteredNumberTable.addView(CustomTableLayout.getFilteredNumberTableLayout(getActivity(), 0));
         hsTableToChooseNumber.removeAllViews();
         hsTableToChooseNumber.addView(CustomTableLayout.getChooseNumberTableLayout(getActivity()));
-        SetStartMatrix(numbers);
+        SetStartMatrix(pickers);
         SetColorForChoosingNumberTextView();
         SetColorForFilteredNumberTextView(0);
         SetOnClickForTextViewType2(0);
@@ -717,14 +691,14 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         SetCounterForTableType2();
     }
 
-    private void SetStartMatrix(List<Number> numbers) {
+    private void SetStartMatrix(List<Picker> pickers) {
         matrix = new int[Const.MAX_ROW_COUNT_TABLE];
-        for (int i = 0; i < numbers.size(); i++) {
-            int number = numbers.get(i).getNumber();
-            if (numbers.get(i).getLevel() == 1) {
+        for (int i = 0; i < pickers.size(); i++) {
+            int number = pickers.get(i).getNumber();
+            if (pickers.get(i).getLevel() == 1) {
                 matrix[number] = 1;
             }
-            if (numbers.get(i).getLevel() == 2) {
+            if (pickers.get(i).getLevel() == 2) {
                 matrix[number] = 2;
             }
         }
@@ -862,19 +836,19 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         tvNumberCounter.setText(count + " số được chọn");
     }
 
-    private static Spannable getColorTextBySpanable(String title, List<Number> numbers) {
+    private static Spannable getColorTextBySpanable(String title, List<Picker> pickers) {
         String data = title;
-        for (int i = 0; i < numbers.size(); i++) {
-            data += numbers.get(i).show();
-            if (i != numbers.size() - 1) {
+        for (int i = 0; i < pickers.size(); i++) {
+            data += pickers.get(i).show();
+            if (i != pickers.size() - 1) {
                 data += ", ";
             }
         }
         // vd:     01, 05, 12, 16 => mỗi number chiếm 4 kí tự
         Spannable wordtoSpan = new SpannableString(data);
         int sizeOfTitle = title.length();
-        for (int i = 0; i < numbers.size(); i++) {
-            if (numbers.get(i).getLevel() == 2)
+        for (int i = 0; i < pickers.size(); i++) {
+            if (pickers.get(i).getLevel() == 2)
                 wordtoSpan.setSpan(new ForegroundColorSpan(Color.BLUE), sizeOfTitle + (i * 4),
                         sizeOfTitle + (i * 4 + 2), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
@@ -887,14 +861,14 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void showTableAList(List<Number> numbers) {
-        if (numbers.isEmpty()) {
+    public void showTableAList(List<Picker> pickers) {
+        if (pickers.isEmpty()) {
             tvTableA.setText("Bảng A trống.");
             imgCancelA.setVisibility(View.GONE);
             imgExportA.setVisibility(View.GONE);
         } else {
-            String title = "Bảng A (" + numbers.size() + " số): ";
-            Spannable spannableText = getColorTextBySpanable(title, numbers);
+            String title = "Bảng A (" + pickers.size() + " số): ";
+            Spannable spannableText = getColorTextBySpanable(title, pickers);
             tvTableA.setText(spannableText);
             imgCancelA.setVisibility(View.VISIBLE);
             imgExportA.setVisibility(View.VISIBLE);
@@ -938,14 +912,14 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void showTableBList(List<Number> numbers) {
-        if (numbers.isEmpty()) {
+    public void showTableBList(List<Picker> pickers) {
+        if (pickers.isEmpty()) {
             tvTableB.setText("Bảng B trống.");
             imgCancelB.setVisibility(View.GONE);
             imgExportB.setVisibility(View.GONE);
         } else {
-            String title = "Bảng B (" + numbers.size() + " số): ";
-            Spannable spannableText = getColorTextBySpanable(title, numbers);
+            String title = "Bảng B (" + pickers.size() + " số): ";
+            Spannable spannableText = getColorTextBySpanable(title, pickers);
             tvTableB.setText(spannableText);
             imgCancelB.setVisibility(View.VISIBLE);
             imgExportB.setVisibility(View.VISIBLE);
@@ -998,18 +972,4 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         }
     }
 
-    public void setDataToTable() {
-        String numbersStr = IOFileBase.readDataFromFile(requireActivity(), FileName.NUMBER_ARRAY);
-        IOFileBase.saveDataToFile(getActivity(), FileName.NUMBER_ARRAY, "", 0);
-        if (isFirstNumberPicker) {
-            List<Number> numbers = NumberBase.verifyNumberArr(numbersStr, 2);
-            if (!numbers.isEmpty()) {
-                showTableType1(numbers);
-                Toast.makeText(getActivity(), "Đã nạp dữ liệu!", Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Toast.makeText(getActivity(), "Dữ liệu chỉ nên nạp vào bảng chọn số K1 rồi lưu để dùng lại!",
-                    Toast.LENGTH_LONG).show();
-        }
-    }
 }

@@ -71,16 +71,16 @@ public class CustomTableLayout {
         return tableLayout;
     }
 
-    public static TableLayout getCoupleTableLayout(Context context, List<Couple> couples, int type) {
+    public static TableLayout getCoupleTableLayout(Context context, List<Jackpot> jackpotList, int type) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableLayout.setShrinkAllColumns(true);
         tableLayout.setStretchAllColumns(true);
 
-        for (int i = 0; i < couples.size(); i++) {
+        for (int i = 0; i < jackpotList.size(); i++) {
             TableRow row = new TableRow(context);
-            row.addView(getCellOfCoupleTable(context, couples.get(i).show()));
+            row.addView(getCellOfCoupleTable(context, jackpotList.get(i).getCouple().show()));
             tableLayout.addView(row);
         }
         if (type >= 0) {
@@ -478,7 +478,7 @@ public class CustomTableLayout {
             } else {
                 String number = "xx";
                 String cl = "xx";
-                String data = IOFileBase.readDataFromFile(context, FileName.SELECTED_NUMBER);
+                String data = IOFileBase.readDataFromFile(context, FileName.PICKED_NUMBER);
                 if (!data.equals("")) {
                     int first = Integer.parseInt(data.charAt(0) + "");
                     int second = Integer.parseInt(data.charAt(1) + "");

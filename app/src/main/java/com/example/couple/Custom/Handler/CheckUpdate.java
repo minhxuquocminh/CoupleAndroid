@@ -4,51 +4,40 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Time.TimeBase;
-
-import java.util.List;
+import com.example.couple.Model.Time.DateBase;
 
 public class CheckUpdate {
 
     public static boolean checkUpdateTime(Context context) {
-        String data = IOFileBase.readDataFromFile(context, FileName.TIME);
-        if (data.isEmpty()) return true;
-        String[] sub = data.split("===");
-        int calendarDay = Integer.parseInt(sub[1]);
-        String[] monthData = sub[2].split(" ");
-        int calendarMonth = Integer.parseInt(monthData[1]);
-        int calendarYear = Integer.parseInt(monthData[4]);
-        return !(TimeInfo.CURRENT_DAY == calendarDay && TimeInfo.CURRENT_MONTH == calendarMonth
-                && TimeInfo.CURRENT_YEAR == calendarYear);
-    }
-
-    public static boolean checkUpdateCycle(Context context) {
-        List<TimeBase> timeBaseList = TimeHandler.getAllSexagenaryCycle(context, 1);
-        if (timeBaseList.isEmpty()) return true;
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 1);
-        if (jackpotList.isEmpty()) return true;
-        return !jackpotList.get(0).getDateBase().plusDays(1).equals(timeBaseList.get(0).getDateBase());
+        DateBase dateBase = TimeHandler.getDateBase(context);
+        if (dateBase.isEmpty()) return true;
+        return !dateBase.isToday();
     }
 
     public static boolean checkUpdateJackpot(Context context) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 1);
-        if (jackpotList.isEmpty()) return true;
-        return !jackpotList.get(0).getDateBase().isToday();
+        String lastDateStr = IOFileBase.readDataFromFile(context, FileName.JACKPOT_LAST_DATE);
+        DateBase lastDate = DateBase.fromString(lastDateStr, "-");
+        if (lastDate.isEmpty()) return true;
+        return !lastDate.isToday();
     }
 
     public static boolean checkUpdateLottery(Context context) {
-        List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, 1);
-        if (lotteries.isEmpty()) return true;
-        return !lotteries.get(0).getDateBase().isToday();
+        String lastDateStr = IOFileBase.readDataFromFile(context, FileName.LOTTERY_LAST_DATE);
+        DateBase lastDate = DateBase.fromString(lastDateStr, "-");
+        if (lastDate.isEmpty()) return true;
+        return !lastDate.isToday();
     }
 
-    public static boolean checkDataSync(Context context) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 1);
-        List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, 1);
-        if (jackpotList.isEmpty() || lotteries.isEmpty()) return false;
-        return jackpotList.get(0).getDateBase().equals(lotteries.get(0).getDateBase());
+    public static boolean checkUpdateCycle(Context context) {
+        DateBase dateBase = CycleHandler.getTimeBaseToday(context).getDateBase();
+        if (dateBase.isEmpty()) return true;
+        return !dateBase.isToday();
     }
+
+//    public static boolean checkDataSync(Context context) {
+//        Jackpot lastJackpot = JackpotHandler.getLastJackpot(context);
+//        Lottery lastLottery = LotteryHandler.getLastLottery(context);
+//        if (lastJackpot.isEmpty() || lastLottery.isEmpty()) return false;
+//        return lastJackpot.getDateBase().equals(lastLottery.getDateBase());
+//    }
 }

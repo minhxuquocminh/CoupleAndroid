@@ -1,11 +1,10 @@
-package com.example.couple.Custom.Handler.Notification;
+package com.example.couple.View.UpdateDataInfo;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
@@ -16,47 +15,39 @@ import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.CycleHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
+import com.example.couple.Custom.Handler.Notification.NotifyNewBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-// class alarm receiver
-public class UpdateDataAlarm extends BroadcastReceiver {
+public class AlarmTest extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (InternetBase.isInternetAvailable(context)) {
-            getData(context);
-        } else {
-            String title = "XSMB";
-            String content = "Lỗi lấy kết quả XS Đặc biệt Miền Bắc (Lỗi không có mạng).";
-            NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
-        }
+        getData(context);
     }
 
     public void getData(Context context) {
         String title = "XSMB";
         String content = "";
-        if (CheckUpdate.checkUpdateJackpot(context)) {
-            try {
-                String jackpot = Api.getJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
-                IOFileBase.saveDataToFile(context, "jackpot" +
-                        TimeInfo.CURRENT_YEAR + ".txt", jackpot, Context.MODE_PRIVATE);
-                if (!CheckUpdate.checkUpdateJackpot(context)) {
-                    List<Jackpot> jackpotList = JackpotHandler
-                            .getReserveJackpotListFromFile(context, 18);
-                    if (jackpotList.isEmpty()) return;
-                    content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
-                            jackpotList.get(0).getJackpot() + ".";
-                    NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
-                    NotifyNewBridge.notify(context, jackpotList);
-                    JackpotHandler.saveLastDate(context, jackpotList);
-                    getDataIfNeeded(context);
-                }
-            } catch (ExecutionException | InterruptedException ignored) {
-
+        try {
+            String jackpot = Api.getJackpotDataFromInternet(context, TimeInfo.CURRENT_YEAR);
+            IOFileBase.saveDataToFile(context, "jackpot" +
+                    TimeInfo.CURRENT_YEAR + ".txt", jackpot, Context.MODE_PRIVATE);
+            if (!CheckUpdate.checkUpdateJackpot(context)) {
+                List<Jackpot> jackpotList = JackpotHandler
+                        .getReserveJackpotListFromFile(context, 18);
+                if (jackpotList.isEmpty()) return;
+                content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
+                        jackpotList.get(0).getJackpot() + ".";
+                NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
+                NotifyNewBridge.notify(context, jackpotList);
+                JackpotHandler.saveLastDate(context, jackpotList);
+                getDataIfNeeded(context);
             }
+        } catch (ExecutionException | InterruptedException ignored) {
+
         }
     }
 

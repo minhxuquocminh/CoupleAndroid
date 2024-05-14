@@ -61,7 +61,7 @@ public class NumberArray implements Serializable {
                 numberList.add(number);
             }
         }
-        this.numbers = NumberBase.showNumbers(numberList, "; ", 2);
+        this.numbers = NumberBase.showNumbers(numberList, 2, "; ");
     }
 
 }

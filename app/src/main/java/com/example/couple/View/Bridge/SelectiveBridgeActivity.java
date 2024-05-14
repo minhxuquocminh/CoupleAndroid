@@ -19,7 +19,6 @@ import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.R;
 import com.example.couple.View.BridgeHistory.SpecialSetsHistoryActivity;
 import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
@@ -86,18 +85,13 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void showNextDayTimeAndJackpotList(TimeBase nextDay,
-                                              List<Jackpot> allJackpotList, List<Jackpot> jackpotList) {
-        // from jackpot
+    public void showJackpotList(List<Jackpot> jackpotList) {
         viewModel.getAfterDoubleBridge(jackpotList);
         viewModel.getLongBeatBridge(jackpotList);
         viewModel.getBranchInTwoDaysBridge(jackpotList);
         viewModel.getSignOfDouble(jackpotList);
         viewModel.getShadowTouchs(jackpotList);
-        // from time and jackpot
-        if (!nextDay.isEmpty()) {
-            viewModel.getBranchInDayBridge(allJackpotList, nextDay.getDateCycle().getDay().getBranch());
-        }
+        viewModel.getBranchInDayBridge(jackpotList);
     }
 
     @Override
@@ -113,7 +107,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
             tvAfterDoubleBridge.setVisibility(View.GONE);
         } else {
             tvAfterDoubleBridge.setVisibility(View.VISIBLE);
-            String show = "Cầu sau khi ra kép:\n"+ GenericBase.getDelimiterString(bridges, "\n");
+            String show = "Cầu sau khi ra kép:\n" + GenericBase.getDelimiterString(bridges, "\n");
             tvAfterDoubleBridge.setText(show.trim());
         }
     }

@@ -1,6 +1,7 @@
 package com.example.couple.View.Main.HomePage;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,11 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.couple.Base.Handler.ThreadBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Service.UpdateDataService;
+import com.example.couple.Custom.Service.UpdateDataView;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
@@ -28,6 +33,7 @@ import com.example.couple.View.Bridge.FindingBridgeActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
+import com.example.couple.View.Main.MainActivity;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleActivity;
 import com.example.couple.View.SubScreen.NoteActivity;
 import com.example.couple.ViewModel.Main.HomePage.HomePageViewModel;
@@ -35,7 +41,7 @@ import com.example.couple.ViewModel.Main.HomePage.HomePageViewModel;
 import java.util.List;
 import java.util.Objects;
 
-public class HomePageFragment extends Fragment implements HomePageView {
+public class HomePageFragment extends Fragment implements HomePageView, UpdateDataView {
     ImageView imgViewLottery;
     ImageView imgFindingBridge;
     TextView tvCalendar;
@@ -57,6 +63,15 @@ public class HomePageFragment extends Fragment implements HomePageView {
     TextView tvSubJackpot;
 
     HomePageViewModel homePageViewModel;
+    UpdateDataService updateDataService;
+
+    MainActivity activity;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        activity = (MainActivity) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,18 +99,23 @@ public class HomePageFragment extends Fragment implements HomePageView {
         tvSubJackpot = view.findViewById(R.id.tvSubJackpot);
 
         homePageViewModel = new HomePageViewModel(this, getActivity());
+        updateDataService = new UpdateDataService(this, getActivity());
 
-        homePageViewModel.getTimeData(true);
-        homePageViewModel.getJackpotData(true);
-        homePageViewModel.getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, true);
+        activity.getTime().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String time) {
+                tvCalendar.setText(time);
+            }
+        });
+
+        activity.getJackpotList().observe(getViewLifecycleOwner(), new Observer<List<Jackpot>>() {
+            @Override
+            public void onChanged(List<Jackpot> jackpotList) {
+                showJackpotList(jackpotList);
+            }
+        });
+
         homePageViewModel.getNote();
-
-        new ThreadBase((param) -> {
-            homePageViewModel.setUrlAndParamsIfNoData();
-            homePageViewModel.registerBackgoundRuntime();
-            homePageViewModel.updateAllDataIfNeeded(false);
-            return null;
-        }, "").start();
 
         imgViewLottery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +140,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 new ThreadBase((param) -> {
-                                    homePageViewModel.updateAllData(false);
+                                    updateDataService.updateAllData(false);
                                     return null;
                                 }, "").start();
                             }
@@ -140,8 +160,11 @@ public class HomePageFragment extends Fragment implements HomePageView {
                                 Const.MAX_DAYS_TO_GET_LOTTERY + " ngày không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.updateLottery(Const.MAX_DAYS_TO_GET_LOTTERY,
-                                        true, true);
+                                new ThreadBase((param) -> {
+                                    updateDataService.updateLottery(Const.MAX_DAYS_TO_GET_LOTTERY,
+                                            true, false);
+                                    return null;
+                                }, "").start();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -158,7 +181,10 @@ public class HomePageFragment extends Fragment implements HomePageView {
                         .setMessage("Bạn có muốn cập nhật XS Đặc biệt của năm nay không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                homePageViewModel.updateJackpot(true, true);
+                                new ThreadBase((param) -> {
+                                    updateDataService.updateJackpot(true, false);
+                                    return null;
+                                }, "").start();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -208,40 +234,7 @@ public class HomePageFragment extends Fragment implements HomePageView {
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public void showMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showAllDataStatus(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void updateJackpotSuccess(String message) {
-        if (!message.isEmpty()) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        homePageViewModel.getJackpotData(true);
-    }
-
-    @Override
-    public void updateLotterySuccess(String message) {
-        if (!message.isEmpty()) Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showTimeData(String time) {
-        tvCalendar.setText(time);
-    }
-
-    @Override
-    public void showJackpotData(List<Jackpot> jackpotList) {
+    private void showJackpotList(List<Jackpot> jackpotList) {
         tvJackpotToday.setText("Xổ số Đặc Biệt hôm nay về: " + jackpotList.get(0).getJackpot());
         tvJackpotLastDay.setText("Xổ số Đ.Biệt ngày trước đó: " + jackpotList.get(1).getJackpot());
         homePageViewModel.getHeadAndTailInLongestTime(jackpotList);
@@ -257,7 +250,23 @@ public class HomePageFragment extends Fragment implements HomePageView {
     }
 
     @Override
+    public void showMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showTimeData(String time) {
+        // không làm gì vì đã được observe từ MainActivity
+    }
+
+    @Override
+    public void showJackpotData(List<Jackpot> jackpotList) {
+        activity.getJackpotList().setValue(jackpotList);
+    }
+
+    @Override
     public void showLotteryData(List<Lottery> lotteries) {
+        // ko có observe
     }
 
     @Override

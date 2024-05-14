@@ -11,19 +11,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.Handler.AlarmBase;
 import com.example.couple.Base.Handler.InternetBase;
-import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Custom.Handler.Api;
-import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
+import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class AddJackpotManyYearsActivity extends AppCompatActivity implements AddJackpotManyYearsView {
     EditText edtStart;
@@ -111,7 +106,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         btnTestNotif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getData(AddJackpotManyYearsActivity.this);
+                testNotification(AddJackpotManyYearsActivity.this);
             }
         });
     }
@@ -134,27 +129,13 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         Toast.makeText(this, show, Toast.LENGTH_LONG).show();
     }
 
-    public void getData(Context context) {
-        String title = "XSMB";
-        String content = 1 + "";
-        NotificationBase.pushNotification(context, Integer.parseInt(content), title, content);
-    }
-
-    private void getDataIfNeeded(Context context) {
-        boolean checkUpdateTime = CheckUpdate.checkUpdateTime(context);
-        boolean checkUpdateLottery = CheckUpdate.checkUpdateLottery(context);
-        try {
-            if (checkUpdateTime) {
-                String time = Api.getTimeDataFromInternet(context);
-                IOFileBase.saveDataToFile(context, FileName.TIME, time, 0);
-            }
-            if (checkUpdateLottery) {
-                String lottery = Api.getLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-                IOFileBase.saveDataToFile(context, FileName.LOTTERY, lottery, 0);
-            }
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void testNotification(Context context) {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        AlarmBase.startAlarmEveryDay(context, AlarmTest.class,
+                1234, hour, minute + 1, 0);
+        showMessage("Đã đăng ký alarm !");
     }
 
 }

@@ -6,12 +6,12 @@
         android:title="Trang chủ" />
 
     <item
-        android:id="@+id/itCreateNumbers"
+        android:id="@+id/itNumberPicker"
         android:icon="@drawable/icon_create_numbers_change"
         android:title="Chọn số" />
 
     <item
-        android:id="@+id/itPredictionBridge"
+        android:id="@+id/itCreateNumberArray"
         android:icon="@drawable/icon_prediction_bridge_change"
         android:title="Tạo dàn số" />
 

@@ -35,18 +35,16 @@ public class InternetBase {
                 InetAddress address = InetAddress.getByName(url);
                 return address.isReachable(timeout);
             } catch (IOException e) {
-                e.printStackTrace();
+                return false;
             }
-            return false;
         });
 
         try {
             task.execute();
             return task.get();
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public static boolean isInternetAvailable(Context context) {

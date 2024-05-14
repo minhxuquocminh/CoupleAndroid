@@ -4,10 +4,8 @@ import android.content.Context;
 
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Handler.TimeHandler;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Time.TimeBase;
 import com.example.couple.View.BridgeHistory.SpecialSetsHistoryView;
 
 import java.util.List;
@@ -19,17 +17,14 @@ public class SpecialSetsHistoryViewModel {
     Context context;
     SpecialSetsHistoryView specialSetsHistoryView;
 
-    public void getJackpotListAndTimeBaseData(int numberOfDays) {
-        List<Jackpot> allJackpotList = JackpotHandler.getAllReserveJackpotListFromFile(context, numberOfDays);
+    public void getJackpotList(int numberOfDays) {
         List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
-        TimeBase timeBaseNextDay = TimeHandler.getTimeBaseNextDay(context);
-        specialSetsHistoryView.showJackpotListAndTimeBaseData(allJackpotList, jackpotList, timeBaseNextDay);
+        specialSetsHistoryView.showJackpotList(jackpotList);
     }
 
-    public void getSpecialSetsHistory(List<Jackpot> allJackpotList,
-                                      List<Jackpot> jackpotList, TimeBase timeBaseNextDay) {
+    public void getSpecialSetsHistory(List<Jackpot> jackpotList) {
         List<SpecialSetHistory> historyList =
-                HistoryHandler.getSpecialSetsHistory(allJackpotList, jackpotList, timeBaseNextDay);
+                HistoryHandler.getSpecialSetsHistory(jackpotList);
         if (!historyList.isEmpty()) {
             specialSetsHistoryView.showSpecialSetsHistory(historyList);
         }

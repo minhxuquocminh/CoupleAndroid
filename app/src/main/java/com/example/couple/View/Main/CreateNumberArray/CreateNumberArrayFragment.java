@@ -1,6 +1,7 @@
 package com.example.couple.View.Main.CreateNumberArray;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,19 +17,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 
-import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Model.Display.Number;
+import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.R;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
@@ -84,6 +84,14 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     int[] matrix = new int[1000];
     public static Boolean RECEIVE_DATA;
 
+    MainActivity activity;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        activity = (MainActivity) context;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewParent = inflater.inflate(R.layout.fragment_create_number_array, container, false);
@@ -118,10 +126,15 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         hsNumberTable = viewParent.findViewById(R.id.hsNumberTable1);
         tvShowTriadList = viewParent.findViewById(R.id.tvShowTriadList);
 
+        activity.getJackpotList().observe(getViewLifecycleOwner(), new Observer<List<Jackpot>>() {
+            @Override
+            public void onChanged(List<Jackpot> jackpotList) {
+                showJackpotList(jackpotList);
+            }
+        });
+
         viewModel = new CreateNumberArrayViewModel(this, getActivity());
-        viewModel.getLotteryAndJackpotList();
         RECEIVE_DATA = false;
-        viewModel.getSubJackpotList(5);
         viewModel.getTriadTable();
 
         pink = R.drawable.cell_pink_table;
@@ -133,6 +146,22 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
                 startActivity(new Intent(getActivity(), BridgeCombinationActivity.class));
+            }
+        });
+
+        tvViewCycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WidgetBase.hideKeyboard(requireActivity());
+                startActivity(new Intent(getActivity(), SexagenaryCycleActivity.class));
+            }
+        });
+
+        tvReference.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WidgetBase.hideKeyboard(requireActivity());
+                startActivity(new Intent(getActivity(), SelectiveBridgeActivity.class));
             }
         });
 
@@ -248,13 +277,13 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                         .setMessage("Bạn có muốn lưu dữ liệu vào CSDL không?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                List<Number> numbers = new ArrayList<>();
+                                List<Picker> pickers = new ArrayList<>();
                                 for (int i = 0; i < 1000; i++) {
                                     if (matrix[i] > 0) {
-                                        numbers.add(new Number(i, matrix[i]));
+                                        pickers.add(new Picker(i, matrix[i]));
                                     }
                                 }
-                                viewModel.saveDataToFile(numbers);
+                                viewModel.saveDataToFile(pickers);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -291,13 +320,9 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         return viewParent;
     }
 
-    @Override
-    public void showMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showLotteryAndJackpotList(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
+    private void showJackpotList(List<Jackpot> jackpotList) {
+        subJackpot = jackpotList.subList(0, 5);
+        SetTextForSubJackpot(subJackpot, -1);
         tvWayToRun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -305,22 +330,11 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                 viewModel.getPeriodHistory(jackpotList);
             }
         });
+    }
 
-        tvViewCycle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WidgetBase.hideKeyboard(requireActivity());
-                startActivity(new Intent(getActivity(), SexagenaryCycleActivity.class));
-            }
-        });
-
-        tvReference.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WidgetBase.hideKeyboard(requireActivity());
-                startActivity(new Intent(getActivity(), SelectiveBridgeActivity.class));
-            }
-        });
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -352,19 +366,17 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void verifyCoupleArraySuccess(String numbersArr) {
-        IOFileBase.saveDataToFile(getActivity(), FileName.NUMBER_ARRAY, numbersArr, 0);
-        RECEIVE_DATA = true;
-        FragmentManager fm = requireActivity().getSupportFragmentManager();
+    public void verifyCoupleArraySuccess(List<Picker> pickers) {
+        activity.getCouplesToTransfer().setValue(pickers);
+        FragmentManager fm = getParentFragmentManager();
         fm.beginTransaction().show(MainActivity.fragment2).hide(MainActivity.active).commit();
-        BottomNavigationView navigationView = requireActivity().findViewById(R.id.bottom_navigation);
-        navigationView.setSelectedItemId(R.id.itCreateNumbers);
-        //finish();
+        BottomNavigationView navigationView = activity.findViewById(R.id.bottom_navigation);
+        navigationView.setSelectedItemId(R.id.itNumberPicker);
     }
 
     @Override
-    public void verifyTriadArraySuccess(List<Number> numbers) {
-        showTriadTable(numbers);
+    public void verifyTriadArraySuccess(List<Picker> pickers) {
+        showTriadTable(pickers);
         Toast.makeText(getActivity(), "Nạp dữ liệu thành công!", Toast.LENGTH_SHORT).show();
     }
 
@@ -376,12 +388,6 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         }
         WidgetBase.copyToClipboard(requireActivity(), "numbers", data.trim());
         Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard!", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showSubJackpotList(List<Jackpot> jackpotList) {
-        subJackpot = jackpotList;
-        SetTextForSubJackpot(subJackpot, -1);
     }
 
     private void SetTextForSubJackpot(List<Jackpot> jackpotList, int myJackpot) {
@@ -404,12 +410,12 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void showTriadTable(List<Number> numbers) {
+    public void showTriadTable(List<Picker> pickers) {
         hsThirdClaw.removeAllViews();
         hsThirdClaw.addView(CustomTableLayout.getChooseThirdClawTableLayout(getActivity()));
         hsNumberTable.removeAllViews();
         hsNumberTable.addView(CustomTableLayout.getNumberByThirdClawTableLayout(getActivity()));
-        SetStartMatrix(numbers);
+        SetStartMatrix(pickers);
         SetCounterForAll();
         SetColorForThirdClawTextView(0);
         SetColorForNumberTextView(0);
@@ -418,11 +424,11 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         viewModel.getTriadList();
     }
 
-    private void SetStartMatrix(List<Number> numbers) {
+    private void SetStartMatrix(List<Picker> pickers) {
         matrix = new int[1000];
-        for (int i = 0; i < numbers.size(); i++) {
-            int number = numbers.get(i).getNumber();
-            matrix[number] = numbers.get(i).getLevel();
+        for (int i = 0; i < pickers.size(); i++) {
+            int number = pickers.get(i).getNumber();
+            matrix[number] = pickers.get(i).getLevel();
         }
     }
 
@@ -545,12 +551,12 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void showTriadList(List<Number> numbers) {
+    public void showTriadList(List<Picker> pickers) {
         String show = "Dàn số 3 càng (đã lưu): \n";
         for (int i = 0; i < 10; i++) {
             show += " - Đầu " + i + ": ";
-            for (int j = 0; j < numbers.size(); j++) {
-                int number = numbers.get(j).getNumber();
+            for (int j = 0; j < pickers.size(); j++) {
+                int number = pickers.get(j).getNumber();
                 if (number / 100 == i) {
                     show += NumberBase.showNumberString(number, 3) + " ";
                 }

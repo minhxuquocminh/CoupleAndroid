@@ -7,6 +7,9 @@ import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
+import com.example.couple.Custom.Handler.JackpotHandler;
+import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Time.DateBase;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsView;
 
 import java.util.ArrayList;
@@ -74,6 +77,14 @@ public class AddJackpotManyYearsViewModel {
         if (updatedYears.isEmpty()) {
             view.showMessage("Cập nhật dữ liệu thất bại.");
             return;
+        }
+
+        int currentYear = TimeInfo.CURRENT_YEAR;
+        if (updatedYears.contains(currentYear)
+                || (DateBase.getYearStartDate(currentYear).isToday()
+                && updatedYears.contains(currentYear - 1))) {
+            List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 1);
+            JackpotHandler.saveLastDate(context, jackpotList);
         }
 
         lastUpdatedYears.addAll(updatedYears);

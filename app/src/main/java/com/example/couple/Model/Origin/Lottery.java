@@ -1,9 +1,9 @@
 package com.example.couple.Model.Origin;
 
-import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Support.Lotto;
 import com.example.couple.Model.Support.Position;
+import com.example.couple.Model.Time.DateBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,14 @@ public class Lottery {
     private final String characters;
     private final List<String> lottery;
     private final DateBase dateBase;
+
+    public static Lottery getEmpty() {
+        return new Lottery("", "", new ArrayList<>(), DateBase.getEmpty());
+    }
+
+    public boolean isEmpty() {
+        return lottery.isEmpty() || dateBase.isEmpty();
+    }
 
     public int getValueAtPosition(Position position) {
         return Integer.parseInt(lottery.get(position.getFirstLevel()).

@@ -2,16 +2,26 @@ package com.example.couple.Model.Origin;
 
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Display.BCouple;
+import com.example.couple.Model.Time.Cycle.Cycle;
 import com.example.couple.Model.Time.DateBase;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
 public class Jackpot {
     String jackpot;
     DateBase dateBase;
+    @Setter
+    Cycle dayCycle;
+
+    public Jackpot(String jackpot, DateBase dateBase) {
+        this.jackpot = jackpot;
+        this.dateBase = dateBase;
+        this.dayCycle = Cycle.getEmpty();
+    }
 
     public static Jackpot getEmpty(DateBase dateBase) {
         return new Jackpot(Const.EMPTY_JACKPOT, dateBase);
@@ -36,6 +46,11 @@ public class Jackpot {
             }
         }
         return count > 0;
+    }
+
+    public boolean isYearBranch(int currentYear) {
+        if (this.isEmpty() || dayCycle.isEmpty()) return false;
+        return dayCycle.getBranch().isYearBranch(getCoupleInt(), currentYear);
     }
 
     public int getThirdClaw() {

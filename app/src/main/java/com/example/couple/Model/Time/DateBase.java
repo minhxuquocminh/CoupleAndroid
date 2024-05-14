@@ -17,12 +17,10 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
 @EqualsAndHashCode
 public class DateBase implements Serializable {
     int day;
@@ -39,6 +37,14 @@ public class DateBase implements Serializable {
 
     public static DateBase TO_DAY() {
         return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
+    }
+
+    public static DateBase getYearLastDate(int year) {
+        return new DateBase(TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, year);
+    }
+
+    public static DateBase getYearStartDate(int year) {
+        return new DateBase(1, 1, year);
     }
 
     public boolean isDateLastYear() {
@@ -206,14 +212,14 @@ public class DateBase implements Serializable {
         return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
     }
 
-    public static DateBase fromString(String s, String splitRegex) {
-        String[] sub = s.split(splitRegex);
-        if (sub.length < 3) return null;
-        return new DateBase(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]), Integer.parseInt(sub[2]));
+    public String toString(String delimiter) {
+        return day + delimiter + month + delimiter + year;
     }
 
-    public String showDot() {
-        return day + "." + month + "." + year;
+    public static DateBase fromString(String data, String splitRegex) {
+        String[] sub = data.split(splitRegex);
+        if (sub.length < 3) return DateBase.getEmpty();
+        return new DateBase(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]), Integer.parseInt(sub[2]));
     }
 
     public String showFullChars() {

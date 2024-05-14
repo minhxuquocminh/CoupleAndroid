@@ -9,14 +9,12 @@ import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Display.SpecialSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Time.TimeBase;
 
 import java.util.List;
 
 public interface SelectiveBridgeView {
     void showMessage(String message);
-    void showNextDayTimeAndJackpotList(TimeBase nextDay,
-                                       List<Jackpot> allJackpotList, List<Jackpot> jackpotList);
+    void showJackpotList(List<Jackpot> jackpotList);
     void showLotteryList(List<Lottery> lotteries);
     void showAfterDoubleBridge(List<AfterDoubleBridge> bridges);
     void showLongBeatBridge(List<SpecialSetHistory> histories);

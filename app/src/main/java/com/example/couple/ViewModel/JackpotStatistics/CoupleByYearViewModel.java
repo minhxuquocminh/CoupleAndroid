@@ -6,6 +6,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.JackpotStatistics.CoupleByYearView;
 
 import java.util.List;
@@ -20,28 +21,6 @@ public class CoupleByYearViewModel {
     public CoupleByYearViewModel(CoupleByYearView view, Context context) {
         this.view = view;
         this.context = context;
-    }
-
-    private int[][] getMatrixCountCouple(int numberOfYears) {
-        int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
-        if (startAndEndYearFile == null) {
-            view.showMessage("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được bảng" +
-                    " số lần xuất hiện của các số theo năm!");
-        } else {
-            int startYear_file = startAndEndYearFile[0];
-            int endYear_file = startAndEndYearFile[1];
-            int numberOfYears_file = endYear_file - startYear_file + 1;
-            if (endYear_file < TimeInfo.CURRENT_YEAR || numberOfYears_file < numberOfYears) {
-                view.showRequestLoadMoreData(startYear_file, endYear_file);
-            } else {
-                startYear = endYear_file - numberOfYears + 1;
-                List<com.example.couple.Model.Origin.Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, numberOfYears);
-                // numberOfYears + 1 vì 1 là cột của số đề
-                return JackpotStatistics.getCountCoupleMatrix(jackpotList,
-                        Const.MAX_ROW_COUNT_TABLE, numberOfYears + 1, startYear);
-            }
-        }
-        return null;
     }
 
     public void getCoupleCountingTable(String yearNumber, String tens, String unit, int status) {
@@ -85,6 +64,28 @@ public class CoupleByYearViewModel {
                 view.showCoupleCountingTable(matrix_sort, rowNumber, numberOfYears + 1, startYear);
             }
         }
+    }
+
+    private int[][] getMatrixCountCouple(int numberOfYears) {
+        int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
+        if (startAndEndYearFile == null) {
+            view.showMessage("Bạn cần nạp dữ liệu XS Đặc biệt các năm mới có thể xem được bảng" +
+                    " số lần xuất hiện của các số theo năm!");
+        } else {
+            int startYear_file = startAndEndYearFile[0];
+            int endYear_file = startAndEndYearFile[1];
+            int numberOfYears_file = endYear_file - startYear_file + 1;
+            if (endYear_file < TimeInfo.CURRENT_YEAR || numberOfYears_file < numberOfYears) {
+                view.showRequestLoadMoreData(startYear_file, endYear_file);
+            } else {
+                startYear = endYear_file - numberOfYears + 1;
+                List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, numberOfYears);
+                // numberOfYears + 1 vì 1 là cột của số đề
+                return JackpotStatistics.getCountCoupleMatrix(jackpotList,
+                        Const.MAX_ROW_COUNT_TABLE, numberOfYears + 1, startYear);
+            }
+        }
+        return null;
     }
 
 }
