@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
@@ -42,20 +41,6 @@ public class ReferenceBridgeViewModel {
             referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt!");
         } else {
             referenceBridgeView.showJackpotList(jackpotList);
-        }
-    }
-
-    public void getTouchBridge(List<Jackpot> jackpotList) {
-        if (jackpotList.size() >= 2) {
-            List<BSingle> touchList = BCoupleBridgeHandler.getTouchBridge(jackpotList);
-            referenceBridgeView.showTouchBridge(touchList);
-        }
-    }
-
-    public void getSpecialTouchBridge(List<Jackpot> jackpotList) {
-        if (jackpotList.size() >= 4) {
-            List<Integer> touchList = BCoupleBridgeHandler.getSpecialTouchBridge(jackpotList);
-            referenceBridgeView.showSpecialTouchBridge(touchList);
         }
     }
 

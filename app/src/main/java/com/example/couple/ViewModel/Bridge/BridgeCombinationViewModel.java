@@ -185,7 +185,7 @@ public class BridgeCombinationViewModel {
 
             if (triadMapping) {
                 TriadMappingBridge triadMappingBridge = MappingBridgeHandler
-                        .getTriadMappingBridge(jackpotList, i);
+                        .getAnyMappingBridge(jackpotList, i);
                 bridgeList.add(triadMappingBridge);
             }
             if (branchIn2Days) {

@@ -3,7 +3,6 @@ package com.example.couple.Model.Support;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Handler.LotteryHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -32,21 +31,6 @@ public class ClawSupport {
     public String showStatus() {
         return "Càng " + claw + " (" + LotteryHandler.showPrize(position) + " - N: " +
                 NumberBase.showNumbers(beatList, ", ") + ")";
-    }
-
-    List<Integer> getStatusList(List<Integer> numbers) {
-        List<Integer> rs = new ArrayList<>();
-        for (int i = 0; i < numbers.size(); i++) {
-            if (numbers.get(i) == 1) {
-                rs.add(1);
-            } else {
-                for (int j = 1; j < numbers.get(i); j++) {
-                    rs.add(0);
-                }
-                rs.add(1);
-            }
-        }
-        return rs;
     }
 
     public String showShort() {

@@ -79,7 +79,7 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
     @Override
     public void showTableOfJackpot(String[][] matrix, int year) {
         DateBase lastDate = JackpotHandler.getLastDate(this);
-        DateBase selectedDate = lastDate.plusDays(1);
+        DateBase selectedDate = lastDate.addDays(1);
         int row = selectedDate.getDay() - 1;
         int col = selectedDate.getMonth() - 1;
         String selected = IOFileBase.readDataFromFile(this, FileName.PICKED_NUMBER);

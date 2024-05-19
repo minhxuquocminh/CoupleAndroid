@@ -19,6 +19,12 @@ public class Stem {
         this.name = position == Const.EMPTY_VALUE ? "" : TimeInfo.HEAVENLY_STEMS.get(position % 10);
     }
 
+    public static Stem getByName(String stemName) {
+        int position = TimeInfo.HEAVENLY_STEMS.indexOf(stemName);
+        if (position < 0) return Stem.getEmpty();
+        return new Stem(position);
+    }
+
     public static Stem getEmpty() {
         return new Stem(Const.EMPTY_VALUE);
     }

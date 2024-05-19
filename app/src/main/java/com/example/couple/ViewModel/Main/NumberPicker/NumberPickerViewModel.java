@@ -48,7 +48,7 @@ public class NumberPickerViewModel {
     }
 
     public void getSubJackpotLastMonth(List<Jackpot> jackpotList, DateBase lastDate) {
-        DateBase nextDate = lastDate.plusDays(1);
+        DateBase nextDate = lastDate.addDays(1);
         int month = nextDate.getMonth() - 1 == 0 ? TimeInfo.MONTH_OF_YEAR : nextDate.getMonth() - 1;
         int year = nextDate.getMonth() - 1 == 0 ? nextDate.getYear() - 1 : nextDate.getYear();
         List<DateBase> dateBases = new ArrayList<>();

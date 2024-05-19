@@ -20,7 +20,7 @@ public class DateLunar {
         return day == 0 || month == 0 || year == 0;
     }
 
-    public DateLunar plusDaysSameMonth(int numberOfDays) {
+    public DateLunar addDaysSameMonth(int numberOfDays) {
         if (numberOfDays + day < 1 || numberOfDays + day > 30) return DateLunar.getEmpty();
         return new DateLunar(day + numberOfDays, month, year);
     }

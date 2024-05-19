@@ -431,7 +431,7 @@ public class CustomTableLayout {
                 }
             } else {
                 DateBase currentDate = jackpotList.get(i - 1).getDateBase();
-                DateBase new_date = currentDate.plusDays(1);
+                DateBase new_date = currentDate.addDays(1);
                 tvDay = getCellInEvenRows(context, new_date.getDay() + "/" + new_date.getMonth());
                 if (jackpotList.get(i - 1).getDateBase().isItOnSaturday()) {
                     tvDay.setBackgroundResource(R.drawable.cell_row_sunday);

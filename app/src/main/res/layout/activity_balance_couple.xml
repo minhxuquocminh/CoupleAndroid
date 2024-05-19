@@ -22,13 +22,6 @@
             android:textSize="@dimen/text_size_header"
             android:typeface="normal" />
 
-        <CheckBox
-            android:id="@+id/cboCombineCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            />
-
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
@@ -57,9 +50,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_gravity="center">
+                        android:layout_marginRight="5dp">
 
                         <EditText
                             android:id="@+id/edtFindingDays"
@@ -104,9 +97,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp">
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1">
 
                             <EditText
                                 android:id="@+id/edtDayNumberBefore"
@@ -126,9 +119,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp">
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1">
 
                             <EditText
                                 android:id="@+id/edtFilterDays"
@@ -155,31 +148,17 @@
                             android:id="@+id/tvViewPeriodHistory"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:background="@drawable/border_corners_primary"
                             android:gravity="center"
                             android:padding="10dp"
                             android:text=">>Khoảng"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
                             android:textAllCaps="false"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/text_size" />
 
-                        <TextView
-                            android:id="@+id/tvViewCombinePeriod"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:background="@drawable/border_corners_primary"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text=">>Cầu KH"
-                            android:textAllCaps="false"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_size" />
                     </LinearLayout>
 
                 </LinearLayout>

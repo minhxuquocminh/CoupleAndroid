@@ -85,7 +85,7 @@ public class SelectiveBridgeViewModel {
     }
 
     public void getBranchInDayBridge(List<Jackpot> jackpotList) {
-        BranchInDayBridge bridge = CycleBridgeHandler.getBranchInDayBridges(jackpotList);
+        BranchInDayBridge bridge = CycleBridgeHandler.getBranchInDayBridge(jackpotList);
         view.showBranchInDayBridge(bridge);
     }
 

@@ -36,7 +36,7 @@ public class OtherBridgeHandler {
     public static SignOfDouble getSignOfDouble(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore) return SignOfDouble.getEmpty();
         DateBase dateBase = dayNumberBefore == 0 ?
-                jackpotList.get(0).getDateBase().plusDays(1) : jackpotList.get(dayNumberBefore - 1).getDateBase();
+                jackpotList.get(0).getDateBase().addDays(1) : jackpotList.get(dayNumberBefore - 1).getDateBase();
         List<Integer> upMonthList = new ArrayList<>();
         List<Integer> monthList = new ArrayList<>();
         List<Integer> downMonthList = new ArrayList<>();
@@ -92,7 +92,7 @@ public class OtherBridgeHandler {
                 dayList.add(new DayDoubleSign(jackpot, count));
             }
 
-            if (dateBase.plusDays(-70).equals(dateCheck)) break;
+            if (dateBase.addDays(-70).equals(dateCheck)) break;
         }
 
         List<DayDoubleSign> reverseDayList = new ArrayList<>();
@@ -104,8 +104,8 @@ public class OtherBridgeHandler {
                 NumberBase.getReverseList(downMonthList), NumberBase.getReverseList(weekList), reverseDayList);
     }
 
-    public static NumberSetHistory getSpecialSetHistory(List<Jackpot> jackpotList,
-                                                        String specialSetName, List<Integer> numbers) {
+    public static NumberSetHistory getNumberSetHistory(List<Jackpot> jackpotList,
+                                                       String numberSetName, List<Integer> numbers) {
         if (jackpotList.isEmpty()) return new NumberSetHistory();
         List<Integer> beatList = new ArrayList<>();
         int count = 0;
@@ -117,7 +117,7 @@ public class OtherBridgeHandler {
             }
         }
         Collections.reverse(beatList);
-        return new NumberSetHistory(specialSetName, numbers, beatList);
+        return new NumberSetHistory(numberSetName, numbers, beatList);
     }
 
     // cầu này để tìm càng thứ 3 dựa trên lịch sử càng giống càng chạy gần đây

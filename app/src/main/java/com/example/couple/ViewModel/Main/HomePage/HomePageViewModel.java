@@ -4,9 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
-import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.Main.HomePage.HomePageView;
@@ -26,20 +24,6 @@ public class HomePageViewModel {
         List<NearestTime> nearestTimeList = JackpotStatistics.getHeadAndTailInNearestTime(jackpotList);
         if (nearestTimeList.isEmpty()) return;
         homePageView.showHeadAndTailInLongestTime(nearestTimeList);
-    }
-
-    public void getTouchBridge(List<Jackpot> jackpotList) {
-        if (jackpotList.size() >= 2) {
-            List<BSingle> touchList = BCoupleBridgeHandler.getTouchBridge(jackpotList);
-            homePageView.showTouchBridge(touchList);
-        }
-    }
-
-    public void getSpecialTouchBridge(List<Jackpot> jackpotList) {
-        if (jackpotList.size() >= 4) {
-            List<Integer> touchList = BCoupleBridgeHandler.getSpecialTouchBridge(jackpotList);
-            homePageView.showSpecialTouchBridge(touchList);
-        }
     }
 
     public void getNote() {

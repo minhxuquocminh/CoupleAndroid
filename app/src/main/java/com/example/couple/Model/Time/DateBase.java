@@ -60,7 +60,7 @@ public class DateBase implements Serializable {
         return this.day > today.getDay();
     }
 
-    public DateBase plusDays(int numberOfDays) {
+    public DateBase addDays(int numberOfDays) {
         Date date = toDate();
         if (date == null) return null;
         Calendar calendar = Calendar.getInstance();
@@ -121,7 +121,7 @@ public class DateBase implements Serializable {
     public boolean isDownLastMonthOf(DateBase dateBase) {
         if (!this.isValid() || !dateBase.isValid()) return false;
         DateBase lastMonth = dateBase.getLastMonth();
-        DateBase addDay = lastMonth.plusDays(1);
+        DateBase addDay = lastMonth.addDays(1);
         if (addDay.getMonth() != lastMonth.getMonth()) return false;
         if (dateBase.getMonth() == 1) {
             return day == dateBase.getDay() + 1 && month == 12 && year == dateBase.getYear() - 1;
@@ -141,11 +141,11 @@ public class DateBase implements Serializable {
     }
 
     public boolean isLastWeekOf(DateBase dateBase) {
-        return this.plusDays(7).equals(dateBase);
+        return this.addDays(7).equals(dateBase);
     }
 
     public DateBase getLastWeek() {
-        return this.plusDays(-7);
+        return this.addDays(-7);
     }
 
     public boolean isToday() {

@@ -3,7 +3,6 @@ package com.example.couple.View.Couple;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -25,12 +24,10 @@ import com.example.couple.ViewModel.Couple.BalanceCoupleViewModel;
 import java.util.List;
 
 public class BalanceCoupleActivity extends AppCompatActivity implements BalanceCoupleView {
-    CheckBox cboCombineCheck;
     EditText edtNumberOfDays;
     EditText edtDayNumberBefore;
     EditText edtFilterDays;
     TextView tvViewPeriodHistory;
-    TextView tvViewCombinePeriod;
     TextView tvGetData;
     LinearLayout linearLayout;
 
@@ -43,12 +40,10 @@ public class BalanceCoupleActivity extends AppCompatActivity implements BalanceC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance_couple);
 
-        cboCombineCheck = findViewById(R.id.cboCombineCheck);
         edtNumberOfDays = findViewById(R.id.edtFindingDays);
         edtDayNumberBefore = findViewById(R.id.edtDayNumberBefore);
         edtFilterDays = findViewById(R.id.edtFilterDays);
         tvViewPeriodHistory = findViewById(R.id.tvViewPeriodHistory);
-        tvViewCombinePeriod = findViewById(R.id.tvViewCombinePeriod);
         tvGetData = findViewById(R.id.tvGetData);
         linearLayout = findViewById(R.id.linearLayout);
 
@@ -95,19 +90,6 @@ public class BalanceCoupleActivity extends AppCompatActivity implements BalanceC
                 }
             }
         });
-
-        tvViewCombinePeriod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WidgetBase.hideKeyboard(BalanceCoupleActivity.this);
-                String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
-                int bridgeType = cboCombineCheck.isChecked() ? 1 : 0;
-                if (!dayNumberBefore.isEmpty()) {
-                    viewModel.getCombinePeriod(jackpotList, dayNumberBefore, bridgeType);
-                }
-            }
-        });
-
     }
 
     @Override

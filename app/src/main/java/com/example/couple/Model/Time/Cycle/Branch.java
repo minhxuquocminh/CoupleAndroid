@@ -24,14 +24,20 @@ public class Branch {
         this.name = position == Const.EMPTY_VALUE ? "" : TimeInfo.EARTHLY_BRANCHES.get(position % 12);
     }
 
+    public static Branch getByName(String branchName) {
+        int position = TimeInfo.EARTHLY_BRANCHES.indexOf(branchName);
+        if (position < 0) return Branch.getEmpty();
+        return new Branch(position);
+    }
+
     public boolean equalsBranch(Branch branch) {
         return this.position == branch.getPosition();
     }
 
-    public static boolean isSameBranch(int firstCouple, int secondCouple, int currentyear) {
-        if (secondCouple < currentyear % 100)
+    public static boolean isSameBranch(int firstCouple, int secondCouple, int currentYear) {
+        if (secondCouple < currentYear % 100)
             return firstCouple % 12 == secondCouple % 12 || firstCouple % 12 == (secondCouple + 4) % 12;
-        if (firstCouple < currentyear % 100)
+        if (firstCouple < currentYear % 100)
             return firstCouple % 12 == secondCouple % 12 || secondCouple % 12 == (firstCouple + 4) % 12;
         return firstCouple % 12 == secondCouple % 12;
     }
@@ -160,7 +166,7 @@ public class Branch {
         return -(12 - distance);
     }
 
-    public Branch plusDays(int numberOfDays) {
+    public Branch addDays(int numberOfDays) {
         int new_index = numberOfDays % 12 + position < 0 ?
                 12 + numberOfDays % 12 + position : numberOfDays % 12 + position;
         return new Branch(new_index);

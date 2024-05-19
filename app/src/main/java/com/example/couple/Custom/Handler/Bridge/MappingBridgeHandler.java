@@ -15,11 +15,23 @@ import java.util.Map;
 
 public class MappingBridgeHandler {
 
+    public static TriadMappingBridge getAnyMappingBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore + 14)
+            return TriadMappingBridge.getEmpty();
+        Map<Couple, Couple> sequentCoupleMap = getMappingDayCouples(jackpotList, dayNumberBefore);
+//        sequentCoupleMap.put(jackpotList.get(dayNumberBefore + 1).getCouple(),
+//                jackpotList.get(dayNumberBefore).getCouple());
+//        sequentCoupleMap.put(jackpotList.get(dayNumberBefore + 7).getCouple(),
+//                jackpotList.get(dayNumberBefore).getCouple());
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        return new TriadMappingBridge(sequentCoupleMap, new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
     public static Map<Couple, Couple> getMappingDayCouples(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore + 14) return new HashMap<>();
         Map<Couple, Couple> sequentCoupleMap = new HashMap<>();
         DateBase dateBase = dayNumberBefore - 1 < 0 ?
-                jackpotList.get(dayNumberBefore).getDateBase().plusDays(1) :
+                jackpotList.get(dayNumberBefore).getDateBase().addDays(1) :
                 jackpotList.get(dayNumberBefore - 1).getDateBase();
         int day = dateBase.getDay();
         int month = dateBase.getMonth();
@@ -105,19 +117,6 @@ public class MappingBridgeHandler {
         return sequentCoupleMap;
     }
 
-
-    public static TriadMappingBridge getTriadMappingBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
-        if (jackpotList.size() < dayNumberBefore + 14)
-            return TriadMappingBridge.getEmpty();
-        Map<Couple, Couple> sequentCoupleMap = getMappingDayCouples(jackpotList, dayNumberBefore);
-//        sequentCoupleMap.put(jackpotList.get(dayNumberBefore + 1).getCouple(),
-//                jackpotList.get(dayNumberBefore).getCouple());
-//        sequentCoupleMap.put(jackpotList.get(dayNumberBefore + 7).getCouple(),
-//                jackpotList.get(dayNumberBefore).getCouple());
-        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
-        return new TriadMappingBridge(sequentCoupleMap, new JackpotHistory(dayNumberBefore, jackpot));
-    }
-
     public static MappingBridge getRightMappingBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore + 2)
             return MappingBridge.getEmpty();
@@ -154,6 +153,5 @@ public class MappingBridgeHandler {
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new MappingBridge(BridgeType.MAPPING.name, firstList, new JackpotHistory(dayNumberBefore, jackpot));
     }
-
 
 }

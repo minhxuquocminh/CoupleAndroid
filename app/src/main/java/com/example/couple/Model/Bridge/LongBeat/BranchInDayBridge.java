@@ -39,7 +39,7 @@ public class BranchInDayBridge {
             int dayNumberBefore = 0;
             for (int i = beatList.size() - 1; i >= 0; i--) {
                 dayNumberBefore += beatList.get(i);
-                Branch dayBranch = nextDayBranch.plusDays(-dayNumberBefore);
+                Branch dayBranch = nextDayBranch.addDays(-dayNumberBefore);
                 this.supports.add(new BranchInDaySupport(dayBranch, dayNumberBefore));
                 if (dayList.contains(dayNumberBefore)) {
                     runFlag = true;

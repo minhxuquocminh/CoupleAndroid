@@ -77,7 +77,7 @@ public class JackpotHandler {
 
         if (today.getDateBase().equals(jackpotLastDate))
             return CycleHandler.getTimeBaseNextDay(context).getDateCycle().getDay();
-        if (today.getDateBase().plusDays(-1).equals(jackpotLastDate))
+        if (today.getDateBase().addDays(-1).equals(jackpotLastDate))
             return today.getDateCycle().getDay();
         return Cycle.getEmpty();
     }
@@ -87,7 +87,7 @@ public class JackpotHandler {
         Cycle nextDay = getCycleNextDay(context);
         if (nextDay.isEmpty()) return;
         for (int i = 0; i < jackpotList.size(); i++) {
-            Cycle dayCycle = nextDay.plusDays(-i - 1);
+            Cycle dayCycle = nextDay.addDays(-i - 1);
             jackpotList.get(i).setDayCycle(dayCycle);
             if (jackpotList.get(i).isEmpty()) {
                 jackpotList.remove(i);

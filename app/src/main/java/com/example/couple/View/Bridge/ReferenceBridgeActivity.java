@@ -137,8 +137,6 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
     public void showJackpotList(List<Jackpot> jackpotList) {
         tvJackpotToday.setText("Xổ số Đặc Biệt hôm nay về: " + jackpotList.get(0).getJackpot());
         tvLastJackpot.setText("Xổ số Đ.Biệt ngày trước đó: " + jackpotList.get(1).getJackpot());
-        viewModel.getTouchBridge(jackpotList);
-        viewModel.getSpecialTouchBridge(jackpotList);
         viewModel.getTouchThirdClawBridge(jackpotList);
     }
 

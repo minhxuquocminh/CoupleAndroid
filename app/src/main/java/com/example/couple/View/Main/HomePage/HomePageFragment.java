@@ -238,8 +238,6 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
         tvJackpotToday.setText("Xổ số Đặc Biệt hôm nay về: " + jackpotList.get(0).getJackpot());
         tvJackpotLastDay.setText("Xổ số Đ.Biệt ngày trước đó: " + jackpotList.get(1).getJackpot());
         homePageViewModel.getHeadAndTailInLongestTime(jackpotList);
-        homePageViewModel.getTouchBridge(jackpotList);
-        homePageViewModel.getSpecialTouchBridge(jackpotList);
         int size_to_show = Math.min(jackpotList.size(), 7);
         String show = "Kết quả: ";
         for (int i = 0; i < size_to_show - 1; i++) {

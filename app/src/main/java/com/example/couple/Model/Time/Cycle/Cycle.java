@@ -1,7 +1,6 @@
 package com.example.couple.Model.Time.Cycle;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Const.TimeInfo;
 
 import lombok.Getter;
 
@@ -12,7 +11,7 @@ import lombok.Getter;
 @Getter
 public class Cycle {
     int position;
-    String cycle;
+    String name;
     Stem stem;
     Branch branch;
 
@@ -21,57 +20,56 @@ public class Cycle {
     }
 
     public boolean isEmpty() {
-        return stem.isEmpty() || branch.isEmpty();
+        return position == Const.EMPTY_VALUE || name.isEmpty() || stem.isEmpty() || branch.isEmpty();
     }
 
-    private Cycle(int position, String cycle, Stem stem, Branch branch) {
+    public Cycle(int position) {
+        if (position == Const.EMPTY_VALUE) {
+            getEmpty();
+            return;
+        }
+
+        this.position = position % 60;
+        this.stem = new Stem(position % 10);
+        this.branch = new Branch(position % 12);
+        this.name = stem.getName() + " " + branch.getName();
+    }
+
+    private Cycle(int position, String name, Stem stem, Branch branch) {
         this.position = position;
-        this.cycle = cycle;
+        this.name = name;
         this.stem = stem;
         this.branch = branch;
     }
 
-    public Cycle(Stem stem, Branch branch) {
+    public static Cycle getByName(String cycleName) {
+        if (cycleName.isEmpty()) return Cycle.getEmpty();
+        String[] cycleArr = cycleName.split(" ");
+        String stemName = cycleArr[0].trim();
+        String branchName = cycleArr[1].trim();
+        Stem stem = Stem.getByName(stemName);
+        Branch branch = Branch.getByName(branchName);
+        return Cycle.getByStemAndBranch(stem, branch);
+    }
+
+    public static Cycle getByStemAndBranch(Stem stem, Branch branch) {
         int x = -1;
-        int st = stem.getPosition();
-        int br = branch.getPosition();
+        int stemPos = stem.getPosition();
+        int branchPos = branch.getPosition();
         for (int i = 0; i < 6; i++) {
-            if ((10 * i + st - br) % 12 == 0 && 10 * i + st < 60) {
+            if ((10 * i + stemPos - branchPos) % 12 == 0 && 10 * i + stemPos < 60) {
                 x = i;
                 break;
             }
         }
-        this.position = 10 * x + st;
-        this.cycle = stem.getName() + " " + branch.getName();
-        this.stem = stem;
-        this.branch = branch;
+        if (x == -1) return Cycle.getEmpty();
+        return new Cycle(10 * x + stemPos);
     }
 
-    public static Cycle getCycle(String cycleName) {
-        if (cycleName.isEmpty()) return Cycle.getEmpty();
-        String[] cycleArr = cycleName.split(" ");
-        String stemsName = cycleArr[0].trim();
-        String branchesName = cycleArr[1].trim();
-        int stemsPos = TimeInfo.HEAVENLY_STEMS.indexOf(stemsName);
-        int branchesPos = TimeInfo.EARTHLY_BRANCHES.indexOf(branchesName);
-        Stem stem = new Stem(stemsPos);
-        Branch branch = new Branch(branchesPos);
-        return new Cycle(stem, branch);
-    }
-
-    public static Cycle getCycle(int position) {
-        if (position < 0) return Cycle.getEmpty();
-        int stemsPos = position % 10;
-        int branchesPos = position % 12;
-        Stem stem = new Stem(stemsPos);
-        Branch branch = new Branch(branchesPos);
-        return new Cycle(stem, branch);
-    }
-
-    public Cycle plusDays(int numberOfDays) {
+    public Cycle addDays(int numberOfDays) {
         int new_index = numberOfDays % 60 + position < 0 ?
                 60 + numberOfDays % 60 + position : numberOfDays % 60 + position;
-        return Cycle.getCycle(new_index);
+        return new Cycle(new_index);
     }
 
 }

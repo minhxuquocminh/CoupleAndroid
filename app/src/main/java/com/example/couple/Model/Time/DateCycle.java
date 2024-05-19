@@ -20,12 +20,12 @@ public class DateCycle {
         return day.isEmpty() || month.isEmpty() || year.isEmpty();
     }
 
-    public DateCycle plusDaysSameMonth(int numberOfDays) {
-        return new DateCycle(day.plusDays(numberOfDays), month, year);
+    public DateCycle addDaysSameMonth(int numberOfDays) {
+        return new DateCycle(day.addDays(numberOfDays), month, year);
     }
 
     public String show() {
-        return day.getCycle() + ", " + month.getCycle();
+        return day.getName() + ", " + month.getName();
     }
 
 }

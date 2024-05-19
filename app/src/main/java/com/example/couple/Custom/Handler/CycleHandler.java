@@ -18,17 +18,17 @@ public class CycleHandler {
 
     public static boolean updateAllSexagenaryCycle(Context context) {
         boolean checkNextDay = updateSexagenaryCycle(context,
-                DateBase.TO_DAY().plusDays(1), FileName.CYCLE_NEXT_DAY);
+                DateBase.TO_DAY().addDays(1), FileName.CYCLE_NEXT_DAY);
         if (!checkNextDay) return false;
         boolean checkToday = updateSexagenaryCycle(context, DateBase.TO_DAY(), FileName.CYCLE_TODAY);
         if (!checkToday) return false;
         TimeBase today = getSexagenaryCycle(context, FileName.CYCLE_TODAY);
-        DateBase previousMonth = today.getDateBase().plusDays(-today.getDateLunar().getDay());
+        DateBase previousMonth = today.getDateBase().addDays(-today.getDateLunar().getDay());
         boolean checkPreviousMonth =
                 updateSexagenaryCycle(context, previousMonth, FileName.CYCLE_PREVIOUS_1);
         if (!checkPreviousMonth) return false;
         TimeBase timeBase1 = getSexagenaryCycle(context, FileName.CYCLE_PREVIOUS_1);
-        DateBase previousPreviousMonth = timeBase1.getDateBase().plusDays(-timeBase1.getDateLunar().getDay());
+        DateBase previousPreviousMonth = timeBase1.getDateBase().addDays(-timeBase1.getDateLunar().getDay());
 
         return updateSexagenaryCycle(context, previousPreviousMonth, FileName.CYCLE_PREVIOUS_2);
     }
@@ -54,9 +54,9 @@ public class CycleHandler {
         int daysOfThisMonth = today.getDateLunar().getDay();
         int size = Math.min(numberOfDays, daysOfThisMonth);
         for (int i = 0; i < size; i++) {
-            DateBase dateBase = today.getDateBase().plusDays(-i);
-            DateLunar dateLunar = today.getDateLunar().plusDaysSameMonth(-i);
-            DateCycle dateCycle = today.getDateCycle().plusDaysSameMonth(-i);
+            DateBase dateBase = today.getDateBase().addDays(-i);
+            DateLunar dateLunar = today.getDateLunar().addDaysSameMonth(-i);
+            DateCycle dateCycle = today.getDateCycle().addDaysSameMonth(-i);
             timeBaseList.add(new TimeBase(dateBase, dateLunar, dateCycle));
         }
         if (numberOfDays <= daysOfThisMonth) {
@@ -67,9 +67,9 @@ public class CycleHandler {
         int daysOfPreviousMonth = previous.getDateLunar().getDay();
         size = Math.min((numberOfDays - daysOfThisMonth), daysOfPreviousMonth);
         for (int i = 0; i < size; i++) {
-            DateBase dateBase = previous.getDateBase().plusDays(-i);
-            DateLunar dateLunar = previous.getDateLunar().plusDaysSameMonth(-i);
-            DateCycle dateCycle = previous.getDateCycle().plusDaysSameMonth(-i);
+            DateBase dateBase = previous.getDateBase().addDays(-i);
+            DateLunar dateLunar = previous.getDateLunar().addDaysSameMonth(-i);
+            DateCycle dateCycle = previous.getDateCycle().addDaysSameMonth(-i);
             timeBaseList.add(new TimeBase(dateBase, dateLunar, dateCycle));
         }
         if (numberOfDays <= timeBaseList.size()) {
@@ -80,9 +80,9 @@ public class CycleHandler {
         int daysOfPreviousMonth2 = previous2.getDateLunar().getDay();
         size = Math.min((numberOfDays - daysOfThisMonth - daysOfPreviousMonth), daysOfPreviousMonth2);
         for (int i = 0; i < size; i++) {
-            DateBase dateBase = previous2.getDateBase().plusDays(-i);
-            DateLunar dateLunar = previous2.getDateLunar().plusDaysSameMonth(-i);
-            DateCycle dateCycle = previous2.getDateCycle().plusDaysSameMonth(-i);
+            DateBase dateBase = previous2.getDateBase().addDays(-i);
+            DateLunar dateLunar = previous2.getDateLunar().addDaysSameMonth(-i);
+            DateCycle dateCycle = previous2.getDateCycle().addDaysSameMonth(-i);
             timeBaseList.add(new TimeBase(dateBase, dateLunar, dateCycle));
         }
         if (numberOfDays <= timeBaseList.size()) {
@@ -93,8 +93,8 @@ public class CycleHandler {
         DateBase lastDateBase = timeBaseList.get(timeBaseList.size() - 1).getDateBase();
         Cycle lastCycle = timeBaseList.get(timeBaseList.size() - 1).getDateCycle().getDay();
         for (int i = 1; i <= numberOfDays - timeBaseList.size(); i++) {
-            DateBase dateBase = lastDateBase.plusDays(-i);
-            Cycle dayCycle = lastCycle.plusDays(-i);
+            DateBase dateBase = lastDateBase.addDays(-i);
+            Cycle dayCycle = lastCycle.addDays(-i);
             DateCycle dateCycle = new DateCycle(dayCycle, Cycle.getEmpty(), Cycle.getEmpty());
             timeBaseList.add(new TimeBase(dateBase, DateLunar.getEmpty(), dateCycle));
         }
@@ -123,8 +123,8 @@ public class CycleHandler {
             String cycleDay = cycleArr[0].trim().split("Tức ngày")[1].trim();
             String cycleMonth = cycleArr[1].trim().split("tháng")[1].trim();
             String cycleYear = cycleArr[2].trim().split("năm")[1].trim();
-            DateCycle dateCycle = new DateCycle(Cycle.getCycle(cycleDay),
-                    Cycle.getCycle(cycleMonth), Cycle.getCycle(cycleYear));
+            DateCycle dateCycle = new DateCycle(Cycle.getByName(cycleDay),
+                    Cycle.getByName(cycleMonth), Cycle.getByName(cycleYear));
 
             return new TimeBase(dateBase, dateLunar, dateCycle);
         } catch (Exception ignored) {
