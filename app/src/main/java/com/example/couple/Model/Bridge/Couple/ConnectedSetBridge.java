@@ -1,9 +1,9 @@
 package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Base.Handler.GenericBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Support.ConnectedSupport;
 import com.example.couple.Model.Support.JackpotHistory;
@@ -37,7 +37,7 @@ public class ConnectedSetBridge extends Bridge {
 
     @Override
     public String getBridgeName() {
-        return Const.CONNECTED_SET_BRIDGE_NAME;
+        return BridgeType.CONNECTED_SET.name;
     }
 
     public static ConnectedSetBridge getEmpty() {

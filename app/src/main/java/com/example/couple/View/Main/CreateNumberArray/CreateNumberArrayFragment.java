@@ -44,7 +44,7 @@ import java.util.List;
 
 public class CreateNumberArrayFragment extends Fragment implements CreateNumberArrayView {
     TextView tvViewBridge;
-    TextView tvWayToRun;
+    TextView tvViewHistory;
     TextView tvViewCycle;
     TextView tvReference;
     EditText edtSet;
@@ -97,7 +97,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         viewParent = inflater.inflate(R.layout.fragment_create_number_array, container, false);
 
         tvViewBridge = viewParent.findViewById(R.id.tvViewBridge);
-        tvWayToRun = viewParent.findViewById(R.id.tvWayToRun);
+        tvViewHistory = viewParent.findViewById(R.id.tvViewHistory);
         tvViewCycle = viewParent.findViewById(R.id.tvViewCycle);
         tvReference = viewParent.findViewById(R.id.tvReference);
         edtSet = viewParent.findViewById(R.id.edtSet);
@@ -146,6 +146,14 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
                 startActivity(new Intent(getActivity(), BridgeCombinationActivity.class));
+            }
+        });
+
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WidgetBase.hideKeyboard(requireActivity());
+                viewModel.getPeriodHistory();
             }
         });
 
@@ -323,13 +331,6 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     private void showJackpotList(List<Jackpot> jackpotList) {
         subJackpot = jackpotList.subList(0, 5);
         SetTextForSubJackpot(subJackpot, -1);
-        tvWayToRun.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                WidgetBase.hideKeyboard(requireActivity());
-                viewModel.getPeriodHistory(jackpotList);
-            }
-        });
     }
 
     @Override

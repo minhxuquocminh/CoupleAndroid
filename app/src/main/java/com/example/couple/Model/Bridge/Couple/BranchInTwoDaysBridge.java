@@ -2,9 +2,9 @@ package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Time.Cycle.Branch;
@@ -55,7 +55,7 @@ public class BranchInTwoDaysBridge extends Bridge {
 
     @Override
     public String getBridgeName() {
-        return Const.BRANCH_IN_TWO_DAYS_BRIDGE + " (" + runningTimes + ")";
+        return BridgeType.BRANCH_IN_TWO_DAYS_BRIDGE.name + " (" + runningTimes + ")";
     }
 
     public static BranchInTwoDaysBridge getEmpty() {

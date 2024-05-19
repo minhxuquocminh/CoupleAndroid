@@ -4,8 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Display.SpecialSetHistory;
+import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Support.BranchInDaySupport;
 import com.example.couple.Model.Time.Cycle.Branch;
 
@@ -51,8 +52,8 @@ public class BranchInDayBridge {
         }
     }
 
-    public SpecialSetHistory toSpecialSetHistory() {
-        return new SpecialSetHistory("CTN", numbers, beatList);
+    public NumberSetHistory toSpecialSetHistory() {
+        return new NumberSetHistory(Const.BRANCH_IN_DAY_ACRONYM, numbers, beatList);
     }
 
     @NonNull

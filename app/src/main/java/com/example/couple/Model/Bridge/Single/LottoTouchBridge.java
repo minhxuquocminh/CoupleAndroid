@@ -1,9 +1,9 @@
 package com.example.couple.Model.Bridge.Single;
 
 import com.example.couple.Base.Handler.SingleBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Support.Heads;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Support.Lotto;
@@ -60,7 +60,7 @@ public class LottoTouchBridge extends Bridge {
     }
 
     public String getBridgeName() {
-        return Const.LOTTO_TOUCH_BRIDGE_NAME;
+        return BridgeType.LOTTO_TOUCH.name;
     }
 
     public static LottoTouchBridge getEmpty() {

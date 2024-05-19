@@ -14,7 +14,7 @@ import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Display.SpecialSetHistory;
+import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.UI.RowUI;
 import com.example.couple.Model.UI.TableUI;
@@ -77,15 +77,15 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
     }
 
     @Override
-    public void showSpecialSetsHistory(List<SpecialSetHistory> historyList) {
+    public void showSpecialSetsHistory(List<NumberSetHistory> historyList) {
         List<String> headers = new ArrayList<>();
         List<RowUI> rows = new ArrayList<>();
 
-        for (SpecialSetHistory history : historyList) {
-            String name = history.getSpecialSet().getName();
+        for (NumberSetHistory history : historyList) {
+            String name = history.getNumberSet().getName();
             String appearanceTimes = history.getAppearanceTimes() + " lần";
             String dayNumberBefore = history.getDayNumberBefore() + " ngày";
-            String numberSize = history.getSpecialSet().getNumbers().size() + " số";
+            String numberSize = history.getNumberSet().getNumbers().size() + " số";
             String beats = NumberBase.showNumbers(history.getBeatList(), ", ");
             List<String> cells = Arrays.asList(name, appearanceTimes, dayNumberBefore, numberSize, beats);
             RowUI row = new RowUI(cells);

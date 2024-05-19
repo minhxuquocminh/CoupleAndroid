@@ -6,7 +6,7 @@ import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
-import com.example.couple.Model.Display.SpecialSetHistory;
+import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 
@@ -17,7 +17,7 @@ public interface SelectiveBridgeView {
     void showJackpotList(List<Jackpot> jackpotList);
     void showLotteryList(List<Lottery> lotteries);
     void showAfterDoubleBridge(List<AfterDoubleBridge> bridges);
-    void showLongBeatBridge(List<SpecialSetHistory> histories);
+    void showLongBeatBridge(List<NumberSetHistory> histories);
     void showConnectedTouchs(List<Integer> touchs);
     void showBranchInTwoDaysBridge(BranchInTwoDaysBridge bridge);
     void showShadowTouchs(List<Integer> touchs);

@@ -4,6 +4,7 @@ import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
@@ -33,7 +34,7 @@ public class TouchBridgeHandler {
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge(Const.NEGATIVE_SHADOW_BRIDGE_NAME, results,
+        return new ShadowTouchBridge(BridgeType.NEGATIVE_SHADOW.name, results,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
@@ -51,7 +52,7 @@ public class TouchBridgeHandler {
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge(Const.POSITIVE_SHADOW_BRIDGE_NAME, results,
+        return new ShadowTouchBridge(BridgeType.POSITIVE_SHADOW.name, results,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
@@ -71,7 +72,7 @@ public class TouchBridgeHandler {
         Collections.sort(results, (x, y) -> x - y);
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge(Const.SHADOW_TOUCH_BRIDGE_NAME, results,
+        return new ShadowTouchBridge(BridgeType.SHADOW_TOUCH.name, results,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 

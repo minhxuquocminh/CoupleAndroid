@@ -58,7 +58,7 @@ public class NumberPickerViewModel {
                 dateBases.add(dateBase);
             }
         }
-        List<Jackpot> subJackpotList = JackpotStatistics.getJackpotListByDateList(jackpotList, dateBases);
+        List<Jackpot> subJackpotList = JackpotStatistics.getJackpotListLastMonth(jackpotList, dateBases);
         if (!subJackpotList.isEmpty()) numberPickerView.showSubJackpotLastMonth(subJackpotList);
     }
 

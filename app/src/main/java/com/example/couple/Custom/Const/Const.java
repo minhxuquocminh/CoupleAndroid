@@ -21,7 +21,6 @@ public class Const {
     public static final int TRIAD_SET_BRIDGE_MAX_DISPLAY = 25;
     public static final List<Integer> CLAW_BRIDGE_FINDING_DAYS = Arrays.asList(12, 14, 16, 18);
     public static final int CLAW_BRIDGE_MAX_DISPLAY = 8;
-    public static final int MAPPING_ALL = 999;
     public static final int TIME_OUT = 3000;
 
     /**
@@ -31,105 +30,16 @@ public class Const {
     public static final String EMPTY_JACKPOT = "-99999";
     public static final String FUTURE_DAY = "future_day";
     public static final String INVALID_DATE = "invalid_date";
-    public static final String SHADOW_TOUCH_BRIDGE_NAME = "Cầu chạm bóng";
-    public static final String LOTTO_TOUCH_BRIDGE_NAME = "Cầu chạm lô tô";
-    public static final String MAPPING_BRIDGE_NAME = "Cầu ánh xạ";
-    public static final String MAPPING_BRIDGE_NAME_1 = "Cầu ánh xạ 1";
-    public static final String RIGHT_MAPPING_BRIDGE_NAME = "Cầu ánh xạ P";
-    public static final String COMPACT_MAPPING_BRIDGE_NAME = "Cầu ánh xạ P1";
-    public static final String UNAPPEARED_BIG_DOUBLE_BRIDGE_NAME = "kép chưa ra";
-    public static final String TRIAD_MAPPING_BRIDGE_NAME = "Cầu 2 ánh xạ";
-    public static final String MATCH_MAPPING_BRIDGE_NAME = "Cầu ánh xạ hợp";
-    public static final String COMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi hợp";
-    public static final String INCOMPATIBLE_CYCLE_BRIDGE_NAME = "Cầu can chi khắc";
-    public static final String BRANCH_IN_TWO_DAYS_BRIDGE = "Chi trong 2 ngày";
-    public static final String SHADOW_MAPPING_BRIDGE_NAME = "Cầu ánh xạ bóng";
-    public static final String SHADOW_EXCHANGE_BRIDGE_NAME = "Cầu đổi bóng";
-    public static final String ESTIMATED_BRIDGE_NAME = "Cầu ước lượng";
-    public static final String CONNECTED_BRIDGE_NAME = "Cầu liên thông";
-    public static final String CONNECTED_SET_BRIDGE_NAME = "Cầu liên bộ";
-    public static final String NEGATIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng -";
-    public static final String POSITIVE_SHADOW_BRIDGE_NAME = "Cầu chạm bóng +";
-    public static final String COMBINE_TOUCH_BRIDGE_NAME = "Chạm kết hợp";
-    public static final String BIG_DOUBLE_SET_NAME = "Bộ kép to";
-    public static final String DOUBLE_SET_NAME = "Bộ kép bằng";
-    public static final String POSITIVE_DOUBLE_SET_NAME = "Bộ kép dương";
     public static final String HEAD = "Đầu";
     public static final String TAIL = "Đuôi";
     public static final String SET = "Bộ";
     public static final String SUM = "Tổng";
     public static final String DOUBLE = "Kép bằng";
-    public static final String BRANCH_IN_DAY = "Chi trong ngày";
-    public static final String NEAR_DOUBLE_INCREASE = "Sát kép tăng";
-    public static final String NEAR_DOUBLE_DECREASE = "Sát kép giảm";
+    public static final String BRANCH_IN_DAY_ACRONYM = "CTN";
 
     /**
      * array
      */
-    public static final List<Integer> BIG_DOUBLE_SET = Arrays.asList
-            (
-                    03, 30,
-                    05, 50,
-                    07, 70,
-                    14, 41,
-                    16, 61,
-                    27, 72,
-                    29, 92,
-                    35, 53,
-                    36, 63,
-                    37, 73,
-                    38, 83,
-                    46, 64,
-                    49, 94,
-                    57, 75,
-                    58, 85,
-                    79, 97
-            );
-    public static final List<Integer> NEAR_DOUBLE_INCREASE_SET = Arrays.asList
-            (
-                    01,
-                    12,
-                    23,
-                    34,
-                    45,
-                    56,
-                    67,
-                    78,
-                    89
-            );
-    public static final List<Integer> NEAR_DOUBLE_DECREASE_SET = Arrays.asList
-            (
-                    10,
-                    21,
-                    32,
-                    43,
-                    54,
-                    65,
-                    76,
-                    87,
-                    98
-            );
-    public static final List<Integer> DOUBLE_SET = Arrays.asList
-            (
-                    00,
-                    11,
-                    22,
-                    33,
-                    44,
-                    55,
-                    66,
-                    77,
-                    88,
-                    99
-            );
-    public static final List<Integer> POSITIVE_DOUBLE_SET = Arrays.asList
-            (
-                    05, 50,
-                    16, 61,
-                    27, 72,
-                    38, 83,
-                    49, 94
-            );
     public static final List<Integer> SMALL_SETS =
             Arrays.asList(00, 01, 02, 03, 04, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
     public static final List<Integer> SMALL_SETS_NOT_DOUBLE =

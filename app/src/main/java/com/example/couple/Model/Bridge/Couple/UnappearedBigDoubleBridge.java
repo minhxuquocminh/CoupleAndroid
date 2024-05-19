@@ -1,7 +1,7 @@
 package com.example.couple.Model.Bridge.Couple;
 
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class UnappearedBigDoubleBridge extends Bridge {
 
     @Override
     public String getBridgeName() {
-        return Const.UNAPPEARED_BIG_DOUBLE_BRIDGE_NAME;
+        return BridgeType.UNAPPEARED_BIG_DOUBLE.name;
     }
 
     public static UnappearedBigDoubleBridge getEmpty() {

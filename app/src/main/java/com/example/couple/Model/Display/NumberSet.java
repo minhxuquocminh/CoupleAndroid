@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SpecialSet {
+public class NumberSet {
     String name;
     List<Integer> numbers;
 

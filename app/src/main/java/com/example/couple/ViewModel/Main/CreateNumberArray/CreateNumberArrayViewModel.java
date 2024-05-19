@@ -6,7 +6,9 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
+import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Origin.Jackpot;
@@ -27,7 +29,13 @@ public class CreateNumberArrayViewModel {
         this.context = context;
     }
 
-    public void getPeriodHistory(List<Jackpot> jackpotList) {
+    public void getPeriodHistory() {
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+        if (jackpotList.isEmpty()) {
+            view.showMessage("Không có dữ liệu XS Đặc Biệt.");
+            return;
+        }
+
         List<PeriodHistory> periodHistoryList =
                 EstimatedBridgeHandler.getEstimatedHistoryList(jackpotList,
                         0, 2, Const.AMPLITUDE_OF_PERIOD);

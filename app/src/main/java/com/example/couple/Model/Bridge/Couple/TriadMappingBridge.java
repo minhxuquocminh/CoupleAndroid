@@ -1,8 +1,8 @@
 package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -28,8 +28,8 @@ public class TriadMappingBridge extends Bridge {
             Couple first = entry.getKey();
             Couple second = entry.getValue();
             List<Integer> currentNumbers = new ArrayList<>();
-            currentNumbers.addAll(first.getMappingNumbers(Const.MAPPING_ALL));
-            currentNumbers.addAll(second.getMappingNumbers(Const.MAPPING_ALL));
+            currentNumbers.addAll(first.getMappingNumbers());
+            currentNumbers.addAll(second.getMappingNumbers());
             numbers = NumberBase.getMatchNumbers(numbers, NumberBase.filterDuplicatedNumbers(currentNumbers));
         }
         this.jackpotHistory = jackpotHistory;
@@ -42,7 +42,7 @@ public class TriadMappingBridge extends Bridge {
 
     @Override
     public String getBridgeName() {
-        return Const.TRIAD_MAPPING_BRIDGE_NAME;
+        return BridgeType.TRIAD_MAPPING.name;
     }
 
     public static TriadMappingBridge getEmpty() {

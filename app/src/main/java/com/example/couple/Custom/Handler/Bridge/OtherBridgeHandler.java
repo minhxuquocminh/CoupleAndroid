@@ -1,18 +1,14 @@
 package com.example.couple.Custom.Handler.Bridge;
 
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Bridge.Couple.ShadowExchangeBridge;
-import com.example.couple.Model.Bridge.Couple.ShadowMappingBridge;
 import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
+import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Bridge.Sign.DayDoubleSign;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.SpecialSetHistory;
-import com.example.couple.Model.Origin.Couple;
+import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Support.ShadowSingle;
 import com.example.couple.Model.Time.DateBase;
 
 import java.util.ArrayList;
@@ -24,7 +20,7 @@ public class OtherBridgeHandler {
     public static UnappearedBigDoubleBridge getUnappearedBigDoubleBridge(List<Jackpot> jackpotList,
                                                                          int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore) return UnappearedBigDoubleBridge.getEmpty();
-        List<Integer> bigDoubleSet = new ArrayList<>(Const.BIG_DOUBLE_SET);
+        List<Integer> bigDoubleSet = new ArrayList<>(SpecialSet.BIG_DOUBLE.values);
         for (int i = dayNumberBefore; i < jackpotList.size(); i++) {
             if (jackpotList.get(i).getDateBase().isDateLastYear()) {
                 break;
@@ -108,17 +104,9 @@ public class OtherBridgeHandler {
                 NumberBase.getReverseList(downMonthList), NumberBase.getReverseList(weekList), reverseDayList);
     }
 
-    public static ShadowExchangeBridge getShadowExchangeBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
-        if (jackpotList.size() < dayNumberBefore + 2)
-            return ShadowExchangeBridge.getEmpty();
-        Couple couple = jackpotList.get(dayNumberBefore + 1).getCouple();
-        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
-        return new ShadowExchangeBridge(couple, new JackpotHistory(dayNumberBefore, jackpot));
-    }
-
-    public static SpecialSetHistory getSpecialSetHistory(List<Jackpot> jackpotList,
-                                                         String specialSetName, List<Integer> numbers) {
-        if (jackpotList.isEmpty()) return new SpecialSetHistory();
+    public static NumberSetHistory getSpecialSetHistory(List<Jackpot> jackpotList,
+                                                        String specialSetName, List<Integer> numbers) {
+        if (jackpotList.isEmpty()) return new NumberSetHistory();
         List<Integer> beatList = new ArrayList<>();
         int count = 0;
         for (Jackpot jackpot : jackpotList) {
@@ -129,16 +117,7 @@ public class OtherBridgeHandler {
             }
         }
         Collections.reverse(beatList);
-        return new SpecialSetHistory(specialSetName, numbers, beatList);
-    }
-
-    public static ShadowMappingBridge getShadowMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
-        if (reverseJackpotList.size() < dayNumberBefore + 2)
-            return ShadowMappingBridge.getEmpty();
-        ShadowSingle first = reverseJackpotList.get(dayNumberBefore + 1).getCouple().getShadowSingle();
-        ShadowSingle second = reverseJackpotList.get(dayNumberBefore).getCouple().getShadowSingle();
-        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new ShadowMappingBridge(first, second, new JackpotHistory(dayNumberBefore, jackpot));
+        return new NumberSetHistory(specialSetName, numbers, beatList);
     }
 
     // cầu này để tìm càng thứ 3 dựa trên lịch sử càng giống càng chạy gần đây

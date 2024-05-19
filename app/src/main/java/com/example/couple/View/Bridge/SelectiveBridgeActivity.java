@@ -16,7 +16,7 @@ import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
-import com.example.couple.Model.Display.SpecialSetHistory;
+import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -113,13 +113,13 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
     }
 
     @Override
-    public void showLongBeatBridge(List<SpecialSetHistory> histories) {
+    public void showLongBeatBridge(List<NumberSetHistory> histories) {
         if (histories.isEmpty()) {
             tvLongBeatBridge.setVisibility(View.GONE);
         } else {
             tvLongBeatBridge.setVisibility(View.VISIBLE);
             String show = "Cầu gan:\n";
-            for (SpecialSetHistory history : histories) {
+            for (NumberSetHistory history : histories) {
                 show += history.showCompact() + "\n";
             }
             tvLongBeatBridge.setText(show.trim());

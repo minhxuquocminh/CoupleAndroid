@@ -133,7 +133,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        AlarmBase.startAlarmEveryDay(context, AlarmTest.class,
+        AlarmBase.registerAlarmOneTime(context, AlarmTest.class,
                 1234, hour, minute + 1, 0);
         showMessage("Đã đăng ký alarm !");
     }

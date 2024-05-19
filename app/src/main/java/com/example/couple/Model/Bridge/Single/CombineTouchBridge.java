@@ -2,9 +2,9 @@ package com.example.couple.Model.Bridge.Single;
 
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.Handler.SingleBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
@@ -66,6 +66,6 @@ public class CombineTouchBridge extends Bridge {
     }
 
     public String getBridgeName() {
-        return Const.COMBINE_TOUCH_BRIDGE_NAME;
+        return BridgeType.COMBINE_TOUCH.name;
     }
 }

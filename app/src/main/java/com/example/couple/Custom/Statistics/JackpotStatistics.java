@@ -375,7 +375,7 @@ public class JackpotStatistics {
         return new HeadTail(filteredHeadList, filteredTailList);
     }
 
-    public static List<Jackpot> getJackpotListByDateList(List<Jackpot> jackpotList, List<DateBase> dateBases) {
+    public static List<Jackpot> getJackpotListLastMonth(List<Jackpot> jackpotList, List<DateBase> dateBases) {
         if (jackpotList.isEmpty()) return new ArrayList<>();
         List<Jackpot> results = new ArrayList<>();
         List<DateBase> distinctList = new ArrayList<>();

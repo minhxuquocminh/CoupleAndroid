@@ -81,13 +81,9 @@ public class Couple {
         return secondList;
     }
 
-    public List<Integer> getMappingNumbers(int mappingType) {
-        if (mappingType == 0) return CoupleHandler.getMappingNumbers(getCoupleInt());
-        List<Integer> numbers = mappingType == Const.MAPPING_ALL ?
-                CoupleHandler.getMappingNumbers(getCoupleInt()) : new ArrayList<>();
-        int start = mappingType == Const.MAPPING_ALL ? 1 : mappingType;
-        int end = mappingType == Const.MAPPING_ALL ? 2 : mappingType;
-        for (int i = start; i <= end; i++) {
+    public List<Integer> getMappingNumbers() {
+        List<Integer> numbers = CoupleHandler.getMappingNumbers(getCoupleInt());
+        for (int i = 1; i <= 2; i++) {
             if (first - i >= 0) {
                 int top = (first - i) * 10 + second;
                 List<Integer> topList = CoupleHandler.getMappingNumbers(top);
@@ -147,33 +143,6 @@ public class Couple {
         Collections.sort(results);
         return results;
     }
-
-    public List<Integer> getRight1MappingNumbers() {
-        List<Integer> numbers = new ArrayList<>();
-        if (first - 1 >= 0) {
-            int top = (first - 1) * 10 + second;
-            numbers.addAll(CoupleHandler.getMappingLeftBottomNumbers(top));
-        } else {
-            if (second + 1 <= 9) {
-                int right = first * 10 + second + 1;
-                numbers.addAll(CoupleHandler.getMappingLeftBottomNumbers(right));
-            }
-        }
-        // bottom
-        if (first + 1 <= 9) {
-            int bottom = (first + 1) * 10 + second;
-            numbers.addAll(CoupleHandler.getMappingRightTopNumbers(bottom));
-        } else {
-            if (second + 1 <= 9) {
-                int right = first * 10 + second + 1;
-                numbers.addAll(CoupleHandler.getMappingRightTopNumbers(right));
-            }
-        }
-        List<Integer> results = NumberBase.filterDuplicatedNumbers(numbers);
-        Collections.sort(results);
-        return results;
-    }
-
 
     public int getCoupleInt() {
         return Integer.parseInt(first + "" + second);

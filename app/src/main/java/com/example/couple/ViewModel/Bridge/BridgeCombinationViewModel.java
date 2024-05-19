@@ -24,6 +24,7 @@ import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
 import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
+import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
@@ -79,7 +80,7 @@ public class BridgeCombinationViewModel {
             bridgeList.add(positiveShadowBridge);
             // mapping, estimated
             MappingBridge mappingBridge =
-                    MappingBridgeHandler.getMappingBridge(jackpotList, Const.MAPPING_ALL, 0);
+                    MappingBridgeHandler.getMappingBridge(jackpotList, 0);
             bridgeList.add(mappingBridge);
             ConnectedSetBridge connectedSetBridge =
                     ConnectedBridgeHandler.getConnectedSetBridge(lotteryList, 0,
@@ -147,7 +148,7 @@ public class BridgeCombinationViewModel {
             // mapping, estimated
             if (mapping) {
                 MappingBridge mappingBridge = MappingBridgeHandler
-                        .getMappingBridge(jackpotList, Const.MAPPING_ALL, i);
+                        .getMappingBridge(jackpotList, i);
                 bridgeList.add(mappingBridge);
             }
             if (connectedSet) {
@@ -196,18 +197,18 @@ public class BridgeCombinationViewModel {
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             // special set
             if (bigDouble) {
-                SpecialSetBridge bigDoubleSet = new SpecialSetBridge(Const.BIG_DOUBLE_SET_NAME,
-                        Const.BIG_DOUBLE_SET, new JackpotHistory(i, jackpot));
+                SpecialSetBridge bigDoubleSet = new SpecialSetBridge(SpecialSet.BIG_DOUBLE.name,
+                        SpecialSet.BIG_DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(bigDoubleSet);
             }
             if (sameDouble) {
-                SpecialSetBridge sameDoubleSet = new SpecialSetBridge(Const.DOUBLE_SET_NAME,
-                        Const.DOUBLE_SET, new JackpotHistory(i, jackpot));
+                SpecialSetBridge sameDoubleSet = new SpecialSetBridge(SpecialSet.DOUBLE.name,
+                        SpecialSet.DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(sameDoubleSet);
             }
             if (positiveDouble) {
-                SpecialSetBridge nearDoubleSet = new SpecialSetBridge(Const.POSITIVE_DOUBLE_SET_NAME,
-                        Const.POSITIVE_DOUBLE_SET, new JackpotHistory(i, jackpot));
+                SpecialSetBridge nearDoubleSet = new SpecialSetBridge(SpecialSet.POSITIVE_DOUBLE.name,
+                        SpecialSet.POSITIVE_DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(nearDoubleSet);
             }
             // other set

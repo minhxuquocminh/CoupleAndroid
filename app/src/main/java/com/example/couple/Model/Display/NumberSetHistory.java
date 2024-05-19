@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class SpecialSetHistory {
-    SpecialSet specialSet;
+public class NumberSetHistory {
+    NumberSet numberSet;
     int appearanceTimes;
     int dayNumberBefore;
     List<Integer> beatList;
 
-    public SpecialSetHistory(String specialSetName, List<Integer> numbers, List<Integer> beatList) {
-        this.specialSet = new SpecialSet(specialSetName, numbers);
+    public NumberSetHistory(String numberSetName, List<Integer> numbers, List<Integer> beatList) {
+        this.numberSet = new NumberSet(numberSetName, numbers);
         this.appearanceTimes = beatList.size();
         this.dayNumberBefore = beatList.isEmpty() ?
                 Const.MAX_DAY_NUMBER_BEFORE : beatList.get(beatList.size() - 1);
@@ -25,11 +25,11 @@ public class SpecialSetHistory {
     }
 
     public String showCompact() {
-        return "  + " + specialSet.getName() + " (" + dayNumberBefore + " ngày)";
+        return "  + " + numberSet.getName() + " (" + dayNumberBefore + " ngày)";
     }
 
     public String show() {
-        return "  + " + specialSet.getName() + ": " + NumberBase.showNumbers(beatList, ", ") + ".";
+        return "  + " + numberSet.getName() + ": " + NumberBase.showNumbers(beatList, ", ") + ".";
     }
 
 }
