@@ -72,4 +72,8 @@ public class Cycle {
         return new Cycle(new_index);
     }
 
+    public int getCoupleInt() {
+        return stem.getPosition() * 10 + branch.getPosition() % 10;
+    }
+
 }

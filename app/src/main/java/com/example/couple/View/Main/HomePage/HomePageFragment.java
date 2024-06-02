@@ -1,8 +1,6 @@
 package com.example.couple.View.Main.HomePage;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.couple.Base.Handler.ThreadBase;
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Service.UpdateDataService;
 import com.example.couple.Custom.Service.UpdateDataView;
@@ -134,62 +133,44 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
         layoutRefreshAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Cập nhật tất cả?")
-                        .setMessage("Bạn có muốn cập nhật thời gian, XS Đặc biệt và XSMB không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                new ThreadBase((param) -> {
-                                    updateDataService.updateAllData(false);
-                                    return null;
-                                }, "").start();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String title = "Cập nhật tất cả?";
+                String message = "Bạn có muốn cập nhật thời gian, XS Đặc biệt và XSMB không?";
+                DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
+                    new ThreadBase<>((param) -> {
+                        updateDataService.updateAllData(false);
+                        return null;
+                    }, "").start();
+                });
             }
         });
 
         layoutRefreshLottery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Cập nhật XSMB?")
-                        .setMessage("Bạn có muốn cập nhật XSMB trong vòng " +
-                                Const.MAX_DAYS_TO_GET_LOTTERY + " ngày không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                new ThreadBase((param) -> {
-                                    updateDataService.updateLottery(Const.MAX_DAYS_TO_GET_LOTTERY,
-                                            true, false);
-                                    return null;
-                                }, "").start();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String title = "Cập nhật XSMB?";
+                String message = "Bạn có muốn cập nhật XSMB trong vòng " +
+                        Const.MAX_DAYS_TO_GET_LOTTERY + " ngày không?";
+                DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
+                    new ThreadBase<>((param) -> {
+                        updateDataService.updateLottery(Const.MAX_DAYS_TO_GET_LOTTERY,
+                                true, false);
+                        return null;
+                    }, "").start();
+                });
             }
         });
 
         layoutRefreshJackpots.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Cập nhật XS Đặc biệt?")
-                        .setMessage("Bạn có muốn cập nhật XS Đặc biệt của năm nay không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                new ThreadBase((param) -> {
-                                    updateDataService.updateJackpot(true, false);
-                                    return null;
-                                }, "").start();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String title = "Cập nhật XS Đặc biệt?";
+                String message = "Bạn có muốn cập nhật XS Đặc biệt của năm nay không?";
+                DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
+                    new ThreadBase<>((param) -> {
+                        updateDataService.updateJackpot(true, false);
+                        return null;
+                    }, "").start();
+                });
             }
         });
 

@@ -481,7 +481,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     @Override
     public void showJackpotsManyYears(List<Jackpot> jackpotList, Couple lastCouple) {
         viewModel.getSubJackpotLastMonth(jackpotList, lastCouple.getDateBase());
-        viewModel.getSubJackpotNextDay(jackpotList, lastCouple.getCoupleInt(), 4);
+        viewModel.getSubJackpotNextDay(jackpotList, lastCouple.getInt(), 4);
     }
 
     private void showJackpotList(List<Jackpot> jackpotList) {

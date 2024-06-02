@@ -123,8 +123,7 @@ public class NumberArrayHandler {
 
         List<Integer> results = new ArrayList<>();
         for (int couple : compactNumbers) {
-            Set set = new Set(couple);
-            results.addAll(set.getSetsDetail());
+            results.addAll(Set.getFrom(couple).getSetsDetail());
         }
 
         return results;

@@ -92,7 +92,7 @@ public class FindingBridgeViewModel {
 
             int count = 0;
             boolean isInList = false;
-            int coupleInt = lotteries.get(i - 1).getJackpotCouple().getCoupleInt();
+            int coupleInt = lotteries.get(i - 1).getJackpotCouple().getInt();
             for (int j = setList.size() - 1; j >= 0; j--) {
                 count++;
                 if (setList.get(j).isItMatch(coupleInt)) {

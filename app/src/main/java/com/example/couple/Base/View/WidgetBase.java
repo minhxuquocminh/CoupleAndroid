@@ -17,29 +17,6 @@ import androidx.core.content.ContextCompat;
 
 public class WidgetBase {
 
-    public static void showDialogCanBeCopied(Context context, String title, String message, String copyText) {
-        new AlertDialog.Builder(context)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("Copy KQ", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        WidgetBase.copyToClipboard(context, "number_array", copyText);
-                        Toast.makeText(context, "Đã copy KQ.", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton("OK", null)
-                .setIcon(android.R.drawable.ic_dialog_alert).show();
-    }
-
-    public static void showDialog(Context context, String title, String message) {
-        new AlertDialog.Builder(context)
-                .setTitle(title)
-                .setMessage(message)
-                .setNegativeButton("OK", null)
-                .setIcon(android.R.drawable.ic_dialog_alert).show();
-    }
-
-
     public static void copyToClipboard(Context context, String label, String text) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(label, text);
@@ -82,4 +59,5 @@ public class WidgetBase {
         }
         return color;
     }
+
 }

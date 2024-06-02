@@ -32,7 +32,7 @@ public class BranchInTwoDaysBridge extends Bridge {
         this.numbers = new ArrayList<>();
         this.jackpotHistory = jackpotHistory;
         if (lastCouple.isEmpty()) return;
-        int couple = isReverseBefore ? CoupleBase.reverse(lastCouple.getCoupleInt()) : lastCouple.getCoupleInt();
+        int couple = isReverseBefore ? CoupleBase.reverse(lastCouple.getInt()) : lastCouple.getInt();
         List<Integer> tailsOfYear = new ArrayList<>();
         if (isReverseAfter) {
             tailsOfYear.addAll(new Branch(couple).getReverseTailsOfYear(TimeInfo.CURRENT_YEAR));

@@ -106,7 +106,7 @@ public class OtherBridgeHandler {
 
     public static NumberSetHistory getNumberSetHistory(List<Jackpot> jackpotList,
                                                        String numberSetName, List<Integer> numbers) {
-        if (jackpotList.isEmpty()) return new NumberSetHistory();
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
         List<Integer> beatList = new ArrayList<>();
         int count = 0;
         for (Jackpot jackpot : jackpotList) {

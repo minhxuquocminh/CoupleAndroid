@@ -32,18 +32,18 @@ public class AfterDoubleBridge {
             BCouple bCouple1 = BCouple.fromCouple(lastDoubleRange.get(0));
             BCouple bCouple2 = BCouple.fromCouple(lastDoubleRange.get(1));
             BCouple bCouple3 = BCouple.fromCouple(lastDoubleRange.get(2));
-            this.doubleInt = lastDoubleRange.get(2).getCoupleInt();
+            this.doubleInt = lastDoubleRange.get(2).getInt();
             BCouple upFirstCouple = bCouple1.balanceTwo(bCouple2);
             BCouple firstCouple = bCouple2.balanceTwo(bCouple3);
-            this.setMap.put(1, new Set(firstCouple.getCoupleInt()));
+            this.setMap.put(1, Set.getFrom(firstCouple.getCoupleInt()));
             int thirdCouple = firstCouple.getSecond() * 10 + Math.abs(upFirstCouple.getFirst());
             int fourthCouple = firstCouple.getSecond() * 10 + Math.abs(upFirstCouple.getSecond());
-            this.setMap.put(3, new Set(thirdCouple));
-            this.setMap.put(4, new Set(fourthCouple));
+            this.setMap.put(3, Set.getFrom(thirdCouple));
+            this.setMap.put(4, Set.getFrom(fourthCouple));
             if (lastDoubleRange.size() >= 4) {
                 BCouple bCouple4 = BCouple.fromCouple(lastDoubleRange.get(3));
                 BCouple secondCouple = bCouple3.balanceTwo(bCouple4);
-                this.setMap.put(2, new Set(secondCouple.getCoupleInt()));
+                this.setMap.put(2, Set.getFrom(secondCouple.getCoupleInt()));
             }
         }
 

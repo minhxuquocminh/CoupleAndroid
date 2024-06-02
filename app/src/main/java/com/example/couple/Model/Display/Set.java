@@ -26,14 +26,11 @@ public class Set {
         this.second = second;
     }
 
-    public Set(int couple) {
+    public static Set getFrom(int couple) {
         if (couple < 0 || couple > 99) {
-            this.first = Const.EMPTY_VALUE;
-            this.second = Const.EMPTY_VALUE;
-            return;
+            return Set.getEmpty();
         }
-        this.first = couple / 10;
-        this.second = couple % 10;
+        return new Set(couple / 10, couple % 10);
     }
 
     public static Set getEmpty() {
@@ -49,16 +46,8 @@ public class Set {
         return shadow == CoupleBase.getSmallShadow(getSetInt());
     }
 
-    public Set getSmallSet() {
-        return new Set(CoupleBase.getSmallShadow(getSetInt()));
-    }
-
     public int getSetInt() {
         return first * 10 + second;
-    }
-
-    public int getSmallSetInt() {
-        return CoupleBase.getSmallShadow(getSetInt());
     }
 
     @NonNull

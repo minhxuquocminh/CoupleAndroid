@@ -105,6 +105,27 @@ public class JackpotHandler {
                 TimeInfo.DAY_OF_MONTH, TimeInfo.CURRENT_MONTH, year);
     }
 
+    public static List<Jackpot> getReverseJackpotListManyYears(Context context, int numberOfYears) {
+        int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
+        if (startAndEndYearFile == null) return new ArrayList<>();
+        List<Jackpot> jackpots = new ArrayList<>();
+
+        int startYear = startAndEndYearFile[0];
+        int endYear = startAndEndYearFile[1];
+        int lengthYear_file = endYear - startYear + 1;
+        int lengthYear = Math.min(numberOfYears, lengthYear_file);
+
+        for (int i = endYear; i >= endYear - lengthYear + 1; i--) {
+            String data = IOFileBase.readDataFromFile(context, "jackpot" + i + ".txt");
+            String[][] matrix = getJackpotFlagMatrix(data,
+                    TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, i);
+            List<Jackpot> jackpotList = getReverseJackpotList(matrix,
+                    TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, i);
+            jackpots.addAll(jackpotList);
+        }
+        return jackpots;
+    }
+
     public static List<Jackpot> getJackpotListManyYears(Context context, int numberOfYears) {
         int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
         if (startAndEndYearFile == null) return new ArrayList<>();

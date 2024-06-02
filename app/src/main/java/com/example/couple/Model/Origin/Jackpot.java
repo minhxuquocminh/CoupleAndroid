@@ -1,7 +1,7 @@
 package com.example.couple.Model.Origin;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Display.BCouple;
+import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Time.Cycle.Cycle;
 import com.example.couple.Model.Time.DateBase;
 
@@ -17,6 +17,12 @@ public class Jackpot {
     @Setter
     Cycle dayCycle;
 
+    protected Jackpot() {
+        this.jackpot = Const.EMPTY_JACKPOT;
+        this.dateBase = DateBase.getEmpty();
+        this.dayCycle = Cycle.getEmpty();
+    }
+
     public Jackpot(String jackpot, DateBase dateBase) {
         this.jackpot = jackpot;
         this.dateBase = dateBase;
@@ -28,7 +34,7 @@ public class Jackpot {
     }
 
     public static Jackpot getEmpty() {
-        return new Jackpot(Const.EMPTY_JACKPOT, DateBase.getEmpty());
+        return new Jackpot();
     }
 
     public boolean isEmpty() {
@@ -36,16 +42,14 @@ public class Jackpot {
     }
 
     public boolean isSameSequentlySign() {
-        int count = 0;
         for (int i = 0; i < jackpot.length() - 2; i++) {
             int number = Integer.parseInt(jackpot.charAt(i) + "");
             int nextNumber = Integer.parseInt(jackpot.charAt(i + 1) + "");
             if (number == nextNumber) {
-                count++;
-                break;
+                return true;
             }
         }
-        return count > 0;
+        return false;
     }
 
     public boolean isYearBranch(int currentYear) {
@@ -53,26 +57,20 @@ public class Jackpot {
         return dayCycle.getBranch().isYearBranch(getCoupleInt(), currentYear);
     }
 
+    public boolean isDayCycleSet() {
+        if (this.isEmpty() || dayCycle.isEmpty()) return false;
+        return Set.getFrom(dayCycle.getCoupleInt()).isItMatch(getCoupleInt());
+    }
+
     public int getThirdClaw() {
         return Integer.parseInt(jackpot.charAt(2) + "");
     }
 
     public Couple getCouple() {
-        int tens = Integer.parseInt(jackpot.charAt(3) + "");
-        int unit = Integer.parseInt(jackpot.charAt(4) + "");
-
-        return new Couple(tens, unit, dateBase);
+        return new Couple(jackpot, dateBase, dayCycle);
     }
 
     public int getCoupleInt() {
-        int tens = Integer.parseInt(jackpot.charAt(3) + "");
-        int unit = Integer.parseInt(jackpot.charAt(4) + "");
-        return Integer.parseInt(tens + "" + unit);
-    }
-
-    public BCouple getBCouple() {
-        int tens = Integer.parseInt(jackpot.charAt(3) + "");
-        int unit = Integer.parseInt(jackpot.charAt(4) + "");
-        return new BCouple(tens, unit);
+        return this.getCouple().getInt();
     }
 }

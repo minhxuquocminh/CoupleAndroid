@@ -3,18 +3,25 @@ package com.example.couple.Model.Display;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 public class NumberSetHistory {
     NumberSet numberSet;
     int appearanceTimes;
     int dayNumberBefore;
     List<Integer> beatList;
+
+    public static NumberSetHistory getEmpty() {
+        return new NumberSetHistory("", new ArrayList<>(), new ArrayList<>());
+    }
+
+    public boolean isEmpty() {
+        return numberSet.getName().isEmpty() || beatList.isEmpty();
+    }
 
     public NumberSetHistory(String numberSetName, List<Integer> numbers, List<Integer> beatList) {
         this.numberSet = new NumberSet(numberSetName, numbers);

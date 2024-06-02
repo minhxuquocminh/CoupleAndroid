@@ -1,8 +1,8 @@
 package com.example.couple.Custom.Old.HandleData;
 
-import com.example.couple.Model.Time.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Time.DateBase;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -95,8 +95,7 @@ public class JackpotFileHD {
                 if (!matrix[i][j].equals("")) {
                     int first = Integer.parseInt(matrix[i][j].charAt(0) + "");
                     int second = Integer.parseInt(matrix[i][j].charAt(1) + "");
-                    DateBase dateBase = new DateBase(i + 1, j + 1, t + startYear - 1);
-                    coupleList.add(new Couple(first, second, dateBase));
+                    coupleList.add(new Couple(first, second));
                 }
             }
             if (j == 0) {

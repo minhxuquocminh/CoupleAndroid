@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.CombineBridge;
@@ -165,7 +166,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
             @Override
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
-                WidgetBase.showDialog(
+                DialogBase.showBasic(
                         BridgeCombinationActivity.this, "Chú giải", Const.BRIDGE_ANNOTATION);
             }
         });
@@ -192,7 +193,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
             show.append(bridge.showBridge()).append("\n");
             if (bridge.isWin()) count++;
         }
-        WidgetBase.showDialogCanBeCopied(this,
+        DialogBase.showWithCopiedText(this,
                 "Cầu kết hợp", "Tỉ lệ: " + count + "/" + combineBridges.size() +
                         "\n" + show, combineBridges.get(0).showNumbers());
     }

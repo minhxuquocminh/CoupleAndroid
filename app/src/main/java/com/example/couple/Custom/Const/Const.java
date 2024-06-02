@@ -19,7 +19,6 @@ public class Const {
     public static final int CONNECTED_BRIDGE_MAX_DISPLAY = 20;
     public static final int TRIAD_SET_BRIDGE_FINDING_DAYS = 10;
     public static final int TRIAD_SET_BRIDGE_MAX_DISPLAY = 25;
-    public static final List<Integer> CLAW_BRIDGE_FINDING_DAYS = Arrays.asList(12, 14, 16, 18);
     public static final int CLAW_BRIDGE_MAX_DISPLAY = 8;
     public static final int TIME_OUT = 3000;
 

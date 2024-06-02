@@ -49,7 +49,7 @@ public class Lottery {
         String jackpots = lottery.get(0);
         int first = Integer.parseInt(jackpots.charAt(3) + "");
         int second = Integer.parseInt(jackpots.charAt(4) + "");
-        return new Couple(first, second, dateBase);
+        return new Couple(first, second);
     }
 
     public List<Couple> getCoupleList() {
@@ -58,7 +58,7 @@ public class Lottery {
             int length_number = numberString.length();
             int first = Integer.parseInt(numberString.charAt(length_number - 2) + "");
             int second = Integer.parseInt(numberString.charAt(length_number - 1) + "");
-            couples.add(new Couple(first, second, dateBase));
+            couples.add(new Couple(first, second));
         }
         return couples;
     }

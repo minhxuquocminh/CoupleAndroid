@@ -8,9 +8,11 @@ import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Time.Cycle.Branch;
+import com.example.couple.Model.Time.Cycle.Cycle;
 import com.example.couple.Model.Time.Cycle.YearCycle;
 
 import java.util.ArrayList;
@@ -121,9 +123,26 @@ public class CycleBridgeHandler {
         return new BranchInDayBridge(nextDayBranch, beatList);
     }
 
+    public static NumberSetHistory getCycleInDayHistory(List<Jackpot> jackpotList, String specialSetName) {
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
+        List<Integer> beatList = new ArrayList<>();
+        int beat = 0;
+        for (Jackpot jackpot : jackpotList) {
+            beat++;
+            if (jackpot.isDayCycleSet()) {
+                beatList.add(beat);
+                beat = 0;
+            }
+        }
+        Collections.reverse(beatList);
+        Cycle nextDayCycle = jackpotList.get(0).getDayCycle().addDays(1);
+        return new NumberSetHistory(specialSetName,
+                Set.getFrom(nextDayCycle.getCoupleInt()).getSetsDetail(), beatList);
+    }
+
     public static NumberSetHistory getBranchDistanceHistory(List<Jackpot> jackpotList,
                                                             String specialSetName, int distance) {
-        if (jackpotList.isEmpty()) return new NumberSetHistory();
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
         for (Jackpot jackpot : jackpotList) {
@@ -143,7 +162,7 @@ public class CycleBridgeHandler {
     public static NumberSetHistory getBranchDistanceHistoryEach2Days(List<Jackpot> jackpotList,
                                                                      String specialSetName,
                                                                      int distance) {
-        if (jackpotList.isEmpty()) return new NumberSetHistory();
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
         for (int i = 0; i < jackpotList.size() - 1; i++) {
@@ -162,7 +181,7 @@ public class CycleBridgeHandler {
     }
 
     public static NumberSetHistory getPositive12BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
-        if (jackpotList.isEmpty()) return new NumberSetHistory();
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
         for (int i = 0; i < jackpotList.size() - 1; i++) {
@@ -181,7 +200,7 @@ public class CycleBridgeHandler {
     }
 
     public static NumberSetHistory getNegative12BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
-        if (jackpotList.isEmpty()) return new NumberSetHistory();
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
         for (int i = 0; i < jackpotList.size() - 1; i++) {
@@ -200,7 +219,7 @@ public class CycleBridgeHandler {
     }
 
     public static NumberSetHistory getPositive13BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
-        if (jackpotList.isEmpty()) return new NumberSetHistory();
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
         for (int i = 0; i < jackpotList.size() - 2; i++) {
@@ -219,7 +238,7 @@ public class CycleBridgeHandler {
     }
 
     public static NumberSetHistory getNegative13BranchHistory(List<Jackpot> jackpotList, String specialSetName) {
-        if (jackpotList.isEmpty()) return new NumberSetHistory();
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
         List<Integer> beatList = new ArrayList<>();
         int beat = 0;
         for (int i = 0; i < jackpotList.size() - 2; i++) {
