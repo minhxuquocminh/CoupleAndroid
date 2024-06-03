@@ -19,14 +19,15 @@ public class DialogBase {
                 .show();
     }
 
-    public static void showWithCopiedText(Context context, String title, String message, String copyText) {
+    public static void showWithCopiedText(Context context, String title, String message,
+                                          String copyText, String copyName) {
         new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("Copy KQ", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Copy " + copyName, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        WidgetBase.copyToClipboard(context, "number_array", copyText);
-                        Toast.makeText(context, "Đã copy KQ.", Toast.LENGTH_SHORT).show();
+                        WidgetBase.copyToClipboard(context, copyName, copyText);
+                        Toast.makeText(context, "Đã copy " + copyName + ".", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("OK", null)

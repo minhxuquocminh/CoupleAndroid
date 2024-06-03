@@ -1,7 +1,5 @@
 package com.example.couple.View.Lottery;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -73,18 +72,12 @@ public class LotteryActivity extends AppCompatActivity implements LotteryView {
 
     @Override
     public void showRequestToUpdateLottery(int maxDayNumber, int dayNumber) {
-        new AlertDialog.Builder(this)
-                .setTitle("Cập nhật XSMB?")
-                .setMessage("Database hiện có dữ liệu XSMB trong vòng " + maxDayNumber + " ngày," +
-                        " bạn có muốn cập nhật thêm dữ liệu để xem không?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        lotteryViewModel.updateLottery(dayNumber);
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        String title = "Cập nhật XSMB?";
+        String message = "Database hiện có dữ liệu XSMB trong vòng " + maxDayNumber + " ngày," +
+                " bạn có muốn cập nhật thêm dữ liệu để xem không?";
+        DialogBase.showWithConfirmation(this, title, message, () -> {
+            lotteryViewModel.updateLottery(dayNumber);
+        });
     }
 
     @Override

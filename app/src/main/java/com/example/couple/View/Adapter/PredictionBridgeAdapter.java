@@ -1,9 +1,7 @@
 package com.example.couple.View.Adapter;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Base.Handler.FirebaseBase;
 import com.example.couple.Base.Handler.InternetBase;
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Model.Display.Prediction;
 import com.example.couple.R;
@@ -107,25 +106,19 @@ public class PredictionBridgeAdapter extends
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                new AlertDialog.Builder(context)
-                        .setTitle("Xóa?")
-                        .setMessage("Bạn có muốn xóa cầu dự đoán này không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (InternetBase.isInternetAvailable(context)) {
-                                    String objName = pb.getType() == 1 ? "weekly" : "monthly";
-                                    FirebaseBase fb = new FirebaseBase(objName);
-                                    fb.removeObject(pb.getId());
-                                    predictionList.remove(position);
-                                    notifyDataSetChanged();
-                                } else {
-                                    Toast.makeText(context, "Bạn đang offline.", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String title = "Xóa?";
+                String mesage = "Bạn có muốn xóa cầu dự đoán này không?";
+                DialogBase.showWithConfirmation(context, title, mesage, () -> {
+                    if (InternetBase.isInternetAvailable(context)) {
+                        String objName = pb.getType() == 1 ? "weekly" : "monthly";
+                        FirebaseBase fb = new FirebaseBase(objName);
+                        fb.removeObject(pb.getId());
+                        predictionList.remove(position);
+                        notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(context, "Bạn đang offline.", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 return false;
             }
         });

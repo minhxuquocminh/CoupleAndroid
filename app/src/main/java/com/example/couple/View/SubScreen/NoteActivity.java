@@ -1,7 +1,5 @@
 package com.example.couple.View.SubScreen;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.R;
 import com.example.couple.View.Adapter.NoteAdapter;
 import com.example.couple.ViewModel.SubScreen.NoteViewModel;
@@ -51,17 +50,10 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(NoteActivity.this)
-                        .setTitle("Xóa?")
-                        .setMessage("Bạn có muốn xóa tất cả các Ghi chú không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                viewModel.deleteNoteList();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String message = "Bạn có muốn xóa tất cả các Ghi chú không?";
+                DialogBase.showWithConfirmation(NoteActivity.this, "Xóa?", message, () -> {
+                    viewModel.deleteNoteList();
+                });
             }
         });
 

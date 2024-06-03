@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
         updateDataService = new UpdateDataService(this, this);
         updateDataService.getTimeData(true);
         updateDataService.getJackpotData(true);
-        new ThreadBase((param) -> {
+        new ThreadBase<>((param) -> {
             mainViewModel.setUrlAndParamsIfNoData();
             mainViewModel.registerBackgoundRuntime();
             updateDataService.updateAllDataIfNeeded(false);

@@ -1,8 +1,6 @@
 package com.example.couple.View.Main.CreateNumberArray;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
@@ -246,18 +245,11 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Xuất?")
-                        .setMessage("Bạn có muốn xuất dữ liệu ra clipboard không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String numberArray = edtNumberArray.getText().toString().trim();
-                                viewModel.verifyString(numberArray);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String message = "Bạn có muốn xuất dữ liệu ra clipboard không?";
+                DialogBase.showWithConfirmation(getActivity(), "Xuất?", message, () -> {
+                    String numberArray = edtNumberArray.getText().toString().trim();
+                    viewModel.verifyString(numberArray);
+                });
             }
         });
 
@@ -280,48 +272,32 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Lưu?")
-                        .setMessage("Bạn có muốn lưu dữ liệu vào CSDL không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                List<Picker> pickers = new ArrayList<>();
-                                for (int i = 0; i < 1000; i++) {
-                                    if (matrix[i] > 0) {
-                                        pickers.add(new Picker(i, matrix[i]));
-                                    }
-                                }
-                                viewModel.saveDataToFile(pickers);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String title = "Lưu?";
+                String message = "Bạn có muốn lưu dữ liệu vào CSDL không?";
+                DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
+                    List<Picker> pickers = new ArrayList<>();
+                    for (int i = 0; i < 1000; i++) {
+                        if (matrix[i] > 0) {
+                            pickers.add(new Picker(i, matrix[i]));
+                        }
+                    }
+                    viewModel.saveDataToFile(pickers);
+                });
             }
         });
 
         imgExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Xuất?")
-                        .setMessage("Bạn có muốn xuất dữ liệu ra clipboard không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String data = "";
-                                for (int i = 0; i < 1000; i++) {
-                                    if (matrix[i] > 0) {
-                                        data += NumberBase.showNumberString(i, 3) + " ";
-                                    }
-                                }
-                                WidgetBase.copyToClipboard(requireActivity(), "numbers", data.trim());
-                                Toast.makeText(getActivity(),
-                                        "Đã xuất dữ liệu ra clipboard.", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String data = "";
+                for (int i = 0; i < 1000; i++) {
+                    if (matrix[i] > 0) {
+                        data += NumberBase.showNumberString(i, 3) + " ";
+                    }
+                }
+                String title = "Xuất?";
+                String message = "Bạn có muốn xuất dữ liệu ra clipboard không?";
+                DialogBase.showWithCopiedText(getActivity(), title, message, data.trim(), "dữ liệu");
             }
         });
 
@@ -344,12 +320,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         for (PeriodHistory periodHistory : periodHistoryList) {
             show += periodHistory.show() + "\n";
         }
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Lịch sử")
-                .setMessage(show)
-                .setNegativeButton("OK", null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        DialogBase.showBasic(getActivity(), "Lịch sử", show);
     }
 
     @Override
@@ -500,29 +471,22 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             textView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    String title = "Hành động.";
                     String mess = matrix[number] == 2 ? "Bạn muốn hủy số đặc biệt " + number +
                             " không?" : "Bạn có muốn chọn số " + number + " làm số đặc biệt không?";
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Hành động.")
-                            .setMessage(mess)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (matrix[number] == 2) {
-                                        textView.setBackgroundResource(pink);
-                                        SetTextForSubJackpot(subJackpot, -1);
-                                        matrix[number] = 0;
-                                        SetCounterForAll();
-                                    } else {
-                                        textView.setBackgroundResource(red);
-                                        SetTextForSubJackpot(subJackpot, number);
-                                        matrix[number] = 2;
-                                        SetCounterForAll();
-                                    }
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    DialogBase.showWithConfirmation(getActivity(), title, mess, () -> {
+                        if (matrix[number] == 2) {
+                            textView.setBackgroundResource(pink);
+                            SetTextForSubJackpot(subJackpot, -1);
+                            matrix[number] = 0;
+                            SetCounterForAll();
+                        } else {
+                            textView.setBackgroundResource(red);
+                            SetTextForSubJackpot(subJackpot, number);
+                            matrix[number] = 2;
+                            SetCounterForAll();
+                        }
+                    });
                     return false;
                 }
             });

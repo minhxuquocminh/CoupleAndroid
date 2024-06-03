@@ -195,7 +195,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         }
         DialogBase.showWithCopiedText(this,
                 "Cầu kết hợp", "Tỉ lệ: " + count + "/" + combineBridges.size() +
-                        "\n" + show, combineBridges.get(0).showNumbers());
+                        "\n" + show, combineBridges.get(0).showNumbers(), "KQ");
     }
 
 }

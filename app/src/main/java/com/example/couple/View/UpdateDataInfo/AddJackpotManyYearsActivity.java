@@ -1,8 +1,6 @@
 package com.example.couple.View.UpdateDataInfo;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -59,18 +57,12 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                 } else if (!InternetBase.isInternetAvailable(AddJackpotManyYearsActivity.this)) {
                     showMessage("Bạn đang offline.");
                 } else {
-                    new AlertDialog.Builder(AddJackpotManyYearsActivity.this)
-                            .setTitle("Nạp dữ liệu")
-                            .setMessage("Bạn có chắc muốn nạp dữ liệu XS Đặc biệt trong " +
-                                    "tất cả các năm kể từ năm " + startingYear + " không?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    viewModel.updateJackpotDataInManyYears(Integer.parseInt(startingYear), true);
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    String title = "Nạp dữ liệu";
+                    String message = "Bạn có chắc muốn nạp dữ liệu XS Đặc biệt trong " +
+                            "tất cả các năm kể từ năm " + startingYear + " không?";
+                    DialogBase.showWithConfirmation(AddJackpotManyYearsActivity.this, title, message, () -> {
+                        viewModel.updateJackpotDataInManyYears(Integer.parseInt(startingYear), true);
+                    });
                 }
             }
         });
@@ -82,22 +74,16 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                 if (startingYear.isEmpty()) {
                     showMessage("Vui lòng nhập năm bắt đầu!");
                 } else {
-                    new AlertDialog.Builder(AddJackpotManyYearsActivity.this)
-                            .setTitle("Nạp dữ liệu")
-                            .setMessage("Bạn có chắc muốn nạp thêm dữ liệu XS Đặc biệt nhiều " +
-                                    "năm kể từ năm " + startingYear + " không?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (InternetBase.isInternetAvailable(AddJackpotManyYearsActivity.this)) {
-                                        viewModel.updateJackpotDataInManyYears(Integer.parseInt(startingYear), false);
-                                    } else {
-                                        showMessage("Bạn đang offline!");
-                                    }
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    String title = "Nạp dữ liệu";
+                    String message = "Bạn có chắc muốn nạp thêm dữ liệu XS Đặc biệt nhiều " +
+                            "năm kể từ năm " + startingYear + " không?";
+                    DialogBase.showWithConfirmation(AddJackpotManyYearsActivity.this, title, message, () -> {
+                        if (InternetBase.isInternetAvailable(AddJackpotManyYearsActivity.this)) {
+                            viewModel.updateJackpotDataInManyYears(Integer.parseInt(startingYear), false);
+                        } else {
+                            showMessage("Bạn đang offline!");
+                        }
+                    });
                 }
             }
         });

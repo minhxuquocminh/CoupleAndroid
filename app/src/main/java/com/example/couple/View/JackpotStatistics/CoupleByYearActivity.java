@@ -1,7 +1,5 @@
 package com.example.couple.View.JackpotStatistics;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.R;
@@ -105,20 +104,14 @@ public class CoupleByYearActivity extends AppCompatActivity implements CoupleByY
 
     @Override
     public void showRequestLoadMoreData(int startYear_file, int endYear_file) {
-        new AlertDialog.Builder(this)
-                .setTitle("Cập nhật XS Đặc biệt?")
-                .setMessage("Dữ liệu hiện có từ năm " + startYear_file + " đến năm " + endYear_file +
-                        ". Bạn cần cập nhật thêm dữ liệu XS Đặc biệt nhiều năm mới có thể xem thông tin" +
-                        " mà bạn đã yêu cầu. Bạn có muốn tiếp tục không?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(CoupleByYearActivity.this,
-                                AddJackpotManyYearsActivity.class));
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        String title = "Cập nhật XS Đặc biệt?";
+        String message = "Dữ liệu hiện có từ năm " + startYear_file + " đến năm " + endYear_file +
+                ". Bạn cần cập nhật thêm dữ liệu XS Đặc biệt nhiều năm mới có thể xem thông tin" +
+                " mà bạn đã yêu cầu. Bạn có muốn tiếp tục không?";
+        DialogBase.showWithConfirmation(this, title, message, () -> {
+            startActivity(new Intent(CoupleByYearActivity.this,
+                    AddJackpotManyYearsActivity.class));
+        });
     }
 
 }

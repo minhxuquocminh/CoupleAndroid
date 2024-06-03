@@ -1,8 +1,6 @@
 package com.example.couple.View.Main.NumberPicker;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -28,6 +26,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
@@ -229,21 +228,15 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             @Override
             public boolean onLongClick(View v) {
                 String newType = isFirstNumberPicker ? "2" : "1";
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Chuyển kiểu chọn?")
-                        .setMessage("Bạn có muốn chuyển kiểu chọn số sang kiểu " + newType + " không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (isFirstNumberPicker) {
-                                    SecondNumberPickerIsSelected();
-                                } else {
-                                    FirstNumberPickerIsSelected();
-                                }
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String title = "Chuyển kiểu chọn?";
+                String message = "Bạn có muốn chuyển kiểu chọn số sang kiểu " + newType + " không?";
+                DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
+                    if (isFirstNumberPicker) {
+                        SecondNumberPickerIsSelected();
+                    } else {
+                        FirstNumberPickerIsSelected();
+                    }
+                });
                 return false;
             }
         });
@@ -303,72 +296,55 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             @Override
             public void onClick(View v) {
                 String tableName = cboTableA.isChecked() ? "A" : "B";
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Lưu?")
-                        .setMessage("Bạn có muốn lưu dữ liệu vào bảng " + tableName + " không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (isFirstNumberPicker) {
-                                    List<Picker> pickers = new ArrayList<>();
-                                    for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
-                                        TextView textView = viewParent.findViewById(i);
-                                        if (textView.getBackground() == greenDrawable) {
-                                            pickers.add(new Picker(i, 1));
-                                        }
-                                        if (textView.getBackground() == redDrawable) {
-                                            pickers.add(new Picker(i, 2));
-                                        }
-                                    }
-                                    viewModel.saveDataToFile(pickers, cboTableA.isChecked());
-                                } else {
-                                    List<Picker> pickers = new ArrayList<>();
-                                    for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
-                                        if (matrix[i] > 0) {
-                                            pickers.add(new Picker(i, matrix[i]));
-                                        }
-                                    }
-                                    viewModel.saveDataToFile(pickers, cboTableA.isChecked());
-                                }
+                String title = "Lưu?";
+                String message = "Bạn có muốn lưu dữ liệu vào bảng " + tableName + " không?";
+                DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
+                    if (isFirstNumberPicker) {
+                        List<Picker> pickers = new ArrayList<>();
+                        for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
+                            TextView textView = viewParent.findViewById(i);
+                            if (textView.getBackground() == greenDrawable) {
+                                pickers.add(new Picker(i, 1));
                             }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                            if (textView.getBackground() == redDrawable) {
+                                pickers.add(new Picker(i, 2));
+                            }
+                        }
+                        viewModel.saveDataToFile(pickers, cboTableA.isChecked());
+                    } else {
+                        List<Picker> pickers = new ArrayList<>();
+                        for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
+                            if (matrix[i] > 0) {
+                                pickers.add(new Picker(i, matrix[i]));
+                            }
+                        }
+                        viewModel.saveDataToFile(pickers, cboTableA.isChecked());
+                    }
+                });
             }
         });
 
         imgExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Xuất?")
-                        .setMessage("Bạn có muốn xuất dữ liệu ra clipboard không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                String data = "";
-                                if (isFirstNumberPicker) {
-                                    for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
-                                        TextView textView = viewParent.findViewById(i);
-                                        if (textView.getBackground() == greenDrawable ||
-                                                textView.getBackground() == redDrawable) {
-                                            data += i < 10 ? "0" + i + " " : i + " ";
-                                        }
-                                    }
-                                } else {
-                                    for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
-                                        if (matrix[i] != 0) {
-                                            data += i < 10 ? "0" + i + " " : i + " ";
-                                        }
-                                    }
-                                }
-                                WidgetBase.copyToClipboard(requireActivity(), "numbers", data);
-                                Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String data = "";
+                if (isFirstNumberPicker) {
+                    for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
+                        TextView textView = viewParent.findViewById(i);
+                        if (textView.getBackground() == greenDrawable ||
+                                textView.getBackground() == redDrawable) {
+                            data += i < 10 ? "0" + i + " " : i + " ";
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
+                        if (matrix[i] != 0) {
+                            data += i < 10 ? "0" + i + " " : i + " ";
+                        }
+                    }
+                }
+                String message = "Bạn có muốn xuất dữ liệu ra clipboard không?";
+                DialogBase.showWithCopiedText(getActivity(), "Xuất?", message, data, "dữ liệu");
             }
         });
 
@@ -590,28 +566,20 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             textView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    String title = "Hành động.";
                     String mess = textView.getBackground() == redDrawable ? "Bạn muốn hủy số đặc biệt " + finalI +
                             " không?" : "Bạn có muốn chọn số " + finalI + " làm số đặc biệt không?";
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Hành động.")
-                            .setMessage(mess)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (textView.getBackground() == redDrawable) {
-                                        textView.setBackground(pinkDrawable);
-                                        UpdateMyPrediction(-1, listMP);
-                                        SetCounterForTableType1();
-                                    } else {
-                                        textView.setBackground(redDrawable);
-                                        UpdateMyPrediction(finalI, listMP);
-                                        SetCounterForTableType1();
-                                    }
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-
+                    DialogBase.showWithConfirmation(getActivity(), title, mess, () -> {
+                        if (textView.getBackground() == redDrawable) {
+                            textView.setBackground(pinkDrawable);
+                            UpdateMyPrediction(-1, listMP);
+                            SetCounterForTableType1();
+                        } else {
+                            textView.setBackground(redDrawable);
+                            UpdateMyPrediction(finalI, listMP);
+                            SetCounterForTableType1();
+                        }
+                    });
                     return false;
                 }
             });
@@ -794,31 +762,24 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             textView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                    String title = "Hành động.";
                     String mess = textView.getBackground() == redDrawable ? "Bạn muốn hủy số đặc biệt " + number +
                             " không?" : "Bạn có muốn chọn số " + number + " làm số đặc biệt không?";
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Hành động.")
-                            .setMessage(mess)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (textView.getBackground() == redDrawable) {
-                                        textView.setBackground(pinkDrawable);
-                                        matrix[number] = 0;
-                                        SetColorForChoosingNumberTextView();
-                                        UpdateMyPrediction(-1, listMP);
-                                        SetCounterForTableType2();
-                                    } else {
-                                        textView.setBackground(redDrawable);
-                                        matrix[number] = 2;
-                                        SetColorForChoosingNumberTextView();
-                                        UpdateMyPrediction(number, listMP);
-                                        SetCounterForTableType2();
-                                    }
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    DialogBase.showWithConfirmation(getActivity(), title, mess, () -> {
+                        if (textView.getBackground() == redDrawable) {
+                            textView.setBackground(pinkDrawable);
+                            matrix[number] = 0;
+                            SetColorForChoosingNumberTextView();
+                            UpdateMyPrediction(-1, listMP);
+                            SetCounterForTableType2();
+                        } else {
+                            textView.setBackground(redDrawable);
+                            matrix[number] = 2;
+                            SetColorForChoosingNumberTextView();
+                            UpdateMyPrediction(number, listMP);
+                            SetCounterForTableType2();
+                        }
+                    });
                     return false;
                 }
             });
@@ -875,37 +836,20 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             imgCancelA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Xóa?")
-                            .setMessage("Bạn có muốn xóa hết dữ liệu trong bảng A không?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    viewModel.deleteAllData(true);
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    String title = "Xóa?";
+                    String message = "Bạn có muốn xóa hết dữ liệu trong bảng A không?";
+                    DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
+                        viewModel.deleteAllData(true);
+                    });
                 }
             });
             imgExportA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Xuất?")
-                            .setMessage("Bạn có muốn xuất dữ liệu ra clipboard không?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    WidgetBase.copyToClipboard(requireActivity(), "numbers",
-                                            spannableText.subSequence(title.length() - 1,
-                                                    spannableText.length()).toString());
-                                    Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    String message = "Bạn có muốn xuất dữ liệu ra clipboard không?";
+                    DialogBase.showWithCopiedText(getActivity(), "Xuất?", message,
+                            spannableText.subSequence(title.length() - 1,
+                                    spannableText.length()).toString(), "dữ liệu");
                 }
             });
         }
@@ -926,37 +870,19 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             imgCancelB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Xóa?")
-                            .setMessage("Bạn có muốn xóa hết dữ liệu trong bảng B không?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    viewModel.deleteAllData(false);
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    String message = "Bạn có muốn xóa hết dữ liệu trong bảng B không?";
+                    DialogBase.showWithConfirmation(getActivity(), "Xóa?", message, () -> {
+                        viewModel.deleteAllData(false);
+                    });
                 }
             });
             imgExportB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Xuất?")
-                            .setMessage("Bạn có muốn xuất dữ liệu ra clipboard không?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    WidgetBase.copyToClipboard(requireActivity(), "numbers",
-                                            spannableText.subSequence(title.length() - 1,
-                                                    spannableText.length()).toString());
-                                    Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .setNegativeButton(android.R.string.no, null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                    String message = "Bạn có muốn xuất dữ liệu ra clipboard không?";
+                    DialogBase.showWithCopiedText(getActivity(), "Xuất?", message,
+                            spannableText.subSequence(title.length() - 1,
+                                    spannableText.length()).toString(), "dữ liệu");
                 }
             });
         }

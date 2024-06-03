@@ -1,6 +1,5 @@
 package com.example.couple.View.Couple;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -109,12 +108,7 @@ public class BalanceCoupleActivity extends AppCompatActivity implements BalanceC
         for (PeriodHistory periodHistory : periodHistoryList) {
             show += periodHistory.show() + "\n";
         }
-        new AlertDialog.Builder(this)
-                .setTitle("Lịch sử")
-                .setMessage(show)
-                .setNegativeButton("OK", null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        DialogBase.showBasic(this, "Lịch sử", show);
     }
 
     @Override
@@ -122,7 +116,7 @@ public class BalanceCoupleActivity extends AppCompatActivity implements BalanceC
         String message = "Chạm: ";
         message += SingleBase.showTouchs(touchs);
         DialogBase.showWithCopiedText(this,
-                "Cầu chạm.", message, SingleBase.showTouchs(touchs));
+                "Cầu chạm.", message, SingleBase.showTouchs(touchs), "test");
     }
 
 }

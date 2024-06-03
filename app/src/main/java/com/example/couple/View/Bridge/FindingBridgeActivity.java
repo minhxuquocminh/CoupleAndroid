@@ -1,7 +1,5 @@
 package com.example.couple.View.Bridge;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
@@ -207,27 +206,21 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
             @Override
             public boolean onLongClick(View v) {
                 String statusFastView = isFastView ? "tắt" : "bật";
-                new AlertDialog.Builder(FindingBridgeActivity.this)
-                        .setTitle("Chế độ xem nhanh")
-                        .setMessage("Bạn có muốn " + statusFastView +
-                                " chế độ xem nhanh dữ liệu theo số ngày trước đó không?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (isFastView) {
-                                    isFastView = false;
-                                    linearDayNumberBefore.setVisibility(View.GONE);
-                                    edtDayNumberBefore.setSelection(edtDayNumberBefore.length());
-                                    edtDayNumberBefore.setEnabled(true);
-                                } else {
-                                    isFastView = true;
-                                    linearDayNumberBefore.setVisibility(View.VISIBLE);
-                                    edtDayNumberBefore.setEnabled(false);
-                                }
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                String title = "Chế độ xem nhanh";
+                String mesage = "Bạn có muốn " + statusFastView +
+                        " chế độ xem nhanh dữ liệu theo số ngày trước đó không?";
+                DialogBase.showWithConfirmation(FindingBridgeActivity.this, title, mesage, () -> {
+                    if (isFastView) {
+                        isFastView = false;
+                        linearDayNumberBefore.setVisibility(View.GONE);
+                        edtDayNumberBefore.setSelection(edtDayNumberBefore.length());
+                        edtDayNumberBefore.setEnabled(true);
+                    } else {
+                        isFastView = true;
+                        linearDayNumberBefore.setVisibility(View.VISIBLE);
+                        edtDayNumberBefore.setEnabled(false);
+                    }
+                });
                 return false;
             }
         });
@@ -531,20 +524,9 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
         for (int n : statusList) {
             show += n + " ";
         }
-        String finalShow = show;
-        new AlertDialog.Builder(this)
-                .setTitle("Thứ tự")
-                .setMessage("Thứ tự trúng cầu bộ 3 từ sau ra trước: " + show)
-                .setPositiveButton("Copy", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        WidgetBase.copyToClipboard(FindingBridgeActivity.this, "triad", finalShow);
-                        Toast.makeText(FindingBridgeActivity.this,
-                                "Đã copy thứ tự!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        String title = "Thứ tự";
+        String mesage = "Thứ tự trúng cầu bộ 3 từ sau ra trước: " + show;
+        DialogBase.showWithCopiedText(this, title, mesage, show, "thứ tự");
     }
 
     @Override
