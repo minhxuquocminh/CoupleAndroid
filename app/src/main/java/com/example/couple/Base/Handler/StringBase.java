@@ -11,4 +11,9 @@ public class StringBase {
         }
         return results.toString();
     }
+
+    public static boolean isNullOrEmpty(String data) {
+        return data == null || data.isEmpty();
+    }
+
 }

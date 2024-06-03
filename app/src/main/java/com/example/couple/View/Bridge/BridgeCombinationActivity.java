@@ -14,13 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Bridge.BridgeCombinationViewModel;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BridgeCombinationActivity extends AppCompatActivity implements BridgeCombinationView {
     ImageView imgBridgeAnnotation;
@@ -118,27 +121,28 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
             public void onClick(View view) {
                 WidgetBase.hideKeyboard(BridgeCombinationActivity.this);
                 String numberOfDayStr = edtDayNumber.getText().toString().trim();
+                Map<BridgeType, Boolean> bridgeTypeFlag = new HashMap<>();
                 // touch
-                boolean combineTouch = cboCombineTouchBridge.isChecked();
-                boolean connected = cboConnectedBridge.isChecked();
-                boolean shadowTouch = cboShadowTouchBridge.isChecked();
-                boolean lottoTouch = cboLottoTouchBridge.isChecked();
-                boolean negativeShadow = cboNegativeShadowBridge.isChecked();
-                boolean positiveShadow = cboPositiveShadowBridge.isChecked();
+                bridgeTypeFlag.put(BridgeType.COMBINE_TOUCH, cboCombineTouchBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.CONNECTED, cboConnectedBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.SHADOW_TOUCH, cboShadowTouchBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.LOTTO_TOUCH, cboLottoTouchBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.NEGATIVE_SHADOW, cboNegativeShadowBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.POSITIVE_SHADOW, cboPositiveShadowBridge.isChecked());
                 // mapping, estimated
-                boolean mapping = cboMappingBridge.isChecked();
-                boolean connectedSet = cboConnectedSetBridge.isChecked();
-                boolean estimated = cboEstimatedBridge.isChecked();
-                boolean rightMapping = cboRightMappingBridge.isChecked();
-                boolean compatible = cboCompatible.isChecked();
-                boolean incompatible = cboIncompatible.isChecked();
-                boolean unappearedDouble = cboUnappearedBigDoubleBridge.isChecked();
-                boolean triadMapping = cboTriadMappingBridge.isChecked();
-                boolean branchIn2Days = cboBranchInTwoDaysBridge.isChecked();
+                bridgeTypeFlag.put(BridgeType.MAPPING, cboMappingBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.CONNECTED_SET, cboConnectedSetBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.ESTIMATED, cboEstimatedBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.RIGHT_MAPPING, cboRightMappingBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.COMPATIBLE_CYCLE, cboCompatible.isChecked());
+                bridgeTypeFlag.put(BridgeType.INCOMPATIBLE_CYCLE, cboIncompatible.isChecked());
+                bridgeTypeFlag.put(BridgeType.UNAPPEARED_BIG_DOUBLE, cboUnappearedBigDoubleBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.TRIAD_MAPPING, cboTriadMappingBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.BRANCH_IN_TWO_DAYS_BRIDGE, cboBranchInTwoDaysBridge.isChecked());
                 // special set
-                boolean bigDouble = cboBigDoubleSet.isChecked();
-                boolean sameDouble = cboSameDoubleSet.isChecked();
-                boolean positiveDouble = cboPositiveDoubleSet.isChecked();
+                bridgeTypeFlag.put(BridgeType.BIG_DOUBLE, cboBigDoubleSet.isChecked());
+                bridgeTypeFlag.put(BridgeType.SAME_DOUBLE, cboSameDoubleSet.isChecked());
+                bridgeTypeFlag.put(BridgeType.POSITIVE_DOUBLE, cboPositiveDoubleSet.isChecked());
                 // other set
                 String setData = edtSet.getText().toString().trim();
                 String touchData = edtTouch.getText().toString().trim();
@@ -148,16 +152,13 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 String tailData = edtTail.getText().toString().trim();
                 String combineData = edtCombine.getText().toString().trim();
                 if (!numberOfDayStr.isEmpty()) {
-                    int numberOfDay = connected && Integer.parseInt(numberOfDayStr) >
-                            lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
+                    int numberOfDay = Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED)) &&
+                            Integer.parseInt(numberOfDayStr) >
+                                    lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
                             Integer.parseInt(numberOfDayStr);
-                    viewModel.getCombineBridgeList(jackpotList, lotteryList, numberOfDay,
-                            combineTouch, connected, shadowTouch, lottoTouch, negativeShadow, positiveShadow,
-                            mapping, connectedSet, estimated, rightMapping, compatible, incompatible,
-                            unappearedDouble, triadMapping, branchIn2Days, bigDouble, sameDouble,
-                            positiveDouble, setData, touchData, sumData, branchData, headData,
-                            tailData, combineData);
+                    viewModel.getCombineBridgeList(jackpotList, lotteryList, numberOfDay, bridgeTypeFlag,
+                            setData, touchData, sumData, branchData, headData, tailData, combineData);
                 }
             }
         });

@@ -35,6 +35,13 @@ public enum BridgeType {
     CONNECTED_SET(4002, "Cầu liên bộ"),
 
     /**
+     * special set
+     */
+    BIG_DOUBLE(5001, "Bộ kép to"),
+    SAME_DOUBLE(5002, "Bộ kép bằng"),
+    POSITIVE_DOUBLE(5003, "Bộ kép lệch"),
+
+    /**
      * others bridge
      */
     ESTIMATED(9001, "Cầu ước lượng"),

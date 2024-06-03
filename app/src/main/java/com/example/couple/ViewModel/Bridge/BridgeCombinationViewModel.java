@@ -15,6 +15,7 @@ import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
@@ -24,18 +25,19 @@ import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
 import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
-import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
 import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.View.Bridge.BridgeCombinationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BridgeCombinationViewModel {
     BridgeCombinationView view;
@@ -95,100 +97,95 @@ public class BridgeCombinationViewModel {
     }
 
     public void getCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList, int numberOfDay,
-                                     boolean combineTouch, boolean connected, boolean shadowTouch,
-                                     boolean lottoTouch, boolean negativeShadow, boolean positiveShadow,
-                                     boolean mapping, boolean connectedSet, boolean estimated, boolean rightMapping,
-                                     boolean compatible, boolean incompatible, boolean unappearedDouble,
-                                     boolean triadMapping, boolean branchIn2Days,
-                                     boolean bigDouble, boolean sameDouble, boolean positiveDouble,
-                                     String setData, String touchData, String sumData, String branchData,
-                                     String headData, String tailData, String combineData) {
+                                     Map<BridgeType, Boolean> bridgeTypeFlag, String setData, String touchData,
+                                     String sumData, String branchData, String headData, String tailData, String combineData) {
         List<CombineBridge> combineBridges = new ArrayList<>();
-        if (connected && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
+        if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED))
+                && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
             view.showMessage("Đặt lại giới hạn số ngày cho cầu liên thông là " +
                     (lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) + " ngày");
         }
-        int newDayNumber = connected && numberOfDay >
-                lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
+        int newDayNumber = Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED)) &&
+                numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
                 lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS : numberOfDay;
         for (int i = 0; i < newDayNumber; i++) {
             List<Bridge> bridgeList = new ArrayList<>();
             // touch
-            if (combineTouch) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.COMBINE_TOUCH))) {
                 CombineTouchBridge combineTouchBridge = TouchBridgeHandler
                         .getCombineTouchBridge(jackpotList, lotteryList, i);
                 bridgeList.add(combineTouchBridge);
             }
-            if (connected) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED))) {
                 ConnectedBridge connectedBridge = ConnectedBridgeHandler
                         .getConnectedBridge(lotteryList, i, Const.CONNECTED_BRIDGE_FINDING_DAYS,
                                 Const.CONNECTED_BRIDGE_MAX_DISPLAY);
                 bridgeList.add(connectedBridge);
             }
-            if (shadowTouch) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.SHADOW_TOUCH))) {
                 ShadowTouchBridge shadowTouchBridge = TouchBridgeHandler
                         .getShadowTouchBridge(jackpotList, i);
                 bridgeList.add(shadowTouchBridge);
             }
-            if (lottoTouch) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.LOTTO_TOUCH))) {
                 LottoTouchBridge lottoTouchBridge = TouchBridgeHandler
                         .getLottoTouchBridge(lotteryList, i);
                 bridgeList.add(lottoTouchBridge);
             }
-            if (negativeShadow) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.NEGATIVE_SHADOW))) {
                 ShadowTouchBridge negativeShadowBridge = TouchBridgeHandler
                         .getNegativeShadowTouchBridge(jackpotList, i);
                 bridgeList.add(negativeShadowBridge);
             }
-            if (positiveShadow) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.POSITIVE_SHADOW))) {
                 ShadowTouchBridge positiveShadowBridge = TouchBridgeHandler
                         .getPositiveShadowTouchBridge(jackpotList, i);
                 bridgeList.add(positiveShadowBridge);
             }
             // mapping, estimated
-            if (mapping) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.MAPPING))) {
                 MappingBridge mappingBridge = MappingBridgeHandler
                         .getMappingBridge(jackpotList, i);
                 bridgeList.add(mappingBridge);
             }
-            if (connectedSet) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED_SET))) {
                 ConnectedSetBridge connectedSetBridge = ConnectedBridgeHandler
                         .getConnectedSetBridge(lotteryList, i,
                                 Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
                 bridgeList.add(connectedSetBridge);
             }
-            if (estimated) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.ESTIMATED))) {
                 EstimatedBridge estimatedBridge = EstimatedBridgeHandler
                         .getEstimatedBridge(jackpotList, i);
                 bridgeList.add(estimatedBridge);
             }
-            if (rightMapping) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.RIGHT_MAPPING))) {
                 MappingBridge rightMappingBridge = MappingBridgeHandler
                         .getRightMappingBridge(jackpotList, i);
                 bridgeList.add(rightMappingBridge);
             }
-            if (compatible) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.COMPATIBLE_CYCLE))) {
                 CycleBridge compatibleBridge = CycleBridgeHandler
                         .getCompatibleCycleBridge(jackpotList, i);
                 bridgeList.add(compatibleBridge);
             }
-            if (incompatible) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.INCOMPATIBLE_CYCLE))) {
                 CycleBridge incompatibleBridge = CycleBridgeHandler
                         .getIncompatibleCycleBridge(jackpotList, i);
                 bridgeList.add(incompatibleBridge);
             }
-            if (unappearedDouble) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.UNAPPEARED_BIG_DOUBLE))) {
                 UnappearedBigDoubleBridge unappearedBigDoubleBridge =
                         OtherBridgeHandler.getUnappearedBigDoubleBridge(jackpotList, i);
                 bridgeList.add(unappearedBigDoubleBridge);
             }
 
-            if (triadMapping) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.TRIAD_MAPPING))) {
                 TriadMappingBridge triadMappingBridge = MappingBridgeHandler
                         .getAnyMappingBridge(jackpotList, i);
                 bridgeList.add(triadMappingBridge);
             }
-            if (branchIn2Days) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.BRANCH_IN_TWO_DAYS_BRIDGE))) {
                 BranchInTwoDaysBridge branchInTwoDaysBridge = CycleBridgeHandler
                         .getBranchInTwoDaysBridge(jackpotList, i);
                 bridgeList.add(branchInTwoDaysBridge);
@@ -196,17 +193,17 @@ public class BridgeCombinationViewModel {
             // jackpot
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             // special set
-            if (bigDouble) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.BIG_DOUBLE))) {
                 SpecialSetBridge bigDoubleSet = new SpecialSetBridge(SpecialSet.BIG_DOUBLE.name,
                         SpecialSet.BIG_DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(bigDoubleSet);
             }
-            if (sameDouble) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.SAME_DOUBLE))) {
                 SpecialSetBridge sameDoubleSet = new SpecialSetBridge(SpecialSet.DOUBLE.name,
                         SpecialSet.DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(sameDoubleSet);
             }
-            if (positiveDouble) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.POSITIVE_DOUBLE))) {
                 SpecialSetBridge nearDoubleSet = new SpecialSetBridge(SpecialSet.POSITIVE_DOUBLE.name,
                         SpecialSet.POSITIVE_DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(nearDoubleSet);
