@@ -16,11 +16,14 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Couple.CoupleType;
+import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Bridge.BridgeCombinationViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,13 +147,14 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 bridgeTypeFlag.put(BridgeType.SAME_DOUBLE, cboSameDoubleSet.isChecked());
                 bridgeTypeFlag.put(BridgeType.POSITIVE_DOUBLE, cboPositiveDoubleSet.isChecked());
                 // other set
-                String setData = edtSet.getText().toString().trim();
-                String touchData = edtTouch.getText().toString().trim();
-                String sumData = edtSum.getText().toString().trim();
-                String branchData = edtBranch.getText().toString().trim();
-                String headData = edtHead.getText().toString().trim();
-                String tailData = edtTail.getText().toString().trim();
-                String combineData = edtCombine.getText().toString().trim();
+                List<Input> inputs = new ArrayList<>();
+                inputs.add(new Input(CoupleType.SET, edtSet.getText().toString().trim(), 2));
+                inputs.add(new Input(CoupleType.TOUCH, edtTouch.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.SUM, edtSum.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.BRANCH, edtBranch.getText().toString().trim(), 2));
+                inputs.add(new Input(CoupleType.HEAD, edtHead.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.TAIL, edtTail.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.COMBINE, edtCombine.getText().toString().trim(), 2));
                 if (!numberOfDayStr.isEmpty()) {
                     int numberOfDay = Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED)) &&
                             Integer.parseInt(numberOfDayStr) >
@@ -158,7 +162,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                             lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
                             Integer.parseInt(numberOfDayStr);
                     viewModel.getCombineBridgeList(jackpotList, lotteryList, numberOfDay, bridgeTypeFlag,
-                            setData, touchData, sumData, branchData, headData, tailData, combineData);
+                            inputs);
                 }
             }
         });

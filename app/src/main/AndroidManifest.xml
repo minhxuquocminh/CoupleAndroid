@@ -54,12 +54,6 @@
             android:name=".View.Lottery.LotteryActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".View.PredictionBridge.PredictionBridgeActivity" />
-
-        <activity android:name=".View.PredictionBridge.WeeklyPredictionBridgeActivity" />
-
-        <activity android:name=".View.PredictionBridge.MonthlyPredictionBridgeActivity" />
-
         <activity android:name=".View.Couple.BalanceCoupleActivity" />
 
         <activity android:name=".View.Couple.CoupleByWeekActivity" />

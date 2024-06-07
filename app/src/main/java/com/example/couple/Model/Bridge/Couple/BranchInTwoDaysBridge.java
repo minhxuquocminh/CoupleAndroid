@@ -1,7 +1,6 @@
 package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Base.Handler.CoupleBase;
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
@@ -11,6 +10,7 @@ import com.example.couple.Model.Time.Cycle.Branch;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -45,7 +45,7 @@ public class BranchInTwoDaysBridge extends Bridge {
                 tailsOfYear.addAll(new Branch(couple + 4).getTailsOfYear(TimeInfo.CURRENT_YEAR));
             }
         }
-        this.numbers = NumberBase.filterDuplicatedNumbers(tailsOfYear);
+        this.numbers = tailsOfYear.stream().distinct().collect(Collectors.toList());
     }
 
     @Override

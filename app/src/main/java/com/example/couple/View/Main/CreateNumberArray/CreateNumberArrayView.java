@@ -10,8 +10,8 @@ public interface CreateNumberArrayView {
     void showPeriodHistory(List<PeriodHistory> periodHistoryList);
     void showNumberArray(List<Integer> numbers, int typeOfNumber);
     void showNumberArrayCounter(int size);
-    void verifyCoupleArraySuccess(List<Picker> pickers);
-    void verifyTriadArraySuccess(List<Picker> pickers);
+    void verifyCoupleArraySuccess(List<Integer> pickers);
+    void verifyTriadArraySuccess(List<Integer> pickers);
     void showVerifyStringSuccess(List<Integer> numbers, int typeOfNumber);
     void showTriadTable(List<Picker> pickers);
     void saveDataSuccess(String message);

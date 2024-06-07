@@ -13,7 +13,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.couple.Base.Handler.ThreadBase;
 import com.example.couple.Custom.Service.UpdateDataService;
 import com.example.couple.Custom.Service.UpdateDataView;
-import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
     private MutableLiveData<List<Lottery>> lotteryList = new MutableLiveData<>();
     @Getter
     @Setter
-    private MutableLiveData<List<Picker>> couplesToTransfer = new MutableLiveData<>();
+    private MutableLiveData<List<Integer>> couplesToTransfer = new MutableLiveData<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,8 @@ public class TriadMappingBridge extends Bridge {
             List<Integer> currentNumbers = new ArrayList<>();
             currentNumbers.addAll(first.getMappingNumbers());
             currentNumbers.addAll(second.getMappingNumbers());
-            numbers = NumberBase.getMatchNumbers(numbers, NumberBase.filterDuplicatedNumbers(currentNumbers));
+            numbers = NumberBase.getMatchNumbers(numbers,
+                    currentNumbers.stream().distinct().collect(Collectors.toList()));
         }
         this.jackpotHistory = jackpotHistory;
     }

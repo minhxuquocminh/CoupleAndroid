@@ -10,7 +10,9 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
+import com.example.couple.Model.Couple.CoupleType;
 import com.example.couple.Model.Display.Picker;
+import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayView;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CreateNumberArrayViewModel {
     CreateNumberArrayView view;
@@ -46,169 +49,50 @@ public class CreateNumberArrayViewModel {
         }
     }
 
-    public void createNumberArray(String set, String touch, String sum, String thirdClaw,
-                                  String head, String tail, String combine, String add, String remove) {
-
-        String error = "Vui lòng kiểm tra nhập tại";
-        int countError = 0;
-
-        // set
-
-        List<Integer> setListIn = NumberBase.verifyNumberArray(set, 1);
-        List<Integer> setListOut = new ArrayList<>();
-        if (setListIn.isEmpty()) {
-            setListIn = NumberBase.verifyNumberArray(set, 2);
-            if (setListIn.isEmpty()) {
-                if (!set.isEmpty()) {
-                    countError++;
-                    error += " bộ;";
-                }
-            } else {
-                setListOut = NumberArrayHandler.getSetsByCouples(setListIn);
+    public void createNumberArray(List<Input> inputs) {
+        List<Integer> matchs = new ArrayList<>();
+        List<Integer> adds = new ArrayList<>();
+        List<Integer> removes = new ArrayList<>();
+        List<Integer> combines = new ArrayList<>();
+        List<Integer> triads = new ArrayList<>();
+        String errorMessage = "";
+        for (Input input : inputs) {
+            if (input.isError()) {
+                errorMessage += " " + input.getCoupleType().name + ";";
             }
-        } else {
-            setListOut = NumberArrayHandler.getSetsBySingles(setListIn);
+            if (input.getCoupleType() == CoupleType.ADD) {
+                adds.addAll(input.getNumbers());
+                continue;
+            }
+            if (input.getCoupleType() == CoupleType.REMOVE) {
+                removes.addAll(input.getNumbers());
+                continue;
+            }
+            if (input.getCoupleType() == CoupleType.COMBINE) {
+                combines.addAll(input.getNumbers());
+                continue;
+            }
+            if (input.getCoupleType() == CoupleType.ADD_TRIAD) {
+                triads.addAll(input.getNumbers());
+                continue;
+            }
+            matchs = NumberBase.getMatchNumbers(matchs, input.getNumbers());
         }
+        matchs.addAll(adds);
+        matchs.removeIf(removes::contains);
+        matchs = NumberBase.getMatchNumbers(matchs, combines);
+        List<Integer> results = matchs.stream().distinct().sorted().collect(Collectors.toList());
 
-        // touch
-
-        List<Integer> touchListIn = NumberBase.verifyNumberArray(touch, 1);
-        List<Integer> touchListOut = new ArrayList<>();
-        if (touchListIn.isEmpty()) {
-            if (!touch.isEmpty()) {
-                countError++;
-                error += " chạm;";
-            }
-        } else {
-            touchListOut = NumberArrayHandler.getTouchs(touchListIn);
-        }
-
-        // sum
-
-        List<Integer> sumListIn = NumberBase.verifyNumberArray(sum, 1);
-        List<Integer> sumListOut = new ArrayList<>();
-        if (sumListIn.isEmpty()) {
-            if (!sum.isEmpty()) {
-                countError++;
-                error += " tổng;";
-            }
-        } else {
-            sumListOut = NumberArrayHandler.getSums(sumListIn);
-        }
-
-        // head
-
-        List<Integer> headListIn = NumberBase.verifyNumberArray(head, 1);
-        List<Integer> headListOut = new ArrayList<>();
-        if (headListIn.isEmpty()) {
-            if (!head.isEmpty()) {
-                countError++;
-                error += " đầu;";
-            }
-        } else {
-            headListOut = NumberArrayHandler.getHeads(headListIn);
-        }
-
-        // tail
-
-        List<Integer> tailListIn = NumberBase.verifyNumberArray(tail, 1);
-        List<Integer> tailListOut = new ArrayList<>();
-        if (tailListIn.isEmpty()) {
-            if (!tail.isEmpty()) {
-                countError++;
-                error += " đuôi;";
-            }
-        } else {
-            tailListOut = NumberArrayHandler.getTails(tailListIn);
-        }
-
-        // add
-
-        List<Integer> addList = NumberBase.verifyNumberArray(add, 2);
-        if (addList.isEmpty()) {
-            if (!add.isEmpty()) {
-                countError++;
-                error += " thêm;";
-            }
-        }
-
-        // remove
-
-        List<Integer> removeList = NumberBase.verifyNumberArray(remove, 2);
-        if (removeList.isEmpty()) {
-            if (!remove.isEmpty()) {
-                countError++;
-                error += " bỏ;";
-            }
-        }
-
-        // combine
-
-        List<Integer> combineList = NumberBase.verifyNumberArray(combine, 2);
-        if (combineList.isEmpty()) {
-            if (!combine.isEmpty()) {
-                countError++;
-                error += " kết hợp;";
-            }
-        }
-
-        // match set, touch, sum
-
-        List<Integer> firstMatch = NumberBase.getMatchNumbers(setListOut, touchListOut, sumListOut);
-
-        // match head, tail
-        List<Integer> secondMatch = NumberBase.getMatchNumbers(firstMatch, headListOut, tailListOut);
-
-        // add
-
-        secondMatch.addAll(addList);
-
-        // remove
-
-        for (int i = 0; i < secondMatch.size(); i++) {
-            if (removeList.contains(secondMatch.get(i))) {
-                secondMatch.remove(i);
-                i--;
-            }
-        }
-
-        // match combine
-
-        List<Integer> combineNumbers = NumberBase.getMatchNumbers(combineList, secondMatch);
-
-        // loại bỏ trùng lặp
-
-        List<Integer> results = new ArrayList<>();
-        for (int number : combineNumbers) {
-            if (!results.contains(number)) {
-                results.add(number);
-            }
-        }
-
-        // sắp xếp
-
-        Collections.sort(results);
-
-        // thêm càng thứ 3
-
-        List<Integer> thirdClawListIn = NumberBase.verifyNumberArray(thirdClaw, 1);
-        List<Integer> numbers = new ArrayList<>();
-        int typeOfNumber = 0;
-        if (thirdClawListIn.isEmpty()) {
-            if (!thirdClaw.isEmpty()) {
-                countError++;
-                error += " càng 3;";
-            }
-            numbers = results;
-            typeOfNumber = 2;
-        } else {
-            numbers = NumberArrayHandler.getThreeClaws(results, thirdClawListIn);
+        int typeOfNumber = 2;
+        if (!triads.isEmpty()) {
+            results = NumberArrayHandler.getThreeClaws(results, triads);
             typeOfNumber = 3;
         }
-        view.showNumberArray(numbers, typeOfNumber);
 
-        if (countError > 0) {
-            view.showMessage(error);
+        view.showNumberArray(results, typeOfNumber);
+
+        if (!errorMessage.isEmpty()) {
+            view.showMessage("Vui lòng kiểm tra nhập tại" + errorMessage);
         }
     }
 
@@ -221,7 +105,7 @@ public class CreateNumberArrayViewModel {
     }
 
     public void verifyCoupleArray(String numberArray) {
-        List<Picker> pickers = NumberBase.verifyNumberArr(numberArray, 2);
+        List<Integer> pickers = NumberBase.verifyNumberArray(numberArray, 2);
         if (pickers.isEmpty()) {
             view.showMessage("Chuỗi không hợp lệ!");
         } else {
@@ -230,7 +114,7 @@ public class CreateNumberArrayViewModel {
     }
 
     public void verifyTriadArray(String numberArray) {
-        List<Picker> pickers = NumberBase.verifyNumberArr(numberArray, 3);
+        List<Integer> pickers = NumberBase.verifyNumberArray(numberArray, 3);
         if (pickers.isEmpty()) {
             view.showMessage("Chuỗi không hợp lệ!");
         } else {

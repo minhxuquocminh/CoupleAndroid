@@ -1,13 +1,12 @@
 package com.example.couple.Custom.Handler.Bridge;
 
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
-import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Bridge.Sign.DayDoubleSign;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.Model.Time.DateBase;
 
@@ -95,13 +94,11 @@ public class OtherBridgeHandler {
             if (dateBase.addDays(-70).equals(dateCheck)) break;
         }
 
-        List<DayDoubleSign> reverseDayList = new ArrayList<>();
-        for (int i = dayList.size() - 1; i >= 0; i--) {
-            reverseDayList.add(dayList.get(i));
-        }
-
-        return new SignOfDouble(NumberBase.getReverseList(upMonthList), NumberBase.getReverseList(monthList),
-                NumberBase.getReverseList(downMonthList), NumberBase.getReverseList(weekList), reverseDayList);
+        Collections.reverse(upMonthList);
+        Collections.reverse(downMonthList);
+        Collections.reverse(weekList);
+        Collections.reverse(dayList);
+        return new SignOfDouble(upMonthList, monthList, downMonthList, weekList, dayList);
     }
 
     public static NumberSetHistory getNumberSetHistory(List<Jackpot> jackpotList,

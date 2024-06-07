@@ -1,13 +1,13 @@
 package com.example.couple.Custom.Handler;
 
 import com.example.couple.Base.Handler.CoupleBase;
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Time.Cycle.Branch;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NumberArrayHandler {
 
@@ -44,8 +44,8 @@ public class NumberArrayHandler {
 
     public static List<Integer> getThreeClaws(List<Integer> coupleList, List<Integer> thirdClawList) {
         if (coupleList.isEmpty() || thirdClawList.isEmpty()) return new ArrayList<>();
-        List<Integer> compactCouples = NumberBase.filterDuplicatedNumbers(coupleList);
-        List<Integer> compactClaw = NumberBase.filterDuplicatedNumbers(thirdClawList);
+        List<Integer> compactCouples = coupleList.stream().distinct().collect(Collectors.toList());
+        List<Integer> compactClaw = thirdClawList.stream().distinct().collect(Collectors.toList());
 
         List<Integer> results = new ArrayList<>();
         for (int couple : compactCouples) {
@@ -60,7 +60,7 @@ public class NumberArrayHandler {
 
     public static List<Integer> getSums(List<Integer> singleSumList) {
         if (singleSumList.isEmpty()) return new ArrayList<>();
-        List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(singleSumList);
+        List<Integer> compactNumbers = singleSumList.stream().distinct().collect(Collectors.toList());
 
         List<Integer> results = new ArrayList<>();
         for (int sum : compactNumbers) {
@@ -73,7 +73,7 @@ public class NumberArrayHandler {
 
     public static List<Integer> getTouchs(List<Integer> singleTouchList) {
         if (singleTouchList.isEmpty()) return new ArrayList<>();
-        List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(singleTouchList);
+        List<Integer> compactNumbers = singleTouchList.stream().distinct().collect(Collectors.toList());
 
         List<Integer> touchList = new ArrayList<>();
         for (int touch : compactNumbers) {
@@ -81,7 +81,7 @@ public class NumberArrayHandler {
             touchList.addAll(touchs);
         }
 
-        return NumberBase.filterDuplicatedNumbers(touchList);
+        return touchList.stream().distinct().collect(Collectors.toList());
     }
 
     public static List<Integer> getSetsBySingles(List<Integer> singleSetList) {
@@ -90,7 +90,7 @@ public class NumberArrayHandler {
             smallShadowList.add(CoupleBase.getSmallShadow(singleSetList.get(i)));
         }
 
-        List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(smallShadowList);
+        List<Integer> compactNumbers = smallShadowList.stream().distinct().collect(Collectors.toList());
         if (compactNumbers.size() < 2) return new ArrayList<>();
         Collections.sort(compactNumbers);
 
@@ -119,7 +119,7 @@ public class NumberArrayHandler {
             smallShadowList.add(CoupleBase.getSmallShadow(coupleSetList.get(i)));
         }
 
-        List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(smallShadowList);
+        List<Integer> compactNumbers = smallShadowList.stream().distinct().collect(Collectors.toList());
 
         List<Integer> results = new ArrayList<>();
         for (int couple : compactNumbers) {
@@ -135,7 +135,7 @@ public class NumberArrayHandler {
             smallShadowList.add(CoupleBase.getSmallShadow(singleSetList.get(i)));
         }
 
-        List<Integer> compactNumbers = NumberBase.filterDuplicatedNumbers(smallShadowList);
+        List<Integer> compactNumbers = smallShadowList.stream().distinct().collect(Collectors.toList());
         if (compactNumbers.size() < 2) return new ArrayList<>();
 
         List<Set> setList = new ArrayList<>();

@@ -12,16 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.DialogBase;
-import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
+import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Time.Cycle.Branch;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
-import java.util.Collections;
 import java.util.List;
 
 public class AddJackpotManyYearsActivity extends AppCompatActivity implements AddJackpotManyYearsView {
@@ -29,7 +26,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
     Button btnAddData;
     Button btnLoadAllData;
     Button btnCancel;
-    Button btnTestNotif;
+    Button btnTest;
 
     AddJackpotManyYearsViewModel viewModel;
 
@@ -42,7 +39,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         btnAddData = findViewById(R.id.btnAddData);
         btnLoadAllData = findViewById(R.id.btnLoadAllData);
         btnCancel = findViewById(R.id.tvCancel);
-        btnTestNotif = findViewById(R.id.btnTestNotif);
+        btnTest = findViewById(R.id.btnTest);
 
         viewModel = new AddJackpotManyYearsViewModel(this, this);
 
@@ -95,10 +92,10 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
             }
         });
 
-        btnTestNotif.setOnClickListener(new View.OnClickListener() {
+        btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                testNotification(AddJackpotManyYearsActivity.this);
+                test(AddJackpotManyYearsActivity.this);
             }
         });
     }
@@ -121,22 +118,14 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         Toast.makeText(this, show, Toast.LENGTH_LONG).show();
     }
 
-    public void testNotification(Context context) {
-//        Calendar calendar = Calendar.getInstance();
-//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//        int minute = calendar.get(Calendar.MINUTE);
-//        AlarmBase.registerAlarmOneTime(context, AlarmTest.class,
-//                1234, hour, minute + 1, 0);
-//        showMessage("Đã đăng ký alarm !");
-        int max = 0;
+    public void test(Context context) {
         List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListManyYears(context, 4);
         String mess = "";
-        for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
-            NumberSetHistory branch = OtherBridgeHandler.getNumberSetHistory(jackpotList,
-                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getTailsOfYear());
-            int maxbeat = Collections.max(branch.getBeatList());
-            max = Math.max(maxbeat, max);
-            mess += branch.show() + "\n";
+        int max = 0;
+        List<NumberSetHistory> histories = HistoryHandler.getFixedNumberSetsHistory(jackpotList);
+        for (NumberSetHistory history : histories) {
+            mess += history.show() + "\n";
+            max = Math.max(history.getBeatMax(), max);
         }
         DialogBase.showBasic(context, "ttt" + jackpotList.size() + " - max=" + max, mess);
     }

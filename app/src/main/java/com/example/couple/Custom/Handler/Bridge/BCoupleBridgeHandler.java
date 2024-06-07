@@ -7,6 +7,7 @@ import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BCoupleBridgeHandler {
 
@@ -30,7 +31,8 @@ public class BCoupleBridgeHandler {
             for (int i = bridge.getDayNumberBefore() - 1; i >= 0; i--) {
                 for (int j = 1; j <= 4; j++) {
                     if (bridge.getSetMap().containsKey(j) &&
-                            bridge.getSetMap().get(j).isItMatch(jackpotList.get(i).getCoupleInt())) {
+                            Objects.requireNonNull(bridge.getSetMap().get(j))
+                                    .isItMatch(jackpotList.get(i).getCoupleInt())) {
                         bridge.getSetMap().remove(j);
                     }
                 }

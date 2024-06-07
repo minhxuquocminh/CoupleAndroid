@@ -4,6 +4,7 @@ import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
@@ -37,6 +38,10 @@ public class NumberSetHistory {
 
     public String show() {
         return "  + " + numberSet.getName() + ": " + NumberBase.showNumbers(beatList, ", ") + ".";
+    }
+
+    public int getBeatMax() {
+        return Collections.max(beatList);
     }
 
 }

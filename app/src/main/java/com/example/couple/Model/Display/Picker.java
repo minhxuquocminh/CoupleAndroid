@@ -9,7 +9,7 @@ public class Picker {
     int number;
     int level;
 
-    public String show() {
+    public String showCouple() {
         return (number < 10) ? "0" + number : number + "";
     }
 }

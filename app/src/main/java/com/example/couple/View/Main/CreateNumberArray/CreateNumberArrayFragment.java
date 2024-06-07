@@ -26,7 +26,9 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Model.Couple.CoupleType;
 import com.example.couple.Model.Display.Picker;
+import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.R;
@@ -176,16 +178,17 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
-                String set = edtSet.getText().toString().trim();
-                String touch = edtTouch.getText().toString().trim();
-                String sum = edtSum.getText().toString().trim();
-                String thirdClaw = edtThirdClaw.getText().toString().trim();
-                String head = edtHead.getText().toString().trim();
-                String tail = edtTail.getText().toString().trim();
-                String combine = edtCombineNumber.getText().toString().trim();
-                String add = edtAddingNumber.getText().toString().trim();
-                String remove = edtRemovingNumber.getText().toString().trim();
-                viewModel.createNumberArray(set, touch, sum, thirdClaw, head, tail, combine, add, remove);
+                List<Input> inputs = new ArrayList<>();
+                inputs.add(new Input(CoupleType.SET, edtSet.getText().toString().trim(), 2));
+                inputs.add(new Input(CoupleType.TOUCH, edtTouch.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.SUM, edtSum.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.ADD_TRIAD, edtThirdClaw.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.HEAD, edtHead.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.TAIL, edtTail.getText().toString().trim(), 1));
+                inputs.add(new Input(CoupleType.ADD, edtAddingNumber.getText().toString().trim(), 2));
+                inputs.add(new Input(CoupleType.REMOVE, edtRemovingNumber.getText().toString().trim(), 2));
+                inputs.add(new Input(CoupleType.COMBINE, edtCombineNumber.getText().toString().trim(), 2));
+                viewModel.createNumberArray(inputs);
             }
         });
 
@@ -338,8 +341,8 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void verifyCoupleArraySuccess(List<Picker> pickers) {
-        activity.getCouplesToTransfer().setValue(pickers);
+    public void verifyCoupleArraySuccess(List<Integer> couples) {
+        activity.getCouplesToTransfer().setValue(couples);
         FragmentManager fm = getParentFragmentManager();
         fm.beginTransaction().show(MainActivity.fragment2).hide(MainActivity.active).commit();
         BottomNavigationView navigationView = activity.findViewById(R.id.bottom_navigation);
@@ -347,7 +350,11 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void verifyTriadArraySuccess(List<Picker> pickers) {
+    public void verifyTriadArraySuccess(List<Integer> numbers) {
+        List<Picker> pickers = new ArrayList<>();
+        for (int num : numbers) {
+            pickers.add(new Picker(num, 1));
+        }
         showTriadTable(pickers);
         Toast.makeText(getActivity(), "Nạp dữ liệu thành công!", Toast.LENGTH_SHORT).show();
     }

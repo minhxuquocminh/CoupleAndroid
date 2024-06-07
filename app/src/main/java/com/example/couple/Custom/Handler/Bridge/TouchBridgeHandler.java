@@ -1,6 +1,5 @@
 package com.example.couple.Custom.Handler.Bridge;
 
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
@@ -15,8 +14,8 @@ import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TouchBridgeHandler {
 
@@ -30,8 +29,7 @@ public class TouchBridgeHandler {
         touchs.add(SingleBase.getNegativeShadow(first));
         touchs.add(SingleBase.getNegativeShadow(second));
         if (first == second) touchs.add(first);
-        List<Integer> results = NumberBase.filterDuplicatedNumbers(touchs);
-        Collections.sort(results, (x, y) -> x - y);
+        List<Integer> results = touchs.stream().distinct().sorted().collect(Collectors.toList());
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(BridgeType.NEGATIVE_SHADOW.name, results,
@@ -48,8 +46,7 @@ public class TouchBridgeHandler {
         touchs.add(SingleBase.getShadow(first));
         touchs.add(SingleBase.getShadow(second));
         if (first == second) touchs.add(first);
-        List<Integer> results = NumberBase.filterDuplicatedNumbers(touchs);
-        Collections.sort(results, (x, y) -> x - y);
+        List<Integer> results = touchs.stream().distinct().sorted().collect(Collectors.toList());
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(BridgeType.POSITIVE_SHADOW.name, results,
@@ -68,8 +65,7 @@ public class TouchBridgeHandler {
         touchs.add(SingleBase.getShadow(first));
         touchs.add(SingleBase.getShadow(second));
         if (first == second) touchs.add(first);
-        List<Integer> results = NumberBase.filterDuplicatedNumbers(touchs);
-        Collections.sort(results, (x, y) -> x - y);
+        List<Integer> results = touchs.stream().distinct().sorted().collect(Collectors.toList());
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(BridgeType.SHADOW_TOUCH.name, results,

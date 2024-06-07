@@ -167,7 +167,7 @@ public class JackpotStatistics {
             nearestTimeList.add(nearestTime2);
         }
 
-        Collections.sort(nearestTimeList, new Comparator<NearestTime>() {
+        nearestTimeList.sort(new Comparator<NearestTime>() {
             @Override
             public int compare(NearestTime o1, NearestTime o2) {
                 return Integer.compare(o2.getDayNumberBefore(), o1.getDayNumberBefore());
@@ -202,7 +202,7 @@ public class JackpotStatistics {
             nearestTimeList.add(nearestTime);
         }
 
-        Collections.sort(nearestTimeList, new Comparator<NearestTime>() {
+        nearestTimeList.sort(new Comparator<NearestTime>() {
             @Override
             public int compare(NearestTime o1, NearestTime o2) {
                 return Integer.compare(o2.getDayNumberBefore(), o1.getDayNumberBefore());
@@ -342,14 +342,14 @@ public class JackpotStatistics {
             tailList.add(new BSingle(i, tailArr[i]));
         }
 
-        Collections.sort(headList, new Comparator<BSingle>() {
+        headList.sort(new Comparator<BSingle>() {
             @Override
             public int compare(BSingle o1, BSingle o2) {
                 return Integer.compare(o2.getLevel(), o1.getLevel());
             }
         });
 
-        Collections.sort(tailList, new Comparator<BSingle>() {
+        tailList.sort(new Comparator<BSingle>() {
             @Override
             public int compare(BSingle o1, BSingle o2) {
                 return Integer.compare(o2.getLevel(), o1.getLevel());

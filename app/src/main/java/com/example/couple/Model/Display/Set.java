@@ -3,11 +3,11 @@ package com.example.couple.Model.Display;
 import androidx.annotation.NonNull;
 
 import com.example.couple.Base.Handler.CoupleBase;
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -81,6 +81,6 @@ public class Set {
         numbers.add(bigFirst * 10 + bigSecond);
         numbers.add(bigSecond * 10 + bigFirst);
 
-        return NumberBase.filterDuplicatedNumbers(numbers);
+        return numbers.stream().distinct().collect(Collectors.toList());
     }
 }

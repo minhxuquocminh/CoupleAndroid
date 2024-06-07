@@ -9,6 +9,7 @@ import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -44,7 +45,7 @@ public class CombineTouchBridge extends Bridge {
                 all.addAll(match1);
                 all.addAll(match2);
                 all.addAll(match3);
-                touchs.addAll(NumberBase.filterDuplicatedNumbers(all));
+                touchs.addAll(all.stream().distinct().collect(Collectors.toList()));
             }
         }
         this.numbers.addAll(NumberArrayHandler.getTouchs(touchs));

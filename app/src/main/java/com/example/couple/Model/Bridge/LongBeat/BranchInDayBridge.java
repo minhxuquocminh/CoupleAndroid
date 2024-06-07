@@ -52,7 +52,7 @@ public class BranchInDayBridge {
         }
     }
 
-    public NumberSetHistory toSpecialSetHistory() {
+    public NumberSetHistory toNumberSetHistory() {
         return new NumberSetHistory(Const.BRANCH_IN_DAY_ACRONYM, numbers, beatList);
     }
 

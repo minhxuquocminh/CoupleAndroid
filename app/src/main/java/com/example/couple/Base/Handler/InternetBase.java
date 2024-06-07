@@ -2,8 +2,6 @@ package com.example.couple.Base.Handler;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
 
 import com.example.couple.Custom.Const.Const;
 
@@ -21,11 +19,6 @@ public class InternetBase {
     public static boolean checkNetworkStatus(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null &&
-                    activeNetworkInfo.isConnected() && activeNetworkInfo.isAvailable();
-        }
         return connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork()) != null;
     }
 

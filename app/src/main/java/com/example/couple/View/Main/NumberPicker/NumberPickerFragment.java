@@ -143,13 +143,17 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             }
         });
 
-        activity.getCouplesToTransfer().observe(getViewLifecycleOwner(), new Observer<List<Picker>>() {
+        activity.getCouplesToTransfer().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
-            public void onChanged(List<Picker> pickers) {
+            public void onChanged(List<Integer> couples) {
                 if (!isFirstNumberPicker) {
                     showMessage("Dữ liệu chỉ nên nạp vào bảng chọn số K1 rồi lưu để dùng lại!");
                 } else {
-                    if (!pickers.isEmpty()) {
+                    if (!couples.isEmpty()) {
+                        List<Picker> pickers = new ArrayList<>();
+                        for (int num : couples) {
+                            pickers.add(new Picker(num, 1));
+                        }
                         showTableType1(pickers);
                         Toast.makeText(getActivity(), "Đã nạp dữ liệu!", Toast.LENGTH_LONG).show();
                     }
@@ -800,7 +804,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     private static Spannable getColorTextBySpanable(String title, List<Picker> pickers) {
         String data = title;
         for (int i = 0; i < pickers.size(); i++) {
-            data += pickers.get(i).show();
+            data += pickers.get(i).showCouple();
             if (i != pickers.size() - 1) {
                 data += ", ";
             }

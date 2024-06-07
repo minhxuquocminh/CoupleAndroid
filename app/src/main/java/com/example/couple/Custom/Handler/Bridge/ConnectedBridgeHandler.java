@@ -78,7 +78,7 @@ public class ConnectedBridgeHandler {
             }
         }
 
-        Collections.sort(supports, (x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
+        supports.sort((x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
         int sizeOfShow = Math.min(maxDisplay, supports.size());
 
         return supports.subList(0, sizeOfShow);
@@ -129,7 +129,7 @@ public class ConnectedBridgeHandler {
             }
         }
 
-        Collections.sort(supports, (x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
+        supports.sort((x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
         int sizeOfShow = Math.min(maxDisplay, supports.size());
 
         return supports.subList(0, sizeOfShow);
@@ -175,7 +175,7 @@ public class ConnectedBridgeHandler {
             }
         }
 
-        Collections.sort(connectedSupportList, (x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
+        connectedSupportList.sort((x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
         int sizeOfShow = Math.min(maxDisplay, connectedSupportList.size());
 
         return connectedSupportList.subList(0, sizeOfShow);
@@ -239,7 +239,7 @@ public class ConnectedBridgeHandler {
             }
         }
 
-        Collections.sort(connectedSupportList, (x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
+        connectedSupportList.sort((x, y) -> y.getNumberOfRuns() - x.getNumberOfRuns());
         int sizeOfShow = Math.min(maxDisplay, connectedSupportList.size());
 
         return connectedSupportList.subList(0, sizeOfShow);
@@ -390,7 +390,7 @@ public class ConnectedBridgeHandler {
             }
         }
 
-        Collections.sort(results, new Comparator<TriadBridge>() {
+        results.sort(new Comparator<TriadBridge>() {
             @Override
             public int compare(TriadBridge o1, TriadBridge o2) {
                 int size1 = o1.getTriadStatusList().size();
@@ -443,7 +443,7 @@ public class ConnectedBridgeHandler {
         }
 
         // sort
-        Collections.sort(positions, new Comparator<Position>() {
+        positions.sort(new Comparator<Position>() {
             @Override
             public int compare(Position o1, Position o2) {
                 return Integer.compare(o2.getType(), o1.getType());
@@ -482,7 +482,7 @@ public class ConnectedBridgeHandler {
             TriadSets triadSets = new TriadSets(count, bridges);
             triadSetsList.add(triadSets);
         }
-        Collections.sort(triadSetsList, new Comparator<TriadSets>() {
+        triadSetsList.sort(new Comparator<TriadSets>() {
             @Override
             public int compare(TriadSets o1, TriadSets o2) {
                 return Integer.compare(o2.getSize(), o1.getSize());
@@ -540,7 +540,7 @@ public class ConnectedBridgeHandler {
         }
 
         // sort
-        Collections.sort(positions, new Comparator<Position>() {
+        positions.sort(new Comparator<Position>() {
             @Override
             public int compare(Position o1, Position o2) {
                 return Integer.compare(o2.getType(), o1.getType());

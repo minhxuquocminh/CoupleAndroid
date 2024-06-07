@@ -1,6 +1,5 @@
 package com.example.couple.Model.Origin;
 
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
@@ -9,8 +8,8 @@ import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Time.Cycle.Cycle;
 import com.example.couple.Model.Time.DateBase;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,11 +53,7 @@ public class Couple extends Jackpot {
                 numbers.addAll(rightList);
             }
         }
-
-        List<Integer> results = NumberBase.filterDuplicatedNumbers(numbers);
-        Collections.sort(results);
-
-        return results;
+        return numbers.stream().distinct().sorted().collect(Collectors.toList());
     }
 
     public List<Integer> getRightMappingNumbers() {
@@ -85,9 +80,7 @@ public class Couple extends Jackpot {
                 }
             }
         }
-        List<Integer> results = NumberBase.filterDuplicatedNumbers(numbers);
-        Collections.sort(results);
-        return results;
+        return numbers.stream().distinct().sorted().collect(Collectors.toList());
     }
 
     public List<Integer> getSetDetails() {

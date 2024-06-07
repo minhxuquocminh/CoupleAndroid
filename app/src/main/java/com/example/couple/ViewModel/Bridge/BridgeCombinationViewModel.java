@@ -2,7 +2,6 @@ package com.example.couple.ViewModel.Bridge;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
@@ -13,7 +12,6 @@ import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.TouchBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
@@ -22,13 +20,14 @@ import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
 import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
-import com.example.couple.Model.Bridge.Couple.SpecialSetBridge;
+import com.example.couple.Model.Bridge.Couple.NumberSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
 import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
 import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
+import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Set.SpecialSet;
@@ -97,8 +96,7 @@ public class BridgeCombinationViewModel {
     }
 
     public void getCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList, int numberOfDay,
-                                     Map<BridgeType, Boolean> bridgeTypeFlag, String setData, String touchData,
-                                     String sumData, String branchData, String headData, String tailData, String combineData) {
+                                     Map<BridgeType, Boolean> bridgeTypeFlag, List<Input> inputs) {
         List<CombineBridge> combineBridges = new ArrayList<>();
         if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED))
                 && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
@@ -194,85 +192,37 @@ public class BridgeCombinationViewModel {
             Jackpot jackpot = i - 1 >= 0 ? jackpotList.get(i - 1) : Jackpot.getEmpty();
             // special set
             if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.BIG_DOUBLE))) {
-                SpecialSetBridge bigDoubleSet = new SpecialSetBridge(SpecialSet.BIG_DOUBLE.name,
+                NumberSetBridge bigDoubleSet = new NumberSetBridge(SpecialSet.BIG_DOUBLE.name,
                         SpecialSet.BIG_DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(bigDoubleSet);
             }
             if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.SAME_DOUBLE))) {
-                SpecialSetBridge sameDoubleSet = new SpecialSetBridge(SpecialSet.DOUBLE.name,
+                NumberSetBridge sameDoubleSet = new NumberSetBridge(SpecialSet.DOUBLE.name,
                         SpecialSet.DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(sameDoubleSet);
             }
             if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.POSITIVE_DOUBLE))) {
-                SpecialSetBridge nearDoubleSet = new SpecialSetBridge(SpecialSet.POSITIVE_DOUBLE.name,
+                NumberSetBridge nearDoubleSet = new NumberSetBridge(SpecialSet.POSITIVE_DOUBLE.name,
                         SpecialSet.POSITIVE_DOUBLE.values, new JackpotHistory(i, jackpot));
                 bridgeList.add(nearDoubleSet);
             }
             // other set
             String notifMessage = "";
-            List<Integer> setList1 = NumberBase.verifyNumberArray(setData, 1);
-            List<Integer> setList2 = NumberBase.verifyNumberArray(setData, 2);
-            if (!setData.isEmpty() && setList1.isEmpty() && setList2.isEmpty())
-                notifMessage += "bộ;";
-            if (!setList1.isEmpty()) {
-                SpecialSetBridge set = new SpecialSetBridge("Bộ số",
-                        NumberArrayHandler.getSetsBySingles(setList1), new JackpotHistory(i, jackpot));
-                bridgeList.add(set);
-            } else {
-                if (!setList2.isEmpty()) {
-                    SpecialSetBridge set = new SpecialSetBridge("Bộ số",
-                            NumberArrayHandler.getSetsByCouples(setList2), new JackpotHistory(i, jackpot));
+            for (Input input : inputs) {
+                if (input.isError()) {
+                    notifMessage += " " + input.getCoupleType().name + ";";
+                    continue;
+                }
+
+                if (!input.isEmpty()) {
+                    NumberSetBridge set = new NumberSetBridge(input.getCoupleType().name,
+                            input.getNumbers(), new JackpotHistory(i, jackpot));
                     bridgeList.add(set);
                 }
             }
-
-            List<Integer> touchList = NumberBase.verifyNumberArray(touchData, 1);
-            if (!touchData.isEmpty() && touchList.isEmpty()) notifMessage += "chạm;";
-            if (!touchList.isEmpty()) {
-                SpecialSetBridge set = new SpecialSetBridge("Chạm",
-                        NumberArrayHandler.getTouchs(touchList), new JackpotHistory(i, jackpot));
-                bridgeList.add(set);
-            }
-            List<Integer> sumList = NumberBase.verifyNumberArray(sumData, 1);
-            if (!sumData.isEmpty() && sumList.isEmpty()) notifMessage += "tổng;";
-            if (!sumList.isEmpty()) {
-                SpecialSetBridge set = new SpecialSetBridge("Tổng",
-                        NumberArrayHandler.getSums(sumList), new JackpotHistory(i, jackpot));
-                bridgeList.add(set);
-            }
-            List<Integer> branchList = NumberBase.verifyNumberArray(branchData, 2);
-            if (!branchData.isEmpty() && branchList.isEmpty()) notifMessage += "chi;";
-            if (!branchList.isEmpty()) {
-                SpecialSetBridge set = new SpecialSetBridge("Chi",
-                        NumberArrayHandler.getBranches(branchList), new JackpotHistory(i, jackpot));
-                bridgeList.add(set);
-            }
-            List<Integer> headList = NumberBase.verifyNumberArray(headData, 1);
-            if (!headData.isEmpty() && headList.isEmpty()) notifMessage += "đầu;";
-            if (!headList.isEmpty()) {
-                SpecialSetBridge set = new SpecialSetBridge("Đầu",
-                        NumberArrayHandler.getHeads(headList), new JackpotHistory(i, jackpot));
-                bridgeList.add(set);
-            }
-            List<Integer> tailList = NumberBase.verifyNumberArray(tailData, 1);
-            if (!tailData.isEmpty() && tailList.isEmpty()) notifMessage += "đuôi;";
-            if (!tailList.isEmpty()) {
-                SpecialSetBridge set = new SpecialSetBridge("Đuôi",
-                        NumberArrayHandler.getTails(tailList), new JackpotHistory(i, jackpot));
-                bridgeList.add(set);
-            }
-            List<Integer> combineList = NumberBase.verifyNumberArray(combineData, 2);
-            if (!combineData.isEmpty() && combineList.isEmpty()) notifMessage += "kết hợp;";
-            if (!combineList.isEmpty()) {
-                SpecialSetBridge set = new SpecialSetBridge("Kết hợp",
-                        combineList, new JackpotHistory(i, jackpot));
-                bridgeList.add(set);
-            }
-
             if (!notifMessage.isEmpty()) {
-                view.showMessage("Có lỗi nhập tại: " + notifMessage);
+                view.showMessage("Có lỗi nhập tại:" + notifMessage);
             }
-
             CombineBridge combineBridge = new CombineBridge(bridgeList, new JackpotHistory(i, jackpot));
             combineBridges.add(combineBridge);
         }

@@ -150,7 +150,7 @@ public class CustomTableLayout {
         for (int i = 0; i < 10; i++) {
             TableRow row = new TableRow(context);
             for (int j = 0; j < 10; j++) {
-                String text = i == 0 ? "0" + (10 * i + j) : "" + (10 * i + j);
+                String text = i == 0 ? "0" + j : "" + (10 * i + j);
                 row.addView(getCellOfNumberTable(context, IdStart.NUMBERS_BY_THIRD_CLAW + (10 * i + j), text));
             }
             tableLayout.addView(row);
@@ -167,7 +167,7 @@ public class CustomTableLayout {
         for (int i = 0; i < 10; i++) {
             TableRow row = new TableRow(context);
             for (int j = 0; j < 10; j++) {
-                String text = i == 0 ? "0" + (10 * i + j) : "" + (10 * i + j);
+                String text = i == 0 ? "0" + j : "" + (10 * i + j);
                 row.addView(getCellOfNumberTable(context, (10 * i + j), text));
             }
             tableLayout.addView(row);
@@ -240,10 +240,10 @@ public class CustomTableLayout {
             TableRow row = new TableRow(context);
             Jackpot jackpot1 = jackpotNextDay.getJackpotFirst();
             Jackpot jackpot2 = jackpotNextDay.getJackpotSecond();
-            row.addView(getCellInEvenRows(context, jackpot1.getDateBase().showFullChars() + ""));
-            row.addView(getCellInEvenRows(context, jackpot1.getJackpot() + ""));
-            row.addView(getCellInEvenRows(context, jackpot2.getJackpot() + ""));
-            row.addView(getCellInEvenRows(context, jackpot2.getDateBase().showFullChars() + ""));
+            row.addView(getCellInEvenRows(context, jackpot1.getDateBase().showFullChars()));
+            row.addView(getCellInEvenRows(context, jackpot1.getJackpot()));
+            row.addView(getCellInEvenRows(context, jackpot2.getJackpot()));
+            row.addView(getCellInEvenRows(context, jackpot2.getDateBase().showFullChars()));
             tableLayout.addView(row);
         }
         return tableLayout;
@@ -293,12 +293,12 @@ public class CustomTableLayout {
             sum_rowSumN += dayNumberArr[j];
             rowFooter1.addView(getCellInEvenRows(context, sumK[j] + ""));
             rowFooter2.addView(getCellInEvenRows(context, dayNumberArr[j] + ""));
-            double freq = sumK[j] == 0 ? 0 : (double) Math.round(dayNumberArr[j] * 10 / sumK[j]) / 10;
+            double freq = sumK[j] == 0 ? 0 : (double) Math.round((float) (dayNumberArr[j] * 10) / sumK[j]) / 10;
             rowFooter3.addView(getCellInEvenRows(context, freq + ""));
         }
         rowFooter1.addView(getCellInEvenRows(context, sum_rowSumK + ""));
         rowFooter2.addView(getCellInEvenRows(context, sum_rowSumN + ""));
-        double freqOfSum = sum_rowSumK == 0 ? 0 : (double) Math.round(sum_rowSumN * 10 / sum_rowSumK) / 10;
+        double freqOfSum = sum_rowSumK == 0 ? 0 : (double) Math.round((float) (sum_rowSumN * 10) / sum_rowSumK) / 10;
         rowFooter3.addView(getCellInEvenRows(context, freqOfSum + ""));
         tableLayout.addView(rowFooter1);
         tableLayout.addView(rowFooter2);
@@ -406,8 +406,7 @@ public class CustomTableLayout {
         rowHeader.addView(getHeaderCell(context, "CL"));
         tableLayout.addView(rowHeader);
 
-        int start = (dayNumber - 1 + 2 < jackpotList.size() - 1) ?
-                dayNumber - 1 + 2 : jackpotList.size() - 1;
+        int start = Math.min(dayNumber - 1 + 2, jackpotList.size() - 1);
         // -1 in below is position which we don't know digit 2d
         // we have more 1 row is -1 position
 
@@ -430,10 +429,10 @@ public class CustomTableLayout {
                     tvDay.setBackgroundResource(R.drawable.cell_row_sunday);
                 }
             } else {
-                DateBase currentDate = jackpotList.get(i - 1).getDateBase();
+                DateBase currentDate = jackpotList.get(0).getDateBase();
                 DateBase new_date = currentDate.addDays(1);
                 tvDay = getCellInEvenRows(context, new_date.getDay() + "/" + new_date.getMonth());
-                if (jackpotList.get(i - 1).getDateBase().isItOnSaturday()) {
+                if (jackpotList.get(0).getDateBase().isItOnSaturday()) {
                     tvDay.setBackgroundResource(R.drawable.cell_row_sunday);
                 }
             }
@@ -446,7 +445,7 @@ public class CustomTableLayout {
                     tv.setBackgroundResource(R.drawable.cell_row_sunday);
                 }
 
-                if (i - 2 == -1 && jackpotList.get(i - 1).getDateBase().isItOnSaturday()) {
+                if (i - 2 == -1 && jackpotList.get(0).getDateBase().isItOnSaturday()) {
                     tv.setBackgroundResource(R.drawable.cell_row_sunday);
                 }
 
@@ -460,7 +459,7 @@ public class CustomTableLayout {
             if (i - 2 >= 0 && jackpotList.get(i - 2).getDateBase().isItOnSunday()) {
                 tvUpDown.setBackgroundResource(R.drawable.cell_row_sunday);
             }
-            if (i - 2 == -1 && jackpotList.get(i - 1).getDateBase().isItOnSaturday()) {
+            if (i - 2 == -1 && jackpotList.get(0).getDateBase().isItOnSaturday()) {
                 tvUpDown.setBackgroundResource(R.drawable.cell_row_sunday);
             }
             row.addView(tvUpDown);
@@ -479,7 +478,7 @@ public class CustomTableLayout {
                 String number = "xx";
                 String cl = "xx";
                 String data = IOFileBase.readDataFromFile(context, FileName.PICKED_NUMBER);
-                if (!data.equals("")) {
+                if (!data.isEmpty()) {
                     int first = Integer.parseInt(data.charAt(0) + "");
                     int second = Integer.parseInt(data.charAt(1) + "");
                     if (first % 2 == 0) {
@@ -496,7 +495,7 @@ public class CustomTableLayout {
                 }
                 TextView tv1 = getCellInEvenRows(context, number);
                 TextView tv2 = getCellInEvenRows(context, cl);
-                if (jackpotList.get(i - 1).getDateBase().isItOnSaturday()) {
+                if (jackpotList.get(0).getDateBase().isItOnSaturday()) {
                     tv1.setBackgroundResource(R.drawable.cell_row_sunday);
                     tv2.setBackgroundResource(R.drawable.cell_row_sunday);
                 }
