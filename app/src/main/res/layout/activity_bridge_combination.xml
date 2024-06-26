@@ -148,20 +148,20 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/cboNegativeShadowBridge"
+                    android:id="@+id/cboLastDayShadowBridge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="bóng âm"
+                    android:text="bóng ngày"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
                 <CheckBox
-                    android:id="@+id/cboPositiveShadowBridge"
+                    android:id="@+id/cboLastWeekShadowBridge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="bóng dương"
+                    android:text="bóng tuần"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 

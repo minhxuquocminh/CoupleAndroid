@@ -26,9 +26,10 @@
             tools:ignore="ExportedReceiver" />
 
         <receiver
-            android:name=".View.UpdateDataInfo.AlarmTest"
+            android:name=".View.UpdateDataInfo.TestNotif.UpdateDataTest"
             android:enabled="true"
             android:exported="true"
+            android:permission="TODO"
             tools:ignore="ExportedReceiver" />
 
         <activity

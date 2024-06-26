@@ -6,11 +6,10 @@ import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.MainThreadBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CheckUpdate;
-import com.example.couple.Custom.Handler.CycleHandler;
+import com.example.couple.Custom.Handler.DateHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Custom.Handler.Notification.NotifyNewBridge;
-import com.example.couple.Custom.Handler.TimeHandler;
+import com.example.couple.Custom.Handler.Notification.NewBridge;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 
@@ -38,11 +37,11 @@ public class UpdateDataService {
             return;
         }
         showMessage("Đang cập nhật...", isMainThread);
-        boolean checkUpdateTime = TimeHandler.updateTime(context);
+        boolean checkUpdateTime = DateHandler.updateDate(context);
         boolean checkUpdateJackpot = JackpotHandler.updateJackpot(context);
         boolean checkUpdateLottery =
                 LotteryHandler.updateLottery(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        boolean checkUpdateCycle = CycleHandler.updateAllSexagenaryCycle(context);
+        boolean checkUpdateCycle = DateHandler.updateAllDateData(context);
 
         String timeStatus = checkUpdateTime ? "(hoàn thành)" : "(thất bại)";
         if (checkUpdateTime) {
@@ -66,7 +65,7 @@ public class UpdateDataService {
     }
 
     public void getTimeData(boolean isMainThread) {
-        String time = TimeHandler.getTimeData(context);
+        String time = DateHandler.getDate(context);
         if (time.isEmpty()) time = "Lỗi cập nhật thời gian!";
         String finalTime = time;
         new MainThreadBase(() -> {
@@ -77,7 +76,7 @@ public class UpdateDataService {
     public void getJackpotData(boolean isMainThread) {
         List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 18);
         if (jackpotList.isEmpty()) return;
-        NotifyNewBridge.notify(context, jackpotList);
+        NewBridge.notify(context, jackpotList);
         JackpotHandler.saveLastDate(context, jackpotList);
         new MainThreadBase(() -> {
             updateDataView.showJackpotData(jackpotList);

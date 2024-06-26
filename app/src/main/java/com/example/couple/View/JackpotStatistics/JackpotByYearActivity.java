@@ -17,7 +17,7 @@ import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotByYearViewModel;
 

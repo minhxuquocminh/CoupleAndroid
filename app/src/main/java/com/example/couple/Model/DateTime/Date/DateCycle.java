@@ -1,6 +1,6 @@
-package com.example.couple.Model.Time;
+package com.example.couple.Model.DateTime.Date;
 
-import com.example.couple.Model.Time.Cycle.Cycle;
+import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

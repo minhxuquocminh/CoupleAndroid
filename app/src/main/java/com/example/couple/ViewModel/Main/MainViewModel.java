@@ -8,6 +8,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.RequestCode;
 import com.example.couple.Custom.Handler.Notification.UpdateDataAlarm;
+import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.View.Main.MainView;
 
 public class MainViewModel {
@@ -35,13 +36,13 @@ public class MainViewModel {
 
     public void registerBackgoundRuntime() {
         AlarmBase.registerAlarmEveryDay(context, UpdateDataAlarm.class, RequestCode.ALARM_1830,
-                18, 30, 0);
+                new TimeBase(18, 30, 0));
         AlarmBase.registerAlarmEveryDay(context, UpdateDataAlarm.class, RequestCode.ALARM_1831,
-                18, 31, 0);
+                new TimeBase(18, 31, 0));
         AlarmBase.registerAlarmEveryDay(context, UpdateDataAlarm.class, RequestCode.ALARM_1832,
-                18, 32, 0);
+                new TimeBase(18, 32, 0));
         AlarmBase.registerAlarmEveryDay(context, UpdateDataAlarm.class, RequestCode.ALARM_1833,
-                18, 33, 0);
+                new TimeBase(18, 33, 0));
     }
 
 

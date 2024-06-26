@@ -2,7 +2,7 @@ package com.example.couple.Model.Bridge.Couple;
 
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Time.Cycle.YearCycle;
+import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 
 import java.util.ArrayList;
 import java.util.List;

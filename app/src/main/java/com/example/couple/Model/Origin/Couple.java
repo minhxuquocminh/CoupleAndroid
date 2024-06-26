@@ -5,9 +5,10 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Display.BCouple;
 import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Time.Cycle.Cycle;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
+import com.example.couple.Model.DateTime.Date.DateBase;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,6 +90,26 @@ public class Couple extends Jackpot {
 
     public int getInt() {
         return first * 10 + second;
+    }
+
+    public List<Integer> getTouchsAndShadows() {
+        List<Integer> singles = new ArrayList<>();
+        singles.add(SingleBase.getNegativeShadow(first));
+        singles.add(SingleBase.getNegativeShadow(second));
+        singles.add(SingleBase.getShadow(first));
+        singles.add(SingleBase.getShadow(second));
+        singles.add(first);
+        singles.add(second);
+        return singles.stream().distinct().collect(Collectors.toList());
+    }
+
+    public List<Integer> getShadows() {
+        List<Integer> singles = new ArrayList<>();
+        singles.add(SingleBase.getNegativeShadow(first));
+        singles.add(SingleBase.getNegativeShadow(second));
+        singles.add(SingleBase.getShadow(first));
+        singles.add(SingleBase.getShadow(second));
+        return singles.stream().distinct().collect(Collectors.toList());
     }
 
     public int plus(Couple cp) {

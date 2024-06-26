@@ -107,12 +107,23 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnTest"
+        android:id="@+id/btnTest1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_5dp"
         android:background="@color/colorThemeBold"
-        android:text="Test thông báo"
+        android:text="Test 1"
+        android:textAllCaps="false"
+        android:textColor="@color/colorThemeLight"
+        android:textSize="@dimen/text_size_big" />
+
+    <Button
+        android:id="@+id/btnTest2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5dp"
+        android:background="@color/colorThemeBold"
+        android:text="Test 2"
         android:textAllCaps="false"
         android:textColor="@color/colorThemeLight"
         android:textSize="@dimen/text_size_big" />

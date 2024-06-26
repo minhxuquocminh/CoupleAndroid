@@ -1,17 +1,17 @@
-package com.example.couple.Model.Time;
+package com.example.couple.Model.DateTime.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class TimeBase {
+public class DateData {
     DateBase dateBase;
     DateLunar dateLunar;
     DateCycle dateCycle;
 
-    public static TimeBase getEmpty() {
-        return new TimeBase(DateBase.getEmpty(), DateLunar.getEmpty(), DateCycle.getEmpty());
+    public static DateData getEmpty() {
+        return new DateData(DateBase.getEmpty(), DateLunar.getEmpty(), DateCycle.getEmpty());
     }
 
     public boolean isEmpty() {

@@ -10,7 +10,7 @@ import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.List;
 
-public class NotifyNewBridge {
+public class NewBridge {
     public static void notify(Context context, List<Jackpot> jackpotList) {
         BranchInTwoDaysBridge bridge = CycleBridgeHandler.getBranchInTwoDaysBridge(jackpotList, 0);
         if (bridge.getRunningTimes() != 0) {

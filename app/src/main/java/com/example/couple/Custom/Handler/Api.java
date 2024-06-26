@@ -6,7 +6,7 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.JsoupBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Api {
 
-    public static String getTimeDataFromInternet(Context context)
+    public static String getDateFromInternet(Context context)
             throws ExecutionException, InterruptedException {
         String link = Const.TIME_URL;
         List<String> listClassName = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Api {
         return jsoupBase.get();
     }
 
-    public static String getSexagenaryCycleByDay(Context context, DateBase dateBase)
+    public static String getDateDataFromInternet(Context context, DateBase dateBase)
             throws ExecutionException, InterruptedException {
         String link = Const.TIME_URL + "xem-ngay-tot-xau-ngay-" +
                 dateBase.getDay() + "-" + dateBase.getMonth() + "-" + dateBase.getYear();

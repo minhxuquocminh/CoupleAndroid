@@ -15,8 +15,8 @@ import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Time.Cycle.Branch;
-import com.example.couple.Model.Time.Cycle.YearCycle;
+import com.example.couple.Model.DateTime.Date.Cycle.Branch;
+import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 import com.example.couple.Model.UI.RowUI;
 import com.example.couple.Model.UI.TableUI;
 import com.example.couple.R;
@@ -49,7 +49,7 @@ public class CycleByYearActivity extends AppCompatActivity implements CycleByYea
             Branch branch = new Branch(i);
             branchesList.add(branch.show());
         }
-        ArrayAdapter adapter = new ArrayAdapter(this,
+        ArrayAdapter<?> adapter = new ArrayAdapter<>(this,
                 R.layout.custom_item_spinner, R.id.tvItemSpinner, branchesList);
         spnBranches.setAdapter(adapter);
 

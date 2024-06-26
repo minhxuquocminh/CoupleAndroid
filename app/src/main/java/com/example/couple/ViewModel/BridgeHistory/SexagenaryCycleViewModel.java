@@ -3,10 +3,10 @@ package com.example.couple.ViewModel.BridgeHistory;
 import android.content.Context;
 
 import com.example.couple.Custom.Handler.CheckUpdate;
-import com.example.couple.Custom.Handler.CycleHandler;
+import com.example.couple.Custom.Handler.DateHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Time.TimeBase;
+import com.example.couple.Model.DateTime.Date.DateData;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleView;
 
 import java.util.List;
@@ -22,10 +22,10 @@ public class SexagenaryCycleViewModel {
 
     public void getSexagenaryCycle(int numberOfDays) {
         if (CheckUpdate.checkUpdateCycle(context)) {
-            boolean checkUpdate = CycleHandler.updateAllSexagenaryCycle(context);
+            boolean checkUpdate = DateHandler.updateAllDateData(context);
             if (checkUpdate) view.updateSuccess();
         }
-        List<TimeBase> cycleList = CycleHandler.getAllSexagenaryCycle(context, numberOfDays);
+        List<DateData> cycleList = DateHandler.getAllDateData(context, numberOfDays);
         List<Jackpot> jackpotList = JackpotHandler
                 .getReserveJackpotListFromFile(context, numberOfDays);
         if (cycleList.isEmpty()) {

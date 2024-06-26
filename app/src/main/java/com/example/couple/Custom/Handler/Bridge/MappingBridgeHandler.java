@@ -6,7 +6,7 @@ import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.Collections;
 import java.util.HashMap;

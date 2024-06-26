@@ -6,7 +6,7 @@ import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Time.Cycle.Branch;
+import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 
 import java.util.ArrayList;
 import java.util.List;

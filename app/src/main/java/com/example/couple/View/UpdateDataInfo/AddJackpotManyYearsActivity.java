@@ -9,14 +9,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.couple.Base.Handler.AlarmBase;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
+import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
+import com.example.couple.View.UpdateDataInfo.TestNotif.UpdateDataTest;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
 import java.util.List;
@@ -26,7 +29,8 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
     Button btnAddData;
     Button btnLoadAllData;
     Button btnCancel;
-    Button btnTest;
+    Button btnTest1;
+    Button btnTest2;
 
     AddJackpotManyYearsViewModel viewModel;
 
@@ -39,7 +43,8 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         btnAddData = findViewById(R.id.btnAddData);
         btnLoadAllData = findViewById(R.id.btnLoadAllData);
         btnCancel = findViewById(R.id.tvCancel);
-        btnTest = findViewById(R.id.btnTest);
+        btnTest1 = findViewById(R.id.btnTest1);
+        btnTest2 = findViewById(R.id.btnTest2);
 
         viewModel = new AddJackpotManyYearsViewModel(this, this);
 
@@ -92,10 +97,17 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
             }
         });
 
-        btnTest.setOnClickListener(new View.OnClickListener() {
+        btnTest1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 test(AddJackpotManyYearsActivity.this);
+            }
+        });
+
+        btnTest2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                test2(AddJackpotManyYearsActivity.this);
             }
         });
     }
@@ -128,6 +140,13 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
             max = Math.max(history.getBeatMax(), max);
         }
         DialogBase.showBasic(context, "ttt" + jackpotList.size() + " - max=" + max, mess);
+    }
+
+    private void test2(Context context) {
+        AlarmBase.registerAlarmOneTime(context, UpdateDataTest.class,
+                2222, TimeBase.CURRENT().addSeconds(10));
+        Toast.makeText(this, "Đăng ký alarm vào" +
+                TimeBase.CURRENT().showHHMMSS(), Toast.LENGTH_LONG).show();
     }
 
 }

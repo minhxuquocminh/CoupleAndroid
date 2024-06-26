@@ -15,10 +15,10 @@ import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Time.Cycle.Branch;
-import com.example.couple.Model.Time.Cycle.Cycle;
-import com.example.couple.Model.Time.Cycle.YearCycle;
-import com.example.couple.Model.Time.TimeBase;
+import com.example.couple.Model.DateTime.Date.Cycle.Branch;
+import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
+import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
+import com.example.couple.Model.DateTime.Date.DateData;
 import com.example.couple.Model.UI.RowUI;
 import com.example.couple.Model.UI.TableUI;
 import com.example.couple.R;
@@ -76,13 +76,13 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
     }
 
     @Override
-    public void showSexagenaryCycle(List<TimeBase> timeBaseList, List<Jackpot> jackpotList) {
+    public void showSexagenaryCycle(List<DateData> dateDataList, List<Jackpot> jackpotList) {
         List<String> headers = new ArrayList<>();
         List<RowUI> rows = new ArrayList<>();
         int index = -1; // timebase index
         for (Jackpot jackpot : jackpotList) {
-            for (int i = 0; i < timeBaseList.size(); i++) {
-                if (timeBaseList.get(i).getDateBase().equals(jackpot.getDateBase())) {
+            for (int i = 0; i < dateDataList.size(); i++) {
+                if (dateDataList.get(i).getDateBase().equals(jackpot.getDateBase())) {
                     index = i;
                     break;
                 }
@@ -92,11 +92,11 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
         if (index < 1) {
 //            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
 //                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp", "Năm khắc");
-            for (TimeBase timeBase : timeBaseList) {
-                String dateBase = timeBase.getDateBase().showDDMM("-");
-                String dateLunar = timeBase.getDateLunar().showDDMM("-");
-                String dateCycle = timeBase.getDateCycle().show();
-                Cycle dayCycle = timeBase.getDateCycle().getDay();
+            for (DateData dateData : dateDataList) {
+                String dateBase = dateData.getDateBase().showDDMM("-");
+                String dateLunar = dateData.getDateLunar().showDDMM("-");
+                String dateCycle = dateData.getDateCycle().show();
+                Cycle dayCycle = dateData.getDateCycle().getDay();
                 String stems = dayCycle.getStem().getPosition() + "";
                 String branches = dayCycle.getBranch().getPosition() % 10 + "";
                 List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stems, branches);
@@ -110,12 +110,12 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
             jackpots.addAll(jackpotList);
 //            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
 //                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp khắc", "Năm hợp", "Năm khắc");
-            for (int i = index - 1; i < timeBaseList.size(); i++) {
-                String dateBase = timeBaseList.get(i).getDateBase().showDDMM("-");
-                String dateLunar = timeBaseList.get(i).getDateLunar().showDDMM("-");
-                String dateCycle = timeBaseList.get(i).getDateCycle().show();
-                Branch branch = timeBaseList.get(i).getDateCycle().getDay().getBranch();
-                String stem = timeBaseList.get(i).getDateCycle().getDay().getStem().getPosition() + "";
+            for (int i = index - 1; i < dateDataList.size(); i++) {
+                String dateBase = dateDataList.get(i).getDateBase().showDDMM("-");
+                String dateLunar = dateDataList.get(i).getDateLunar().showDDMM("-");
+                String dateCycle = dateDataList.get(i).getDateCycle().show();
+                Branch branch = dateDataList.get(i).getDateCycle().getDay().getBranch();
+                String stem = dateDataList.get(i).getDateCycle().getDay().getStem().getPosition() + "";
                 String branches = branch.getPosition() % 10 + "";
                 List<Branch> branchList = count == 0 ? Collections.singletonList(branch) :
                         Branch.getBranchsByYear(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);

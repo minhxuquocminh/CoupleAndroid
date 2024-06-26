@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.DateBase;
 
 public class CheckUpdate {
 
     public static boolean checkUpdateTime(Context context) {
-        DateBase dateBase = TimeHandler.getDateBase(context);
+        DateBase dateBase = DateHandler.getDateBase(context);
         if (dateBase.isEmpty()) return true;
         return !dateBase.isToday();
     }
@@ -29,7 +29,7 @@ public class CheckUpdate {
     }
 
     public static boolean checkUpdateCycle(Context context) {
-        DateBase dateBase = CycleHandler.getTimeBaseToday(context).getDateBase();
+        DateBase dateBase = DateHandler.getDateDataToday(context).getDateBase();
         if (dateBase.isEmpty()) return true;
         return !dateBase.isToday();
     }

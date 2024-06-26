@@ -35,6 +35,7 @@ import com.example.couple.Model.Support.JackpotHistory;
 import com.example.couple.View.Bridge.BridgeCombinationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,39 +60,37 @@ public class BridgeCombinationViewModel {
 
     public void getAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
         if (!jackpotList.isEmpty()) {
-            List<Bridge> bridgeList = new ArrayList<>();
+            Map<BridgeType, Bridge> bridgeMap = new HashMap<>();
             // touch
             CombineTouchBridge combineTouchBridge =
                     TouchBridgeHandler.getCombineTouchBridge(jackpotList, lotteryList, 0);
-            bridgeList.add(combineTouchBridge);
+            bridgeMap.put(BridgeType.COMBINE_TOUCH, combineTouchBridge);
             ConnectedBridge connectedBridge = ConnectedBridgeHandler.getConnectedBridge(lotteryList,
                     0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-            bridgeList.add(connectedBridge);
+            bridgeMap.put(BridgeType.CONNECTED, connectedBridge);
             ShadowTouchBridge shadowTouchBridge = TouchBridgeHandler
                     .getShadowTouchBridge(jackpotList, 0);
-            bridgeList.add(shadowTouchBridge);
+            bridgeMap.put(BridgeType.SHADOW_TOUCH, shadowTouchBridge);
             LottoTouchBridge lottoTouchBridge =
                     TouchBridgeHandler.getLottoTouchBridge(lotteryList, 0);
-            bridgeList.add(lottoTouchBridge);
-            ShadowTouchBridge negativeShadowBridge =
-                    TouchBridgeHandler.getNegativeShadowTouchBridge(jackpotList, 0);
-            bridgeList.add(negativeShadowBridge);
-            ShadowTouchBridge positiveShadowBridge =
-                    TouchBridgeHandler.getPositiveShadowTouchBridge(jackpotList, 0);
-            bridgeList.add(positiveShadowBridge);
+            bridgeMap.put(BridgeType.LOTTO_TOUCH, lottoTouchBridge);
+            ShadowTouchBridge lastDayTouchBridge = TouchBridgeHandler
+                    .getLastDayShadowTouchBridge(jackpotList, 0);
+            bridgeMap.put(BridgeType.LAST_DAY_SHADOW, lastDayTouchBridge);
+            ShadowTouchBridge lastWeekTouchBridge = TouchBridgeHandler
+                    .getLastWeekShadowTouchBridge(jackpotList, 0);
+            bridgeMap.put(BridgeType.LAST_WEEK_SHADOW, lastWeekTouchBridge);
             // mapping, estimated
             MappingBridge mappingBridge =
                     MappingBridgeHandler.getMappingBridge(jackpotList, 0);
-            bridgeList.add(mappingBridge);
+            bridgeMap.put(BridgeType.MAPPING, mappingBridge);
             ConnectedSetBridge connectedSetBridge =
                     ConnectedBridgeHandler.getConnectedSetBridge(lotteryList, 0,
                             Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-            bridgeList.add(connectedSetBridge);
+            bridgeMap.put(BridgeType.CONNECTED_SET, connectedSetBridge);
             EstimatedBridge estimatedBridge = EstimatedBridgeHandler.getEstimatedBridge(jackpotList, 0);
-            bridgeList.add(estimatedBridge);
-            CombineBridge combineBridge = new CombineBridge(bridgeList,
-                    new JackpotHistory(0, Jackpot.getEmpty()));
-            view.showAllBridgeToday(combineBridge);
+            bridgeMap.put(BridgeType.ESTIMATED, estimatedBridge);
+            view.showAllBridgeToday(bridgeMap);
         }
     }
 
@@ -130,14 +129,14 @@ public class BridgeCombinationViewModel {
                         .getLottoTouchBridge(lotteryList, i);
                 bridgeList.add(lottoTouchBridge);
             }
-            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.NEGATIVE_SHADOW))) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.LAST_DAY_SHADOW))) {
                 ShadowTouchBridge negativeShadowBridge = TouchBridgeHandler
-                        .getNegativeShadowTouchBridge(jackpotList, i);
+                        .getLastDayShadowTouchBridge(jackpotList, i);
                 bridgeList.add(negativeShadowBridge);
             }
-            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.POSITIVE_SHADOW))) {
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.LAST_WEEK_SHADOW))) {
                 ShadowTouchBridge positiveShadowBridge = TouchBridgeHandler
-                        .getPositiveShadowTouchBridge(jackpotList, i);
+                        .getLastWeekShadowTouchBridge(jackpotList, i);
                 bridgeList.add(positiveShadowBridge);
             }
             // mapping, estimated

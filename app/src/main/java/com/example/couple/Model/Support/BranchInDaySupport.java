@@ -1,6 +1,6 @@
 package com.example.couple.Model.Support;
 
-import com.example.couple.Model.Time.Cycle.Branch;
+import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

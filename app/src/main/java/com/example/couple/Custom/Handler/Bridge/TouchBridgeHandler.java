@@ -19,52 +19,34 @@ import java.util.stream.Collectors;
 
 public class TouchBridgeHandler {
 
-    public static ShadowTouchBridge getNegativeShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
-        if (reverseJackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
+    public static ShadowTouchBridge getLastDayShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
+        if (reverseJackpotList.size() < dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
-        List<Integer> touchs = new ArrayList<>();
-        Couple coupleLastWeek = reverseJackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
-        int first = coupleLastWeek.getFirst();
-        int second = coupleLastWeek.getSecond();
-        touchs.add(SingleBase.getNegativeShadow(first));
-        touchs.add(SingleBase.getNegativeShadow(second));
-        if (first == second) touchs.add(first);
-        List<Integer> results = touchs.stream().distinct().sorted().collect(Collectors.toList());
+        Couple coupleLastDay = reverseJackpotList.get(dayNumberBefore).getCouple();
+        List<Integer> touchs = coupleLastDay.getTouchsAndShadows();
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge(BridgeType.NEGATIVE_SHADOW.name, results,
+        return new ShadowTouchBridge(BridgeType.LAST_DAY_SHADOW.name, touchs,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static ShadowTouchBridge getPositiveShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
+    public static ShadowTouchBridge getLastWeekShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
-        List<Integer> touchs = new ArrayList<>();
-        Couple coupleLastWeek = reverseJackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
-        int first = coupleLastWeek.getFirst();
-        int second = coupleLastWeek.getSecond();
-        touchs.add(SingleBase.getShadow(first));
-        touchs.add(SingleBase.getShadow(second));
-        if (first == second) touchs.add(first);
-        List<Integer> results = touchs.stream().distinct().sorted().collect(Collectors.toList());
+        Couple coupleLastDay = reverseJackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
+        List<Integer> touchs = coupleLastDay.getTouchsAndShadows();
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge(BridgeType.POSITIVE_SHADOW.name, results,
+        return new ShadowTouchBridge(BridgeType.LAST_WEEK_SHADOW.name, touchs,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static ShadowTouchBridge getShadowTouchBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() - TimeInfo.DAY_OF_WEEK < dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
-        List<Integer> touchs = new ArrayList<>();
         Couple coupleLastWeek = jackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
-        int first = coupleLastWeek.getFirst();
-        int second = coupleLastWeek.getSecond();
-        touchs.add(SingleBase.getNegativeShadow(first));
-        touchs.add(SingleBase.getNegativeShadow(second));
-        touchs.add(SingleBase.getShadow(first));
-        touchs.add(SingleBase.getShadow(second));
-        if (first == second) touchs.add(first);
+        List<Integer> touchs = coupleLastWeek.getShadows();
+        if (coupleLastWeek.isDouble()) touchs.add(coupleLastWeek.getFirst());
         List<Integer> results = touchs.stream().distinct().sorted().collect(Collectors.toList());
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);

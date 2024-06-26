@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Couple.CoupleType;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class BridgeCombinationActivity extends AppCompatActivity implements BridgeCombinationView {
     ImageView imgBridgeAnnotation;
@@ -43,8 +45,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     CheckBox cboCombineTouchBridge;
     CheckBox cboShadowTouchBridge;
     CheckBox cboConnectedBridge;
-    CheckBox cboNegativeShadowBridge;
-    CheckBox cboPositiveShadowBridge;
+    CheckBox cboLastDayShadowBridge;
+    CheckBox cboLastWeekShadowBridge;
     //
     CheckBox cboMappingBridge;
     CheckBox cboConnectedSetBridge;
@@ -83,8 +85,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         cboCombineTouchBridge = findViewById(R.id.cboCombineTouchBridge);
         cboShadowTouchBridge = findViewById(R.id.cboShadowTouchBridge);
         cboConnectedBridge = findViewById(R.id.cboConnectedBridge);
-        cboNegativeShadowBridge = findViewById(R.id.cboNegativeShadowBridge);
-        cboPositiveShadowBridge = findViewById(R.id.cboPositiveShadowBridge);
+        cboLastDayShadowBridge = findViewById(R.id.cboLastDayShadowBridge);
+        cboLastWeekShadowBridge = findViewById(R.id.cboLastWeekShadowBridge);
         // mapping, period
         cboMappingBridge = findViewById(R.id.cboMappingBridge);
         cboRightMappingBridge = findViewById(R.id.cboRightMappingBridge);
@@ -130,8 +132,8 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 bridgeTypeFlag.put(BridgeType.CONNECTED, cboConnectedBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.SHADOW_TOUCH, cboShadowTouchBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.LOTTO_TOUCH, cboLottoTouchBridge.isChecked());
-                bridgeTypeFlag.put(BridgeType.NEGATIVE_SHADOW, cboNegativeShadowBridge.isChecked());
-                bridgeTypeFlag.put(BridgeType.POSITIVE_SHADOW, cboPositiveShadowBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.LAST_DAY_SHADOW, cboLastDayShadowBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.LAST_WEEK_SHADOW, cboLastWeekShadowBridge.isChecked());
                 // mapping, estimated
                 bridgeTypeFlag.put(BridgeType.MAPPING, cboMappingBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.CONNECTED_SET, cboConnectedSetBridge.isChecked());
@@ -178,16 +180,25 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     }
 
     @Override
-    public void showAllBridgeToday(CombineBridge combineBridge) {
-        cboCombineTouchBridge.setText("kết hợp " + combineBridge.getBridgeList().get(0).showCompactNumbers());
-        cboConnectedBridge.setText("liên thông " + combineBridge.getBridgeList().get(1).showCompactNumbers());
-        cboShadowTouchBridge.setText("bóng " + combineBridge.getBridgeList().get(2).showCompactNumbers());
-        cboLottoTouchBridge.setText("lô tô " + combineBridge.getBridgeList().get(3).showCompactNumbers());
-        cboNegativeShadowBridge.setText("bóng âm " + combineBridge.getBridgeList().get(4).showCompactNumbers());
-        cboPositiveShadowBridge.setText("bóng dương " + combineBridge.getBridgeList().get(5).showCompactNumbers());
-        cboMappingBridge.setText("ánh xạ " + combineBridge.getBridgeList().get(6).getNumbers().size());
-        cboConnectedSetBridge.setText("liên bộ " + combineBridge.getBridgeList().get(7).showCompactNumbers());
-        cboEstimatedBridge.setText("ước lg " + combineBridge.getBridgeList().get(8).getNumbers().size());
+    public void showAllBridgeToday(Map<BridgeType, Bridge> bridgeMap) {
+        String combine = Objects.requireNonNull(bridgeMap.get(BridgeType.COMBINE_TOUCH)).showCompactNumbers();
+        String connected = Objects.requireNonNull(bridgeMap.get(BridgeType.CONNECTED)).showCompactNumbers();
+        String shadow = Objects.requireNonNull(bridgeMap.get(BridgeType.SHADOW_TOUCH)).showCompactNumbers();
+        String lotto = Objects.requireNonNull(bridgeMap.get(BridgeType.LOTTO_TOUCH)).showCompactNumbers();
+        String lastDay = Objects.requireNonNull(bridgeMap.get(BridgeType.LAST_DAY_SHADOW)).showCompactNumbers();
+        String lastWeek = Objects.requireNonNull(bridgeMap.get(BridgeType.LAST_WEEK_SHADOW)).showCompactNumbers();
+        String mapping = "" + Objects.requireNonNull(bridgeMap.get(BridgeType.MAPPING)).getNumbers().size();
+        String conectedSet = Objects.requireNonNull(bridgeMap.get(BridgeType.CONNECTED_SET)).showCompactNumbers();
+        String estimated = "" + Objects.requireNonNull(bridgeMap.get(BridgeType.ESTIMATED)).getNumbers().size();
+        cboCombineTouchBridge.setText("kết hợp " + combine);
+        cboConnectedBridge.setText("liên thông " + connected);
+        cboShadowTouchBridge.setText("bóng " + shadow);
+        cboLottoTouchBridge.setText("lô tô " + lotto);
+        cboLastDayShadowBridge.setText("ngày " + lastDay);
+        cboLastWeekShadowBridge.setText("tuần " + lastWeek);
+        cboMappingBridge.setText("ánh xạ " + mapping);
+        cboConnectedSetBridge.setText("liên bộ " + conectedSet);
+        cboEstimatedBridge.setText("ước lg " + estimated);
     }
 
     @Override

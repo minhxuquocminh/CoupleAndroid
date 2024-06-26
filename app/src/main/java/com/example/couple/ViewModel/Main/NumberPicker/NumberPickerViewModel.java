@@ -11,7 +11,7 @@ import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.View.Main.NumberPicker.NumberPickerView;
 
 import java.util.ArrayList;

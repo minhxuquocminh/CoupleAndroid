@@ -13,6 +13,8 @@ public enum BridgeType {
     LOTTO_TOUCH(1003, "Cầu chạm lô tô"),
     POSITIVE_SHADOW(1004, "Cầu chạm bóng +"),
     NEGATIVE_SHADOW(1005, "Cầu chạm bóng -"),
+    LAST_DAY_SHADOW(1005, "Chạm bóng ngày"),
+    LAST_WEEK_SHADOW(1005, "Chạm bóng tuần"),
 
     /**
      * mapping bridge

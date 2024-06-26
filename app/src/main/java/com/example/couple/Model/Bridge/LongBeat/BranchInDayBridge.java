@@ -8,7 +8,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Support.BranchInDaySupport;
-import com.example.couple.Model.Time.Cycle.Branch;
+import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 
 import java.util.ArrayList;
 import java.util.Arrays;

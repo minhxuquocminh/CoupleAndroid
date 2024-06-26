@@ -14,7 +14,7 @@ import com.example.couple.Model.Display.NumberDouble;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;
 import java.util.Collections;

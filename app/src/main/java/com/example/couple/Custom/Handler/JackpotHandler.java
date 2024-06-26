@@ -7,10 +7,10 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
+import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
+import com.example.couple.Model.DateTime.Date.DateBase;
+import com.example.couple.Model.DateTime.Date.DateData;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Time.Cycle.Cycle;
-import com.example.couple.Model.Time.DateBase;
-import com.example.couple.Model.Time.TimeBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,13 +70,13 @@ public class JackpotHandler {
         return jackpotList;
     }
 
-    public static Cycle getCycleNextDay(Context context) {
-        TimeBase today = CycleHandler.getTimeBaseToday(context);
+    private static Cycle getCycleNextDay(Context context) {
+        DateData today = DateHandler.getDateDataToday(context);
         DateBase jackpotLastDate = getLastDate(context);
         if (today.isEmpty() || jackpotLastDate.isEmpty()) return Cycle.getEmpty();
 
         if (today.getDateBase().equals(jackpotLastDate))
-            return CycleHandler.getTimeBaseNextDay(context).getDateCycle().getDay();
+            return DateHandler.getDateDataNextDay(context).getDateCycle().getDay();
         if (today.getDateBase().addDays(-1).equals(jackpotLastDate))
             return today.getDateCycle().getDay();
         return Cycle.getEmpty();

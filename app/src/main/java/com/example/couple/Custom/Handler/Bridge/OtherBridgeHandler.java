@@ -8,7 +8,7 @@ import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;
 import java.util.Collections;

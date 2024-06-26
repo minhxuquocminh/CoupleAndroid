@@ -9,7 +9,7 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Time.DateBase;
+import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsView;
 
 import java.util.ArrayList;

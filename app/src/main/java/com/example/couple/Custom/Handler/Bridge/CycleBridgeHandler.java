@@ -11,9 +11,9 @@ import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Time.Cycle.Branch;
-import com.example.couple.Model.Time.Cycle.Cycle;
-import com.example.couple.Model.Time.Cycle.YearCycle;
+import com.example.couple.Model.DateTime.Date.Cycle.Branch;
+import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
+import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 
 import java.util.ArrayList;
 import java.util.Collections;
