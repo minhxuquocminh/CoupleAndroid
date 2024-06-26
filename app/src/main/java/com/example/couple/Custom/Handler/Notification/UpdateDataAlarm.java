@@ -78,7 +78,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         try {
             if (checkUpdateTime) {
                 String time = Api.getDateFromInternet(context);
-                IOFileBase.saveDataToFile(context, FileName.TIME, time, Context.MODE_PRIVATE);
+                IOFileBase.saveDataToFile(context, FileName.DATE_TIME, time, Context.MODE_PRIVATE);
             }
             if (checkUpdateLottery) {
                 String lottery = Api.getLotteryDataFromInternet(context, Const.MAX_DAYS_TO_GET_LOTTERY);

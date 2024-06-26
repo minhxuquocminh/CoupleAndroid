@@ -26,7 +26,7 @@ public class DateHandler {
             if (dateData.isEmpty()) {
                 return false;
             }
-            IOFileBase.saveDataToFile(context, FileName.TIME, dateData, 0);
+            IOFileBase.saveDataToFile(context, FileName.DATE_TIME, dateData, 0);
             return true;
         } catch (ExecutionException | InterruptedException e) {
             return false;
@@ -34,7 +34,7 @@ public class DateHandler {
     }
 
     public static String getDate(Context context) {
-        String data = IOFileBase.readDataFromFile(context, FileName.TIME);
+        String data = IOFileBase.readDataFromFile(context, FileName.DATE_TIME);
         String time = "Lỗi cập nhật thời gian!";
         try {
             String[] sub = data.split("===");
@@ -57,7 +57,7 @@ public class DateHandler {
     }
 
     public static DateBase getDateBase(Context context) {
-        String timeData = IOFileBase.readDataFromFile(context, FileName.TIME);
+        String timeData = IOFileBase.readDataFromFile(context, FileName.DATE_TIME);
         if (timeData.isEmpty()) return DateBase.getEmpty();
         String[] sub = timeData.split("===");
         int calendarDay = Integer.parseInt(sub[1]);
@@ -73,19 +73,19 @@ public class DateHandler {
 
     public static boolean updateAllDateData(Context context) {
         boolean checkNextDay = updateDateData(context,
-                DateBase.TO_DAY().addDays(1), FileName.CYCLE_NEXT_DAY);
+                DateBase.TO_DAY().addDays(1), FileName.DATE_DATA_NEXT_DAY);
         if (!checkNextDay) return false;
-        boolean checkToday = updateDateData(context, DateBase.TO_DAY(), FileName.CYCLE_TODAY);
+        boolean checkToday = updateDateData(context, DateBase.TO_DAY(), FileName.DATE_DATA_TODAY);
         if (!checkToday) return false;
-        DateData today = getDateData(context, FileName.CYCLE_TODAY);
+        DateData today = getDateData(context, FileName.DATE_DATA_TODAY);
         DateBase previousMonth = today.getDateBase().addDays(-today.getDateLunar().getDay());
         boolean checkPreviousMonth =
-                updateDateData(context, previousMonth, FileName.CYCLE_PREVIOUS_1);
+                updateDateData(context, previousMonth, FileName.DATE_DATA_PREVIOUS_1);
         if (!checkPreviousMonth) return false;
-        DateData dateData1 = getDateData(context, FileName.CYCLE_PREVIOUS_1);
+        DateData dateData1 = getDateData(context, FileName.DATE_DATA_PREVIOUS_1);
         DateBase previousPreviousMonth = dateData1.getDateBase().addDays(-dateData1.getDateLunar().getDay());
 
-        return updateDateData(context, previousPreviousMonth, FileName.CYCLE_PREVIOUS_2);
+        return updateDateData(context, previousPreviousMonth, FileName.DATE_DATA_PREVIOUS_2);
     }
 
     private static boolean updateDateData(Context context, DateBase dateBase, String fileName) {
@@ -101,11 +101,11 @@ public class DateHandler {
 
     public static List<DateData> getAllDateData(Context context, int numberOfDays) {
         List<DateData> dateDataList = new ArrayList<>();
-        DateData nextDay = getDateData(context, FileName.CYCLE_NEXT_DAY);
+        DateData nextDay = getDateData(context, FileName.DATE_DATA_NEXT_DAY);
         dateDataList.add(nextDay);
         numberOfDays--;
 
-        DateData today = getDateData(context, FileName.CYCLE_TODAY);
+        DateData today = getDateData(context, FileName.DATE_DATA_TODAY);
         int daysOfThisMonth = today.getDateLunar().getDay();
         int size = Math.min(numberOfDays, daysOfThisMonth);
         for (int i = 0; i < size; i++) {
@@ -118,7 +118,7 @@ public class DateHandler {
             return dateDataList;
         }
 
-        DateData previous = getDateData(context, FileName.CYCLE_PREVIOUS_1);
+        DateData previous = getDateData(context, FileName.DATE_DATA_PREVIOUS_1);
         int daysOfPreviousMonth = previous.getDateLunar().getDay();
         size = Math.min((numberOfDays - daysOfThisMonth), daysOfPreviousMonth);
         for (int i = 0; i < size; i++) {
@@ -131,7 +131,7 @@ public class DateHandler {
             return dateDataList;
         }
 
-        DateData previous2 = getDateData(context, FileName.CYCLE_PREVIOUS_2);
+        DateData previous2 = getDateData(context, FileName.DATE_DATA_PREVIOUS_2);
         int daysOfPreviousMonth2 = previous2.getDateLunar().getDay();
         size = Math.min((numberOfDays - daysOfThisMonth - daysOfPreviousMonth), daysOfPreviousMonth2);
         for (int i = 0; i < size; i++) {
@@ -189,11 +189,11 @@ public class DateHandler {
     }
 
     public static DateData getDateDataNextDay(Context context) {
-        return getDateData(context, FileName.CYCLE_NEXT_DAY);
+        return getDateData(context, FileName.DATE_DATA_NEXT_DAY);
     }
 
     public static DateData getDateDataToday(Context context) {
-        return getDateData(context, FileName.CYCLE_TODAY);
+        return getDateData(context, FileName.DATE_DATA_TODAY);
     }
 
 }
