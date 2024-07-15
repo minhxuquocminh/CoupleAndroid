@@ -27,16 +27,17 @@ import java.util.concurrent.ExecutionException;
 public class UpdateDataAlarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        boolean checkUpdateJackpot = CheckUpdate.checkUpdateJackpot(context);
+        if (!checkUpdateJackpot) {
+            return;
+        }
+
         boolean isInternetAvailable = InternetBase.isInternetAvailable(context);
         if (!isInternetAvailable) {
             String title = "XSMB";
             String content = "Lỗi lấy kết quả XS Đặc Biệt Miền Bắc (Lỗi không có mạng).";
             NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
-            return;
-        }
-
-        boolean checkUpdateJackpot = CheckUpdate.checkUpdateJackpot(context);
-        if (checkUpdateJackpot) {
+        } else {
             getData(context);
         }
     }
