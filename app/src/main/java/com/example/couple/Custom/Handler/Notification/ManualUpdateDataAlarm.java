@@ -1,4 +1,4 @@
-package com.example.couple.View.UpdateDataInfo.TestNotif;
+package com.example.couple.Custom.Handler.Notification;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,7 +9,7 @@ import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.NotifyId;
 import com.example.couple.Custom.Handler.Notification.UpdateDataAlarm;
 
-public class UpdateDataTest extends BroadcastReceiver {
+public class ManualUpdateDataAlarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean isInternetAvailable = InternetBase.isInternetAvailable(context);

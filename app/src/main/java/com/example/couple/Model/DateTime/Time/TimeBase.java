@@ -1,5 +1,6 @@
 package com.example.couple.Model.DateTime.Time;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 
 import java.util.Calendar;
@@ -51,10 +52,10 @@ public class TimeBase {
     }
 
     public String showHHMM() {
-        return hour + ":" + minute;
+        return CoupleBase.showCouple(hour) + ":" + CoupleBase.showCouple(minute);
     }
 
     public String showHHMMSS() {
-        return hour + ":" + minute + ":" + second;
+        return CoupleBase.showCouple(hour) + ":" + CoupleBase.showCouple(minute) + ":" + CoupleBase.showCouple(second);
     }
 }

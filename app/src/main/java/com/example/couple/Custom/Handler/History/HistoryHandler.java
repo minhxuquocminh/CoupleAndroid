@@ -7,11 +7,11 @@ import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
+import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Set.SpecialSet;
-import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,13 @@ public class HistoryHandler {
         List<NumberSetHistory> tenNumbersList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             NumberSetHistory head = OtherBridgeHandler.getNumberSetHistory(jackpotList,
-                    Const.HEAD + " " + i, NumberArrayHandler.getHeads(i));
+                    Const.HEAD + " " + CoupleBase.showCouple(i), NumberArrayHandler.getHeads(i));
             tenNumbersList.add(head);
             NumberSetHistory tail = OtherBridgeHandler.getNumberSetHistory(jackpotList,
-                    Const.TAIL + " " + i, NumberArrayHandler.getTails(i));
+                    Const.TAIL + " " + CoupleBase.showCouple(i), NumberArrayHandler.getTails(i));
             tenNumbersList.add(tail);
             NumberSetHistory sum = OtherBridgeHandler.getNumberSetHistory(jackpotList,
-                    Const.SUM + " " + i, NumberArrayHandler.getSums(i));
+                    Const.SUM + " " + CoupleBase.showCouple(i), NumberArrayHandler.getSums(i));
             tenNumbersList.add(sum);
         }
 
@@ -97,7 +97,8 @@ public class HistoryHandler {
         List<NumberSetHistory> branches1 = new ArrayList<>();
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
             NumberSetHistory branch = OtherBridgeHandler.getNumberSetHistory(jackpotList,
-                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getTailsOfYear());
+                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + CoupleBase.showCouple(i),
+                    (new Branch(i)).getTailsOfYear());
             branches1.add(branch);
         }
         branches1.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
@@ -164,7 +165,7 @@ public class HistoryHandler {
         List<NumberSetHistory> sets = new ArrayList<>();
         for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
             NumberSetHistory set = OtherBridgeHandler.getNumberSetHistory(jackpotList,
-                    Const.SET + " " + i, Set.getFrom(i).getSetsDetail());
+                    Const.SET + " " + CoupleBase.showCouple(i), Set.getFrom(i).getSetsDetail());
             sets.add(set);
         }
         sets.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
@@ -194,7 +195,8 @@ public class HistoryHandler {
         // for cycle
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
             NumberSetHistory branch = OtherBridgeHandler.getNumberSetHistory(jackpotList,
-                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + i, (new Branch(i)).getTailsOfYear());
+                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + CoupleBase.showCouple(i),
+                    (new Branch(i)).getTailsOfYear());
             historyList.add(branch);
         }
         historyList.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
@@ -224,7 +226,7 @@ public class HistoryHandler {
         List<NumberSetHistory> sets = new ArrayList<>();
         for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
             NumberSetHistory set = OtherBridgeHandler.getNumberSetHistory(jackpotList,
-                    Const.SET + " " + i, Set.getFrom(i).getSetsDetail());
+                    Const.SET + " " + CoupleBase.showCouple(i), Set.getFrom(i).getSetsDetail());
             sets.add(set);
         }
         sets.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());

@@ -18,11 +18,15 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.example.couple.Base.Handler.AlarmBase;
 import com.example.couple.Base.Handler.ThreadBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Const.RequestCode;
+import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
 import com.example.couple.Custom.Service.UpdateDataService;
 import com.example.couple.Custom.Service.UpdateDataView;
+import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
@@ -49,6 +53,7 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
     LinearLayout layoutRefreshJackpots;
     TextView tvJackpotToday;
     TextView tvJackpotLastDay;
+    ImageView imgClock;
     TextView tvSuggest;
     CardView cvNote;
     CardView cvBalanceCouple;
@@ -84,6 +89,7 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
         layoutRefreshJackpots = view.findViewById(R.id.layoutRefreshJackpots);
         tvJackpotToday = view.findViewById(R.id.tvJackpotToday);
         tvJackpotLastDay = view.findViewById(R.id.tvJackpotLastDay);
+        imgClock = view.findViewById(R.id.imgClock);
         tvSuggest = view.findViewById(R.id.tvSuggest);
         tvCalendar = view.findViewById(R.id.tvCalendar);
         cvNote = view.findViewById(R.id.cvNote);
@@ -171,6 +177,16 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
                         return null;
                     }, "").start();
                 });
+            }
+        });
+
+        imgClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlarmBase.registerAlarmOneTime(getActivity(), ManualUpdateDataAlarm.class,
+                        RequestCode.ALARM_9999, TimeBase.CURRENT().addSeconds(10));
+                Toast.makeText(getActivity(), "Đăng ký cập nhật dữ liệu vào lúc " +
+                        TimeBase.CURRENT().showHHMMSS() + ".", Toast.LENGTH_LONG).show();
             }
         });
 

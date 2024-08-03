@@ -26,7 +26,7 @@
             tools:ignore="ExportedReceiver" />
 
         <receiver
-            android:name=".View.UpdateDataInfo.TestNotif.UpdateDataTest"
+            android:name=".Custom.Handler.Notification.ManualUpdateDataAlarm"
             android:enabled="true"
             android:exported="true"
             android:permission="TODO"

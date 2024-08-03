@@ -56,7 +56,7 @@ public class AfterDoubleBridge {
                 " (" + CoupleBase.showCouple(dayNumberBefore) + " ngày): các bộ";
         for (int i = 1; i <= 4; i++) {
             if (this.setMap.containsKey(i)) {
-                show += " " + Objects.requireNonNull(setMap.get(i)).getSetInt() + " (" + i + ");";
+                show += " " + Objects.requireNonNull(setMap.get(i)).show() + " (" + i + ");";
             }
         }
         return show;

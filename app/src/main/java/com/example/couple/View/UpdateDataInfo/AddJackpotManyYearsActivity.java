@@ -19,7 +19,7 @@ import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
-import com.example.couple.View.UpdateDataInfo.TestNotif.UpdateDataTest;
+import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
 import java.util.List;
@@ -143,7 +143,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
     }
 
     private void test2(Context context) {
-        AlarmBase.registerAlarmOneTime(context, UpdateDataTest.class,
+        AlarmBase.registerAlarmOneTime(context, ManualUpdateDataAlarm.class,
                 2222, TimeBase.CURRENT().addSeconds(10));
         Toast.makeText(this, "Đăng ký alarm vào" +
                 TimeBase.CURRENT().showHHMMSS(), Toast.LENGTH_LONG).show();
