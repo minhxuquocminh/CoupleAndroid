@@ -10,7 +10,7 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Couple.CoupleType;
+import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
@@ -58,21 +58,21 @@ public class CreateNumberArrayViewModel {
         String errorMessage = "";
         for (Input input : inputs) {
             if (input.isError()) {
-                errorMessage += " " + input.getCoupleType().name + ";";
+                errorMessage += " " + input.getInputType().name + ";";
             }
-            if (input.getCoupleType() == CoupleType.ADD) {
+            if (input.getInputType() == InputType.ADD) {
                 adds.addAll(input.getNumbers());
                 continue;
             }
-            if (input.getCoupleType() == CoupleType.REMOVE) {
+            if (input.getInputType() == InputType.REMOVE) {
                 removes.addAll(input.getNumbers());
                 continue;
             }
-            if (input.getCoupleType() == CoupleType.COMBINE) {
+            if (input.getInputType() == InputType.COMBINE) {
                 combines.addAll(input.getNumbers());
                 continue;
             }
-            if (input.getCoupleType() == CoupleType.ADD_TRIAD) {
+            if (input.getInputType() == InputType.ADD_TRIAD) {
                 triads.addAll(input.getNumbers());
                 continue;
             }

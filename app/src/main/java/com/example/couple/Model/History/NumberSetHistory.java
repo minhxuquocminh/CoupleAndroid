@@ -1,7 +1,8 @@
-package com.example.couple.Model.Display;
+package com.example.couple.Model.History;
 
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Display.NumberSet;
 
 import java.util.ArrayList;
 import java.util.Collections;

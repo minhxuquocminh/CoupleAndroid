@@ -6,7 +6,7 @@ import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
-import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 

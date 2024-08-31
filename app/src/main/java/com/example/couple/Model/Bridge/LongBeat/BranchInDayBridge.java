@@ -6,7 +6,7 @@ import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Support.BranchInDaySupport;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 

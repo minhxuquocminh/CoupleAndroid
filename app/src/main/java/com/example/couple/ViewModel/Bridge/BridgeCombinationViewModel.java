@@ -209,12 +209,12 @@ public class BridgeCombinationViewModel {
             String notifMessage = "";
             for (Input input : inputs) {
                 if (input.isError()) {
-                    notifMessage += " " + input.getCoupleType().name + ";";
+                    notifMessage += " " + input.getInputType().name + ";";
                     continue;
                 }
 
                 if (!input.isEmpty()) {
-                    NumberSetBridge set = new NumberSetBridge(input.getCoupleType().name,
+                    NumberSetBridge set = new NumberSetBridge(input.getInputType().name,
                             input.getNumbers(), new JackpotHistory(i, jackpot));
                     bridgeList.add(set);
                 }

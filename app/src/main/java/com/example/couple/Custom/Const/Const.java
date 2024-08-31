@@ -25,10 +25,7 @@ public class Const {
     /**
      * text
      */
-    public static final String DAY_OFF = "day_off";
     public static final String EMPTY_JACKPOT = "-99999";
-    public static final String FUTURE_DAY = "future_day";
-    public static final String INVALID_DATE = "invalid_date";
     public static final String HEAD = "Đầu";
     public static final String TAIL = "Đuôi";
     public static final String SET = "Bộ";
@@ -49,8 +46,8 @@ public class Const {
      */
     public static final String GOOGLE_URL = "www.google.com";
     public static final String TIME_URL = "https://lichvannien365.com/";
-    public static final String JACKPOT_URL_AND_PARAMS = "https://ketqua9.net/bang-dac-biet-nam\nchu16";
-    public static final String LOTTERY_URL_AND_PARAMS = "https://ketqua9.net/so-ket-qua\nwatermark";
+    public static final String JACKPOT_URL_AND_PARAMS = "https://mketqua1.net/bang-dac-biet-nam\nchu16";
+    public static final String LOTTERY_URL_AND_PARAMS = "https://mketqua1.net/so-ket-qua\nwatermark";
 
     /**
      * paragraph

@@ -3,12 +3,12 @@ package com.example.couple.Custom.Handler.Bridge;
 import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
 import com.example.couple.Model.Bridge.Sign.DayDoubleSign;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
+import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +50,7 @@ public class OtherBridgeHandler {
         for (Jackpot jackpot : jackpotList) {
             DateBase dateCheck = jackpot.getDateBase();
 
-            if (dateCheck.isUpLastMonthOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+            if (dateCheck.isUpLastMonthOf(dateBase) && jackpot.getCouple().isDoubleOrShadow()) {
                 upMonthList.add(jackpot.getCoupleInt());
                 upMonth2 = dateCheck.getUpLastMonth();
             }
@@ -58,7 +58,7 @@ public class OtherBridgeHandler {
                 upMonthList.add(jackpot.getCoupleInt());
             }
 
-            if (dateCheck.isLastMonthOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+            if (dateCheck.isLastMonthOf(dateBase) && jackpot.getCouple().isDoubleOrShadow()) {
                 monthList.add(jackpot.getCoupleInt());
                 month2 = dateCheck.getLastMonth();
             }
@@ -66,7 +66,7 @@ public class OtherBridgeHandler {
                 monthList.add(jackpot.getCoupleInt());
             }
 
-            if (dateCheck.isDownLastMonthOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+            if (dateCheck.isDownLastMonthOf(dateBase) && jackpot.getCouple().isDoubleOrShadow()) {
                 downMonthList.add(jackpot.getCoupleInt());
                 downMonth2 = dateCheck.getDownLastMonth();
             }
@@ -74,7 +74,7 @@ public class OtherBridgeHandler {
                 downMonthList.add(jackpot.getCoupleInt());
             }
 
-            if (dateCheck.isLastWeekOf(dateBase) && jackpot.getCouple().isDoubleAndShadow()) {
+            if (dateCheck.isLastWeekOf(dateBase) && jackpot.getCouple().isDoubleOrShadow()) {
                 weekList.add(jackpot.getCoupleInt());
                 week2 = dateCheck.getLastWeek();
             }
@@ -99,22 +99,6 @@ public class OtherBridgeHandler {
         Collections.reverse(weekList);
         Collections.reverse(dayList);
         return new SignOfDouble(upMonthList, monthList, downMonthList, weekList, dayList);
-    }
-
-    public static NumberSetHistory getNumberSetHistory(List<Jackpot> jackpotList,
-                                                       String numberSetName, List<Integer> numbers) {
-        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
-        List<Integer> beatList = new ArrayList<>();
-        int count = 0;
-        for (Jackpot jackpot : jackpotList) {
-            count++;
-            if (numbers.contains(jackpot.getCoupleInt())) {
-                beatList.add(count);
-                count = 0;
-            }
-        }
-        Collections.reverse(beatList);
-        return new NumberSetHistory(numberSetName, numbers, beatList);
     }
 
     // cầu này để tìm càng thứ 3 dựa trên lịch sử càng giống càng chạy gần đây

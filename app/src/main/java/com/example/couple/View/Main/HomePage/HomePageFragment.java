@@ -2,8 +2,6 @@ package com.example.couple.View.Main.HomePage;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,11 +36,11 @@ import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.View.Main.MainActivity;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleActivity;
+import com.example.couple.View.SubScreen.ExperianceActivity;
 import com.example.couple.View.SubScreen.NoteActivity;
 import com.example.couple.ViewModel.Main.HomePage.HomePageViewModel;
 
 import java.util.List;
-import java.util.Objects;
 
 public class HomePageFragment extends Fragment implements HomePageView, UpdateDataView {
     ImageView imgViewLottery;
@@ -106,20 +104,6 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
         homePageViewModel = new HomePageViewModel(this, getActivity());
         updateDataService = new UpdateDataService(this, getActivity());
 
-        activity.getTime().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String time) {
-                tvCalendar.setText(time);
-            }
-        });
-
-        activity.getJackpotList().observe(getViewLifecycleOwner(), new Observer<List<Jackpot>>() {
-            @Override
-            public void onChanged(List<Jackpot> jackpotList) {
-                showJackpotList(jackpotList);
-            }
-        });
-
         homePageViewModel.getNote();
 
         imgViewLottery.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +127,7 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
                 String message = "Bạn có muốn cập nhật thời gian, XS Đặc biệt và XSMB không?";
                 DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
                     new ThreadBase<>((param) -> {
-                        updateDataService.updateAllData(false);
+                        updateDataService.updateAllData(true, false);
                         return null;
                     }, "").start();
                 });
@@ -207,10 +191,7 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
         cvMoreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EnterPasswordDialog dialog = new EnterPasswordDialog(getActivity());
-                Objects.requireNonNull(dialog.getWindow())
-                        .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                startActivity(new Intent(getActivity(), ExperianceActivity.class));
             }
         });
 
@@ -225,6 +206,20 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), CalculatingBalanceCoupleActivity.class));
+            }
+        });
+
+        activity.getTime().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String time) {
+                tvCalendar.setText(time);
+            }
+        });
+
+        activity.getJackpotList().observe(getViewLifecycleOwner(), new Observer<List<Jackpot>>() {
+            @Override
+            public void onChanged(List<Jackpot> jackpotList) {
+                showJackpotList(jackpotList);
             }
         });
 

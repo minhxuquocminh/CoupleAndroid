@@ -5,11 +5,13 @@ import android.content.Context;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.MainThreadBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.DateHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.Notification.NewBridge;
+import com.example.couple.Custom.Handler.Sync.SyncDataHandler;
+import com.example.couple.Custom.Handler.Sync.SyncDataState;
+import com.example.couple.Custom.Handler.Sync.SyncState;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 
@@ -24,44 +26,37 @@ public class UpdateDataService {
         this.context = context;
     }
 
-    public void updateAllDataIfNeeded(boolean isMainThread) {
-        boolean isUpdateTime = CheckUpdate.checkUpdateTime(context);
-        if (isUpdateTime) {
-            updateAllData(isMainThread);
+    public void updateAllData(boolean showMessageCheck, boolean isMainThread) {
+        SyncDataState syncDataState = new SyncDataState(context);
+        if (!syncDataState.needToSync()) {
+            if (showMessageCheck) {
+                showMessage("Hiện tại, không có dữ liệu nào cần cập nhật !", isMainThread);
+            }
+            return;
         }
-    }
 
-    public void updateAllData(boolean isMainThread) {
         if (!InternetBase.isInternetAvailable(context)) {
             showMessage("Bạn đang offline.", isMainThread);
             return;
         }
-        showMessage("Đang cập nhật...", isMainThread);
-        boolean checkUpdateTime = DateHandler.updateDate(context);
-        boolean checkUpdateJackpot = JackpotHandler.updateJackpot(context);
-        boolean checkUpdateLottery =
-                LotteryHandler.updateLottery(context, Const.MAX_DAYS_TO_GET_LOTTERY);
-        boolean checkUpdateCycle = DateHandler.updateAllDateData(context);
 
-        String timeStatus = checkUpdateTime ? "(hoàn thành)" : "(thất bại)";
-        if (checkUpdateTime) {
+        showMessage("Đang cập nhật...", isMainThread);
+        SyncDataState resultSyncState = SyncDataHandler.execute(context);
+        if (resultSyncState.getSyncDateState() == SyncState.OK) {
             getTimeData(isMainThread);
         }
-
-        String jackpotStatus = checkUpdateJackpot ? "(hoàn thành)" : "(thất bại)";
-        if (checkUpdateJackpot) {
+        if (resultSyncState.getSyncJackpotState() == SyncState.OK) {
             getJackpotData(isMainThread);
         }
-
-        String lotteryStatus = checkUpdateLottery ? "(hoàn thành)" : "(thất bại)";
-        if (checkUpdateLottery) {
+        if (resultSyncState.getSyncLotteryState() == SyncState.OK) {
             getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, isMainThread);
         }
 
-        String cycleStatus = checkUpdateCycle ? "(hoàn thành)" : "(thất bại)";
-        showMessage("Cập nhật hoàn tất: thời gian " + timeStatus +
-                ", XS Đặc Biệt " + jackpotStatus + ", XSMB " + lotteryStatus +
-                ", thời gian can chi " + cycleStatus + ".", isMainThread);
+        showMessage("Cập nhật hoàn tất: \n" +
+                " + Thời gian (" + resultSyncState.getSyncDateState().name + "),\n" +
+                " + XS Đặc Biệt (" + resultSyncState.getSyncJackpotState().name + "),\n" +
+                " + XSMB (" + resultSyncState.getSyncLotteryState().name + "),\n" +
+                " + Thời gian can chi (" + resultSyncState.getSyncDateDataState().name + ").", isMainThread);
     }
 
     public void getTimeData(boolean isMainThread) {
@@ -74,10 +69,9 @@ public class UpdateDataService {
     }
 
     public void getJackpotData(boolean isMainThread) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 18);
+        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 99);
         if (jackpotList.isEmpty()) return;
         NewBridge.notify(context, jackpotList);
-        JackpotHandler.saveLastDate(context, jackpotList);
         new MainThreadBase(() -> {
             updateDataView.showJackpotData(jackpotList);
         }, isMainThread).post();
@@ -86,7 +80,6 @@ public class UpdateDataService {
     public void getLotteryData(int numberOfDays, boolean isMainThread) {
         List<Lottery> lotteries = LotteryHandler.getLotteryListFromFile(context, numberOfDays);
         if (lotteries.isEmpty()) return;
-        LotteryHandler.saveLastDate(context, lotteries);
         new MainThreadBase(() -> {
             updateDataView.showLotteryData(lotteries);
         }, isMainThread).post();

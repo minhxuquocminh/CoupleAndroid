@@ -2,7 +2,6 @@ package com.example.couple.Model.Handler;
 
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Couple.CoupleType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +10,13 @@ import lombok.Getter;
 
 @Getter
 public class Input {
-    CoupleType coupleType;
+    InputType inputType;
     String data;
     int numberLength;
     List<Integer> inputNumbers;
 
-    public Input(CoupleType coupleType, String data, int numberLength) {
-        this.coupleType = coupleType;
+    public Input(InputType inputType, String data, int numberLength) {
+        this.inputType = inputType;
         this.data = data;
         this.numberLength = numberLength;
         this.inputNumbers = new ArrayList<>();
@@ -29,7 +28,7 @@ public class Input {
 
     public List<Integer> getNumbers() {
         List<Integer> numbers = new ArrayList<>();
-        switch (this.coupleType) {
+        switch (this.inputType) {
             case SET:
                 numbers = NumberArrayHandler.getSetsByCouples(inputNumbers);
                 break;

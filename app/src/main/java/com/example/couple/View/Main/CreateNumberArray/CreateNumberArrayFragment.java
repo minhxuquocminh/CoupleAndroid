@@ -26,7 +26,7 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Model.Couple.CoupleType;
+import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Display.Picker;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
@@ -179,15 +179,15 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
                 List<Input> inputs = new ArrayList<>();
-                inputs.add(new Input(CoupleType.SET, edtSet.getText().toString().trim(), 2));
-                inputs.add(new Input(CoupleType.TOUCH, edtTouch.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.SUM, edtSum.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.ADD_TRIAD, edtThirdClaw.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.HEAD, edtHead.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.TAIL, edtTail.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.ADD, edtAddingNumber.getText().toString().trim(), 2));
-                inputs.add(new Input(CoupleType.REMOVE, edtRemovingNumber.getText().toString().trim(), 2));
-                inputs.add(new Input(CoupleType.COMBINE, edtCombineNumber.getText().toString().trim(), 2));
+                inputs.add(new Input(InputType.SET, edtSet.getText().toString().trim(), 2));
+                inputs.add(new Input(InputType.TOUCH, edtTouch.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.SUM, edtSum.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.ADD_TRIAD, edtThirdClaw.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.HEAD, edtHead.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.TAIL, edtTail.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.ADD, edtAddingNumber.getText().toString().trim(), 2));
+                inputs.add(new Input(InputType.REMOVE, edtRemovingNumber.getText().toString().trim(), 2));
+                inputs.add(new Input(InputType.COMBINE, edtCombineNumber.getText().toString().trim(), 2));
                 viewModel.createNumberArray(inputs);
             }
         });

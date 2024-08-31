@@ -7,7 +7,7 @@ import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.CycleBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
-import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;

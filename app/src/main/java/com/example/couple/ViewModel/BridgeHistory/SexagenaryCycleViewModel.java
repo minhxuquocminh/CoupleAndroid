@@ -2,11 +2,11 @@ package com.example.couple.ViewModel.BridgeHistory;
 
 import android.content.Context;
 
-import com.example.couple.Custom.Handler.CheckUpdate;
 import com.example.couple.Custom.Handler.DateHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Custom.Handler.Sync.CheckSync;
 import com.example.couple.Model.DateTime.Date.DateData;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleView;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class SexagenaryCycleViewModel {
     }
 
     public void getSexagenaryCycle(int numberOfDays) {
-        if (CheckUpdate.checkUpdateCycle(context)) {
+        if (!CheckSync.isSyncDateData(context)) {
             boolean checkUpdate = DateHandler.updateAllDateData(context);
             if (checkUpdate) view.updateSuccess();
         }

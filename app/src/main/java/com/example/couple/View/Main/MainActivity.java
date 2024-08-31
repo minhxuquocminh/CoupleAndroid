@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
         new ThreadBase<>((param) -> {
             mainViewModel.setUrlAndParamsIfNoData();
             mainViewModel.registerBackgoundRuntime();
-            updateDataService.updateAllDataIfNeeded(false);
+            updateDataService.updateAllData(false, false);
             return null;
         }, "").start();
 

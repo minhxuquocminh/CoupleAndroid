@@ -15,11 +15,11 @@ import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
+import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
 import com.example.couple.Model.DateTime.Time.TimeBase;
-import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
-import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
 import java.util.List;

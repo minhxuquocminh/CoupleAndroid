@@ -3,10 +3,10 @@ package com.example.couple.Model.Origin;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.Display.BCouple;
-import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
+import com.example.couple.Model.Display.BCouple;
+import com.example.couple.Model.Display.Set;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,8 +136,9 @@ public class Couple extends Jackpot {
         return first == second;
     }
 
-    public boolean isDoubleAndShadow() {
-        return first == second || first == SingleBase.getShadow(second);
+    public boolean isDoubleOrShadow() {
+        return first == second || first == SingleBase.getShadow(second)
+                || first == SingleBase.getNegativeShadow(second);
     }
 
     public boolean isDouble() {

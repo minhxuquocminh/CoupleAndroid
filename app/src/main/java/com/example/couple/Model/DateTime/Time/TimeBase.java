@@ -43,6 +43,22 @@ public class TimeBase {
         return new TimeBase(hour, minute, second);
     }
 
+    public boolean isAfter(TimeBase timeBase) {
+        if (this.hour < timeBase.getHour()) return false;
+        if (this.hour > timeBase.getHour()) return true;
+        if (this.minute < timeBase.getMinute()) return false;
+        if (this.minute > timeBase.getMinute()) return true;
+        return this.second > timeBase.getSecond();
+    }
+
+    public boolean isBefore(TimeBase timeBase) {
+        if (this.hour > timeBase.getHour()) return false;
+        if (this.hour < timeBase.getHour()) return true;
+        if (this.minute > timeBase.getMinute()) return false;
+        if (this.minute < timeBase.getMinute()) return true;
+        return this.second < timeBase.getSecond();
+    }
+
     public static TimeBase getEmpty() {
         return new TimeBase(Const.EMPTY_VALUE, Const.EMPTY_VALUE, Const.EMPTY_VALUE);
     }

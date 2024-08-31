@@ -70,7 +70,7 @@
                 android:lineSpacingExtra="4dp"
                 android:text="Đang cập nhật thời gian..."
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_big"
+                android:textSize="@dimen/text_size_header"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -93,13 +93,14 @@
                         android:layout_height="wrap_content"
                         android:text="Update All"
                         android:textColor="@color/colorThemeBold"
-                        android:textSize="@dimen/text_size_big"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_auto_renew_red" />
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_autorenew_red" />
 
                 </LinearLayout>
 
@@ -116,14 +117,15 @@
                         android:layout_height="wrap_content"
                         android:text="XSMB"
                         android:textColor="@color/colorThemeBold"
-                        android:textSize="@dimen/text_size_big"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/imgRefresh"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_auto_renew_red" />
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_autorenew_red" />
 
                 </LinearLayout>
 
@@ -146,7 +148,8 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_auto_renew_red" />
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_autorenew_red" />
 
                 </LinearLayout>
 
@@ -162,11 +165,11 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/margin_5dp"
                 android:paddingTop="3dp"
-                android:paddingRight="@dimen/margin_5dp"
+                android:paddingRight="20dp"
                 android:paddingBottom="@dimen/margin_5dp"
                 android:text="Xổ số Đặc Biệt hôm nay về: "
                 android:textColor="@color/colorThemeBold"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_title" />
 
             <TextView
                 android:id="@+id/tvJackpotLastDay"
@@ -176,10 +179,13 @@
                 android:layout_marginRight="22dp"
                 android:background="@color/colorThemeLight"
                 android:gravity="center"
-                android:padding="@dimen/padding_5dp"
+                android:paddingLeft="@dimen/margin_5dp"
+                android:paddingTop="@dimen/padding_5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="@dimen/margin_5dp"
                 android:text="Xổ số Đ.Biệt ngày trước đó: "
                 android:textColor="@color/colorThemeBold"
-                android:textSize="@dimen/text_size_big" />
+                android:textSize="@dimen/text_size_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -195,7 +201,7 @@
                     android:layout_marginRight="@dimen/margin_5dp"
                     android:text="Cập nhật dữ liệu"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
+                    android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -229,6 +235,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Công cụ hệ thống"
                 android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold" />
 
             <HorizontalScrollView
@@ -400,7 +407,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Các số bạn đã dự đoán hôm nay"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -425,7 +432,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Các cầu chạm cho hôm nay"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -464,7 +471,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Những ghi chú mà bạn đã lưu"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold" />
 
             <TextView
@@ -489,7 +496,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Đề 2 càng trong vòng 7 ngày gần nhất"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size"
+                android:textSize="@dimen/text_size_title"
                 android:textStyle="bold" />
 
             <TextView

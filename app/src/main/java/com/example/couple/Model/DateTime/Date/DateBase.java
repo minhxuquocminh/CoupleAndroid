@@ -51,13 +51,20 @@ public class DateBase implements Serializable {
         return this.year == TimeInfo.CURRENT_YEAR - 1;
     }
 
-    public boolean isFutureDay() {
-        DateBase today = DateBase.TO_DAY();
-        if (this.year < today.getYear()) return false;
-        if (this.year > today.getYear()) return true;
-        if (this.month < today.getMonth()) return false;
-        if (this.month > today.getMonth()) return true;
-        return this.day > today.getDay();
+    public boolean isAfter(DateBase dateBase) {
+        if (this.year < dateBase.getYear()) return false;
+        if (this.year > dateBase.getYear()) return true;
+        if (this.month < dateBase.getMonth()) return false;
+        if (this.month > dateBase.getMonth()) return true;
+        return this.day > dateBase.getDay();
+    }
+
+    public boolean isBefore(DateBase dateBase) {
+        if (this.year > dateBase.getYear()) return false;
+        if (this.year < dateBase.getYear()) return true;
+        if (this.month > dateBase.getMonth()) return false;
+        if (this.month < dateBase.getMonth()) return true;
+        return this.day < dateBase.getDay();
     }
 
     public DateBase addDays(int numberOfDays) {

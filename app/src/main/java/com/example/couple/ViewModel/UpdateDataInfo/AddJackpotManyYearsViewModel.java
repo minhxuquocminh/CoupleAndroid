@@ -6,16 +6,12 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.Api;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class AddJackpotManyYearsViewModel {
     AddJackpotManyYearsView view;
@@ -73,18 +69,10 @@ public class AddJackpotManyYearsViewModel {
             return;
         }
 
-        List<Integer> updatedYears = this.updateJackpotDataInManyYears(yearsToUpdate);
+        List<Integer> updatedYears = JackpotHandler.updateJackpotDataInManyYears(context, yearsToUpdate);
         if (updatedYears.isEmpty()) {
             view.showMessage("Cập nhật dữ liệu thất bại.");
             return;
-        }
-
-        int currentYear = TimeInfo.CURRENT_YEAR;
-        if (updatedYears.contains(currentYear)
-                || (DateBase.getYearStartDate(currentYear).isToday()
-                && updatedYears.contains(currentYear - 1))) {
-            List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 1);
-            JackpotHandler.saveLastDate(context, jackpotList);
         }
 
         lastUpdatedYears.addAll(updatedYears);
@@ -109,19 +97,5 @@ public class AddJackpotManyYearsViewModel {
         view.updateJackpotDataInManyYearsError(errorYears);
     }
 
-    private List<Integer> updateJackpotDataInManyYears(List<Integer> years) {
-        List<Integer> updatedYears = new ArrayList<>();
-        for (int year : years) {
-            try {
-                String data = Api.getJackpotDataFromInternet(context, year);
-                if (!data.isEmpty()) {
-                    IOFileBase.saveDataToFile(context, "jackpot" + year + ".txt", data, 0);
-                    updatedYears.add(year);
-                }
-            } catch (ExecutionException | InterruptedException e) {
-                view.showMessage("Lỗi mạng!");
-            }
-        }
-        return updatedYears;
-    }
+
 }

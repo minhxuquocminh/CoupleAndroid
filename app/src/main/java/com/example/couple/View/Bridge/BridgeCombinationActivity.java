@@ -17,7 +17,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
-import com.example.couple.Model.Couple.CoupleType;
+import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -150,13 +150,13 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 bridgeTypeFlag.put(BridgeType.POSITIVE_DOUBLE, cboPositiveDoubleSet.isChecked());
                 // other set
                 List<Input> inputs = new ArrayList<>();
-                inputs.add(new Input(CoupleType.SET, edtSet.getText().toString().trim(), 2));
-                inputs.add(new Input(CoupleType.TOUCH, edtTouch.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.SUM, edtSum.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.BRANCH, edtBranch.getText().toString().trim(), 2));
-                inputs.add(new Input(CoupleType.HEAD, edtHead.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.TAIL, edtTail.getText().toString().trim(), 1));
-                inputs.add(new Input(CoupleType.COMBINE, edtCombine.getText().toString().trim(), 2));
+                inputs.add(new Input(InputType.SET, edtSet.getText().toString().trim(), 2));
+                inputs.add(new Input(InputType.TOUCH, edtTouch.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.SUM, edtSum.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.BRANCH, edtBranch.getText().toString().trim(), 2));
+                inputs.add(new Input(InputType.HEAD, edtHead.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.TAIL, edtTail.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.COMBINE, edtCombine.getText().toString().trim(), 2));
                 if (!numberOfDayStr.isEmpty()) {
                     int numberOfDay = Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED)) &&
                             Integer.parseInt(numberOfDayStr) >

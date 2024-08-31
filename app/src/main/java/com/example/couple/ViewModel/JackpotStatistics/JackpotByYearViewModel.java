@@ -35,7 +35,7 @@ public class JackpotByYearViewModel {
     }
 
     public void getTableOfJackpot(int year) {
-        String[][] matrix = JackpotHandler.getJackpotMaxtrixByYear(context, year);
+        String[][] matrix = JackpotHandler.getJackpotMatrixToShow(context, year);
         if (matrix == null) {
             jackpotByYearView.showMessage("Lỗi không lấy được thông tin bảng XS Đặc biệt năm " + year + ".");
         } else {

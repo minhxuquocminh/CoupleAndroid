@@ -20,7 +20,7 @@ import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
-import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.View.Bridge.SelectiveBridgeView;

@@ -14,7 +14,7 @@ import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.UI.RowUI;
 import com.example.couple.Model.UI.TableUI;

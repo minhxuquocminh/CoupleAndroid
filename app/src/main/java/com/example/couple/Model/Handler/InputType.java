@@ -1,9 +1,9 @@
-package com.example.couple.Model.Couple;
+package com.example.couple.Model.Handler;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum CoupleType {
+public enum InputType {
     SET(1001, "Bộ"),
     TOUCH(1002, "Chạm"),
     SUM(1003, "Tổng"),

@@ -1,6 +1,6 @@
 package com.example.couple.View.BridgeHistory;
 
-import com.example.couple.Model.Display.NumberSetHistory;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.List;

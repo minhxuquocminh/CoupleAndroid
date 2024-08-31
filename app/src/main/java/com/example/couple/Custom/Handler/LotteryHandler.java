@@ -5,9 +5,9 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Support.Position;
-import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,8 @@ public class LotteryHandler {
                 return false;
             }
             IOFileBase.saveDataToFile(context, FileName.LOTTERY, lotteryData, 0);
+            List<Lottery> lotteries = getLotteryListFromFile(context, 1);
+            saveLastDate(context, lotteries);
             return true;
         } catch (ExecutionException | InterruptedException e) {
             return false;
@@ -69,7 +71,7 @@ public class LotteryHandler {
                 " VT" + (position.getSecondLevel() + 1);
     }
 
-    public static void saveLastDate(Context context, List<Lottery> lotteries) {
+    private static void saveLastDate(Context context, List<Lottery> lotteries) {
         if (lotteries.isEmpty()) return;
         String lastDate = lotteries.get(0).getDateBase().toString("-");
         IOFileBase.saveDataToFile(context, FileName.LOTTERY_LAST_DATE, lastDate, Context.MODE_PRIVATE);

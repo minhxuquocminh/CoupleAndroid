@@ -7,7 +7,6 @@ import android.content.Intent;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.NotifyId;
-import com.example.couple.Custom.Handler.Notification.UpdateDataAlarm;
 
 public class ManualUpdateDataAlarm extends BroadcastReceiver {
     @Override

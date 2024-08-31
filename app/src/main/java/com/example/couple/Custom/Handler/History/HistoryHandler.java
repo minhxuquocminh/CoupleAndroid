@@ -4,44 +4,57 @@ import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
-import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
-import com.example.couple.Model.Display.NumberSetHistory;
 import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Set.SpecialSet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HistoryHandler {
 
     public static List<NumberSetHistory> getCompactNumberSetsHistory(List<Jackpot> jackpotList) {
         List<NumberSetHistory> tenNumbersList = new ArrayList<>();
+        List<NumberSetHistory> tenNumbersList2 = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            NumberSetHistory head = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            // for đề đầu
+            NumberSetHistory head1 = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.HEAD + " " + CoupleBase.showCouple(i) + " (***) ", NumberArrayHandler.getHeads(i));
+            tenNumbersList2.add(head1);
+            NumberSetHistory tail1 = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.TAIL + " " + CoupleBase.showCouple(i) + " (***) ", NumberArrayHandler.getTails(i));
+            tenNumbersList2.add(tail1);
+            NumberSetHistory sum1 = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.SUM + " " + CoupleBase.showCouple(i) + " (***) ", NumberArrayHandler.getSums(i));
+            tenNumbersList2.add(sum1);
+            // for đề đuôi
+            NumberSetHistory head = getNumberSetHistory(jackpotList,
                     Const.HEAD + " " + CoupleBase.showCouple(i), NumberArrayHandler.getHeads(i));
             tenNumbersList.add(head);
-            NumberSetHistory tail = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory tail = getNumberSetHistory(jackpotList,
                     Const.TAIL + " " + CoupleBase.showCouple(i), NumberArrayHandler.getTails(i));
             tenNumbersList.add(tail);
-            NumberSetHistory sum = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory sum = getNumberSetHistory(jackpotList,
                     Const.SUM + " " + CoupleBase.showCouple(i), NumberArrayHandler.getSums(i));
             tenNumbersList.add(sum);
         }
+        tenNumbersList2.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
 
-        NumberSetHistory doubleHistory = OtherBridgeHandler
-                .getNumberSetHistory(jackpotList, SpecialSet.DOUBLE.name, SpecialSet.DOUBLE.values);
+        NumberSetHistory doubleHistory = getNumberSetHistory(jackpotList,
+                SpecialSet.DOUBLE.name, SpecialSet.DOUBLE.values);
         tenNumbersList.add(doubleHistory);
-        NumberSetHistory deviatedHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory deviatedHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.POSITIVE_DOUBLE.name, SpecialSet.POSITIVE_DOUBLE.values);
         tenNumbersList.add(deviatedHistory);
-        NumberSetHistory nearIncreaseHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory nearIncreaseHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.NEAR_DOUBLE_INCREASE.name, SpecialSet.NEAR_DOUBLE_INCREASE.values);
         tenNumbersList.add(nearIncreaseHistory);
-        NumberSetHistory nearDecreaseHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory nearDecreaseHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.NEAR_DOUBLE_DECREASE.name, SpecialSet.NEAR_DOUBLE_DECREASE.values);
         tenNumbersList.add(nearDecreaseHistory);
         tenNumbersList.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
@@ -52,14 +65,14 @@ public class HistoryHandler {
         eightNumbersList.add(cycleSet);
 
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
-            NumberSetHistory branch = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory branch = getNumberSetHistory(jackpotList,
                     TimeInfo.EARTHLY_BRANCHES.get(i) + " " + CoupleBase.showCouple(i),
                     (new Branch(i)).getTailsOfYear());
             eightNumbersList.add(branch);
         }
 
         for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
-            NumberSetHistory set = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory set = getNumberSetHistory(jackpotList,
                     Const.SET + " " + CoupleBase.showCouple(i),
                     Set.getFrom(i).getSetsDetail());
             eightNumbersList.add(set);
@@ -68,6 +81,12 @@ public class HistoryHandler {
         eightNumbersList.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
 
         List<NumberSetHistory> histories = new ArrayList<>();
+        for (NumberSetHistory history : tenNumbersList2) {
+            if (history.getDayNumberBefore() > 79) {
+                histories.add(history);
+            }
+        }
+
         for (NumberSetHistory history : tenNumbersList) {
             if (history.getDayNumberBefore() > 30) {
                 histories.add(history);
@@ -76,6 +95,90 @@ public class HistoryHandler {
 
         for (NumberSetHistory history : eightNumbersList) {
             if (history.getDayNumberBefore() > 40) {
+                histories.add(history);
+            }
+        }
+
+        return histories;
+    }
+
+    public static List<NumberSetHistory> getNumberSetsHistoryType2(List<Jackpot> jackpotList) {
+        List<NumberSetHistory> tenNumbersList = new ArrayList<>();
+        List<NumberSetHistory> tenNumbersList2 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            // for đề đầu
+            NumberSetHistory head1 = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.HEAD + " " + CoupleBase.showCouple(i) + " (***) ", NumberArrayHandler.getHeads(i));
+            tenNumbersList2.add(head1);
+            NumberSetHistory tail1 = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.TAIL + " " + CoupleBase.showCouple(i) + " (***) ", NumberArrayHandler.getTails(i));
+            tenNumbersList2.add(tail1);
+            NumberSetHistory sum1 = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.SUM + " " + CoupleBase.showCouple(i) + " (***) ", NumberArrayHandler.getSums(i));
+            tenNumbersList2.add(sum1);
+            // for đề đuôi
+            NumberSetHistory head = getNumberSetHistory(jackpotList,
+                    Const.HEAD + " " + CoupleBase.showCouple(i), NumberArrayHandler.getHeads(i));
+            tenNumbersList.add(head);
+            NumberSetHistory tail = getNumberSetHistory(jackpotList,
+                    Const.TAIL + " " + CoupleBase.showCouple(i), NumberArrayHandler.getTails(i));
+            tenNumbersList.add(tail);
+            NumberSetHistory sum = getNumberSetHistory(jackpotList,
+                    Const.SUM + " " + CoupleBase.showCouple(i), NumberArrayHandler.getSums(i));
+            tenNumbersList.add(sum);
+        }
+        tenNumbersList2.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+
+        NumberSetHistory doubleHistory = getNumberSetHistory(jackpotList,
+                SpecialSet.DOUBLE.name, SpecialSet.DOUBLE.values);
+        tenNumbersList.add(doubleHistory);
+        NumberSetHistory deviatedHistory = getNumberSetHistory(jackpotList,
+                SpecialSet.POSITIVE_DOUBLE.name, SpecialSet.POSITIVE_DOUBLE.values);
+        tenNumbersList.add(deviatedHistory);
+        NumberSetHistory nearIncreaseHistory = getNumberSetHistory(jackpotList,
+                SpecialSet.NEAR_DOUBLE_INCREASE.name, SpecialSet.NEAR_DOUBLE_INCREASE.values);
+        tenNumbersList.add(nearIncreaseHistory);
+        NumberSetHistory nearDecreaseHistory = getNumberSetHistory(jackpotList,
+                SpecialSet.NEAR_DOUBLE_DECREASE.name, SpecialSet.NEAR_DOUBLE_DECREASE.values);
+        tenNumbersList.add(nearDecreaseHistory);
+        tenNumbersList.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+
+        List<NumberSetHistory> eightNumbersList = new ArrayList<>();
+        NumberSetHistory cycleSet = CycleBridgeHandler
+                .getCycleInDayHistory(jackpotList, "Bộ can chi");
+        eightNumbersList.add(cycleSet);
+
+        for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
+            NumberSetHistory branch = getNumberSetHistory(jackpotList,
+                    TimeInfo.EARTHLY_BRANCHES.get(i) + " " + CoupleBase.showCouple(i),
+                    (new Branch(i)).getTailsOfYear());
+            eightNumbersList.add(branch);
+        }
+
+        for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
+            NumberSetHistory set = getNumberSetHistory(jackpotList,
+                    Const.SET + " " + CoupleBase.showCouple(i),
+                    Set.getFrom(i).getSetsDetail());
+            eightNumbersList.add(set);
+        }
+
+        eightNumbersList.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+
+        List<NumberSetHistory> histories = new ArrayList<>();
+        for (NumberSetHistory history : tenNumbersList2) {
+            if (history.getDayNumberBefore() > 79) {
+                histories.add(history);
+            }
+        }
+
+        for (NumberSetHistory history : tenNumbersList) {
+            if (history.getDayNumberBefore() > 50) {
+                histories.add(history);
+            }
+        }
+
+        for (NumberSetHistory history : eightNumbersList) {
+            if (history.getDayNumberBefore() > 50) {
                 histories.add(history);
             }
         }
@@ -96,7 +199,7 @@ public class HistoryHandler {
 
         List<NumberSetHistory> branches1 = new ArrayList<>();
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
-            NumberSetHistory branch = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory branch = getNumberSetHistory(jackpotList,
                     TimeInfo.EARTHLY_BRANCHES.get(i) + " " + CoupleBase.showCouple(i),
                     (new Branch(i)).getTailsOfYear());
             branches1.add(branch);
@@ -143,10 +246,10 @@ public class HistoryHandler {
         // others
         List<NumberSetHistory> headtails = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            NumberSetHistory head = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory head = getNumberSetHistory(jackpotList,
                     Const.HEAD + " " + i, NumberArrayHandler.getHeads(i));
             headtails.add(head);
-            NumberSetHistory tail = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory tail = getNumberSetHistory(jackpotList,
                     Const.TAIL + " " + i, NumberArrayHandler.getTails(i));
             headtails.add(tail);
         }
@@ -155,7 +258,7 @@ public class HistoryHandler {
 
         List<NumberSetHistory> sums = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            NumberSetHistory sum = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory sum = getNumberSetHistory(jackpotList,
                     Const.SUM + " " + i, NumberArrayHandler.getSums(i));
             sums.add(sum);
         }
@@ -164,7 +267,7 @@ public class HistoryHandler {
 
         List<NumberSetHistory> sets = new ArrayList<>();
         for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
-            NumberSetHistory set = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory set = getNumberSetHistory(jackpotList,
                     Const.SET + " " + CoupleBase.showCouple(i), Set.getFrom(i).getSetsDetail());
             sets.add(set);
         }
@@ -172,16 +275,16 @@ public class HistoryHandler {
         historyList.addAll(sets);
 
         List<NumberSetHistory> others = new ArrayList<>();
-        NumberSetHistory doubleHistory = OtherBridgeHandler
-                .getNumberSetHistory(jackpotList, SpecialSet.DOUBLE.name, SpecialSet.DOUBLE.values);
+        NumberSetHistory doubleHistory = getNumberSetHistory(jackpotList,
+                SpecialSet.DOUBLE.name, SpecialSet.DOUBLE.values);
         others.add(doubleHistory);
-        NumberSetHistory deviatedHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory deviatedHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.POSITIVE_DOUBLE.name, SpecialSet.POSITIVE_DOUBLE.values);
         others.add(deviatedHistory);
-        NumberSetHistory nearIncreaseHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory nearIncreaseHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.NEAR_DOUBLE_INCREASE.name, SpecialSet.NEAR_DOUBLE_INCREASE.values);
         others.add(nearIncreaseHistory);
-        NumberSetHistory nearDecreaseHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory nearDecreaseHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.NEAR_DOUBLE_DECREASE.name, SpecialSet.NEAR_DOUBLE_DECREASE.values);
         others.add(nearDecreaseHistory);
         others.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
@@ -194,7 +297,7 @@ public class HistoryHandler {
         List<NumberSetHistory> historyList = new ArrayList<>();
         // for cycle
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {
-            NumberSetHistory branch = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory branch = getNumberSetHistory(jackpotList,
                     TimeInfo.EARTHLY_BRANCHES.get(i) + " " + CoupleBase.showCouple(i),
                     (new Branch(i)).getTailsOfYear());
             historyList.add(branch);
@@ -204,10 +307,10 @@ public class HistoryHandler {
         // others
         List<NumberSetHistory> headtails = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            NumberSetHistory head = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory head = getNumberSetHistory(jackpotList,
                     Const.HEAD + " " + i, NumberArrayHandler.getHeads(i));
             headtails.add(head);
-            NumberSetHistory tail = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory tail = getNumberSetHistory(jackpotList,
                     Const.TAIL + " " + i, NumberArrayHandler.getTails(i));
             headtails.add(tail);
         }
@@ -216,16 +319,37 @@ public class HistoryHandler {
 
         List<NumberSetHistory> sums = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            NumberSetHistory sum = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory sum = getNumberSetHistory(jackpotList,
                     Const.SUM + " " + i, NumberArrayHandler.getSums(i));
             sums.add(sum);
         }
         sums.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         historyList.addAll(sums);
 
+        List<NumberSetHistory> headtails1 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            NumberSetHistory head = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.HEAD + " " + i + " (***) ", NumberArrayHandler.getHeads(i));
+            headtails1.add(head);
+            NumberSetHistory tail = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.TAIL + " " + i + " (***) ", NumberArrayHandler.getTails(i));
+            headtails1.add(tail);
+        }
+        headtails1.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+        historyList.addAll(headtails1);
+
+        List<NumberSetHistory> sums1 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            NumberSetHistory sum = getNumberSetHistoryWithHeadCouple(jackpotList,
+                    Const.SUM + " " + i + " (***) ", NumberArrayHandler.getSums(i));
+            sums1.add(sum);
+        }
+        sums1.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+        historyList.addAll(sums1);
+
         List<NumberSetHistory> sets = new ArrayList<>();
         for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
-            NumberSetHistory set = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+            NumberSetHistory set = getNumberSetHistory(jackpotList,
                     Const.SET + " " + CoupleBase.showCouple(i), Set.getFrom(i).getSetsDetail());
             sets.add(set);
         }
@@ -233,22 +357,54 @@ public class HistoryHandler {
         historyList.addAll(sets);
 
         List<NumberSetHistory> others = new ArrayList<>();
-        NumberSetHistory doubleHistory = OtherBridgeHandler
-                .getNumberSetHistory(jackpotList, SpecialSet.DOUBLE.name, SpecialSet.DOUBLE.values);
+        NumberSetHistory doubleHistory = getNumberSetHistory(jackpotList,
+                SpecialSet.DOUBLE.name, SpecialSet.DOUBLE.values);
         others.add(doubleHistory);
-        NumberSetHistory deviatedHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory deviatedHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.POSITIVE_DOUBLE.name, SpecialSet.POSITIVE_DOUBLE.values);
         others.add(deviatedHistory);
-        NumberSetHistory nearIncreaseHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory nearIncreaseHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.NEAR_DOUBLE_INCREASE.name, SpecialSet.NEAR_DOUBLE_INCREASE.values);
         others.add(nearIncreaseHistory);
-        NumberSetHistory nearDecreaseHistory = OtherBridgeHandler.getNumberSetHistory(jackpotList,
+        NumberSetHistory nearDecreaseHistory = getNumberSetHistory(jackpotList,
                 SpecialSet.NEAR_DOUBLE_DECREASE.name, SpecialSet.NEAR_DOUBLE_DECREASE.values);
         others.add(nearDecreaseHistory);
         others.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
         historyList.addAll(others);
 
         return historyList;
+    }
+
+    public static NumberSetHistory getNumberSetHistory(List<Jackpot> jackpotList,
+                                                       String numberSetName, List<Integer> numbers) {
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
+        List<Integer> beatList = new ArrayList<>();
+        int count = 0;
+        for (Jackpot jackpot : jackpotList) {
+            count++;
+            if (numbers.contains(jackpot.getCoupleInt())) {
+                beatList.add(count);
+                count = 0;
+            }
+        }
+        Collections.reverse(beatList);
+        return new NumberSetHistory(numberSetName, numbers, beatList);
+    }
+
+    public static NumberSetHistory getNumberSetHistoryWithHeadCouple(List<Jackpot> jackpotList,
+                                                                     String numberSetName, List<Integer> numbers) {
+        if (jackpotList.isEmpty()) return NumberSetHistory.getEmpty();
+        List<Integer> beatList = new ArrayList<>();
+        int count = 0;
+        for (Jackpot jackpot : jackpotList) {
+            count++;
+            if (numbers.contains(jackpot.getCoupleIntAtBegin())) {
+                beatList.add(count);
+                count = 0;
+            }
+        }
+        Collections.reverse(beatList);
+        return new NumberSetHistory(numberSetName, numbers, beatList);
     }
 
 }

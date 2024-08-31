@@ -1,9 +1,9 @@
 package com.example.couple.Model.Origin;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Display.Set;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
+import com.example.couple.Model.Display.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -72,5 +72,16 @@ public class Jackpot {
 
     public int getCoupleInt() {
         return this.getCouple().getInt();
+    }
+
+    public Couple getCoupleAtBegin() {
+        if (jackpot == null || jackpot.equals(Const.EMPTY_JACKPOT)) return Couple.getEmpty();
+        int first = Integer.parseInt(jackpot.charAt(0) + "");
+        int second = Integer.parseInt(jackpot.charAt(1) + "");
+        return new Couple(first, second);
+    }
+
+    public int getCoupleIntAtBegin() {
+        return this.getCoupleAtBegin().getInt();
     }
 }
