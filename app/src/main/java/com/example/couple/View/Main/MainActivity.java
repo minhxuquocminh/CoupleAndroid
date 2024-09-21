@@ -73,11 +73,10 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
         mainViewModel = new MainViewModel(this, this);
         updateDataService = new UpdateDataService(this, this);
         updateDataService.getTimeData(true);
-        updateDataService.getJackpotData(true);
+        updateDataService.getJackpotData(true, true);
         new ThreadBase<>((param) -> {
             mainViewModel.setUrlAndParamsIfNoData();
             mainViewModel.registerBackgoundRuntime();
-            updateDataService.updateAllData(false, false);
             return null;
         }, "").start();
 
@@ -119,6 +118,15 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new ThreadBase<>((param) -> {
+            updateDataService.updateAllData(false, false);
+            return null;
+        }, "").start();
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.example.couple.Model.Bridge.Single;
 
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class ShadowTouchBridge extends Bridge {
+public class ShadowTouchBridge extends TouchBridge {
     String bridgeName;
     List<Integer> touchs;
     JackpotHistory jackpotHistory;

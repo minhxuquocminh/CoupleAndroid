@@ -9,12 +9,9 @@ public class YearCycle {
     int year;
     Cycle cycle;
 
-    public static YearCycle getEmpty() {
-        return new YearCycle(Const.EMPTY_VALUE);
-    }
-
-    public boolean isEmpty() {
-        return year == Const.EMPTY_VALUE;
+    public YearCycle() {
+        this.year = Const.EMPTY_VALUE;
+        this.cycle = Cycle.getEmpty();
     }
 
     public YearCycle(int year) {
@@ -24,11 +21,21 @@ public class YearCycle {
         this.cycle = Cycle.getByStemAndBranch(stem, branch);
     }
 
+    public static YearCycle getEmpty() {
+        return new YearCycle();
+    }
+
+    public boolean isEmpty() {
+        return year == Const.EMPTY_VALUE;
+    }
+
     public int getCoupleInt() {
+        if (this.isEmpty()) return Const.EMPTY_VALUE;
         return year % 100;
     }
 
     public String showByCouple() {
+        if (this.isEmpty()) return Const.EMPTY;
         return cycle.getName() + " (" + getCoupleInt() + ")";
     }
 }

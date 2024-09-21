@@ -3,7 +3,6 @@ package com.example.couple.Model.Bridge.Single;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Support.ConnectedSupport;
 import com.example.couple.Model.Support.JackpotHistory;
@@ -14,7 +13,7 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class ConnectedBridge extends Bridge {
+public class ConnectedBridge extends TouchBridge {
     List<ConnectedSupport> connectedSupports;
     JackpotHistory jackpotHistory;
     List<Integer> touchs;

@@ -16,10 +16,8 @@ import java.util.concurrent.TimeUnit;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @EqualsAndHashCode
 public class DateBase implements Serializable {
@@ -27,8 +25,14 @@ public class DateBase implements Serializable {
     int month;
     int year;
 
+    private DateBase() {
+        this.day = Const.EMPTY_VALUE;
+        this.month = Const.EMPTY_VALUE;
+        this.year = Const.EMPTY_VALUE;
+    }
+
     public static DateBase getEmpty() {
-        return new DateBase(Const.EMPTY_VALUE, Const.EMPTY_VALUE, Const.EMPTY_VALUE);
+        return new DateBase();
     }
 
     public boolean isEmpty() {
@@ -39,15 +43,13 @@ public class DateBase implements Serializable {
         return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
     }
 
-    public static DateBase getYearLastDate(int year) {
-        return new DateBase(TimeInfo.DAY_OF_MONTH, TimeInfo.MONTH_OF_YEAR, year);
+    public static DateBase fromString(String data, String splitRegex) {
+        String[] sub = data.split(splitRegex);
+        if (sub.length < 3) return DateBase.getEmpty();
+        return new DateBase(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]), Integer.parseInt(sub[2]));
     }
 
-    public static DateBase getYearStartDate(int year) {
-        return new DateBase(1, 1, year);
-    }
-
-    public boolean isDateLastYear() {
+    public boolean isLastYear() {
         return this.year == TimeInfo.CURRENT_YEAR - 1;
     }
 
@@ -68,6 +70,7 @@ public class DateBase implements Serializable {
     }
 
     public DateBase addDays(int numberOfDays) {
+        if (this.isEmpty()) return DateBase.getEmpty();
         Date date = toDate();
         if (date == null) return null;
         Calendar calendar = Calendar.getInstance();
@@ -80,6 +83,7 @@ public class DateBase implements Serializable {
     }
 
     public long countUp() {
+        if (this.isEmpty()) return Const.EMPTY_VALUE;
         Date today = Calendar.getInstance().getTime();
         Date thatday = this.toDate();
         long diff = today.getTime() - thatday.getTime();
@@ -96,6 +100,7 @@ public class DateBase implements Serializable {
     }
 
     public DateBase getLastMonth() {
+        if (this.isEmpty()) return DateBase.getEmpty();
         DateBase newDate = DateBase.getEmpty();
         if (month == 1) {
             newDate = new DateBase(day, 12, year - 1);
@@ -116,6 +121,7 @@ public class DateBase implements Serializable {
     }
 
     public DateBase getUpLastMonth() {
+        if (this.isEmpty()) return DateBase.getEmpty();
         DateBase newDate = DateBase.getEmpty();
         if (month == 1) {
             newDate = new DateBase(day - 1, 12, year - 1);
@@ -138,6 +144,7 @@ public class DateBase implements Serializable {
     }
 
     public DateBase getDownLastMonth() {
+        if (this.isEmpty()) return DateBase.getEmpty();
         DateBase newDate = DateBase.getEmpty();
         if (month == 1) {
             newDate = new DateBase(day + 1, 12, year - 1);
@@ -152,6 +159,7 @@ public class DateBase implements Serializable {
     }
 
     public DateBase getLastWeek() {
+        if (this.isEmpty()) return DateBase.getEmpty();
         return this.addDays(-7);
     }
 
@@ -207,35 +215,28 @@ public class DateBase implements Serializable {
             sdf.setLenient(false); // chi lay ngay dung
             return sdf.parse(day + "-" + month + "-" + year);
         } catch (ParseException e) {
-            return null;
+            return new Date();
         }
     }
 
-    public long distance(DateBase dateBase) {
-        return (long) ((dateBase.toDate().getTime() - this.toDate().getTime()) / (24 * 60 * 60 * 1000));
-    }
-
-    public static DateBase getCurrentDate() {
-        return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
+    public long getDistance(DateBase dateBase) {
+        if (this.isEmpty()) return Const.EMPTY_VALUE;
+        return (dateBase.toDate().getTime() - this.toDate().getTime()) / (24 * 60 * 60 * 1000);
     }
 
     public String toString(String delimiter) {
         return day + delimiter + month + delimiter + year;
     }
 
-    public static DateBase fromString(String data, String splitRegex) {
-        String[] sub = data.split(splitRegex);
-        if (sub.length < 3) return DateBase.getEmpty();
-        return new DateBase(Integer.parseInt(sub[0]), Integer.parseInt(sub[1]), Integer.parseInt(sub[2]));
-    }
-
     public String showFullChars() {
+        if (this.isEmpty()) return Const.EMPTY;
         String dayStr = day < 10 ? "0" + day : "" + day;
         String monthStr = month < 10 ? "0" + month : "" + month;
         return dayStr + "-" + monthStr + "-" + year;
     }
 
     public String showDDMM(String delimiter) {
+        if (this.isEmpty()) return Const.EMPTY;
         return CoupleBase.showCouple(day) + delimiter + CoupleBase.showCouple(month);
     }
 

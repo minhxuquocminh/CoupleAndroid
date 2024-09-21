@@ -1,5 +1,6 @@
 package com.example.couple.Model.Support;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class PeriodHistory {
     public String show() {
         String show = " - Từ " + startDate.showFullChars() + " đến " + endDate.showFullChars() + " có các số: \n";
         for (int num : numbers) {
-            show += "\t\t\t" + num + "\n";
+            show += "\t\t\t" + CoupleBase.showCouple(num) + "\n";
         }
         return show.trim();
     }

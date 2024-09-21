@@ -10,8 +10,14 @@ public class DateData {
     DateLunar dateLunar;
     DateCycle dateCycle;
 
+    public DateData() {
+        this.dateBase = DateBase.getEmpty();
+        this.dateLunar = DateLunar.getEmpty();
+        this.dateCycle = DateCycle.getEmpty();
+    }
+
     public static DateData getEmpty() {
-        return new DateData(DateBase.getEmpty(), DateLunar.getEmpty(), DateCycle.getEmpty());
+        return new DateData();
     }
 
     public boolean isEmpty() {

@@ -47,7 +47,8 @@ public enum BridgeType {
      * others bridge
      */
     ESTIMATED(9001, "Cầu ước lượng"),
-    UNAPPEARED_BIG_DOUBLE(9002, "Kép chưa ra");
+    UNAPPEARED_BIG_DOUBLE(9002, "Kép chưa ra"),
+    SYNTHETIC(9999, "Cầu tổng hợp");
 
     public final int value;
     public final String name;

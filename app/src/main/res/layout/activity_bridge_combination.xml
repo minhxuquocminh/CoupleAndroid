@@ -123,11 +123,11 @@
                 android:layout_height="wrap_content">
 
                 <CheckBox
-                    android:id="@+id/cboShadowTouchBridge"
+                    android:id="@+id/cboSyntheticBridge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="bóng"
+                    android:text="tổng hợp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 

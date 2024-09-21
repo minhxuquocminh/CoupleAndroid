@@ -57,6 +57,8 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
 
     @Override
     public void showJackpotList(List<Jackpot> jackpotList) {
+        edtDayNumber.setText(jackpotList.size() + "");
+        edtDayNumber.setSelection(edtDayNumber.length());
         viewModel.getSpecialSetsHistory(jackpotList);
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,8 +70,8 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
                 } else if (Integer.parseInt(dayNumberStr) > NUMBER_OF_DAYS_START) {
                     showMessage("Nằm ngoài phạm vi.");
                 } else {
-                    viewModel.getSpecialSetsHistory(jackpotList
-                            .subList(0, Integer.parseInt(dayNumberStr) - 1));
+                    int minDays = Math.min(Integer.parseInt(dayNumberStr), jackpotList.size());
+                    viewModel.getSpecialSetsHistory(jackpotList.subList(0, minDays));
                 }
 
             }

@@ -1,13 +1,12 @@
 package com.example.couple.Custom.Handler.Bridge;
 
-import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
-import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Bridge.Single.LottoTouchBridge;
 import com.example.couple.Model.Bridge.Single.ShadowTouchBridge;
+import com.example.couple.Model.Bridge.Single.TouchBridge;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -20,8 +19,7 @@ import java.util.stream.Collectors;
 public class TouchBridgeHandler {
 
     public static ShadowTouchBridge getLastDayShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
-        if (reverseJackpotList.size() < dayNumberBefore)
-            return ShadowTouchBridge.getEmpty();
+        if (reverseJackpotList.size() < dayNumberBefore) return ShadowTouchBridge.getEmpty();
         Couple coupleLastDay = reverseJackpotList.get(dayNumberBefore).getCouple();
         List<Integer> touchs = coupleLastDay.getTouchsAndShadows();
         Jackpot jackpot = dayNumberBefore == 0 ?
@@ -30,13 +28,13 @@ public class TouchBridgeHandler {
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
-    public static ShadowTouchBridge getLastWeekShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
-        if (reverseJackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
+    public static ShadowTouchBridge getLastWeekShadowTouchBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
-        Couple coupleLastDay = reverseJackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
+        Couple coupleLastDay = jackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
         List<Integer> touchs = coupleLastDay.getTouchsAndShadows();
         Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
+                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(BridgeType.LAST_WEEK_SHADOW.name, touchs,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
@@ -68,13 +66,14 @@ public class TouchBridgeHandler {
         if (jackpotList.size() - TimeInfo.DAY_OF_WEEK < dayNumberBefore ||
                 lotteries.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS < dayNumberBefore)
             return CombineTouchBridge.getEmpty();
-        ShadowTouchBridge shadowTouchBridge = getShadowTouchBridge(jackpotList, dayNumberBefore);
-        ConnectedBridge connectedBridge = ConnectedBridgeHandler.getConnectedBridge(lotteries, dayNumberBefore,
-                Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-        LottoTouchBridge lottoTouchBridge = getLottoTouchBridge(lotteries, dayNumberBefore);
+        List<TouchBridge> touchBridges = new ArrayList<>();
+        touchBridges.add(ConnectedBridgeHandler.getConnectedBridge(lotteries, dayNumberBefore,
+                Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY));
+        touchBridges.add(getLastDayShadowTouchBridge(jackpotList, dayNumberBefore));
+        touchBridges.add(getLastWeekShadowTouchBridge(jackpotList, dayNumberBefore));
+        //touchBridges.add(getLottoTouchBridge(lotteries, dayNumberBefore));
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
-        return new CombineTouchBridge(shadowTouchBridge, connectedBridge, lottoTouchBridge,
-                new JackpotHistory(dayNumberBefore, jackpot));
+        return new CombineTouchBridge(touchBridges, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
 }

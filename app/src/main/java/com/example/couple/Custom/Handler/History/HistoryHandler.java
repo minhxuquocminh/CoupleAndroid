@@ -19,6 +19,7 @@ import java.util.List;
 public class HistoryHandler {
 
     public static List<NumberSetHistory> getCompactNumberSetsHistory(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
         List<NumberSetHistory> tenNumbersList = new ArrayList<>();
         List<NumberSetHistory> tenNumbersList2 = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -103,6 +104,7 @@ public class HistoryHandler {
     }
 
     public static List<NumberSetHistory> getNumberSetsHistoryType2(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
         List<NumberSetHistory> tenNumbersList = new ArrayList<>();
         List<NumberSetHistory> tenNumbersList2 = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -187,6 +189,7 @@ public class HistoryHandler {
     }
 
     public static List<NumberSetHistory> getNumberSetsHistory(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
         List<NumberSetHistory> historyList = new ArrayList<>();
         // for cycle
         BranchInDayBridge branchBridge = CycleBridgeHandler
@@ -294,6 +297,7 @@ public class HistoryHandler {
     }
 
     public static List<NumberSetHistory> getFixedNumberSetsHistory(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
         List<NumberSetHistory> historyList = new ArrayList<>();
         // for cycle
         for (int i = 0; i < TimeInfo.EARTHLY_BRANCHES.size(); i++) {

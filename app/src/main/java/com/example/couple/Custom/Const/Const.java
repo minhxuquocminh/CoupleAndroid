@@ -25,6 +25,7 @@ public class Const {
     /**
      * text
      */
+    public static final String EMPTY = "EMPTY";
     public static final String EMPTY_JACKPOT = "-99999";
     public static final String HEAD = "Đầu";
     public static final String TAIL = "Đuôi";

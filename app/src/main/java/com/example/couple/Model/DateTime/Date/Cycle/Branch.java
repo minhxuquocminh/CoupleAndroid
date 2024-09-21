@@ -19,12 +19,23 @@ public class Branch {
     int position;
     String name;
 
+    private Branch() {
+        this.position = Const.EMPTY_VALUE;
+        this.name = "";
+    }
+
     public Branch(int position) {
-        this.position = position == Const.EMPTY_VALUE ? position : position % 12;
-        this.name = position == Const.EMPTY_VALUE ? "" : TimeInfo.EARTHLY_BRANCHES.get(position % 12);
+        if (position == Const.EMPTY_VALUE) {
+            new Branch();
+            return;
+        }
+
+        this.position = position % 12;
+        this.name = TimeInfo.EARTHLY_BRANCHES.get(position % 12);
     }
 
     public static Branch getByName(String branchName) {
+        if (branchName.isEmpty()) return new Branch();
         int position = TimeInfo.EARTHLY_BRANCHES.indexOf(branchName);
         if (position < 0) return Branch.getEmpty();
         return new Branch(position);
@@ -43,6 +54,7 @@ public class Branch {
     }
 
     public String getStatus(int couple, int currentYear) {
+        if (this.isEmpty()) return Const.EMPTY;
         List<YearCycle> compatible = getCompatibleYearCycles(currentYear);
         List<YearCycle> incompatible = getIncompatibleYearCycles(currentYear);
         String status = "";
@@ -60,6 +72,7 @@ public class Branch {
     }
 
     public List<Integer> getTailsOfYear() {
+        if (this.isEmpty()) return new ArrayList<>();
         List<Integer> results = new ArrayList<>();
         for (int i = position; i <= 99; i += 12) {
             YearCycle yearCycle = new YearCycle(i);
@@ -69,6 +82,7 @@ public class Branch {
     }
 
     public List<Integer> getTailsOfYear(int currentYear) {
+        if (this.isEmpty()) return new ArrayList<>();
         List<Integer> results = new ArrayList<>();
         for (int i = position; i <= 100 + (currentYear % 100); i += 12) {
             YearCycle yearCycle = new YearCycle(i);
@@ -78,6 +92,7 @@ public class Branch {
     }
 
     public List<Integer> getReverseTailsOfYear(int currentYear) {
+        if (this.isEmpty()) return new ArrayList<>();
         List<Integer> tails = getTailsOfYear(currentYear);
         List<Integer> results = new ArrayList<>();
         for (int tail : tails) {
@@ -88,6 +103,7 @@ public class Branch {
 
     // chỉ lấy từ năm 1900 -> 1999
     public List<YearCycle> getYearCycles() {
+        if (this.isEmpty()) return new ArrayList<>();
         List<YearCycle> results = new ArrayList<>();
         for (int i = position; i <= 99; i += 12) {
             YearCycle yearCycle = new YearCycle(i);
@@ -97,6 +113,7 @@ public class Branch {
     }
 
     public List<YearCycle> getYearCycles(int currentYear) {
+        if (this.isEmpty()) return new ArrayList<>();
         List<YearCycle> results = new ArrayList<>();
         for (int i = position; i <= 100 + (currentYear % 100); i += 12) {
             YearCycle yearCycle = new YearCycle(i);
@@ -106,6 +123,7 @@ public class Branch {
     }
 
     public List<YearCycle> getCompatibleYearCycles(int currentYear) {
+        if (this.isEmpty()) return new ArrayList<>();
         List<YearCycle> results = new ArrayList<>();
         List<Integer> compatibles = new ArrayList<>();
         compatibles.add(position);
@@ -121,6 +139,7 @@ public class Branch {
     }
 
     public List<YearCycle> getIncompatibleYearCycles(int currentYear) {
+        if (this.isEmpty()) return new ArrayList<>();
         List<YearCycle> results = new ArrayList<>();
         List<Integer> incompatibles = new ArrayList<>();
         incompatibles.add(position);
@@ -152,6 +171,7 @@ public class Branch {
 
 
     public boolean isYearBranch(int yearCouple, int currentYear) {
+        if (this.isEmpty()) return false;
         if (position == yearCouple % 12) return true;
         if (yearCouple <= currentYear % 100) {
             return position == (yearCouple + 4) % 12;
@@ -160,6 +180,7 @@ public class Branch {
     }
 
     public int getDistance(Branch branch) {
+        if (this.isEmpty()) return Const.EMPTY_VALUE;
         int distance = branch.getPosition() - position;
         if (Math.abs(distance) < 6) return distance;
         if (distance < 0) return 12 + distance;
@@ -167,17 +188,19 @@ public class Branch {
     }
 
     public Branch addDays(int numberOfDays) {
+        if (this.isEmpty()) return Branch.getEmpty();
         int new_index = numberOfDays % 12 + position < 0 ?
                 12 + numberOfDays % 12 + position : numberOfDays % 12 + position;
         return new Branch(new_index);
     }
 
     public String show() {
+        if (this.isEmpty()) return Const.EMPTY;
         return name + " (" + position + ")";
     }
 
     public static Branch getEmpty() {
-        return new Branch(Const.EMPTY_VALUE);
+        return new Branch();
     }
 
     public boolean isEmpty() {
@@ -185,6 +208,7 @@ public class Branch {
     }
 
     private List<Integer> getCompatibleNumbers() {
+        if (this.isEmpty()) return new ArrayList<>();
         List<Integer> results = new ArrayList<>();
         for (int i = 4; i < 12; i += 4) {
             results.add((position + i) % 12);
@@ -193,6 +217,7 @@ public class Branch {
     }
 
     private List<Integer> getIncompatibleNumbers() {
+        if (this.isEmpty()) return new ArrayList<>();
         List<Integer> results = new ArrayList<>();
         for (int i = 3; i < 12; i += 3) {
             results.add((position + i) % 12);

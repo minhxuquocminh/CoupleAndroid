@@ -1,12 +1,16 @@
 package com.example.couple.Custom.Handler.Bridge;
 
+import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
+import com.example.couple.Model.Bridge.Couple.MappingBridge;
+import com.example.couple.Model.Bridge.Couple.SyntheticBridge;
 import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
 import com.example.couple.Model.Bridge.Sign.DayDoubleSign;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
+import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Set.SpecialSet;
 import com.example.couple.Model.Support.JackpotHistory;
 
@@ -16,12 +20,26 @@ import java.util.List;
 
 public class OtherBridgeHandler {
 
+    public static SyntheticBridge getSyntheticBridge(List<Jackpot> jackpotList, List<Lottery> lotteries,
+                                                     int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore + 2) return SyntheticBridge.getEmpty();
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        List<Jackpot> lastTwoJackpot = new ArrayList<>();
+        lastTwoJackpot.add(jackpotList.get(dayNumberBefore));
+        lastTwoJackpot.add(jackpotList.get(dayNumberBefore + 1));
+        CombineTouchBridge combineTouchBridge = TouchBridgeHandler.getCombineTouchBridge(jackpotList, lotteries, dayNumberBefore);
+        MappingBridge mappingBridge = MappingBridgeHandler.getMappingBridge(jackpotList, dayNumberBefore);
+        EstimatedBridge estimatedBridge = EstimatedBridgeHandler.getEstimatedBridge(jackpotList, dayNumberBefore);
+        return new SyntheticBridge(lastTwoJackpot, combineTouchBridge, mappingBridge, estimatedBridge,
+                new JackpotHistory(dayNumberBefore, jackpot));
+    }
+
     public static UnappearedBigDoubleBridge getUnappearedBigDoubleBridge(List<Jackpot> jackpotList,
                                                                          int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore) return UnappearedBigDoubleBridge.getEmpty();
         List<Integer> bigDoubleSet = new ArrayList<>(SpecialSet.BIG_DOUBLE.values);
         for (int i = dayNumberBefore; i < jackpotList.size(); i++) {
-            if (jackpotList.get(i).getDateBase().isDateLastYear()) {
+            if (jackpotList.get(i).getDateBase().isLastYear()) {
                 break;
             }
 
@@ -35,7 +53,8 @@ public class OtherBridgeHandler {
     public static SignOfDouble getSignOfDouble(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore) return SignOfDouble.getEmpty();
         DateBase dateBase = dayNumberBefore == 0 ?
-                jackpotList.get(0).getDateBase().addDays(1) : jackpotList.get(dayNumberBefore - 1).getDateBase();
+                jackpotList.get(0).getDateBase().addDays(1) :
+                jackpotList.get(dayNumberBefore - 1).getDateBase();
         List<Integer> upMonthList = new ArrayList<>();
         List<Integer> monthList = new ArrayList<>();
         List<Integer> downMonthList = new ArrayList<>();
@@ -103,6 +122,7 @@ public class OtherBridgeHandler {
 
     // cầu này để tìm càng thứ 3 dựa trên lịch sử càng giống càng chạy gần đây
     public static List<BSingle> getTouchsByThirdClawBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        if (jackpotList.size() < dayNumberBefore) return new ArrayList<>();
         int sizeTest = Math.min(jackpotList.size() - dayNumberBefore, 5);
 
         List<Integer> nearestThirdClaw = new ArrayList<>();

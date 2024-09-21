@@ -21,6 +21,7 @@ import com.example.couple.Model.Bridge.Couple.CycleBridge;
 import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.NumberSetBridge;
+import com.example.couple.Model.Bridge.Couple.SyntheticBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
 import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
 import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
@@ -68,9 +69,9 @@ public class BridgeCombinationViewModel {
             ConnectedBridge connectedBridge = ConnectedBridgeHandler.getConnectedBridge(lotteryList,
                     0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
             bridgeMap.put(BridgeType.CONNECTED, connectedBridge);
-            ShadowTouchBridge shadowTouchBridge = TouchBridgeHandler
-                    .getShadowTouchBridge(jackpotList, 0);
-            bridgeMap.put(BridgeType.SHADOW_TOUCH, shadowTouchBridge);
+            SyntheticBridge syntheticBridge = OtherBridgeHandler
+                    .getSyntheticBridge(jackpotList, lotteryList, 0);
+            bridgeMap.put(BridgeType.SYNTHETIC, syntheticBridge);
             LottoTouchBridge lottoTouchBridge =
                     TouchBridgeHandler.getLottoTouchBridge(lotteryList, 0);
             bridgeMap.put(BridgeType.LOTTO_TOUCH, lottoTouchBridge);
@@ -119,10 +120,10 @@ public class BridgeCombinationViewModel {
                                 Const.CONNECTED_BRIDGE_MAX_DISPLAY);
                 bridgeList.add(connectedBridge);
             }
-            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.SHADOW_TOUCH))) {
-                ShadowTouchBridge shadowTouchBridge = TouchBridgeHandler
-                        .getShadowTouchBridge(jackpotList, i);
-                bridgeList.add(shadowTouchBridge);
+            if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.SYNTHETIC))) {
+                SyntheticBridge syntheticBridge = OtherBridgeHandler
+                        .getSyntheticBridge(jackpotList, lotteryList, i);
+                bridgeList.add(syntheticBridge);
             }
             if (Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.LOTTO_TOUCH))) {
                 LottoTouchBridge lottoTouchBridge = TouchBridgeHandler

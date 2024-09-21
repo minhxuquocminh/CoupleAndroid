@@ -15,17 +15,16 @@ public class Cycle {
     Stem stem;
     Branch branch;
 
-    public static Cycle getEmpty() {
-        return new Cycle(Const.EMPTY_VALUE, "", Stem.getEmpty(), Branch.getEmpty());
-    }
-
-    public boolean isEmpty() {
-        return position == Const.EMPTY_VALUE || name.isEmpty() || stem.isEmpty() || branch.isEmpty();
+    private Cycle() {
+        this.position = Const.EMPTY_VALUE;
+        this.name = "";
+        this.stem = Stem.getEmpty();
+        this.branch = Branch.getEmpty();
     }
 
     public Cycle(int position) {
         if (position == Const.EMPTY_VALUE) {
-            getEmpty();
+            new Cycle();
             return;
         }
 
@@ -35,12 +34,14 @@ public class Cycle {
         this.name = stem.getName() + " " + branch.getName();
     }
 
-    private Cycle(int position, String name, Stem stem, Branch branch) {
-        this.position = position;
-        this.name = name;
-        this.stem = stem;
-        this.branch = branch;
+    public static Cycle getEmpty() {
+        return new Cycle();
     }
+
+    public boolean isEmpty() {
+        return position == Const.EMPTY_VALUE || name.isEmpty() || stem.isEmpty() || branch.isEmpty();
+    }
+
 
     public static Cycle getByName(String cycleName) {
         if (cycleName.isEmpty()) return Cycle.getEmpty();
@@ -67,12 +68,14 @@ public class Cycle {
     }
 
     public Cycle addDays(int numberOfDays) {
+        if (this.isEmpty()) return Cycle.getEmpty();
         int new_index = numberOfDays % 60 + position < 0 ?
                 60 + numberOfDays % 60 + position : numberOfDays % 60 + position;
         return new Cycle(new_index);
     }
 
     public int getCoupleInt() {
+        if (this.isEmpty()) return Const.EMPTY_VALUE;
         return stem.getPosition() * 10 + branch.getPosition() % 10;
     }
 

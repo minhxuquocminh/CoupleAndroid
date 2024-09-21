@@ -3,10 +3,10 @@ package com.example.couple.Custom.Handler.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.Couple.MappingBridge;
 import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
+import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,8 +36,8 @@ public class MappingBridgeHandler {
         int day = dateBase.getDay();
         int month = dateBase.getMonth();
         int year = dateBase.getYear();
-        DateBase upLeft = new DateBase();
-        DateBase upupLeftLeft = new DateBase();
+        DateBase upLeft = DateBase.getEmpty();
+        DateBase upupLeftLeft = DateBase.getEmpty();
         if (day > 2) {
             if (month > 2) {
                 upLeft = new DateBase(day - 1, month - 1, year);
@@ -59,8 +59,8 @@ public class MappingBridgeHandler {
                 month - 2 > 0 ? month - 2 : 12 + month - 2,
                 month - 2 > 0 ? year : year - 1);
 
-        DateBase downLeft = new DateBase();
-        DateBase downdownLeftLeft = new DateBase();
+        DateBase downLeft = DateBase.getEmpty();
+        DateBase downdownLeftLeft = DateBase.getEmpty();
         if (day < 30) {
             if (month > 2) {
                 downLeft = new DateBase(day + 1, month - 1, year);
@@ -118,12 +118,9 @@ public class MappingBridgeHandler {
     }
 
     public static MappingBridge getRightMappingBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
-        if (jackpotList.size() < dayNumberBefore + 2)
-            return MappingBridge.getEmpty();
-        List<Integer> firstList = jackpotList.get(dayNumberBefore + 1)
-                .getCouple().getRightMappingNumbers();
-        List<Integer> secondList = jackpotList.get(dayNumberBefore)
-                .getCouple().getRightMappingNumbers();
+        if (jackpotList.size() < dayNumberBefore + 2) return MappingBridge.getEmpty();
+        List<Integer> firstList = jackpotList.get(dayNumberBefore + 1).getCouple().getRightMappingNumbers();
+        List<Integer> secondList = jackpotList.get(dayNumberBefore).getCouple().getRightMappingNumbers();
         for (int second : secondList) {
             if (!firstList.contains(second)) {
                 firstList.add(second);
@@ -131,15 +128,13 @@ public class MappingBridgeHandler {
         }
 
         Collections.sort(firstList);
-        Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new MappingBridge(BridgeType.RIGHT_MAPPING.name, firstList,
                 new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static MappingBridge getMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
-        if (reverseJackpotList.size() < dayNumberBefore + 2)
-            return MappingBridge.getEmpty();
+        if (reverseJackpotList.size() < dayNumberBefore + 2) return MappingBridge.getEmpty();
         List<Integer> firstList = reverseJackpotList.get(dayNumberBefore + 1).getCouple().getMappingNumbers();
         List<Integer> secondList = reverseJackpotList.get(dayNumberBefore).getCouple().getMappingNumbers();
         for (int second : secondList) {
@@ -149,8 +144,7 @@ public class MappingBridgeHandler {
         }
 
         Collections.sort(firstList);
-        Jackpot jackpot = dayNumberBefore == 0 ?
-                Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
+        Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new MappingBridge(BridgeType.MAPPING.name, firstList, new JackpotHistory(dayNumberBefore, jackpot));
     }
 

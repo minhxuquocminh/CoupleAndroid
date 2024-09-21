@@ -17,8 +17,8 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
-import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Handler.Input;
+import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -43,7 +43,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     //
     CheckBox cboLottoTouchBridge;
     CheckBox cboCombineTouchBridge;
-    CheckBox cboShadowTouchBridge;
+    CheckBox cboSyntheticBridge;
     CheckBox cboConnectedBridge;
     CheckBox cboLastDayShadowBridge;
     CheckBox cboLastWeekShadowBridge;
@@ -83,7 +83,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         // touch
         cboLottoTouchBridge = findViewById(R.id.cboLottoTouchBridge);
         cboCombineTouchBridge = findViewById(R.id.cboCombineTouchBridge);
-        cboShadowTouchBridge = findViewById(R.id.cboShadowTouchBridge);
+        cboSyntheticBridge = findViewById(R.id.cboSyntheticBridge);
         cboConnectedBridge = findViewById(R.id.cboConnectedBridge);
         cboLastDayShadowBridge = findViewById(R.id.cboLastDayShadowBridge);
         cboLastWeekShadowBridge = findViewById(R.id.cboLastWeekShadowBridge);
@@ -130,7 +130,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
                 // touch
                 bridgeTypeFlag.put(BridgeType.COMBINE_TOUCH, cboCombineTouchBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.CONNECTED, cboConnectedBridge.isChecked());
-                bridgeTypeFlag.put(BridgeType.SHADOW_TOUCH, cboShadowTouchBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.SYNTHETIC, cboSyntheticBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.LOTTO_TOUCH, cboLottoTouchBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.LAST_DAY_SHADOW, cboLastDayShadowBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.LAST_WEEK_SHADOW, cboLastWeekShadowBridge.isChecked());
@@ -183,7 +183,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
     public void showAllBridgeToday(Map<BridgeType, Bridge> bridgeMap) {
         String combine = Objects.requireNonNull(bridgeMap.get(BridgeType.COMBINE_TOUCH)).showCompactNumbers();
         String connected = Objects.requireNonNull(bridgeMap.get(BridgeType.CONNECTED)).showCompactNumbers();
-        String shadow = Objects.requireNonNull(bridgeMap.get(BridgeType.SHADOW_TOUCH)).showCompactNumbers();
+        String shadow = "" + Objects.requireNonNull(bridgeMap.get(BridgeType.SYNTHETIC)).getNumbers().size();
         String lotto = Objects.requireNonNull(bridgeMap.get(BridgeType.LOTTO_TOUCH)).showCompactNumbers();
         String lastDay = Objects.requireNonNull(bridgeMap.get(BridgeType.LAST_DAY_SHADOW)).showCompactNumbers();
         String lastWeek = Objects.requireNonNull(bridgeMap.get(BridgeType.LAST_WEEK_SHADOW)).showCompactNumbers();
@@ -192,7 +192,7 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         String estimated = "" + Objects.requireNonNull(bridgeMap.get(BridgeType.ESTIMATED)).getNumbers().size();
         cboCombineTouchBridge.setText("kết hợp " + combine);
         cboConnectedBridge.setText("liên thông " + connected);
-        cboShadowTouchBridge.setText("bóng " + shadow);
+        cboSyntheticBridge.setText("tổng hợp " + shadow);
         cboLottoTouchBridge.setText("lô tô " + lotto);
         cboLastDayShadowBridge.setText("ngày " + lastDay);
         cboLastWeekShadowBridge.setText("tuần " + lastWeek);

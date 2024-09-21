@@ -41,12 +41,13 @@ public class UpdateDataService {
         }
 
         showMessage("Đang cập nhật...", isMainThread);
+        boolean lastSyncedJackpot = syncDataState.getSyncJackpotState() == SyncState.OK;
         SyncDataState resultSyncState = SyncDataHandler.execute(context);
         if (resultSyncState.getSyncDateState() == SyncState.OK) {
             getTimeData(isMainThread);
         }
         if (resultSyncState.getSyncJackpotState() == SyncState.OK) {
-            getJackpotData(isMainThread);
+            getJackpotData(isMainThread, !lastSyncedJackpot);
         }
         if (resultSyncState.getSyncLotteryState() == SyncState.OK) {
             getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, isMainThread);
@@ -68,10 +69,10 @@ public class UpdateDataService {
         }, isMainThread).post();
     }
 
-    public void getJackpotData(boolean isMainThread) {
+    public void getJackpotData(boolean isMainThread, boolean showNewBridge) {
         List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 99);
         if (jackpotList.isEmpty()) return;
-        NewBridge.notify(context, jackpotList);
+        if (showNewBridge) NewBridge.notify(context, jackpotList);
         new MainThreadBase(() -> {
             updateDataView.showJackpotData(jackpotList);
         }, isMainThread).post();
@@ -91,7 +92,7 @@ public class UpdateDataService {
                 "Cập nhật XS Đặc Biệt thành công !" : "Đã xảy ra lỗi khi cập nhật XS Đặc Biệt !";
         if (isShowMessage) showMessage(message, isMainThread);
         if (checkUpdateJackpot) {
-            getJackpotData(isMainThread);
+            getJackpotData(isMainThread, true);
         }
     }
 
