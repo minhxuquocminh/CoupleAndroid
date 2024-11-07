@@ -41,23 +41,22 @@ public class UpdateDataService {
         }
 
         showMessage("Đang cập nhật...", isMainThread);
-        boolean lastSyncedJackpot = syncDataState.getSyncJackpotState() == SyncState.OK;
+        boolean lastSyncedJackpot = syncDataState.getSyncJackpotState() == SyncState.DONE;
         SyncDataState resultSyncState = SyncDataHandler.execute(context);
-        if (resultSyncState.getSyncDateState() == SyncState.OK) {
+        if (resultSyncState.getSyncDateState() == SyncState.DONE) {
             getTimeData(isMainThread);
         }
-        if (resultSyncState.getSyncJackpotState() == SyncState.OK) {
+        if (resultSyncState.getSyncJackpotState() == SyncState.DONE) {
             getJackpotData(isMainThread, !lastSyncedJackpot);
         }
-        if (resultSyncState.getSyncLotteryState() == SyncState.OK) {
+        if (resultSyncState.getSyncLotteryState() == SyncState.DONE) {
             getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, isMainThread);
         }
 
-        showMessage("Cập nhật hoàn tất: \n" +
-                " + Thời gian (" + resultSyncState.getSyncDateState().name + "),\n" +
-                " + XS Đặc Biệt (" + resultSyncState.getSyncJackpotState().name + "),\n" +
-                " + XSMB (" + resultSyncState.getSyncLotteryState().name + "),\n" +
-                " + Thời gian can chi (" + resultSyncState.getSyncDateDataState().name + ").", isMainThread);
+        showLongMessage("Thời gian (" + resultSyncState.getSyncDateState().sign + "), " +
+                "XSĐB (" + resultSyncState.getSyncJackpotState().sign + "), " +
+                "XSMB (" + resultSyncState.getSyncLotteryState().sign + "), " +
+                "Can chi (" + resultSyncState.getSyncDateDataState().sign + ").", isMainThread);
     }
 
     public void getTimeData(boolean isMainThread) {
@@ -109,6 +108,12 @@ public class UpdateDataService {
     private void showMessage(String message, boolean isMainThread) {
         new MainThreadBase(() -> {
             updateDataView.showMessage(message);
+        }, isMainThread).post();
+    }
+
+    private void showLongMessage(String message, boolean isMainThread) {
+        new MainThreadBase(() -> {
+            updateDataView.showLongMessage(message);
         }, isMainThread).post();
     }
 }

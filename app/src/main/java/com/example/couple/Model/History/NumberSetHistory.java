@@ -34,10 +34,14 @@ public class NumberSetHistory {
     }
 
     public String showCompact() {
-        return "  + " + numberSet.getName() + " (" + dayNumberBefore + " ngày)";
+        return numberSet.getName() + " (" + dayNumberBefore + " ngày)";
     }
 
     public String show() {
+        return "  + " + numberSet.getName() + " (" + dayNumberBefore + " ngày)";
+    }
+
+    public String showWithBeats() {
         return "  + " + numberSet.getName() + ": " + NumberBase.showNumbers(beatList, ", ") + ".";
     }
 

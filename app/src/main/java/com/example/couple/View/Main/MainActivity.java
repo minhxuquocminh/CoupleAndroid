@@ -141,6 +141,11 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
     }
 
     @Override
+    public void showLongMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void showTimeData(String time) {
         this.time.setValue(time);
     }

@@ -12,6 +12,14 @@ public class DateTimeBase {
     DateBase dateBase;
     TimeBase timeBase;
 
+    public static DateTimeBase getEmpty() {
+        return new DateTimeBase(DateBase.getEmpty(), TimeBase.getEmpty());
+    }
+
+    public boolean isEmpty() {
+        return dateBase.isEmpty();
+    }
+
     public boolean isAfter(DateTimeBase dateTimeBase) {
         if (dateBase.isBefore(dateTimeBase.getDateBase())) return false;
         if (dateBase.isAfter(dateTimeBase.getDateBase())) return true;

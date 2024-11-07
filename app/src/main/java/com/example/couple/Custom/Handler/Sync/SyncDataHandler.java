@@ -11,22 +11,22 @@ public class SyncDataHandler {
 
     public static SyncDataState execute(Context context) {
         SyncDataState syncDataState = new SyncDataState(context);
-        if (syncDataState.getSyncDateState() != SyncState.OK) {
+        if (syncDataState.getSyncDateState() != SyncState.DONE) {
             boolean updateState = DateHandler.updateDate(context);
             boolean syncState = CheckSync.isSyncDate(context);
             syncDataState.setSyncDateState(getSyncState(updateState, syncState));
         }
-        if (syncDataState.getSyncJackpotState() != SyncState.OK) {
+        if (syncDataState.getSyncJackpotState() != SyncState.DONE) {
             boolean updateState = JackpotHandler.updateJackpot(context);
             boolean syncState = CheckSync.isSyncJackpot(context);
             syncDataState.setSyncJackpotState(getSyncState(updateState, syncState));
         }
-        if (syncDataState.getSyncLotteryState() != SyncState.OK) {
+        if (syncDataState.getSyncLotteryState() != SyncState.DONE) {
             boolean updateState = LotteryHandler.updateLottery(context, Const.MAX_DAYS_TO_GET_LOTTERY);
             boolean syncState = CheckSync.isSyncLottery(context);
             syncDataState.setSyncLotteryState(getSyncState(updateState, syncState));
         }
-        if (syncDataState.getSyncDateDataState() != SyncState.OK) {
+        if (syncDataState.getSyncDateDataState() != SyncState.DONE) {
             boolean updateState = DateHandler.updateAllDateData(context);
             boolean syncState = CheckSync.isSyncDateData(context);
             syncDataState.setSyncDateDataState(getSyncState(updateState, syncState));
@@ -36,7 +36,7 @@ public class SyncDataHandler {
 
     private static SyncState getSyncState(boolean updateState, boolean syncState) {
         if (!updateState) return SyncState.NETWORK_ERROR;
-        if (syncState) return SyncState.OK;
+        if (syncState) return SyncState.DONE;
         return SyncState.NOT_YET;
     }
 }

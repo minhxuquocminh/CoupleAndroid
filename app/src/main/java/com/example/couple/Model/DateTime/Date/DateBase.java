@@ -219,6 +219,17 @@ public class DateBase implements Serializable {
         }
     }
 
+    public static DateBase fromDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1; // Tháng bắt đầu từ 0 nên cần cộng thêm 1
+        int year = calendar.get(Calendar.YEAR);
+
+        return new DateBase(day, month, year);
+    }
+
     public long getDistance(DateBase dateBase) {
         if (this.isEmpty()) return Const.EMPTY_VALUE;
         return (dateBase.toDate().getTime() - this.toDate().getTime()) / (24 * 60 * 60 * 1000);

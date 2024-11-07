@@ -120,7 +120,7 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
             tvLongBeatBridge.setVisibility(View.VISIBLE);
             String show = "Cầu gan:\n";
             for (NumberSetHistory history : histories) {
-                show += history.showCompact() + "\n";
+                show += history.show() + "\n";
             }
             tvLongBeatBridge.setText(show.trim());
         }

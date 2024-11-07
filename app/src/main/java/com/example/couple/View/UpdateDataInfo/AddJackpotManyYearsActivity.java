@@ -136,7 +136,7 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
         int max = 0;
         List<NumberSetHistory> histories = HistoryHandler.getFixedNumberSetsHistory(jackpotList);
         for (NumberSetHistory history : histories) {
-            mess += history.show() + "\n";
+            mess += history.showWithBeats() + "\n";
             max = Math.max(history.getBeatMax(), max);
         }
         DialogBase.showBasic(context, "ttt" + jackpotList.size() + " - max=" + max, mess);

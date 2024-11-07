@@ -35,6 +35,13 @@ public class TimeBase {
         return new TimeBase(this.hour, this.minute, this.second + second);
     }
 
+    public static TimeBase from(long milliseconds) {
+        int seconds = (int) (milliseconds / 1000) % 60;
+        int minutes = (int) (milliseconds / (1000 * 60)) % 60;
+        int hours = (int) (milliseconds / (1000 * 60 * 60)) % 24;
+        return new TimeBase(hours, minutes, seconds);
+    }
+
     public static TimeBase CURRENT() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);

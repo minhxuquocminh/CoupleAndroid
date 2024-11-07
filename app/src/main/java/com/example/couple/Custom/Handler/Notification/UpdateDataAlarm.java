@@ -28,8 +28,8 @@ public class UpdateDataAlarm extends BroadcastReceiver {
 
         boolean isInternetAvailable = InternetBase.isInternetAvailable(context);
         if (!isInternetAvailable) {
-            String title = "XSMB";
-            String content = "Lỗi lấy kết quả XS Đặc Biệt Miền Bắc (Lỗi không có mạng).";
+            String title = "Cập nhật XSĐB";
+            String content = "Lỗi không có mạng.";
             NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
         } else {
             getData(context);
@@ -39,18 +39,16 @@ public class UpdateDataAlarm extends BroadcastReceiver {
     public void getData(Context context) {
         SyncDataState syncDataState = SyncDataHandler.execute(context);
         SyncState jackpotSyncState = syncDataState.getSyncJackpotState();
-        if (jackpotSyncState == SyncState.OK) {
+        if (jackpotSyncState == SyncState.DONE) {
             List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 99);
             if (!jackpotList.isEmpty()) {
-                String content = "Kết quả XS Đặc biệt Miền Bắc hôm nay là: " +
-                        jackpotList.get(0).getJackpot() + ".";
-                NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, "XSĐB", content);
-                NewBridge.notify(context, jackpotList);
+                String title = "XSĐB ngày " + jackpotList.get(0).getDateBase().showFullChars();
+                String content = "Kết quả: " + jackpotList.get(0).getJackpot() + ".";
+                NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
             }
         } else {
-            String content = "Trạng thái cập nhật XSĐB ("
-                    + jackpotSyncState.name + " vào lúc " + TimeBase.CURRENT().showHHMM() + ")";
-            NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, "XSĐB", content);
+            String content = jackpotSyncState.name + " lúc " + TimeBase.CURRENT().showHHMM() + ".";
+            NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, "Cập nhật XSĐB", content);
         }
     }
 

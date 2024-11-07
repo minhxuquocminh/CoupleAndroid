@@ -245,6 +245,11 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
     }
 
     @Override
+    public void showLongMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void showTimeData(String time) {
         // không làm gì vì đã được observe từ MainActivity
     }

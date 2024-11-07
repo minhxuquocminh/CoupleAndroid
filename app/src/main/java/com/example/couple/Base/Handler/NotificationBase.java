@@ -1,17 +1,25 @@
 package com.example.couple.Base.Handler;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.service.notification.StatusBarNotification;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.example.couple.Model.DateTime.Date.DateBase;
+import com.example.couple.Model.DateTime.DateTimeBase;
+import com.example.couple.Model.DateTime.Time.TimeBase;
+import com.example.couple.Model.Display.NotificationInfo;
 import com.example.couple.R;
 import com.example.couple.View.Main.MainActivity;
+
+import java.util.Date;
 
 public class NotificationBase {
     public static final String channelID = "channelID";
@@ -59,5 +67,27 @@ public class NotificationBase {
         mManager.notify(notifyId, nb.build());
     }
 
+    public static NotificationInfo getNotificationInfo(Context context, int notifyId) {
+        NotificationManager mManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        StatusBarNotification[] activeNotifications = mManager.getActiveNotifications();
+
+        for (StatusBarNotification notification : activeNotifications) {
+            if (notification.getId() == notifyId) {
+                long postTime = notification.getPostTime(); // Lấy thời gian thông báo được tạo
+                Date date = new Date(postTime);
+                DateTimeBase createDateTime = new DateTimeBase(DateBase.fromDate(date), TimeBase.from(postTime));
+                Notification notif = notification.getNotification();
+                String title = "";
+                String content = "";
+                if (notif != null && notif.extras != null) {
+                    title = notif.extras.getString(Notification.EXTRA_TITLE);
+                    content = notif.extras.getString(Notification.EXTRA_TEXT);
+                }
+                return new NotificationInfo(title, content, createDateTime);
+            }
+        }
+
+        return NotificationInfo.getEmpty();
+    }
 
 }
