@@ -1,5 +1,6 @@
 package com.example.couple.View.BridgeHistory;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,17 +9,16 @@ import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 import com.example.couple.Model.DateTime.Date.DateData;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.UI.RowUI;
 import com.example.couple.Model.UI.TableUI;
 import com.example.couple.R;
@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SexagenaryCycleActivity extends AppCompatActivity implements SexagenaryCycleView {
+public class SexagenaryCycleActivity extends SpeechToTextActivity implements SexagenaryCycleView {
     EditText edtDayNumber;
     Button btnView;
     HorizontalScrollView hsTable;
@@ -147,4 +147,10 @@ public class SexagenaryCycleActivity extends AppCompatActivity implements Sexage
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
     }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
 }

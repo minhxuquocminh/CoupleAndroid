@@ -1,22 +1,26 @@
 package com.example.couple.Base.Handler;
 
+import com.example.couple.Base.Handler.Interface.CallbackBase;
+
 import lombok.Getter;
 
-public class ThreadBase<T> extends Thread {
+// Use: lấy instance.start() để chạy;  instance.join() để get result
+public class ThreadBase<P, T> extends Thread {
 
-    private final ThreadCallback<T> callback;
-    private final T param;
+    private final CallbackBase<P, T> callback;
+    private final P param;
+
     @Getter
-    private Object result; // dùng threadBase.join() trước khi get result...
+    private T result;
 
-    public ThreadBase(ThreadCallback<T> callback, T param) {
+    public ThreadBase(CallbackBase<P, T> callback, P param) {
         this.callback = callback;
         this.param = param;
     }
 
     @Override
     public void run() {
-        result = callback.run(param);
+        result = callback.execute(param);
     }
 
 }

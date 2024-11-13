@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="@dimen/padding_5dp"
             android:text="Thông tin can chi"
             android:textColor="@color/colorThemeLight"
             android:textSize="@dimen/text_size_header"
@@ -44,7 +45,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:layout_weight="2" />
 
                 <Spinner
                     android:id="@+id/spnBranches"

@@ -1,5 +1,6 @@
 package com.example.couple.View.BridgeHistory;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,12 +9,11 @@ import android.widget.HorizontalScrollView;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.UI.RowUI;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpecialSetsHistoryActivity extends AppCompatActivity implements SpecialSetsHistoryView {
+public class SpecialSetsHistoryActivity extends SpeechToTextActivity implements SpecialSetsHistoryView {
     EditText edtDayNumber;
     Button btnView;
     HorizontalScrollView hsTable;
@@ -98,5 +98,10 @@ public class SpecialSetsHistoryActivity extends AppCompatActivity implements Spe
         TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableUI);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

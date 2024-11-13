@@ -1,17 +1,18 @@
 package com.example.couple.View.Lottery;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
 import com.example.couple.View.Adapter.LotteryAdapter;
@@ -19,7 +20,7 @@ import com.example.couple.ViewModel.Lottery.LotteryViewModel;
 
 import java.util.List;
 
-public class LotteryActivity extends AppCompatActivity implements LotteryView {
+public class LotteryActivity extends SpeechToTextActivity implements LotteryView {
     TextView tvGetData;
     EditText edtDayNumber;
     RecyclerView rvTableOfLottery;
@@ -87,4 +88,8 @@ public class LotteryActivity extends AppCompatActivity implements LotteryView {
     }
 
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

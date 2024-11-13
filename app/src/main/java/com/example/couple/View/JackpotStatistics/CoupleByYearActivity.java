@@ -1,5 +1,6 @@
 package com.example.couple.View.JackpotStatistics;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,16 +12,15 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.R;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
 import com.example.couple.ViewModel.JackpotStatistics.CoupleByYearViewModel;
 
-public class CoupleByYearActivity extends AppCompatActivity implements CoupleByYearView {
+public class CoupleByYearActivity extends SpeechToTextActivity implements CoupleByYearView {
     EditText edtNumberOfYears;
     EditText edtTens;
     EditText edtUnit;
@@ -114,4 +114,8 @@ public class CoupleByYearActivity extends AppCompatActivity implements CoupleByY
         });
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

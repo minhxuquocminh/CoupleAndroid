@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="@dimen/padding_5dp"
             android:text="Trang chủ"
             android:textColor="@color/colorThemeLight"
             android:textSize="@dimen/text_size_header"
@@ -211,6 +212,7 @@
                     android:background="@color/colorThemeLight"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_clock_red" />
+
             </LinearLayout>
 
             <TextView

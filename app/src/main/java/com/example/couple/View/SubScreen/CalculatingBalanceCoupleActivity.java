@@ -1,19 +1,19 @@
 package com.example.couple.View.SubScreen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.View.WidgetBase;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.CalculatingBalanceCoupleViewModel;
 
 
-public class CalculatingBalanceCoupleActivity extends AppCompatActivity implements CalculatingBalanceCoupleView {
+public class CalculatingBalanceCoupleActivity extends SpeechToTextActivity implements CalculatingBalanceCoupleView {
     TextView tvShow;
     EditText edtFirstNumber;
     EditText edtSecondNumber;
@@ -54,4 +54,10 @@ public class CalculatingBalanceCoupleActivity extends AppCompatActivity implemen
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.couple.View.UpdateDataInfo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,12 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.UrlAndParamsViewModel;
 
-public class UrlAndParamsActivity extends AppCompatActivity implements UrlAndParamsView {
+public class UrlAndParamsActivity extends SpeechToTextActivity implements UrlAndParamsView {
     ImageView imgEditUrlJackpot;
     TextView tvUrlJackpot;
     TextView tvParamsJackpot;
@@ -79,5 +79,10 @@ public class UrlAndParamsActivity extends AppCompatActivity implements UrlAndPar
         tvParamsJackpot.setText(urlJackpotArr[1].trim());
         tvUrlLottery.setText(urlLotteryArr[0].trim());
         tvParamsLottery.setText(urlLotteryArr[1].trim());
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

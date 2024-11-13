@@ -1,5 +1,6 @@
 package com.example.couple.View.Bridge;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class BridgeCombinationActivity extends AppCompatActivity implements BridgeCombinationView {
+public class BridgeCombinationActivity extends SpeechToTextActivity implements BridgeCombinationView {
     ImageView imgBridgeAnnotation;
     EditText edtDayNumber;
     EditText edtSet;
@@ -109,7 +110,6 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
 
         viewModel = new BridgeCombinationViewModel(this, this);
         viewModel.getAllData();
-
 
     }
 
@@ -212,6 +212,11 @@ public class BridgeCombinationActivity extends AppCompatActivity implements Brid
         DialogBase.showWithCopiedText(this,
                 "Cầu kết hợp", "Tỉ lệ: " + count + "/" + combineBridges.size() +
                         "\n" + show, combineBridges.get(0).showNumbers(), "KQ");
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
 }

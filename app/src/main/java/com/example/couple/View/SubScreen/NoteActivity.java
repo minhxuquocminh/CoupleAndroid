@@ -1,5 +1,6 @@
 package com.example.couple.View.SubScreen;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,18 +8,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Base.View.DialogBase;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.R;
 import com.example.couple.View.Adapter.NoteAdapter;
 import com.example.couple.ViewModel.SubScreen.NoteViewModel;
 
 import java.util.List;
 
-public class NoteActivity extends AppCompatActivity implements NoteView {
+public class NoteActivity extends SpeechToTextActivity implements NoteView {
     TextView tvTitle;
     ImageView imgAdd;
     RecyclerView rvNote;
@@ -98,4 +99,8 @@ public class NoteActivity extends AppCompatActivity implements NoteView {
         }
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

@@ -2,17 +2,20 @@ package com.example.couple.View.Main;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.couple.Base.Handler.SpeechToTextBase;
 import com.example.couple.Base.Handler.ThreadBase;
 import com.example.couple.Custom.Service.UpdateDataService;
 import com.example.couple.Custom.Service.UpdateDataView;
+import com.example.couple.Custom.Widget.CustomAction;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -30,7 +33,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class MainActivity extends AppCompatActivity implements MainView, UpdateDataView {
+public class MainActivity extends SpeechToTextBase implements MainView, UpdateDataView {
     BottomNavigationView navigationView;
 
     FragmentManager fm = getSupportFragmentManager();
@@ -88,36 +91,63 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
                         if (active != fragment1) {
                             fm.beginTransaction().show(fragment1).hide(active).commit();
                             active = fragment1;
+                            initSpeechToText(0);
                         }
                         return true;
                     case R.id.itNumberPicker:
                         if (active != fragment2) {
                             fm.beginTransaction().show(fragment2).hide(active).commit();
                             active = fragment2;
+                            initSpeechToText(1);
                         }
                         return true;
                     case R.id.itCreateNumberArray:
                         if (active != fragment3) {
                             fm.beginTransaction().show(fragment3).hide(active).commit();
                             active = fragment3;
+                            initSpeechToText(2);
                         }
                         return true;
                     case R.id.itFunction:
                         if (active != fragment4) {
                             fm.beginTransaction().show(fragment4).hide(active).commit();
                             active = fragment4;
+                            initSpeechToText(3);
                         }
                         return true;
                     case R.id.itPersonal:
                         if (active != fragment5) {
                             fm.beginTransaction().show(fragment5).hide(active).commit();
                             active = fragment5;
+                            initSpeechToText(4);
                         }
                         return true;
                 }
                 return false;
             }
         });
+    }
+
+    private final boolean[] isEventBound = new boolean[5];
+
+    private void initSpeechToText(int index) {
+        if (active != null) {
+            View fragmentView = active.getView();
+            if (fragmentView != null) {
+                // Tìm kiếm View bên trong Fragment
+                TextView tvToolbar = fragmentView.findViewById(R.id.tvToolbar);
+                if (tvToolbar != null && !isEventBound[index]) {
+                    tvToolbar.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            MainActivity.super.startListening();
+                            return false;
+                        }
+                    });
+                    isEventBound[index] = true;
+                }
+            }
+        }
     }
 
     @Override
@@ -127,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
             updateDataService.updateAllData(false, false);
             return null;
         }, "").start();
+        initSpeechToText(0);
     }
 
     @Override
@@ -158,5 +189,10 @@ public class MainActivity extends AppCompatActivity implements MainView, UpdateD
     @Override
     public void showLotteryData(List<Lottery> lotteries) {
         this.lotteryList.setValue(lotteries);
+    }
+
+    @Override
+    public void post(String resultText) {
+        CustomAction.changeActivity(this, resultText);
     }
 }

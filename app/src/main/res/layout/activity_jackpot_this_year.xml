@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="@dimen/padding_5dp"
             android:text="Thống kê XS Đặc biệt trong năm nay"
             android:textColor="@color/colorThemeLight"
             android:textSize="@dimen/text_size_header"
@@ -43,8 +44,8 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Thống kê kép bằng:"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size"/>
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/linearSDB"
@@ -64,9 +65,8 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Thống kê đầu đuôi:"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
                 android:textSize="@dimen/text_size"
-                />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/linearHeadAndTail"

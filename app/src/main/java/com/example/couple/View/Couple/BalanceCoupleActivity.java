@@ -1,5 +1,6 @@
 package com.example.couple.View.Couple;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -8,14 +9,13 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Custom.Widget.CustomTextView;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Support.PeriodHistory;
 import com.example.couple.R;
@@ -23,7 +23,7 @@ import com.example.couple.ViewModel.Couple.BalanceCoupleViewModel;
 
 import java.util.List;
 
-public class BalanceCoupleActivity extends AppCompatActivity implements BalanceCoupleView {
+public class BalanceCoupleActivity extends SpeechToTextActivity implements BalanceCoupleView {
     EditText edtNumberOfDays;
     EditText edtDayNumberBefore;
     EditText edtFilterDays;
@@ -119,4 +119,8 @@ public class BalanceCoupleActivity extends AppCompatActivity implements BalanceC
                 "Cầu chạm.", message, SingleBase.showTouchs(touchs), "test");
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.couple.View.JackpotStatistics;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +10,10 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Display.JackpotNextDay;
 import com.example.couple.R;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
@@ -21,7 +21,7 @@ import com.example.couple.ViewModel.JackpotStatistics.JackpotNextDayViewModel;
 
 import java.util.List;
 
-public class JackpotNextDayActivity extends AppCompatActivity implements JackpotNextDayView {
+public class JackpotNextDayActivity extends SpeechToTextActivity implements JackpotNextDayView {
     EditText edtYearNumber;
     EditText edtDayNumberBefore;
     TextView tvView;
@@ -84,5 +84,10 @@ public class JackpotNextDayActivity extends AppCompatActivity implements Jackpot
             startActivity(new Intent(JackpotNextDayActivity.this,
                     AddJackpotManyYearsActivity.class));
         });
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

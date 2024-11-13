@@ -6,12 +6,14 @@ import android.content.Intent;
 
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NotificationBase;
+import com.example.couple.Base.Handler.TextToSpeechBase;
 import com.example.couple.Custom.Const.NotifyId;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.Sync.CheckSync;
 import com.example.couple.Custom.Handler.Sync.SyncDataHandler;
 import com.example.couple.Custom.Handler.Sync.SyncDataState;
 import com.example.couple.Custom.Handler.Sync.SyncState;
+import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Origin.Jackpot;
 
@@ -45,10 +47,12 @@ public class UpdateDataAlarm extends BroadcastReceiver {
                 String title = "XSĐB ngày " + jackpotList.get(0).getDateBase().showFullChars();
                 String content = "Kết quả: " + jackpotList.get(0).getJackpot() + ".";
                 NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
+                new TextToSpeechBase(context, "Kết quả: " + jackpotList.get(0).getCouple().show());
             }
         } else {
-            String content = jackpotSyncState.name + " lúc " + TimeBase.CURRENT().showHHMM() + ".";
-            NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, "Cập nhật XSĐB", content);
+            String title = "XSĐB ngày " + DateBase.TO_DAY().showFullChars();
+            String content = jackpotSyncState.name + " (" + TimeBase.CURRENT().showHHMM() + ").";
+            NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
         }
     }
 

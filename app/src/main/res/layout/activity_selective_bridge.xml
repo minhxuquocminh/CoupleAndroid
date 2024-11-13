@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="@dimen/padding_5dp"
             android:text="Cầu chọn lọc"
             android:textColor="@color/colorThemeLight"
             android:textSize="@dimen/text_size_header"
@@ -57,6 +58,7 @@
                     android:text="Xem thêm"
                     android:textColor="@color/colorTextLink"
                     android:textSize="@dimen/text_size" />
+
             </LinearLayout>
 
             <TextView

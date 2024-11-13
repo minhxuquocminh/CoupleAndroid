@@ -1,13 +1,13 @@
 package com.example.couple.View.Bridge;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Display.HeadTail;
@@ -25,7 +25,7 @@ import com.example.couple.ViewModel.Bridge.ReferenceBridgeViewModel;
 
 import java.util.List;
 
-public class ReferenceBridgeActivity extends AppCompatActivity implements ReferenceBridgeView {
+public class ReferenceBridgeActivity extends SpeechToTextActivity implements ReferenceBridgeView {
     TextView tvJackpotToday;
     TextView tvLastJackpot;
     TextView tvViewBalanceCouple;
@@ -392,4 +392,8 @@ public class ReferenceBridgeActivity extends AppCompatActivity implements Refere
         tvTail.setText(show);
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

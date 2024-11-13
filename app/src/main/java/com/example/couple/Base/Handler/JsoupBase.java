@@ -26,6 +26,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
     boolean isInternetAvailable;
 
     public JsoupBase(Context context, String link, int timeout, List<String> listClassName) {
+        super();
         this.isInternetAvailable = InternetBase.isInternetAvailable(context);
         this.context = context;
         this.link = link;
@@ -35,6 +36,7 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
 
     public JsoupBase(Context context, String link, int timeout,
                      List<String> listClassName, HashMap<String, String> hashMap) {
+        super();
         this.isInternetAvailable = InternetBase.isInternetAvailable(context);
         this.context = context;
         this.link = link;

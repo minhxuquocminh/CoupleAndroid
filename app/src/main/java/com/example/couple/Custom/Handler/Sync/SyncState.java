@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum SyncState {
-    NOT_YET(0, "o", "Chưa cập nhật"),
-    DONE(1, "-", "Đã cập nhật"),
+    NOT_YET(0, "-", "Chưa có kết quả"),
+    DONE(1, "o", "Đã có kết quả"),
     NETWORK_ERROR(2, "x", "Lỗi mạng");
 
     public final int value;

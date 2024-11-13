@@ -1,15 +1,16 @@
 package com.example.couple.View.Bridge;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.Handler.GenericBase;
 import com.example.couple.Base.Handler.SingleBase;
+import com.example.couple.Custom.Widget.CustomAction;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
@@ -25,7 +26,7 @@ import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
 
 import java.util.List;
 
-public class SelectiveBridgeActivity extends AppCompatActivity implements SelectiveBridgeView {
+public class SelectiveBridgeActivity extends SpeechToTextActivity implements SelectiveBridgeView {
     TextView tvViewLongBeatBridge;
     TextView tvAfterDoubleBridge;
     TextView tvBranchInDayBridge;
@@ -209,4 +210,13 @@ public class SelectiveBridgeActivity extends AppCompatActivity implements Select
         }
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public void post(String resultText) {
+        CustomAction.changeActivity(this, resultText);
+    }
 }

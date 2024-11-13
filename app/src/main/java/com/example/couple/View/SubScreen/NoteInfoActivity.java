@@ -1,17 +1,17 @@
 package com.example.couple.View.SubScreen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.NoteInfoViewModel;
 
-public class NoteInfoActivity extends AppCompatActivity implements NoteInfoView {
+public class NoteInfoActivity extends SpeechToTextActivity implements NoteInfoView {
     EditText edtNote;
     Button btnAddNote;
     Button btnCancel;
@@ -55,5 +55,10 @@ public class NoteInfoActivity extends AppCompatActivity implements NoteInfoView 
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

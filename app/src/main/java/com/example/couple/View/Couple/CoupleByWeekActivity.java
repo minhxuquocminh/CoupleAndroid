@@ -1,5 +1,6 @@
 package com.example.couple.View.Couple;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,17 +10,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Couple.CoupleByWeekViewModel;
 
 import java.util.List;
 
-public class CoupleByWeekActivity extends AppCompatActivity implements CoupleByWeekView {
+public class CoupleByWeekActivity extends SpeechToTextActivity implements CoupleByWeekView {
     EditText edtWeekNumber;
     TextView tvGetData;
     LinearLayout linearCoupleByWeek;
@@ -66,5 +67,10 @@ public class CoupleByWeekActivity extends AppCompatActivity implements CoupleByW
                 jackpotList, weekNumber);
         linearCoupleByWeek.removeAllViews();
         linearCoupleByWeek.addView(tableLayout);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

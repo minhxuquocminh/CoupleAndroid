@@ -1,5 +1,6 @@
 package com.example.couple.View.Bridge;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
 import com.example.couple.Model.Display.BSingle;
@@ -33,7 +33,7 @@ import com.example.couple.ViewModel.Bridge.FindingBridgeViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindingBridgeActivity extends AppCompatActivity implements FindingBridgeView {
+public class FindingBridgeActivity extends SpeechToTextActivity implements FindingBridgeView {
     EditText edtDayNumberBefore;
     TextView tvUpdate1;
     TextView tvViewLottery1;
@@ -553,4 +553,8 @@ public class FindingBridgeActivity extends AppCompatActivity implements FindingB
         tvTest2ConnectedBridge.setText(info);
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

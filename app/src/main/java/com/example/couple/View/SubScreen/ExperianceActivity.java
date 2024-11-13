@@ -1,15 +1,15 @@
 package com.example.couple.View.SubScreen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.ExperianceViewModel;
 
-public class ExperianceActivity extends AppCompatActivity implements ExperianceView {
+public class ExperianceActivity extends SpeechToTextActivity implements ExperianceView {
     TextView tvExperiance;
 
     ExperianceViewModel viewModel;
@@ -34,4 +34,8 @@ public class ExperianceActivity extends AppCompatActivity implements ExperianceV
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

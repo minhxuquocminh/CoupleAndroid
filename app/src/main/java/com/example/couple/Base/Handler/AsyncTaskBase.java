@@ -2,17 +2,20 @@ package com.example.couple.Base.Handler;
 
 import android.os.AsyncTask;
 
-public class AsyncTaskBase<K, T> extends AsyncTask<K, Void, T> {
-    private final AsyncTaskCallback callback;
+import com.example.couple.Base.Handler.Interface.AsyncCallback;
 
-    public AsyncTaskBase(AsyncTaskCallback<K, T> callback) {
+public class AsyncTaskBase<K, T> extends AsyncTask<K, Void, T> {
+    private final AsyncCallback<K, T> callback;
+
+    public AsyncTaskBase(AsyncCallback<K, T> callback) {
+        super();
         this.callback = callback;
     }
 
     @SafeVarargs
     @Override
     protected final T doInBackground(K... inputs) {
-        return (T) callback.handle(inputs);
+        return callback.handle(inputs);
     }
 
 }

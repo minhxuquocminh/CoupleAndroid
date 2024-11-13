@@ -1,14 +1,14 @@
 package com.example.couple.View.JackpotStatistics;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Display.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
@@ -16,7 +16,7 @@ import com.example.couple.ViewModel.JackpotStatistics.JackpotThisYearViewModel;
 
 import java.util.List;
 
-public class JackpotThisYearActivity extends AppCompatActivity implements JackpotThisYearView {
+public class JackpotThisYearActivity extends SpeechToTextActivity implements JackpotThisYearView {
     TextView tvDoubleSame;
     LinearLayout linearDoubleSame;
     TextView tvHeadAndTail;
@@ -74,5 +74,10 @@ public class JackpotThisYearActivity extends AppCompatActivity implements Jackpo
         TableLayout tableLayout = CustomTableLayout.getNearestTimeTableLayout(this, nearestTimeList);
         linearHeadAndTail.removeAllViews();
         linearHeadAndTail.addView(tableLayout);
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.couple.View.JackpotStatistics;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -9,14 +10,13 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotByYearViewModel;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JackpotByYearActivity extends AppCompatActivity implements JackpotByYearView {
+public class JackpotByYearActivity extends SpeechToTextActivity implements JackpotByYearView {
     Spinner spnYear;
     TextView tvGetData;
     HorizontalScrollView hsTable;
@@ -94,4 +94,8 @@ public class JackpotByYearActivity extends AppCompatActivity implements JackpotB
 
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

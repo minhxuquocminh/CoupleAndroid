@@ -1,5 +1,6 @@
 package com.example.couple.View.SubScreen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -9,12 +10,11 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 import com.example.couple.Model.UI.RowUI;
@@ -25,7 +25,7 @@ import com.example.couple.ViewModel.SubScreen.CycleByYearViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CycleByYearActivity extends AppCompatActivity implements CycleByYearView {
+public class CycleByYearActivity extends SpeechToTextActivity implements CycleByYearView {
     HorizontalScrollView hsTable;
     Spinner spnBranches;
     TextView tvCopy;
@@ -91,5 +91,10 @@ public class CycleByYearActivity extends AppCompatActivity implements CycleByYea
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

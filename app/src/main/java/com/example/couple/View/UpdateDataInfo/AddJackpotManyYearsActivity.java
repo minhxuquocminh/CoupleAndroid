@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.couple.Base.Handler.AlarmBase;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NumberBase;
@@ -16,6 +14,7 @@ import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
+import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.History.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
@@ -24,7 +23,7 @@ import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
 import java.util.List;
 
-public class AddJackpotManyYearsActivity extends AppCompatActivity implements AddJackpotManyYearsView {
+public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements AddJackpotManyYearsView {
     EditText edtStart;
     Button btnAddData;
     Button btnLoadAllData;
@@ -149,4 +148,8 @@ public class AddJackpotManyYearsActivity extends AppCompatActivity implements Ad
                 TimeBase.CURRENT().showHHMMSS(), Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }
