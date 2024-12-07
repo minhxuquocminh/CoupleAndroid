@@ -215,7 +215,7 @@ public class DateBase implements Serializable {
             sdf.setLenient(false); // chi lay ngay dung
             return sdf.parse(day + "-" + month + "-" + year);
         } catch (ParseException e) {
-            return new Date();
+            return null;
         }
     }
 

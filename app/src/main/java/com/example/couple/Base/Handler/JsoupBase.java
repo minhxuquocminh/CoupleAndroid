@@ -3,114 +3,69 @@ package com.example.couple.Base.Handler;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class JsoupBase extends AsyncTask<String, Void, String> {
     @SuppressLint("StaticFieldLeak")
     Context context;
     String link;
     int timeout;
-    List<String> listClassName;
-    HashMap<String, String> hashMap = new HashMap<>();
+    List<String> elementClasses;
+    Map<String, String> postData = new HashMap<>();
 
     boolean isInternetAvailable;
 
-    public JsoupBase(Context context, String link, int timeout, List<String> listClassName) {
+    public JsoupBase(Context context, String link, int timeout, List<String> elementClasses) {
         super();
         this.isInternetAvailable = InternetBase.isInternetAvailable(context);
         this.context = context;
         this.link = link;
         this.timeout = timeout;
-        this.listClassName = listClassName;
+        this.elementClasses = elementClasses;
     }
 
     public JsoupBase(Context context, String link, int timeout,
-                     List<String> listClassName, HashMap<String, String> hashMap) {
+                     List<String> elementClasses, Map<String, String> postData) {
         super();
         this.isInternetAvailable = InternetBase.isInternetAvailable(context);
         this.context = context;
         this.link = link;
         this.timeout = timeout;
-        this.listClassName = listClassName;
-        this.hashMap = hashMap;
+        this.elementClasses = elementClasses;
+        this.postData = postData;
     }
 
     @Override
     protected String doInBackground(String... strings) {
         if (!isInternetAvailable) return "";
-        String data = "";
+        Document doc = null;
 
         try {
-            if (hashMap.isEmpty()) {
-                data = methodGET();
+            if (postData.isEmpty()) {
+                doc = Jsoup.connect(link).timeout(timeout).get();
             } else {
-                data = methodPOST();
+                doc = Jsoup.connect(link).timeout(timeout).data(postData).userAgent("Mozilla").post();
             }
         } catch (IOException ignored) {
 
         }
-        Log.d("datajsoup", data);
 
-        return data;
+        if (doc == null) return "";
+        if (elementClasses == null || elementClasses.isEmpty()) return doc.text();
+        Document finalDoc = doc;
+        return elementClasses.stream().map(elementClass ->
+                finalDoc.getElementsByClass(elementClass).stream()
+                        .map(Element::text).collect(Collectors.joining("---"))
+        ).collect(Collectors.joining("==="));
     }
 
-    private String methodGET() throws IOException {
-        StringBuilder data = new StringBuilder();
-
-        Document doc = Jsoup.connect(link).timeout(timeout).get();
-        if (listClassName == null || listClassName.isEmpty()) return doc.text();
-
-        for (int i = 0; i < listClassName.size(); i++) {
-            Elements elements = doc.getElementsByClass(listClassName.get(i));
-            for (int j = 0; j < elements.size(); j++) {
-                data.append(elements.get(j).text());
-                if (j != elements.size() - 1) {
-                    data.append("---");
-                }
-            }
-            if (i != listClassName.size() - 1) {
-                data.append("===");
-            }
-        }
-        return data.toString();
-    }
-
-    private String methodPOST() throws IOException {
-        StringBuilder data = new StringBuilder();
-
-        Connection conn = Jsoup.connect(link).timeout(timeout);
-
-        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            conn.data(key, value);
-        }
-
-        Document doc = conn.userAgent("Mozilla").post();
-        if (listClassName == null || listClassName.isEmpty()) return doc.text();
-
-        for (int i = 0; i < listClassName.size(); i++) {
-            Elements elements = doc.getElementsByClass(listClassName.get(i));
-            for (int j = 0; j < elements.size(); j++) {
-                data.append(elements.get(j).text());
-                if (j != elements.size() - 1) {
-                    data.append("---");
-                }
-            }
-            if (i != listClassName.size() - 1) {
-                data.append("===");
-            }
-        }
-        return data.toString();
-    }
 }

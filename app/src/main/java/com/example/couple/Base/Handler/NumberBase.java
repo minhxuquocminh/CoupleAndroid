@@ -1,11 +1,19 @@
 package com.example.couple.Base.Handler;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 public class NumberBase {
+
+    public static List<Integer> getReverseNumbers(List<Integer> numbers) {
+        if (numbers.isEmpty()) return new ArrayList<>();
+        List<Integer> reverseNumbers = new ArrayList<>(numbers);
+        Collections.reverse(reverseNumbers);
+        return reverseNumbers;
+    }
 
     public static List<Integer> getMatchNumbers(List<Integer> firstList, List<Integer> secondList) {
         if (firstList.isEmpty() && secondList.isEmpty()) return new ArrayList<>();
@@ -36,21 +44,11 @@ public class NumberBase {
     }
 
     public static String showNumbers(List<Integer> numbers, String delimiter) {
-        if (numbers.isEmpty()) return "";
-        StringBuilder data = new StringBuilder();
-        for (int i = 0; i < numbers.size(); i++) {
-            data.append(numbers.get(i)).append(i == numbers.size() - 1 ? "" : delimiter);
-        }
-        return data.toString();
+        return numbers.stream().map(x -> x + "").collect(Collectors.joining(delimiter));
     }
 
     public static String showNumbers(List<Integer> numbers, int numberLength, String delimiter) {
-        if (numbers.isEmpty()) return "";
-        StringBuilder data = new StringBuilder();
-        for (int i = 0; i < numbers.size(); i++) {
-            data.append(showNumberString(numbers.get(i), numberLength)).append(i == numbers.size() - 1 ? "" : delimiter);
-        }
-        return data.toString();
+        return numbers.stream().map(x -> showNumberString(x, numberLength)).collect(Collectors.joining(delimiter));
     }
 
     public static String showNumberString(int number, int numberLength) {

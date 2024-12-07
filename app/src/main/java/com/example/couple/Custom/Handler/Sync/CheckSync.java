@@ -2,9 +2,9 @@ package com.example.couple.Custom.Handler.Sync;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Handler.DateHandler;
+import com.example.couple.Custom.Handler.JackpotHandler;
+import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.DateTime.Date.DateBase;
 
 public class CheckSync {
@@ -16,15 +16,13 @@ public class CheckSync {
     }
 
     public static boolean isSyncJackpot(Context context) {
-        String lastDateStr = IOFileBase.readDataFromFile(context, FileName.JACKPOT_LAST_DATE);
-        DateBase lastDate = DateBase.fromString(lastDateStr, "-");
+        DateBase lastDate = JackpotHandler.getLastDate(context);
         if (lastDate.isEmpty()) return false;
         return lastDate.isToday();
     }
 
     public static boolean isSyncLottery(Context context) {
-        String lastDateStr = IOFileBase.readDataFromFile(context, FileName.LOTTERY_LAST_DATE);
-        DateBase lastDate = DateBase.fromString(lastDateStr, "-");
+        DateBase lastDate = LotteryHandler.getLastDate(context);
         if (lastDate.isEmpty()) return false;
         return lastDate.isToday();
     }

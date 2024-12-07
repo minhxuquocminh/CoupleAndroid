@@ -16,6 +16,7 @@ import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
+import com.example.couple.Model.Bridge.LongBeat.AfterDoubleExtendBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.Bridge.Single.ConnectedBridge;
@@ -50,6 +51,11 @@ public class SelectiveBridgeViewModel {
         } else {
             view.showLotteryList(lotteries);
         }
+    }
+
+    public void getAfterDoubleExtendBridge(List<Jackpot> jackpotList) {
+        List<AfterDoubleExtendBridge> bridges = BCoupleBridgeHandler.getAfterAllDoubleBridges(jackpotList);
+        view.showAfterDoubleExtendBridge(bridges);
     }
 
     public void getAfterDoubleBridge(List<Jackpot> jackpotList) {

@@ -15,6 +15,7 @@ import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Couple.TriadBridge;
 import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
+import com.example.couple.Model.Bridge.LongBeat.AfterDoubleExtendBridge;
 import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Sign.SignOfDouble;
 import com.example.couple.Model.History.NumberSetHistory;
@@ -25,9 +26,11 @@ import com.example.couple.View.BridgeHistory.SpecialSetsHistoryActivity;
 import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SelectiveBridgeActivity extends SpeechToTextActivity implements SelectiveBridgeView {
     TextView tvViewLongBeatBridge;
+    TextView tvAfterDoubleExtendBridge;
     TextView tvAfterDoubleBridge;
     TextView tvBranchInDayBridge;
     TextView tvLongBeatBridge;
@@ -48,6 +51,7 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
         setContentView(R.layout.activity_selective_bridge);
 
         tvViewLongBeatBridge = findViewById(R.id.tvViewLongBeatBridge);
+        tvAfterDoubleExtendBridge = findViewById(R.id.tvAfterDoubleExtendBridge);
         tvAfterDoubleBridge = findViewById(R.id.tvAfterDoubleBridge);
         tvBranchInDayBridge = findViewById(R.id.tvBranchInDayBridge);
         tvLongBeatBridge = findViewById(R.id.tvLongBeatBridge);
@@ -88,6 +92,7 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
     @Override
     public void showJackpotList(List<Jackpot> jackpotList) {
         viewModel.getAfterDoubleBridge(jackpotList);
+        viewModel.getAfterDoubleExtendBridge(jackpotList);
         viewModel.getLongBeatBridge(jackpotList);
         viewModel.getBranchInTwoDaysBridge(jackpotList);
         viewModel.getSignOfDouble(jackpotList);
@@ -100,6 +105,18 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
         viewModel.getConnectedSetBridge(lotteries);
         viewModel.getTriadSetBridge(lotteries);
         viewModel.getConnectedTouchs(lotteries);
+    }
+
+    @Override
+    public void showAfterDoubleExtendBridge(List<AfterDoubleExtendBridge> bridges) {
+        if (bridges.isEmpty()) {
+            tvAfterDoubleExtendBridge.setVisibility(View.GONE);
+        } else {
+            tvAfterDoubleExtendBridge.setVisibility(View.VISIBLE);
+            String show = "Cầu sau khi ra kép mở rộng:\n";
+            show += bridges.stream().map(AfterDoubleExtendBridge::show).collect(Collectors.joining("\n"));
+            tvAfterDoubleExtendBridge.setText(show.trim());
+        }
     }
 
     @Override

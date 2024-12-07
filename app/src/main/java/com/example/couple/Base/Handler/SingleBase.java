@@ -1,6 +1,7 @@
 package com.example.couple.Base.Handler;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SingleBase {
 
@@ -28,19 +29,11 @@ public class SingleBase {
     }
 
     public static String showTouchs(List<Integer> touchs) {
-        StringBuilder show = new StringBuilder();
-        for (int touch : touchs) {
-            show.append(touch).append(" ");
-        }
-        return show.toString().trim();
+        return touchs.stream().map(x -> x + "").collect(Collectors.joining(" "));
     }
 
     public static String showTouchs(List<Integer> touchs, String delimiter) {
-        StringBuilder show = new StringBuilder();
-        for (int i = 0; i < touchs.size(); i++) {
-            show.append(touchs.get(i)).append(i == touchs.size() - 1 ? "" : delimiter);
-        }
-        return show.toString().trim();
+        return touchs.stream().map(x -> x + "").collect(Collectors.joining(delimiter));
     }
 
 }

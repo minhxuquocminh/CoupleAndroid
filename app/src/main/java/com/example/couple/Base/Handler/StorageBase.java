@@ -8,8 +8,8 @@ public class StorageBase {
 
     private static final String FLAG = "FLAG";
 
-    public static void setFlag(Context context, String flagName, boolean flagVaue) {
-        context.getSharedPreferences(FLAG, MODE_PRIVATE).edit().putBoolean(flagName, flagVaue).apply();
+    public static void setFlag(Context context, String flagName, boolean flagValue) {
+        context.getSharedPreferences(FLAG, MODE_PRIVATE).edit().putBoolean(flagName, flagValue).apply();
     }
 
     public static boolean getFlag(Context context, String flagName) {

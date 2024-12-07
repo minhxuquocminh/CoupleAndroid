@@ -142,10 +142,19 @@ public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements
     }
 
     private void test2(Context context) {
-        AlarmBase.registerAlarmOneTime(context, ManualUpdateDataAlarm.class,
-                2222, TimeBase.CURRENT().addSeconds(10));
-        Toast.makeText(this, "Đăng ký alarm vào" +
-                TimeBase.CURRENT().showHHMMSS(), Toast.LENGTH_LONG).show();
+//        AlarmBase.registerAlarmOneTime(context, ManualUpdateDataAlarm.class,
+//                2222, TimeBase.CURRENT().addSeconds(10));
+//        Toast.makeText(this, "Đăng ký alarm vào" +
+//                TimeBase.CURRENT().showHHMMSS(), Toast.LENGTH_LONG).show();
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListManyYears(context, 20);
+        String mess = "";
+        int max = 0;
+        List<NumberSetHistory> histories = HistoryHandler.getCustomNumberSetsHistory(jackpotList);
+        for (NumberSetHistory history : histories) {
+            mess += history.showWithBeats() + "\n";
+            max = Math.max(history.getBeatMax(), max);
+        }
+        DialogBase.showBasic(context, "ttt" + jackpotList.size() + " - max=" + max, mess);
     }
 
     @Override

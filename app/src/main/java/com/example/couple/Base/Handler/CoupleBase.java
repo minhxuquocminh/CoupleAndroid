@@ -1,6 +1,7 @@
 package com.example.couple.Base.Handler;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CoupleBase {
 
@@ -19,19 +20,11 @@ public class CoupleBase {
     }
 
     public static String showCoupleNumbers(List<Integer> couples) {
-        StringBuilder show = new StringBuilder();
-        for (int couple : couples) {
-            show.append(showCouple(couple)).append(" ");
-        }
-        return show.toString().trim();
+        return couples.stream().map(CoupleBase::showCouple).collect(Collectors.joining(" "));
     }
 
     public static String showCoupleNumbers(List<Integer> couples, String delimiter) {
-        StringBuilder show = new StringBuilder();
-        for (int i = 0; i < couples.size(); i++) {
-            show.append(showCouple(couples.get(i))).append(i == couples.size() - 1 ? "" : delimiter);
-        }
-        return show.toString().trim();
+        return couples.stream().map(CoupleBase::showCouple).collect(Collectors.joining(delimiter));
     }
 
     public static String showCouple(int couple) {

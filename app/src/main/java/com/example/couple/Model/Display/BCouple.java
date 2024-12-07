@@ -77,4 +77,10 @@ public class BCouple {
                 secondCache : (20 - secondCache) % 10;
         return new BCouple(firstNumber, secondNumber);
     }
+
+    public Couple toCouple() {
+        return new Couple(Math.abs(first), Math.abs(second));
+    }
+
 }
+

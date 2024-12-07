@@ -31,8 +31,8 @@ public enum TargetClass {
     JACKPOT_THIS_YEAR(3002, "đầu đuôi", JackpotThisYearActivity.class),
     CYCLE_BY_YEAR(3003, "đặc biệt theo năm", CycleByYearActivity.class),
 
-    UPDATE_MANY_YEAR(4001, "màn hình cập nhật", AddJackpotManyYearsActivity.class),
-    UPDATE_URL_AND_PARAM(4002, "thay đổi đường dẫn", UrlAndParamsActivity.class);
+    UPDATE_MANY_YEAR(4001, "cập nhật", AddJackpotManyYearsActivity.class),
+    UPDATE_URL_AND_PARAM(4002, "đường dẫn", UrlAndParamsActivity.class);
 
     public final int value;
     public final String key;

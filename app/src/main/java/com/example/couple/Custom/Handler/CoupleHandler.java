@@ -8,21 +8,7 @@ import java.util.List;
 public class CoupleHandler {
 
     public static boolean isWin(JackpotHistory jackpotHistory, List<Integer> couples) {
-        if (jackpotHistory.isEmpty() || couples.isEmpty()) return false;
-        int jackpotCouple = jackpotHistory.getJackpot().getCoupleInt();
-        for (int couple : couples) {
-            if (couple == jackpotCouple) return true;
-        }
-        return false;
-    }
-
-    public static boolean isTouch(JackpotHistory jackpotHistory, List<Integer> touchs) {
-        if (jackpotHistory.isEmpty() || touchs.isEmpty()) return false;
-        int couple = jackpotHistory.getJackpot().getCoupleInt();
-        for (int touch : touchs) {
-            if (touch == couple / 10 || touch == couple % 10) return true;
-        }
-        return false;
+        return couples.stream().anyMatch(x -> x == jackpotHistory.getJackpot().getCoupleInt());
     }
 
     public static List<Integer> getPeriodNumbers(int weight, int ampliude) {

@@ -13,8 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @Getter
 public class Couple extends Jackpot {
@@ -116,10 +118,6 @@ public class Couple extends Jackpot {
         return this.getInt() + cp.getInt();
     }
 
-    public boolean equals(Couple couple) {
-        return first == couple.getFirst() && second == couple.getSecond();
-    }
-
     public int sub(Couple cp) {
         return this.getInt() - cp.getInt();
     }
@@ -134,6 +132,14 @@ public class Couple extends Jackpot {
 
     public boolean isSameDouble() {
         return first == second;
+    }
+
+    public boolean isSameSetOf(Couple couple) {
+        return toSet().isItMatch(couple.getInt());
+    }
+
+    public Set toSet() {
+        return new Set(first, second);
     }
 
     public boolean isDoubleOrShadow() {

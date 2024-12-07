@@ -87,7 +87,7 @@ public class JackpotByYearActivity extends SpeechToTextActivity implements Jackp
             matrix[row][col] = selected.isEmpty() ? "" : "888" + selected;
         }
         tvNote.setVisibility(View.VISIBLE);
-        TableLayout tableLayout = CustomTableLayout.getJackpotMatrixByYear(this, matrix,
+        TableLayout tableLayout = CustomTableLayout.getJackpotTableByYear(this, matrix,
                 31, 12, year);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);

@@ -205,6 +205,46 @@
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xem thêm"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvViewBalanceCouple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="BSCB"
+                    android:textColor="@color/colorTextLink"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAfterDoubleExtendBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp"
+                android:text="Cầu sau khi ra kép mở rộng: "
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -296,6 +296,32 @@ public class HistoryHandler {
         return historyList;
     }
 
+    public static List<NumberSetHistory> getCustomNumberSetsHistory(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return new ArrayList<>();
+
+        List<NumberSetHistory> sets = new ArrayList<>();
+        for (int i : Const.SMALL_SETS_NOT_DOUBLE) {
+            NumberSetHistory set = getNumberSetHistory(jackpotList,
+                    Const.SET + " " + CoupleBase.showCouple(i), Set.getFrom(i).getSetsDetail());
+            sets.add(set);
+        }
+        sets.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+
+        List<NumberSetHistory> headtails = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            NumberSetHistory head = getNumberSetHistory(jackpotList,
+                    Const.HEAD + " " + i, NumberArrayHandler.getHeads(i));
+            headtails.add(head);
+            NumberSetHistory tail = getNumberSetHistory(jackpotList,
+                    Const.TAIL + " " + i, NumberArrayHandler.getTails(i));
+            headtails.add(tail);
+        }
+        headtails.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
+        sets.addAll(headtails);
+
+        return sets;
+    }
+
     public static List<NumberSetHistory> getFixedNumberSetsHistory(List<Jackpot> jackpotList) {
         if (jackpotList.isEmpty()) return new ArrayList<>();
         List<NumberSetHistory> historyList = new ArrayList<>();
