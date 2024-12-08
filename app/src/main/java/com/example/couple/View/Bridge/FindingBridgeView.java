@@ -1,15 +1,15 @@
 package com.example.couple.View.Bridge;
 
 
-import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.Bridge.Single.ConnectedBridge;
-import com.example.couple.Model.Bridge.Couple.TriadBridge;
-import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Display.BSingle;
+import com.example.couple.Model.Bridge.Connected.PairConnectedSupport;
+import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Support.PairConnectedSupport;
-import com.example.couple.Model.Support.TriangleConnectedSupport;
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
+import com.example.couple.Model.Bridge.Connected.TriangleConnectedSupport;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface FindingBridgeView {
     void showFirstClawBridge(List<ClawSupport> clawSupportList);
     void showSecondClawBridge(List<ClawSupport> clawSupportList);
     void showThirdClawBridge(List<ClawSupport> clawSupportList);
-    void showJackpotThirdClawBridge(List<BSingle> BSingleList, int frame);
+    void showJackpotThirdClawBridge(List<Single> singles, int frame);
     void showThreeSetBridgeStatus(List<Integer> statusList);
 
     void showTest(List<TriangleConnectedSupport> connectedBridge);

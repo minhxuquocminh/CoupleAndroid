@@ -9,17 +9,16 @@ import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
-import com.example.couple.Model.Bridge.Couple.TriadBridge;
-import com.example.couple.Model.Bridge.Single.ConnectedBridge;
-import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.HeadTail;
-import com.example.couple.Model.Display.JackpotSign;
-import com.example.couple.Model.Display.NearestTime;
-import com.example.couple.Model.Display.NumberDouble;
-import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
+import com.example.couple.Model.Bridge.Double.JackpotSign;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
+import com.example.couple.Model.Bridge.Double.NumberDouble;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Support.ClawSupport;
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
 import com.example.couple.View.Bridge.ReferenceBridgeView;
 
 import java.util.ArrayList;
@@ -45,8 +44,8 @@ public class ReferenceBridgeViewModel {
     }
 
     public void getTouchThirdClawBridge(List<Jackpot> jackpotList) {
-        List<BSingle> BSingleList = OtherBridgeHandler.getTouchsByThirdClawBridge(jackpotList, 0);
-        referenceBridgeView.showTouchThirdClawBridge(BSingleList, jackpotList.size());
+        List<Single> singles = OtherBridgeHandler.getTouchsByThirdClawBridge(jackpotList, 0);
+        referenceBridgeView.showTouchThirdClawBridge(singles, jackpotList.size());
     }
 
     //
@@ -268,17 +267,4 @@ public class ReferenceBridgeViewModel {
         referenceBridgeView.showTailForALongTime(runningDayNumber, subNearestTimeList);
     }
 
-    public void getHeadAndTailFromPreviousDaySHead(List<Jackpot> jackpotList, int head) {
-        int runningDayNumber = Math.min(jackpotList.size(), 150);
-        HeadTail headTail = JackpotStatistics.getHeadAndTaiFromPreviousDaySCouple(jackpotList.subList(0,
-                runningDayNumber - 1), head, 1);
-        referenceBridgeView.showHeadAndTaiFromPreviousDaySHead(runningDayNumber, head, headTail);
-    }
-
-    public void getHeadAndTailFromPreviousDaySTail(List<Jackpot> jackpotList, int tail) {
-        int runningDayNumber = Math.min(jackpotList.size(), 150);
-        HeadTail headTail = JackpotStatistics.getHeadAndTaiFromPreviousDaySCouple(jackpotList.subList(0,
-                runningDayNumber - 1), tail, 2);
-        referenceBridgeView.showHeadAndTaiFromPreviousDaySTail(runningDayNumber, tail, headTail);
-    }
 }

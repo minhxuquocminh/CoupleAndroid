@@ -7,7 +7,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
-import com.example.couple.Model.Couple.JackpotDayState;
+import com.example.couple.Custom.Handler.UpdateData.JackpotDayState;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.DateTime.Date.DateData;

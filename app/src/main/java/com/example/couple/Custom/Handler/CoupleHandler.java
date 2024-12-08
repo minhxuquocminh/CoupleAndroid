@@ -1,6 +1,6 @@
 package com.example.couple.Custom.Handler;
 
-import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Bridge.JackpotHistory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,16 +16,16 @@ import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Bridge.Couple.TriadBridge;
-import com.example.couple.Model.Bridge.Single.ConnectedBridge;
-import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.Bridge.Connected.ConnectedSupport;
+import com.example.couple.Model.Bridge.Connected.PairConnectedSupport;
+import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.Support.ConnectedSupport;
-import com.example.couple.Model.Support.PairConnectedSupport;
-import com.example.couple.Model.Support.TriangleConnectedSupport;
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
+import com.example.couple.Model.Bridge.Connected.TriangleConnectedSupport;
 import com.example.couple.R;
 import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.ViewModel.Bridge.FindingBridgeViewModel;
@@ -506,12 +506,12 @@ public class FindingBridgeActivity extends SpeechToTextActivity implements Findi
     }
 
     @Override
-    public void showJackpotThirdClawBridge(List<BSingle> BSingleList, int frame) {
+    public void showJackpotThirdClawBridge(List<Single> singles, int frame) {
         tvJackpotThirdClawTitle.setText("Cầu càng 3 giải ĐB (khung " + frame + " ngày): ");
         String show = " - Các số: ";
-        for (int i = 0; i < BSingleList.size(); i++) {
-            show += BSingleList.get(i).show();
-            if (i != BSingleList.size() - 1) {
+        for (int i = 0; i < singles.size(); i++) {
+            show += singles.get(i).show();
+            if (i != singles.size() - 1) {
                 show += ", ";
             }
         }

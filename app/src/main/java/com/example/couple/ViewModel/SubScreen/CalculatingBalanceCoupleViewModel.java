@@ -1,7 +1,7 @@
 package com.example.couple.ViewModel.SubScreen;
 
 import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
-import com.example.couple.Model.Display.BCouple;
+import com.example.couple.Model.Statistics.BCouple;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleView;
 
 import java.util.List;

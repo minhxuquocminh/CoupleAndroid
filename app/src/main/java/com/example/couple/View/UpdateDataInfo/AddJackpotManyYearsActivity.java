@@ -7,16 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.couple.Base.Handler.AlarmBase;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.DateTime.Time.TimeBase;
-import com.example.couple.Model.History.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;

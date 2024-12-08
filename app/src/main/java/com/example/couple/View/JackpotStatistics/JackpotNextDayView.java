@@ -1,6 +1,6 @@
 package com.example.couple.View.JackpotStatistics;
 
-import com.example.couple.Model.Display.JackpotNextDay;
+import com.example.couple.Model.Statistics.JackpotNextDay;
 
 import java.util.List;
 

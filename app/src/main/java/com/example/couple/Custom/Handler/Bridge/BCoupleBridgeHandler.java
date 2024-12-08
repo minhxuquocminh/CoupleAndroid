@@ -1,9 +1,9 @@
 package com.example.couple.Custom.Handler.Bridge;
 
-import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
-import com.example.couple.Model.Bridge.LongBeat.AfterDoubleExtendBridge;
-import com.example.couple.Model.Couple.CoupleBeat;
-import com.example.couple.Model.Display.BCouple;
+import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
+import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
+import com.example.couple.Model.Bridge.Double.CoupleBeat;
+import com.example.couple.Model.Statistics.BCouple;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 

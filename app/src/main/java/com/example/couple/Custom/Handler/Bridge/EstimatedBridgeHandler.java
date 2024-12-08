@@ -1,11 +1,11 @@
 package com.example.couple.Custom.Handler.Bridge;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
-import com.example.couple.Model.Display.DualStatus;
+import com.example.couple.Model.Bridge.Estimated.EstimatedBridge;
+import com.example.couple.Model.Bridge.Estimated.DualStatus;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.JackpotHistory;
-import com.example.couple.Model.Support.PeriodHistory;
+import com.example.couple.Model.Bridge.JackpotHistory;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;

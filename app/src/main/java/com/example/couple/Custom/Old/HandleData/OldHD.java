@@ -1,7 +1,7 @@
 package com.example.couple.Custom.Old.HandleData;
 
 
-import com.example.couple.Model.Display.BCouple;
+import com.example.couple.Model.Statistics.BCouple;
 
 import java.util.ArrayList;
 

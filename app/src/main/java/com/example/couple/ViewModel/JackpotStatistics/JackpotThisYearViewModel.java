@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
-import com.example.couple.Model.Display.NearestTime;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.JackpotStatistics.JackpotThisYearView;
 

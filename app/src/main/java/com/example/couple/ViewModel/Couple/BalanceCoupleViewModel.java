@@ -7,7 +7,7 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.PeriodHistory;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.View.Couple.BalanceCoupleView;
 
 import java.util.List;

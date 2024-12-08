@@ -17,8 +17,8 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
-import com.example.couple.Model.UI.RowUI;
-import com.example.couple.Model.UI.TableUI;
+import com.example.couple.Base.View.RowData;
+import com.example.couple.Base.View.TableData;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.CycleByYearViewModel;
 
@@ -73,17 +73,17 @@ public class CycleByYearActivity extends SpeechToTextActivity implements CycleBy
 
     private void GetCycleByYear() {
         List<String> headers = TimeInfo.HEAVENLY_STEMS;
-        List<RowUI> rows = new ArrayList<>();
+        List<RowData> rows = new ArrayList<>();
         for (int i = 0; i < 13; i++) {
             List<String> cells = new ArrayList<>();
             for (int j = 0; j < 10; j++) {
                 YearCycle yearCycle = new YearCycle(1900 + i * 10 + j);
                 cells.add(yearCycle.showByCouple());
             }
-            rows.add(new RowUI(cells));
+            rows.add(new RowData(cells));
         }
-        TableUI tableUI = new TableUI(headers, rows);
-        TableLayout tableLayout = TableLayoutBase.getTableLayoutWrapContent(this, tableUI);
+        TableData tableData = new TableData(headers, rows);
+        TableLayout tableLayout = TableLayoutBase.getTableLayoutWrapContent(this, tableData);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
     }

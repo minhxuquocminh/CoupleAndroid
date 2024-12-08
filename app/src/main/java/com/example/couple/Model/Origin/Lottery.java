@@ -1,8 +1,8 @@
 package com.example.couple.Model.Origin;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Support.Lotto;
-import com.example.couple.Model.Support.Position;
+import com.example.couple.Model.Bridge.Touch.Lotto;
+import com.example.couple.Model.Bridge.Position;
 import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;

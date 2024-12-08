@@ -1,18 +1,18 @@
 package com.example.couple.Custom.Handler.Bridge;
 
-import com.example.couple.Model.Bridge.Couple.EstimatedBridge;
-import com.example.couple.Model.Bridge.Couple.MappingBridge;
-import com.example.couple.Model.Bridge.Couple.SyntheticBridge;
-import com.example.couple.Model.Bridge.Couple.UnappearedBigDoubleBridge;
-import com.example.couple.Model.Bridge.Sign.DayDoubleSign;
-import com.example.couple.Model.Bridge.Sign.SignOfDouble;
-import com.example.couple.Model.Bridge.Single.CombineTouchBridge;
+import com.example.couple.Model.Bridge.Double.UnappearedBigDoubleBridge;
+import com.example.couple.Model.Bridge.Estimated.EstimatedBridge;
+import com.example.couple.Model.Bridge.Mapping.MappingBridge;
+import com.example.couple.Model.Bridge.Double.DayDoubleSign;
+import com.example.couple.Model.Bridge.Double.SignOfDouble;
+import com.example.couple.Model.Bridge.SyntheticBridge;
+import com.example.couple.Model.Bridge.Touch.CombineTouchBridge;
 import com.example.couple.Model.DateTime.Date.DateBase;
-import com.example.couple.Model.Display.BSingle;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Set.SpecialSet;
-import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Bridge.NumberSet.SpecialSet;
+import com.example.couple.Model.Bridge.JackpotHistory;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,7 +121,7 @@ public class OtherBridgeHandler {
     }
 
     // cầu này để tìm càng thứ 3 dựa trên lịch sử càng giống càng chạy gần đây
-    public static List<BSingle> getTouchsByThirdClawBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+    public static List<Single> getTouchsByThirdClawBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
         if (jackpotList.size() < dayNumberBefore) return new ArrayList<>();
         int sizeTest = Math.min(jackpotList.size() - dayNumberBefore, 5);
 
@@ -132,7 +132,7 @@ public class OtherBridgeHandler {
 
         int size = jackpotList.size() - sizeTest - dayNumberBefore;
 
-        List<BSingle> BSingleList = new ArrayList<>();
+        List<Single> singles = new ArrayList<>();
         for (int i = 1; i < size; i++) {
             int count = 0;
             for (int j = 0; j < sizeTest; j++) {
@@ -141,7 +141,7 @@ public class OtherBridgeHandler {
                 }
             }
             if (count == sizeTest) {
-                BSingleList.add(new BSingle(jackpotList.get(dayNumberBefore + i - 1).getThirdClaw(), count));
+                singles.add(new Single(jackpotList.get(dayNumberBefore + i - 1).getThirdClaw(), count));
             }
             if (i == size - 1) {
                 sizeTest--;
@@ -152,14 +152,14 @@ public class OtherBridgeHandler {
             }
         }
 
-        for (int i = 0; i < BSingleList.size(); i++) {
-            for (int j = i + 1; j < BSingleList.size(); j++) {
-                if (BSingleList.get(j).getNumber() == BSingleList.get(i).getNumber()) {
-                    BSingleList.remove(j);
+        for (int i = 0; i < singles.size(); i++) {
+            for (int j = i + 1; j < singles.size(); j++) {
+                if (singles.get(j).getNumber() == singles.get(i).getNumber()) {
+                    singles.remove(j);
                 }
             }
         }
-        return BSingleList;
+        return singles;
     }
 
 }

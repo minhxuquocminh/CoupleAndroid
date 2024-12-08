@@ -1,15 +1,14 @@
 package com.example.couple.View.Bridge;
 
-import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.Bridge.Single.ConnectedBridge;
-import com.example.couple.Model.Display.HeadTail;
-import com.example.couple.Model.Display.JackpotSign;
-import com.example.couple.Model.Display.NearestTime;
-import com.example.couple.Model.Display.NumberDouble;
-import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.Display.BSingle;
+import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
+import com.example.couple.Model.Bridge.Double.JackpotSign;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
+import com.example.couple.Model.Bridge.Double.NumberDouble;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
 
 import java.util.List;
 
@@ -17,9 +16,7 @@ public interface ReferenceBridgeView {
     void showMessage(String message);
     //
     void showJackpotList(List<Jackpot> jackpotList);
-    void showTouchBridge(List<BSingle> touchList);
-    void showSpecialTouchBridge(List<Integer> touchList);
-    void showTouchThirdClawBridge(List<BSingle> BSingleList, int frame);
+    void showTouchThirdClawBridge(List<Single> singles, int frame);
     //
     void showJackpotListThisYear(List<Jackpot> jackpotList);
     void showRareSameDoubleList(List<NearestTime> subNearestTimeList);
@@ -41,6 +38,4 @@ public interface ReferenceBridgeView {
     void showNumberBeforeSameDoubleAppear(List<NumberDouble> numberDoubleList);
     void showHeadForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList);
     void showTailForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList);
-    void showHeadAndTaiFromPreviousDaySHead(int runningDayNumber, int head, HeadTail headTail);
-    void showHeadAndTaiFromPreviousDaySTail(int runningDayNumber, int tail, HeadTail headTail);
 }

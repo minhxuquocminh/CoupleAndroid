@@ -14,7 +14,7 @@ import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Display.JackpotNextDay;
+import com.example.couple.Model.Statistics.JackpotNextDay;
 import com.example.couple.R;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotNextDayViewModel;

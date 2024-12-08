@@ -8,16 +8,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Bridge.Single.ConnectedBridge;
-import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.HeadTail;
-import com.example.couple.Model.Display.JackpotSign;
-import com.example.couple.Model.Display.NearestTime;
-import com.example.couple.Model.Display.NumberDouble;
-import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
+import com.example.couple.Model.Bridge.Double.JackpotSign;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
+import com.example.couple.Model.Bridge.Double.NumberDouble;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Support.ClawSupport;
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
 import com.example.couple.R;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
@@ -141,35 +140,11 @@ public class ReferenceBridgeActivity extends SpeechToTextActivity implements Ref
     }
 
     @Override
-    public void showTouchBridge(List<BSingle> touchList) {
-        String touchBridge = "Từ bộ số CB lấy các chạm: ";
-        for (int i = 0; i < touchList.size(); i++) {
-            touchBridge += touchList.get(i).showTouchBalanceCouple();
-            if (i != touchList.size() - 1) {
-                touchBridge += ", ";
-            }
-        }
-        tvTouchBridge.setText(touchBridge);
-    }
-
-    @Override
-    public void showSpecialTouchBridge(List<Integer> touchList) {
-        String touchBridge = "Các chạm đặc biệt từ BSCB: ";
-        for (int i = 0; i < touchList.size(); i++) {
-            touchBridge += touchList.get(i);
-            if (i != touchList.size() - 1) {
-                touchBridge += ", ";
-            }
-        }
-        tvSpecialTouchBridge.setText(touchBridge);
-    }
-
-    @Override
-    public void showTouchThirdClawBridge(List<BSingle> BSingleList, int frame) {
+    public void showTouchThirdClawBridge(List<Single> singles, int frame) {
         String show = "Cầu càng 3 giải ĐB (khung " + frame + " ngày): ";
-        for (int i = 0; i < BSingleList.size(); i++) {
-            show += BSingleList.get(i).show();
-            if (i != BSingleList.size() - 1) {
+        for (int i = 0; i < singles.size(); i++) {
+            show += singles.get(i).show();
+            if (i != singles.size() - 1) {
                 show += ", ";
             }
         }
@@ -308,8 +283,6 @@ public class ReferenceBridgeActivity extends SpeechToTextActivity implements Ref
         viewModel.getNumberBeforeSameDoubleAppear(jackpotList);
         viewModel.getHeadForALongTime(jackpotList);
         viewModel.getTailForALongTime(jackpotList);
-        viewModel.getHeadAndTailFromPreviousDaySHead(jackpotList, jackpotList.get(0).getCouple().getFirst());
-        viewModel.getHeadAndTailFromPreviousDaySTail(jackpotList, jackpotList.get(0).getCouple().getSecond());
     }
 
     @Override
@@ -376,20 +349,6 @@ public class ReferenceBridgeActivity extends SpeechToTextActivity implements Ref
             }
         }
         tvRareTail.setText(show);
-    }
-
-    @Override
-    public void showHeadAndTaiFromPreviousDaySHead(int runningDayNumber, int head, HeadTail headTail) {
-        String show = "Trong " + runningDayNumber + " ngày, đầu " + head + " thường về:";
-        show += headTail.show();
-        tvHead.setText(show);
-    }
-
-    @Override
-    public void showHeadAndTaiFromPreviousDaySTail(int runningDayNumber, int tail, HeadTail headTail) {
-        String show = "Trong " + runningDayNumber + " ngày, đuôi " + tail + " thường về:";
-        show += headTail.show();
-        tvTail.setText(show);
     }
 
     @Override

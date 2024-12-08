@@ -9,8 +9,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.couple.Model.UI.RowUI;
-import com.example.couple.Model.UI.TableUI;
 import com.example.couple.R;
 
 public class TableLayoutBase {
@@ -39,20 +37,20 @@ public class TableLayoutBase {
         return tableLayout;
     }
 
-    public static TableLayout getTableLayout(Context context, TableUI tableUI) {
+    public static TableLayout getTableLayout(Context context, TableData tableData) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout
                 .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        if (!tableUI.getHeaders().isEmpty()) {
+        if (!tableData.getHeaders().isEmpty()) {
             TableRow rowHeader = new TableRow(context);
-            for (String header : tableUI.getHeaders()) {
+            for (String header : tableData.getHeaders()) {
                 TextView tvHeader = getHeaderCell(context, header);
                 rowHeader.addView(tvHeader);
             }
         }
 
-        for (RowUI row : tableUI.getRows()) {
+        for (RowData row : tableData.getRows()) {
             TableRow tableRow = new TableRow(context);
             for (String cell : row.getCells()) {
                 TextView tv = getCell(context, cell);
@@ -64,20 +62,20 @@ public class TableLayoutBase {
         return tableLayout;
     }
 
-    public static TableLayout getTableLayoutWrapContent(Context context, TableUI tableUI) {
+    public static TableLayout getTableLayoutWrapContent(Context context, TableData tableData) {
         TableLayout tableLayout = new TableLayout(context);
         tableLayout.setLayoutParams(new TableLayout
                 .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        if (!tableUI.getHeaders().isEmpty()) {
+        if (!tableData.getHeaders().isEmpty()) {
             TableRow rowHeader = new TableRow(context);
-            for (String header : tableUI.getHeaders()) {
+            for (String header : tableData.getHeaders()) {
                 TextView tvHeader = getHeaderCell(context, header);
                 rowHeader.addView(tvHeader);
             }
         }
 
-        for (RowUI row : tableUI.getRows()) {
+        for (RowData row : tableData.getRows()) {
             TableRow tableRow = new TableRow(context);
             for (String cell : row.getCells()) {
                 TextView tv = getCell(context, cell);

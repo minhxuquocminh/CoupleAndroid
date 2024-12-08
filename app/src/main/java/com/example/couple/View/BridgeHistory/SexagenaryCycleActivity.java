@@ -19,8 +19,8 @@ import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 import com.example.couple.Model.DateTime.Date.DateData;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.UI.RowUI;
-import com.example.couple.Model.UI.TableUI;
+import com.example.couple.Base.View.RowData;
+import com.example.couple.Base.View.TableData;
 import com.example.couple.R;
 import com.example.couple.ViewModel.BridgeHistory.SexagenaryCycleViewModel;
 
@@ -78,7 +78,7 @@ public class SexagenaryCycleActivity extends SpeechToTextActivity implements Sex
     @Override
     public void showSexagenaryCycle(List<DateData> dateDataList, List<Jackpot> jackpotList) {
         List<String> headers = new ArrayList<>();
-        List<RowUI> rows = new ArrayList<>();
+        List<RowData> rows = new ArrayList<>();
         int index = -1; // timebase index
         for (Jackpot jackpot : jackpotList) {
             for (int i = 0; i < dateDataList.size(); i++) {
@@ -100,7 +100,7 @@ public class SexagenaryCycleActivity extends SpeechToTextActivity implements Sex
                 String stems = dayCycle.getStem().getPosition() + "";
                 String branches = dayCycle.getBranch().getPosition() % 10 + "";
                 List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stems, branches);
-                RowUI row = new RowUI(cells);
+                RowData row = new RowData(cells);
                 rows.add(row);
             }
         } else {
@@ -136,14 +136,14 @@ public class SexagenaryCycleActivity extends SpeechToTextActivity implements Sex
                 }
                 List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stem, branches,
                         coupleBranches1, coupleBranches2, distanceStr, jackpot, status, yearBranchStr);
-                RowUI row = new RowUI(cells);
+                RowData row = new RowData(cells);
                 rows.add(row);
                 count++;
             }
         }
 
-        TableUI tableUI = new TableUI(headers, rows);
-        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableUI);
+        TableData tableData = new TableData(headers, rows);
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
     }

@@ -5,16 +5,14 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.HeadTail;
-import com.example.couple.Model.Display.JackpotNextDay;
-import com.example.couple.Model.Display.JackpotSign;
-import com.example.couple.Model.Display.NearestTime;
-import com.example.couple.Model.Display.NumberDouble;
+import com.example.couple.Model.DateTime.Date.DateBase;
+import com.example.couple.Model.Statistics.JackpotNextDay;
+import com.example.couple.Model.Bridge.Double.JackpotSign;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
+import com.example.couple.Model.Bridge.Double.NumberDouble;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -312,67 +310,6 @@ public class JackpotStatistics {
             numberArr[jackpotList.get(i).getCoupleInt()]++;
         }
         return numberArr;
-    }
-
-    public static HeadTail getHeadAndTaiFromPreviousDaySCouple(List<Jackpot> jackpotList, int number, int type) {
-        if (jackpotList.isEmpty()) return null;
-        int[] headArr = new int[10];
-        int[] tailArr = new int[10];
-        int runningSize = Math.min(jackpotList.size(), 150);
-        for (int i = 1; i < runningSize; i++) {
-            if (type == 1) {
-                if (jackpotList.get(i).getCouple().getFirst() == number) {
-                    Couple couple = jackpotList.get(i - 1).getCouple();
-                    headArr[couple.getFirst()]++;
-                    tailArr[couple.getSecond()]++;
-                }
-            }
-            if (type == 2) {
-                if (jackpotList.get(i).getCouple().getSecond() == number) {
-                    Couple couple = jackpotList.get(i - 1).getCouple();
-                    headArr[couple.getFirst()]++;
-                    tailArr[couple.getSecond()]++;
-                }
-            }
-        }
-        List<BSingle> headList = new ArrayList<>();
-        List<BSingle> tailList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            headList.add(new BSingle(i, headArr[i]));
-            tailList.add(new BSingle(i, tailArr[i]));
-        }
-
-        headList.sort(new Comparator<BSingle>() {
-            @Override
-            public int compare(BSingle o1, BSingle o2) {
-                return Integer.compare(o2.getLevel(), o1.getLevel());
-            }
-        });
-
-        tailList.sort(new Comparator<BSingle>() {
-            @Override
-            public int compare(BSingle o1, BSingle o2) {
-                return Integer.compare(o2.getLevel(), o1.getLevel());
-            }
-        });
-
-        int countHead = 0;
-        List<BSingle> filteredHeadList = new ArrayList<>();
-        for (int i = 0; i < headList.size(); i++) {
-            filteredHeadList.add(headList.get(i));
-            countHead++;
-            if (countHead > 3) break;
-        }
-
-        int countTail = 0;
-        List<BSingle> filteredTailList = new ArrayList<>();
-        for (int i = 0; i < tailList.size(); i++) {
-            filteredTailList.add(tailList.get(i));
-            countTail++;
-            if (countTail > 3) break;
-        }
-
-        return new HeadTail(filteredHeadList, filteredTailList);
     }
 
     public static List<Jackpot> getJackpotListLastMonth(List<Jackpot> jackpotList, List<DateBase> dateBases) {

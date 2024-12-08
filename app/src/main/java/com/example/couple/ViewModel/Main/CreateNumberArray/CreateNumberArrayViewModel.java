@@ -11,10 +11,10 @@ import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Handler.InputType;
-import com.example.couple.Model.Display.Picker;
+import com.example.couple.Model.Handler.Picker;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.PeriodHistory;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayView;
 
 import java.util.ArrayList;

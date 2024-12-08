@@ -2,7 +2,6 @@ package com.example.couple.Model.Bridge;
 
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.Support.JackpotHistory;
 
 import java.util.List;
 

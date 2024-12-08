@@ -1,12 +1,12 @@
 package com.example.couple.Custom.Handler.Bridge;
 
 import com.example.couple.Model.Bridge.BridgeType;
-import com.example.couple.Model.Bridge.Couple.MappingBridge;
-import com.example.couple.Model.Bridge.Couple.TriadMappingBridge;
+import com.example.couple.Model.Bridge.Mapping.MappingBridge;
+import com.example.couple.Model.Bridge.Mapping.TriadMappingBridge;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.JackpotHistory;
+import com.example.couple.Model.Bridge.JackpotHistory;
 
 import java.util.Collections;
 import java.util.HashMap;

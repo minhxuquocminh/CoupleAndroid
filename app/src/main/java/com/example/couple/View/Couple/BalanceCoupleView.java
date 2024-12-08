@@ -1,7 +1,7 @@
 package com.example.couple.View.Couple;
 
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.PeriodHistory;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 
 import java.util.List;
 

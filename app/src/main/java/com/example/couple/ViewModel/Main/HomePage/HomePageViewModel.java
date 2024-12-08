@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
-import com.example.couple.Model.Display.NearestTime;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.Main.HomePage.HomePageView;
 

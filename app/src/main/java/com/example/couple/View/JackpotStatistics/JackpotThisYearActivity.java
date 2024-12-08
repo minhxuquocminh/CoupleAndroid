@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Display.NearestTime;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotThisYearViewModel;

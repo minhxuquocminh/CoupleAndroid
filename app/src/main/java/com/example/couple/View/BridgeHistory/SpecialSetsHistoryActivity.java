@@ -14,10 +14,10 @@ import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.History.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.UI.RowUI;
-import com.example.couple.Model.UI.TableUI;
+import com.example.couple.Base.View.RowData;
+import com.example.couple.Base.View.TableData;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.SpecialSetsHistoryViewModel;
 
@@ -81,7 +81,7 @@ public class SpecialSetsHistoryActivity extends SpeechToTextActivity implements 
     @Override
     public void showSpecialSetsHistory(List<NumberSetHistory> historyList) {
         List<String> headers = new ArrayList<>();
-        List<RowUI> rows = new ArrayList<>();
+        List<RowData> rows = new ArrayList<>();
 
         for (NumberSetHistory history : historyList) {
             String name = history.getNumberSet().getName();
@@ -90,12 +90,12 @@ public class SpecialSetsHistoryActivity extends SpeechToTextActivity implements 
             String numberSize = history.getNumberSet().getNumbers().size() + " số";
             String beats = NumberBase.showNumbers(history.getBeatList(), ", ");
             List<String> cells = Arrays.asList(name, appearanceTimes, dayNumberBefore, numberSize, beats);
-            RowUI row = new RowUI(cells);
+            RowData row = new RowData(cells);
             rows.add(row);
         }
 
-        TableUI tableUI = new TableUI(headers, rows);
-        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableUI);
+        TableData tableData = new TableData(headers, rows);
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
     }

@@ -17,7 +17,7 @@ import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Custom.Widget.CustomTextView;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Support.PeriodHistory;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Couple.BalanceCoupleViewModel;
 

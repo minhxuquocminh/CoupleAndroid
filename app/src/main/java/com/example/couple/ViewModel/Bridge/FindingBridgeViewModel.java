@@ -8,16 +8,16 @@ import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Model.Bridge.Couple.TriadBridge;
-import com.example.couple.Model.Bridge.Single.ConnectedBridge;
-import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.Bridge.Connected.PairConnectedSupport;
+import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Support.ClawSupport;
-import com.example.couple.Model.Support.PairConnectedSupport;
-import com.example.couple.Model.Support.TriadSets;
-import com.example.couple.Model.Support.TriangleConnectedSupport;
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
+import com.example.couple.Model.Bridge.Connected.TriadSets;
+import com.example.couple.Model.Bridge.Connected.TriangleConnectedSupport;
 import com.example.couple.View.Bridge.FindingBridgeView;
 
 import java.util.ArrayList;
@@ -241,8 +241,8 @@ public class FindingBridgeViewModel {
     }
 
     public void findingJackpotThirdClawBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
-        List<BSingle> BSingleList = OtherBridgeHandler.getTouchsByThirdClawBridge(jackpotList, dayNumberBefore);
-        findingBridgeView.showJackpotThirdClawBridge(BSingleList, jackpotList.size());
+        List<Single> singles = OtherBridgeHandler.getTouchsByThirdClawBridge(jackpotList, dayNumberBefore);
+        findingBridgeView.showJackpotThirdClawBridge(singles, jackpotList.size());
     }
 
     public void test(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {

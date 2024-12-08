@@ -1,6 +1,6 @@
 package com.example.couple.View.Main.NumberPicker;
 
-import com.example.couple.Model.Display.Picker;
+import com.example.couple.Model.Handler.Picker;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 

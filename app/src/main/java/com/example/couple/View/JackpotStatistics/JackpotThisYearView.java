@@ -1,6 +1,6 @@
 package com.example.couple.View.JackpotStatistics;
 
-import com.example.couple.Model.Display.NearestTime;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.List;

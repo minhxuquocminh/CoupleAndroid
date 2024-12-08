@@ -1,13 +1,13 @@
 package com.example.couple.View.Bridge;
 
-import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
-import com.example.couple.Model.Bridge.Couple.ConnectedSetBridge;
-import com.example.couple.Model.Bridge.Couple.TriadBridge;
-import com.example.couple.Model.Bridge.LongBeat.AfterDoubleBridge;
-import com.example.couple.Model.Bridge.LongBeat.AfterDoubleExtendBridge;
-import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
-import com.example.couple.Model.Bridge.Sign.SignOfDouble;
-import com.example.couple.Model.History.NumberSetHistory;
+import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
+import com.example.couple.Model.Bridge.Connected.ConnectedSetBridge;
+import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
+import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
+import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
+import com.example.couple.Model.Bridge.Double.SignOfDouble;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 

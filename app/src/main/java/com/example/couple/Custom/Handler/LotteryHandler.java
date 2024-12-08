@@ -7,7 +7,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Support.Position;
+import com.example.couple.Model.Bridge.Position;
 
 import java.util.ArrayList;
 import java.util.List;

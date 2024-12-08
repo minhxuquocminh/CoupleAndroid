@@ -27,31 +27,22 @@ public class Input {
     }
 
     public List<Integer> getNumbers() {
-        List<Integer> numbers = new ArrayList<>();
         switch (this.inputType) {
             case SET:
-                numbers = NumberArrayHandler.getSetsByCouples(inputNumbers);
-                break;
+                return NumberArrayHandler.getSetsByCouples(inputNumbers);
             case TOUCH:
-                numbers = NumberArrayHandler.getTouchs(inputNumbers);
-                break;
+                return NumberArrayHandler.getTouchs(inputNumbers);
             case SUM:
-                numbers = NumberArrayHandler.getSums(inputNumbers);
-                break;
+                return NumberArrayHandler.getSums(inputNumbers);
             case BRANCH:
-                numbers = NumberArrayHandler.getBranches(inputNumbers);
-                break;
+                return NumberArrayHandler.getBranches(inputNumbers);
             case HEAD:
-                numbers = NumberArrayHandler.getHeads(inputNumbers);
-                break;
+                return NumberArrayHandler.getHeads(inputNumbers);
             case TAIL:
-                numbers = NumberArrayHandler.getTails(inputNumbers);
-                break;
+                return NumberArrayHandler.getTails(inputNumbers);
             default:
-                numbers = inputNumbers;
-                break;
+                return inputNumbers;
         }
-        return numbers;
     }
 
     public boolean isEmpty() {

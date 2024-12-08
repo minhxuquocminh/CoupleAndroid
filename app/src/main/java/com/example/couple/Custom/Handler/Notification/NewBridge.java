@@ -7,10 +7,9 @@ import com.example.couple.Custom.Const.NotifyId;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Model.Bridge.Couple.BranchInTwoDaysBridge;
+import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
 import com.example.couple.Model.DateTime.Date.DateBase;
-import com.example.couple.Model.Display.NotificationInfo;
-import com.example.couple.Model.History.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.List;

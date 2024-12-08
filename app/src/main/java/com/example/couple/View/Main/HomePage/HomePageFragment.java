@@ -22,11 +22,10 @@ import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.RequestCode;
 import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
-import com.example.couple.Custom.Service.UpdateDataService;
-import com.example.couple.Custom.Service.UpdateDataView;
+import com.example.couple.Custom.Handler.UpdateData.UpdateDataService;
+import com.example.couple.Custom.Handler.UpdateData.UpdateDataView;
 import com.example.couple.Model.DateTime.Time.TimeBase;
-import com.example.couple.Model.Display.BSingle;
-import com.example.couple.Model.Display.NearestTime;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -277,30 +276,6 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
             }
         }
         tvSuggest.setText(".");
-    }
-
-    @Override
-    public void showTouchBridge(List<BSingle> touchList) {
-        String touchBridge = "Từ bộ số CB lấy các chạm: ";
-        for (int i = 0; i < touchList.size(); i++) {
-            touchBridge += touchList.get(i).showTouchBalanceCouple();
-            if (i != touchList.size() - 1) {
-                touchBridge += ", ";
-            }
-        }
-        tvTouchBridge.setText(touchBridge);
-    }
-
-    @Override
-    public void showSpecialTouchBridge(List<Integer> touchList) {
-        String touchBridge = "Các chạm đặc biệt từ BSCB: ";
-        for (int i = 0; i < touchList.size(); i++) {
-            touchBridge += touchList.get(i);
-            if (i != touchList.size() - 1) {
-                touchBridge += ", ";
-            }
-        }
-        tvSpecialTouchBridge.setText(touchBridge);
     }
 
     @Override

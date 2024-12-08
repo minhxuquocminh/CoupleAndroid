@@ -15,7 +15,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.DateTime.DateTimeBase;
 import com.example.couple.Model.DateTime.Time.TimeBase;
-import com.example.couple.Model.Display.NotificationInfo;
+import com.example.couple.Custom.Handler.Notification.NotificationInfo;
 import com.example.couple.R;
 import com.example.couple.View.Main.MainActivity;
 

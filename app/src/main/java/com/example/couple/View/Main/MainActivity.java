@@ -13,8 +13,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.couple.Base.Handler.SpeechToTextBase;
 import com.example.couple.Base.Handler.ThreadBase;
-import com.example.couple.Custom.Service.UpdateDataService;
-import com.example.couple.Custom.Service.UpdateDataView;
+import com.example.couple.Custom.Handler.UpdateData.UpdateDataService;
+import com.example.couple.Custom.Handler.UpdateData.UpdateDataView;
 import com.example.couple.Custom.Widget.CustomAction;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;

@@ -5,12 +5,12 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Bridge.LongBeat.BranchInDayBridge;
+import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
-import com.example.couple.Model.Display.Set;
-import com.example.couple.Model.History.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.Set;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Set.SpecialSet;
+import com.example.couple.Model.Bridge.NumberSet.SpecialSet;
 
 import java.util.ArrayList;
 import java.util.Collections;

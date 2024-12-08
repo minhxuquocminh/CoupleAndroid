@@ -3,7 +3,7 @@ package com.example.couple.Model.Origin;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
-import com.example.couple.Model.Display.Set;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
