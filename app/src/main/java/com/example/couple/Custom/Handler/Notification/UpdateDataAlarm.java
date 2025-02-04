@@ -42,7 +42,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         SyncDataState syncDataState = SyncDataHandler.execute(context);
         SyncState jackpotSyncState = syncDataState.getSyncJackpotState();
         if (jackpotSyncState == SyncState.DONE) {
-            List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 99);
+            List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, 99);
             if (!jackpotList.isEmpty()) {
                 String title = "XSĐB ngày " + jackpotList.get(0).getDateBase().showFullChars();
                 String content = "Kết quả: " + jackpotList.get(0).getJackpot() + ".";

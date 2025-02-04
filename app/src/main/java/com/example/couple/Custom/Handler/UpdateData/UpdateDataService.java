@@ -69,7 +69,7 @@ public class UpdateDataService {
     }
 
     public void getJackpotData(boolean isMainThread, boolean showNewBridge) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 99);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, 99);
         if (jackpotList.isEmpty()) return;
         if (showNewBridge) NewBridge.notify(context, jackpotList);
         new MainThreadBase(() -> {

@@ -45,7 +45,7 @@ public class JackpotNextDayViewModel {
                 if (endYear_file < TimeInfo.CURRENT_YEAR || numberOfYears_file < yearInt) {
                     view.showRequestLoadMoreData(startYear_file, endYear_file);
                 } else {
-                    List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, 10);
+                    List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, 10);
                     int dayNumberBefore = Integer.parseInt(dayNumberBeforeStr);
                     int couple = jackpotList.get(dayNumberBefore).getCoupleInt();
                     List<Jackpot> jackpotListManyYears = JackpotHandler.getJackpotListManyYears(context, yearInt);

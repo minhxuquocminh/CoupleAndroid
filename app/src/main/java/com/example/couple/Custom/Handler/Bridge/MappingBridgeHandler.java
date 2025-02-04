@@ -1,12 +1,12 @@
 package com.example.couple.Custom.Handler.Bridge;
 
 import com.example.couple.Model.Bridge.BridgeType;
+import com.example.couple.Model.Bridge.JackpotHistory;
 import com.example.couple.Model.Bridge.Mapping.MappingBridge;
 import com.example.couple.Model.Bridge.Mapping.TriadMappingBridge;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Bridge.JackpotHistory;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -102,15 +102,15 @@ public class MappingBridgeHandler {
             }
         }
 
-        if (!uullCouple.isEmpty() && !ulCouple.isEmpty()) {
+        if (!uullCouple.isDayOff() && !ulCouple.isDayOff()) {
             sequentCoupleMap.put(uullCouple, ulCouple);
         }
 
-        if (!llCouple.isEmpty() && !lCouple.isEmpty()) {
+        if (!llCouple.isDayOff() && !lCouple.isDayOff()) {
             sequentCoupleMap.put(llCouple, lCouple);
         }
 
-        if (!ddllCouple.isEmpty() && !dlCouple.isEmpty()) {
+        if (!ddllCouple.isDayOff() && !dlCouple.isDayOff()) {
             sequentCoupleMap.put(ddllCouple, dlCouple);
         }
 

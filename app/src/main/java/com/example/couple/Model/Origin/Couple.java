@@ -3,10 +3,10 @@ package com.example.couple.Model.Origin;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Statistics.BCouple;
-import com.example.couple.Model.Bridge.NumberSet.Set;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -232,7 +232,7 @@ public class DateBase implements Serializable {
 
     public long getDistance(DateBase dateBase) {
         if (this.isEmpty()) return Const.EMPTY_VALUE;
-        return (dateBase.toDate().getTime() - this.toDate().getTime()) / (24 * 60 * 60 * 1000);
+        return Math.abs(dateBase.toDate().getTime() - this.toDate().getTime()) / (24 * 60 * 60 * 1000);
     }
 
     public String toString(String delimiter) {

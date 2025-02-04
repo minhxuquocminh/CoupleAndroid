@@ -41,7 +41,7 @@ public class FindingBridgeViewModel {
             findingBridgeView.showLotteryList(lotteries);
         }
         List<Jackpot> jackpotList =
-                JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+                JackpotHandler.getReverseJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.isEmpty()) {
             findingBridgeView.showMessage("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {

@@ -38,7 +38,7 @@ public class SelectiveBridgeViewModel {
     }
 
     public void getAllData() {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.isEmpty()) {
             view.showMessage("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {

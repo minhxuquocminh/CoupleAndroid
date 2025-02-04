@@ -35,7 +35,7 @@ public class ReferenceBridgeViewModel {
 
     //
     public void getJackpotList(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, numberOfDays);
         if (jackpotList.isEmpty()) {
             referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt!");
         } else {
@@ -50,7 +50,7 @@ public class ReferenceBridgeViewModel {
 
     //
     public void getJackpotListThisYear() {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
         if (jackpotList.isEmpty()) {
             referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt năm nay!");
         } else {
@@ -89,7 +89,7 @@ public class ReferenceBridgeViewModel {
 
     //
     public void getJackpotListLastYear() {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListByYear(context,
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByYear(context,
                 TimeInfo.CURRENT_YEAR - 1);
         if (jackpotList.isEmpty()) {
             referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt năm ngoái!");
@@ -196,7 +196,7 @@ public class ReferenceBridgeViewModel {
 
     //
     public void getJackpotListInManyDays(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, numberOfDays);
         if (!jackpotList.isEmpty()) {
             if (jackpotList.size() < numberOfDays) {
                 referenceBridgeView.showMessage("Vui lòng nạp dữ liệu XS Đặc biệt nhiều năm để xem " +

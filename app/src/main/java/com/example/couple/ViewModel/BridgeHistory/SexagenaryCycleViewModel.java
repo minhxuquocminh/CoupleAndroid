@@ -27,7 +27,7 @@ public class SexagenaryCycleViewModel {
         }
         List<DateData> cycleList = DateHandler.getAllDateData(context, numberOfDays);
         List<Jackpot> jackpotList = JackpotHandler
-                .getReserveJackpotListFromFile(context, numberOfDays);
+                .getAllReverseJackpotListByDays(context, numberOfDays);
         if (cycleList.isEmpty()) {
             view.showMessage("Lỗi không lấy đc thông tin.");
         } else {

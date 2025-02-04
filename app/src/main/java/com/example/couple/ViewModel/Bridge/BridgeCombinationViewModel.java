@@ -50,7 +50,7 @@ public class BridgeCombinationViewModel {
     }
 
     public void getAllData() {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         if (jackpotList.isEmpty() || lotteryList.isEmpty()) {
             view.showMessage("Lỗi không láy được dữ liệu Xổ số.");

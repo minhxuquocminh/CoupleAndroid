@@ -1,9 +1,9 @@
 package com.example.couple.Model.Origin;
 
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
-import com.example.couple.Model.Bridge.NumberSet.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +17,7 @@ public class Jackpot {
     @Setter
     Cycle dayCycle;
 
+    // for Couple
     protected Jackpot() {
         this.jackpot = Const.EMPTY_JACKPOT;
         this.dateBase = DateBase.getEmpty();
@@ -29,15 +30,15 @@ public class Jackpot {
         this.dayCycle = Cycle.getEmpty();
     }
 
-    public static Jackpot getEmpty(DateBase dateBase) {
-        return new Jackpot(Const.EMPTY_JACKPOT, dateBase);
-    }
-
     public static Jackpot getEmpty() {
-        return new Jackpot();
+        return new Jackpot(Const.EMPTY_JACKPOT, DateBase.getEmpty(), Cycle.getEmpty());
     }
 
     public boolean isEmpty() {
+        return jackpot.equals(Const.EMPTY_JACKPOT) || dateBase.isEmpty();
+    }
+
+    public boolean isDayOff() {
         return jackpot.equals(Const.EMPTY_JACKPOT);
     }
 

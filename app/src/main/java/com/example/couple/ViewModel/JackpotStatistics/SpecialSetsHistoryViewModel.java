@@ -18,7 +18,7 @@ public class SpecialSetsHistoryViewModel {
     SpecialSetsHistoryView specialSetsHistoryView;
 
     public void getJackpotList(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, numberOfDays);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, numberOfDays);
         specialSetsHistoryView.showJackpotList(jackpotList);
     }
 

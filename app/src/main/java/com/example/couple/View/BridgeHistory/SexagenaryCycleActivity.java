@@ -10,6 +10,8 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.example.couple.Base.Handler.CoupleBase;
+import com.example.couple.Base.View.RowData;
+import com.example.couple.Base.View.TableData;
 import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
@@ -19,8 +21,6 @@ import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 import com.example.couple.Model.DateTime.Date.DateData;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Base.View.RowData;
-import com.example.couple.Base.View.TableData;
 import com.example.couple.R;
 import com.example.couple.ViewModel.BridgeHistory.SexagenaryCycleViewModel;
 
@@ -117,25 +117,24 @@ public class SexagenaryCycleActivity extends SpeechToTextActivity implements Sex
                 Branch branch = dateDataList.get(i).getDateCycle().getDay().getBranch();
                 String stem = dateDataList.get(i).getDateCycle().getDay().getStem().getPosition() + "";
                 String branches = branch.getPosition() % 10 + "";
+                Jackpot jackpot = jackpots.get(count);
                 List<Branch> branchList = count == 0 ? Collections.singletonList(branch) :
-                        Branch.getBranchsByYear(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);
+                        Branch.getBranchsByYear(jackpot.getCoupleInt(), TimeInfo.CURRENT_YEAR);
                 String coupleBranches1 = "";
                 String coupleBranches2 = "";
                 if (!branchList.isEmpty()) coupleBranches1 = branchList.get(0).show();
                 if (branchList.size() > 1) coupleBranches2 = branchList.get(1).show();
                 int distance = branch.getDistance(branchList.get(0));
                 String distanceStr = count == 0 ? "" : (distance > 0 ? "+" + distance : distance + "");
-                String jackpot = count == 0 ? "?????" : jackpots.get(count).getJackpot();
-
-                String status = count == 0 ? "" :
-                        branch.getStatus(jackpots.get(count).getCoupleInt(), TimeInfo.CURRENT_YEAR);
+                String jackpotStr = count == 0 ? "?????" : (jackpot.isDayOff() ? "Nghỉ" : jackpot.getJackpot());
+                String status = count == 0 ? "" : branch.getStatus(jackpot.getCoupleInt(), TimeInfo.CURRENT_YEAR);
                 List<YearCycle> yearBranch = branch.getYearCycles(TimeInfo.CURRENT_YEAR);
                 String yearBranchStr = "";
                 for (YearCycle cycle : yearBranch) {
                     yearBranchStr += CoupleBase.showCouple(cycle.getCoupleInt()) + " ";
                 }
                 List<String> cells = Arrays.asList(dateBase, dateLunar, dateCycle, stem, branches,
-                        coupleBranches1, coupleBranches2, distanceStr, jackpot, status, yearBranchStr);
+                        coupleBranches1, coupleBranches2, distanceStr, jackpotStr, status, yearBranchStr);
                 RowData row = new RowData(cells);
                 rows.add(row);
                 count++;

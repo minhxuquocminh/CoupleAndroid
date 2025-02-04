@@ -20,7 +20,7 @@ public class CoupleByWeekViewModel {
 
     public void getJackpotByWeek(int weekNumber) {
         int dayNumber = weekNumber * TimeInfo.DAY_OF_WEEK;
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, dayNumber);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, dayNumber);
         if (jackpotList.isEmpty()) {
             view.showMessage("Không có dữ liệu XS Đặc biệt.");
         } else {

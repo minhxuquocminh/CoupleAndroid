@@ -33,8 +33,8 @@ public class AddJackpotManyYearsViewModel {
     }
 
     public void updateJackpotDataInManyYears(int startYear, boolean isGetAll) {
-        if (TimeInfo.CURRENT_YEAR - startYear + 1 > 9) {
-            view.showMessage("Năm bắt đầu nhỏ nhất là " + (TimeInfo.CURRENT_YEAR - 9 + 1) + "!");
+        if (TimeInfo.CURRENT_YEAR - startYear + 1 > 19) {
+            view.showMessage("Năm bắt đầu nhỏ nhất là " + (TimeInfo.CURRENT_YEAR - 19 + 1) + "!");
             return;
         }
 

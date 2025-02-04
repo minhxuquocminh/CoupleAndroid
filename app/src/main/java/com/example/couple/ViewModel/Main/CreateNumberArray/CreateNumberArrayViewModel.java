@@ -10,11 +10,11 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
+import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Handler.Picker;
-import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayView;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class CreateNumberArrayViewModel {
     }
 
     public void getPeriodHistory() {
-        List<Jackpot> jackpotList = JackpotHandler.getReserveJackpotListFromFile(context, TimeInfo.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.isEmpty()) {
             view.showMessage("Không có dữ liệu XS Đặc Biệt.");
             return;
