@@ -1,7 +1,7 @@
 package com.example.couple.Model.Origin;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Bridge.NumberSet.Set;
+import com.example.couple.Model.Bridge.NumberSet.NumberSet;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
 
@@ -60,7 +60,7 @@ public class Jackpot {
 
     public boolean isDayCycleSet() {
         if (this.isEmpty() || dayCycle.isEmpty()) return false;
-        return Set.getFrom(dayCycle.getCoupleInt()).isItMatch(getCoupleInt());
+        return NumberSet.getFrom(dayCycle.getCoupleInt()).isItMatch(getCoupleInt());
     }
 
     public int getThirdClaw() {

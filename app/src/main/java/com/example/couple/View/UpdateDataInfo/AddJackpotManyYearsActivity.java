@@ -13,7 +13,7 @@ import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
@@ -130,8 +130,8 @@ public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements
         List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListManyYears(context, 4);
         String mess = "";
         int max = 0;
-        List<NumberSetHistory> histories = HistoryHandler.getFixedNumberSetsHistory(jackpotList);
-        for (NumberSetHistory history : histories) {
+        List<NumericSetHistory> histories = HistoryHandler.getFixedNumberSetsHistory(jackpotList);
+        for (NumericSetHistory history : histories) {
             mess += history.showWithBeats() + "\n";
             max = Math.max(history.getBeatMax(), max);
         }
@@ -146,8 +146,8 @@ public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements
         List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListManyYears(context, 20);
         String mess = "";
         int max = 0;
-        List<NumberSetHistory> histories = HistoryHandler.getCustomNumberSetsHistory(jackpotList);
-        for (NumberSetHistory history : histories) {
+        List<NumericSetHistory> histories = HistoryHandler.getCustomNumberSetsHistory(jackpotList);
+        for (NumericSetHistory history : histories) {
             mess += history.showWithBeats() + "\n";
             max = Math.max(history.getBeatMax(), max);
         }

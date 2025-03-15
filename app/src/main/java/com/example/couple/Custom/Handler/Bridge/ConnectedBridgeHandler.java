@@ -3,28 +3,28 @@ package com.example.couple.Custom.Handler.Bridge;
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Bridge.Connected.ConnectedSetBridge;
-import com.example.couple.Model.Bridge.Connected.PairConnectedBridge;
-import com.example.couple.Model.Bridge.Connected.TriadBridge;
-import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
-import com.example.couple.Model.Bridge.NumberSet.Set;
-import com.example.couple.Model.Bridge.Connected.TriadStatus;
-import com.example.couple.Model.Origin.Couple;
-import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.Connected.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Connected.ConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.DayPositions;
-import com.example.couple.Model.Bridge.JackpotHistory;
 import com.example.couple.Model.Bridge.Connected.Pair;
+import com.example.couple.Model.Bridge.Connected.PairConnectedBridge;
 import com.example.couple.Model.Bridge.Connected.PairConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.PairPosition;
-import com.example.couple.Model.Bridge.Position;
 import com.example.couple.Model.Bridge.Connected.SupportTriad;
+import com.example.couple.Model.Bridge.Connected.TriadBridge;
 import com.example.couple.Model.Bridge.Connected.TriadSets;
+import com.example.couple.Model.Bridge.Connected.TriadStatus;
 import com.example.couple.Model.Bridge.Connected.Triangle;
 import com.example.couple.Model.Bridge.Connected.TriangleConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.TrianglePosition;
+import com.example.couple.Model.Bridge.JackpotHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSet;
+import com.example.couple.Model.Bridge.Position;
+import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
+import com.example.couple.Model.Origin.Couple;
+import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Origin.Lottery;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -191,6 +191,8 @@ public class ConnectedBridgeHandler {
         return new ConnectedSetBridge(connectedSupports, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
+    // rất hiếm khi có các vị trí chạy thông quá dài nên giá trị của searchingDays thông thường = 10,
+    // => giá trị an toàn của dayNumberBefore sẽ là lotteries.size() - searchingDays
     public static ConnectedBridge getConnectedBridge(List<Lottery> lotteries, int dayNumberBefore,
                                                      int searchingDays, int maxDisplay) {
         if (lotteries.isEmpty()) return ConnectedBridge.getEmpty();
@@ -245,7 +247,7 @@ public class ConnectedBridgeHandler {
         return connectedSupportList.subList(0, sizeOfShow);
     }
 
-    public static List<Set> getConnectedSets(List<ConnectedSupport> connectedSupports) {
+    public static List<NumberSet> getConnectedSets(List<ConnectedSupport> connectedSupports) {
         if (connectedSupports.isEmpty()) return new ArrayList<>();
         List<Integer> combines = new ArrayList<>();
         List<Integer> touchs = getConnectedTouchs(connectedSupports);
@@ -265,13 +267,13 @@ public class ConnectedBridgeHandler {
         }
 
         List<Integer> smallSets = new ArrayList<>();
-        List<Set> results = new ArrayList<>();
+        List<NumberSet> results = new ArrayList<>();
         for (int combine : combines) {
             for (int touch : touchs) {
                 int small = CoupleBase.getSmallShadow(combine * 10 + touch);
                 if (!smallSets.contains(small)) {
                     smallSets.add(small);
-                    results.add(new Set(combine, touch));
+                    results.add(new NumberSet(combine, touch));
                 }
             }
         }
@@ -569,10 +571,9 @@ public class ConnectedBridgeHandler {
                                                           int findingDays, boolean useShadow,
                                                           boolean addThirdClaw) {
         if (lotteries.size() < 2) return new ArrayList<>();
-        int size = findingDays < lotteries.size() - dayNumberBefore ?
-                findingDays - 1 : lotteries.size() - dayNumberBefore - 1;
+        int size = Math.min(findingDays, lotteries.size() - dayNumberBefore);
         List<DayPositions> dayPositionsList = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size - 1; i++) {
             int firstClaw = lotteries.get(dayNumberBefore + i).getClaw(1);
             int secondClaw = lotteries.get(dayNumberBefore + i).getClaw(2);
             int thirdClaw = lotteries.get(dayNumberBefore + i).getClaw(3);
@@ -608,10 +609,9 @@ public class ConnectedBridgeHandler {
     private static List<DayPositions> getDayPositionsList(List<Lottery> lotteries,
                                                           int dayNumberBefore, int findingDays) {
         if (lotteries.size() < 2) return new ArrayList<>();
-        int size = findingDays < lotteries.size() - dayNumberBefore ?
-                findingDays - 1 : lotteries.size() - dayNumberBefore - 1;
+        int size = Math.min(findingDays, lotteries.size() - dayNumberBefore);
         List<DayPositions> dayPositionsList = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size - 1; i++) {
             int secondClaw = lotteries.get(dayNumberBefore + i).getClaw(2);
             int firstClaw = lotteries.get(dayNumberBefore + i).getClaw(1);
             List<String> lotterySet = lotteries.get(dayNumberBefore + i + 1).getLottery();

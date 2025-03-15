@@ -21,7 +21,7 @@ import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Double.SignOfDouble;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.Bridge.Touch.ShadowTouchBridge;
-import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.View.Bridge.SelectiveBridgeView;
@@ -64,7 +64,7 @@ public class SelectiveBridgeViewModel {
     }
 
     public void getLongBeatBridge(List<Jackpot> jackpotList) {
-        List<NumberSetHistory> histories = HistoryHandler.getCompactNumberSetsHistory(jackpotList);
+        List<NumericSetHistory> histories = HistoryHandler.getCompactNumberSetsHistory(jackpotList);
         view.showLongBeatBridge(histories);
     }
 

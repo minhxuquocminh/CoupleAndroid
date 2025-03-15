@@ -59,6 +59,23 @@ public class UpdateDataService {
                 "Can chi (" + resultSyncState.getSyncDateDataState().sign + ").", isMainThread);
     }
 
+    public void getAllIfDataIsOld(String screenTimeData, List<Jackpot> screenJackpotList, List<Lottery> screenLotteries) {
+        if (screenTimeData == null || screenJackpotList == null || screenLotteries == null) return;
+        String time = DateHandler.getDate(context);
+        if (!screenTimeData.equals(time)) {
+            getTimeData(true);
+        }
+
+        if (!screenJackpotList.isEmpty() && !JackpotHandler.getLastDate(context).equals(screenJackpotList.get(0).getDateBase())) {
+            getJackpotData(true, true);
+        }
+
+        if (!screenLotteries.isEmpty() && !LotteryHandler.getLastDate(context).equals(screenLotteries.get(0).getDateBase())) {
+            getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, true);
+        }
+
+    }
+
     public void getTimeData(boolean isMainThread) {
         String time = DateHandler.getDate(context);
         if (time.isEmpty()) time = "Lỗi cập nhật thời gian!";

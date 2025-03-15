@@ -18,7 +18,7 @@ import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
 import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Double.SignOfDouble;
-import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -131,13 +131,13 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
     }
 
     @Override
-    public void showLongBeatBridge(List<NumberSetHistory> histories) {
+    public void showLongBeatBridge(List<NumericSetHistory> histories) {
         if (histories.isEmpty()) {
             tvLongBeatBridge.setVisibility(View.GONE);
         } else {
             tvLongBeatBridge.setVisibility(View.VISIBLE);
             String show = "Cầu gan:\n";
-            for (NumberSetHistory history : histories) {
+            for (NumericSetHistory history : histories) {
                 show += history.show() + "\n";
             }
             tvLongBeatBridge.setText(show.trim());

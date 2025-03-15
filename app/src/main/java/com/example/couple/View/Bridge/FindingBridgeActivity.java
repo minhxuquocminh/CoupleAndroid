@@ -20,7 +20,7 @@ import com.example.couple.Model.Bridge.Connected.ConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.PairConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
-import com.example.couple.Model.Bridge.NumberSet.Set;
+import com.example.couple.Model.Bridge.NumberSet.NumberSet;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Bridge.Connected.ClawSupport;
@@ -432,29 +432,29 @@ public class FindingBridgeActivity extends SpeechToTextActivity implements Findi
     }
 
     @Override
-    public void showTriadBridgeWithCondition(List<TriadBridge> triadBridgeList, List<Set> mainSets,
-                                             List<Set> longestSets, List<Set> cancelSets, int enoughTouchs) {
+    public void showTriadBridgeWithCondition(List<TriadBridge> triadBridgeList, List<NumberSet> mainNumberSets,
+                                             List<NumberSet> longestNumberSets, List<NumberSet> cancelNumberSets, int enoughTouchs) {
         String show = " * Bao gồm các bộ: ";
-        for (int i = 0; i < mainSets.size(); i++) {
-            show += mainSets.get(i).show();
-            if (i != mainSets.size() - 1) {
+        for (int i = 0; i < mainNumberSets.size(); i++) {
+            show += mainNumberSets.get(i).show();
+            if (i != mainNumberSets.size() - 1) {
                 show += ", ";
             }
         }
-        if (!longestSets.isEmpty()) {
+        if (!longestNumberSets.isEmpty()) {
             show += "\n * Các bộ về hơn 6 lần: ";
-            for (int i = 0; i < longestSets.size(); i++) {
-                show += longestSets.get(i).show();
-                if (i != longestSets.size() - 1) {
+            for (int i = 0; i < longestNumberSets.size(); i++) {
+                show += longestNumberSets.get(i).show();
+                if (i != longestNumberSets.size() - 1) {
                     show += ", ";
                 }
             }
         }
-        if (!cancelSets.isEmpty()) {
+        if (!cancelNumberSets.isEmpty()) {
             show += "\n * Các bộ khác có từ " + (enoughTouchs - 1) + " chạm đầy đủ: ";
-            for (int i = 0; i < cancelSets.size(); i++) {
-                show += cancelSets.get(i).show();
-                if (i != cancelSets.size() - 1) {
+            for (int i = 0; i < cancelNumberSets.size(); i++) {
+                show += cancelNumberSets.get(i).show();
+                if (i != cancelNumberSets.size() - 1) {
                     show += ", ";
                 }
             }

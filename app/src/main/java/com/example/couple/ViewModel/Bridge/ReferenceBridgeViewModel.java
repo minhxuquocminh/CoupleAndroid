@@ -10,11 +10,11 @@ import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.NumberSet.NumberSet;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.Bridge.Double.JackpotSign;
 import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Bridge.Double.NumberDouble;
-import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Bridge.Connected.ClawSupport;
@@ -147,45 +147,45 @@ public class ReferenceBridgeViewModel {
         List<TriadBridge> triadBridgeList = ConnectedBridgeHandler.getTriadBridge(lotteryList,
                 0, Const.TRIAD_SET_BRIDGE_FINDING_DAYS, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
 
-        List<Set> triadSetList = new ArrayList<>();
-        List<Set> cancelSetList = new ArrayList<>();
+        List<NumberSet> triadNumberSetList = new ArrayList<>();
+        List<NumberSet> cancelNumberSetList = new ArrayList<>();
         for (int i = 0; i < triadBridgeList.size(); i++) {
             if (triadBridgeList.get(i).getTriadStatusList().size() > 6) {
-                cancelSetList.addAll(triadBridgeList.get(i).getSetList());
+                cancelNumberSetList.addAll(triadBridgeList.get(i).getSetList());
             } else {
-                triadSetList.addAll(triadBridgeList.get(i).getSetList());
+                triadNumberSetList.addAll(triadBridgeList.get(i).getSetList());
             }
         }
 
-        for (int i = 0; i < triadSetList.size(); i++) {
-            for (int j = i + 1; j < triadSetList.size(); j++) {
-                if (triadSetList.get(i).equalsSet(triadSetList.get(j))) {
-                    triadSetList.remove(j);
+        for (int i = 0; i < triadNumberSetList.size(); i++) {
+            for (int j = i + 1; j < triadNumberSetList.size(); j++) {
+                if (triadNumberSetList.get(i).equalsSet(triadNumberSetList.get(j))) {
+                    triadNumberSetList.remove(j);
                     j--;
                 }
             }
         }
 
-        for (int i = 0; i < cancelSetList.size(); i++) {
-            for (int j = i + 1; j < cancelSetList.size(); j++) {
-                if (cancelSetList.get(i).equalsSet(cancelSetList.get(j))) {
-                    cancelSetList.remove(j);
+        for (int i = 0; i < cancelNumberSetList.size(); i++) {
+            for (int j = i + 1; j < cancelNumberSetList.size(); j++) {
+                if (cancelNumberSetList.get(i).equalsSet(cancelNumberSetList.get(j))) {
+                    cancelNumberSetList.remove(j);
                     j--;
                 }
             }
         }
 
-        for (int i = 0; i < triadSetList.size(); i++) {
-            for (int j = 0; j < cancelSetList.size(); j++) {
-                if (triadSetList.get(i).equalsSet(cancelSetList.get(j))) {
-                    triadSetList.remove(i);
+        for (int i = 0; i < triadNumberSetList.size(); i++) {
+            for (int j = 0; j < cancelNumberSetList.size(); j++) {
+                if (triadNumberSetList.get(i).equalsSet(cancelNumberSetList.get(j))) {
+                    triadNumberSetList.remove(i);
                     i--;
                     break;
                 }
             }
         }
 
-        referenceBridgeView.showTriadBridge(triadSetList, cancelSetList);
+        referenceBridgeView.showTriadBridge(triadNumberSetList, cancelNumberSetList);
 
     }
 

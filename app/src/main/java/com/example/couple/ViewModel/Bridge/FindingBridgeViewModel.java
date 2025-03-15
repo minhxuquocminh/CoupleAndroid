@@ -10,8 +10,8 @@ import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.Bridge.Connected.PairConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.NumberSet.NumberSet;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
-import com.example.couple.Model.Bridge.NumberSet.Set;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Bridge.Connected.ClawSupport;
@@ -77,14 +77,14 @@ public class FindingBridgeViewModel {
         for (int i = 1; i <= dayNumberBefore; i++) {
             List<TriadBridge> triadBridgeList = ConnectedBridgeHandler.
                     getTriadBridge(lotteries, i, findingDays, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
-            List<Set> setList = new ArrayList<>();
+            List<NumberSet> numberSetList = new ArrayList<>();
             for (int j = 0; j < triadBridgeList.size(); j++) {
-                setList.addAll(triadBridgeList.get(j).getSetList());
+                numberSetList.addAll(triadBridgeList.get(j).getSetList());
             }
-            for (int j = 0; j < setList.size(); j++) {
-                for (int k = j + 1; k < setList.size(); k++) {
-                    if (setList.get(j).equalsSet(setList.get(k))) {
-                        setList.remove(k);
+            for (int j = 0; j < numberSetList.size(); j++) {
+                for (int k = j + 1; k < numberSetList.size(); k++) {
+                    if (numberSetList.get(j).equalsSet(numberSetList.get(k))) {
+                        numberSetList.remove(k);
                         k--;
                     }
                 }
@@ -93,9 +93,9 @@ public class FindingBridgeViewModel {
             int count = 0;
             boolean isInList = false;
             int coupleInt = lotteries.get(i - 1).getJackpotCouple().getInt();
-            for (int j = setList.size() - 1; j >= 0; j--) {
+            for (int j = numberSetList.size() - 1; j >= 0; j--) {
                 count++;
-                if (setList.get(j).isItMatch(coupleInt)) {
+                if (numberSetList.get(j).isItMatch(coupleInt)) {
                     statusList.add(count);
                     isInList = true;
                     break;
@@ -141,38 +141,38 @@ public class FindingBridgeViewModel {
 
         // xử lý cho mainSets và longestSets
 
-        List<Set> mainSets = new ArrayList<>();
-        List<Set> longestSets = new ArrayList<>();
+        List<NumberSet> mainNumberSets = new ArrayList<>();
+        List<NumberSet> longestNumberSets = new ArrayList<>();
         for (int i = 0; i < triadBridgeList.size(); i++) {
             if (triadBridgeList.get(i).getTriadStatusList().size() > 6) {
-                longestSets.addAll(triadBridgeList.get(i).getSetList());
+                longestNumberSets.addAll(triadBridgeList.get(i).getSetList());
             } else {
-                mainSets.addAll(triadBridgeList.get(i).getSetList());
+                mainNumberSets.addAll(triadBridgeList.get(i).getSetList());
             }
         }
 
-        for (int i = 0; i < mainSets.size(); i++) {
-            for (int j = i + 1; j < mainSets.size(); j++) {
-                if (mainSets.get(i).equalsSet(mainSets.get(j))) {
-                    mainSets.remove(j);
+        for (int i = 0; i < mainNumberSets.size(); i++) {
+            for (int j = i + 1; j < mainNumberSets.size(); j++) {
+                if (mainNumberSets.get(i).equalsSet(mainNumberSets.get(j))) {
+                    mainNumberSets.remove(j);
                     j--;
                 }
             }
         }
 
-        for (int i = 0; i < longestSets.size(); i++) {
-            for (int j = i + 1; j < longestSets.size(); j++) {
-                if (longestSets.get(i).equalsSet(longestSets.get(j))) {
-                    longestSets.remove(j);
+        for (int i = 0; i < longestNumberSets.size(); i++) {
+            for (int j = i + 1; j < longestNumberSets.size(); j++) {
+                if (longestNumberSets.get(i).equalsSet(longestNumberSets.get(j))) {
+                    longestNumberSets.remove(j);
                     j--;
                 }
             }
         }
 
-        for (int i = 0; i < mainSets.size(); i++) {
-            for (int j = 0; j < longestSets.size(); j++) {
-                if (mainSets.get(i).equalsSet(longestSets.get(j))) {
-                    mainSets.remove(i);
+        for (int i = 0; i < mainNumberSets.size(); i++) {
+            for (int j = 0; j < longestNumberSets.size(); j++) {
+                if (mainNumberSets.get(i).equalsSet(longestNumberSets.get(j))) {
+                    mainNumberSets.remove(i);
                     i--;
                     break;
                 }
@@ -181,34 +181,34 @@ public class FindingBridgeViewModel {
 
         // xử lý cho cancelSets
 
-        List<Set> cancelSets = new ArrayList<>();
+        List<NumberSet> cancelNumberSets = new ArrayList<>();
         for (int i = 0; i < cancelBridgeList.size(); i++) {
-            cancelSets.addAll(cancelBridgeList.get(i).getSetList());
+            cancelNumberSets.addAll(cancelBridgeList.get(i).getSetList());
         }
 
-        for (int i = 0; i < cancelSets.size(); i++) {
-            for (int j = i + 1; j < cancelSets.size(); j++) {
-                if (cancelSets.get(i).equalsSet(cancelSets.get(j))) {
-                    cancelSets.remove(j);
+        for (int i = 0; i < cancelNumberSets.size(); i++) {
+            for (int j = i + 1; j < cancelNumberSets.size(); j++) {
+                if (cancelNumberSets.get(i).equalsSet(cancelNumberSets.get(j))) {
+                    cancelNumberSets.remove(j);
                     j--;
                 }
             }
         }
 
-        for (int i = 0; i < cancelSets.size(); i++) {
-            for (int j = 0; j < mainSets.size(); j++) {
-                if (cancelSets.get(i).equalsSet(mainSets.get(j))) {
-                    cancelSets.remove(i);
+        for (int i = 0; i < cancelNumberSets.size(); i++) {
+            for (int j = 0; j < mainNumberSets.size(); j++) {
+                if (cancelNumberSets.get(i).equalsSet(mainNumberSets.get(j))) {
+                    cancelNumberSets.remove(i);
                     i--;
                     break;
                 }
             }
         }
 
-        for (int i = 0; i < cancelSets.size(); i++) {
-            for (int j = 0; j < longestSets.size(); j++) {
-                if (cancelSets.get(i).equalsSet(longestSets.get(j))) {
-                    cancelSets.remove(i);
+        for (int i = 0; i < cancelNumberSets.size(); i++) {
+            for (int j = 0; j < longestNumberSets.size(); j++) {
+                if (cancelNumberSets.get(i).equalsSet(longestNumberSets.get(j))) {
+                    cancelNumberSets.remove(i);
                     i--;
                     break;
                 }
@@ -216,7 +216,7 @@ public class FindingBridgeViewModel {
         }
 
         findingBridgeView.showTriadBridgeWithCondition(triadBridgeList,
-                mainSets, longestSets, cancelSets, enoughTouchs);
+                mainNumberSets, longestNumberSets, cancelNumberSets, enoughTouchs);
     }
 
     public boolean findingFirstClawBridge(List<Lottery> lotteries, int findingDays, int dayNumberBefore) {

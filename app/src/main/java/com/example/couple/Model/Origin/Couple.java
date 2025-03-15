@@ -3,7 +3,7 @@ package com.example.couple.Model.Origin;
 import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
-import com.example.couple.Model.Bridge.NumberSet.Set;
+import com.example.couple.Model.Bridge.NumberSet.NumberSet;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Statistics.BCouple;
@@ -87,7 +87,7 @@ public class Couple extends Jackpot {
     }
 
     public List<Integer> getSetDetails() {
-        return Set.getFrom(getCoupleInt()).getSetsDetail();
+        return NumberSet.getFrom(getCoupleInt()).getSetsDetail();
     }
 
     public int getInt() {
@@ -138,8 +138,8 @@ public class Couple extends Jackpot {
         return toSet().isItMatch(couple.getInt());
     }
 
-    public Set toSet() {
-        return new Set(first, second);
+    public NumberSet toSet() {
+        return new NumberSet(first, second);
     }
 
     public boolean isDoubleOrShadow() {

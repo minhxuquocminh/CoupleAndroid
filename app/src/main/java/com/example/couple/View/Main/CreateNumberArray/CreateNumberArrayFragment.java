@@ -26,13 +26,12 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
+import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Handler.Picker;
-import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.R;
-import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.Bridge.SelectiveBridgeActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
@@ -44,19 +43,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateNumberArrayFragment extends Fragment implements CreateNumberArrayView {
-    TextView tvViewBridge;
+    TextView tvQuickCreate;
     TextView tvViewHistory;
     TextView tvViewCycle;
     TextView tvReference;
     EditText edtSet;
     EditText edtTouch;
     EditText edtSum;
-    EditText edtThirdClaw;
+    EditText edtBranch;
     EditText edtHead;
     EditText edtTail;
     EditText edtCombineNumber;
     EditText edtAddingNumber;
     EditText edtRemovingNumber;
+    EditText edtThirdClaw;
     TextView tvCreate;
     TextView tvArrayCounter;
     EditText edtNumberArray;
@@ -97,19 +97,20 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewParent = inflater.inflate(R.layout.fragment_create_number_array, container, false);
 
-        tvViewBridge = viewParent.findViewById(R.id.tvViewBridge);
+        tvQuickCreate = viewParent.findViewById(R.id.tvQuickCreate);
         tvViewHistory = viewParent.findViewById(R.id.tvViewHistory);
         tvViewCycle = viewParent.findViewById(R.id.tvViewCycle);
         tvReference = viewParent.findViewById(R.id.tvReference);
         edtSet = viewParent.findViewById(R.id.edtSet);
         edtTouch = viewParent.findViewById(R.id.edtTouch);
         edtSum = viewParent.findViewById(R.id.edtSum);
-        edtThirdClaw = viewParent.findViewById(R.id.edtThirdClaw);
+        edtBranch = viewParent.findViewById(R.id.edtBranch);
         edtHead = viewParent.findViewById(R.id.edtHead);
         edtTail = viewParent.findViewById(R.id.edtTail);
         edtCombineNumber = viewParent.findViewById(R.id.edtCombineNumber);
         edtAddingNumber = viewParent.findViewById(R.id.edtAddingNumber);
         edtRemovingNumber = viewParent.findViewById(R.id.edtRemovingNumber);
+        edtThirdClaw = viewParent.findViewById(R.id.edtThirdClaw);
         tvCreate = viewParent.findViewById(R.id.tvCreate);
         tvArrayCounter = viewParent.findViewById(R.id.tvArrayCounter);
         edtNumberArray = viewParent.findViewById(R.id.edtNumberArray);
@@ -142,11 +143,12 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         green = R.drawable.cell_light_green_table;
         red = R.drawable.cell_red_table;
 
-        tvViewBridge.setOnClickListener(new View.OnClickListener() {
+        tvQuickCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
-                startActivity(new Intent(getActivity(), BridgeCombinationActivity.class));
+                QuickNumberGeneratorDialog dialog = new QuickNumberGeneratorDialog();
+                dialog.show(activity.getSupportFragmentManager(), "QuickNumberGeneratorDialog");
             }
         });
 
@@ -182,12 +184,13 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                 inputs.add(new Input(InputType.SET, edtSet.getText().toString().trim(), 2));
                 inputs.add(new Input(InputType.TOUCH, edtTouch.getText().toString().trim(), 1));
                 inputs.add(new Input(InputType.SUM, edtSum.getText().toString().trim(), 1));
-                inputs.add(new Input(InputType.ADD_TRIAD, edtThirdClaw.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.BRANCH, edtBranch.getText().toString().trim(), 2));
                 inputs.add(new Input(InputType.HEAD, edtHead.getText().toString().trim(), 1));
                 inputs.add(new Input(InputType.TAIL, edtTail.getText().toString().trim(), 1));
+                inputs.add(new Input(InputType.COMBINE, edtCombineNumber.getText().toString().trim(), 2));
                 inputs.add(new Input(InputType.ADD, edtAddingNumber.getText().toString().trim(), 2));
                 inputs.add(new Input(InputType.REMOVE, edtRemovingNumber.getText().toString().trim(), 2));
-                inputs.add(new Input(InputType.COMBINE, edtCombineNumber.getText().toString().trim(), 2));
+                inputs.add(new Input(InputType.ADD_TRIAD, edtThirdClaw.getText().toString().trim(), 1));
                 viewModel.createNumberArray(inputs);
             }
         });
@@ -199,12 +202,13 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                 edtSet.setText("");
                 edtTouch.setText("");
                 edtSum.setText("");
-                edtThirdClaw.setText("");
+                edtBranch.setText("");
                 edtHead.setText("");
                 edtTail.setText("");
                 edtCombineNumber.setText("");
                 edtAddingNumber.setText("");
                 edtRemovingNumber.setText("");
+                edtThirdClaw.setText("");
                 edtNumberArray.setText("");
             }
         });

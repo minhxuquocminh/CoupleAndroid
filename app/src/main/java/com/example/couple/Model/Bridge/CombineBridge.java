@@ -6,27 +6,28 @@ import com.example.couple.Custom.Handler.CoupleHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 
 @Getter
 public class CombineBridge {
-    List<Bridge> bridgeList;
+    Map<BridgeType, Bridge> bridgeMap;
     JackpotHistory jackpotHistory;
     List<Integer> numbers;
 
-    public CombineBridge(List<Bridge> bridgeList, JackpotHistory jackpotHistory) {
-        this.bridgeList = bridgeList;
+    public CombineBridge(Map<BridgeType, Bridge> bridgeMap, JackpotHistory jackpotHistory) {
+        this.bridgeMap = bridgeMap;
         this.jackpotHistory = jackpotHistory;
         this.numbers = new ArrayList<>();
-        for (Bridge bridge : bridgeList) {
+        for (Bridge bridge : bridgeMap.values()) {
             numbers = NumberBase.getMatchNumbers(numbers, bridge.getNumbers());
         }
     }
 
     public String showBridge() {
         String show = " * " + jackpotHistory.show() + ":\n";
-        for (Bridge bridge : bridgeList) {
+        for (Bridge bridge : bridgeMap.values()) {
             show += bridge.showCompactBridge() + "\n";
         }
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : "(trượt)");

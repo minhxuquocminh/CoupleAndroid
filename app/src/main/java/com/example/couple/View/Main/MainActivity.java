@@ -151,6 +151,12 @@ public class MainActivity extends SpeechToTextBase implements MainView, UpdateDa
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        updateDataService.getAllIfDataIsOld(time.getValue(), jackpotList.getValue(), lotteryList.getValue());
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         new ThreadBase<>((param) -> {

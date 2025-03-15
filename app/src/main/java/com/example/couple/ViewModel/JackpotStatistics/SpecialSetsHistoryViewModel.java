@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.BridgeHistory.SpecialSetsHistoryView;
 
@@ -23,7 +23,7 @@ public class SpecialSetsHistoryViewModel {
     }
 
     public void getSpecialSetsHistory(List<Jackpot> jackpotList) {
-        List<NumberSetHistory> historyList =
+        List<NumericSetHistory> historyList =
                 HistoryHandler.getNumberSetsHistory(jackpotList);
         if (!historyList.isEmpty()) {
             specialSetsHistoryView.showSpecialSetsHistory(historyList);

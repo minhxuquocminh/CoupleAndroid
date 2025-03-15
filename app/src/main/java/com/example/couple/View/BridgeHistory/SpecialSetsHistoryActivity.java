@@ -14,7 +14,7 @@ import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Base.View.RowData;
 import com.example.couple.Base.View.TableData;
@@ -79,15 +79,15 @@ public class SpecialSetsHistoryActivity extends SpeechToTextActivity implements 
     }
 
     @Override
-    public void showSpecialSetsHistory(List<NumberSetHistory> historyList) {
+    public void showSpecialSetsHistory(List<NumericSetHistory> historyList) {
         List<String> headers = new ArrayList<>();
         List<RowData> rows = new ArrayList<>();
 
-        for (NumberSetHistory history : historyList) {
-            String name = history.getNumberSet().getName();
+        for (NumericSetHistory history : historyList) {
+            String name = history.getNumericSet().getName();
             String appearanceTimes = history.getAppearanceTimes() + " lần";
             String dayNumberBefore = history.getDayNumberBefore() + " ngày";
-            String numberSize = history.getNumberSet().getNumbers().size() + " số";
+            String numberSize = history.getNumericSet().getNumbers().size() + " số";
             String beats = NumberBase.showNumbers(history.getBeatList(), ", ");
             List<String> cells = Arrays.asList(name, appearanceTimes, dayNumberBefore, numberSize, beats);
             RowData row = new RowData(cells);

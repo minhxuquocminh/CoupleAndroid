@@ -12,7 +12,7 @@ import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.Bridge.Double.JackpotSign;
 import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Bridge.Double.NumberDouble;
-import com.example.couple.Model.Bridge.NumberSet.Set;
+import com.example.couple.Model.Bridge.NumberSet.NumberSet;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Bridge.Connected.ClawSupport;
@@ -241,20 +241,20 @@ public class ReferenceBridgeActivity extends SpeechToTextActivity implements Ref
     }
 
     @Override
-    public void showTriadBridge(List<Set> triadSetList, List<Set> cancelSetList) {
+    public void showTriadBridge(List<NumberSet> triadNumberSetList, List<NumberSet> cancelNumberSetList) {
         String show = "Cầu bộ 3 (*): ";
-        for (int i = 0; i < triadSetList.size(); i++) {
-            show += triadSetList.get(i).show();
-            if (i != triadSetList.size() - 1) {
+        for (int i = 0; i < triadNumberSetList.size(); i++) {
+            show += triadNumberSetList.get(i).show();
+            if (i != triadNumberSetList.size() - 1) {
                 show += ", ";
             }
         }
         tvTriadBridge.setText(show);
         show = "Cầu bộ 3 về hơn 6 lần (*): ";
-        if (!cancelSetList.isEmpty()) {
-            for (int i = 0; i < cancelSetList.size(); i++) {
-                show += cancelSetList.get(i).show();
-                if (i != cancelSetList.size() - 1) {
+        if (!cancelNumberSetList.isEmpty()) {
+            for (int i = 0; i < cancelNumberSetList.size(); i++) {
+                show += cancelNumberSetList.get(i).show();
+                if (i != cancelNumberSetList.size() - 1) {
                     show += ", ";
                 }
             }

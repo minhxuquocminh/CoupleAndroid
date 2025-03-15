@@ -1,5 +1,6 @@
 package com.example.couple.Custom.Widget;
 
+import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.Bridge.FindingBridgeActivity;
 import com.example.couple.View.Bridge.SelectiveBridgeActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
@@ -30,6 +31,7 @@ public enum TargetClass {
     SPECIAL_SETS_HISTORY(3001, "nhịp chạy", SpecialSetsHistoryActivity.class),
     JACKPOT_THIS_YEAR(3002, "đầu đuôi", JackpotThisYearActivity.class),
     CYCLE_BY_YEAR(3003, "đặc biệt theo năm", CycleByYearActivity.class),
+    BRIDGE_COMBINATION(3004, "tổ hợp cầu", BridgeCombinationActivity.class),
 
     UPDATE_MANY_YEAR(4001, "cập nhật", AddJackpotManyYearsActivity.class),
     UPDATE_URL_AND_PARAM(4002, "đường dẫn", UrlAndParamsActivity.class);

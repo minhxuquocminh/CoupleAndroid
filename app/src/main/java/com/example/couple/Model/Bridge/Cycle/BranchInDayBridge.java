@@ -6,7 +6,7 @@ import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 
 import java.util.ArrayList;
@@ -51,8 +51,8 @@ public class BranchInDayBridge {
         }
     }
 
-    public NumberSetHistory toNumberSetHistory() {
-        return new NumberSetHistory(Const.BRANCH_IN_DAY_ACRONYM, numbers, beatList);
+    public NumericSetHistory toNumberSetHistory() {
+        return new NumericSetHistory(Const.BRANCH_IN_DAY_ACRONYM, numbers, beatList);
     }
 
     @NonNull

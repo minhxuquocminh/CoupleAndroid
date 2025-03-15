@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorThemeLight">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Các cầu cho ngày hôm nay:"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_5dp">
+
+                <TextView
+                    android:id="@+id/tvLongBeatBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Các bộ đang gan:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvFixedKB2Bridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Các bộ theo cầu KB2 cố định:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvLongBeatKB2Bridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Các bộ theo cầu KB2 gan:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvRepeatKB2Bridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Các bộ theo cầu KB2 lặp lại:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvBranchNextDayBridge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Các chi:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lịch sử:"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_5dp">
+
+                <TextView
+                    android:id="@+id/tvRecentCouple"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Các số gần đây:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvRecentBranch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Các chi gần đây:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvConnectedTouchState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cầu chạm liên thông:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvCombineTouchState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cầu chạm tổng hợp:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvMappingState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cầu ánh xạ:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvBigDoubleState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bộ kép to:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvDoubleState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bộ kép bằng:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Các chi:"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <EditText
+                    android:id="@+id/edtBranch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="ex: 8 8"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboCombineTouchBridge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="kết hợp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboConnectedBridge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="liên thông"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboMappingBridge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ánh xạ"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboEstimatedBridge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ước lg"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboBigDoubleSet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="bộ kép to"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboSameDoubleSet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="bộ kép bằng"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tvCopy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorBgSunday"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Copy"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorThemeBold"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Đóng"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorThemeLight"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

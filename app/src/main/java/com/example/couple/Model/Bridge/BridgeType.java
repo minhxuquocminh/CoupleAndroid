@@ -48,6 +48,7 @@ public enum BridgeType {
      */
     ESTIMATED(9001, "Cầu ước lượng"),
     UNAPPEARED_BIG_DOUBLE(9002, "Kép chưa ra"),
+    INPUT(9003, "Nhập tay"),
     SYNTHETIC(9999, "Cầu tổng hợp");
 
     public final int value;

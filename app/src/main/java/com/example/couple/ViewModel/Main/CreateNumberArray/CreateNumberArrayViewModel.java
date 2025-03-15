@@ -60,6 +60,10 @@ public class CreateNumberArrayViewModel {
             if (input.isError()) {
                 errorMessage += " " + input.getInputType().name + ";";
             }
+            if (input.getInputType() == InputType.COMBINE) {
+                combines.addAll(input.getNumbers());
+                continue;
+            }
             if (input.getInputType() == InputType.ADD) {
                 adds.addAll(input.getNumbers());
                 continue;
@@ -68,19 +72,15 @@ public class CreateNumberArrayViewModel {
                 removes.addAll(input.getNumbers());
                 continue;
             }
-            if (input.getInputType() == InputType.COMBINE) {
-                combines.addAll(input.getNumbers());
-                continue;
-            }
             if (input.getInputType() == InputType.ADD_TRIAD) {
                 triads.addAll(input.getNumbers());
                 continue;
             }
             matchs = NumberBase.getMatchNumbers(matchs, input.getNumbers());
         }
+        matchs = NumberBase.getMatchNumbers(matchs, combines);
         matchs.addAll(adds);
         matchs.removeIf(removes::contains);
-        matchs = NumberBase.getMatchNumbers(matchs, combines);
         List<Integer> results = matchs.stream().distinct().sorted().collect(Collectors.toList());
 
         int typeOfNumber = 2;
