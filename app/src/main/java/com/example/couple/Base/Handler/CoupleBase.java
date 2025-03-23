@@ -1,5 +1,7 @@
 package com.example.couple.Base.Handler;
 
+import com.example.couple.Custom.Const.Const;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,16 @@ public class CoupleBase {
     public static String showCouple(int couple) {
         if (couple < 0 || couple > 99) return "";
         return couple < 10 ? 0 + "" + couple : couple + "";
+    }
+
+    public static int getCouple(String jackpot) {
+        int couple = Const.EMPTY_VALUE;
+        try {
+            couple = Integer.parseInt(jackpot.substring(3));
+        } catch (Exception ignored) {
+
+        }
+        return couple;
     }
 
 }

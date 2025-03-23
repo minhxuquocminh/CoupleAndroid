@@ -4,10 +4,8 @@ import android.content.Context;
 
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.View.JackpotStatistics.JackpotByYearView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class JackpotByYearViewModel {
@@ -20,22 +18,15 @@ public class JackpotByYearViewModel {
     }
 
     public void getYearList() {
-        int[] startAndEndYearFile = JackpotStatistics.getStartAndEndYearFile(context);
-        List<Integer> yearList = new ArrayList<>();
-        if (startAndEndYearFile == null) {
-            yearList.add(TimeInfo.CURRENT_YEAR);
-        } else {
-            int startYear = startAndEndYearFile[0];
-            int endYear = startAndEndYearFile[1];
-            for (int year = endYear; year >= startYear; year--) {
-                yearList.add(year);
-            }
+        List<Integer> years = JackpotHandler.getUpdatedYears(context);
+        if (years.isEmpty()) {
+            years.add(TimeInfo.CURRENT_YEAR);
         }
-        jackpotByYearView.showYearList(yearList);
+        jackpotByYearView.showYearList(years);
     }
 
     public void getTableOfJackpot(int year) {
-        String[][] matrix = JackpotHandler.getJackpotMatrixToShow(context, year);
+        String[][] matrix = JackpotHandler.getJackpotMatrixByYear(context, year);
         if (matrix == null) {
             jackpotByYearView.showMessage("Lỗi không lấy được thông tin bảng XS Đặc biệt năm " + year + ".");
         } else {

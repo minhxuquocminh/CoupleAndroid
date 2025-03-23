@@ -3,8 +3,8 @@ package com.example.couple.Model.Bridge.Mapping;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
-import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Bridge.JackpotHistory;
+import com.example.couple.Model.Origin.Couple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,8 +43,8 @@ public class TriadMappingBridge extends Bridge {
     }
 
     @Override
-    public String getBridgeName() {
-        return BridgeType.TRIAD_MAPPING.name;
+    public BridgeType getType() {
+        return BridgeType.TRIAD_MAPPING;
     }
 
     public static TriadMappingBridge getEmpty() {

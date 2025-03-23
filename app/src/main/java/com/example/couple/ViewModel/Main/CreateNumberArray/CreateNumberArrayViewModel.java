@@ -4,17 +4,11 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
-import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Handler.Picker;
-import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayView;
 
 import java.util.ArrayList;
@@ -30,23 +24,6 @@ public class CreateNumberArrayViewModel {
     public CreateNumberArrayViewModel(CreateNumberArrayView view, Context context) {
         this.view = view;
         this.context = context;
-    }
-
-    public void getPeriodHistory() {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
-        if (jackpotList.isEmpty()) {
-            view.showMessage("Không có dữ liệu XS Đặc Biệt.");
-            return;
-        }
-
-        List<PeriodHistory> periodHistoryList =
-                EstimatedBridgeHandler.getEstimatedHistoryList(jackpotList,
-                        0, 2, Const.AMPLITUDE_OF_PERIOD);
-        if (periodHistoryList.isEmpty()) {
-            view.showMessage("Không lấy được lịch sử các cách chạy.");
-        } else {
-            view.showPeriodHistory(periodHistoryList);
-        }
     }
 
     public void createNumberArray(List<Input> inputs) {

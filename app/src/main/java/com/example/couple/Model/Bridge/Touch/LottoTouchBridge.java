@@ -56,8 +56,8 @@ public class LottoTouchBridge extends TouchBridge {
         return SingleBase.showTouchs(touchs);
     }
 
-    public String getBridgeName() {
-        return BridgeType.LOTTO_TOUCH.name;
+    public BridgeType getType() {
+        return BridgeType.LOTTO_TOUCH;
     }
 
     public static LottoTouchBridge getEmpty() {

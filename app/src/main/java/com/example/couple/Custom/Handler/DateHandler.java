@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Custom.Enum.Split;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.DateTime.Date.DateCycle;
@@ -37,7 +38,7 @@ public class DateHandler {
         String data = IOFileBase.readDataFromFile(context, FileName.DATE_TIME);
         String time = "Lỗi cập nhật thời gian!";
         try {
-            String[] sub = data.split("===");
+            String[] sub = data.split(Split.SECOND_ROUND.value);
             String calendarWeek = sub[0];
 
             String calendarDay = sub[1];
@@ -59,7 +60,7 @@ public class DateHandler {
     public static DateBase getDateBase(Context context) {
         String timeData = IOFileBase.readDataFromFile(context, FileName.DATE_TIME);
         if (timeData.isEmpty()) return DateBase.getEmpty();
-        String[] sub = timeData.split("===");
+        String[] sub = timeData.split(Split.SECOND_ROUND.value);
         int calendarDay = Integer.parseInt(sub[1]);
         String[] monthData = sub[2].split(" ");
         int calendarMonth = Integer.parseInt(monthData[1]);
@@ -73,9 +74,9 @@ public class DateHandler {
 
     public static boolean updateAllDateData(Context context) {
         boolean checkNextDay = updateDateData(context,
-                DateBase.TO_DAY().addDays(1), FileName.DATE_DATA_NEXT_DAY);
+                DateBase.today().addDays(1), FileName.DATE_DATA_NEXT_DAY);
         if (!checkNextDay) return false;
-        boolean checkToday = updateDateData(context, DateBase.TO_DAY(), FileName.DATE_DATA_TODAY);
+        boolean checkToday = updateDateData(context, DateBase.today(), FileName.DATE_DATA_TODAY);
         if (!checkToday) return false;
         DateData today = getDateData(context, FileName.DATE_DATA_TODAY);
         DateBase previousMonth = today.getDateBase().addDays(-today.getDateLunar().getDay());

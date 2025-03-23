@@ -66,8 +66,8 @@ public class EstimatedBridge extends Bridge {
     }
 
     @Override
-    public String getBridgeName() {
-        return BridgeType.ESTIMATED.name;
+    public BridgeType getType() {
+        return BridgeType.ESTIMATED;
     }
 
 }

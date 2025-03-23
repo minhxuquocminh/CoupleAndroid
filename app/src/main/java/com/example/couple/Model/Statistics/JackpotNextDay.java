@@ -10,4 +10,8 @@ import lombok.Getter;
 public class JackpotNextDay {
     Jackpot jackpotFirst;
     Jackpot jackpotSecond;
+
+    public boolean isError() {
+        return jackpotFirst.isEmpty() || jackpotSecond.isEmpty();
+    }
 }

@@ -22,8 +22,8 @@ public class UnappearedBigDoubleBridge extends Bridge {
     }
 
     @Override
-    public String getBridgeName() {
-        return BridgeType.UNAPPEARED_BIG_DOUBLE.name;
+    public BridgeType getType() {
+        return BridgeType.UNAPPEARED_BIG_DOUBLE;
     }
 
     public static UnappearedBigDoubleBridge getEmpty() {

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.couple.Custom.Enum.Split;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -64,8 +66,8 @@ public class JsoupBase extends AsyncTask<String, Void, String> {
         Document finalDoc = doc;
         return elementClasses.stream().map(elementClass ->
                 finalDoc.getElementsByClass(elementClass).stream()
-                        .map(Element::text).collect(Collectors.joining("---"))
-        ).collect(Collectors.joining("==="));
+                        .map(Element::text).collect(Collectors.joining(Split.FIRST_ROUND.value))
+        ).collect(Collectors.joining(Split.SECOND_ROUND.value));
     }
 
 }

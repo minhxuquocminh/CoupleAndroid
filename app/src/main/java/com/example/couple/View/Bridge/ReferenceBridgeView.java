@@ -1,6 +1,6 @@
 package com.example.couple.View.Bridge;
 
-import com.example.couple.Model.Bridge.NumberSet.NumberSet;
+import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.Bridge.Double.JackpotSign;
 import com.example.couple.Model.Bridge.LongBeat.NearestTime;
@@ -28,7 +28,7 @@ public interface ReferenceBridgeView {
     void showLotteryList(List<Lottery> lotteryList);
     void showConnectedBridge(ConnectedBridge connectedBridge);
     void showThirdClawBridge(List<ClawSupport> clawSupportList);
-    void showTriadBridge(List<NumberSet> triadNumberSetList, List<NumberSet> cancelNumberSetList);
+    void showTriadBridge(List<SetBase> triadSetBaseList, List<SetBase> cancelSetBaseList);
     void showSignInLottery(List<Integer> numberList);
     //
     void showJackpotListInManyDays(List<Jackpot> jackpotList);

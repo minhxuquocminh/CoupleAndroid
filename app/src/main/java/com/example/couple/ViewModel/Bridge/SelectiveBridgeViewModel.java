@@ -12,20 +12,22 @@ import com.example.couple.Custom.Handler.Bridge.TouchBridgeHandler;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Connected.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
+import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
-import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Double.SignOfDouble;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.Bridge.Touch.ShadowTouchBridge;
-import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.View.Bridge.SelectiveBridgeView;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SelectiveBridgeViewModel {
@@ -38,7 +40,7 @@ public class SelectiveBridgeViewModel {
     }
 
     public void getAllData() {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.isEmpty()) {
             view.showMessage("Lỗi không lấy được thông tin XS Đặc biệt!");
         } else {
@@ -64,7 +66,8 @@ public class SelectiveBridgeViewModel {
     }
 
     public void getLongBeatBridge(List<Jackpot> jackpotList) {
-        List<NumericSetHistory> histories = HistoryHandler.getCompactNumberSetsHistory(jackpotList);
+        List<NumberSetHistory> histories = HistoryHandler.getCompactNumberSetsHistory(jackpotList,
+                Arrays.asList(NumberSetType.values()), 40, 30, 79);
         view.showLongBeatBridge(histories);
     }
 

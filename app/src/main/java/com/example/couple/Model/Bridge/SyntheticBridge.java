@@ -70,8 +70,8 @@ public class SyntheticBridge extends Bridge {
     }
 
     @Override
-    public String getBridgeName() {
-        return BridgeType.SYNTHETIC.name;
+    public BridgeType getType() {
+        return BridgeType.SYNTHETIC;
     }
 
     public static SyntheticBridge getEmpty() {

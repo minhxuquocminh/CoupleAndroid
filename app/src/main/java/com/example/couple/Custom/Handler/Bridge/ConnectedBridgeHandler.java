@@ -19,7 +19,7 @@ import com.example.couple.Model.Bridge.Connected.Triangle;
 import com.example.couple.Model.Bridge.Connected.TriangleConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.TrianglePosition;
 import com.example.couple.Model.Bridge.JackpotHistory;
-import com.example.couple.Model.Bridge.NumberSet.NumberSet;
+import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.Position;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.Origin.Couple;
@@ -247,7 +247,7 @@ public class ConnectedBridgeHandler {
         return connectedSupportList.subList(0, sizeOfShow);
     }
 
-    public static List<NumberSet> getConnectedSets(List<ConnectedSupport> connectedSupports) {
+    public static List<SetBase> getConnectedSets(List<ConnectedSupport> connectedSupports) {
         if (connectedSupports.isEmpty()) return new ArrayList<>();
         List<Integer> combines = new ArrayList<>();
         List<Integer> touchs = getConnectedTouchs(connectedSupports);
@@ -267,13 +267,13 @@ public class ConnectedBridgeHandler {
         }
 
         List<Integer> smallSets = new ArrayList<>();
-        List<NumberSet> results = new ArrayList<>();
+        List<SetBase> results = new ArrayList<>();
         for (int combine : combines) {
             for (int touch : touchs) {
                 int small = CoupleBase.getSmallShadow(combine * 10 + touch);
                 if (!smallSets.contains(small)) {
                     smallSets.add(small);
-                    results.add(new NumberSet(combine, touch));
+                    results.add(new SetBase(combine, touch));
                 }
             }
         }

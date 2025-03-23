@@ -11,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.View.DialogBase;
+import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Widget.CustomTableLayout;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
 import com.example.couple.R;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
@@ -40,15 +40,19 @@ public class JackpotAllYearActivity extends SpeechToTextActivity implements Jack
 
         viewModel = new JackpotAllYearViewModel(this, this);
 
-        viewModel.getAllStatistics("", "");
+        viewModel.getAllStatistics(5, 5);
 
         tvView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(JackpotAllYearActivity.this);
-                String yearNumberBalanceCouple = edtYearNumberBalanceCouple.getText().toString().trim();
-                String yearNumberDoubleSame = edtYearNumberSDB.getText().toString().trim();
-                viewModel.getAllStatistics(yearNumberBalanceCouple, yearNumberDoubleSame);
+                String balanceYears = edtYearNumberBalanceCouple.getText().toString().trim();
+                String doubleYears = edtYearNumberSDB.getText().toString().trim();
+                if (doubleYears.isEmpty()) {
+                    showMessage("Vui lòng nhập số năm.");
+                } else {
+                    viewModel.getAllStatistics(5, Integer.parseInt(doubleYears));
+                }
             }
         });
 
@@ -60,9 +64,8 @@ public class JackpotAllYearActivity extends SpeechToTextActivity implements Jack
     }
 
     @Override
-    public void showSameDoubleCountingManyYears(int[][] matrixSDB, int m, int n, int startYear, int[] dayNumberArr) {
-        TableLayout tableLayout = CustomTableLayout.getCountSameDoubleTableLayout(this,
-                matrixSDB, m, n, startYear, dayNumberArr);
+    public void showSameDoubleCountingManyYears(String[][] matrix, int row, int col) {
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, matrix, row, col);
         linearSDB.removeAllViews();
         linearSDB.addView(tableLayout);
     }

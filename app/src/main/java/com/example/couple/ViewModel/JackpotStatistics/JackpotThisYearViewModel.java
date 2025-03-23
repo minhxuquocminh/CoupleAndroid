@@ -21,7 +21,7 @@ public class JackpotThisYearViewModel {
     }
 
     public void getReserveJackpotListThisYear() {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
         if (!jackpotList.isEmpty()) {
             view.showReserveJackpotListThisYear(jackpotList);
         }

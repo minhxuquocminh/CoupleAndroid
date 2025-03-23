@@ -7,7 +7,7 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.StorageBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Custom.Const.Flag;
+import com.example.couple.Custom.Enum.Flag;
 import com.example.couple.Custom.Const.RequestCode;
 import com.example.couple.Custom.Handler.Notification.UpdateDataAlarm;
 import com.example.couple.Model.DateTime.Time.TimeBase;

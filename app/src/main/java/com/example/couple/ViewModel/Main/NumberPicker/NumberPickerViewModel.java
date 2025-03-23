@@ -3,21 +3,24 @@ package com.example.couple.ViewModel.Main.NumberPicker;
 import android.content.Context;
 
 import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
-import com.example.couple.Model.Statistics.JackpotNextDay;
-import com.example.couple.Model.Handler.Picker;
-import com.example.couple.Model.Origin.Couple;
-import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.Model.DateTime.Date.DateBase;
+import com.example.couple.Model.Handler.Picker;
+import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Model.Statistics.JackpotNextDay;
 import com.example.couple.View.Main.NumberPicker.NumberPickerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class NumberPickerViewModel {
     NumberPickerView numberPickerView;
@@ -28,23 +31,33 @@ public class NumberPickerViewModel {
         this.context = context;
     }
 
-    public void getJackpotsManyYears(Couple lastCouple) {
-        List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 2);
-        if (jackpotList.isEmpty()) return;
-        numberPickerView.showJackpotsManyYears(jackpotList, lastCouple);
+    public void getPeriodHistory() {
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
+        if (jackpotList.isEmpty()) {
+            numberPickerView.showMessage("Không có dữ liệu XS Đặc Biệt.");
+            return;
+        }
+
+        List<PeriodHistory> periodHistoryList = EstimatedBridgeHandler.getEstimatedHistoryList(jackpotList,
+                0, 2, Const.AMPLITUDE_OF_PERIOD);
+        if (periodHistoryList.isEmpty()) {
+            numberPickerView.showMessage("Không lấy được lịch sử các cách chạy.");
+        } else {
+            numberPickerView.showPeriodHistory(periodHistoryList);
+        }
     }
 
-    public void getSubJackpotNextDay(List<Jackpot> jackpotList, int lastCouple, int length) {
+    public void getSubJackpotNextDay(int lastCouple, int length) {
+        Map<Integer, String[][]> matrixByYears = JackpotHandler.getJackpotMatrixByYears(context, 2);
         List<JackpotNextDay> jackpotNextDayList =
-                JackpotStatistics.getJackpotNextDayList(jackpotList, lastCouple);
+                JackpotStatistics.getJackpotNextDayList(matrixByYears, lastCouple);
         List<Jackpot> subJackpotList = new ArrayList<>();
         for (int i = 0; i < jackpotNextDayList.size(); i++) {
             subJackpotList.add(jackpotNextDayList.get(i).getJackpotSecond());
             if (i + 1 == length) break;
         }
         Collections.reverse(subJackpotList);
-        if (!subJackpotList.isEmpty())
-            numberPickerView.showSubJackpotNextDay(subJackpotList);
+        if (!subJackpotList.isEmpty()) numberPickerView.showSubJackpotNextDay(subJackpotList);
     }
 
     public void getSubJackpotLastMonth(List<Jackpot> jackpotList, DateBase lastDate) {
@@ -129,7 +142,7 @@ public class NumberPickerViewModel {
     public void saveDataToFile(List<Picker> pickers, boolean isTableA) {
         StringBuilder data1 = new StringBuilder();
         StringBuilder data2 = new StringBuilder();
-        Collections.sort(pickers, new Comparator<Picker>() {
+        pickers.sort(new Comparator<Picker>() {
             @Override
             public int compare(Picker o1, Picker o2) {
                 return Integer.compare(o1.getNumber(), o2.getNumber());

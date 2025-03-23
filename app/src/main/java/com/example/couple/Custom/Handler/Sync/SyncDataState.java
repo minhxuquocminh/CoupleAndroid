@@ -28,6 +28,6 @@ public class SyncDataState {
         if (syncDateState != SyncState.DONE) return true;
         boolean synced = syncJackpotState == SyncState.DONE &&
                 syncLotteryState == SyncState.DONE && syncDateDataState == SyncState.DONE;
-        return !synced && TimeBase.CURRENT().isAfter(new TimeBase(18, 30, 0));
+        return !synced && TimeBase.current().isAfter(new TimeBase(18, 30, 0));
     }
 }

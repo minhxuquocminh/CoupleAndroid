@@ -24,8 +24,8 @@ import com.example.couple.Custom.Const.RequestCode;
 import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
 import com.example.couple.Custom.Handler.UpdateData.UpdateDataService;
 import com.example.couple.Custom.Handler.UpdateData.UpdateDataView;
-import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Bridge.LongBeat.NearestTime;
+import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -102,8 +102,21 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
 
         homePageViewModel = new HomePageViewModel(this, getActivity());
         updateDataService = new UpdateDataService(this, getActivity());
-
         homePageViewModel.getNote();
+
+        activity.getTime().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String time) {
+                tvCalendar.setText(time);
+            }
+        });
+
+        activity.getJackpotList().observe(getViewLifecycleOwner(), new Observer<List<Jackpot>>() {
+            @Override
+            public void onChanged(List<Jackpot> jackpotList) {
+                showJackpotList(jackpotList);
+            }
+        });
 
         imgViewLottery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,9 +180,9 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
             @Override
             public void onClick(View view) {
                 AlarmBase.registerAlarmOneTime(getActivity(), ManualUpdateDataAlarm.class,
-                        RequestCode.ALARM_9999, TimeBase.CURRENT().addSeconds(10));
+                        RequestCode.ALARM_9999, TimeBase.current().addSeconds(10));
                 Toast.makeText(getActivity(), "Đăng ký cập nhật dữ liệu vào lúc " +
-                        TimeBase.CURRENT().showHHMMSS() + ".", Toast.LENGTH_LONG).show();
+                        TimeBase.current().showHHMMSS() + ".", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -208,20 +221,6 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
             }
         });
 
-        activity.getTime().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String time) {
-                tvCalendar.setText(time);
-            }
-        });
-
-        activity.getJackpotList().observe(getViewLifecycleOwner(), new Observer<List<Jackpot>>() {
-            @Override
-            public void onChanged(List<Jackpot> jackpotList) {
-                showJackpotList(jackpotList);
-            }
-        });
-
         return view;
     }
 
@@ -245,7 +244,7 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
 
     @Override
     public void showLongMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -255,7 +254,7 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
 
     @Override
     public void showJackpotData(List<Jackpot> jackpotList) {
-        activity.getJackpotList().setValue(jackpotList);
+        //activity.getJackpotList().setValue(jackpotList);
     }
 
     @Override

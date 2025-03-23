@@ -42,7 +42,7 @@ public class UpdateDataAlarm extends BroadcastReceiver {
         SyncDataState syncDataState = SyncDataHandler.execute(context);
         SyncState jackpotSyncState = syncDataState.getSyncJackpotState();
         if (jackpotSyncState == SyncState.DONE) {
-            List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, 99);
+            List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, 99);
             if (!jackpotList.isEmpty()) {
                 String title = "XSĐB ngày " + jackpotList.get(0).getDateBase().showFullChars();
                 String content = "Kết quả: " + jackpotList.get(0).getJackpot() + ".";
@@ -50,8 +50,8 @@ public class UpdateDataAlarm extends BroadcastReceiver {
                 new TextToSpeechBase(context, "Kết quả: " + jackpotList.get(0).getCouple().show());
             }
         } else {
-            String title = "XSĐB ngày " + DateBase.TO_DAY().showFullChars();
-            String content = jackpotSyncState.name + " (" + TimeBase.CURRENT().showHHMM() + ").";
+            String title = "XSĐB ngày " + DateBase.today().showFullChars();
+            String content = jackpotSyncState.name + " (" + TimeBase.current().showHHMM() + ").";
             NotificationBase.pushNotification(context, NotifyId.UPDATE_DATA, title, content);
         }
     }

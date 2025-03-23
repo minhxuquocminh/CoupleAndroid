@@ -21,17 +21,19 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Base.Handler.StorageBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
+import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Handler.Picker;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
+import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.Bridge.SelectiveBridgeActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
@@ -40,13 +42,16 @@ import com.example.couple.ViewModel.Main.CreateNumberArray.CreateNumberArrayView
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CreateNumberArrayFragment extends Fragment implements CreateNumberArrayView {
-    TextView tvQuickCreate;
-    TextView tvViewHistory;
+    TextView tvViewCombineBridge;
     TextView tvViewCycle;
     TextView tvReference;
+    TextView tvQuickCreate;
     EditText edtSet;
     EditText edtTouch;
     EditText edtSum;
@@ -97,10 +102,10 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewParent = inflater.inflate(R.layout.fragment_create_number_array, container, false);
 
-        tvQuickCreate = viewParent.findViewById(R.id.tvQuickCreate);
-        tvViewHistory = viewParent.findViewById(R.id.tvViewHistory);
+        tvViewCombineBridge = viewParent.findViewById(R.id.tvViewCombineBridge);
         tvViewCycle = viewParent.findViewById(R.id.tvViewCycle);
         tvReference = viewParent.findViewById(R.id.tvReference);
+        tvQuickCreate = viewParent.findViewById(R.id.tvQuickCreate);
         edtSet = viewParent.findViewById(R.id.edtSet);
         edtTouch = viewParent.findViewById(R.id.edtTouch);
         edtSum = viewParent.findViewById(R.id.edtSum);
@@ -135,6 +140,9 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             }
         });
 
+        setInputData();
+        clearEditText();
+
         viewModel = new CreateNumberArrayViewModel(this, getActivity());
         RECEIVE_DATA = false;
         viewModel.getTriadTable();
@@ -148,15 +156,21 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
                 QuickNumberGeneratorDialog dialog = new QuickNumberGeneratorDialog();
+                dialog.setOnDialogDismissListener(new QuickNumberGeneratorDialog.OnDialogDismissListener() {
+                    @Override
+                    public void onDialogDismiss() {
+                        setInputData();
+                    }
+                });
                 dialog.show(activity.getSupportFragmentManager(), "QuickNumberGeneratorDialog");
             }
         });
 
-        tvViewHistory.setOnClickListener(new View.OnClickListener() {
+        tvViewCombineBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
-                viewModel.getPeriodHistory();
+                startActivity(new Intent(getActivity(), BridgeCombinationActivity.class));
             }
         });
 
@@ -311,6 +325,41 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         return viewParent;
     }
 
+    private void clearEditText() {
+        Arrays.asList(
+                edtSet,
+                edtTouch,
+                edtSum,
+                edtBranch,
+                edtHead,
+                edtTail,
+                edtCombineNumber,
+                edtAddingNumber,
+                edtRemovingNumber,
+                edtThirdClaw
+        ).forEach(editText -> {
+            editText.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    DialogBase.showWithConfirmation(requireActivity(), "Xoá", "Bạn có muốn xóa tất cả dữ liệu ko?", () -> {
+                        editText.setText("");
+                    });
+                    return false;
+                }
+            });
+        });
+    }
+
+    private void clearFocus(List<EditText> editTexts) {
+        editTexts.forEach(View::clearFocus);
+        WidgetBase.hideKeyboard(this.requireActivity());
+    }
+
+    private void setInputData() {
+        Set<Integer> branches = StorageBase.getNumberSet(requireActivity(), StorageType.SET_OF_BRANCHES);
+        edtBranch.setText(branches.stream().map(x -> x + "").collect(Collectors.joining(" ")));
+    }
+
     private void showJackpotList(List<Jackpot> jackpotList) {
         subJackpot = jackpotList.subList(0, 5);
         SetTextForSubJackpot(subJackpot, -1);
@@ -319,15 +368,6 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     @Override
     public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showPeriodHistory(List<PeriodHistory> periodHistoryList) {
-        String show = "Lịch sử các cách chạy gần giống khoảng gần đây:\n";
-        for (PeriodHistory periodHistory : periodHistoryList) {
-            show += periodHistory.show() + "\n";
-        }
-        DialogBase.showBasic(getActivity(), "Lịch sử", show);
     }
 
     @Override

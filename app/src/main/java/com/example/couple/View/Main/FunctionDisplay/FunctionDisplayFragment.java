@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.couple.R;
 import com.example.couple.View.Bridge.FindingBridgeActivity;
-import com.example.couple.View.BridgeHistory.SpecialSetsHistoryActivity;
+import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotAllYearActivity;
@@ -76,7 +76,7 @@ public class FunctionDisplayFragment extends Fragment {
         cvJackpotReference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SpecialSetsHistoryActivity.class));
+                startActivity(new Intent(getActivity(), NumberSetHistoryActivity.class));
             }
         });
 

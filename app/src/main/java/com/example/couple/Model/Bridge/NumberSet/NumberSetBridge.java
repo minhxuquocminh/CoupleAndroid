@@ -1,7 +1,9 @@
 package com.example.couple.Model.Bridge.NumberSet;
 
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.JackpotHistory;
+import com.example.couple.Model.Handler.Input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +13,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class NumericSetBridge extends Bridge {
-    String bridgeName;
+public class NumberSetBridge extends Bridge {
+    BridgeType bridgeType;
     List<Integer> numbers;
     JackpotHistory jackpotHistory;
 
@@ -21,12 +23,17 @@ public class NumericSetBridge extends Bridge {
         return "";
     }
 
-    public static NumericSetBridge getEmpty() {
-        return new NumericSetBridge("", new ArrayList<>(), JackpotHistory.getEmpty());
+    @Override
+    public BridgeType getType() {
+        return bridgeType;
+    }
+
+    public static NumberSetBridge getEmpty() {
+        return new NumberSetBridge(null, new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {
-        return bridgeName.isEmpty() || numbers.isEmpty();
+        return bridgeType == null || numbers.isEmpty();
     }
 
 }

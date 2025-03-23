@@ -10,7 +10,7 @@ import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
-import com.example.couple.Model.Bridge.NumberSet.NumberSet;
+import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.Bridge.Double.JackpotSign;
 import com.example.couple.Model.Bridge.LongBeat.NearestTime;
@@ -35,7 +35,7 @@ public class ReferenceBridgeViewModel {
 
     //
     public void getJackpotList(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, numberOfDays);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, numberOfDays);
         if (jackpotList.isEmpty()) {
             referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt!");
         } else {
@@ -50,7 +50,7 @@ public class ReferenceBridgeViewModel {
 
     //
     public void getJackpotListThisYear() {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
         if (jackpotList.isEmpty()) {
             referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt năm nay!");
         } else {
@@ -89,7 +89,7 @@ public class ReferenceBridgeViewModel {
 
     //
     public void getJackpotListLastYear() {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByYear(context,
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByYear(context,
                 TimeInfo.CURRENT_YEAR - 1);
         if (jackpotList.isEmpty()) {
             referenceBridgeView.showMessage("Lỗi không lấy được các cầu theo XS Đặc biệt năm ngoái!");
@@ -147,45 +147,45 @@ public class ReferenceBridgeViewModel {
         List<TriadBridge> triadBridgeList = ConnectedBridgeHandler.getTriadBridge(lotteryList,
                 0, Const.TRIAD_SET_BRIDGE_FINDING_DAYS, Const.TRIAD_SET_BRIDGE_MAX_DISPLAY);
 
-        List<NumberSet> triadNumberSetList = new ArrayList<>();
-        List<NumberSet> cancelNumberSetList = new ArrayList<>();
+        List<SetBase> triadSetBaseList = new ArrayList<>();
+        List<SetBase> cancelSetBaseList = new ArrayList<>();
         for (int i = 0; i < triadBridgeList.size(); i++) {
             if (triadBridgeList.get(i).getTriadStatusList().size() > 6) {
-                cancelNumberSetList.addAll(triadBridgeList.get(i).getSetList());
+                cancelSetBaseList.addAll(triadBridgeList.get(i).getSetList());
             } else {
-                triadNumberSetList.addAll(triadBridgeList.get(i).getSetList());
+                triadSetBaseList.addAll(triadBridgeList.get(i).getSetList());
             }
         }
 
-        for (int i = 0; i < triadNumberSetList.size(); i++) {
-            for (int j = i + 1; j < triadNumberSetList.size(); j++) {
-                if (triadNumberSetList.get(i).equalsSet(triadNumberSetList.get(j))) {
-                    triadNumberSetList.remove(j);
+        for (int i = 0; i < triadSetBaseList.size(); i++) {
+            for (int j = i + 1; j < triadSetBaseList.size(); j++) {
+                if (triadSetBaseList.get(i).equalsSet(triadSetBaseList.get(j))) {
+                    triadSetBaseList.remove(j);
                     j--;
                 }
             }
         }
 
-        for (int i = 0; i < cancelNumberSetList.size(); i++) {
-            for (int j = i + 1; j < cancelNumberSetList.size(); j++) {
-                if (cancelNumberSetList.get(i).equalsSet(cancelNumberSetList.get(j))) {
-                    cancelNumberSetList.remove(j);
+        for (int i = 0; i < cancelSetBaseList.size(); i++) {
+            for (int j = i + 1; j < cancelSetBaseList.size(); j++) {
+                if (cancelSetBaseList.get(i).equalsSet(cancelSetBaseList.get(j))) {
+                    cancelSetBaseList.remove(j);
                     j--;
                 }
             }
         }
 
-        for (int i = 0; i < triadNumberSetList.size(); i++) {
-            for (int j = 0; j < cancelNumberSetList.size(); j++) {
-                if (triadNumberSetList.get(i).equalsSet(cancelNumberSetList.get(j))) {
-                    triadNumberSetList.remove(i);
+        for (int i = 0; i < triadSetBaseList.size(); i++) {
+            for (int j = 0; j < cancelSetBaseList.size(); j++) {
+                if (triadSetBaseList.get(i).equalsSet(cancelSetBaseList.get(j))) {
+                    triadSetBaseList.remove(i);
                     i--;
                     break;
                 }
             }
         }
 
-        referenceBridgeView.showTriadBridge(triadNumberSetList, cancelNumberSetList);
+        referenceBridgeView.showTriadBridge(triadSetBaseList, cancelSetBaseList);
 
     }
 
@@ -196,7 +196,7 @@ public class ReferenceBridgeViewModel {
 
     //
     public void getJackpotListInManyDays(int numberOfDays) {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, numberOfDays);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, numberOfDays);
         if (!jackpotList.isEmpty()) {
             if (jackpotList.size() < numberOfDays) {
                 referenceBridgeView.showMessage("Vui lòng nạp dữ liệu XS Đặc biệt nhiều năm để xem " +

@@ -14,30 +14,30 @@ import com.example.couple.Base.View.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Base.View.RowData;
 import com.example.couple.Base.View.TableData;
 import com.example.couple.R;
-import com.example.couple.ViewModel.JackpotStatistics.SpecialSetsHistoryViewModel;
+import com.example.couple.ViewModel.JackpotStatistics.NumberSetHistoryViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpecialSetsHistoryActivity extends SpeechToTextActivity implements SpecialSetsHistoryView {
+public class NumberSetHistoryActivity extends SpeechToTextActivity implements NumberSetHistoryView {
     EditText edtDayNumber;
     Button btnView;
     HorizontalScrollView hsTable;
 
-    SpecialSetsHistoryViewModel viewModel;
+    NumberSetHistoryViewModel viewModel;
 
     private static final int NUMBER_OF_DAYS_START = TimeInfo.DAY_OF_YEAR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_special_sets_history);
+        setContentView(R.layout.activity_number_set_history);
 
         edtDayNumber = findViewById(R.id.edtDayNumber);
         btnView = findViewById(R.id.btnView);
@@ -46,7 +46,7 @@ public class SpecialSetsHistoryActivity extends SpeechToTextActivity implements 
         edtDayNumber.setText(NUMBER_OF_DAYS_START + "");
         edtDayNumber.setSelection(edtDayNumber.length());
 
-        viewModel = new SpecialSetsHistoryViewModel(this, this);
+        viewModel = new NumberSetHistoryViewModel(this, this);
         viewModel.getJackpotList(NUMBER_OF_DAYS_START);
     }
 
@@ -63,7 +63,7 @@ public class SpecialSetsHistoryActivity extends SpeechToTextActivity implements 
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WidgetBase.hideKeyboard(SpecialSetsHistoryActivity.this);
+                WidgetBase.hideKeyboard(NumberSetHistoryActivity.this);
                 String dayNumberStr = edtDayNumber.getText().toString().trim();
                 if (dayNumberStr.isEmpty()) {
                     showMessage("Bạn chưa nhập số ngày.");
@@ -79,15 +79,15 @@ public class SpecialSetsHistoryActivity extends SpeechToTextActivity implements 
     }
 
     @Override
-    public void showSpecialSetsHistory(List<NumericSetHistory> historyList) {
+    public void showSpecialSetsHistory(List<NumberSetHistory> historyList) {
         List<String> headers = new ArrayList<>();
         List<RowData> rows = new ArrayList<>();
 
-        for (NumericSetHistory history : historyList) {
-            String name = history.getNumericSet().getName();
+        for (NumberSetHistory history : historyList) {
+            String name = history.getNumberSet().getName();
             String appearanceTimes = history.getAppearanceTimes() + " lần";
             String dayNumberBefore = history.getDayNumberBefore() + " ngày";
-            String numberSize = history.getNumericSet().getNumbers().size() + " số";
+            String numberSize = history.getNumberSet().getNumbers().size() + " số";
             String beats = NumberBase.showNumbers(history.getBeatList(), ", ");
             List<String> cells = Arrays.asList(name, appearanceTimes, dayNumberBefore, numberSize, beats);
             RowData row = new RowData(cells);

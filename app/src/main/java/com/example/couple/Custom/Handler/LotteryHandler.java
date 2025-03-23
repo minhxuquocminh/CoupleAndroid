@@ -5,9 +5,10 @@ import android.content.Context;
 import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Custom.Enum.Split;
+import com.example.couple.Model.Bridge.Position;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Bridge.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class LotteryHandler {
         String data = IOFileBase.readDataFromFile(context, FileName.LOTTERY);
         if (data.isEmpty()) return new ArrayList<>();
         List<Lottery> lotteries = new ArrayList<>();
-        String[] elements = data.split("---");
+        String[] elements = data.split(Split.FIRST_ROUND.value);
         int length_lotteries = Math.min(numberOfDays, elements.length);
         for (int i = 0; i < length_lotteries; i++) {
             String[] part = elements[i].split("Ký tự");

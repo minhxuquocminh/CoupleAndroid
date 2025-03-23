@@ -1,7 +1,7 @@
 package com.example.couple.Model.Origin;
 
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Bridge.NumberSet.NumberSet;
+import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.DateBase;
 
@@ -38,6 +38,19 @@ public class Jackpot {
         return jackpot.equals(Const.EMPTY_JACKPOT) || dateBase.isEmpty();
     }
 
+    public boolean isInvalid() {
+        try {
+            Integer.parseInt(jackpot);
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public boolean isEmptyOrInvalid() {
+        return isEmpty() || isInvalid();
+    }
+
     public boolean isDayOff() {
         return jackpot.equals(Const.EMPTY_JACKPOT);
     }
@@ -60,7 +73,7 @@ public class Jackpot {
 
     public boolean isDayCycleSet() {
         if (this.isEmpty() || dayCycle.isEmpty()) return false;
-        return NumberSet.getFrom(dayCycle.getCoupleInt()).isItMatch(getCoupleInt());
+        return SetBase.getFrom(dayCycle.getCoupleInt()).isItMatch(getCoupleInt());
     }
 
     public int getThirdClaw() {

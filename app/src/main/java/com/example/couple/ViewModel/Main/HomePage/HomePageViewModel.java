@@ -2,14 +2,15 @@ package com.example.couple.ViewModel.Main.HomePage;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Base.Handler.StorageBase;
+import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.Custom.Statistics.JackpotStatistics;
 import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.Main.HomePage.HomePageView;
 
 import java.util.List;
+import java.util.Set;
 
 public class HomePageViewModel {
     HomePageView homePageView;
@@ -27,17 +28,9 @@ public class HomePageViewModel {
     }
 
     public void getNote() {
-        String data = IOFileBase.readDataFromFile(context, FileName.NOTE);
-        String[] arr = data.split("===");
-        StringBuilder note = new StringBuilder();
-        for (int i = 0; i < arr.length; i++) {
-            note.append(" + ").append(arr[i]);
-            if (i != arr.length - 1) {
-                note.append("\n");
-            }
-        }
-        if (note.toString().equals(" + ")) note = new StringBuilder();
-        homePageView.showNote(note.toString());
+        Set<String> notes = StorageBase.getStringSet(context, StorageType.STRING_OF_NOTES);
+        String note = notes.isEmpty() ? "" : String.join("\n", notes);
+        homePageView.showNote(note);
     }
 
 

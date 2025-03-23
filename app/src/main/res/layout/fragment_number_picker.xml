@@ -58,20 +58,6 @@
                     android:textSize="@dimen/text_size" />
 
                 <TextView
-                    android:id="@+id/tvViewCoupleWeekly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/padding_10dp"
-                    android:text="ĐB tuần"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
                     android:id="@+id/tvJackpotByYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,6 +81,20 @@
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="ĐB ngày mai"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvViewHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_corners_primary"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_10dp"
+                    android:text="Lịch sử"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />

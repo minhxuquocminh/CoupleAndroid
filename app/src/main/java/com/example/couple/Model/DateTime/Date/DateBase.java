@@ -39,8 +39,20 @@ public class DateBase implements Serializable {
         return day == Const.EMPTY_VALUE || month == Const.EMPTY_VALUE || year == Const.EMPTY_VALUE;
     }
 
-    public static DateBase TO_DAY() {
-        return new DateBase(TimeInfo.CURRENT_DAY, TimeInfo.CURRENT_MONTH, TimeInfo.CURRENT_YEAR);
+    public static DateBase today() {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        return new DateBase(day, month, year);
+    }
+
+    public boolean isToday() {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        return this.day == day && this.month == month && this.year == year;
     }
 
     public static DateBase fromString(String data, String splitRegex) {
@@ -161,10 +173,6 @@ public class DateBase implements Serializable {
     public DateBase getLastWeek() {
         if (this.isEmpty()) return DateBase.getEmpty();
         return this.addDays(-7);
-    }
-
-    public boolean isToday() {
-        return day == TimeInfo.CURRENT_DAY && month == TimeInfo.CURRENT_MONTH && year == TimeInfo.CURRENT_YEAR;
     }
 
     public boolean isItOnSunday() {

@@ -10,22 +10,22 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class NumericSetHistory {
-    NumericSet numericSet;
+public class NumberSetHistory {
+    NumberSet numberSet;
     int appearanceTimes;
     int dayNumberBefore;
     List<Integer> beatList;
 
-    public static NumericSetHistory getEmpty() {
-        return new NumericSetHistory("", new ArrayList<>(), new ArrayList<>());
+    public static NumberSetHistory getEmpty() {
+        return new NumberSetHistory("", new ArrayList<>(), new ArrayList<>());
     }
 
     public boolean isEmpty() {
-        return numericSet.getName().isEmpty() || beatList.isEmpty();
+        return numberSet.getName().isEmpty() || beatList.isEmpty();
     }
 
-    public NumericSetHistory(String numberSetName, List<Integer> numbers, List<Integer> beatList) {
-        this.numericSet = new NumericSet(numberSetName, numbers);
+    public NumberSetHistory(String numberSetName, List<Integer> numbers, List<Integer> beatList) {
+        this.numberSet = new NumberSet(numberSetName, numbers);
         this.appearanceTimes = beatList.size();
         this.dayNumberBefore = beatList.isEmpty() ?
                 Const.MAX_DAY_NUMBER_BEFORE : beatList.get(beatList.size() - 1);
@@ -33,15 +33,15 @@ public class NumericSetHistory {
     }
 
     public String showCompact() {
-        return numericSet.getName() + " (" + dayNumberBefore + " ngày)";
+        return numberSet.getName() + " (" + dayNumberBefore + " ngày)";
     }
 
     public String show() {
-        return "  + " + numericSet.getName() + " (" + dayNumberBefore + " ngày)";
+        return "  + " + numberSet.getName() + " (" + dayNumberBefore + " ngày)";
     }
 
     public String showWithBeats() {
-        return "  + " + numericSet.getName() + ": " + NumberBase.showNumbers(beatList, ", ") + ".";
+        return "  + " + numberSet.getName() + ": " + NumberBase.showNumbers(beatList, ", ") + ".";
     }
 
     public int getBeatMax() {

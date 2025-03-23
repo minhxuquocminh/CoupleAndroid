@@ -56,7 +56,7 @@ public class CombineTouchBridge extends TouchBridge {
     }
 
     @Override
-    public String getBridgeName() {
-        return BridgeType.COMBINE_TOUCH.name;
+    public BridgeType getType() {
+        return BridgeType.COMBINE_TOUCH;
     }
 }

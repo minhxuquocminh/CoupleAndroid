@@ -1,6 +1,7 @@
 package com.example.couple.Model.Bridge.Cycle;
 
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.JackpotHistory;
 import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 
@@ -11,13 +12,13 @@ import lombok.Getter;
 
 @Getter
 public class CycleBridge extends Bridge {
-    String bridgeName;
+    BridgeType bridgeType;
     List<YearCycle> yearCycles;
     List<Integer> numbers;
     JackpotHistory jackpotHistory;
 
-    public CycleBridge(String bridgeName, List<YearCycle> yearCycles, JackpotHistory jackpotHistory) {
-        this.bridgeName = bridgeName;
+    public CycleBridge(BridgeType bridgeType, List<YearCycle> yearCycles, JackpotHistory jackpotHistory) {
+        this.bridgeType = bridgeType;
         this.yearCycles = yearCycles;
         this.numbers = new ArrayList<>();
         for (YearCycle yearCycle : yearCycles) {
@@ -34,12 +35,17 @@ public class CycleBridge extends Bridge {
         return "";
     }
 
+    @Override
+    public BridgeType getType() {
+        return bridgeType;
+    }
+
     public static CycleBridge getEmpty() {
-        return new CycleBridge("", new ArrayList<>(), JackpotHistory.getEmpty());
+        return new CycleBridge(null, new ArrayList<>(), JackpotHistory.getEmpty());
     }
 
     public boolean isEmpty() {
-        return bridgeName.isEmpty() || yearCycles.isEmpty() || numbers.isEmpty();
+        return bridgeType == null || yearCycles.isEmpty() || numbers.isEmpty();
     }
 
 }

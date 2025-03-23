@@ -2,16 +2,16 @@ package com.example.couple.ViewModel.UpdateDataInfo;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.InternetBase;
-import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class AddJackpotManyYearsViewModel {
     AddJackpotManyYearsView view;
@@ -23,22 +23,20 @@ public class AddJackpotManyYearsViewModel {
     }
 
     public void getStartYear() {
-        String data = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
-        if (data.isEmpty()) {
-            view.showStartYear(TimeInfo.CURRENT_YEAR - 4);
-            return;
-        }
-        String[] arr = data.split("-");
-        view.showStartYear(Integer.parseInt(arr[0].trim()));
+        int currentYear = TimeInfo.CURRENT_YEAR;
+        List<Integer> years = JackpotHandler.getUpdatedYears(context);
+        int startYear = years.isEmpty() ? currentYear - 5 : Math.min(years.get(0), currentYear - 5);
+        view.showStartYear(startYear);
     }
 
     public void updateJackpotDataInManyYears(int startYear, boolean isGetAll) {
-        if (TimeInfo.CURRENT_YEAR - startYear + 1 > 19) {
-            view.showMessage("Năm bắt đầu nhỏ nhất là " + (TimeInfo.CURRENT_YEAR - 19 + 1) + "!");
+        int currentYear = TimeInfo.CURRENT_YEAR;
+        if (currentYear - startYear + 1 > Const.MAX_YEARS) {
+            view.showMessage("Năm bắt đầu nhỏ nhất là " + (currentYear - Const.MAX_YEARS + 1) + "!");
             return;
         }
 
-        if (startYear > TimeInfo.CURRENT_YEAR) {
+        if (startYear > currentYear) {
             view.showMessage("Năm bắt đầu phải nhỏ hơn năm hiện tại!");
             return;
         }
@@ -48,41 +46,23 @@ public class AddJackpotManyYearsViewModel {
             return;
         }
 
-        List<Integer> lastUpdatedYears = new ArrayList<>();
-        String yearData = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
-        if (!isGetAll && !yearData.isEmpty()) {
-            String[] yearArr = yearData.split("-");
-            for (String yearStr : yearArr) {
-                lastUpdatedYears.add(Integer.valueOf(yearStr));
-            }
-        }
-
-        List<Integer> yearsToUpdate = new ArrayList<>();
-        for (int year = startYear; year <= TimeInfo.CURRENT_YEAR; year++) {
-            if (!lastUpdatedYears.contains(year)) {
-                yearsToUpdate.add(year);
-            }
-        }
+        List<Integer> years = JackpotHandler.getUpdatedYears(context);
+        List<Integer> yearsToUpdate = isGetAll ?
+                IntStream.rangeClosed(startYear, currentYear).boxed().collect(Collectors.toList()) :
+                IntStream.rangeClosed(startYear, currentYear).boxed()
+                        .filter(x -> !years.contains(x)).collect(Collectors.toList());
 
         if (yearsToUpdate.isEmpty()) {
             view.showMessage("Không có dữ liệu nào cần thêm.");
             return;
         }
 
-        List<Integer> updatedYears = JackpotHandler.updateJackpotDataInManyYears(context, yearsToUpdate);
+        List<Integer> updatedYears = JackpotHandler.updateJackpotDataByYears(context, yearsToUpdate);
         if (updatedYears.isEmpty()) {
             view.showMessage("Cập nhật dữ liệu thất bại.");
             return;
         }
 
-        lastUpdatedYears.addAll(updatedYears);
-        Collections.sort(lastUpdatedYears);
-        StringBuilder yearData2 = new StringBuilder();
-        for (int year : lastUpdatedYears) {
-            yearData2.append(year).append("-");
-        }
-
-        IOFileBase.saveDataToFile(context, FileName.JACKPOT_YEARS, yearData2.toString(), 0);
         if (updatedYears.size() == yearsToUpdate.size()) {
             view.showMessage("Cập nhật dữ liệu thành công.");
             return;

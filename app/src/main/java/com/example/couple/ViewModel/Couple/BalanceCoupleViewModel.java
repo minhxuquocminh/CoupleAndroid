@@ -22,7 +22,7 @@ public class BalanceCoupleViewModel {
     }
 
     public void getJackpotDataFromFile() {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
         if (jackpotList.isEmpty()) balanceCoupleView.showMessage("Không lấy được dữ liệu !");
         balanceCoupleView.showJackpotData(jackpotList);
     }

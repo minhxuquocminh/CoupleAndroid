@@ -4,7 +4,7 @@ import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.GenericBase;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Bridge.NumberSet.NumberSet;
+import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.JackpotHistory;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class TriadBridge {
         return count == firstList.size();
     }
 
-    public List<NumberSet> getSetList() {
+    public List<SetBase> getSetList() {
         List<Integer> numbers = new ArrayList<>();
         numbers.add(firstBridge.getValue());
         numbers.add(secondBridge.getValue());

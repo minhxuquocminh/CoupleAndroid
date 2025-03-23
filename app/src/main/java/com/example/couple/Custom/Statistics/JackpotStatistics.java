@@ -1,134 +1,111 @@
 package com.example.couple.Custom.Statistics;
 
-import android.content.Context;
-
-import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Const.FileName;
-import com.example.couple.Model.DateTime.Date.DateBase;
-import com.example.couple.Model.Statistics.JackpotNextDay;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.Double.JackpotSign;
-import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.Bridge.Double.NumberDouble;
+import com.example.couple.Model.Bridge.LongBeat.NearestTime;
+import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Statistics.JackpotNextDay;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class JackpotStatistics {
 
-    // nếu status = 0 thì ko sắp xếp, status = 1 thì sx năm gần nhất, status = 2 thì sx tổng.
-    public static int[][] getSortMatrix(int[][] matrix, int m, int n, int status) {
-        if (matrix == null) return null;
-        int[] arr = new int[m];
-        int[] index = new int[m];
-        for (int i = 0; i < m; i++) {
-            index[i] = i;
-        }
+    public static String[][] sortMatrixByColumn(String[][] matrix, int columnIndex) {
+        if (matrix.length <= 1) return matrix; // chỉ header hoặc rỗng
 
-        int[][] new_matrix = new int[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                new_matrix[i][j] = matrix[i][j];
-                if (j == n - 1) {
-                    arr[i] = matrix[i][j];
-                }
-            }
-        }
+        // Header
+        String[] header = matrix[0];
 
-        if (status == 0) return matrix;
+        // Dữ liệu: bỏ header
+        List<String[]> dataRows = new ArrayList<>(Arrays.asList(matrix).subList(1, matrix.length));
 
-        if (status == 1) {
-            for (int i = 0; i < m - 1; i++) {
-                for (int k = i + 1; k < m; k++) {
-                    if (arr[i] > arr[k]) {
-                        int swap = index[i];
-                        index[i] = index[k];
-                        index[k] = swap;
+        // Sort theo cột cụ thể, convert giá trị về số để sort đúng
+        dataRows.sort(Comparator.comparingInt(row -> Integer.parseInt(row[columnIndex])));
 
-                        int t = arr[i];
-                        arr[i] = arr[k];
-                        arr[k] = t;
-                    }
-                }
-            }
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    new_matrix[i][j] = matrix[index[i]][j];
-                }
-            }
-        }
+        // Ghép lại: header + sorted data
+        List<String[]> sortedMatrix = new ArrayList<>();
+        sortedMatrix.add(header);
+        sortedMatrix.addAll(dataRows);
 
-        if (status == 2) {
-            for (int i = 0; i < m - 1; i++) {
-                for (int k = i + 1; k < m; k++) {
-                    int sum1 = 0;
-                    int sum2 = 0;
-                    for (int j = 1; j < n; j++) {
-                        sum1 += new_matrix[i][j];
-                        sum2 += new_matrix[k][j];
-                    }
-                    if (sum1 > sum2) {
-                        int swap = index[i];
-                        index[i] = index[k];
-                        index[k] = swap;
-                        for (int j = 0; j < n; j++) {
-                            int t = new_matrix[i][j];
-                            new_matrix[i][j] = new_matrix[k][j];
-                            new_matrix[k][j] = t;
-                        }
-                    }
-                }
-            }
-        }
-        return new_matrix;
+        return sortedMatrix.toArray(new String[0][0]);
     }
 
-    public static int[][] getCountCoupleMatrix(List<Jackpot> jackpotList, int m, int n, int startYear) {
-        int[][] matrix = new int[m][n];
-        for (int i = 0; i < m; i++) {
-            matrix[i][0] = i;
-            for (int j = 1; j < n; j++) {
-                for (int k = 0; k < jackpotList.size(); k++) {
-                    if (i == jackpotList.get(k).getCoupleInt() &&
-                            (j - 1 + startYear) == jackpotList.get(k).getDateBase().getYear())
-                        matrix[i][j]++;
-                }
+    public static String[][] getCounterMatrixByYears(Map<Integer, int[]> counterByYears, List<Integer> couples) {
+        String[][] matrix = new String[couples.size() + 1][counterByYears.size() + 2];
+        matrix[0][0] = "Đề";
+        int row = 1;
+        int col = 1;
+        int[] sum = new int[couples.size() + 1];
+        for (Map.Entry<Integer, int[]> entry : counterByYears.entrySet()) {
+            matrix[0][col] = entry.getKey() + "";
+            for (Integer couple : couples) {
+                int counter = entry.getValue()[couple];
+                matrix[row][col] = counter + "";
+                sum[row] += counter;
+                row++;
             }
+            row = 1;
+            col++;
         }
+        for (Integer couple : couples) {
+            matrix[row][0] = couple + "";
+            matrix[row][col] = sum[row] + "";
+            row++;
+        }
+        matrix[0][col] = "Tổng";
         return matrix;
     }
 
-    public static int[] getStartAndEndYearFile(Context context) {
-        String yearData = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
-        if (yearData.isEmpty()) return null;
-        String[] yearArr = yearData.split("-");
-        int[] results = new int[2];
-        results[0] = Integer.parseInt(yearArr[0]);
-        results[1] = Integer.parseInt(yearArr[yearArr.length - 1]);
-        return results;
-    }
-
-    public static int getMaxStartNumberOfYears(Context context, int START_NUMBER_OF_YEARS) {
-        String yearData = IOFileBase.readDataFromFile(context, FileName.JACKPOT_YEARS);
-        if (yearData.isEmpty()) return 0;
-        int numberOfYearsFile = yearData.split("-").length;
-        return Math.min(numberOfYearsFile, START_NUMBER_OF_YEARS);
-    }
-
-    public static int[] getDayNumberByYear(int[][] matrix, int m, int n) {
-        if (matrix == null) return null;
-        int[] dayNumberArr = new int[n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                dayNumberArr[j] += matrix[i][j];
+    public static String[][] getCounterMatrixByYears(Map<Integer, int[]> counterByYears) {
+        String[][] matrix = new String[100 + 1][counterByYears.size() + 2];
+        matrix[0][0] = "Đề";
+        int col = 1;
+        int[] sum = new int[100 + 1];
+        for (Map.Entry<Integer, int[]> entry : counterByYears.entrySet()) {
+            matrix[0][col] = entry.getKey() + "";
+            for (int couple = 0; couple < 100; couple++) {
+                int counter = entry.getValue()[couple];
+                matrix[couple + 1][col] = counter + "";
+                sum[couple + 1] += counter;
             }
+            col++;
         }
-        return dayNumberArr;
+        for (int couple = 0; couple < 100; couple++) {
+            matrix[couple + 1][0] = couple + "";
+            matrix[couple + 1][col] = sum[couple + 1] + "";
+        }
+        matrix[0][col] = "Tổng";
+        return matrix;
+    }
+
+    public static Map<Integer, int[]> getCounterByYears(Map<Integer, String[][]> matrixByYears) {
+        Map<Integer, int[]> counterByYears = new LinkedHashMap<>();
+        matrixByYears.forEach((year, matrix) -> {
+            int[] counter = new int[100];
+            for (int i = 0; i < TimeInfo.DAY_OF_MONTH; i++) {
+                for (int j = 0; j < TimeInfo.MONTH_OF_YEAR; j++) {
+                    Jackpot jackpot = new Jackpot(matrix[i][j], new DateBase(i + 1, j + 1, year));
+                    if (!jackpot.isEmptyOrInvalid()) {
+                        counter[jackpot.getCoupleInt()]++;
+                    }
+                }
+            }
+            counterByYears.put(year, counter);
+        });
+        return counterByYears;
     }
 
     public static List<NearestTime> getHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
@@ -210,16 +187,41 @@ public class JackpotStatistics {
         return nearestTimeList;
     }
 
-    public static List<JackpotNextDay> getJackpotNextDayList(List<Jackpot> jackpotList, int lastCouple) {
-        List<JackpotNextDay> jackpotNextDayList = new ArrayList<>();
-        for (int i = jackpotList.size() - 2; i >= 0; i--) {
-            if (jackpotList.get(i).getCoupleInt() == lastCouple) {
-                Jackpot jackpotFirst = jackpotList.get(i);
-                Jackpot jackpotSecond = jackpotList.get(i + 1);
-                jackpotNextDayList.add(new JackpotNextDay(jackpotFirst, jackpotSecond));
+    public static List<JackpotNextDay> getJackpotNextDayList(Map<Integer, String[][]> matrixByYears, int lastCouple) {
+        List<DateBase> dateBases = new ArrayList<>();
+        matrixByYears.forEach((year, matrix) -> {
+            for (int i = 0; i < TimeInfo.DAY_OF_MONTH; i++) {
+                for (int j = 0; j < TimeInfo.MONTH_OF_YEAR; j++) {
+                    int couple = CoupleBase.getCouple(matrix[i][j]);
+                    if (couple == lastCouple) {
+                        dateBases.add(new DateBase(i + 1, j + 1, year));
+                    }
+                }
             }
-        }
-        return jackpotNextDayList;
+        });
+
+        Collections.reverse(dateBases);
+        List<JackpotNextDay> results = new ArrayList<>();
+        dateBases.forEach(dateBase -> {
+            DateBase nextDateBase = dateBase.addDays(1);
+            Jackpot jackpot = Jackpot.getEmpty();
+            Jackpot jackpotNextDay = Jackpot.getEmpty();
+            for (Map.Entry<Integer, String[][]> entry : matrixByYears.entrySet()) {
+                Jackpot first = new Jackpot(entry.getValue()[dateBase.getDay() - 1][dateBase.getMonth() - 1], dateBase);
+                if (dateBase.getYear() == entry.getKey() && !first.isInvalid()) {
+                    jackpot = first;
+                }
+                Jackpot second = new Jackpot(entry.getValue()[nextDateBase.getDay() - 1][nextDateBase.getMonth() - 1], nextDateBase);
+                if (nextDateBase.getYear() == entry.getKey() && !second.isInvalid()) {
+                    jackpotNextDay = second;
+                }
+                if (!jackpot.isEmpty() && !jackpotNextDay.isEmpty()) {
+                    results.add(new JackpotNextDay(first, second));
+                    break;
+                }
+            }
+        });
+        return results;
     }
 
     public static List<Integer> getBeatOfSameDouble(List<Jackpot> jackpotList) {
@@ -315,19 +317,14 @@ public class JackpotStatistics {
     public static List<Jackpot> getJackpotListLastMonth(List<Jackpot> jackpotList, List<DateBase> dateBases) {
         if (jackpotList.isEmpty()) return new ArrayList<>();
         List<Jackpot> results = new ArrayList<>();
-        List<DateBase> distinctList = new ArrayList<>();
-        for (DateBase dateBase : dateBases) {
-            if (!distinctList.contains(dateBase)) {
-                distinctList.add(dateBase);
-            }
-        }
+        List<DateBase> dates = dateBases.stream().distinct().collect(Collectors.toList());
         int count = 0;
         for (int i = jackpotList.size() - 1; i >= 0; i--) {
-            if (distinctList.contains(jackpotList.get(i).getDateBase())) {
+            if (dates.contains(jackpotList.get(i).getDateBase())) {
                 results.add(jackpotList.get(i));
                 count++;
             }
-            if (count == distinctList.size()) break;
+            if (count == dates.size()) break;
         }
         return results;
     }

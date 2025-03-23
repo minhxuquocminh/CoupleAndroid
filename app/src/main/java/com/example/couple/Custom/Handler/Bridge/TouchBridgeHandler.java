@@ -3,6 +3,7 @@ package com.example.couple.Custom.Handler.Bridge;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.BridgeType;
+import com.example.couple.Model.Bridge.JackpotHistory;
 import com.example.couple.Model.Bridge.Touch.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Touch.LottoTouchBridge;
 import com.example.couple.Model.Bridge.Touch.ShadowTouchBridge;
@@ -10,7 +11,6 @@ import com.example.couple.Model.Bridge.Touch.TouchBridge;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Bridge.JackpotHistory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,7 @@ public class TouchBridgeHandler {
         List<Integer> touchs = coupleLastDay.getTouchsAndShadows();
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge(BridgeType.LAST_DAY_SHADOW.name, touchs,
-                new JackpotHistory(dayNumberBefore, jackpot));
+        return new ShadowTouchBridge(BridgeType.LAST_DAY_SHADOW, touchs, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static ShadowTouchBridge getLastWeekShadowTouchBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
@@ -35,8 +34,7 @@ public class TouchBridgeHandler {
         List<Integer> touchs = coupleLastDay.getTouchsAndShadows();
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge(BridgeType.LAST_WEEK_SHADOW.name, touchs,
-                new JackpotHistory(dayNumberBefore, jackpot));
+        return new ShadowTouchBridge(BridgeType.LAST_WEEK_SHADOW, touchs, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static ShadowTouchBridge getShadowTouchBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
@@ -48,8 +46,7 @@ public class TouchBridgeHandler {
         List<Integer> results = touchs.stream().distinct().sorted().collect(Collectors.toList());
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
-        return new ShadowTouchBridge(BridgeType.SHADOW_TOUCH.name, results,
-                new JackpotHistory(dayNumberBefore, jackpot));
+        return new ShadowTouchBridge(BridgeType.SHADOW_TOUCH, results, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static LottoTouchBridge getLottoTouchBridge(List<Lottery> lotteries, int dayNumberBefore) {

@@ -138,6 +138,7 @@ public class SexagenaryCycleActivity extends SpeechToTextActivity implements Sex
                 RowData row = new RowData(cells);
                 rows.add(row);
                 count++;
+                if (count == jackpots.size()) break;
             }
         }
 

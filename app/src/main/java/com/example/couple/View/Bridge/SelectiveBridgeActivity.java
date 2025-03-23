@@ -18,11 +18,11 @@ import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
 import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Double.SignOfDouble;
-import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
-import com.example.couple.View.BridgeHistory.SpecialSetsHistoryActivity;
+import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
 import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
 
 import java.util.List;
@@ -71,7 +71,7 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
         tvViewLongBeatBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SelectiveBridgeActivity.this, SpecialSetsHistoryActivity.class));
+                startActivity(new Intent(SelectiveBridgeActivity.this, NumberSetHistoryActivity.class));
             }
         });
 
@@ -131,13 +131,13 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
     }
 
     @Override
-    public void showLongBeatBridge(List<NumericSetHistory> histories) {
+    public void showLongBeatBridge(List<NumberSetHistory> histories) {
         if (histories.isEmpty()) {
             tvLongBeatBridge.setVisibility(View.GONE);
         } else {
             tvLongBeatBridge.setVisibility(View.VISIBLE);
             String show = "Cầu gan:\n";
-            for (NumericSetHistory history : histories) {
+            for (NumberSetHistory history : histories) {
                 show += history.show() + "\n";
             }
             tvLongBeatBridge.setText(show.trim());

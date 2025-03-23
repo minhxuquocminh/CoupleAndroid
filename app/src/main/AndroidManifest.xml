@@ -87,7 +87,7 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".View.BridgeHistory.SpecialSetsHistoryActivity"
+            android:name=".View.BridgeHistory.NumberSetHistoryActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <activity android:name=".View.SubScreen.CycleByYearActivity" />

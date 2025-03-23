@@ -39,29 +39,43 @@
                 android:layout_height="wrap_content"
                 android:weightSum="14">
 
-                <EditText
-                    android:id="@+id/edtYearNumberBalanceCouple"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="5"
-                    android:hint="Số năm (BSCB)"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="5">
 
-                <EditText
-                    android:id="@+id/edtYearNumberSDB"
+                    <EditText
+                        android:id="@+id/edtYearNumberBalanceCouple"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Số năm (BSCB)"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="6"
-                    android:hint="Số năm (Kép bằng)"
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="6">
+
+                    <EditText
+                        android:id="@+id/edtYearNumberSDB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Số năm (Kép bằng)"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -72,7 +86,7 @@
                         android:id="@+id/tvView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center_vertical"
                         android:layout_margin="@dimen/margin_5dp"
                         android:background="@drawable/border_corners_primary"
                         android:gravity="center"

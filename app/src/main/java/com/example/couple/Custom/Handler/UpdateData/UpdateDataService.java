@@ -43,13 +43,13 @@ public class UpdateDataService {
         showMessage("Đang cập nhật...", isMainThread);
         boolean lastSyncedJackpot = syncDataState.getSyncJackpotState() == SyncState.DONE;
         SyncDataState resultSyncState = SyncDataHandler.execute(context);
-        if (resultSyncState.getSyncDateState() == SyncState.DONE) {
+        if (resultSyncState.getSyncDateState() != SyncState.NETWORK_ERROR) {
             getTimeData(isMainThread);
         }
-        if (resultSyncState.getSyncJackpotState() == SyncState.DONE) {
+        if (resultSyncState.getSyncJackpotState() != SyncState.NETWORK_ERROR) {
             getJackpotData(isMainThread, !lastSyncedJackpot);
         }
-        if (resultSyncState.getSyncLotteryState() == SyncState.DONE) {
+        if (resultSyncState.getSyncLotteryState() != SyncState.NETWORK_ERROR) {
             getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, isMainThread);
         }
 
@@ -86,7 +86,7 @@ public class UpdateDataService {
     }
 
     public void getJackpotData(boolean isMainThread, boolean showNewBridge) {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, 99);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, Const.DAY_NUMBER_TO_GET_JACKPOT);
         if (jackpotList.isEmpty()) return;
         if (showNewBridge) NewBridge.notify(context, jackpotList);
         new MainThreadBase(() -> {

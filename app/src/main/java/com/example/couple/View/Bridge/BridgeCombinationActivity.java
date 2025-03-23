@@ -158,13 +158,8 @@ public class BridgeCombinationActivity extends SpeechToTextActivity implements B
                 inputs.add(new Input(InputType.TAIL, edtTail.getText().toString().trim(), 1));
                 inputs.add(new Input(InputType.COMBINE, edtCombine.getText().toString().trim(), 2));
                 if (!numberOfDayStr.isEmpty()) {
-                    int numberOfDay = Boolean.TRUE.equals(bridgeTypeFlag.get(BridgeType.CONNECTED)) &&
-                            Integer.parseInt(numberOfDayStr) >
-                                    lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS ?
-                            lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS :
-                            Integer.parseInt(numberOfDayStr);
-                    viewModel.getCombineBridgeList(jackpotList, lotteryList, numberOfDay, bridgeTypeFlag,
-                            inputs);
+                    viewModel.getCombineBridgeList(jackpotList, lotteryList, Integer.parseInt(numberOfDayStr),
+                            bridgeTypeFlag, inputs);
                 }
             }
         });

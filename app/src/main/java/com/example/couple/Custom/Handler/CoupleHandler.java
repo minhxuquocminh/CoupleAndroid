@@ -8,6 +8,7 @@ import java.util.List;
 public class CoupleHandler {
 
     public static boolean isWin(JackpotHistory jackpotHistory, List<Integer> couples) {
+        if (jackpotHistory.isEmpty()) return false;
         return couples.stream().anyMatch(x -> x == jackpotHistory.getJackpot().getCoupleInt());
     }
 

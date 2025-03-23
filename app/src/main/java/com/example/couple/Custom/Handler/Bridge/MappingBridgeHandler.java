@@ -129,8 +129,7 @@ public class MappingBridgeHandler {
 
         Collections.sort(firstList);
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
-        return new MappingBridge(BridgeType.RIGHT_MAPPING.name, firstList,
-                new JackpotHistory(dayNumberBefore, jackpot));
+        return new MappingBridge(BridgeType.RIGHT_MAPPING, firstList, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
     public static MappingBridge getMappingBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
@@ -145,7 +144,7 @@ public class MappingBridgeHandler {
 
         Collections.sort(firstList);
         Jackpot jackpot = dayNumberBefore == 0 ? Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
-        return new MappingBridge(BridgeType.MAPPING.name, firstList, new JackpotHistory(dayNumberBefore, jackpot));
+        return new MappingBridge(BridgeType.MAPPING, firstList, new JackpotHistory(dayNumberBefore, jackpot));
     }
 
 }

@@ -42,7 +42,7 @@ public class TimeBase {
         return new TimeBase(hours, minutes, seconds);
     }
 
-    public static TimeBase CURRENT() {
+    public static TimeBase current() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);

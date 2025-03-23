@@ -3,8 +3,8 @@ package com.example.couple.View.Bridge;
 
 import com.example.couple.Model.Bridge.Connected.PairConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
-import com.example.couple.Model.Bridge.NumberSet.NumberSet;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.Model.Bridge.Connected.ClawSupport;
@@ -19,8 +19,8 @@ public interface FindingBridgeView {
     void showJackpotList(List<Jackpot> jackpotList);
     void showConnectedBridge(ConnectedBridge connectedBridge, String jackpotThatDay);
     void showTriadBridge(List<TriadBridge> triadBridgeList);
-    void showTriadBridgeWithCondition(List<TriadBridge> triadBridgeList, List<NumberSet> mainNumberSets,
-                                      List<NumberSet> longestNumberSets, List<NumberSet> cancelNumberSets, int enoughTouchs);
+    void showTriadBridgeWithCondition(List<TriadBridge> triadBridgeList, List<SetBase> mainSetBases,
+                                      List<SetBase> longestSetBases, List<SetBase> cancelSetBases, int enoughTouchs);
     void showFirstClawBridge(List<ClawSupport> clawSupportList);
     void showSecondClawBridge(List<ClawSupport> clawSupportList);
     void showThirdClawBridge(List<ClawSupport> clawSupportList);

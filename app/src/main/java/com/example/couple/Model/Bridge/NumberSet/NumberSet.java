@@ -1,86 +1,20 @@
 package com.example.couple.Model.Bridge.NumberSet;
 
-import androidx.annotation.NonNull;
-
 import com.example.couple.Base.Handler.CoupleBase;
-import com.example.couple.Custom.Const.Const;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public class NumberSet {
-    int first;
-    int second;
+    String name;
+    List<Integer> numbers;
 
-    public NumberSet(int first, int second) {
-        if (first < 0 || first > 9 || second < 0 || second > 9) {
-            this.first = Const.EMPTY_VALUE;
-            this.second = Const.EMPTY_VALUE;
-            return;
-        }
-        this.first = first;
-        this.second = second;
+    public String showNumbers() {
+        return CoupleBase.showCoupleNumbers(numbers);
     }
 
-    public static NumberSet getFrom(int couple) {
-        if (couple < 0 || couple > 99) {
-            return NumberSet.getEmpty();
-        }
-        return new NumberSet(couple / 10, couple % 10);
-    }
-
-    public static NumberSet getEmpty() {
-        return new NumberSet(Const.EMPTY_VALUE, Const.EMPTY_VALUE);
-    }
-
-    public boolean isEmpty() {
-        return first == Const.EMPTY_VALUE || second == Const.EMPTY_VALUE;
-    }
-
-    public boolean isItMatch(int coupleInt) {
-        int shadow = CoupleBase.getSmallShadow(coupleInt);
-        return shadow == CoupleBase.getSmallShadow(getSetInt());
-    }
-
-    public int getSetInt() {
-        return first * 10 + second;
-    }
-
-    @NonNull
-    @Override
-    public String toString() { // to show in GenericBase
-        return first + "" + second;
-    }
-
-    public String show() {
-        return first + "" + second;
-    }
-
-    public boolean equalsSet(NumberSet numberSet) {
-        return CoupleBase.getSmallShadow(getSetInt()) == CoupleBase.getSmallShadow(numberSet.getSetInt());
-    }
-
-    public List<Integer> getSetsDetail() {
-        int smallShadow = CoupleBase.getSmallShadow(getSetInt());
-        int smallFirst = smallShadow / 10;
-        int smallSecond = smallShadow % 10;
-        int bigFirst = smallFirst + 5;
-        int bigSecond = smallSecond + 5;
-
-        List<Integer> numbers = new ArrayList<>();
-        numbers.add(smallFirst * 10 + smallSecond);
-        numbers.add(smallSecond * 10 + smallFirst);
-        numbers.add(smallFirst * 10 + bigSecond);
-        numbers.add(bigSecond * 10 + smallFirst);
-        numbers.add(bigFirst * 10 + smallSecond);
-        numbers.add(smallSecond * 10 + bigFirst);
-        numbers.add(bigFirst * 10 + bigSecond);
-        numbers.add(bigSecond * 10 + bigFirst);
-
-        return numbers.stream().distinct().collect(Collectors.toList());
-    }
 }

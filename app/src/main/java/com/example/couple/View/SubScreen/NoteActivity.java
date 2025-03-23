@@ -17,7 +17,8 @@ import com.example.couple.R;
 import com.example.couple.View.Adapter.NoteAdapter;
 import com.example.couple.ViewModel.SubScreen.NoteViewModel;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 public class NoteActivity extends SpeechToTextActivity implements NoteView {
     TextView tvTitle;
@@ -66,11 +67,11 @@ public class NoteActivity extends SpeechToTextActivity implements NoteView {
     }
 
     @Override
-    public void showNoteList(List<String> notes) {
+    public void showNoteList(Set<String> notes) {
         tvTitle.setText("Các ghi chú bạn đã lưu:");
         rvNote.setVisibility(View.VISIBLE);
         imgDelete.setVisibility(View.VISIBLE);
-        NoteAdapter adapter = new NoteAdapter(this, R.layout.custom_item_rv_note, notes);
+        NoteAdapter adapter = new NoteAdapter(this, R.layout.custom_item_rv_note, new ArrayList<>(notes));
         rvNote.removeAllViews();
         rvNote.setLayoutManager(new LinearLayoutManager(this));
         rvNote.setAdapter(adapter);

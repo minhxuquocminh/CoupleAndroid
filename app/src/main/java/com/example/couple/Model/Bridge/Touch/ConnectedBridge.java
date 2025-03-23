@@ -32,8 +32,8 @@ public class ConnectedBridge extends TouchBridge {
     }
 
     @Override
-    public String getBridgeName() {
-        return BridgeType.CONNECTED.name;
+    public BridgeType getType() {
+        return BridgeType.CONNECTED;
     }
 
     public static ConnectedBridge getEmpty() {

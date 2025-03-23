@@ -8,10 +8,8 @@ public class FileName {
     public static final String DATE_DATA_PREVIOUS_1 = "date_data_previous_1.txt";
     public static final String DATE_DATA_PREVIOUS_2 = "date_data_previous_2.txt";
     public static final String LOTTERY = "lottery.txt";
-    public static final String JACKPOT_YEARS = "jackpot_years.txt";
     public static final String JACKPOT_URL = "jackpot_url.txt";
     public static final String LOTTERY_URL = "lottery_url.txt";
-    public static final String NOTE = "note.txt";
     public static final String TRIAD = "triad.txt";
     public static final String ITRIAD = "itriad.txt";
     public static final String TABLE_A = "table_a.txt";

@@ -31,13 +31,15 @@ import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.IdStart;
+import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.Model.Handler.Picker;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
-import com.example.couple.View.Couple.CoupleByWeekActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
 import com.example.couple.View.Main.MainActivity;
@@ -49,7 +51,7 @@ import java.util.List;
 
 
 public class NumberPickerFragment extends Fragment implements NumberPickerView {
-    TextView tvViewCoupleWeekly;
+    TextView tvViewHistory;
     TextView tvBalanceCouple;
     TextView tvJackpotByYear;
     TextView tvCreateNumberArray;
@@ -105,7 +107,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewParent = inflater.inflate(R.layout.fragment_number_picker, container, false);
 
-        tvViewCoupleWeekly = viewParent.findViewById(R.id.tvViewCoupleWeekly);
+        tvViewHistory = viewParent.findViewById(R.id.tvViewHistory);
         tvBalanceCouple = viewParent.findViewById(R.id.tvBalanceCouple);
         tvJackpotByYear = viewParent.findViewById(R.id.tvJackpotByYear);
         tvCreateNumberArray = viewParent.findViewById(R.id.tvCreateNumberArray);
@@ -168,12 +170,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         greenDrawable = WidgetBase.getDrawable(getActivity(), R.drawable.cell_light_green_table);
         redDrawable = WidgetBase.getDrawable(getActivity(), R.drawable.cell_red_table);
 
-        FirstNumberPickerIsSelected();
+        onFirstNumberPickerIsSelected();
 
-        tvViewCoupleWeekly.setOnClickListener(new View.OnClickListener() {
+        tvViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CoupleByWeekActivity.class));
+                viewModel.getPeriodHistory();
             }
         });
 
@@ -202,10 +204,10 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    SaveListIsChecked();
+                    saveListIsChecked();
                 } else {
                     if (!cboNumberPicker.isChecked()) {
-                        HideAllContentIsSelected();
+                        hideAllContentIsSelected();
                     }
                 }
             }
@@ -216,13 +218,13 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if (isFirstNumberPicker) {
-                        FirstNumberPickerIsSelected();
+                        onFirstNumberPickerIsSelected();
                     } else {
-                        SecondNumberPickerIsSelected();
+                        onSecondNumberPickerIsSelected();
                     }
                 } else {
                     if (!cboSavedList.isChecked()) {
-                        HideAllContentIsSelected();
+                        hideAllContentIsSelected();
                     }
                 }
             }
@@ -236,9 +238,9 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                 String message = "Bạn có muốn chuyển kiểu chọn số sang kiểu " + newType + " không?";
                 DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
                     if (isFirstNumberPicker) {
-                        SecondNumberPickerIsSelected();
+                        onSecondNumberPickerIsSelected();
                     } else {
-                        FirstNumberPickerIsSelected();
+                        onFirstNumberPickerIsSelected();
                     }
                 });
                 return false;
@@ -257,7 +259,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     }
                 } else {
                     if (!cboTableB.isChecked()) {
-                        HideAllContentIsSelected();
+                        hideAllContentIsSelected();
                     }
                 }
             }
@@ -275,7 +277,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     }
                 } else {
                     if (!cboTableA.isChecked()) {
-                        HideAllContentIsSelected();
+                        hideAllContentIsSelected();
                     }
                 }
             }
@@ -288,7 +290,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
                         TextView textView = viewParent.findViewById(i);
                         textView.setBackground(pinkDrawable);
-                        SetCounterForTableType1();
+                        setCounterForTableType1();
                     }
                 } else {
                     showTableType2(new ArrayList<>());
@@ -355,7 +357,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         return viewParent;
     }
 
-    private void HideAllContentIsSelected() {
+    private void hideAllContentIsSelected() {
         isFirstNumberPicker = false;
 
         cboSavedList.setChecked(false);
@@ -380,7 +382,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         linearTableList.setVisibility(View.GONE);
     }
 
-    private void SaveListIsChecked() {
+    private void saveListIsChecked() {
         isFirstNumberPicker = false;
         cboNumberPicker.setChecked(false);
         viewModel.getTableAList();
@@ -403,7 +405,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         linearTableList.setVisibility(View.VISIBLE);
     }
 
-    private void FirstNumberPickerIsSelected() {
+    private void onFirstNumberPickerIsSelected() {
         isFirstNumberPicker = true;
         cboNumberPicker.setText("Bảng chọn số K1");
         cboSavedList.setChecked(false);
@@ -428,7 +430,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         linearTableList.setVisibility(View.GONE);
     }
 
-    private void SecondNumberPickerIsSelected() {
+    private void onSecondNumberPickerIsSelected() {
         isFirstNumberPicker = false;
         cboNumberPicker.setText("Bảng chọn số K2");
         cboSavedList.setChecked(false);
@@ -459,14 +461,38 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     @Override
-    public void showJackpotsManyYears(List<Jackpot> jackpotList, Couple lastCouple) {
-        viewModel.getSubJackpotLastMonth(jackpotList, lastCouple.getDateBase());
-        viewModel.getSubJackpotNextDay(jackpotList, lastCouple.getInt(), 4);
+    public void showPeriodHistory(List<PeriodHistory> periodHistoryList) {
+        String show = "Lịch sử các cách chạy gần giống khoảng gần đây:\n";
+        for (PeriodHistory periodHistory : periodHistoryList) {
+            show += periodHistory.show() + "\n";
+        }
+        DialogBase.showBasic(getActivity(), "Lịch sử", show);
     }
+
+    boolean isLess2Years = true;
 
     private void showJackpotList(List<Jackpot> jackpotList) {
         showSubJackpotList(jackpotList);
-        viewModel.getJackpotsManyYears(jackpotList.get(0).getCouple());
+        Couple lastCouple = jackpotList.get(0).getCouple();
+        viewModel.getSubJackpotLastMonth(jackpotList, lastCouple.getDateBase());
+        viewModel.getSubJackpotNextDay(lastCouple.getInt(), 4);
+        isLess2Years = checkJackpotDataLessThanTwoYears();
+    }
+
+    private boolean checkJackpotDataLessThanTwoYears() {
+        int currentYear = TimeInfo.CURRENT_YEAR;
+        List<Integer> years = JackpotHandler.getUpdatedYears(requireActivity());
+        return !years.contains(currentYear) || !years.contains(currentYear - 1);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<Jackpot> jackpotList = activity.getJackpotList().getValue();
+        if (jackpotList == null || jackpotList.isEmpty()) return;
+        if (!isLess2Years) return;
+        if (checkJackpotDataLessThanTwoYears()) return;
+        viewModel.getSubJackpotNextDay(jackpotList.get(0).getCoupleInt(), 4);
     }
 
     private void showSubJackpotList(List<Jackpot> jackpotList) {
@@ -482,10 +508,10 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         for (int i = subJackpot.size() - 1; i >= 0; i--) {
             listMP += subJackpot.get(i).getCouple().show() + (i == 0 ? "" : ", ");
         }
-        UpdateMyPrediction(-1, listMP);
+        updateMyPrediction(-1, listMP);
     }
 
-    private void UpdateMyPrediction(int mp, String listMP) {
+    private void updateMyPrediction(int mp, String listMP) {
         if (listMP.isEmpty()) {
             tvShowPrediction.setText("m: ");
         } else {
@@ -532,8 +558,8 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         hsNumberTable.addView(CustomTableLayout.getNumberTableLayout(getActivity()));
         hsChooseHeadTailTable.removeAllViews();
         hsChooseHeadTailTable.addView(CustomTableLayout.getChooseHeadTailTableLayout(getActivity()));
-        SetOnClickForTextViewType1();
-        SetOnClickForHeadTail();
+        setOnClickForTextViewType1();
+        setOnClickForHeadTail();
         for (int i = 0; i < pickers.size(); i++) {
             TextView textView = viewParent.findViewById(pickers.get(i).getNumber());
             if (pickers.get(i).getLevel() == 1) {
@@ -543,10 +569,10 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                 textView.setBackground(redDrawable);
             }
         }
-        SetCounterForTableType1();
+        setCounterForTableType1();
     }
 
-    private void SetOnClickForTextViewType1() {
+    private void setOnClickForTextViewType1() {
         // từ pink nếu nhấn => xanh, nhấn giữ => đỏ
         // từ xanh nếu nhấn => pink, nhấn giữ => đỏ
         // từ đỏ nếu nhấn => pink, nhấn giữ => pink
@@ -558,12 +584,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                 public void onClick(View v) {
                     if (textView.getBackground() == greenDrawable) {
                         textView.setBackground(pinkDrawable);
-                        UpdateMyPrediction(-1, listMP);
-                        SetCounterForTableType1();
+                        updateMyPrediction(-1, listMP);
+                        setCounterForTableType1();
                     } else {
                         textView.setBackground(greenDrawable);
-                        UpdateMyPrediction(finalI, listMP);
-                        SetCounterForTableType1();
+                        updateMyPrediction(finalI, listMP);
+                        setCounterForTableType1();
                     }
                 }
             });
@@ -576,12 +602,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     DialogBase.showWithConfirmation(getActivity(), title, mess, () -> {
                         if (textView.getBackground() == redDrawable) {
                             textView.setBackground(pinkDrawable);
-                            UpdateMyPrediction(-1, listMP);
-                            SetCounterForTableType1();
+                            updateMyPrediction(-1, listMP);
+                            setCounterForTableType1();
                         } else {
                             textView.setBackground(redDrawable);
-                            UpdateMyPrediction(finalI, listMP);
-                            SetCounterForTableType1();
+                            updateMyPrediction(finalI, listMP);
+                            setCounterForTableType1();
                         }
                     });
                     return false;
@@ -590,7 +616,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         }
     }
 
-    private void SetOnClickForHeadTail() {
+    private void setOnClickForHeadTail() {
         for (int i = 0; i < 10; i++) {
             TextView tvHead = viewParent.findViewById(IdStart.HEAD + i);
             int finalI = i;
@@ -603,7 +629,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                             tv.setBackground(greenDrawable);
                         }
                     }
-                    SetCounterForTableType1();
+                    setCounterForTableType1();
                 }
             });
             TextView tvTail = viewParent.findViewById(IdStart.TAIL + i);
@@ -616,13 +642,13 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                             tv.setBackground(greenDrawable);
                         }
                     }
-                    SetCounterForTableType1();
+                    setCounterForTableType1();
                 }
             });
         }
     }
 
-    private void SetCounterForTableType1() {
+    private void setCounterForTableType1() {
         int count = 0;
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
             TextView textView = viewParent.findViewById(i);
@@ -642,10 +668,10 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         hsFilteredNumberTable.addView(CustomTableLayout.getFilteredNumberTableLayout(getActivity(), 0));
         hsTableToChooseNumber.removeAllViews();
         hsTableToChooseNumber.addView(CustomTableLayout.getChooseNumberTableLayout(getActivity()));
-        SetStartMatrix(pickers);
-        SetColorForChoosingNumberTextView();
-        SetColorForFilteredNumberTextView(0);
-        SetOnClickForTextViewType2(0);
+        setStartMatrix(pickers);
+        setColorForChoosingNumberTextView();
+        setColorForFilteredNumberTextView(0);
+        setOnClickForTextViewType2(0);
         for (int i = 0; i < 10; i++) {
             TextView textView = viewParent.findViewById(IdStart.TOUCH + i);
             int finalI = i;
@@ -655,15 +681,15 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     hsFilteredNumberTable.removeAllViews();
                     hsFilteredNumberTable.addView(CustomTableLayout.getFilteredNumberTableLayout(getActivity(),
                             finalI));
-                    SetColorForFilteredNumberTextView(finalI);
-                    SetOnClickForTextViewType2(finalI);
+                    setColorForFilteredNumberTextView(finalI);
+                    setOnClickForTextViewType2(finalI);
                 }
             });
         }
-        SetCounterForTableType2();
+        setCounterForTableType2();
     }
 
-    private void SetStartMatrix(List<Picker> pickers) {
+    private void setStartMatrix(List<Picker> pickers) {
         matrix = new int[Const.MAX_ROW_COUNT_TABLE];
         for (int i = 0; i < pickers.size(); i++) {
             int number = pickers.get(i).getNumber();
@@ -676,7 +702,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         }
     }
 
-    private void SetColorForChoosingNumberTextView() {
+    private void setColorForChoosingNumberTextView() {
         for (int i = 0; i < 10; i++) {
             int count = 0;
             int count2 = 0;
@@ -704,7 +730,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         }
     }
 
-    private void SetColorForFilteredNumberTextView(int touch) {
+    private void setColorForFilteredNumberTextView(int touch) {
         for (int i = 0; i < 10; i++) {
             int number1 = Integer.parseInt(i + "" + touch);
             int number2 = Integer.parseInt(touch + "" + i);
@@ -731,7 +757,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         }
     }
 
-    private void SetOnClickForTextViewType2(int touch) {
+    private void setOnClickForTextViewType2(int touch) {
         // từ pink nếu nhấn => xanh, nhấn giữ => đỏ
         // từ xanh nếu nhấn => pink, nhấn giữ => đỏ
         // từ đỏ nếu nhấn => pink, nhấn giữ => pink
@@ -751,15 +777,15 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     if (textView.getBackground() == greenDrawable) {
                         textView.setBackground(pinkDrawable);
                         matrix[number] = 0;
-                        SetColorForChoosingNumberTextView();
-                        UpdateMyPrediction(-1, listMP);
-                        SetCounterForTableType2();
+                        setColorForChoosingNumberTextView();
+                        updateMyPrediction(-1, listMP);
+                        setCounterForTableType2();
                     } else {
                         textView.setBackground(greenDrawable);
                         matrix[number] = 1;
-                        SetColorForChoosingNumberTextView();
-                        UpdateMyPrediction(number, listMP);
-                        SetCounterForTableType2();
+                        setColorForChoosingNumberTextView();
+                        updateMyPrediction(number, listMP);
+                        setCounterForTableType2();
                     }
                 }
             });
@@ -773,15 +799,15 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                         if (textView.getBackground() == redDrawable) {
                             textView.setBackground(pinkDrawable);
                             matrix[number] = 0;
-                            SetColorForChoosingNumberTextView();
-                            UpdateMyPrediction(-1, listMP);
-                            SetCounterForTableType2();
+                            setColorForChoosingNumberTextView();
+                            updateMyPrediction(-1, listMP);
+                            setCounterForTableType2();
                         } else {
                             textView.setBackground(redDrawable);
                             matrix[number] = 2;
-                            SetColorForChoosingNumberTextView();
-                            UpdateMyPrediction(number, listMP);
-                            SetCounterForTableType2();
+                            setColorForChoosingNumberTextView();
+                            updateMyPrediction(number, listMP);
+                            setCounterForTableType2();
                         }
                     });
                     return false;
@@ -791,7 +817,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
 
     }
 
-    private void SetCounterForTableType2() {
+    private void setCounterForTableType2() {
         int count = 0;
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
             if (matrix[i] != 0) {

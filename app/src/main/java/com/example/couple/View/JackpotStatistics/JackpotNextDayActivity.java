@@ -40,9 +40,8 @@ public class JackpotNextDayActivity extends SpeechToTextActivity implements Jack
         linearJackpotNextDay = findViewById(R.id.linearJackpotNextDay);
 
         viewModel = new JackpotNextDayViewModel(this, this);
-        viewModel.getNumberOfYears();
         String numberOfYearsStr = edtYearNumber.getText().toString().trim();
-        viewModel.getJackpotNextDay(numberOfYearsStr, 0 + "");
+        viewModel.getJackpotNextDay(5, 0);
 
         edtYearNumber.setSelection(numberOfYearsStr.length());
 
@@ -52,7 +51,13 @@ public class JackpotNextDayActivity extends SpeechToTextActivity implements Jack
                 WidgetBase.hideKeyboard(JackpotNextDayActivity.this);
                 String yearNumber = edtYearNumber.getText().toString().trim();
                 String dayNumberBefore = edtDayNumberBefore.getText().toString().trim();
-                viewModel.getJackpotNextDay(yearNumber, dayNumberBefore);
+                if (yearNumber.isEmpty()) {
+                    showMessage("Vui lòng nhập số năm hiển thị!");
+                } else if (dayNumberBefore.isEmpty()) {
+                    showMessage("Vui lòng nhập số ngày trước đó!");
+                } else {
+                    viewModel.getJackpotNextDay(Integer.parseInt(yearNumber), Integer.parseInt(dayNumberBefore));
+                }
             }
         });
     }

@@ -1,7 +1,7 @@
 package com.example.couple.Custom.Handler;
 
 import com.example.couple.Base.Handler.CoupleBase;
-import com.example.couple.Model.Bridge.NumberSet.NumberSet;
+import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 
 import java.util.ArrayList;
@@ -99,14 +99,14 @@ public class NumberArrayHandler {
             for (int j = i + 1; j < compactNumbers.size(); j++) {
                 int first = compactNumbers.get(i);
                 int second = compactNumbers.get(j);
-                NumberSet numberSet = new NumberSet(first, second);
-                results.addAll(numberSet.getSetsDetail());
+                SetBase setBase = new SetBase(first, second);
+                results.addAll(setBase.getSetsDetail());
             }
         }
 
         for (int single : compactNumbers) {
-            NumberSet numberSet = new NumberSet(single, single);
-            results.addAll(numberSet.getSetsDetail());
+            SetBase setBase = new SetBase(single, single);
+            results.addAll(setBase.getSetsDetail());
         }
 
         return results;
@@ -123,13 +123,13 @@ public class NumberArrayHandler {
 
         List<Integer> results = new ArrayList<>();
         for (int couple : compactNumbers) {
-            results.addAll(NumberSet.getFrom(couple).getSetsDetail());
+            results.addAll(SetBase.getFrom(couple).getSetsDetail());
         }
 
         return results;
     }
 
-    public static List<NumberSet> getSetListBySingles(List<Integer> singleSetList) {
+    public static List<SetBase> getSetListBySingles(List<Integer> singleSetList) {
         List<Integer> smallShadowList = new ArrayList<>();
         for (int i = 0; i < singleSetList.size(); i++) {
             smallShadowList.add(CoupleBase.getSmallShadow(singleSetList.get(i)));
@@ -138,20 +138,20 @@ public class NumberArrayHandler {
         List<Integer> compactNumbers = smallShadowList.stream().distinct().collect(Collectors.toList());
         if (compactNumbers.size() < 2) return new ArrayList<>();
 
-        List<NumberSet> numberSetList = new ArrayList<>();
+        List<SetBase> setBaseList = new ArrayList<>();
         for (int i = 0; i < compactNumbers.size(); i++) {
             for (int j = i + 1; j < compactNumbers.size(); j++) {
                 int first = compactNumbers.get(i);
                 int second = compactNumbers.get(j);
-                numberSetList.add(new NumberSet(first, second));
+                setBaseList.add(new SetBase(first, second));
             }
         }
 
         for (int single : compactNumbers) {
-            numberSetList.add(new NumberSet(single, single));
+            setBaseList.add(new SetBase(single, single));
         }
 
-        return numberSetList;
+        return setBaseList;
     }
 
     public static List<Integer> getHeads(int head) {

@@ -11,12 +11,16 @@ public abstract class Bridge {
         String show = "";
         String win = getJackpotHistory().isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
         String showDetail = !showCompactNumbers().isEmpty() ? showCompactNumbers() : getNumbers().size() + " số.";
-        show += "    - " + getBridgeName() + win + ": " + showDetail;
+        show += "    - " + getType().name + win + ": " + showDetail;
         return show;
     }
 
     public boolean isWin() {
         return CoupleHandler.isWin(getJackpotHistory(), getNumbers());
+    }
+
+    public boolean isUncheckable() {
+        return getJackpotHistory().isEmpty();
     }
 
     public String showNumbers() {
@@ -25,7 +29,7 @@ public abstract class Bridge {
 
     public abstract String showCompactNumbers();
 
-    public abstract String getBridgeName();
+    public abstract BridgeType getType();
 
     public abstract List<Integer> getNumbers();
 

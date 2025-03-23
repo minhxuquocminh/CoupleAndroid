@@ -8,10 +8,12 @@ import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.DateTime.Date.DateBase;
-import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,12 +26,13 @@ public class NewBridge {
             if (DateBase.fromString(dateStr, "-").equals(nextDate)) return;
         }
         BranchInTwoDaysBridge bridge = CycleBridgeHandler.getBranchInTwoDaysBridge(jackpotList, 0);
-        List<NumericSetHistory> numberSetHistories = HistoryHandler.getNumberSetsHistoryType2(jackpotList);
+        List<NumberSetHistory> numberSetHistories = HistoryHandler.getCompactNumberSetsHistory(jackpotList,
+                Arrays.asList(NumberSetType.values()), 50, 50, 79);
         String title = "Có cầu mới cho ngày " + nextDate.showFullChars();
         String content = "";
         if (!numberSetHistories.isEmpty()) {
             content += "Cầu gan: " + numberSetHistories.stream()
-                    .map(NumericSetHistory::showCompact).collect(Collectors.joining(", ")) + "; ";
+                    .map(NumberSetHistory::showCompact).collect(Collectors.joining(", ")) + "; ";
         }
 
         if (bridge.getRunningTimes() != 0) {

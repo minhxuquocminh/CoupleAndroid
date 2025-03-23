@@ -1,6 +1,7 @@
 package com.example.couple.View.Main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.couple.Base.Handler.SpeechToTextBase;
 import com.example.couple.Base.Handler.ThreadBase;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.UpdateData.UpdateDataService;
 import com.example.couple.Custom.Handler.UpdateData.UpdateDataView;
 import com.example.couple.Custom.Widget.CustomAction;
@@ -77,6 +79,7 @@ public class MainActivity extends SpeechToTextBase implements MainView, UpdateDa
         updateDataService = new UpdateDataService(this, this);
         updateDataService.getTimeData(true);
         updateDataService.getJackpotData(true, true);
+        updateDataService.getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, true);
         new ThreadBase<>((param) -> {
             mainViewModel.setUrlAndParamsIfNoData();
             mainViewModel.registerBackgoundRuntime();
@@ -159,6 +162,7 @@ public class MainActivity extends SpeechToTextBase implements MainView, UpdateDa
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("MINHTRAN", "TTTTTTTTTTTTTTTTTTTTT");
         new ThreadBase<>((param) -> {
             updateDataService.updateAllData(false, false);
             return null;

@@ -16,8 +16,10 @@ import com.example.couple.View.Bridge.BridgeCombinationView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class BridgeCombinationViewModel {
@@ -30,7 +32,7 @@ public class BridgeCombinationViewModel {
     }
 
     public void getAllData() {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         if (jackpotList.isEmpty() || lotteryList.isEmpty()) {
             view.showMessage("Lỗi không láy được dữ liệu Xổ số.");
@@ -41,9 +43,9 @@ public class BridgeCombinationViewModel {
 
     public void getAllBridgeToday(List<Jackpot> jackpotList, List<Lottery> lotteryList) {
         if (jackpotList.isEmpty() || lotteryList.isEmpty()) return;
-        List<BridgeType> bridgeTypes = Arrays.asList(BridgeType.COMBINE_TOUCH, BridgeType.CONNECTED,
+        Set<BridgeType> bridgeTypes = new HashSet<>(Arrays.asList(BridgeType.COMBINE_TOUCH, BridgeType.CONNECTED,
                 BridgeType.SYNTHETIC, BridgeType.LOTTO_TOUCH, BridgeType.LAST_DAY_SHADOW, BridgeType.LAST_WEEK_SHADOW,
-                BridgeType.MAPPING, BridgeType.CONNECTED_SET, BridgeType.ESTIMATED);
+                BridgeType.MAPPING, BridgeType.CONNECTED_SET, BridgeType.ESTIMATED));
         List<CombineBridge> combineBridges = BridgeStateHandler.getCombineBridges(jackpotList,
                 lotteryList, bridgeTypes, 1, new ArrayList<>());
         if (!bridgeTypes.isEmpty()) {
@@ -53,17 +55,21 @@ public class BridgeCombinationViewModel {
 
     public void getCombineBridgeList(List<Jackpot> jackpotList, List<Lottery> lotteryList, int numberOfDay,
                                      Map<BridgeType, Boolean> bridgeTypeFlag, List<Input> inputs) {
-        List<BridgeType> bridgeTypes = bridgeTypeFlag.entrySet().stream()
-                .filter(Map.Entry::getValue).map(Map.Entry::getKey).collect(Collectors.toList());
-        if (bridgeTypes.contains(BridgeType.CONNECTED) && numberOfDay > lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) {
-            view.showMessage("Giới hạn số ngày cho cầu liên thông là " +
-                    (lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS) + " ngày");
+        Set<BridgeType> bridgeTypes = bridgeTypeFlag.entrySet().stream()
+                .filter(Map.Entry::getValue).map(Map.Entry::getKey).collect(Collectors.toSet());
+        int maxConnectedSize = lotteryList.size() - Const.CONNECTED_BRIDGE_FINDING_DAYS;
+        if (bridgeTypes.contains(BridgeType.CONNECTED) && numberOfDay > maxConnectedSize) {
+            view.showMessage("Giới hạn số ngày cho cầu liên thông là " + maxConnectedSize + " ngày");
+            numberOfDay = maxConnectedSize;
         }
 
         String notifMessage = "";
         for (Input input : inputs) {
             if (input.isError()) {
                 notifMessage += " " + input.getInputType().name + ";";
+            }
+            if (input.isValid()) {
+                bridgeTypes.add(input.getInputType().toBridgeType());
             }
         }
         if (!notifMessage.isEmpty()) {

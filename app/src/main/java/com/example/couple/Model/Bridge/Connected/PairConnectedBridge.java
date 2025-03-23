@@ -1,6 +1,7 @@
 package com.example.couple.Model.Bridge.Connected;
 
 import com.example.couple.Model.Bridge.Bridge;
+import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.JackpotHistory;
 
 import java.util.ArrayList;
@@ -27,6 +28,11 @@ public class PairConnectedBridge extends Bridge {
     @Override
     public String showCompactNumbers() {
         return null;
+    }
+
+    @Override
+    public BridgeType getType() {
+        return BridgeType.PAIR_CONNECTED;
     }
 
     public static PairConnectedBridge getEmpty() {

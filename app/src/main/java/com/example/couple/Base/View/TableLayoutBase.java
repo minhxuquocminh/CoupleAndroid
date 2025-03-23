@@ -25,6 +25,30 @@ public class TableLayoutBase {
             TextView tvHeader = getHeaderCell(context, matrix[0][j]);
             rowHeader.addView(tvHeader);
         }
+        tableLayout.addView(rowHeader);
+
+        for (int i = 1; i < row; i++) {
+            TableRow tableRow = new TableRow(context);
+            for (int j = 0; j < col; j++) {
+                TextView tv = getCell(context, matrix[i][j]);
+                tableRow.addView(tv);
+            }
+            tableLayout.addView(tableRow);
+        }
+        return tableLayout;
+    }
+
+    public static TableLayout getTableLayoutWrapContent(Context context, String[][] matrix, int row, int col) {
+        TableLayout tableLayout = new TableLayout(context);
+        tableLayout.setLayoutParams(new TableLayout
+                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        TableRow rowHeader = new TableRow(context);
+        for (int j = 0; j < col; j++) {
+            TextView tvHeader = getHeaderCell(context, matrix[0][j]);
+            rowHeader.addView(tvHeader);
+        }
+        tableLayout.addView(rowHeader);
 
         for (int i = 1; i < row; i++) {
             TableRow tableRow = new TableRow(context);
@@ -48,6 +72,7 @@ public class TableLayoutBase {
                 TextView tvHeader = getHeaderCell(context, header);
                 rowHeader.addView(tvHeader);
             }
+            tableLayout.addView(rowHeader);
         }
 
         for (RowData row : tableData.getRows()) {
@@ -73,6 +98,7 @@ public class TableLayoutBase {
                 TextView tvHeader = getHeaderCell(context, header);
                 rowHeader.addView(tvHeader);
             }
+            tableLayout.addView(rowHeader);
         }
 
         for (RowData row : tableData.getRows()) {

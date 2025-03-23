@@ -1,7 +1,6 @@
 package com.example.couple.Model.Handler;
 
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Handler.NumberArrayHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,25 +25,6 @@ public class Input {
         }
     }
 
-    public List<Integer> getNumbers() {
-        switch (this.inputType) {
-            case SET:
-                return NumberArrayHandler.getSetsByCouples(inputNumbers);
-            case TOUCH:
-                return NumberArrayHandler.getTouchs(inputNumbers);
-            case SUM:
-                return NumberArrayHandler.getSums(inputNumbers);
-            case BRANCH:
-                return NumberArrayHandler.getBranches(inputNumbers);
-            case HEAD:
-                return NumberArrayHandler.getHeads(inputNumbers);
-            case TAIL:
-                return NumberArrayHandler.getTails(inputNumbers);
-            default:
-                return inputNumbers;
-        }
-    }
-
     public boolean isEmpty() {
         return data.trim().isEmpty() || inputNumbers.isEmpty();
     }
@@ -52,4 +32,14 @@ public class Input {
     public boolean isError() {
         return !data.trim().isEmpty() && inputNumbers.isEmpty();
     }
+
+    public boolean isValid() {
+        return !data.trim().isEmpty() && !inputNumbers.isEmpty();
+    }
+
+    public List<Integer> getNumbers() {
+        if (isError()) return new ArrayList<>();
+        return inputType.getNumbers(inputNumbers);
+    }
+
 }

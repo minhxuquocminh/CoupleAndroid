@@ -2,12 +2,12 @@ package com.example.couple.ViewModel.SubScreen;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.IOFileBase;
-import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Base.Handler.StorageBase;
+import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.View.SubScreen.NoteView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class NoteViewModel {
     NoteView noteView;
@@ -19,23 +19,16 @@ public class NoteViewModel {
     }
 
     public void getNoteList() {
-        String data = IOFileBase.readDataFromFile(context, FileName.NOTE);
-        if (data.isEmpty()) {
+        Set<String> notes = StorageBase.getStringSet(context, StorageType.STRING_OF_NOTES);
+        if (notes.isEmpty()) {
             noteView.hideNoteList();
         } else {
-            String[] arr = data.split("===");
-            List<String> notes = new ArrayList<>();
-            for (String note : arr) {
-                if (!note.trim().isEmpty()) {
-                    notes.add(note.trim());
-                }
-            }
             noteView.showNoteList(notes);
         }
     }
 
     public void deleteNoteList() {
-        IOFileBase.saveDataToFile(context, FileName.NOTE, "", 0);
+        StorageBase.setStringSet(context, StorageType.STRING_OF_NOTES, new HashSet<>());
         noteView.deleteNoteListSuccess("Xóa Ghi chú thành công!");
     }
 }

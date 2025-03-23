@@ -10,14 +10,17 @@ import android.widget.Toast;
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.DialogBase;
+import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Bridge.NumberSet.NumericSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements AddJackpotManyYearsView {
@@ -43,7 +46,7 @@ public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements
         btnTest2 = findViewById(R.id.btnTest2);
 
         viewModel = new AddJackpotManyYearsViewModel(this, this);
-
+        edtStart.setText((TimeInfo.CURRENT_YEAR - 5) + "");
         viewModel.getStartYear();
 
         btnLoadAllData.setOnClickListener(new View.OnClickListener() {
@@ -127,11 +130,11 @@ public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements
     }
 
     public void test(Context context) {
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListManyYears(context, 4);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 4);
         String mess = "";
         int max = 0;
-        List<NumericSetHistory> histories = HistoryHandler.getFixedNumberSetsHistory(jackpotList);
-        for (NumericSetHistory history : histories) {
+        List<NumberSetHistory> histories = HistoryHandler.getFullNumberSetsHistory(jackpotList, Arrays.asList(NumberSetType.values()));
+        for (NumberSetHistory history : histories) {
             mess += history.showWithBeats() + "\n";
             max = Math.max(history.getBeatMax(), max);
         }
@@ -143,11 +146,12 @@ public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements
 //                2222, TimeBase.CURRENT().addSeconds(10));
 //        Toast.makeText(this, "Đăng ký alarm vào" +
 //                TimeBase.CURRENT().showHHMMSS(), Toast.LENGTH_LONG).show();
-        List<Jackpot> jackpotList = JackpotHandler.getReverseJackpotListManyYears(context, 20);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 20);
         String mess = "";
         int max = 0;
-        List<NumericSetHistory> histories = HistoryHandler.getCustomNumberSetsHistory(jackpotList);
-        for (NumericSetHistory history : histories) {
+        List<NumberSetHistory> histories = HistoryHandler.getFullNumberSetsHistory(jackpotList,
+                Arrays.asList(NumberSetType.HEAD, NumberSetType.TAIL, NumberSetType.SET));
+        for (NumberSetHistory history : histories) {
             mess += history.showWithBeats() + "\n";
             max = Math.max(history.getBeatMax(), max);
         }
