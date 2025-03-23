@@ -1,7 +1,11 @@
 package com.example.couple.View.Main;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.couple.Base.Handler.AlarmBase;
 import com.example.couple.Base.Handler.SpeechToTextBase;
 import com.example.couple.Base.Handler.ThreadBase;
 import com.example.couple.Custom.Const.Const;
@@ -82,7 +87,6 @@ public class MainActivity extends SpeechToTextBase implements MainView, UpdateDa
         updateDataService.getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, true);
         new ThreadBase<>((param) -> {
             mainViewModel.setUrlAndParamsIfNoData();
-            mainViewModel.registerBackgoundRuntime();
             return null;
         }, "").start();
 
@@ -162,12 +166,32 @@ public class MainActivity extends SpeechToTextBase implements MainView, UpdateDa
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("MINHTRAN", "TTTTTTTTTTTTTTTTTTTTT");
+        if (!AlarmBase.isEnableExactAlarmPermission(this)) {
+            askToEnableExactAlarmPermission(this);
+        } else {
+            mainViewModel.registerBackgoundRuntime();
+        }
         new ThreadBase<>((param) -> {
             updateDataService.updateAllData(false, false);
             return null;
         }, "").start();
         initSpeechToText(0);
+    }
+
+    private static void askToEnableExactAlarmPermission(Context context) {
+        new AlertDialog.Builder(context)
+                .setTitle("Yêu cầu quyền")
+                .setMessage("Ứng dụng cần quyền đặt báo thức chính xác để hoạt động đúng. Bạn có muốn cấp quyền không?")
+                .setPositiveButton("Có", (dialog, which) -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                        context.startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Không", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .show();
     }
 
     @Override
