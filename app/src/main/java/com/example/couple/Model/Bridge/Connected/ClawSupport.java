@@ -1,9 +1,7 @@
 package com.example.couple.Model.Bridge.Connected;
 
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.Bridge.JackpotHistory;
-import com.example.couple.Model.Bridge.Position;
 
 import java.util.List;
 
@@ -31,8 +29,7 @@ public class ClawSupport {
     }
 
     public String showStatus() {
-        return "Càng " + claw + " (" + LotteryHandler.showPrize(position) + " - N: " +
-                NumberBase.showNumbers(beatList, ", ") + ")";
+        return "Càng " + claw + " (" + position.showPrize() + " - N: " + NumberBase.showNumbers(beatList, ", ") + ")";
     }
 
     public String showShort() {

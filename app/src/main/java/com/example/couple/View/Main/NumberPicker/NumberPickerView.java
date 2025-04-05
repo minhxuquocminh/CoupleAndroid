@@ -9,8 +9,7 @@ import java.util.List;
 public interface NumberPickerView {
     void showMessage(String message);
     void showPeriodHistory(List<PeriodHistory> periodHistoryList);
-    void showSubJackpotNextDay(List<Jackpot> subJackpotList);
-    void showSubJackpotLastMonth(List<Jackpot> subJackpotList);
+    void showSubJackpotTable(List<Jackpot> jackpotsLastWeek, List<Jackpot> jackpotsNextDay, List<Jackpot> subJackpots);
     void showTableType1(List<Picker> pickers);
     void showTableType2(List<Picker> pickers);
     void saveDataSuccess(String message);

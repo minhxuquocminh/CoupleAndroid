@@ -28,12 +28,12 @@ public class SingleBase {
         return single + 5;
     }
 
-    public static String showTouchs(List<Integer> touchs) {
-        return touchs.stream().map(x -> x + "").collect(Collectors.joining(" "));
+    public static String showTouches(List<Integer> touches) {
+        return touches.stream().map(x -> x + "").collect(Collectors.joining(" "));
     }
 
-    public static String showTouchs(List<Integer> touchs, String delimiter) {
-        return touchs.stream().map(x -> x + "").collect(Collectors.joining(delimiter));
+    public static String showTouches(List<Integer> touches, String delimiter) {
+        return touches.stream().map(x -> x + "").collect(Collectors.joining(delimiter));
     }
 
 }

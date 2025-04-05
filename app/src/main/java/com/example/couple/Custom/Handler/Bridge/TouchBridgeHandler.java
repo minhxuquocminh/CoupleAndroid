@@ -21,7 +21,7 @@ public class TouchBridgeHandler {
     public static ShadowTouchBridge getLastDayShadowTouchBridge(List<Jackpot> reverseJackpotList, int dayNumberBefore) {
         if (reverseJackpotList.size() < dayNumberBefore) return ShadowTouchBridge.getEmpty();
         Couple coupleLastDay = reverseJackpotList.get(dayNumberBefore).getCouple();
-        List<Integer> touchs = coupleLastDay.getTouchsAndShadows();
+        List<Integer> touchs = coupleLastDay.getTouchesAndShadows();
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : reverseJackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(BridgeType.LAST_DAY_SHADOW, touchs, new JackpotHistory(dayNumberBefore, jackpot));
@@ -31,7 +31,7 @@ public class TouchBridgeHandler {
         if (jackpotList.size() < TimeInfo.DAY_OF_WEEK + dayNumberBefore)
             return ShadowTouchBridge.getEmpty();
         Couple coupleLastDay = jackpotList.get(TimeInfo.DAY_OF_WEEK + dayNumberBefore - 1).getCouple();
-        List<Integer> touchs = coupleLastDay.getTouchsAndShadows();
+        List<Integer> touchs = coupleLastDay.getTouchesAndShadows();
         Jackpot jackpot = dayNumberBefore == 0 ?
                 Jackpot.getEmpty() : jackpotList.get(dayNumberBefore - 1);
         return new ShadowTouchBridge(BridgeType.LAST_WEEK_SHADOW, touchs, new JackpotHistory(dayNumberBefore, jackpot));

@@ -8,17 +8,16 @@ import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Custom.Statistics.JackpotStatistics;
+import com.example.couple.Custom.Handler.Statistics.JackpotStatistics;
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.Double.JackpotSign;
+import com.example.couple.Model.Bridge.Double.NumberDouble;
 import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
-import com.example.couple.Model.Bridge.Double.JackpotSign;
-import com.example.couple.Model.Bridge.LongBeat.NearestTime;
-import com.example.couple.Model.Bridge.Double.NumberDouble;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Bridge.Connected.ClawSupport;
-import com.example.couple.Model.Bridge.TriadClaw.Single;
 import com.example.couple.View.Bridge.ReferenceBridgeView;
 
 import java.util.ArrayList;
@@ -58,23 +57,8 @@ public class ReferenceBridgeViewModel {
         }
     }
 
-    public void getRareSameDoubleList(List<Jackpot> jackpotList) {
-        List<NearestTime> nearestTimeList = JackpotStatistics.getSameDoubleInNearestTime(jackpotList);
-        List<NearestTime> subNearestTimeList = new ArrayList<>();
-        int count = 0;
-        for (int i = 0; i < nearestTimeList.size(); i++) {
-            if (nearestTimeList.get(i).getDayNumberBefore() == Const.MAX_DAY_NUMBER_BEFORE) {
-                count++;
-            }
-            if (nearestTimeList.get(i).getAppearanceTimes() <= 3) {
-                subNearestTimeList.add(nearestTimeList.get(i));
-            }
-        }
-        if (count <= 5) referenceBridgeView.showRareSameDoubleList(subNearestTimeList);
-    }
-
     public void getCoupleDoNotAppearThisYear(List<Jackpot> jackpotList) {
-        int[] coupleCounting = JackpotStatistics.getCoupleCounting(jackpotList, Const.MAX_ROW_COUNT_TABLE);
+        int[] coupleCounting = JackpotStatistics.getCoupleCounter(jackpotList, Const.MAX_ROW_COUNT_TABLE);
         List<Integer> numbers = new ArrayList<>();
         int count = 0;
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
@@ -99,7 +83,7 @@ public class ReferenceBridgeViewModel {
     }
 
     public void getRareCoupleLastYear(List<Jackpot> jackpotList) {
-        int[] coupleCounting = JackpotStatistics.getCoupleCounting(jackpotList, Const.MAX_ROW_COUNT_TABLE);
+        int[] coupleCounting = JackpotStatistics.getCoupleCounter(jackpotList, Const.MAX_ROW_COUNT_TABLE);
         List<Integer> noAppearanceList = new ArrayList<>();
         List<Integer> oneAppearanceList = new ArrayList<>();
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
@@ -233,38 +217,6 @@ public class ReferenceBridgeViewModel {
     public void getNumberBeforeSameDoubleAppear(List<Jackpot> jackpotList) {
         List<NumberDouble> numberDoubleList = JackpotStatistics.getNumberBeforeSameDoubleAppear(jackpotList);
         referenceBridgeView.showNumberBeforeSameDoubleAppear(numberDoubleList);
-    }
-
-    public void getHeadForALongTime(List<Jackpot> jackpotList) {
-        int runningDayNumber = Math.min(jackpotList.size(), 150);
-        List<NearestTime> nearestTimeList = JackpotStatistics
-                .getHeadAndTailInNearestTime(jackpotList.subList(0, runningDayNumber - 1));
-        List<NearestTime> subNearestTimeList = new ArrayList<>();
-        int count = 0;
-        for (int i = 0; i < nearestTimeList.size(); i++) {
-            if (nearestTimeList.get(i).getType().equals(Const.HEAD)) {
-                count++;
-                subNearestTimeList.add(nearestTimeList.get(i));
-            }
-            if (count > 2) break;
-        }
-        referenceBridgeView.showHeadForALongTime(runningDayNumber, subNearestTimeList);
-    }
-
-    public void getTailForALongTime(List<Jackpot> jackpotList) {
-        int runningDayNumber = Math.min(jackpotList.size(), 150);
-        List<NearestTime> nearestTimeList = JackpotStatistics
-                .getHeadAndTailInNearestTime(jackpotList.subList(0, runningDayNumber - 1));
-        List<NearestTime> subNearestTimeList = new ArrayList<>();
-        int count = 0;
-        for (int i = 0; i < nearestTimeList.size(); i++) {
-            if (nearestTimeList.get(i).getType().equals(Const.TAIL)) {
-                count++;
-                subNearestTimeList.add(nearestTimeList.get(i));
-            }
-            if (count > 2) break;
-        }
-        referenceBridgeView.showTailForALongTime(runningDayNumber, subNearestTimeList);
     }
 
 }

@@ -24,7 +24,6 @@ import com.example.couple.Custom.Const.RequestCode;
 import com.example.couple.Custom.Handler.Notification.ManualUpdateDataAlarm;
 import com.example.couple.Custom.Handler.UpdateData.UpdateDataService;
 import com.example.couple.Custom.Handler.UpdateData.UpdateDataView;
-import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -227,7 +226,6 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
     private void showJackpotList(List<Jackpot> jackpotList) {
         tvJackpotToday.setText("Xổ số Đặc Biệt hôm nay về: " + jackpotList.get(0).getJackpot());
         tvJackpotLastDay.setText("Xổ số Đ.Biệt ngày trước đó: " + jackpotList.get(1).getJackpot());
-        homePageViewModel.getHeadAndTailInLongestTime(jackpotList);
         int size_to_show = Math.min(jackpotList.size(), 7);
         String show = "Kết quả: ";
         for (int i = 0; i < size_to_show - 1; i++) {
@@ -260,21 +258,6 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
     @Override
     public void showLotteryData(List<Lottery> lotteries) {
         // ko có observe
-    }
-
-    @Override
-    public void showHeadAndTailInLongestTime(List<NearestTime> nearestTimeList) {
-        String show = "Những đầu đuôi đã chạy lâu nhất: ";
-        int length = Math.min(nearestTimeList.size(), 1);
-        for (int i = 0; i < 1; i++) {
-            NearestTime nearestTime = nearestTimeList.get(i);
-            show += nearestTime.getType() + " " + nearestTime.getNumber() +
-                    "(" + nearestTime.getDayNumberBefore() + " ngày)";
-            if (i != length - 1) {
-                show += ", ";
-            }
-        }
-        tvSuggest.setText(".");
     }
 
     @Override

@@ -11,21 +11,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.Handler.CoupleBase;
-import com.example.couple.Base.View.TableLayoutBase;
+import com.example.couple.Base.View.Table.RowData;
+import com.example.couple.Base.View.Table.TableData;
+import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
-import com.example.couple.Base.View.RowData;
-import com.example.couple.Base.View.TableData;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.CycleByYearViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CycleByYearActivity extends SpeechToTextActivity implements CycleByYearView {
+public class CycleByYearActivity extends ActivityBase implements CycleByYearView {
     HorizontalScrollView hsTable;
     Spinner spnBranches;
     TextView tvCopy;
@@ -73,17 +73,17 @@ public class CycleByYearActivity extends SpeechToTextActivity implements CycleBy
 
     private void GetCycleByYear() {
         List<String> headers = TimeInfo.HEAVENLY_STEMS;
-        List<RowData> rows = new ArrayList<>();
+        TableData tableData = new TableData();
+        tableData.createHeaders(headers);
         for (int i = 0; i < 13; i++) {
-            List<String> cells = new ArrayList<>();
+            RowData rowData = new RowData();
             for (int j = 0; j < 10; j++) {
                 YearCycle yearCycle = new YearCycle(1900 + i * 10 + j);
-                cells.add(yearCycle.showByCouple());
+                rowData.addCell(yearCycle.showByCouple());
             }
-            rows.add(new RowData(cells));
+            tableData.addRow(rowData);
         }
-        TableData tableData = new TableData(headers, rows);
-        TableLayout tableLayout = TableLayoutBase.getTableLayoutWrapContent(this, tableData);
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData, false);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
     }

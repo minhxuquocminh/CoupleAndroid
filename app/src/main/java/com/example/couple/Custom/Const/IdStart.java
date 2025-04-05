@@ -1,6 +1,7 @@
 package com.example.couple.Custom.Const;
 
 public class IdStart {
+    public static final int PICKER = 900;
     public static final int HEAD = 100;
     public static final int TAIL = 200;
     public static final int TOUCHED_NUMBER = 500;

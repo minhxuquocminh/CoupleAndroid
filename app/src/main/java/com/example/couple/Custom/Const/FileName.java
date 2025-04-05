@@ -16,7 +16,6 @@ public class FileName {
     public static final String TABLE_B = "table_b.txt";
     public static final String ITABLE_A = "itable_a.txt";
     public static final String ITABLE_B = "itable_b.txt";
-    public static final String PICKED_NUMBER = "picked_number.txt";
     public static final String LOTTERY_LAST_DATE = "lottery_last_date.txt";
     public static final String JACKPOT_LAST_DATE = "jackpot_last_date.txt";
 

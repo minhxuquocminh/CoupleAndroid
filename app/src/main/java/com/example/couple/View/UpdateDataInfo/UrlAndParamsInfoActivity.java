@@ -8,11 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.UrlAndParamsInfoViewModel;
 
-public class UrlAndParamsInfoActivity extends SpeechToTextActivity implements UrlAndParamsInfoView {
+public class UrlAndParamsInfoActivity extends ActivityBase implements UrlAndParamsInfoView {
     TextView tvTitleToolbar;
     EditText edtUrl;
     EditText edtClassName;

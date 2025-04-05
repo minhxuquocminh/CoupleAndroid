@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Bridge.Connected.ConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.PairConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
@@ -33,7 +33,7 @@ import com.example.couple.ViewModel.Bridge.FindingBridgeViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindingBridgeActivity extends SpeechToTextActivity implements FindingBridgeView {
+public class FindingBridgeActivity extends ActivityBase implements FindingBridgeView {
     EditText edtDayNumberBefore;
     TextView tvUpdate1;
     TextView tvViewLottery1;

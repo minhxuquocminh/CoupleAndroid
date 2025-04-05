@@ -16,19 +16,19 @@ import lombok.Getter;
 public class ConnectedBridge extends TouchBridge {
     List<ConnectedSupport> connectedSupports;
     JackpotHistory jackpotHistory;
-    List<Integer> touchs;
+    List<Integer> touches;
     List<Integer> numbers;
 
     public ConnectedBridge(List<ConnectedSupport> connectedSupports, JackpotHistory jackpotHistory) {
         this.connectedSupports = connectedSupports;
         this.jackpotHistory = jackpotHistory;
-        this.touchs = ConnectedBridgeHandler.getConnectedTouchs(connectedSupports);
-        this.numbers = NumberArrayHandler.getTouchs(touchs);
+        this.touches = ConnectedBridgeHandler.getConnectedTouchs(connectedSupports);
+        this.numbers = NumberArrayHandler.getTouchs(touches);
     }
 
     @Override
     public String showCompactNumbers() {
-        return SingleBase.showTouchs(touchs);
+        return SingleBase.showTouches(touches);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.example.couple.ViewModel.JackpotStatistics;
 import android.content.Context;
 
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Statistics.JackpotStatistics;
+import com.example.couple.Custom.Handler.Statistics.JackpotStatistics;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Statistics.JackpotNextDay;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayView;

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
 import com.example.couple.View.Adapter.LotteryAdapter;
@@ -20,7 +20,7 @@ import com.example.couple.ViewModel.Lottery.LotteryViewModel;
 
 import java.util.List;
 
-public class LotteryActivity extends SpeechToTextActivity implements LotteryView {
+public class LotteryActivity extends ActivityBase implements LotteryView {
     TextView tvGetData;
     EditText edtDayNumber;
     RecyclerView rvTableOfLottery;

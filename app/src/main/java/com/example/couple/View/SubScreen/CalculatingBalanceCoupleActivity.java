@@ -8,12 +8,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.CalculatingBalanceCoupleViewModel;
 
 
-public class CalculatingBalanceCoupleActivity extends SpeechToTextActivity implements CalculatingBalanceCoupleView {
+public class CalculatingBalanceCoupleActivity extends ActivityBase implements CalculatingBalanceCoupleView {
     TextView tvShow;
     EditText edtFirstNumber;
     EditText edtSecondNumber;

@@ -11,13 +11,13 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.couple.Base.View.TableLayoutBase;
+import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.CoupleByYearViewModel;
 
-public class CoupleByYearActivity extends SpeechToTextActivity implements CoupleByYearView {
+public class CoupleByYearActivity extends ActivityBase implements CoupleByYearView {
     EditText edtNumberOfYears;
     EditText edtTens;
     EditText edtUnit;
@@ -97,7 +97,7 @@ public class CoupleByYearActivity extends SpeechToTextActivity implements Couple
 
     @Override
     public void showCoupleCountingTable(String[][] matrix, int row, int col) {
-        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, matrix, row, col);
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, matrix, row, col, true);
         linearFreqCouple.removeAllViews();
         linearFreqCouple.addView(tableLayout);
     }

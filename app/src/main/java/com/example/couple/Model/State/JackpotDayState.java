@@ -1,4 +1,4 @@
-package com.example.couple.Custom.Handler.UpdateData;
+package com.example.couple.Model.State;
 
 import lombok.AllArgsConstructor;
 

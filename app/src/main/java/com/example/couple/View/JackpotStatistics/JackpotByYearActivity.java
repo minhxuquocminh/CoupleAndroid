@@ -2,6 +2,7 @@ package com.example.couple.View.JackpotStatistics;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.HorizontalScrollView;
@@ -10,22 +11,30 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.Handler.CoupleBase;
+import com.example.couple.Base.Handler.StorageBase;
+import com.example.couple.Base.View.Spacing;
+import com.example.couple.Base.View.Table.TableLayoutBase;
+import com.example.couple.Base.View.TextViewBase;
+import com.example.couple.Base.View.TextViewPositionManager;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotByYearViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
-public class JackpotByYearActivity extends SpeechToTextActivity implements JackpotByYearView {
+public class JackpotByYearActivity extends ActivityBase implements JackpotByYearView {
     Spinner spnYear;
     TextView tvGetData;
     HorizontalScrollView hsTable;
@@ -78,20 +87,35 @@ public class JackpotByYearActivity extends SpeechToTextActivity implements Jackp
 
     @Override
     public void showTableOfJackpot(String[][] matrix, int year) {
-        DateBase lastDate = JackpotHandler.getLastDate(this);
-        DateBase selectedDate = lastDate.addDays(1);
-        int row = selectedDate.getDay() - 1;
-        int col = selectedDate.getMonth() - 1;
-        String selected = IOFileBase.readDataFromFile(this, FileName.PICKED_NUMBER);
+        DateBase nextDate = JackpotHandler.getLastDate(this).addDays(1);
+        int selected = StorageBase.getNumber(this, StorageType.NUMBER_OF_PICKER);
         if (year == TimeInfo.CURRENT_YEAR) {
-            matrix[row][col] = selected.isEmpty() ? "" : "888" + selected;
+            matrix[nextDate.getDay() - 1][nextDate.getMonth() - 1] = selected == Const.EMPTY_VALUE ?
+                    "" : "888" + CoupleBase.showCouple(selected);
         }
-        tvNote.setVisibility(View.VISIBLE);
-        TableLayout tableLayout = CustomTableLayout.getJackpotTableByYear(this, matrix,
-                31, 12, year);
+
+        int row = TimeInfo.DAY_OF_MONTH, col = TimeInfo.MONTH_OF_YEAR;
+        String[] headers = IntStream.rangeClosed(1, col).mapToObj(String::valueOf).toArray(String[]::new);
+        String[] rowHeaders = Stream.concat(Stream.of("D/M"),
+                IntStream.rangeClosed(1, row).mapToObj(String::valueOf)).toArray(String[]::new);
+        TextViewPositionManager manager = new TextViewPositionManager();
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                DateBase dateBase = new DateBase(i + 1, j + 1, year);
+                if (dateBase.isValid() && dateBase.isItOnSunday()) {
+                    manager.addTextViewBase(i, j, TextViewBase.builder().context(this).textSize(15).gravity(Gravity.CENTER)
+                            .padding(Spacing.by(10, 5, 10, 5)).background(R.color.colorBgSunday)
+                            .textColor(R.color.colorText).build());
+                }
+            }
+        }
+
+        TableLayout tableLayout = TableLayoutBase.getTableLayoutWithNewStyleCell(this, headers,
+                rowHeaders, matrix, row, col, new HashMap<>(),
+                new HashMap<>(), manager, false);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
-
+        tvNote.setVisibility(View.VISIBLE);
     }
 
     @Override

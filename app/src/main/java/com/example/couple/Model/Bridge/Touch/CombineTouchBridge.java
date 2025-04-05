@@ -15,16 +15,16 @@ import lombok.Getter;
 public class CombineTouchBridge extends TouchBridge {
     List<TouchBridge> touchBridges;
     JackpotHistory jackpotHistory;
-    List<Integer> touchs;
+    List<Integer> touches;
     List<Integer> numbers;
 
     public CombineTouchBridge(List<TouchBridge> touchBridges, JackpotHistory jackpotHistory) {
         this.touchBridges = touchBridges;
-        this.touchs = new ArrayList<>();
+        this.touches = new ArrayList<>();
         this.numbers = new ArrayList<>();
         int[] a = new int[10];
         touchBridges.forEach(touchBridge -> {
-            touchBridge.getTouchs().forEach(touch -> {
+            touchBridge.getTouches().forEach(touch -> {
                 a[touch]++;
             });
         });
@@ -36,9 +36,9 @@ public class CombineTouchBridge extends TouchBridge {
         touchDatas.sort(Comparator.comparingInt(TouchData::getTimes).reversed());
         int minSize = Math.min(touchDatas.size(), 4);
         for (int i = 0; i < minSize; i++) {
-            this.touchs.add(touchDatas.get(i).getTouch());
+            this.touches.add(touchDatas.get(i).getTouch());
         }
-        this.numbers.addAll(NumberArrayHandler.getTouchs(touchs));
+        this.numbers.addAll(NumberArrayHandler.getTouchs(touches));
         this.jackpotHistory = jackpotHistory;
     }
 
@@ -52,7 +52,7 @@ public class CombineTouchBridge extends TouchBridge {
 
     @Override
     public String showCompactNumbers() {
-        return SingleBase.showTouchs(touchs);
+        return SingleBase.showTouches(touches);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.example.couple.Model.Bridge.Connected;
 
-import com.example.couple.Custom.Handler.LotteryHandler;
-
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -17,8 +15,8 @@ public class PairConnectedSupport {
 
     public String show() {
         String show = "Các số " + pair.show(", ") + " - " +
-                LotteryHandler.showPrize(pairPosition.getFirstPosition()) + ", " +
-                LotteryHandler.showPrize(pairPosition.getSecondPosition()) + "\n TT: ";
+                pairPosition.getFirstPosition().showPrize() + ", " +
+                pairPosition.getSecondPosition().showPrize() + "\n TT: ";
         for (int i = 0; i < typeList.size(); i++) {
             show += i != typeList.size() - 1 ? typeList.get(i).show("-") + ", " : typeList.get(i).show("-");
         }

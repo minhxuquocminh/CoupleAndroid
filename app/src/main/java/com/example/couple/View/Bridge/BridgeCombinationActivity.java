@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class BridgeCombinationActivity extends SpeechToTextActivity implements BridgeCombinationView {
+public class BridgeCombinationActivity extends ActivityBase implements BridgeCombinationView {
     ImageView imgBridgeAnnotation;
     EditText edtDayNumber;
     EditText edtSet;

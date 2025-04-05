@@ -7,16 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.Double.JackpotSign;
+import com.example.couple.Model.Bridge.Double.NumberDouble;
 import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
-import com.example.couple.Model.Bridge.Double.JackpotSign;
-import com.example.couple.Model.Bridge.LongBeat.NearestTime;
-import com.example.couple.Model.Bridge.Double.NumberDouble;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Bridge.Connected.ClawSupport;
-import com.example.couple.Model.Bridge.TriadClaw.Single;
 import com.example.couple.R;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
@@ -24,7 +23,7 @@ import com.example.couple.ViewModel.Bridge.ReferenceBridgeViewModel;
 
 import java.util.List;
 
-public class ReferenceBridgeActivity extends SpeechToTextActivity implements ReferenceBridgeView {
+public class ReferenceBridgeActivity extends ActivityBase implements ReferenceBridgeView {
     TextView tvJackpotToday;
     TextView tvLastJackpot;
     TextView tvViewBalanceCouple;
@@ -153,20 +152,7 @@ public class ReferenceBridgeActivity extends SpeechToTextActivity implements Ref
 
     @Override
     public void showJackpotListThisYear(List<Jackpot> jackpotList) {
-        viewModel.getRareSameDoubleList(jackpotList);
         viewModel.getCoupleDoNotAppearThisYear(jackpotList);
-    }
-
-    @Override
-    public void showRareSameDoubleList(List<NearestTime> subNearestTimeList) {
-        String show = "Kép bằng ít về trong năm nay: ";
-        for (int i = 0; i < subNearestTimeList.size(); i++) {
-            show += "\n - Kép " + subNearestTimeList.get(i).show();
-            if (i != subNearestTimeList.size() - 1) {
-                show += "; ";
-            }
-        }
-        tvRareDoubleSame.setText(show);
     }
 
     @Override
@@ -281,8 +267,6 @@ public class ReferenceBridgeActivity extends SpeechToTextActivity implements Ref
         viewModel.getBeatOfSameDouble(jackpotList);
         viewModel.getSignInJackpot(jackpotList);
         viewModel.getNumberBeforeSameDoubleAppear(jackpotList);
-        viewModel.getHeadForALongTime(jackpotList);
-        viewModel.getTailForALongTime(jackpotList);
     }
 
     @Override
@@ -325,30 +309,6 @@ public class ReferenceBridgeActivity extends SpeechToTextActivity implements Ref
             }
         }
         tvLastCouple.setText(show);
-    }
-
-    @Override
-    public void showHeadForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList) {
-        String show = "Trong vòng " + runningDayNumber + " ngày: ";
-        for (int i = 0; i < subNearestTimeList.size(); i++) {
-            show += "\n - Đầu " + subNearestTimeList.get(i).show();
-            if (i != 0) {
-                show += "; ";
-            }
-        }
-        tvRareHead.setText(show);
-    }
-
-    @Override
-    public void showTailForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList) {
-        String show = "Trong vòng " + runningDayNumber + " ngày: ";
-        for (int i = 0; i < subNearestTimeList.size(); i++) {
-            show += "\n - Đuôi " + subNearestTimeList.get(i).show();
-            if (i != subNearestTimeList.size() - 1) {
-                show += "; ";
-            }
-        }
-        tvRareTail.setText(show);
     }
 
     @Override

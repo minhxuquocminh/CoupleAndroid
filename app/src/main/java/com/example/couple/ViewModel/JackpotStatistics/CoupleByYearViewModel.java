@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Custom.Statistics.JackpotStatistics;
+import com.example.couple.Custom.Handler.Statistics.JackpotStatistics;
 import com.example.couple.View.JackpotStatistics.CoupleByYearView;
 
 import java.util.Map;

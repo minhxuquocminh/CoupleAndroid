@@ -6,7 +6,6 @@ import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Enum.Split;
-import com.example.couple.Model.Bridge.Position;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Lottery;
 
@@ -15,8 +14,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class LotteryHandler {
-    private static final double[] swapPrizeName = {0, 1, 2.1, 2.2, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6,
-            4.1, 4.2, 4.3, 4.4, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 6.1, 6.2, 6.3, 7.1, 7.2, 7.3, 7.4};
+
 
     public static boolean updateLottery(Context context, int numberOfDays) {
         try {
@@ -65,11 +63,6 @@ public class LotteryHandler {
             lotteries.add(lottery);
         }
         return lotteries;
-    }
-
-    public static String showPrize(Position position) {
-        return "G" + LotteryHandler.swapPrizeName[position.getFirstLevel()] +
-                " VT" + (position.getSecondLevel() + 1);
     }
 
     private static void saveLastDate(Context context, List<Lottery> lotteries) {

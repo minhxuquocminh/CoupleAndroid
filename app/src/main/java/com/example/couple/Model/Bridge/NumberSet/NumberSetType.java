@@ -42,7 +42,7 @@ public enum NumberSetType {
         return Arrays.asList(HEAD, TAIL, SUM, SET, DOUBLE, BRANCH, BRANCH_IN_DAY);
     }
 
-    public List<NumberSetHistory> getNumericSetHistory(List<Jackpot> jackpotList) {
+    public List<NumberSetHistory> getNumberSetHistory(List<Jackpot> jackpotList) {
         switch (this) {
             case HEAD:
                 return IntStream.range(0, 10)

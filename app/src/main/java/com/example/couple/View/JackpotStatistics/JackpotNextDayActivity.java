@@ -11,9 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.View.DialogBase;
+import com.example.couple.Base.View.Table.TableData;
+import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Custom.Handler.Display.TableDataConverter;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Statistics.JackpotNextDay;
 import com.example.couple.R;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
@@ -21,7 +23,7 @@ import com.example.couple.ViewModel.JackpotStatistics.JackpotNextDayViewModel;
 
 import java.util.List;
 
-public class JackpotNextDayActivity extends SpeechToTextActivity implements JackpotNextDayView {
+public class JackpotNextDayActivity extends ActivityBase implements JackpotNextDayView {
     EditText edtYearNumber;
     EditText edtDayNumberBefore;
     TextView tvView;
@@ -74,7 +76,8 @@ public class JackpotNextDayActivity extends SpeechToTextActivity implements Jack
 
     @Override
     public void showJackpotNextDay(List<JackpotNextDay> jackpotNextDayList) {
-        TableLayout tableLayout = CustomTableLayout.getJackpotNextDayTableLayout(this, jackpotNextDayList);
+        TableData tableData = TableDataConverter.getJackpotNextDayTable(jackpotNextDayList);
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData, true);
         linearJackpotNextDay.removeAllViews();
         linearJackpotNextDay.addView(tableLayout);
     }

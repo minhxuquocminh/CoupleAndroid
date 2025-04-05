@@ -1,10 +1,10 @@
-package com.example.couple.Custom.Widget;
+package com.example.couple.Base.View;
 
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.Bridge.FindingBridgeActivity;
 import com.example.couple.View.Bridge.SelectiveBridgeActivity;
-import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
+import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
@@ -17,7 +17,7 @@ import com.example.couple.View.UpdateDataInfo.UrlAndParamsActivity;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum TargetClass {
+public enum ActivityType {
 
     JACKPOT_BY_YEAR(1001, "đặc biệt", JackpotByYearActivity.class),
     LOTTERY(1002, "lô tô", LotteryActivity.class),

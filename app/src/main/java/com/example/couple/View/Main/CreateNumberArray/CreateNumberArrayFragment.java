@@ -23,11 +23,13 @@ import androidx.lifecycle.Observer;
 import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.Handler.StorageBase;
 import com.example.couple.Base.View.DialogBase;
+import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.IdStart;
 import com.example.couple.Custom.Enum.StorageType;
-import com.example.couple.Custom.Widget.CustomTableLayout;
+import com.example.couple.Custom.Handler.Display.ArrayUtil;
+import com.example.couple.Custom.Handler.Display.MatrixUtil;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Handler.Picker;
@@ -44,7 +46,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CreateNumberArrayFragment extends Fragment implements CreateNumberArrayView {
@@ -81,9 +82,9 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
     View viewParent;
 
-    int pink;
-    int green;
-    int red;
+    private static final int def = 0;
+    private static final int green = R.color.colorLightGreen;
+    private static final int red = R.color.colorImportantText;
 
     CreateNumberArrayViewModel viewModel;
     List<Jackpot> subJackpot = new ArrayList<>();
@@ -146,10 +147,6 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         viewModel = new CreateNumberArrayViewModel(this, getActivity());
         RECEIVE_DATA = false;
         viewModel.getTriadTable();
-
-        pink = R.drawable.cell_pink_table;
-        green = R.drawable.cell_light_green_table;
-        red = R.drawable.cell_red_table;
 
         tvQuickCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -350,19 +347,16 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         });
     }
 
-    private void clearFocus(List<EditText> editTexts) {
-        editTexts.forEach(View::clearFocus);
-        WidgetBase.hideKeyboard(this.requireActivity());
-    }
-
     private void setInputData() {
-        Set<Integer> branches = StorageBase.getNumberSet(requireActivity(), StorageType.SET_OF_BRANCHES);
+        List<Integer> touches = StorageBase.getNumberList(requireActivity(), StorageType.LIST_OF_TOUCHES);
+        edtTouch.setText(touches.stream().map(x -> x + "").collect(Collectors.joining(" ")));
+        List<Integer> branches = StorageBase.getNumberList(requireActivity(), StorageType.LIST_OF_BRANCHES);
         edtBranch.setText(branches.stream().map(x -> x + "").collect(Collectors.joining(" ")));
     }
 
     private void showJackpotList(List<Jackpot> jackpotList) {
         subJackpot = jackpotList.subList(0, 5);
-        SetTextForSubJackpot(subJackpot, -1);
+        setTextForSubJackpot(subJackpot, -1);
     }
 
     @Override
@@ -413,7 +407,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         Toast.makeText(getActivity(), "Đã xuất dữ liệu ra clipboard!", Toast.LENGTH_SHORT).show();
     }
 
-    private void SetTextForSubJackpot(List<Jackpot> jackpotList, int myJackpot) {
+    private void setTextForSubJackpot(List<Jackpot> jackpotList, int myJackpot) {
         if (jackpotList.isEmpty()) {
             tvSubJackpot.setText("");
             return;
@@ -435,19 +429,23 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     @Override
     public void showTriadTable(List<Picker> pickers) {
         hsThirdClaw.removeAllViews();
-        hsThirdClaw.addView(CustomTableLayout.getChooseThirdClawTableLayout(getActivity()));
+        hsThirdClaw.addView(TableLayoutBase.getPickerTableLayoutHaveSuperscript(getActivity(),
+                ArrayUtil.getTenIntArray(IdStart.THIRD_CLAW_PARENT), ArrayUtil.getTenStringArray(),
+                ArrayUtil.getTenIntArray(IdStart.THIRD_CLAW), ArrayUtil.getZeroStringArray(),
+                ArrayUtil.getTenIntArray(IdStart.THIRD_CLAW_COUNTER), 10, false));
         hsNumberTable.removeAllViews();
-        hsNumberTable.addView(CustomTableLayout.getNumberByThirdClawTableLayout(getActivity()));
-        SetStartMatrix(pickers);
-        SetCounterForAll();
-        SetColorForThirdClawTextView(0);
-        SetColorForNumberTextView(0);
-        SetOnClickForNumberTextView(0);
-        SetOnCLickForThirdClawTextView();
+        hsNumberTable.addView(TableLayoutBase.getPickerTableLayout(getActivity(), MatrixUtil.getTenTenStringMatrix(),
+                MatrixUtil.getTenTenIntMatrix(IdStart.NUMBERS_BY_THIRD_CLAW), 10, 10, false));
+        setStartMatrix(pickers);
+        setCounterForAll();
+        setColorForThirdClawTextView(0);
+        setColorForNumberTextView(0);
+        setOnClickForNumberTextView(0);
+        setOnCLickForThirdClawTextView();
         viewModel.getTriadList();
     }
 
-    private void SetStartMatrix(List<Picker> pickers) {
+    private void setStartMatrix(List<Picker> pickers) {
         matrix = new int[1000];
         for (int i = 0; i < pickers.size(); i++) {
             int number = pickers.get(i).getNumber();
@@ -455,51 +453,48 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         }
     }
 
-    private void SetColorForThirdClawTextView(int thirdClaw) {
+    private void setColorForThirdClawTextView(int thirdClaw) {
         // màu của 3 càng chỉ để hiển thị nên dùng setBackgroundResource
         TextView textView = viewParent.findViewById(IdStart.THIRD_CLAW + thirdClaw);
-        textView.setBackgroundResource(R.drawable.cell_light_green_table);
+        textView.setBackgroundResource(green);
         for (int i = 0; i < 10; i++) {
             if (i != thirdClaw) {
                 TextView other = viewParent.findViewById(IdStart.THIRD_CLAW + i);
-                other.setBackgroundResource(R.drawable.cell_pink_table);
+                other.setBackgroundResource(def);
             }
         }
     }
 
-    private void SetOnCLickForThirdClawTextView() {
+    private void setOnCLickForThirdClawTextView() {
         for (int i = 0; i < 10; i++) {
             FrameLayout frameLayout = viewParent.findViewById(IdStart.THIRD_CLAW_PARENT + i);
             int thirdClaw = i;
             frameLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    hsNumberTable.removeAllViews();
-                    hsNumberTable.addView(CustomTableLayout.
-                            getNumberByThirdClawTableLayout(getActivity()));
-                    SetColorForThirdClawTextView(thirdClaw);
-                    SetColorForNumberTextView(thirdClaw);
-                    SetOnClickForNumberTextView(thirdClaw);
+                    setColorForThirdClawTextView(thirdClaw);
+                    setColorForNumberTextView(thirdClaw);
+                    setOnClickForNumberTextView(thirdClaw);
                 }
             });
         }
     }
 
-    private void SetColorForNumberTextView(int thirdClaw) {
+    private void setColorForNumberTextView(int thirdClaw) {
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
             TextView textView = viewParent.findViewById(IdStart.NUMBERS_BY_THIRD_CLAW + i);
             int element = matrix[thirdClaw * 100 + i];
             if (element == 1) {
-                // phải xét thẳng R.drawable lúc nạp giao diện đầu tiên
-                textView.setBackgroundResource(R.drawable.cell_light_green_table);
-            }
-            if (element == 2) {
-                textView.setBackgroundResource(R.drawable.cell_red_table);
+                textView.setBackgroundResource(green);
+            } else if (element == 2) {
+                textView.setBackgroundResource(red);
+            } else {
+                textView.setBackgroundResource(def);
             }
         }
     }
 
-    private void SetOnClickForNumberTextView(int thirdClaw) {
+    private void setOnClickForNumberTextView(int thirdClaw) {
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
             TextView textView = viewParent.findViewById(IdStart.NUMBERS_BY_THIRD_CLAW + i);
             int number = thirdClaw * 100 + i;
@@ -507,15 +502,15 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                 @Override
                 public void onClick(View v) {
                     if (matrix[number] == 1) {
-                        textView.setBackgroundResource(pink);
-                        SetTextForSubJackpot(subJackpot, -1);
+                        textView.setBackgroundResource(def);
+                        setTextForSubJackpot(subJackpot, -1);
                         matrix[number] = 0;
-                        SetCounterForAll();
+                        setCounterForAll();
                     } else {
                         textView.setBackgroundResource(green);
-                        SetTextForSubJackpot(subJackpot, number);
+                        setTextForSubJackpot(subJackpot, number);
                         matrix[number] = 1;
-                        SetCounterForAll();
+                        setCounterForAll();
                     }
                 }
             });
@@ -527,15 +522,15 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                             " không?" : "Bạn có muốn chọn số " + number + " làm số đặc biệt không?";
                     DialogBase.showWithConfirmation(getActivity(), title, mess, () -> {
                         if (matrix[number] == 2) {
-                            textView.setBackgroundResource(pink);
-                            SetTextForSubJackpot(subJackpot, -1);
+                            textView.setBackgroundResource(def);
+                            setTextForSubJackpot(subJackpot, -1);
                             matrix[number] = 0;
-                            SetCounterForAll();
+                            setCounterForAll();
                         } else {
                             textView.setBackgroundResource(red);
-                            SetTextForSubJackpot(subJackpot, number);
+                            setTextForSubJackpot(subJackpot, number);
                             matrix[number] = 2;
-                            SetCounterForAll();
+                            setCounterForAll();
                         }
                     });
                     return false;
@@ -544,7 +539,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         }
     }
 
-    private void SetCounterForAll() {
+    private void setCounterForAll() {
         int countAll = 0;
         int[] countThirdClaw = new int[10];
         for (int i = 0; i < 1000; i++) {

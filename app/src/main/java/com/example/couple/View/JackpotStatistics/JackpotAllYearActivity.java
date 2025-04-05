@@ -11,14 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.View.DialogBase;
-import com.example.couple.Base.View.TableLayoutBase;
+import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotAllYearViewModel;
 
-public class JackpotAllYearActivity extends SpeechToTextActivity implements JackpotAllYearView {
+public class JackpotAllYearActivity extends ActivityBase implements JackpotAllYearView {
     EditText edtYearNumberBalanceCouple;
     EditText edtYearNumberSDB;
     TextView tvView;
@@ -65,7 +65,7 @@ public class JackpotAllYearActivity extends SpeechToTextActivity implements Jack
 
     @Override
     public void showSameDoubleCountingManyYears(String[][] matrix, int row, int col) {
-        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, matrix, row, col);
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, matrix, row, col, true);
         linearSDB.removeAllViews();
         linearSDB.addView(tableLayout);
     }

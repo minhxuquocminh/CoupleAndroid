@@ -22,20 +22,20 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/cboCombineTouchBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="kết hợp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
                     android:id="@+id/cboConnectedBridge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="liên thông"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboCombineTouchBridge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="kết hợp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 

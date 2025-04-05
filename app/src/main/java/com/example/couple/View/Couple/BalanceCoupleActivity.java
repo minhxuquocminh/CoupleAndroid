@@ -10,20 +10,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.Handler.SingleBase;
+import com.example.couple.Base.Handler.StorageBase;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Base.View.DialogBase;
+import com.example.couple.Base.View.Table.TableData;
+import com.example.couple.Base.View.Table.TableLayoutBase;
+import com.example.couple.Base.View.TextViewBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Widget.CustomTableLayout;
-import com.example.couple.Custom.Widget.CustomTextView;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Custom.Enum.StorageType;
+import com.example.couple.Custom.Handler.Display.TableDataConverter;
+import com.example.couple.Custom.Handler.Display.TableDataSupport;
 import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
+import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.Couple.BalanceCoupleViewModel;
 
 import java.util.List;
+import java.util.Map;
 
-public class BalanceCoupleActivity extends SpeechToTextActivity implements BalanceCoupleView {
+public class BalanceCoupleActivity extends ActivityBase implements BalanceCoupleView {
     EditText edtNumberOfDays;
     EditText edtDayNumberBefore;
     EditText edtFilterDays;
@@ -94,11 +100,15 @@ public class BalanceCoupleActivity extends SpeechToTextActivity implements Balan
 
     @Override
     public void showTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays) {
-        TableLayout tableLayout = CustomTableLayout.getBalanceCoupleTableLayout(this,
-                jackpotList, numberOfDays);
+        int picker = StorageBase.getNumber(this, StorageType.NUMBER_OF_PICKER);
+        TableData tableData = TableDataConverter.getBalanceCouple(jackpotList, numberOfDays, picker);
+        Map<Integer, TextViewBase> bodyManager = TableDataSupport
+                .getSundayTextViewManager(this, jackpotList, numberOfDays);
+        TableLayout tableLayout = TableLayoutBase.getTableLayoutWithNewStyleRow(this,
+                tableData, null, bodyManager, true);
         linearLayout.removeAllViews();
         linearLayout.addView(tableLayout);
-        linearLayout.addView(CustomTextView.getTextViewNote(this));
+        linearLayout.addView(TextViewBase.getNoteTextView(this, "Note: Các ô màu xanh ứng với ngày chủ nhật."));
     }
 
     @Override
@@ -114,9 +124,9 @@ public class BalanceCoupleActivity extends SpeechToTextActivity implements Balan
     @Override
     public void showTest(List<Integer> touchs) {
         String message = "Chạm: ";
-        message += SingleBase.showTouchs(touchs);
+        message += SingleBase.showTouches(touchs);
         DialogBase.showWithCopiedText(this,
-                "Cầu chạm.", message, SingleBase.showTouchs(touchs), "test");
+                "Cầu chạm.", message, SingleBase.showTouches(touchs), "test");
     }
 
     @Override

@@ -13,15 +13,15 @@ import lombok.Getter;
 @Getter
 public class ShadowTouchBridge extends TouchBridge {
     BridgeType bridgeType;
-    List<Integer> touchs;
+    List<Integer> touches;
     JackpotHistory jackpotHistory;
     List<Integer> numbers;
 
-    public ShadowTouchBridge(BridgeType bridgeType, List<Integer> touchs, JackpotHistory jackpotHistory) {
+    public ShadowTouchBridge(BridgeType bridgeType, List<Integer> touches, JackpotHistory jackpotHistory) {
         this.bridgeType = bridgeType;
-        this.touchs = touchs;
+        this.touches = touches;
         this.jackpotHistory = jackpotHistory;
-        this.numbers = NumberArrayHandler.getTouchs(touchs);
+        this.numbers = NumberArrayHandler.getTouchs(touches);
     }
 
     public static ShadowTouchBridge getEmpty() {
@@ -29,12 +29,12 @@ public class ShadowTouchBridge extends TouchBridge {
     }
 
     public boolean isEmpty() {
-        return bridgeType == null || touchs.isEmpty();
+        return bridgeType == null || touches.isEmpty();
     }
 
     @Override
     public String showCompactNumbers() {
-        return SingleBase.showTouchs(touchs);
+        return SingleBase.showTouches(touches);
     }
 
     @Override

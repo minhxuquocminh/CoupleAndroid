@@ -17,12 +17,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.couple.Base.Handler.AlarmBase;
-import com.example.couple.Base.Handler.SpeechToTextBase;
 import com.example.couple.Base.Handler.ThreadBase;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.UpdateData.UpdateDataService;
 import com.example.couple.Custom.Handler.UpdateData.UpdateDataView;
-import com.example.couple.Custom.Widget.CustomAction;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
@@ -40,7 +39,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class MainActivity extends SpeechToTextBase implements MainView, UpdateDataView {
+public class MainActivity extends ActivityBase implements MainView, UpdateDataView {
     BottomNavigationView navigationView;
 
     FragmentManager fm = getSupportFragmentManager();
@@ -226,7 +225,7 @@ public class MainActivity extends SpeechToTextBase implements MainView, UpdateDa
     }
 
     @Override
-    public void post(String resultText) {
-        CustomAction.changeActivity(this, resultText);
+    public Context getContext() {
+        return this;
     }
 }

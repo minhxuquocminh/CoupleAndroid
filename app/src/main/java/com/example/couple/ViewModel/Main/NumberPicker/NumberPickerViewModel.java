@@ -8,16 +8,14 @@ import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Statistics.JackpotStatistics;
+import com.example.couple.Custom.Handler.Statistics.JackpotStatistics;
 import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
-import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Handler.Picker;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Statistics.JackpotNextDay;
 import com.example.couple.View.Main.NumberPicker.NumberPickerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -47,32 +45,19 @@ public class NumberPickerViewModel {
         }
     }
 
-    public void getSubJackpotNextDay(int lastCouple, int length) {
+    public void getSubJackpotTable(List<Jackpot> jackpotList) {
+        if (jackpotList.isEmpty()) return;
+        int lastCouple = jackpotList.get(0).getCoupleInt();
         Map<Integer, String[][]> matrixByYears = JackpotHandler.getJackpotMatrixByYears(context, 2);
         List<JackpotNextDay> jackpotNextDayList =
                 JackpotStatistics.getJackpotNextDayList(matrixByYears, lastCouple);
-        List<Jackpot> subJackpotList = new ArrayList<>();
+        List<Jackpot> jackpotsNextDay = new ArrayList<>();
         for (int i = 0; i < jackpotNextDayList.size(); i++) {
-            subJackpotList.add(jackpotNextDayList.get(i).getJackpotSecond());
-            if (i + 1 == length) break;
+            jackpotsNextDay.add(jackpotNextDayList.get(i).getJackpotSecond());
+            if (i + 1 == 4) break;
         }
-        Collections.reverse(subJackpotList);
-        if (!subJackpotList.isEmpty()) numberPickerView.showSubJackpotNextDay(subJackpotList);
-    }
-
-    public void getSubJackpotLastMonth(List<Jackpot> jackpotList, DateBase lastDate) {
-        DateBase nextDate = lastDate.addDays(1);
-        int month = nextDate.getMonth() - 1 == 0 ? TimeInfo.MONTH_OF_YEAR : nextDate.getMonth() - 1;
-        int year = nextDate.getMonth() - 1 == 0 ? nextDate.getYear() - 1 : nextDate.getYear();
-        List<DateBase> dateBases = new ArrayList<>();
-        for (int i = -2; i <= 2; i++) {
-            DateBase dateBase = new DateBase(nextDate.getDay() + i, month, year);
-            if (dateBase.isValid()) {
-                dateBases.add(dateBase);
-            }
-        }
-        List<Jackpot> subJackpotList = JackpotStatistics.getJackpotListLastMonth(jackpotList, dateBases);
-        if (!subJackpotList.isEmpty()) numberPickerView.showSubJackpotLastMonth(subJackpotList);
+        List<Jackpot> jackpotsLastWeek = JackpotStatistics.getJackpotListLastWeek(jackpotList);
+        numberPickerView.showSubJackpotTable(jackpotsLastWeek, jackpotsNextDay, jackpotList.subList(0, 4));
     }
 
     public void getTableType1(boolean isTableA) {

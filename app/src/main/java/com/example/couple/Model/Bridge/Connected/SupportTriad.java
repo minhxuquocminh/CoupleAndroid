@@ -1,7 +1,5 @@
 package com.example.couple.Model.Bridge.Connected;
 
-import com.example.couple.Model.Bridge.Position;
-
 import java.util.List;
 
 import lombok.AllArgsConstructor;

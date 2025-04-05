@@ -1,11 +1,9 @@
-package com.example.couple.Custom.Statistics;
+package com.example.couple.Custom.Handler.Statistics;
 
 import com.example.couple.Base.Handler.CoupleBase;
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Model.Bridge.Double.JackpotSign;
 import com.example.couple.Model.Bridge.Double.NumberDouble;
-import com.example.couple.Model.Bridge.LongBeat.NearestTime;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
@@ -19,7 +17,6 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class JackpotStatistics {
 
@@ -106,85 +103,6 @@ public class JackpotStatistics {
             counterByYears.put(year, counter);
         });
         return counterByYears;
-    }
-
-    public static List<NearestTime> getHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
-        List<NearestTime> nearestTimeList = new ArrayList<>();
-        int[] appearanceTimes1 = new int[10];
-        int[] nearestIndex1 = new int[10];
-        int[] appearanceTimes2 = new int[10];
-        int[] nearestIndex2 = new int[10];
-
-        for (int i = 0; i < 10; i++) {
-            nearestIndex1[i] = -1;
-            nearestIndex2[i] = -1;
-        }
-
-        for (int i = 0; i < jackpotList.size(); i++) {
-            int first = jackpotList.get(i).getCouple().getFirst();
-            int second = jackpotList.get(i).getCouple().getSecond();
-            appearanceTimes1[first]++;
-            appearanceTimes2[second]++;
-            if (nearestIndex1[first] == -1)
-                nearestIndex1[first] = i;
-            if (nearestIndex2[second] == -1)
-                nearestIndex2[second] = i;
-        }
-
-        for (int i = 0; i < 10; i++) {
-            int dayNumberBefore1 = nearestIndex1[i] == -1 ?
-                    Const.MAX_DAY_NUMBER_BEFORE : nearestIndex1[i] + 1;
-            NearestTime nearestTime1 = new NearestTime(i, dayNumberBefore1, appearanceTimes1[i], Const.HEAD);
-            nearestTimeList.add(nearestTime1);
-            int dayNumberBefore2 = nearestIndex2[i] == -1 ?
-                    Const.MAX_DAY_NUMBER_BEFORE : nearestIndex2[i] + 1;
-            NearestTime nearestTime2 = new NearestTime(i, dayNumberBefore2, appearanceTimes2[i], Const.TAIL);
-            nearestTimeList.add(nearestTime2);
-        }
-
-        nearestTimeList.sort(new Comparator<NearestTime>() {
-            @Override
-            public int compare(NearestTime o1, NearestTime o2) {
-                return Integer.compare(o2.getDayNumberBefore(), o1.getDayNumberBefore());
-            }
-        });
-
-        return nearestTimeList;
-    }
-
-    public static List<NearestTime> getSameDoubleInNearestTime(List<Jackpot> jackpotList) {
-        List<NearestTime> nearestTimeList = new ArrayList<>();
-        int[] appearanceTimes = new int[10];
-        int[] nearestIndex = new int[10];
-
-        for (int i = 0; i < 10; i++) {
-            nearestIndex[i] = -1;
-        }
-
-        for (int i = 0; i < jackpotList.size(); i++) {
-            if (jackpotList.get(i).getCouple().isSameDouble()) {
-                int first = jackpotList.get(i).getCouple().getFirst();
-                appearanceTimes[first]++;
-                if (nearestIndex[first] == -1)
-                    nearestIndex[first] = i;
-            }
-        }
-
-        for (int i = 0; i < 10; i++) {
-            int number = Integer.parseInt(i + "" + i);
-            int dayNumberBefore = nearestIndex[i] == -1 ? Const.MAX_DAY_NUMBER_BEFORE : nearestIndex[i] + 1;
-            NearestTime nearestTime = new NearestTime(number, dayNumberBefore, appearanceTimes[i], Const.DOUBLE);
-            nearestTimeList.add(nearestTime);
-        }
-
-        nearestTimeList.sort(new Comparator<NearestTime>() {
-            @Override
-            public int compare(NearestTime o1, NearestTime o2) {
-                return Integer.compare(o2.getDayNumberBefore(), o1.getDayNumberBefore());
-            }
-        });
-
-        return nearestTimeList;
     }
 
     public static List<JackpotNextDay> getJackpotNextDayList(Map<Integer, String[][]> matrixByYears, int lastCouple) {
@@ -305,7 +223,7 @@ public class JackpotStatistics {
         return numberDoubleList;
     }
 
-    public static int[] getCoupleCounting(List<Jackpot> jackpotList, int m) {
+    public static int[] getCoupleCounter(List<Jackpot> jackpotList, int m) {
         if (jackpotList.isEmpty()) return null;
         int[] numberArr = new int[m];
         for (int i = 0; i < jackpotList.size(); i++) {
@@ -314,17 +232,17 @@ public class JackpotStatistics {
         return numberArr;
     }
 
-    public static List<Jackpot> getJackpotListLastMonth(List<Jackpot> jackpotList, List<DateBase> dateBases) {
+    public static List<Jackpot> getJackpotListLastWeek(List<Jackpot> jackpotList) {
         if (jackpotList.isEmpty()) return new ArrayList<>();
+        int dayOfWeek = jackpotList.get(0).getDateBase().addDays(1).getDayOfWeek();
         List<Jackpot> results = new ArrayList<>();
-        List<DateBase> dates = dateBases.stream().distinct().collect(Collectors.toList());
         int count = 0;
-        for (int i = jackpotList.size() - 1; i >= 0; i--) {
-            if (dates.contains(jackpotList.get(i).getDateBase())) {
-                results.add(jackpotList.get(i));
+        for (Jackpot jackpot : jackpotList) {
+            if (jackpot.getDateBase().getDayOfWeek() == dayOfWeek) {
+                results.add(jackpot);
                 count++;
             }
-            if (count == dates.size()) break;
+            if (count == 4) break;
         }
         return results;
     }

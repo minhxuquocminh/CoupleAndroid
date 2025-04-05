@@ -1,14 +1,13 @@
 package com.example.couple.View.Bridge;
 
+import com.example.couple.Model.Bridge.Connected.ClawSupport;
+import com.example.couple.Model.Bridge.Double.JackpotSign;
+import com.example.couple.Model.Bridge.Double.NumberDouble;
 import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
-import com.example.couple.Model.Bridge.Double.JackpotSign;
-import com.example.couple.Model.Bridge.LongBeat.NearestTime;
-import com.example.couple.Model.Bridge.Double.NumberDouble;
+import com.example.couple.Model.Bridge.TriadClaw.Single;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
-import com.example.couple.Model.Bridge.Connected.ClawSupport;
-import com.example.couple.Model.Bridge.TriadClaw.Single;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ public interface ReferenceBridgeView {
     void showTouchThirdClawBridge(List<Single> singles, int frame);
     //
     void showJackpotListThisYear(List<Jackpot> jackpotList);
-    void showRareSameDoubleList(List<NearestTime> subNearestTimeList);
     void showCoupleDoNotAppearThisYear(List<Integer> numbers);
     //
     void showJackpotListLastYear(List<Jackpot> jackpotList);
@@ -36,6 +34,4 @@ public interface ReferenceBridgeView {
     void showBeatOfSameDouble(List<Integer> beatList);
     void showSignInJackpot(List<JackpotSign> jackpotSignList);
     void showNumberBeforeSameDoubleAppear(List<NumberDouble> numberDoubleList);
-    void showHeadForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList);
-    void showTailForALongTime(int runningDayNumber, List<NearestTime> subNearestTimeList);
 }

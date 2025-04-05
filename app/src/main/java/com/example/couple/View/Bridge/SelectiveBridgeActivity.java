@@ -9,14 +9,13 @@ import android.widget.Toast;
 
 import com.example.couple.Base.Handler.GenericBase;
 import com.example.couple.Base.Handler.SingleBase;
-import com.example.couple.Custom.Widget.CustomAction;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
-import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Bridge.Connected.ConnectedSetBridge;
 import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
+import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
-import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Double.SignOfDouble;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
@@ -28,7 +27,7 @@ import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SelectiveBridgeActivity extends SpeechToTextActivity implements SelectiveBridgeView {
+public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBridgeView {
     TextView tvViewLongBeatBridge;
     TextView tvAfterDoubleExtendBridge;
     TextView tvAfterDoubleBridge;
@@ -161,7 +160,7 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
             tvConnectedTouch.setVisibility(View.GONE);
         } else {
             tvConnectedTouch.setVisibility(View.VISIBLE);
-            String show = "Chạm liên thông: " + SingleBase.showTouchs(touchs, ", ");
+            String show = "Chạm liên thông: " + SingleBase.showTouches(touchs, ", ");
             tvConnectedTouch.setText(show.trim());
         }
     }
@@ -172,7 +171,7 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
             tvShadowTouch.setVisibility(View.GONE);
         } else {
             tvShadowTouch.setVisibility(View.VISIBLE);
-            String show = "Chạm bóng: " + SingleBase.showTouchs(touchs, ", ");
+            String show = "Chạm bóng: " + SingleBase.showTouches(touchs, ", ");
             tvShadowTouch.setText(show.trim());
         }
     }
@@ -232,8 +231,4 @@ public class SelectiveBridgeActivity extends SpeechToTextActivity implements Sel
         return this;
     }
 
-    @Override
-    public void post(String resultText) {
-        CustomAction.changeActivity(this, resultText);
-    }
 }

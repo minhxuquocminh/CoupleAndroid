@@ -7,11 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.NoteInfoViewModel;
 
-public class NoteInfoActivity extends SpeechToTextActivity implements NoteInfoView {
+public class NoteInfoActivity extends ActivityBase implements NoteInfoView {
     EditText edtNote;
     Button btnAddNote;
     Button btnCancel;

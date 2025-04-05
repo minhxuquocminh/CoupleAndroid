@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.UpdateDataInfo.UrlAndParamsViewModel;
 
-public class UrlAndParamsActivity extends SpeechToTextActivity implements UrlAndParamsView {
+public class UrlAndParamsActivity extends ActivityBase implements UrlAndParamsView {
     ImageView imgEditUrlJackpot;
     TextView tvUrlJackpot;
     TextView tvParamsJackpot;

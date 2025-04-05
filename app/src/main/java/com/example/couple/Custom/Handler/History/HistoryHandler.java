@@ -6,7 +6,9 @@ import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HistoryHandler {
@@ -17,25 +19,25 @@ public class HistoryHandler {
         int size = Math.min(jackpotList.size(), 150);
         List<Jackpot> jackpots = jackpotList.subList(0, size);
         List<NumberSetHistory> histories = numberSetTypes.stream().filter(type -> type.size == 8)
-                .flatMap(type -> type.getNumericSetHistory(jackpots)
+                .flatMap(type -> type.getNumberSetHistory(jackpots)
                         .stream().filter(history -> history.getDayNumberBefore() > min8size))
                 .collect(Collectors.toList());
         List<NumberSetHistory> tenNumbersList = numberSetTypes.stream().filter(type -> type.size == 10)
-                .flatMap(type -> type.getNumericSetHistory(jackpots)
+                .flatMap(type -> type.getNumberSetHistory(jackpots)
                         .stream().filter(history -> history.getDayNumberBefore() > min10size))
                 .collect(Collectors.toList());
         histories.addAll(tenNumbersList);
         List<NumberSetHistory> heads = numberSetTypes.stream().filter(type -> type.size == 6)
-                .flatMap(type -> type.getNumericSetHistory(jackpots)
+                .flatMap(type -> type.getNumberSetHistory(jackpots)
                         .stream().filter(history -> history.getDayNumberBefore() > minHead))
                 .collect(Collectors.toList());
         histories.addAll(heads);
         return histories;
     }
 
-    public static List<NumberSetHistory> getFullNumberSetsHistory(List<Jackpot> jackpotList, List<NumberSetType> numberSetTypes) {
-        if (jackpotList.isEmpty()) return new ArrayList<>();
-        return numberSetTypes.stream().flatMap(type -> type.getNumericSetHistory(jackpotList).stream()).collect(Collectors.toList());
+    public static Map<NumberSetType, List<NumberSetHistory>> getFullNumberSetsHistory(List<Jackpot> jackpotList, List<NumberSetType> numberSetTypes) {
+        if (jackpotList.isEmpty()) return new HashMap<>();
+        return numberSetTypes.stream().collect(Collectors.toMap(type -> type, type -> type.getNumberSetHistory(jackpotList)));
     }
 
     public static NumberSetHistory getNumberSetHistory(List<Jackpot> jackpotList,

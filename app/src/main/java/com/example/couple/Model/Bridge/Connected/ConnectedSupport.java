@@ -1,8 +1,5 @@
 package com.example.couple.Model.Bridge.Connected;
 
-import com.example.couple.Custom.Handler.LotteryHandler;
-import com.example.couple.Model.Bridge.Position;
-
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +14,7 @@ public class ConnectedSupport {
     int numberOfRuns;
 
     public String show() {
-        String show = "Số " + value + " (" + LotteryHandler.showPrize(position) + " - B: ";
+        String show = "Số " + value + " (" + position.showPrize() + " - B: ";
         for (int i = 0; i < typeList.size(); i++) {
             int type = typeList.get(i);
             show += type < 0 ? "+" + type * -1 : type + "";

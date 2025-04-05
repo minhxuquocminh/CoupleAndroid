@@ -80,12 +80,12 @@ public class SelectiveBridgeViewModel {
     public void getConnectedTouchs(List<Lottery> lotteries) {
         ConnectedBridge bridge = ConnectedBridgeHandler.getConnectedBridge(lotteries,
                 0, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
-        view.showConnectedTouchs(bridge.getTouchs());
+        view.showConnectedTouchs(bridge.getTouches());
     }
 
     public void getShadowTouchs(List<Jackpot> jackpotList) {
         ShadowTouchBridge bridge = TouchBridgeHandler.getShadowTouchBridge(jackpotList, 0);
-        view.showShadowTouchs(bridge.getTouchs());
+        view.showShadowTouchs(bridge.getTouches());
     }
 
     public void getSignOfDouble(List<Jackpot> jackpotList) {

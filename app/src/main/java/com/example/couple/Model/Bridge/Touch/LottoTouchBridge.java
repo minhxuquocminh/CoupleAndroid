@@ -14,7 +14,7 @@ import lombok.Getter;
 public class LottoTouchBridge extends TouchBridge {
     List<Lotto> headLottos;
     List<Lotto> tailLottos;
-    List<Integer> touchs;
+    List<Integer> touches;
     JackpotHistory jackpotHistory;
     List<Integer> numbers;
 
@@ -39,21 +39,21 @@ public class LottoTouchBridge extends TouchBridge {
                 headsList.add(new Heads(i, headList));
             }
         }
-        this.touchs = new ArrayList<>();
+        this.touches = new ArrayList<>();
         if (max_lottoNumber != 0) {
             for (Heads heads : headsList) {
                 if (heads.getHeadNumber() == max_lottoNumber) {
-                    this.touchs.addAll(heads.getHeadListInt());
+                    this.touches.addAll(heads.getHeadListInt());
                 }
             }
         }
         this.jackpotHistory = jackpotHistory;
-        this.numbers = NumberArrayHandler.getTouchs(touchs);
+        this.numbers = NumberArrayHandler.getTouchs(touches);
     }
 
     @Override
     public String showCompactNumbers() {
-        return SingleBase.showTouchs(touchs);
+        return SingleBase.showTouches(touches);
     }
 
     public BridgeType getType() {

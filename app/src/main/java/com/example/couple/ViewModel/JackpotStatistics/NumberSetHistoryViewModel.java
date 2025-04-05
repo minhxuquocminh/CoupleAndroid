@@ -10,6 +10,7 @@ import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.View.BridgeHistory.NumberSetHistoryView;
 
 import java.util.List;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 
@@ -24,10 +25,10 @@ public class NumberSetHistoryViewModel {
     }
 
     public void getSpecialSetsHistory(List<Jackpot> jackpotList) {
-        List<NumberSetHistory> historyList = HistoryHandler.getFullNumberSetsHistory(jackpotList,
+        Map<NumberSetType, List<NumberSetHistory>> historiesByType = HistoryHandler.getFullNumberSetsHistory(jackpotList,
                 NumberSetType.getValuesWithCouple());
-        if (!historyList.isEmpty()) {
-            numberSetHistoryView.showSpecialSetsHistory(historyList);
+        if (!historiesByType.isEmpty()) {
+            numberSetHistoryView.showSpecialSetsHistory(historiesByType);
         }
     }
 }

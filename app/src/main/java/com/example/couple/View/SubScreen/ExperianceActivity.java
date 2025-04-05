@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.SubScreen.ExperianceViewModel;
 
-public class ExperianceActivity extends SpeechToTextActivity implements ExperianceView {
+public class ExperianceActivity extends ActivityBase implements ExperianceView {
     TextView tvExperiance;
 
     ExperianceViewModel viewModel;

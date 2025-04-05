@@ -10,22 +10,22 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Base.View.TableLayoutBase;
+import com.example.couple.Base.View.Table.RowData;
+import com.example.couple.Base.View.Table.TableData;
+import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Base.View.RowData;
-import com.example.couple.Base.View.TableData;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.NumberSetHistoryViewModel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-public class NumberSetHistoryActivity extends SpeechToTextActivity implements NumberSetHistoryView {
+public class NumberSetHistoryActivity extends ActivityBase implements NumberSetHistoryView {
     EditText edtDayNumber;
     Button btnView;
     HorizontalScrollView hsTable;
@@ -79,23 +79,20 @@ public class NumberSetHistoryActivity extends SpeechToTextActivity implements Nu
     }
 
     @Override
-    public void showSpecialSetsHistory(List<NumberSetHistory> historyList) {
-        List<String> headers = new ArrayList<>();
-        List<RowData> rows = new ArrayList<>();
-
-        for (NumberSetHistory history : historyList) {
-            String name = history.getNumberSet().getName();
-            String appearanceTimes = history.getAppearanceTimes() + " lần";
-            String dayNumberBefore = history.getDayNumberBefore() + " ngày";
-            String numberSize = history.getNumberSet().getNumbers().size() + " số";
-            String beats = NumberBase.showNumbers(history.getBeatList(), ", ");
-            List<String> cells = Arrays.asList(name, appearanceTimes, dayNumberBefore, numberSize, beats);
-            RowData row = new RowData(cells);
-            rows.add(row);
-        }
-
-        TableData tableData = new TableData(headers, rows);
-        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData);
+    public void showSpecialSetsHistory(Map<NumberSetType, List<NumberSetHistory>> historiesByType) {
+        TableData tableData = new TableData();
+        historiesByType.forEach((type, histories) -> {
+            histories.forEach(history -> {
+                RowData row = new RowData();
+                row.addCell(history.getNumberSet().getName());
+                row.addCell(history.getAppearanceTimes() + " lần");
+                row.addCell(history.getDayNumberBefore() + " ngày");
+                row.addCell(history.getNumberSet().getNumbers().size() + " số");
+                row.addCell(NumberBase.showNumbers(history.getBeatList(), ", "));
+                tableData.addRow(row);
+            });
+        });
+        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData, false);
         hsTable.removeAllViews();
         hsTable.addView(tableLayout);
     }

@@ -1,7 +1,5 @@
 package com.example.couple.Model.Bridge.Connected;
 
-import com.example.couple.Custom.Handler.LotteryHandler;
-
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -17,9 +15,9 @@ public class TriangleConnectedSupport {
 
     public String show() {
         String show = "Các số " + triangle.show(", ") + " - " +
-                LotteryHandler.showPrize(trianglePosition.getFirstPosition()) + ", " +
-                LotteryHandler.showPrize(trianglePosition.getSecondPosition()) + ", " +
-                LotteryHandler.showPrize(trianglePosition.getThirdPosition()) + " TT: ";
+                trianglePosition.getFirstPosition().showPrize() + ", " +
+                trianglePosition.getSecondPosition().showPrize() + ", " +
+                trianglePosition.getThirdPosition().showPrize() + " TT: ";
         for (int i = 0; i < typeList.size(); i++) {
             show += i != typeList.size() - 1 ? typeList.get(i).show("-") + ", " : typeList.get(i).show("-");
         }

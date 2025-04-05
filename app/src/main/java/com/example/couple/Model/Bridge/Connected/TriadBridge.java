@@ -2,10 +2,9 @@ package com.example.couple.Model.Bridge.Connected;
 
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.GenericBase;
-import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
-import com.example.couple.Model.Bridge.NumberSet.SetBase;
 import com.example.couple.Model.Bridge.JackpotHistory;
+import com.example.couple.Model.Bridge.NumberSet.SetBase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,9 +63,9 @@ public class TriadBridge {
 
     public String show() {
         return "  + Các số: " + firstBridge.getValue() + ", " + secondBridge.getValue() + ", "
-                + thirdBridge.getValue() + " - " + LotteryHandler.showPrize(firstBridge.getPosition()) +
-                ", " + LotteryHandler.showPrize(secondBridge.getPosition()) + ", " +
-                LotteryHandler.showPrize(thirdBridge.getPosition()) + " \n  TT: " +
+                + thirdBridge.getValue() + " - " + firstBridge.getPosition().showPrize() +
+                ", " + secondBridge.getPosition().showPrize() + ", " +
+                thirdBridge.getPosition().showPrize() + " \n  TT: " +
                 GenericBase.getDelimiterString(triadStatusList, ", ");
     }
 

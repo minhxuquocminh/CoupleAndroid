@@ -30,7 +30,7 @@ public class DialogBase {
                         Toast.makeText(context, "Đã copy " + copyName + ".", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .setNegativeButton("OK", null)
+                .setNegativeButton("Hủy", null)
                 .setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 

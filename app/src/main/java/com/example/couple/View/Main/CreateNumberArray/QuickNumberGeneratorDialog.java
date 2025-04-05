@@ -26,6 +26,8 @@ import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
 import com.example.couple.Model.Bridge.CombineBridge;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
+import com.example.couple.Model.Bridge.Touch.CombineTouchBridge;
+import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -195,7 +197,7 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
     }
 
     private void setAllCheckbox() {
-        Set<Integer> branches = StorageBase.getNumberSet(requireActivity(), StorageType.SET_OF_BRANCHES);
+        List<Integer> branches = StorageBase.getNumberList(requireActivity(), StorageType.LIST_OF_BRANCHES);
         branches.forEach(branch -> cboBranches[branch].setChecked(true));
         Set<Integer> bridgeNumbers = StorageBase.getNumberSet(requireActivity(), StorageType.SET_OF_BRIDGES);
         if (bridgeNumbers.contains(BridgeType.COMBINE_TOUCH.value)) {
@@ -301,11 +303,16 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        Set<Integer> branches = IntStream.range(0, 12)
+        List<Integer> branches = IntStream.range(0, 12)
                 .filter(i -> cboBranches[i].isChecked())
                 .boxed()
-                .collect(Collectors.toSet());
-        StorageBase.setNumberSet(requireActivity(), StorageType.SET_OF_BRANCHES, branches);
+                .collect(Collectors.toList());
+        CombineTouchBridge combineTouchBridge = (CombineTouchBridge) bridgeMap.get(BridgeType.COMBINE_TOUCH);
+        ConnectedBridge connectedBridge = (ConnectedBridge) bridgeMap.get(BridgeType.CONNECTED);
+        List<Integer> touches = cboCombineTouchBridge.isChecked() && combineTouchBridge != null ? combineTouchBridge.getTouches() : new ArrayList<>();
+        touches = cboConnectedBridge.isChecked() && connectedBridge != null ? connectedBridge.getTouches() : touches;
+        StorageBase.setNumberList(requireActivity(), StorageType.LIST_OF_TOUCHES, touches);
+        StorageBase.setNumberList(requireActivity(), StorageType.LIST_OF_BRANCHES, branches);
         Set<Integer> bridgeNumberSet = new HashSet<>();
         if (cboCombineTouchBridge.isChecked()) bridgeNumberSet.add(BridgeType.COMBINE_TOUCH.value);
         if (cboConnectedBridge.isChecked()) bridgeNumberSet.add(BridgeType.CONNECTED.value);

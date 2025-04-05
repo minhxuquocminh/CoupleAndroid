@@ -13,7 +13,7 @@ import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Origin.Jackpot;
@@ -22,8 +22,9 @@ import com.example.couple.ViewModel.UpdateDataInfo.AddJackpotManyYearsViewModel;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements AddJackpotManyYearsView {
+public class AddJackpotManyYearsActivity extends ActivityBase implements AddJackpotManyYearsView {
     EditText edtStart;
     Button btnAddData;
     Button btnLoadAllData;
@@ -133,10 +134,13 @@ public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements
         List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 4);
         String mess = "";
         int max = 0;
-        List<NumberSetHistory> histories = HistoryHandler.getFullNumberSetsHistory(jackpotList, Arrays.asList(NumberSetType.values()));
-        for (NumberSetHistory history : histories) {
-            mess += history.showWithBeats() + "\n";
-            max = Math.max(history.getBeatMax(), max);
+        Map<NumberSetType, List<NumberSetHistory>> historiesByType =
+                HistoryHandler.getFullNumberSetsHistory(jackpotList, Arrays.asList(NumberSetType.values()));
+        for (Map.Entry<NumberSetType, List<NumberSetHistory>> entry : historiesByType.entrySet()) {
+            for (NumberSetHistory history : entry.getValue()) {
+                mess += history.showWithBeats() + "\n";
+                max = Math.max(history.getBeatMax(), max);
+            }
         }
         DialogBase.showBasic(context, "ttt" + jackpotList.size() + " - max=" + max, mess);
     }
@@ -149,11 +153,13 @@ public class AddJackpotManyYearsActivity extends SpeechToTextActivity implements
         List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 20);
         String mess = "";
         int max = 0;
-        List<NumberSetHistory> histories = HistoryHandler.getFullNumberSetsHistory(jackpotList,
+        Map<NumberSetType, List<NumberSetHistory>> historiesByType = HistoryHandler.getFullNumberSetsHistory(jackpotList,
                 Arrays.asList(NumberSetType.HEAD, NumberSetType.TAIL, NumberSetType.SET));
-        for (NumberSetHistory history : histories) {
-            mess += history.showWithBeats() + "\n";
-            max = Math.max(history.getBeatMax(), max);
+        for (Map.Entry<NumberSetType, List<NumberSetHistory>> entry : historiesByType.entrySet()) {
+            for (NumberSetHistory history : entry.getValue()) {
+                mess += history.showWithBeats() + "\n";
+                max = Math.max(history.getBeatMax(), max);
+            }
         }
         DialogBase.showBasic(context, "ttt" + jackpotList.size() + " - max=" + max, mess);
     }

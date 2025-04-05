@@ -20,7 +20,7 @@ import com.example.couple.Model.Bridge.Connected.TriangleConnectedSupport;
 import com.example.couple.Model.Bridge.Connected.TrianglePosition;
 import com.example.couple.Model.Bridge.JackpotHistory;
 import com.example.couple.Model.Bridge.NumberSet.SetBase;
-import com.example.couple.Model.Bridge.Position;
+import com.example.couple.Model.Bridge.Connected.Position;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;

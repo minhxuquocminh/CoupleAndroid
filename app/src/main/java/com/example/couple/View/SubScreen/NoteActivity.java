@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.couple.Base.View.DialogBase;
-import com.example.couple.Custom.Widget.SpeechToTextActivity;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.View.Adapter.NoteAdapter;
 import com.example.couple.ViewModel.SubScreen.NoteViewModel;
@@ -20,7 +20,7 @@ import com.example.couple.ViewModel.SubScreen.NoteViewModel;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class NoteActivity extends SpeechToTextActivity implements NoteView {
+public class NoteActivity extends ActivityBase implements NoteView {
     TextView tvTitle;
     ImageView imgAdd;
     RecyclerView rvNote;

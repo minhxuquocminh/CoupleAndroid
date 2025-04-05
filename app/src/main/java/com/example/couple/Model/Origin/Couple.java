@@ -95,7 +95,7 @@ public class Couple extends Jackpot {
         return first * 10 + second;
     }
 
-    public List<Integer> getTouchsAndShadows() {
+    public List<Integer> getTouchesAndShadows() {
         List<Integer> singles = new ArrayList<>();
         singles.add(SingleBase.getNegativeShadow(first));
         singles.add(SingleBase.getNegativeShadow(second));
