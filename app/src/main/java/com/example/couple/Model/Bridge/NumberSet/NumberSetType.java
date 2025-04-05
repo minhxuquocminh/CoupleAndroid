@@ -65,7 +65,7 @@ public enum NumberSetType {
             case SET:
                 return Const.SMALL_SETS_NOT_DOUBLE.stream()
                         .map(i -> HistoryHandler.getNumberSetHistory(jackpotList,
-                                Const.SET + " " + CoupleBase.showCouple(i),
+                                name + " " + CoupleBase.showCouple(i),
                                 SetBase.getFrom(i).getSetsDetail()))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
                         .collect(Collectors.toList());

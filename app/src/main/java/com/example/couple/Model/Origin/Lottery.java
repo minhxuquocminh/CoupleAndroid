@@ -1,8 +1,8 @@
 package com.example.couple.Model.Origin;
 
-import com.example.couple.Custom.Const.Const;
-import com.example.couple.Model.Bridge.Touch.Lotto;
 import com.example.couple.Model.Bridge.Connected.Position;
+import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
+import com.example.couple.Model.Bridge.Touch.Lotto;
 import com.example.couple.Model.DateTime.Date.DateBase;
 
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class Lottery {
                     headList.add(i * 10 + j);
                 }
             }
-            lottos.add(new Lotto(Const.HEAD, i, headList));
+            lottos.add(new Lotto(NumberSetType.HEAD.name, i, headList));
         }
         return lottos;
     }
@@ -100,7 +100,7 @@ public class Lottery {
                     tailList.add(i * 10 + j);
                 }
             }
-            lottos.add(new Lotto(Const.TAIL, j, tailList));
+            lottos.add(new Lotto(NumberSetType.TAIL.name, j, tailList));
         }
         return lottos;
     }

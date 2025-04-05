@@ -29,20 +29,14 @@ public class Const {
      */
     public static final String EMPTY = "EMPTY";
     public static final String EMPTY_JACKPOT = "-99999";
-    public static final String HEAD = "Đầu";
-    public static final String TAIL = "Đuôi";
-    public static final String SET = "Bộ";
-    public static final String SUM = "Tổng";
-    public static final String DOUBLE = "Kép bằng";
-    public static final String BRANCH_IN_DAY_ACRONYM = "CTN";
 
     /**
      * array
      */
     public static final List<Integer> SMALL_SETS =
-            Arrays.asList(00, 01, 02, 03, 04, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
+            Arrays.asList(0, 1, 2, 3, 4, 11, 12, 13, 14, 22, 23, 24, 33, 34, 44);
     public static final List<Integer> SMALL_SETS_NOT_DOUBLE =
-            Arrays.asList(01, 02, 03, 04, 12, 13, 14, 23, 24, 34);
+            Arrays.asList(1, 2, 3, 4, 12, 13, 14, 23, 24, 34);
 
     /**
      * url and params

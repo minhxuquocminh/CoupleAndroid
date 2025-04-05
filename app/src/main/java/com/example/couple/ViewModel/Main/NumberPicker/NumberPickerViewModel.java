@@ -65,10 +65,10 @@ public class NumberPickerViewModel {
         String importantData = "";
         if (isTableA) {
             data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
-            importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_A);
+            importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_A);
         } else {
             data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
-            importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
+            importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_B);
         }
         if (data.isEmpty() && importantData.isEmpty()) {
             numberPickerView.showTableType1(new ArrayList<>());
@@ -97,10 +97,10 @@ public class NumberPickerViewModel {
         String importantData = "";
         if (isTableA) {
             data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
-            importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_A);
+            importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_A);
         } else {
             data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
-            importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
+            importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_B);
         }
         if (data.isEmpty() && importantData.isEmpty()) {
             numberPickerView.showTableType2(new ArrayList<>());
@@ -148,7 +148,7 @@ public class NumberPickerViewModel {
 
     public void getTableAList() {
         String data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
-        String importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_A);
+        String importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_A);
         if (data.isEmpty() && importantData.isEmpty()) {
             numberPickerView.showTableAList(new ArrayList<>());
         } else {
@@ -173,7 +173,7 @@ public class NumberPickerViewModel {
 
     public void getTableBList() {
         String data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
-        String importantData = IOFileBase.readDataFromFile(context, FileName.ITABLE_B);
+        String importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_B);
         if (data.isEmpty() && importantData.isEmpty()) {
             numberPickerView.showTableBList(new ArrayList<>());
         } else {

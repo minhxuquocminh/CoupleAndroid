@@ -115,7 +115,7 @@ public class CreateNumberArrayViewModel {
 
     public void getTriadTable() {
         String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
-        String importantData = IOFileBase.readDataFromFile(context, FileName.ITRIAD);
+        String importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TRIAD);
 
         if (data.isEmpty() && importantData.isEmpty()) {
             view.showTriadTable(new ArrayList<>());
@@ -156,13 +156,13 @@ public class CreateNumberArrayViewModel {
             }
         }
         IOFileBase.saveDataToFile(context, FileName.TRIAD, data1.toString(), 0);
-        IOFileBase.saveDataToFile(context, FileName.ITRIAD, data2.toString(), 0);
+        IOFileBase.saveDataToFile(context, FileName.IMP_TRIAD, data2.toString(), 0);
         view.saveDataSuccess("Lưu dữ liệu thành công!");
     }
 
     public void getTriadList() {
         String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
-        String importantData = IOFileBase.readDataFromFile(context, FileName.ITRIAD);
+        String importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TRIAD);
         if (data.isEmpty() && importantData.isEmpty()) {
             view.showTriadList(new ArrayList<>());
         } else {

@@ -11,11 +11,11 @@ public class FileName {
     public static final String JACKPOT_URL = "jackpot_url.txt";
     public static final String LOTTERY_URL = "lottery_url.txt";
     public static final String TRIAD = "triad.txt";
-    public static final String ITRIAD = "itriad.txt";
+    public static final String IMP_TRIAD = "imp_triad.txt";
     public static final String TABLE_A = "table_a.txt";
     public static final String TABLE_B = "table_b.txt";
-    public static final String ITABLE_A = "itable_a.txt";
-    public static final String ITABLE_B = "itable_b.txt";
+    public static final String IMP_TABLE_A = "imp_table_a.txt";
+    public static final String IMP_TABLE_B = "imp_table_b.txt";
     public static final String LOTTERY_LAST_DATE = "lottery_last_date.txt";
     public static final String JACKPOT_LAST_DATE = "jackpot_last_date.txt";
 

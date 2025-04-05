@@ -3,7 +3,6 @@ package com.example.couple.Base.View;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.widget.Toast;
 
 import com.example.couple.Base.Basic.NoParamFunction;
 
@@ -27,7 +26,7 @@ public class DialogBase {
                 .setPositiveButton("Copy " + copyName, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         WidgetBase.copyToClipboard(context, copyName, copyText);
-                        Toast.makeText(context, "Đã copy " + copyName + ".", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(context, "Đã copy " + copyName + ".", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("Hủy", null)
