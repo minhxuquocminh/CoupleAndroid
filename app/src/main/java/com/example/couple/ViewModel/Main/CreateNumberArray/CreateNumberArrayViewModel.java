@@ -2,20 +2,18 @@ package com.example.couple.ViewModel.Main.CreateNumberArray;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.IOFileBase;
 import com.example.couple.Base.Handler.NumberBase;
-import com.example.couple.Custom.Const.FileName;
+import com.example.couple.Base.Handler.StorageBase;
+import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Handler.InputType;
-import com.example.couple.Model.Handler.Picker;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CreateNumberArrayViewModel {
     CreateNumberArrayView view;
@@ -114,81 +112,21 @@ public class CreateNumberArrayViewModel {
     }
 
     public void getTriadTable() {
-        String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
-        String importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TRIAD);
-
-        if (data.isEmpty() && importantData.isEmpty()) {
-            view.showTriadTable(new ArrayList<>());
-        } else {
-            String[] arr = data.trim().split(",");
-            String[] importantArr = importantData.trim().split(",");
-            List<Picker> pickers = new ArrayList<>();
-            if (!data.isEmpty()) {
-                for (String num : arr) {
-                    int number = Integer.parseInt(num.trim());
-                    pickers.add(new Picker(number, 1));
-                }
-            }
-            if (!importantData.isEmpty()) {
-                for (String imp : importantArr) {
-                    int number = Integer.parseInt(imp.trim());
-                    pickers.add(new Picker(number, 2));
-                }
-            }
-            view.showTriadTable(pickers);
-        }
+        List<Integer> normalNumbers = StorageBase.getNumberList(context, StorageType.LIST_OF_TRIAD);
+        List<Integer> importantNumbers = StorageBase.getNumberList(context, StorageType.LIST_OF_IMP_TRIAD);
+        view.showTriadTable(normalNumbers, importantNumbers);
     }
 
-    public void saveDataToFile(List<Picker> pickers) {
-        Collections.sort(pickers, new Comparator<Picker>() {
-            @Override
-            public int compare(Picker o1, Picker o2) {
-                return Integer.compare(o1.getNumber(), o2.getNumber());
-            }
-        });
-        StringBuilder data1 = new StringBuilder();
-        StringBuilder data2 = new StringBuilder();
-        for (int i = 0; i < pickers.size(); i++) {
-            if (pickers.get(i).getLevel() == 1) {
-                data1.append(pickers.get(i).getNumber()).append(",");
-            } else {
-                data2.append(pickers.get(i).getNumber()).append(",");
-            }
-        }
-        IOFileBase.saveDataToFile(context, FileName.TRIAD, data1.toString(), 0);
-        IOFileBase.saveDataToFile(context, FileName.IMP_TRIAD, data2.toString(), 0);
+    public void saveNumbers(List<Integer> normalNumbers, List<Integer> importantNumbers) {
+        StorageBase.setNumberList(context, StorageType.LIST_OF_TRIAD, normalNumbers);
+        StorageBase.setNumberList(context, StorageType.LIST_OF_IMP_TRIAD, importantNumbers);
         view.saveDataSuccess("Lưu dữ liệu thành công!");
     }
 
     public void getTriadList() {
-        String data = IOFileBase.readDataFromFile(context, FileName.TRIAD);
-        String importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TRIAD);
-        if (data.isEmpty() && importantData.isEmpty()) {
-            view.showTriadList(new ArrayList<>());
-        } else {
-            String[] arr = data.trim().split(",");
-            String[] importantArr = importantData.trim().split(",");
-            List<Picker> pickers = new ArrayList<>();
-            if (!data.isEmpty()) {
-                for (String num : arr) {
-                    int number = Integer.parseInt(num.trim());
-                    pickers.add(new Picker(number, 1));
-                }
-            }
-            if (!importantData.isEmpty()) {
-                for (String imp : importantArr) {
-                    int number = Integer.parseInt(imp.trim());
-                    pickers.add(new Picker(number, 2));
-                }
-            }
-            Collections.sort(pickers, new Comparator<Picker>() {
-                @Override
-                public int compare(Picker o1, Picker o2) {
-                    return Integer.compare(o1.getNumber(), o2.getNumber());
-                }
-            });
-            view.showTriadList(pickers);
-        }
+        List<Integer> normalNumbers = StorageBase.getNumberList(context, StorageType.LIST_OF_TRIAD);
+        List<Integer> importantNumbers = StorageBase.getNumberList(context, StorageType.LIST_OF_IMP_TRIAD);
+        List<Integer> numbers = Stream.concat(normalNumbers.stream(), importantNumbers.stream()).sorted().collect(Collectors.toList());
+        view.showTriadList(numbers);
     }
-
 }

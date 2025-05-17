@@ -32,7 +32,7 @@ import com.example.couple.Custom.Handler.Display.ArrayUtil;
 import com.example.couple.Custom.Handler.Display.MatrixUtil;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Handler.InputType;
-import com.example.couple.Model.Handler.Picker;
+import com.example.couple.Model.Handler.Priority;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
@@ -279,7 +279,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         imgClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTriadTable(new ArrayList<>());
+                showTriadTable(new ArrayList<>(), new ArrayList<>());
             }
         });
 
@@ -289,13 +289,17 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                 String title = "Lưu?";
                 String message = "Bạn có muốn lưu dữ liệu vào CSDL không?";
                 DialogBase.showWithConfirmation(getActivity(), title, message, () -> {
-                    List<Picker> pickers = new ArrayList<>();
+                    List<Integer> normalNumbers = new ArrayList<>();
+                    List<Integer> importantNumbers = new ArrayList<>();
                     for (int i = 0; i < 1000; i++) {
-                        if (matrix[i] > 0) {
-                            pickers.add(new Picker(i, matrix[i]));
+                        if (matrix[i] == Priority.NORMAL.getLevel()) {
+                            normalNumbers.add(i);
+                        }
+                        if (matrix[i] == Priority.IMPORTANT.getLevel()) {
+                            importantNumbers.add(i);
                         }
                     }
-                    viewModel.saveDataToFile(pickers);
+                    viewModel.saveNumbers(normalNumbers, importantNumbers);
                 });
             }
         });
@@ -305,7 +309,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             public void onClick(View v) {
                 String data = "";
                 for (int i = 0; i < 1000; i++) {
-                    if (matrix[i] > 0) {
+                    if (matrix[i] != Priority.NONE.getLevel()) {
                         data += NumberBase.showNumberString(i, 3) + " ";
                     }
                 }
@@ -350,8 +354,8 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void verifyCoupleArraySuccess(List<Integer> couples) {
-        activity.getCouplesToTransfer().setValue(couples);
+    public void verifyCoupleArraySuccess(List<Integer> numbers) {
+        activity.getCouplesToTransfer().setValue(numbers);
         FragmentManager fm = getParentFragmentManager();
         fm.beginTransaction().show(MainActivity.fragment2).hide(MainActivity.active).commit();
         BottomNavigationView navigationView = activity.findViewById(R.id.bottom_navigation);
@@ -360,11 +364,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
 
     @Override
     public void verifyTriadArraySuccess(List<Integer> numbers) {
-        List<Picker> pickers = new ArrayList<>();
-        for (int num : numbers) {
-            pickers.add(new Picker(num, 1));
-        }
-        showTriadTable(pickers);
+        showTriadTable(numbers, new ArrayList<>());
         Toast.makeText(getActivity(), "Nạp dữ liệu thành công!", Toast.LENGTH_SHORT).show();
     }
 
@@ -398,7 +398,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void showTriadTable(List<Picker> pickers) {
+    public void showTriadTable(List<Integer> normalNumbers, List<Integer> importantNumbers) {
         hsThirdClaw.removeAllViews();
         hsThirdClaw.addView(TableLayoutBase.getPickerTableLayoutHaveSuperscript(getActivity(),
                 ArrayUtil.getTenIntArray(IdStart.THIRD_CLAW_PARENT), ArrayUtil.getTenStringArray(),
@@ -407,7 +407,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         hsNumberTable.removeAllViews();
         hsNumberTable.addView(TableLayoutBase.getPickerTableLayout(getActivity(), MatrixUtil.getTenTenStringMatrix(),
                 MatrixUtil.getTenTenIntMatrix(IdStart.NUMBERS_BY_THIRD_CLAW), 10, 10, false));
-        setStartMatrix(pickers);
+        setStartMatrix(normalNumbers, importantNumbers);
         setCounterForAll();
         setColorForThirdClawTextView(0);
         setColorForNumberTextView(0);
@@ -416,12 +416,14 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         viewModel.getTriadList();
     }
 
-    private void setStartMatrix(List<Picker> pickers) {
+    private void setStartMatrix(List<Integer> normalNumbers, List<Integer> importantNumbers) {
         matrix = new int[1000];
-        for (int i = 0; i < pickers.size(); i++) {
-            int number = pickers.get(i).getNumber();
-            matrix[number] = pickers.get(i).getLevel();
-        }
+        normalNumbers.forEach(number -> {
+            matrix[number] = Priority.NORMAL.getLevel();
+        });
+        importantNumbers.forEach(number -> {
+            matrix[number] = Priority.IMPORTANT.getLevel();
+        });
     }
 
     private void setColorForThirdClawTextView(int thirdClaw) {
@@ -475,12 +477,12 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                     if (matrix[number] == 1) {
                         textView.setBackgroundResource(def);
                         setTextForSubJackpot(subJackpot, -1);
-                        matrix[number] = 0;
+                        matrix[number] = Priority.NONE.getLevel();
                         setCounterForAll();
                     } else {
                         textView.setBackgroundResource(green);
                         setTextForSubJackpot(subJackpot, number);
-                        matrix[number] = 1;
+                        matrix[number] = Priority.NORMAL.getLevel();
                         setCounterForAll();
                     }
                 }
@@ -495,12 +497,12 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                         if (matrix[number] == 2) {
                             textView.setBackgroundResource(def);
                             setTextForSubJackpot(subJackpot, -1);
-                            matrix[number] = 0;
+                            matrix[number] = Priority.NONE.getLevel();
                             setCounterForAll();
                         } else {
                             textView.setBackgroundResource(red);
                             setTextForSubJackpot(subJackpot, number);
-                            matrix[number] = 2;
+                            matrix[number] = Priority.IMPORTANT.getLevel();
                             setCounterForAll();
                         }
                     });
@@ -514,7 +516,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         int countAll = 0;
         int[] countThirdClaw = new int[10];
         for (int i = 0; i < 1000; i++) {
-            if (matrix[i] > 0) {
+            if (matrix[i] != Priority.NONE.getLevel()) {
                 countAll++;
                 countThirdClaw[i / 100]++;
             }
@@ -533,21 +535,18 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     }
 
     @Override
-    public void showTriadList(List<Picker> pickers) {
+    public void showTriadList(List<Integer> numbers) {
         String show = "Dàn số 3 càng (đã lưu): \n";
         for (int i = 0; i < 10; i++) {
             show += " - Đầu " + i + ": ";
-            for (int j = 0; j < pickers.size(); j++) {
-                int number = pickers.get(j).getNumber();
+            for (int j = 0; j < numbers.size(); j++) {
+                int number = numbers.get(j);
                 if (number / 100 == i) {
                     show += NumberBase.showNumberString(number, 3) + " ";
                 }
             }
-            if (i != 9) {
-                show += "\n";
-            }
         }
-        tvShowTriadList.setText(show);
+        tvShowTriadList.setText(show.trim());
     }
 
 }

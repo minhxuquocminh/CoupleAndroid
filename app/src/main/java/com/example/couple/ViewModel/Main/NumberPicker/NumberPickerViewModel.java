@@ -2,21 +2,19 @@ package com.example.couple.ViewModel.Main.NumberPicker;
 
 import android.content.Context;
 
-import com.example.couple.Base.Handler.IOFileBase;
+import com.example.couple.Base.Handler.StorageBase;
 import com.example.couple.Custom.Const.Const;
-import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.Statistics.JackpotStatistics;
 import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
-import com.example.couple.Model.Handler.Picker;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Statistics.JackpotNextDay;
 import com.example.couple.View.Main.NumberPicker.NumberPickerView;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,146 +58,34 @@ public class NumberPickerViewModel {
         numberPickerView.showSubJackpotTable(jackpotsLastWeek, jackpotsNextDay, jackpotList.subList(0, 4));
     }
 
-    public void getTableType1(boolean isTableA) {
-        String data = "";
-        String importantData = "";
-        if (isTableA) {
-            data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
-            importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_A);
-        } else {
-            data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
-            importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_B);
-        }
-        if (data.isEmpty() && importantData.isEmpty()) {
-            numberPickerView.showTableType1(new ArrayList<>());
-        } else {
-            String[] arr = data.trim().split(",");
-            String[] importantArr = importantData.trim().split(",");
-            List<Picker> pickers = new ArrayList<>();
-            if (!data.isEmpty()) {
-                for (String num : arr) {
-                    int number = Integer.parseInt(num.trim());
-                    pickers.add(new Picker(number, 1));
-                }
-            }
-            if (!importantData.isEmpty()) {
-                for (String imp : importantArr) {
-                    int number = Integer.parseInt(imp.trim());
-                    pickers.add(new Picker(number, 2));
-                }
-            }
-            numberPickerView.showTableType1(pickers);
-        }
+    public void getSavedNumbers(boolean tableType1, boolean isTableA) {
+        List<Integer> normals = StorageBase.getNumberList(context, isTableA ? StorageType.LIST_OF_PICKER_A : StorageType.LIST_OF_PICKER_B);
+        List<Integer> imports = StorageBase.getNumberList(context, isTableA ? StorageType.LIST_OF_IMP_PICKER_A : StorageType.LIST_OF_IMP_PICKER_B);
+        if (tableType1) numberPickerView.showTableType1(normals, imports);
+        else numberPickerView.showTableType2(normals, imports);
     }
 
-    public void getTableType2(boolean isTableA) {
-        String data = "";
-        String importantData = "";
-        if (isTableA) {
-            data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
-            importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_A);
-        } else {
-            data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
-            importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_B);
-        }
-        if (data.isEmpty() && importantData.isEmpty()) {
-            numberPickerView.showTableType2(new ArrayList<>());
-        } else {
-            String[] arr = data.trim().split(",");
-            String[] importantArr = importantData.trim().split(",");
-            List<Picker> pickers = new ArrayList<>();
-            if (!data.isEmpty()) {
-                for (String s : arr) {
-                    int number = Integer.parseInt(s.trim());
-                    pickers.add(new Picker(number, 1));
-                }
-            }
-            if (!importantData.isEmpty()) {
-                for (String imp : importantArr) {
-                    int number = Integer.parseInt(imp.trim());
-                    pickers.add(new Picker(number, 2));
-                }
-            }
-            numberPickerView.showTableType2(pickers);
-        }
-    }
-
-    public void saveDataToFile(List<Picker> pickers, boolean isTableA) {
-        StringBuilder data1 = new StringBuilder();
-        StringBuilder data2 = new StringBuilder();
-        pickers.sort(new Comparator<Picker>() {
-            @Override
-            public int compare(Picker o1, Picker o2) {
-                return Integer.compare(o1.getNumber(), o2.getNumber());
-            }
-        });
-        for (int i = 0; i < pickers.size(); i++) {
-            if (pickers.get(i).getLevel() == 1) {
-                data1.append(pickers.get(i).getNumber()).append(",");
-            } else {
-                data2.append(pickers.get(i).getNumber()).append(",");
-            }
-        }
-        String fileName = isTableA ? FileName.TABLE_A : FileName.TABLE_B;
-        IOFileBase.saveDataToFile(context, fileName, data1.toString(), 0);
-        IOFileBase.saveDataToFile(context, "i" + fileName, data2.toString(), 0);
+    public void saveDataToFile(List<Integer> normals, List<Integer> imports, boolean isTableA) {
+        StorageBase.setNumberList(context, isTableA ? StorageType.LIST_OF_PICKER_A : StorageType.LIST_OF_PICKER_B, normals);
+        StorageBase.setNumberList(context, isTableA ? StorageType.LIST_OF_IMP_PICKER_A : StorageType.LIST_OF_IMP_PICKER_B, imports);
         numberPickerView.saveDataSuccess("Lưu dữ liệu thành công!");
     }
 
     public void getTableAList() {
-        String data = IOFileBase.readDataFromFile(context, FileName.TABLE_A);
-        String importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_A);
-        if (data.isEmpty() && importantData.isEmpty()) {
-            numberPickerView.showTableAList(new ArrayList<>());
-        } else {
-            String[] arr = data.trim().split(",");
-            String[] importantArr = importantData.trim().split(",");
-            List<Picker> pickers = new ArrayList<>();
-            if (!data.isEmpty()) {
-                for (String num : arr) {
-                    int number = Integer.parseInt(num.trim());
-                    pickers.add(new Picker(number, 1));
-                }
-            }
-            if (!importantData.isEmpty()) {
-                for (String imp : importantArr) {
-                    int number = Integer.parseInt(imp.trim());
-                    pickers.add(new Picker(number, 2));
-                }
-            }
-            numberPickerView.showTableAList(pickers);
-        }
+        List<Integer> normals = StorageBase.getNumberList(context, StorageType.LIST_OF_PICKER_A);
+        List<Integer> imports = StorageBase.getNumberList(context, StorageType.LIST_OF_IMP_PICKER_A);
+        numberPickerView.showTableAList(normals, imports);
     }
 
     public void getTableBList() {
-        String data = IOFileBase.readDataFromFile(context, FileName.TABLE_B);
-        String importantData = IOFileBase.readDataFromFile(context, FileName.IMP_TABLE_B);
-        if (data.isEmpty() && importantData.isEmpty()) {
-            numberPickerView.showTableBList(new ArrayList<>());
-        } else {
-            String[] arr = data.trim().split(",");
-            String[] importantArr = importantData.trim().split(",");
-            List<Picker> pickers = new ArrayList<>();
-            if (!data.isEmpty()) {
-                for (String num : arr) {
-                    int number = Integer.parseInt(num.trim());
-                    pickers.add(new Picker(number, 1));
-                }
-            }
-            if (!importantData.isEmpty()) {
-                for (String imp : importantArr) {
-                    int number = Integer.parseInt(imp.trim());
-                    pickers.add(new Picker(number, 2));
-                }
-            }
-            numberPickerView.showTableBList(pickers);
-        }
+        List<Integer> normals = StorageBase.getNumberList(context, StorageType.LIST_OF_PICKER_B);
+        List<Integer> imports = StorageBase.getNumberList(context, StorageType.LIST_OF_IMP_PICKER_B);
+        numberPickerView.showTableBList(normals, imports);
     }
 
     public void deleteAllData(boolean isTableA) {
-        String fileName = isTableA ? FileName.TABLE_A : FileName.TABLE_B;
-        IOFileBase.saveDataToFile(context, fileName, "", 0);
-        IOFileBase.saveDataToFile(context, "i" + fileName, "", 0);
+        StorageBase.setNumberList(context, isTableA ? StorageType.LIST_OF_PICKER_A : StorageType.LIST_OF_PICKER_B, new ArrayList<>());
+        StorageBase.setNumberList(context, isTableA ? StorageType.LIST_OF_IMP_PICKER_A : StorageType.LIST_OF_IMP_PICKER_B, new ArrayList<>());
         numberPickerView.deleteAllDataSuccess("Xóa dữ liệu thành công!", isTableA);
     }
 
