@@ -4,23 +4,23 @@ import android.content.Context;
 
 import com.example.couple.Base.Handler.StorageBase;
 import com.example.couple.Custom.Enum.StorageType;
-import com.example.couple.View.SubScreen.NoteInfoView;
-
-import java.util.Set;
+import com.example.couple.View.SubScreen.EditNoteView;
 
 public class NoteInfoViewModel {
-    NoteInfoView noteInfoView;
+    EditNoteView editNoteView;
     Context context;
 
-    public NoteInfoViewModel(NoteInfoView noteInfoView, Context context) {
-        this.noteInfoView = noteInfoView;
+    public NoteInfoViewModel(EditNoteView editNoteView, Context context) {
+        this.editNoteView = editNoteView;
         this.context = context;
     }
 
-    public void addNote(String note) {
-        Set<String> notes = StorageBase.getStringSet(context, StorageType.STRING_OF_NOTES);
-        notes.add(note);
-        StorageBase.setStringSet(context, StorageType.STRING_OF_NOTES, notes);
-        noteInfoView.addNoteSuccess("Thêm ghi chú thành công!");
+    public void getNote() {
+        String note = StorageBase.getString(context, StorageType.STRING_OF_NOTE);
+        editNoteView.showNote(note);
+    }
+    public void updateNote(String note) {
+        StorageBase.setString(context, StorageType.STRING_OF_NOTE, note);
+        editNoteView.updateNoteSuccess("Cập nhật thành công!");
     }
 }

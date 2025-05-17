@@ -71,4 +71,14 @@ public class StorageBase {
         return context.getSharedPreferences(NUMBER, MODE_PRIVATE).getInt(type.name, Const.EMPTY_VALUE);
     }
 
+    private static final String STRING = "STRING";
+
+    public static void setString(Context context, StorageType type, String value) {
+        context.getSharedPreferences(STRING, MODE_PRIVATE).edit().putString(type.name, value).apply();
+    }
+
+    public static String getString(Context context, StorageType type) {
+        return context.getSharedPreferences(STRING, MODE_PRIVATE).getString(type.name, "");
+    }
+
 }

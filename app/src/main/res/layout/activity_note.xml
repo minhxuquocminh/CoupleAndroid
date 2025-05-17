@@ -46,48 +46,39 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/margin_10dp"
-                    android:layout_marginTop="@dimen/margin_5dp"
-                    android:layout_marginRight="@dimen/margin_5dp"
-                    android:layout_toLeftOf="@+id/imgAdd"
-                    android:text="Những ghi chú mà bạn đã lưu:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:layout_toLeftOf="@+id/imgEdit"
+                    android:text="Ghi chú đã lưu:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/imgAdd"
+                    android:id="@+id/imgEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:padding="@dimen/margin_5dp"
-                    android:src="@drawable/ic_plus" />
+                    android:src="@drawable/ic_edit" />
             </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNote"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:scrollbars="none">
+                android:layout_marginRight="@dimen/margin_10dp">
 
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/imgDelete"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvNote"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:padding="@dimen/padding_5dp"
-                    android:src="@drawable/ic_delete" />
-            </RelativeLayout>
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:text=""
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

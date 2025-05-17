@@ -6,8 +6,6 @@ import com.example.couple.Base.Handler.StorageBase;
 import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.View.Main.HomePage.HomePageView;
 
-import java.util.Set;
-
 public class HomePageViewModel {
     HomePageView homePageView;
     Context context;
@@ -18,8 +16,7 @@ public class HomePageViewModel {
     }
 
     public void getNote() {
-        Set<String> notes = StorageBase.getStringSet(context, StorageType.STRING_OF_NOTES);
-        String note = notes.isEmpty() ? "" : String.join("\n", notes);
+        String note = StorageBase.getString(context, StorageType.STRING_OF_NOTE);
         homePageView.showNote(note);
     }
 

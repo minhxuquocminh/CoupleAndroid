@@ -90,7 +90,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     Drawable defaultDrawable;
 
     // for table type 2, matrix dùng để lưu các danh sách số bị phân mảnh và đếm số đc chọn
-    int[] matrix = new int[Const.MAX_ROW_COUNT_TABLE];
+    int[] pickerMatrix = new int[Const.MAX_ROW_COUNT_TABLE];
 
     MainActivity activity;
 
@@ -315,8 +315,8 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     } else {
                         List<Picker> pickers = new ArrayList<>();
                         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
-                            if (matrix[i] > 0) {
-                                pickers.add(new Picker(i, matrix[i]));
+                            if (pickerMatrix[i] > 0) {
+                                pickers.add(new Picker(i, pickerMatrix[i]));
                             }
                         }
                         viewModel.saveDataToFile(pickers, cboTableA.isChecked());
@@ -339,7 +339,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     }
                 } else {
                     for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
-                        if (matrix[i] != 0) {
+                        if (pickerMatrix[i] != 0) {
                             data += i < 10 ? "0" + i + " " : i + " ";
                         }
                     }
@@ -678,14 +678,14 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     private void setStartMatrix(List<Picker> pickers) {
-        matrix = new int[Const.MAX_ROW_COUNT_TABLE];
+        pickerMatrix = new int[Const.MAX_ROW_COUNT_TABLE];
         for (int i = 0; i < pickers.size(); i++) {
             int number = pickers.get(i).getNumber();
             if (pickers.get(i).getLevel() == 1) {
-                matrix[number] = 1;
+                pickerMatrix[number] = 1;
             }
             if (pickers.get(i).getLevel() == 2) {
-                matrix[number] = 2;
+                pickerMatrix[number] = 2;
             }
         }
     }
@@ -696,22 +696,22 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
             int number2 = Integer.parseInt(touch + "" + i);
             TextView textView1 = viewParent.findViewById(IdStart.TOUCHED_NUMBER + number1);
             TextView textView2 = viewParent.findViewById(IdStart.TOUCHED_NUMBER + number2);
-            if (matrix[number1] == 0) {
+            if (pickerMatrix[number1] == 0) {
                 textView1.setBackground(defaultDrawable);
             }
-            if (matrix[number2] == 0) {
+            if (pickerMatrix[number2] == 0) {
                 textView2.setBackground(defaultDrawable);
             }
-            if (matrix[number1] == 1) {
+            if (pickerMatrix[number1] == 1) {
                 textView1.setBackground(greenDrawable);
             }
-            if (matrix[number2] == 1) {
+            if (pickerMatrix[number2] == 1) {
                 textView2.setBackground(greenDrawable);
             }
-            if (matrix[number1] == 2) {
+            if (pickerMatrix[number1] == 2) {
                 textView1.setBackground(redDrawable);
             }
-            if (matrix[number2] == 2) {
+            if (pickerMatrix[number2] == 2) {
                 textView2.setBackground(redDrawable);
             }
         }
@@ -747,12 +747,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                 public void onClick(View v) {
                     if (textView.getBackground() == greenDrawable) {
                         textView.setBackground(defaultDrawable);
-                        matrix[number] = 0;
+                        pickerMatrix[number] = 0;
                         onPickNumber(-1);
                         setCounterForTableType2();
                     } else {
                         textView.setBackground(greenDrawable);
-                        matrix[number] = 1;
+                        pickerMatrix[number] = 1;
                         onPickNumber(number);
                         setCounterForTableType2();
                     }
@@ -767,12 +767,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                     DialogBase.showWithConfirmation(getActivity(), title, mess, () -> {
                         if (textView.getBackground() == redDrawable) {
                             textView.setBackground(defaultDrawable);
-                            matrix[number] = 0;
+                            pickerMatrix[number] = 0;
                             onPickNumber(-1);
                             setCounterForTableType2();
                         } else {
                             textView.setBackground(redDrawable);
-                            matrix[number] = 2;
+                            pickerMatrix[number] = 2;
                             onPickNumber(number);
                             setCounterForTableType2();
                         }
@@ -787,7 +787,7 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     private void setCounterForTableType2() {
         int count = 0;
         for (int i = 0; i < Const.MAX_ROW_COUNT_TABLE; i++) {
-            if (matrix[i] != 0) {
+            if (pickerMatrix[i] != 0) {
                 count++;
             }
         }

@@ -261,6 +261,12 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        homePageViewModel.getNote();
+    }
+
+    @Override
     public void showNote(String note) {
         if (note.isEmpty()) {
             tvNote.setText("Bạn chưa lưu ghi chú nào cả.");

@@ -3,9 +3,10 @@ plugins {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.freefair.lombok'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -30,6 +31,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.example.couple'
 }
 
 dependencies {
@@ -43,8 +45,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-auth'
-    compileOnly 'org.projectlombok:lombok:1.18.+'
-    annotationProcessor 'org.projectlombok:lombok:1.18.+'
+    //noinspection AnnotationProcessorOnCompilePath
+    implementation 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
     // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

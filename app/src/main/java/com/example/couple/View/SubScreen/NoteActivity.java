@@ -8,26 +8,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
-import com.example.couple.View.Adapter.NoteAdapter;
 import com.example.couple.ViewModel.SubScreen.NoteViewModel;
-
-import java.util.ArrayList;
-import java.util.Set;
 
 public class NoteActivity extends ActivityBase implements NoteView {
     TextView tvTitle;
-    ImageView imgAdd;
-    RecyclerView rvNote;
-    ImageView imgDelete;
+    ImageView imgEdit;
+    TextView tvNote;
 
     NoteViewModel viewModel;
-    boolean isChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,30 +25,17 @@ public class NoteActivity extends ActivityBase implements NoteView {
         setContentView(R.layout.activity_note);
 
         tvTitle = findViewById(R.id.tvTitle);
-        imgAdd = findViewById(R.id.imgAdd);
-        rvNote = findViewById(R.id.rvNote);
-        imgDelete = findViewById(R.id.imgDelete);
+        imgEdit = findViewById(R.id.imgEdit);
+        tvNote = findViewById(R.id.tvNote);
 
         viewModel = new NoteViewModel(this, this);
-        viewModel.getNoteList();
 
-        imgAdd.setOnClickListener(new View.OnClickListener() {
+        imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NoteActivity.this, NoteInfoActivity.class));
+                startActivity(new Intent(NoteActivity.this, EditNoteActivity.class));
             }
         });
-
-        imgDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String message = "Bạn có muốn xóa tất cả các Ghi chú không?";
-                DialogBase.showWithConfirmation(NoteActivity.this, "Xóa?", message, () -> {
-                    viewModel.deleteNoteList();
-                });
-            }
-        });
-
     }
 
     @Override
@@ -67,37 +44,16 @@ public class NoteActivity extends ActivityBase implements NoteView {
     }
 
     @Override
-    public void showNoteList(Set<String> notes) {
-        tvTitle.setText("Các ghi chú bạn đã lưu:");
-        rvNote.setVisibility(View.VISIBLE);
-        imgDelete.setVisibility(View.VISIBLE);
-        NoteAdapter adapter = new NoteAdapter(this, R.layout.custom_item_rv_note, new ArrayList<>(notes));
-        rvNote.removeAllViews();
-        rvNote.setLayoutManager(new LinearLayoutManager(this));
-        rvNote.setAdapter(adapter);
+    public void showNote(String note) {
+        tvTitle.setText("Ghi chú đã lưu:");
+        tvNote.setVisibility(View.VISIBLE);
+        tvNote.setText(note);
     }
 
     @Override
-    public void hideNoteList() {
-        tvTitle.setText("Không có Ghi chú nào!");
-        rvNote.setVisibility(View.GONE);
-        imgDelete.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void deleteNoteListSuccess(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        hideNoteList();
-        isChanged = true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            viewModel.getNoteList();
-            isChanged = true;
-        }
+    protected void onResume() {
+        super.onResume();
+        viewModel.getNote();
     }
 
     @Override

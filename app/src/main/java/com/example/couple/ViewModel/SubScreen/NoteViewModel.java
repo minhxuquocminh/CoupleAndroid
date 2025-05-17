@@ -6,9 +6,6 @@ import com.example.couple.Base.Handler.StorageBase;
 import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.View.SubScreen.NoteView;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class NoteViewModel {
     NoteView noteView;
     Context context;
@@ -18,17 +15,8 @@ public class NoteViewModel {
         this.context = context;
     }
 
-    public void getNoteList() {
-        Set<String> notes = StorageBase.getStringSet(context, StorageType.STRING_OF_NOTES);
-        if (notes.isEmpty()) {
-            noteView.hideNoteList();
-        } else {
-            noteView.showNoteList(notes);
-        }
-    }
-
-    public void deleteNoteList() {
-        StorageBase.setStringSet(context, StorageType.STRING_OF_NOTES, new HashSet<>());
-        noteView.deleteNoteListSuccess("Xóa Ghi chú thành công!");
+    public void getNote() {
+        String note = StorageBase.getString(context, StorageType.STRING_OF_NOTE);
+        noteView.showNote(note);
     }
 }

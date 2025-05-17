@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.couple">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -79,7 +78,7 @@
 
         <activity android:name=".View.SubScreen.NoteActivity" />
 
-        <activity android:name=".View.SubScreen.NoteInfoActivity" />
+        <activity android:name=".View.SubScreen.EditNoteActivity" />
 
         <activity
             android:name=".View.BridgeHistory.SexagenaryCycleActivity"

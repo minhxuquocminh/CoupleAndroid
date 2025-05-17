@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="@dimen/padding_5dp"
-            android:text="Thêm ghi chú"
+            android:text="Sửa ghi chú"
             android:textColor="@color/colorThemeLight"
             android:textSize="@dimen/text_size_header"
             android:typeface="normal" />
@@ -50,13 +50,13 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/btnAddNote"
+                    android:id="@+id/btnUpdateNote"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     android:layout_weight="1"
                     android:background="@color/colorThemeBold"
-                    android:text="Thêm ghi chú"
+                    android:text="Cập nhật"
                     android:textAllCaps="false"
                     android:textColor="@color/colorThemeLight"
                     android:textSize="@dimen/text_size" />

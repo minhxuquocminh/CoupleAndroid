@@ -44,7 +44,6 @@ import com.example.couple.ViewModel.Main.CreateNumberArray.CreateNumberArrayView
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -140,9 +139,6 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                 showJackpotList(jackpotList);
             }
         });
-
-        setInputData();
-        clearEditText();
 
         viewModel = new CreateNumberArrayViewModel(this, getActivity());
         RECEIVE_DATA = false;
@@ -320,31 +316,6 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         });
 
         return viewParent;
-    }
-
-    private void clearEditText() {
-        Arrays.asList(
-                edtSet,
-                edtTouch,
-                edtSum,
-                edtBranch,
-                edtHead,
-                edtTail,
-                edtCombineNumber,
-                edtAddingNumber,
-                edtRemovingNumber,
-                edtThirdClaw
-        ).forEach(editText -> {
-            editText.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    DialogBase.showWithConfirmation(requireActivity(), "Xoá", "Bạn có muốn xóa tất cả dữ liệu ko?", () -> {
-                        editText.setText("");
-                    });
-                    return false;
-                }
-            });
-        });
     }
 
     private void setInputData() {

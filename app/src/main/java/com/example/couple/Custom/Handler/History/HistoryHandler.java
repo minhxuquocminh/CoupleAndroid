@@ -6,7 +6,7 @@ import com.example.couple.Model.Origin.Jackpot;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,8 +36,10 @@ public class HistoryHandler {
     }
 
     public static Map<NumberSetType, List<NumberSetHistory>> getFullNumberSetsHistory(List<Jackpot> jackpotList, List<NumberSetType> numberSetTypes) {
-        if (jackpotList.isEmpty()) return new HashMap<>();
-        return numberSetTypes.stream().collect(Collectors.toMap(type -> type, type -> type.getNumberSetHistory(jackpotList)));
+        if (jackpotList.isEmpty()) return new LinkedHashMap<>();
+        return numberSetTypes.stream().collect(Collectors.toMap(type -> type,
+                type -> type.getNumberSetHistory(jackpotList),
+                (v1, v2) -> v1, LinkedHashMap::new));
     }
 
     public static NumberSetHistory getNumberSetHistory(List<Jackpot> jackpotList,

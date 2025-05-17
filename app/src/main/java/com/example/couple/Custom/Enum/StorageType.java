@@ -7,6 +7,12 @@ public enum StorageType {
 
     // set
     SET_OF_BRIDGES("NUMBER_OF_BRIDGES"),
+    SET_OF_PICKER_A("SET_OF_PICKER_A"),
+    SET_OF_PICKER_B("SET_OF_PICKER_B"),
+    SET_OF_IMP_PICKER_A("SET_OF_IMP_PICKER_A"),
+    SET_OF_IMP_PICKER_B("SET_OF_IMP_PICKER_B"),
+    SET_OF_TRIAD("SET_OF_TRIAD"),
+    SET_OF_IMP_TRIAD("SET_OF_IMP_TRIAD"),
 
     // list
     LIST_OF_TOUCHES("SET_OF_TOUCHES"),
@@ -14,7 +20,7 @@ public enum StorageType {
     LIST_OF_YEARS("NUMBER_OF_YEARS"),
 
     // strings
-    STRING_OF_NOTES("STRING_OF_NOTES"),
+    STRING_OF_NOTE("STRING_OF_NOTE"),
 
     // number
     NUMBER_OF_PICKER("NUMBER_OF_PICKER");
