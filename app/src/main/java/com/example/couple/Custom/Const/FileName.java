@@ -10,10 +10,6 @@ public class FileName {
     public static final String LOTTERY = "lottery.txt";
     public static final String JACKPOT_URL = "jackpot_url.txt";
     public static final String LOTTERY_URL = "lottery_url.txt";
-    public static final String TABLE_A = "table_a.txt";
-    public static final String TABLE_B = "table_b.txt";
-    public static final String IMP_TABLE_A = "imp_table_a.txt";
-    public static final String IMP_TABLE_B = "imp_table_b.txt";
     public static final String LOTTERY_LAST_DATE = "lottery_last_date.txt";
     public static final String JACKPOT_LAST_DATE = "jackpot_last_date.txt";
 

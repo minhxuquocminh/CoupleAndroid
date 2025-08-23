@@ -10,12 +10,12 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.example.couple.Base.Handler.CoupleBase;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Base.View.Table.RowData;
 import com.example.couple.Base.View.Table.TableData;
 import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
 import com.example.couple.Model.DateTime.Date.Cycle.Cycle;
 import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
@@ -25,6 +25,7 @@ import com.example.couple.R;
 import com.example.couple.ViewModel.BridgeHistory.SexagenaryCycleViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -88,8 +89,7 @@ public class SexagenaryCycleActivity extends ActivityBase implements SexagenaryC
         }
         TableData tableData = new TableData();
         if (index < 1) {
-//            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
-//                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp", "Năm khắc");
+            tableData.createHeaders(Arrays.asList("DL", "ÂL", "Ngày, tháng can chi", "Can", "Chi"));
             for (DateData dateData : dateDataList) {
                 RowData row = new RowData();
                 row.addCell(dateData.getDateBase().showDDMM("-"));
@@ -101,12 +101,12 @@ public class SexagenaryCycleActivity extends ActivityBase implements SexagenaryC
                 tableData.addRow(row);
             }
         } else {
-            int count = 0;
+            tableData.createHeaders(Arrays.asList("DL", "ÂL", "Ngày, tháng can chi", "Can", "Chi",
+                    "Chi ĐB 1", "Chi ĐB 2", "+/-", "ĐB", "H/K", "Dãy số theo ngày"));
             List<Jackpot> jackpots = new ArrayList<>();
             jackpots.add(Jackpot.getEmpty());
             jackpots.addAll(jackpotList);
-//            headers = Arrays.asList("Ngày dương", "Ngày âm", "Can chi", "Can", "Chi",
-//                    "Can hợp", "Can khắc", "Chi hợp", "Chi khắc", "Năm hợp khắc", "Năm hợp", "Năm khắc");
+            int count = 0;
             for (int i = index - 1; i < dateDataList.size(); i++) {
                 RowData row = new RowData();
                 row.addCell(dateDataList.get(i).getDateBase().showDDMM("-"));

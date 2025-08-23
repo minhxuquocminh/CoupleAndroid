@@ -9,11 +9,11 @@ import android.widget.Toast;
 
 import com.example.couple.Base.Handler.InternetBase;
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.History.HistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Origin.Jackpot;
@@ -146,15 +146,11 @@ public class AddJackpotManyYearsActivity extends ActivityBase implements AddJack
     }
 
     private void test2(Context context) {
-//        AlarmBase.registerAlarmOneTime(context, ManualUpdateDataAlarm.class,
-//                2222, TimeBase.CURRENT().addSeconds(10));
-//        Toast.makeText(this, "Đăng ký alarm vào" +
-//                TimeBase.CURRENT().showHHMMSS(), Toast.LENGTH_LONG).show();
-        List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 20);
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 8);
         String mess = "";
         int max = 0;
         Map<NumberSetType, List<NumberSetHistory>> historiesByType = HistoryHandler.getFullNumberSetsHistory(jackpotList,
-                Arrays.asList(NumberSetType.HEAD, NumberSetType.TAIL, NumberSetType.SET));
+                Arrays.asList(NumberSetType.HEAD, NumberSetType.TAIL, NumberSetType.SET, NumberSetType.SUM));
         for (Map.Entry<NumberSetType, List<NumberSetHistory>> entry : historiesByType.entrySet()) {
             for (NumberSetHistory history : entry.getValue()) {
                 mess += history.showWithBeats() + "\n";

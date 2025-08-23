@@ -10,18 +10,19 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.example.couple.Base.Handler.NumberBase;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Base.View.Table.RowData;
 import com.example.couple.Base.View.Table.TableData;
 import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.NumberSetHistoryViewModel;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -81,6 +82,7 @@ public class NumberSetHistoryActivity extends ActivityBase implements NumberSetH
     @Override
     public void showSpecialSetsHistory(Map<NumberSetType, List<NumberSetHistory>> historiesByType) {
         TableData tableData = new TableData();
+        tableData.createHeaders(Arrays.asList("Bộ số", "Số lần ra", "Ra gần nhất", "Số lượng", "Nhịp chạy"));
         historiesByType.forEach((type, histories) -> {
             histories.forEach(history -> {
                 RowData row = new RowData();

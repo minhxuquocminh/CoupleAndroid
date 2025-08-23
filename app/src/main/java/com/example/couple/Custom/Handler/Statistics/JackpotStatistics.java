@@ -8,6 +8,8 @@ import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
+import com.example.couple.Model.Statistics.EventFrequency;
+import com.example.couple.Model.Statistics.EventFrequencyType;
 import com.example.couple.Model.Statistics.JackpotNextDay;
 
 import java.util.ArrayList;
@@ -140,6 +142,36 @@ public class JackpotStatistics {
             }
         });
         return results;
+    }
+
+    public static Map<EventFrequencyType, EventFrequency> getEventFrequencyMap(List<Jackpot> jackpotList, List<EventFrequencyType> types) {
+        int[] counter = new int[types.size()];
+        String[] info = new String[types.size()];
+        for (int i = 0; i < types.size(); i++) {
+            info[i] = "";
+        }
+
+        for (int i = jackpotList.size() - 1; i >= 1; i--) {
+            Couple first = jackpotList.get(i).getCouple();
+            Couple second = jackpotList.get(i - 1).getCouple();
+            int typeIndex = -1;
+            for (EventFrequencyType type : types) {
+                typeIndex++;
+                if (type.condition.test(first, second)) {
+                    counter[typeIndex]++;
+                    info[typeIndex] += second.getDateBase().showDDMM("-") + "; ";
+                }
+            }
+        }
+
+        Map<EventFrequencyType, EventFrequency> resultMap = new LinkedHashMap<>();
+        int typeIndex = -1;
+        for (EventFrequencyType type : types) {
+            typeIndex++;
+            resultMap.put(type, new EventFrequency(type.name, counter[typeIndex], info[typeIndex]));
+        }
+
+        return resultMap;
     }
 
     public static List<Integer> getBeatOfSameDouble(List<Jackpot> jackpotList) {

@@ -61,7 +61,8 @@
                 android:id="@+id/btnView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_5dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
                 android:layout_weight="1"
                 android:background="@color/colorThemeBold"
                 android:text="Xem"
@@ -72,8 +73,10 @@
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_6dp"
-                android:layout_marginRight="@dimen/margin_6dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_9dp"
+                android:layout_marginBottom="@dimen/margin_10dp"
                 android:fillViewport="true"
                 android:scrollbarStyle="outsideInset"
                 android:scrollbars="horizontal|vertical">

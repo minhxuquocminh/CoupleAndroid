@@ -121,7 +121,7 @@
                 android:orientation="vertical" />
 
             <TextView
-                android:id="@+id/tvDoubleSame"
+                android:id="@+id/tvDouble"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10dp"
@@ -134,7 +134,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/linearSDB"
+                android:id="@+id/linearDouble"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10dp"

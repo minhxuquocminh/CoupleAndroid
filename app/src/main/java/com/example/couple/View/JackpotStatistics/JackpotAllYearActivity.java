@@ -10,10 +10,10 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.WidgetBase;
-import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.R;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotAllYearViewModel;
@@ -36,7 +36,7 @@ public class JackpotAllYearActivity extends ActivityBase implements JackpotAllYe
         edtYearNumberSDB = findViewById(R.id.edtYearNumberSDB);
         tvView = findViewById(R.id.tvView);
         linearBalanceCouple = findViewById(R.id.linearBalanceCouple);
-        linearSDB = findViewById(R.id.linearSDB);
+        linearSDB = findViewById(R.id.linearDouble);
 
         viewModel = new JackpotAllYearViewModel(this, this);
 

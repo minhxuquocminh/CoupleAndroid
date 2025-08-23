@@ -383,7 +383,7 @@ public class TableLayoutBase {
             cellContainer.addView(newCell.toTextView());
         } else {
             cellContainer.addView(TextViewBase.builder().context(context).text(text).textSize(15)
-                    .gravity(Gravity.CENTER).padding(Spacing.by(10, 5, 10, 5))
+                    .gravity(Gravity.CENTER).padding(Spacing.by(20, 10, 20, 10))
                     .textColor(R.color.colorText).build().toTextView());
         }
 
@@ -411,7 +411,7 @@ public class TableLayoutBase {
             cellContainer.addView(newCell.toTextView());
         } else {
             cellContainer.addView(TextViewBase.builder().context(context).text(text).textSize(15).gravity(Gravity.CENTER)
-                    .padding(Spacing.by(10, 5, 10, 5)).bold(true)
+                    .padding(Spacing.by(20, 10, 20, 10)).bold(true)
                     .textColor(R.color.colorPrimary).build().toTextView());
         }
 

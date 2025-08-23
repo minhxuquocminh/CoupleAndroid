@@ -271,8 +271,7 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
             @Override
             public void onClick(View v) {
                 WidgetBase.hideKeyboard(requireActivity());
-                startActivity(new Intent(getActivity(),
-                        JackpotByYearActivity.class));
+                startActivity(new Intent(getActivity(), JackpotByYearActivity.class));
             }
         });
 
@@ -545,8 +544,11 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
                     show += NumberBase.showNumberString(number, 3) + " ";
                 }
             }
+            if (i != 9) {
+                show += "\n";
+            }
         }
-        tvShowTriadList.setText(show.trim());
+        tvShowTriadList.setText(show);
     }
 
 }

@@ -8,6 +8,7 @@ import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Statistics.BCouple;
+import com.example.couple.Model.Statistics.EventFrequency;
 import com.example.couple.Model.Statistics.JackpotNextDay;
 
 import java.util.Arrays;
@@ -51,6 +52,18 @@ public class TableDataConverter {
             rowData.addCell(jackpotNextDay.getJackpotFirst().getJackpot());
             rowData.addCell(jackpotNextDay.getJackpotSecond().getJackpot());
             rowData.addCell(jackpotNextDay.getJackpotSecond().getDateBase().showFullChars());
+            tableData.addRow(rowData);
+        }
+        return tableData;
+    }
+
+    public static TableData getEventFrequencyTable(List<EventFrequency> eventFrequencies) {
+        TableData tableData = new TableData();
+        tableData.createHeaders(Arrays.asList("Kiểu chạy", "Ngày ra"));
+        for (EventFrequency eventFrequency : eventFrequencies) {
+            RowData rowData = new RowData();
+            rowData.addCell(eventFrequency.getName());
+            rowData.addCell(eventFrequency.getDetailInfo());
             tableData.addRow(rowData);
         }
         return tableData;

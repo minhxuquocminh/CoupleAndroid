@@ -139,6 +139,14 @@ public class Couple extends Jackpot {
         return toSet().isItMatch(couple.getInt());
     }
 
+    public boolean isSameValue(Couple couple) {
+        return first == couple.first && second == couple.second;
+    }
+
+    public boolean isReverseValue(Couple couple) {
+        return first == couple.second && second == couple.first;
+    }
+
     public SetBase toSet() {
         return new SetBase(first, second);
     }
