@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="@dimen/padding_5dp"
-            android:text="Cầu chọn lọc"
+            android:text="Thông tin hữu ích"
             android:textColor="@color/colorThemeLight"
             android:textSize="@dimen/text_size_header"
             android:typeface="normal" />

@@ -131,10 +131,6 @@ public class Couple extends Jackpot {
         return first + "." + second;
     }
 
-    public boolean isSameDouble() {
-        return first == second;
-    }
-
     public boolean isSameSetOf(Couple couple) {
         return toSet().isItMatch(couple.getInt());
     }
@@ -145,6 +141,11 @@ public class Couple extends Jackpot {
 
     public boolean isReverseValue(Couple couple) {
         return first == couple.second && second == couple.first;
+    }
+
+    public boolean isSameOrReverse(Couple couple) {
+        return (first == couple.first && second == couple.second) ||
+                (first == couple.second && second == couple.first);
     }
 
     public SetBase toSet() {
@@ -160,8 +161,12 @@ public class Couple extends Jackpot {
         return first == second;
     }
 
-    public boolean isDeviatedDouble() {
-        return Math.abs(first - second) == 5;
+    public boolean isNegativeDouble() {
+        return first == SingleBase.getNegativeShadow(second);
+    }
+
+    public boolean isShadowDouble() {
+        return first == SingleBase.getShadow(second);
     }
 
     public String getCL() {

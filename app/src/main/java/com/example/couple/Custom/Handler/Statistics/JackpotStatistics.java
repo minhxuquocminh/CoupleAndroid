@@ -120,27 +120,31 @@ public class JackpotStatistics {
             }
         });
 
-        Collections.reverse(dateBases);
+        dateBases.sort(Comparator.reverseOrder());
+
         List<JackpotNextDay> results = new ArrayList<>();
-        dateBases.forEach(dateBase -> {
+        for (DateBase dateBase : dateBases) {
             DateBase nextDateBase = dateBase.addDays(1);
-            Jackpot jackpot = Jackpot.getEmpty();
-            Jackpot jackpotNextDay = Jackpot.getEmpty();
-            for (Map.Entry<Integer, String[][]> entry : matrixByYears.entrySet()) {
-                Jackpot first = new Jackpot(entry.getValue()[dateBase.getDay() - 1][dateBase.getMonth() - 1], dateBase);
-                if (dateBase.getYear() == entry.getKey() && !first.isInvalid()) {
-                    jackpot = first;
-                }
-                Jackpot second = new Jackpot(entry.getValue()[nextDateBase.getDay() - 1][nextDateBase.getMonth() - 1], nextDateBase);
-                if (nextDateBase.getYear() == entry.getKey() && !second.isInvalid()) {
-                    jackpotNextDay = second;
-                }
-                if (!jackpot.isEmpty() && !jackpotNextDay.isEmpty()) {
-                    results.add(new JackpotNextDay(first, second));
-                    break;
-                }
+
+            if (nextDateBase.isEmpty() || !matrixByYears.containsKey(nextDateBase.getYear())) {
+                continue;
             }
-        });
+
+            String[][] matrix = matrixByYears.get(dateBase.getYear());
+            String[][] nextMatrix = matrixByYears.get(nextDateBase.getYear());
+
+            if (matrix == null || nextMatrix == null) {
+                continue;
+            }
+
+            Jackpot jackpot = new Jackpot(matrix[dateBase.getDay() - 1][dateBase.getMonth() - 1], dateBase);
+            Jackpot jackpotNextDay = new Jackpot(nextMatrix[nextDateBase.getDay() - 1][nextDateBase.getMonth() - 1], nextDateBase);
+
+            if (!jackpotNextDay.isInvalid()) {
+                results.add(new JackpotNextDay(jackpot, jackpotNextDay));
+            }
+        }
+
         return results;
     }
 
@@ -182,7 +186,7 @@ public class JackpotStatistics {
         int sizeOfBeat = 0;
         for (int i = 0; i < runningSize; i++) {
             beat++;
-            if (jackpotList.get(i).getCouple().isSameDouble()) {
+            if (jackpotList.get(i).getCouple().isDouble()) {
                 beatList.add(beat); // nhịp đầu tiên tính từ hiện tại tới ngày có kép bằng
                 sizeOfBeat++;
                 beat = 0;
@@ -197,7 +201,7 @@ public class JackpotStatistics {
         List<Integer> numberList = new ArrayList<>();
         List<Couple> coupleList = lastLottery.getCoupleList();
         for (int i = 0; i < coupleList.size(); i++) {
-            if (coupleList.get(i).isDeviatedDouble()) {
+            if (coupleList.get(i).isShadowDouble()) {
                 numberList.add(Integer.valueOf(coupleList.get(i).toString()));
             }
         }
@@ -215,7 +219,7 @@ public class JackpotStatistics {
         int sameDouble = -1; // nếu sameDouble = -1 thì tìm dấu hiệu khi mà chưa ra kép.
         for (int i = 0; i < runningSize; i++) {
             beat++;
-            if (jackpotList.get(i).getCouple().isSameDouble()) {
+            if (jackpotList.get(i).getCouple().isDouble()) {
                 sizeOfJackpotSign++;
                 Collections.reverse(subJackpotList);
                 Collections.reverse(beatList);
@@ -242,7 +246,7 @@ public class JackpotStatistics {
         int runningSize = Math.min(jackpotList.size(), 150);
         int sizeOfNumberDouble = 0;
         for (int i = 0; i < runningSize - 1; i++) {
-            if (jackpotList.get(i).getCouple().isSameDouble()) {
+            if (jackpotList.get(i).getCouple().isDouble()) {
                 int couple1 = jackpotList.get(i + 1).getCoupleInt();
                 int couple2 = jackpotList.get(i).getCoupleInt();
                 NumberDouble numberDouble = new NumberDouble(couple1, couple2);

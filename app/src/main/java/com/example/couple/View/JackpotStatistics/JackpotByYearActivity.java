@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.StorageBase;
+import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Base.View.Spacing;
 import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.TextViewBase;
@@ -22,7 +23,6 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotByYearViewModel;
@@ -82,6 +82,10 @@ public class JackpotByYearActivity extends ActivityBase implements JackpotByYear
         ArrayAdapter<?> adapter = new ArrayAdapter<>(this,
                 R.layout.custom_item_spinner, R.id.tvItemSpinner, yearStrList);
         spnYear.setAdapter(adapter);
+        int position = yearList.indexOf(TimeInfo.CURRENT_YEAR);
+        if (position >= 0) {
+            spnYear.setSelection(position);
+        }
         viewModel.getTableOfJackpot(TimeInfo.CURRENT_YEAR);
     }
 

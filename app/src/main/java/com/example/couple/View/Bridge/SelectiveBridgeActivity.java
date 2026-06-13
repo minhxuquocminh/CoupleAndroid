@@ -17,6 +17,7 @@ import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
 import com.example.couple.Model.Bridge.Double.SignOfDouble;
+import com.example.couple.Model.Bridge.Double.UnbeatenPrediction;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBridgeView {
     TextView tvViewLongBeatBridge;
     TextView tvAfterDoubleExtendBridge;
+    TextView tvCollapseAfterDoubleBridge;
     TextView tvAfterDoubleBridge;
     TextView tvBranchInDayBridge;
     TextView tvLongBeatBridge;
@@ -51,6 +53,7 @@ public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBr
 
         tvViewLongBeatBridge = findViewById(R.id.tvViewLongBeatBridge);
         tvAfterDoubleExtendBridge = findViewById(R.id.tvAfterDoubleExtendBridge);
+        tvCollapseAfterDoubleBridge = findViewById(R.id.tvCollapseAfterDoubleBridge);
         tvAfterDoubleBridge = findViewById(R.id.tvAfterDoubleBridge);
         tvBranchInDayBridge = findViewById(R.id.tvBranchInDayBridge);
         tvLongBeatBridge = findViewById(R.id.tvLongBeatBridge);
@@ -115,6 +118,18 @@ public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBr
             String show = "Cầu sau khi ra kép mở rộng:\n";
             show += bridges.stream().map(AfterDoubleExtendBridge::show).collect(Collectors.joining("\n"));
             tvAfterDoubleExtendBridge.setText(show.trim());
+        }
+    }
+
+    @Override
+    public void showCollapseAfterDoubleBridge(List<UnbeatenPrediction> bridges) {
+        if (bridges.isEmpty()) {
+            tvCollapseAfterDoubleBridge.setVisibility(View.GONE);
+        } else {
+            tvCollapseAfterDoubleBridge.setVisibility(View.VISIBLE);
+            String show = "Cầu sau khi ra kép thu gọn:\n";
+            show += bridges.stream().map(UnbeatenPrediction::show).collect(Collectors.joining("\n"));
+            tvCollapseAfterDoubleBridge.setText(show.trim());
         }
     }
 

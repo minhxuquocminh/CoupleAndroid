@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
+import com.example.couple.Custom.Handler.Bridge.AfterDoubleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
@@ -19,6 +19,7 @@ import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
 import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
 import com.example.couple.Model.Bridge.Double.SignOfDouble;
+import com.example.couple.Model.Bridge.Double.UnbeatenPrediction;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
@@ -56,12 +57,18 @@ public class SelectiveBridgeViewModel {
     }
 
     public void getAfterDoubleExtendBridge(List<Jackpot> jackpotList) {
-        List<AfterDoubleExtendBridge> bridges = BCoupleBridgeHandler.getAfterAllDoubleBridges(jackpotList);
+        List<AfterDoubleExtendBridge> bridges = AfterDoubleBridgeHandler.getAfterAllDoubleBridges(jackpotList);
         view.showAfterDoubleExtendBridge(bridges);
+        getCollapseAfterDoubleBridge(bridges, jackpotList);
+    }
+
+    public void getCollapseAfterDoubleBridge(List<AfterDoubleExtendBridge> extendBridges, List<Jackpot> jackpotList) {
+        List<UnbeatenPrediction> bridges = AfterDoubleBridgeHandler.getUnbeatenPredictions(extendBridges, jackpotList);
+        view.showCollapseAfterDoubleBridge(bridges);
     }
 
     public void getAfterDoubleBridge(List<Jackpot> jackpotList) {
-        List<AfterDoubleBridge> bridges = BCoupleBridgeHandler.getAfterDoubleBridges(jackpotList);
+        List<AfterDoubleBridge> bridges = AfterDoubleBridgeHandler.getAfterDoubleBridges(jackpotList);
         view.showAfterDoubleBridge(bridges);
     }
 

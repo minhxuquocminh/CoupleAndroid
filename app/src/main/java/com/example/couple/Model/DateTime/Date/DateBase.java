@@ -20,7 +20,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class DateBase implements Serializable {
+public class DateBase implements Serializable, Comparable<DateBase> {
     int day;
     int month;
     int year;
@@ -79,6 +79,17 @@ public class DateBase implements Serializable {
         if (this.month > dateBase.getMonth()) return false;
         if (this.month < dateBase.getMonth()) return true;
         return this.day < dateBase.getDay();
+    }
+
+    @Override
+    public int compareTo(DateBase other) {
+        if (this.year != other.year) {
+            return Integer.compare(this.year, other.year);
+        }
+        if (this.month != other.month) {
+            return Integer.compare(this.month, other.month);
+        }
+        return Integer.compare(this.day, other.day);
     }
 
     public DateBase addDays(int numberOfDays) {

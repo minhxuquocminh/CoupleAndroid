@@ -195,7 +195,7 @@ public class ReferenceBridgeViewModel {
         int numberOfDays = 0;
         for (int i = 0; i < jackpotList.size(); i++) {
             numberOfDays++;
-            if (jackpotList.get(i).getCouple().isSameDouble()) {
+            if (jackpotList.get(i).getCouple().isDouble()) {
                 break;
             }
         }
