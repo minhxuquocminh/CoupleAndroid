@@ -8,16 +8,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.Handler.GenericBase;
-import com.example.couple.Base.Handler.SingleBase;
 import com.example.couple.Base.View.ActivityBase;
-import com.example.couple.Model.Bridge.Connected.ConnectedSetBridge;
-import com.example.couple.Model.Bridge.Connected.TriadBridge;
+import com.example.couple.Model.Bridge.AfterDouble.AfterDoubleSetMapping;
 import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
 import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
-import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
-import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
 import com.example.couple.Model.Bridge.Double.SignOfDouble;
-import com.example.couple.Model.Bridge.Double.UnbeatenPrediction;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -26,23 +21,20 @@ import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
 import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBridgeView {
     TextView tvViewLongBeatBridge;
-    TextView tvAfterDoubleExtendBridge;
-    TextView tvCollapseAfterDoubleBridge;
     TextView tvAfterDoubleBridge;
     TextView tvBranchInDayBridge;
     TextView tvLongBeatBridge;
 
     TextView tvViewBridgeInDay;
+    TextView tvViewAfterDoubleBridge;
+    TextView tvViewConnectedBridge;
+    TextView tvViewEstimatedBridge;
+    TextView tvViewTouchBridge;
     TextView tvBranchIn2DaysBridge;
-    TextView tvConnectedTouch;
-    TextView tvShadowTouch;
     TextView tvSignOfDouble;
-    TextView tvConnectedSetBridge;
-    TextView tvTriadSetBridge;
 
     SelectiveBridgeViewModel viewModel;
 
@@ -52,19 +44,17 @@ public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBr
         setContentView(R.layout.activity_selective_bridge);
 
         tvViewLongBeatBridge = findViewById(R.id.tvViewLongBeatBridge);
-        tvAfterDoubleExtendBridge = findViewById(R.id.tvAfterDoubleExtendBridge);
-        tvCollapseAfterDoubleBridge = findViewById(R.id.tvCollapseAfterDoubleBridge);
         tvAfterDoubleBridge = findViewById(R.id.tvAfterDoubleBridge);
         tvBranchInDayBridge = findViewById(R.id.tvBranchInDayBridge);
         tvLongBeatBridge = findViewById(R.id.tvLongBeatBridge);
 
         tvViewBridgeInDay = findViewById(R.id.tvViewBridgeInDay);
+        tvViewAfterDoubleBridge = findViewById(R.id.tvViewAfterDoubleBridge);
+        tvViewConnectedBridge = findViewById(R.id.tvViewConnectedBridge);
+        tvViewEstimatedBridge = findViewById(R.id.tvViewEstimatedBridge);
+        tvViewTouchBridge = findViewById(R.id.tvViewTouchBridge);
         tvBranchIn2DaysBridge = findViewById(R.id.tvBranchIn2DaysBridge);
-        tvConnectedTouch = findViewById(R.id.tvConnectedTouch);
-        tvShadowTouch = findViewById(R.id.tvShadowTouch);
         tvSignOfDouble = findViewById(R.id.tvSignOfDouble);
-        tvConnectedSetBridge = findViewById(R.id.tvConnectedSetBridge);
-        tvTriadSetBridge = findViewById(R.id.tvTriadSetBridge);
 
         viewModel = new SelectiveBridgeViewModel(this, this);
 
@@ -84,6 +74,34 @@ public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBr
             }
         });
 
+        tvViewAfterDoubleBridge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SelectiveBridgeActivity.this, AfterDoubleBridgeActivity.class));
+            }
+        });
+
+        tvViewConnectedBridge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SelectiveBridgeActivity.this, ConnectedBridgeActivity.class));
+            }
+        });
+
+        tvViewEstimatedBridge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SelectiveBridgeActivity.this, EstimatedBridgeActivity.class));
+            }
+        });
+
+        tvViewTouchBridge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SelectiveBridgeActivity.this, TouchBridgeActivity.class));
+            }
+        });
+
     }
 
     @Override
@@ -93,48 +111,19 @@ public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBr
 
     @Override
     public void showJackpotList(List<Jackpot> jackpotList) {
-        viewModel.getAfterDoubleBridge(jackpotList);
-        viewModel.getAfterDoubleExtendBridge(jackpotList);
+        viewModel.getAfterDoubleSetMappings(jackpotList);
         viewModel.getLongBeatBridge(jackpotList);
         viewModel.getBranchInTwoDaysBridge(jackpotList);
         viewModel.getSignOfDouble(jackpotList);
-        viewModel.getShadowTouchs(jackpotList);
         viewModel.getBranchInDayBridge(jackpotList);
     }
 
     @Override
     public void showLotteryList(List<Lottery> lotteries) {
-        viewModel.getConnectedSetBridge(lotteries);
-        viewModel.getTriadSetBridge(lotteries);
-        viewModel.getConnectedTouchs(lotteries);
     }
 
     @Override
-    public void showAfterDoubleExtendBridge(List<AfterDoubleExtendBridge> bridges) {
-        if (bridges.isEmpty()) {
-            tvAfterDoubleExtendBridge.setVisibility(View.GONE);
-        } else {
-            tvAfterDoubleExtendBridge.setVisibility(View.VISIBLE);
-            String show = "Cầu sau khi ra kép mở rộng:\n";
-            show += bridges.stream().map(AfterDoubleExtendBridge::show).collect(Collectors.joining("\n"));
-            tvAfterDoubleExtendBridge.setText(show.trim());
-        }
-    }
-
-    @Override
-    public void showCollapseAfterDoubleBridge(List<UnbeatenPrediction> bridges) {
-        if (bridges.isEmpty()) {
-            tvCollapseAfterDoubleBridge.setVisibility(View.GONE);
-        } else {
-            tvCollapseAfterDoubleBridge.setVisibility(View.VISIBLE);
-            String show = "Cầu sau khi ra kép thu gọn:\n";
-            show += bridges.stream().map(UnbeatenPrediction::show).collect(Collectors.joining("\n"));
-            tvCollapseAfterDoubleBridge.setText(show.trim());
-        }
-    }
-
-    @Override
-    public void showAfterDoubleBridge(List<AfterDoubleBridge> bridges) {
+    public void showAfterDoubleSetMappings(List<AfterDoubleSetMapping> bridges) {
         if (bridges.isEmpty()) {
             tvAfterDoubleBridge.setVisibility(View.GONE);
         } else {
@@ -170,28 +159,6 @@ public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBr
     }
 
     @Override
-    public void showConnectedTouchs(List<Integer> touchs) {
-        if (touchs.isEmpty()) {
-            tvConnectedTouch.setVisibility(View.GONE);
-        } else {
-            tvConnectedTouch.setVisibility(View.VISIBLE);
-            String show = "Chạm liên thông: " + SingleBase.showTouches(touchs, ", ");
-            tvConnectedTouch.setText(show.trim());
-        }
-    }
-
-    @Override
-    public void showShadowTouchs(List<Integer> touchs) {
-        if (touchs.isEmpty()) {
-            tvShadowTouch.setVisibility(View.GONE);
-        } else {
-            tvShadowTouch.setVisibility(View.VISIBLE);
-            String show = "Chạm bóng: " + SingleBase.showTouches(touchs, ", ");
-            tvShadowTouch.setText(show.trim());
-        }
-    }
-
-    @Override
     public void showSignOfDouble(SignOfDouble sign) {
         if (sign.isEmpty()) {
             tvSignOfDouble.setVisibility(View.GONE);
@@ -210,34 +177,6 @@ public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBr
             tvBranchInDayBridge.setVisibility(View.VISIBLE);
             String show = "Cầu chi theo ngày:\n" + bridge.toString();
             tvBranchInDayBridge.setText(show.trim());
-        }
-    }
-
-    @Override
-    public void showConnectedSetBridge(ConnectedSetBridge bridge) {
-        if (bridge.isEmpty()) {
-            tvConnectedSetBridge.setVisibility(View.GONE);
-        } else {
-            tvConnectedSetBridge.setVisibility(View.VISIBLE);
-            String show = "Cầu liên bộ bao gồm các bộ: " + bridge.showCompactNumbers();
-            tvConnectedSetBridge.setText(show.trim());
-        }
-    }
-
-    @Override
-    public void showTriadSetBridge(List<TriadBridge> bridges) {
-        if (bridges.isEmpty()) {
-            tvTriadSetBridge.setVisibility(View.GONE);
-        } else {
-            tvTriadSetBridge.setVisibility(View.VISIBLE);
-            String show = "Cầu bộ ba:\n";
-            for (TriadBridge bridge : bridges) {
-                show += bridge.show() + "\n";
-                if (bridge.getTriadStatusList().size() == 5) {
-                    break;
-                }
-            }
-            tvTriadSetBridge.setText(show.trim());
         }
     }
 

@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_5dp"
                 android:layout_weight="1"
-                android:background="@color/colorThemeBold"
+                android:background="@drawable/border_corners_primary"
                 android:text="Lưu"
                 android:textAllCaps="false"
                 android:textColor="@color/colorThemeLight"
@@ -107,10 +107,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_5dp"
                 android:layout_weight="1"
-                android:background="@color/colorBgSunday"
+                android:background="@drawable/border_corners_cancel"
                 android:text="Hủy"
                 android:textAllCaps="false"
-                android:textColor="@color/colorThemeLight"
+                android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size" />
 
         </LinearLayout>

@@ -13,9 +13,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorThemeBold"
+            android:elevation="2dp"
             android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp">
 
             <ImageView
                 android:id="@+id/imgUser"
@@ -96,24 +97,30 @@
                 android:id="@+id/linearBaseUrl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginLeft="6dp"
                 android:layout_marginTop="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginRight="6dp"
+                android:background="@color/colorSurface"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/padding_5dp">
+                android:paddingLeft="4dp"
+                android:paddingTop="6dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Đường dẫn và tham số"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
 
                 <ImageButton
                     android:layout_width="18dp"
                     android:layout_height="22dp"
-                    android:background="@color/colorThemeLight"
+                    android:background="@color/colorSurface"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_right" />
 
             </LinearLayout>
@@ -122,17 +129,22 @@
                 android:id="@+id/linearAddData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="6dp"
+                android:background="@color/colorSurface"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/padding_5dp">
+                android:paddingLeft="4dp"
+                android:paddingTop="6dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thêm dữ liệu vào CSDL"
+                    android:textColor="@color/colorPrimary"
 
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
@@ -140,7 +152,8 @@
                 <ImageButton
                     android:layout_width="18dp"
                     android:layout_height="22dp"
-                    android:background="@color/colorThemeLight"
+                    android:background="@color/colorSurface"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_right" />
             </LinearLayout>
 
@@ -148,24 +161,30 @@
                 android:id="@+id/linearChangePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="6dp"
+                android:background="@color/colorSurface"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="@dimen/padding_5dp">
+                android:paddingLeft="4dp"
+                android:paddingTop="6dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="6dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thay đổi mật khẩu"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size_title"
                     android:textStyle="bold" />
 
                 <ImageButton
                     android:layout_width="18dp"
                     android:layout_height="22dp"
-                    android:background="@color/colorThemeLight"
+                    android:background="@color/colorSurface"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_right" />
             </LinearLayout>
 
@@ -176,7 +195,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/border_corners_primary"
             android:text="Đăng xuất"
             android:textAllCaps="false"
             android:textColor="@color/white"

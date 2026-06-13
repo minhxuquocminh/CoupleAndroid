@@ -2,12 +2,9 @@ package com.example.couple.ViewModel.Couple;
 
 import android.content.Context;
 
-import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Origin.Jackpot;
-import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.View.Couple.BalanceCoupleView;
 
 import java.util.List;
@@ -29,12 +26,6 @@ public class BalanceCoupleViewModel {
 
     public void getTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays) {
         balanceCoupleView.showTableOfBalanceCouple(jackpotList, numberOfDays);
-    }
-
-    public void getPeriodHistory(List<Jackpot> jackpotList, String dayNumberBefore, String filterDays) {
-        List<PeriodHistory> periodHistoryList = EstimatedBridgeHandler.getPeriodHistoryList(jackpotList,
-                Integer.parseInt(dayNumberBefore), Integer.parseInt(filterDays), Const.AMPLITUDE_OF_PERIOD);
-        balanceCoupleView.showPeriodHistory(periodHistoryList);
     }
 
 }

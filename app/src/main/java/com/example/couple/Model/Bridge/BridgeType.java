@@ -1,6 +1,7 @@
 package com.example.couple.Model.Bridge;
 
 import com.example.couple.Custom.Const.Const;
+import com.example.couple.Custom.Handler.Bridge.AfterDoubleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.ConnectedBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.EstimatedBridgeHandler;
@@ -72,6 +73,11 @@ public enum BridgeType {
     INPUT_COMBINE(6007, InputType.COMBINE.name),
 
     /**
+     * after double
+     */
+    AFTER_DOUBLE_COUPLE(7001, "Cặp sau khi ra kép"),
+
+    /**
      * others bridge
      */
     ESTIMATED(9001, "Cầu ước lượng"),
@@ -116,6 +122,8 @@ public enum BridgeType {
                 return MappingBridgeHandler.getAnyMappingBridge(jackpotList, index);
             case BRANCH_IN_TWO_DAYS_BRIDGE:
                 return CycleBridgeHandler.getBranchInTwoDaysBridge(jackpotList, index);
+            case AFTER_DOUBLE_COUPLE:
+                return AfterDoubleBridgeHandler.getAfterDoubleCoupleBridge(jackpotList, index);
             case BIG_DOUBLE:
                 return new NumberSetBridge(this, SpecialSet.BIG_DOUBLE.values, jackpotHistory);
             case SAME_DOUBLE:

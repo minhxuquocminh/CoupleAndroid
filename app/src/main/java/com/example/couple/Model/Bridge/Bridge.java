@@ -7,12 +7,34 @@ import java.util.List;
 
 public abstract class Bridge {
 
-    public String showCompactBridge() {
+    public String showMappingInfo() {
         String show = "";
         String win = getJackpotHistory().isEmpty() ? "" : (isWin() ? " (trúng)" : " (trượt)");
         String showDetail = !showCompactNumbers().isEmpty() ? showCompactNumbers() : getNumbers().size() + " số.";
         show += "    - " + getType().name + win + ": " + showDetail;
         return show;
+    }
+
+    public String showCompactInfo() {
+        return showMappingInfo();
+    }
+
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        String compactInfo = showCompactInfo();
+        if (!compactInfo.isEmpty()) {
+            show += "\n\nChi tiết cầu:\n" + compactInfo;
+        }
+        if (!getNumbers().isEmpty()) {
+            show += "\n\nDàn số:\n" + showNumbers();
+        }
+        return show.trim();
+    }
+
+    protected String showJackpotInfo() {
+        if (getJackpotHistory().isEmpty()) return "";
+        return "Ngày: " + getJackpotHistory().getJackpot().getDateBase().showFullChars()
+                + "\nKQ XSĐB: " + getJackpotHistory().getJackpot().getJackpot();
     }
 
     public boolean isWin() {

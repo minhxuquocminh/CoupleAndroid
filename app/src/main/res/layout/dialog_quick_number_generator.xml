@@ -387,7 +387,7 @@
                     android:padding="@dimen/padding_10dp"
                     android:text="Copy"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
+                    android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
                 <TextView
@@ -396,12 +396,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@color/colorThemeBold"
+                    android:background="@drawable/border_corners_cancel"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Đóng"
                     android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
+                    android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
 
             </LinearLayout>

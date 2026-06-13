@@ -38,6 +38,15 @@ public class ShadowTouchBridge extends TouchBridge {
     }
 
     @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\n" + (bridgeType == null ? "Cầu chạm" : bridgeType.name) + ": "
+                + SingleBase.showTouches(touches, ", ");
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
+    }
+
+    @Override
     public BridgeType getType() {
         return bridgeType;
     }

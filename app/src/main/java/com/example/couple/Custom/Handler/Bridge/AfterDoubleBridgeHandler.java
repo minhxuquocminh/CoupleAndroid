@@ -1,9 +1,11 @@
 package com.example.couple.Custom.Handler.Bridge;
 
-import com.example.couple.Model.Bridge.Double.AfterDoubleBridge;
-import com.example.couple.Model.Bridge.Double.AfterDoubleExtendBridge;
-import com.example.couple.Model.Bridge.Double.CoupleBeat;
-import com.example.couple.Model.Bridge.Double.UnbeatenPrediction;
+import com.example.couple.Model.Bridge.AfterDouble.AfterDoubleCoupleBridge;
+import com.example.couple.Model.Bridge.AfterDouble.AfterDoubleCoupleMapping;
+import com.example.couple.Model.Bridge.AfterDouble.AfterDoubleCoupleSupport;
+import com.example.couple.Model.Bridge.AfterDouble.AfterDoubleSetMapping;
+import com.example.couple.Model.Bridge.AfterDouble.CoupleBeat;
+import com.example.couple.Model.Bridge.JackpotHistory;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
 
@@ -16,18 +18,29 @@ import java.util.Objects;
 
 public class AfterDoubleBridgeHandler {
 
-    public static List<UnbeatenPrediction> getUnbeatenPredictions(List<AfterDoubleExtendBridge> allBridges,
-                                                                  List<Jackpot> jackpotList) {
-        int checkRange = Math.min(jackpotList.size(), 40);
-        Map<Couple, UnbeatenPrediction> resultsByCouple = new LinkedHashMap<>();
+    public static AfterDoubleCoupleBridge getAfterDoubleCoupleBridge(List<Jackpot> jackpotList, int dayNumberBefore) {
+        Jackpot jackpot = dayNumberBefore - 1 >= 0 ? jackpotList.get(dayNumberBefore - 1) : Jackpot.getEmpty();
+        JackpotHistory jackpotHistory = new JackpotHistory(dayNumberBefore, jackpot);
+        int newIndex = Math.min(Math.max(dayNumberBefore, 0), jackpotList.size());
+        List<Jackpot> checkList = dayNumberBefore <= 0 ? jackpotList : jackpotList.subList(newIndex, jackpotList.size());
+        List<AfterDoubleCoupleMapping> mappings = getAfterDoubleCoupleMappings(checkList);
+        return new AfterDoubleCoupleBridge(getAfterDoubleCoupleSupports(mappings), jackpotHistory);
+    }
 
-        for (AfterDoubleExtendBridge bridge : allBridges) {
+    public static List<AfterDoubleCoupleSupport> getAfterDoubleCoupleSupports(List<AfterDoubleCoupleMapping> mappings) {
+        Map<Couple, AfterDoubleCoupleSupport> resultsByCouple = new LinkedHashMap<>();
 
-            if (bridge.getDoubleCouple().isNegativeDouble()) {
+        for (AfterDoubleCoupleMapping mapping : mappings) {
+
+            if (mapping.getDayNumberBefore() > 5 && mapping.getDayNumberBefore() < 30) {
                 continue;
             }
 
-            for (Map.Entry<Couple, List<CoupleBeat>> entry : bridge.getBeatsByCouple().entrySet()) {
+            if (mapping.getDayNumberBefore() > 5 && mapping.getDoubleCouple().isNegativeDouble()) {
+                continue;
+            }
+
+            for (Map.Entry<Couple, List<CoupleBeat>> entry : mapping.getBeatsByCouple().entrySet()) {
                 Couple predictedCouple = entry.getKey();
                 List<CoupleBeat> beats = entry.getValue();
 
@@ -39,25 +52,26 @@ public class AfterDoubleBridgeHandler {
                     continue;
                 }
 
-                UnbeatenPrediction prediction = resultsByCouple.computeIfAbsent(
+                AfterDoubleCoupleSupport prediction = resultsByCouple.computeIfAbsent(
                         predictedCouple,
-                        UnbeatenPrediction::new
+                        AfterDoubleCoupleSupport::new
                 );
-                prediction.addSource(bridge.getDoubleCouple(), bridge.getDayNumberBefore());
+                prediction.addSource(mapping.getDoubleCouple(), mapping.getDayNumberBefore(), beats.size());
             }
         }
 
-        List<UnbeatenPrediction> results = new ArrayList<>(resultsByCouple.values());
-        results.sort(Comparator.comparingInt(UnbeatenPrediction::getDayNumberBefore));
+        List<AfterDoubleCoupleSupport> results = new ArrayList<>(resultsByCouple.values());
+        results.sort(Comparator.comparingInt(AfterDoubleCoupleSupport::getPriority)
+                .thenComparingInt(AfterDoubleCoupleSupport::getDayNumberBefore));
 
         return results;
     }
 
-    public static List<AfterDoubleExtendBridge> getAfterAllDoubleBridges(List<Jackpot> jackpotList) {
+    public static List<AfterDoubleCoupleMapping> getAfterDoubleCoupleMappings(List<Jackpot> jackpotList) {
         if (jackpotList.size() < 2) return new ArrayList<>();
         int CHECK_RANGE = 42;
         int minSize = Math.min(jackpotList.size(), CHECK_RANGE);
-        List<AfterDoubleExtendBridge> bridges = new ArrayList<>();
+        List<AfterDoubleCoupleMapping> bridges = new ArrayList<>();
 
         for (int i = 0; i < minSize - 2; i++) {
             if (jackpotList.get(i).getCouple().isDoubleOrShadow()) {
@@ -68,13 +82,13 @@ public class AfterDoubleBridgeHandler {
                 if (i - 1 >= 0) {
                     lastDoubleRange.add(jackpotList.get(i - 1).getCouple());
                 }
-                bridges.add(new AfterDoubleExtendBridge(lastDoubleRange, i + 1));
+                bridges.add(new AfterDoubleCoupleMapping(lastDoubleRange, i + 1));
             }
         }
 
 
         for (int i = 0; i < minSize - 2; i++) {
-            for (AfterDoubleExtendBridge bridge : bridges) {
+            for (AfterDoubleCoupleMapping bridge : bridges) {
                 if (i >= bridge.getDayNumberBefore() - 1) continue;
                 for (Couple couple : bridge.getBeatsByCouple().keySet()) {
                     Couple checkCouple = jackpotList.get(i).getCouple();
@@ -89,9 +103,9 @@ public class AfterDoubleBridgeHandler {
         return bridges;
     }
 
-    public static List<AfterDoubleBridge> getAfterDoubleBridges(List<Jackpot> jackpotList) {
-        List<AfterDoubleBridge> bridges = new ArrayList<>();
-        List<AfterDoubleBridge> checkList = new ArrayList<>();
+    public static List<AfterDoubleSetMapping> getAfterDoubleSetMappings(List<Jackpot> jackpotList) {
+        List<AfterDoubleSetMapping> bridges = new ArrayList<>();
+        List<AfterDoubleSetMapping> checkList = new ArrayList<>();
         int minSize = Math.min(jackpotList.size(), 30);
         for (int i = 0; i < minSize - 2; i++) {
             if (jackpotList.get(i).getCouple().isDoubleOrShadow()) {
@@ -102,10 +116,10 @@ public class AfterDoubleBridgeHandler {
                 if (i - 1 >= 0) {
                     lastDoubleRange.add(jackpotList.get(i - 1).getCouple());
                 }
-                checkList.add(new AfterDoubleBridge(lastDoubleRange, i + 1));
+                checkList.add(new AfterDoubleSetMapping(lastDoubleRange, i + 1));
             }
         }
-        for (AfterDoubleBridge bridge : checkList) {
+        for (AfterDoubleSetMapping bridge : checkList) {
             for (int i = bridge.getDayNumberBefore() - 1; i >= 0; i--) {
                 for (int j = 1; j <= 4; j++) {
                     if (bridge.getSetMap().containsKey(j) &&

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
     android:orientation="vertical">
 
     <!--toolbar-->
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar"
         android:background="@color/colorThemeBold"
+        android:elevation="2dp"
         android:gravity="center_vertical">
 
         <TextView
@@ -32,9 +34,10 @@
         android:background="@color/colorThemeLight">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/margin_10dp"
+                android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,7 +104,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_autorenew_red" />
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_autorenew" />
 
                 </LinearLayout>
 
@@ -126,7 +130,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_autorenew_red" />
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_autorenew" />
 
                 </LinearLayout>
 
@@ -150,7 +155,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_autorenew_red" />
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_autorenew" />
 
                 </LinearLayout>
 
@@ -211,7 +217,8 @@
                     android:layout_height="match_parent"
                     android:background="@color/colorThemeLight"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_clock_red" />
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_clock" />
 
             </LinearLayout>
 
@@ -259,7 +266,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_5dp"
                         app:cardBackgroundColor="@color/colorThemeLight"
-                        app:cardCornerRadius="5dp">
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
 
                         <ImageView
                             android:layout_width="90dp"
@@ -287,7 +295,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_5dp"
                         app:cardBackgroundColor="@color/colorThemeLight"
-                        app:cardCornerRadius="5dp">
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
 
                         <ImageView
                             android:layout_width="90dp"
@@ -315,7 +324,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_5dp"
                         app:cardBackgroundColor="@color/colorThemeLight"
-                        app:cardCornerRadius="5dp">
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
 
                         <ImageView
                             android:layout_width="89dp"
@@ -343,7 +353,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin_5dp"
                         app:cardBackgroundColor="@color/colorThemeLight"
-                        app:cardCornerRadius="5dp">
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
 
                         <ImageView
                             android:layout_width="90dp"
@@ -374,7 +385,8 @@
                         android:layout_marginRight="13dp"
                         android:layout_marginBottom="@dimen/margin_5dp"
                         app:cardBackgroundColor="@color/colorThemeLight"
-                        app:cardCornerRadius="5dp">
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="2dp">
 
                         <ImageView
                             android:layout_width="90dp"

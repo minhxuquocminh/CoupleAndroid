@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--override-->
-    <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
-    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
-    <dimen name="design_bottom_navigation_height" tools:override="true">57dp</dimen>
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">12.5sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12.5sp</dimen>
+    <dimen name="design_bottom_navigation_height" tools:override="true">58dp</dimen>
 
     <!--height-->
-    <dimen name="height_toolbar">41dp</dimen>
-    <dimen name="height_navbar">54dp</dimen>
+    <dimen name="height_toolbar">52dp</dimen>
+    <dimen name="height_navbar">60dp</dimen>
 
     <dimen name="text_size_lottery">16sp</dimen>
     <dimen name="text_size_jackpot_lottery">18sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
     <dimen name="text_size">15sp</dimen>
     <dimen name="text_size_big">16sp</dimen>
-    <dimen name="text_size_title">16sp</dimen>
-    <dimen name="text_size_header">17sp</dimen>
+    <dimen name="text_size_title">17sp</dimen>
+    <dimen name="text_size_header">20sp</dimen>
 
     <dimen name="margin_10dp">10dp</dimen>
     <dimen name="margin_5dp">5dp</dimen>

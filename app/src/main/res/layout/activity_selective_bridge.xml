@@ -141,32 +141,6 @@
                 android:textSize="@dimen/text_size" />
 
             <TextView
-                android:id="@+id/tvConnectedTouch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:background="@color/colorThemeLight"
-                android:lineSpacingExtra="@dimen/padding_2dp"
-                android:padding="@dimen/padding_2dp"
-                android:text="Chạm liên thông: "
-                android:textColor="@color/colorText"
-                android:textSize="@dimen/text_size" />
-
-            <TextView
-                android:id="@+id/tvShadowTouch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:background="@color/colorThemeLight"
-                android:lineSpacingExtra="@dimen/padding_2dp"
-                android:padding="@dimen/padding_2dp"
-                android:text="Chạm bóng: "
-                android:textColor="@color/colorText"
-                android:textSize="@dimen/text_size" />
-
-            <TextView
                 android:id="@+id/tvSignOfDouble"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,32 +150,6 @@
                 android:lineSpacingExtra="@dimen/padding_2dp"
                 android:padding="@dimen/padding_2dp"
                 android:text="Dấu hiệu ra kép: "
-                android:textColor="@color/colorText"
-                android:textSize="@dimen/text_size" />
-
-            <TextView
-                android:id="@+id/tvConnectedSetBridge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:background="@color/colorThemeLight"
-                android:lineSpacingExtra="@dimen/padding_2dp"
-                android:padding="@dimen/padding_2dp"
-                android:text="Cầu liên bộ: "
-                android:textColor="@color/colorText"
-                android:textSize="@dimen/text_size" />
-
-            <TextView
-                android:id="@+id/tvTriadSetBridge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:background="@color/colorThemeLight"
-                android:lineSpacingExtra="@dimen/padding_2dp"
-                android:padding="@dimen/padding_2dp"
-                android:text="Cầu bộ ba: "
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size" />
 
@@ -222,41 +170,42 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvViewBalanceCouple"
+                    android:id="@+id/tvViewAfterDoubleBridge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/padding_5dp"
-                    android:text="BSCB"
+                    android:text="Sau kép"
+                    android:textColor="@color/colorTextLink"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvViewConnectedBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Liên thông"
+                    android:textColor="@color/colorTextLink"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvViewEstimatedBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Ước lượng"
+                    android:textColor="@color/colorTextLink"
+                    android:textSize="@dimen/text_size" />
+
+                <TextView
+                    android:id="@+id/tvViewTouchBridge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_5dp"
+                    android:text="Cầu chạm"
                     android:textColor="@color/colorTextLink"
                     android:textSize="@dimen/text_size" />
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvCollapseAfterDoubleBridge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:background="@color/colorThemeLight"
-                android:lineSpacingExtra="@dimen/padding_2dp"
-                android:padding="@dimen/padding_2dp"
-                android:text="Cầu sau khi ra kép: "
-                android:textColor="@color/colorText"
-                android:textSize="@dimen/text_size" />
-
-            <TextView
-                android:id="@+id/tvAfterDoubleExtendBridge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:background="@color/colorThemeLight"
-                android:lineSpacingExtra="@dimen/padding_2dp"
-                android:padding="@dimen/padding_2dp"
-                android:text="Cầu sau khi ra kép mở rộng: "
-                android:textColor="@color/colorText"
-                android:textSize="@dimen/text_size" />
 
         </LinearLayout>
 

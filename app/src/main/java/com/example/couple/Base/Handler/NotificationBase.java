@@ -57,7 +57,7 @@ public class NotificationBase {
         return new NotificationCompat.Builder(context, channelID)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentIntent(pendingIntent);
     }
 

@@ -54,6 +54,22 @@ public class BranchInTwoDaysBridge extends Bridge {
     }
 
     @Override
+    public String showCompactInfo() {
+        if (lastCouple.isEmpty()) return "";
+        String before = isReverseBefore ? "đảo trước" : "giữ trước";
+        String after = isReverseAfter ? "đảo sau" : "giữ sau";
+        return lastCouple.show() + " (" + before + ", " + after + ", " + runningTimes + " nhịp)";
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\nChi trong 2 ngày:\n" + showCompactInfo();
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
+    }
+
+    @Override
     public BridgeType getType() {
         return BridgeType.BRANCH_IN_TWO_DAYS_BRIDGE;
     }

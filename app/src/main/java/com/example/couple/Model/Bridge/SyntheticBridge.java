@@ -70,6 +70,38 @@ public class SyntheticBridge extends Bridge {
     }
 
     @Override
+    public String showCompactInfo() {
+        List<String> infos = new ArrayList<>();
+        if (!combineTouchBridge.isEmpty()) {
+            infos.add(combineTouchBridge.getType().name + ": " + combineTouchBridge.showCompactInfo());
+        }
+        if (!mappingBridge.isEmpty()) {
+            infos.add(mappingBridge.showCompactInfo());
+        }
+        if (!estimatedBridge.isEmpty()) {
+            infos.add(estimatedBridge.getType().name + ": " + estimatedBridge.showCompactInfo());
+        }
+        return String.join("; ", infos);
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\nChi tiết cầu tổng hợp:";
+        if (!combineTouchBridge.isEmpty()) {
+            show += "\n" + combineTouchBridge.getType().name + ": " + combineTouchBridge.showCompactInfo();
+        }
+        if (!mappingBridge.isEmpty()) {
+            show += "\n" + mappingBridge.showCompactInfo();
+        }
+        if (!estimatedBridge.isEmpty()) {
+            show += "\n" + estimatedBridge.getType().name + ": " + estimatedBridge.showCompactInfo();
+        }
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
+    }
+
+    @Override
     public BridgeType getType() {
         return BridgeType.SYNTHETIC;
     }

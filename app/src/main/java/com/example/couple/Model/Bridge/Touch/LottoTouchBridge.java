@@ -56,6 +56,14 @@ public class LottoTouchBridge extends TouchBridge {
         return SingleBase.showTouches(touches);
     }
 
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\nChạm lô tô:\n" + SingleBase.showTouches(touches, ", ");
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
+    }
+
     public BridgeType getType() {
         return BridgeType.LOTTO_TOUCH;
     }

@@ -48,6 +48,14 @@
 
         <activity android:name=".View.Bridge.FindingBridgeActivity" />
 
+        <activity android:name=".View.Bridge.AfterDoubleBridgeActivity" />
+
+        <activity android:name=".View.Bridge.ConnectedBridgeActivity" />
+
+        <activity android:name=".View.Bridge.EstimatedBridgeActivity" />
+
+        <activity android:name=".View.Bridge.TouchBridgeActivity" />
+
         <activity android:name=".View.Bridge.SelectiveBridgeActivity" />
 
         <activity android:name=".View.JackpotStatistics.JackpotNextDayActivity" />

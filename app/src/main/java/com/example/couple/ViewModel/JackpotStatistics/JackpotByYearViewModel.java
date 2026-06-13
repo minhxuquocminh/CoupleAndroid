@@ -6,6 +6,8 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.View.JackpotStatistics.JackpotByYearView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class JackpotByYearViewModel {
@@ -18,10 +20,11 @@ public class JackpotByYearViewModel {
     }
 
     public void getYearList() {
-        List<Integer> years = JackpotHandler.getUpdatedYears(context);
+        List<Integer> years = new ArrayList<>(JackpotHandler.getUpdatedYears(context));
         if (years.isEmpty()) {
             years.add(TimeInfo.CURRENT_YEAR);
         }
+        Collections.sort(years, Collections.reverseOrder());
         jackpotByYearView.showYearList(years);
     }
 

@@ -9,6 +9,7 @@ import com.example.couple.Model.Bridge.NumberSet.SetBase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -32,6 +33,23 @@ public class ConnectedSetBridge extends Bridge {
     @Override
     public String showCompactNumbers() {
         return GenericBase.getDelimiterString(setBases, " ");
+    }
+
+    @Override
+    public String showCompactInfo() {
+        return GenericBase.getDelimiterString(setBases, " ");
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\nCầu liên thông:";
+        show += "\n" + connectedSupports.stream()
+                .map(ConnectedSupport::show)
+                .collect(Collectors.joining("\n"));
+        show += "\n\nLiên bộ:\n" + GenericBase.getDelimiterString(setBases, " ");
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
     }
 
     @Override

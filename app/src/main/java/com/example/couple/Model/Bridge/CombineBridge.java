@@ -28,7 +28,7 @@ public class CombineBridge {
     public String showBridge() {
         String show = " * " + jackpotHistory.show() + ":\n";
         for (Bridge bridge : bridgeMap.values()) {
-            show += bridge.showCompactBridge() + "\n";
+            show += bridge.showMappingInfo() + "\n";
         }
         String win = jackpotHistory.isEmpty() ? "" : (isWin() ? " (trúng)" : "(trượt)");
         show += "    => KQ tổ hợp" + win + ": " + showNumbers() + " (" + numbers.size() + " số).";

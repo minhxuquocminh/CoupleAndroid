@@ -43,6 +43,22 @@ public class TriadMappingBridge extends Bridge {
     }
 
     @Override
+    public String showCompactInfo() {
+        return sequentCoupleMap.entrySet().stream()
+                .map(entry -> entry.getKey().show() + "-" + entry.getValue().show())
+                .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\nCầu 2 ánh xạ:";
+        show += "\n" + showCompactInfo();
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
+    }
+
+    @Override
     public BridgeType getType() {
         return BridgeType.TRIAD_MAPPING;
     }

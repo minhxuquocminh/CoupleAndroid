@@ -1,5 +1,6 @@
 package com.example.couple.Model.Bridge.Estimated;
 
+import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.CoupleHandler;
 import com.example.couple.Model.Bridge.Bridge;
@@ -9,6 +10,7 @@ import com.example.couple.Model.Bridge.JackpotHistory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -63,6 +65,24 @@ public class EstimatedBridge extends Bridge {
     @Override
     public String showCompactNumbers() {
         return "";
+    }
+
+    @Override
+    public String showCompactInfo() {
+        return periodHistories.stream()
+                .map(periodHistory -> CoupleBase.showCouple(periodHistory.getLastNumber()))
+                .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\nCác khoảng chạy giống:";
+        show += "\n" + periodHistories.stream()
+                .map(PeriodHistory::show)
+                .collect(Collectors.joining("\n"));
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
     }
 
     @Override

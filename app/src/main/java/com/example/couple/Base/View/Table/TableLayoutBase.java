@@ -2,20 +2,25 @@ package com.example.couple.Base.View.Table;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Base.View.Spacing;
 import com.example.couple.Base.View.TextViewBase;
 import com.example.couple.Base.View.TextViewPositionManager;
 import com.example.couple.Base.View.WidgetBase;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.R;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class TableLayoutBase {
@@ -157,6 +162,38 @@ public class TableLayoutBase {
                 count++;
                 tableRow.addView(getCell(context, cell, count != cellSize, null));
             }
+            tableLayout.addView(tableRow);
+            tableLayout.addView(getBottomBorder(context));
+        }
+
+        return tableLayout;
+    }
+
+    public static TableLayout getBridgeHistoryTableLayout(Context context, List<Bridge> bridges, boolean isMatchParent) {
+        TableLayout tableLayout = new TableLayout(context);
+        tableLayout.setBackground(WidgetBase.getDrawable(context, R.drawable.border_table));
+        if (isMatchParent) {
+            tableLayout.setShrinkAllColumns(true);
+            tableLayout.setStretchAllColumns(true);
+            tableLayout.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+        } else {
+            tableLayout.setLayoutParams(new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+
+        TableRow headerRow = new TableRow(context);
+        for (String header : Arrays.asList("Ngày", "Thông tin", "KQ")) {
+            headerRow.addView(getHeaderCell(context, header, !"KQ".equals(header), null));
+        }
+        tableLayout.addView(headerRow);
+        tableLayout.addView(getBottomBorder(context));
+
+        for (Bridge bridge : bridges) {
+            TableRow tableRow = new TableRow(context);
+            tableRow.addView(getBridgeDateCell(context, bridge));
+            tableRow.addView(getCell(context, bridge.showCompactInfo().trim(), true, null));
+            tableRow.addView(getCell(context, bridge.isWin() ? "o" : "x", false, null));
             tableLayout.addView(tableRow);
             tableLayout.addView(getBottomBorder(context));
         }
@@ -316,10 +353,10 @@ public class TableLayoutBase {
         if (showRightBorder) {
             View borderRight = new View(context);
             FrameLayout.LayoutParams borderParams = new FrameLayout.LayoutParams(
-                    2, FrameLayout.LayoutParams.MATCH_PARENT); // viền dọc 2px
+                    1, FrameLayout.LayoutParams.MATCH_PARENT);
             borderParams.gravity = Gravity.END;
             borderRight.setLayoutParams(borderParams);
-            borderRight.setBackgroundColor(Color.BLACK);
+            borderRight.setBackgroundColor(WidgetBase.getColorId(context, R.color.colorDivider));
             cellContainer.addView(borderRight);
         }
 
@@ -336,10 +373,10 @@ public class TableLayoutBase {
         if (showRightBorder) {
             View borderRight = new View(context);
             FrameLayout.LayoutParams borderParams = new FrameLayout.LayoutParams(
-                    2, FrameLayout.LayoutParams.MATCH_PARENT); // viền dọc 2px
+                    1, FrameLayout.LayoutParams.MATCH_PARENT);
             borderParams.gravity = Gravity.END;
             borderRight.setLayoutParams(borderParams);
-            borderRight.setBackgroundColor(Color.BLACK);
+            borderRight.setBackgroundColor(WidgetBase.getColorId(context, R.color.colorDivider));
             cellContainer.addView(borderRight);
         }
 
@@ -361,10 +398,10 @@ public class TableLayoutBase {
         if (showRightBorder) {
             View borderRight = new View(context);
             FrameLayout.LayoutParams borderParams = new FrameLayout.LayoutParams(
-                    2, FrameLayout.LayoutParams.MATCH_PARENT);
+                    1, FrameLayout.LayoutParams.MATCH_PARENT);
             borderParams.gravity = Gravity.END;
             borderRight.setLayoutParams(borderParams);
-            borderRight.setBackgroundColor(Color.BLACK);
+            borderRight.setBackgroundColor(WidgetBase.getColorId(context, R.color.colorDivider));
             cellContainer.addView(borderRight);
         }
 
@@ -390,12 +427,47 @@ public class TableLayoutBase {
         if (showRightBorder) {
             View borderRight = new View(context);
             FrameLayout.LayoutParams borderParams = new FrameLayout.LayoutParams(
-                    2, FrameLayout.LayoutParams.MATCH_PARENT); // viền dọc 2px
+                    1, FrameLayout.LayoutParams.MATCH_PARENT);
             borderParams.gravity = Gravity.END;
             borderRight.setLayoutParams(borderParams);
-            borderRight.setBackgroundColor(Color.BLACK);
+            borderRight.setBackgroundColor(WidgetBase.getColorId(context, R.color.colorDivider));
             cellContainer.addView(borderRight);
         }
+
+        return cellContainer;
+    }
+
+    private static FrameLayout getBridgeDateCell(Context context, Bridge bridge) {
+        FrameLayout cellContainer = new FrameLayout(context);
+        TableRow.LayoutParams cellParams = new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        cellContainer.setLayoutParams(cellParams);
+
+        TextView textView = TextViewBase.builder()
+                .context(context)
+                .text(bridge.getJackpotHistory().getJackpot().getDateBase().showDDMM("/"))
+                .textSize(15)
+                .gravity(Gravity.CENTER)
+                .padding(Spacing.by(20, 10, 20, 10))
+                .textColor(R.color.colorTextLink)
+                .bold(true)
+                .build()
+                .toTextView();
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        textView.setOnClickListener(v -> DialogBase.showBasic(
+                context,
+                bridge.getType().name,
+                bridge.showDetailInfo()
+        ));
+        cellContainer.addView(textView);
+
+        View borderRight = new View(context);
+        FrameLayout.LayoutParams borderParams = new FrameLayout.LayoutParams(
+                1, FrameLayout.LayoutParams.MATCH_PARENT);
+        borderParams.gravity = Gravity.END;
+        borderRight.setLayoutParams(borderParams);
+        borderRight.setBackgroundColor(WidgetBase.getColorId(context, R.color.colorDivider));
+        cellContainer.addView(borderRight);
 
         return cellContainer;
     }
@@ -418,10 +490,10 @@ public class TableLayoutBase {
         if (showRightBorder) {
             View borderRight = new View(context);
             FrameLayout.LayoutParams borderParams = new FrameLayout.LayoutParams(
-                    2, FrameLayout.LayoutParams.MATCH_PARENT); // viền dọc 2px
+                    1, FrameLayout.LayoutParams.MATCH_PARENT);
             borderParams.gravity = Gravity.END;
             borderRight.setLayoutParams(borderParams);
-            borderRight.setBackgroundColor(Color.BLACK);
+            borderRight.setBackgroundColor(WidgetBase.getColorId(context, R.color.colorDivider));
             cellContainer.addView(borderRight);
         }
 
@@ -431,9 +503,9 @@ public class TableLayoutBase {
     private static View getBottomBorder(Context context) {
         View borderBottom = new View(context);
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(
-                TableLayout.LayoutParams.MATCH_PARENT, 2);
+                TableLayout.LayoutParams.MATCH_PARENT, 1);
         borderBottom.setLayoutParams(params);
-        borderBottom.setBackgroundColor(Color.BLACK);
+        borderBottom.setBackgroundColor(WidgetBase.getColorId(context, R.color.colorDivider));
         return borderBottom;
     }
 

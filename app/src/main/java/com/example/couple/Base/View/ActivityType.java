@@ -1,8 +1,12 @@
 package com.example.couple.Base.View;
 
+import com.example.couple.View.Bridge.AfterDoubleBridgeActivity;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
+import com.example.couple.View.Bridge.ConnectedBridgeActivity;
+import com.example.couple.View.Bridge.EstimatedBridgeActivity;
 import com.example.couple.View.Bridge.FindingBridgeActivity;
 import com.example.couple.View.Bridge.SelectiveBridgeActivity;
+import com.example.couple.View.Bridge.TouchBridgeActivity;
 import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
@@ -27,6 +31,10 @@ public enum ActivityType {
     SELECTIVE_BRIDGE(2001, "tham khảo", SelectiveBridgeActivity.class),
     BALANCE_COUPLE(2002, "bộ số cân bằng", BalanceCoupleActivity.class),
     FINDING_BRIDGE(2003, "soi cầu", FindingBridgeActivity.class),
+    AFTER_DOUBLE_BRIDGE(2004, "sau kép", AfterDoubleBridgeActivity.class),
+    CONNECTED_BRIDGE(2005, "liên thông", ConnectedBridgeActivity.class),
+    ESTIMATED_BRIDGE(2006, "ước lượng", EstimatedBridgeActivity.class),
+    TOUCH_BRIDGE(2007, "cầu chạm", TouchBridgeActivity.class),
 
     SPECIAL_SETS_HISTORY(3001, "nhịp chạy", NumberSetHistoryActivity.class),
     JACKPOT_THIS_YEAR(3002, "đầu đuôi", JackpotThisYearActivity.class),

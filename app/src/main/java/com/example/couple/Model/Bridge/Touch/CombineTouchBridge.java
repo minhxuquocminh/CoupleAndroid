@@ -8,6 +8,7 @@ import com.example.couple.Model.Bridge.JackpotHistory;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -53,6 +54,18 @@ public class CombineTouchBridge extends TouchBridge {
     @Override
     public String showCompactNumbers() {
         return SingleBase.showTouches(touches);
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\nCác cầu chạm thành phần:";
+        show += "\n" + touchBridges.stream()
+                .map(bridge -> bridge.getType().name + ": " + bridge.showCompactInfo())
+                .collect(Collectors.joining("\n"));
+        show += "\n\nChạm kết hợp:\n" + SingleBase.showTouches(touches, ", ");
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
     }
 
     @Override

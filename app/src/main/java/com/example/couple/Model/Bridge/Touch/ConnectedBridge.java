@@ -9,6 +9,7 @@ import com.example.couple.Model.Bridge.JackpotHistory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -29,6 +30,18 @@ public class ConnectedBridge extends TouchBridge {
     @Override
     public String showCompactNumbers() {
         return SingleBase.showTouches(touches);
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\nCầu liên thông:";
+        show += "\n" + connectedSupports.stream()
+                .map(ConnectedSupport::show)
+                .collect(Collectors.joining("\n"));
+        show += "\n\nChạm:\n" + SingleBase.showTouches(touches, ", ");
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
     }
 
     @Override

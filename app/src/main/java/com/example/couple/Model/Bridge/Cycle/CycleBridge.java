@@ -7,6 +7,7 @@ import com.example.couple.Model.DateTime.Date.Cycle.YearCycle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 
@@ -33,6 +34,22 @@ public class CycleBridge extends Bridge {
     @Override
     public String showCompactNumbers() {
         return "";
+    }
+
+    @Override
+    public String showCompactInfo() {
+        return yearCycles.stream()
+                .map(YearCycle::showByCouple)
+                .collect(Collectors.joining(" "));
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\n" + (bridgeType == null ? "Cầu can chi" : bridgeType.name) + ":";
+        show += "\n" + showCompactInfo();
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
     }
 
     @Override

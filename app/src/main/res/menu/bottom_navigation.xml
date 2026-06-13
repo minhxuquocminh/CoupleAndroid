@@ -2,26 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/itHome"
-        android:icon="@drawable/icon_home_change"
+        android:icon="@drawable/ic_bottom_home"
         android:title="Trang chủ" />
 
     <item
         android:id="@+id/itNumberPicker"
-        android:icon="@drawable/icon_create_numbers_change"
+        android:icon="@drawable/ic_bottom_pick_number"
         android:title="Chọn số" />
 
     <item
         android:id="@+id/itCreateNumberArray"
-        android:icon="@drawable/icon_prediction_bridge_change"
+        android:icon="@drawable/ic_bottom_create_array"
         android:title="Tạo dàn số" />
 
     <item
         android:id="@+id/itFunction"
-        android:icon="@drawable/icon_function_change"
+        android:icon="@drawable/ic_bottom_functions"
         android:title="Chức năng" />
 
     <item
         android:id="@+id/itPersonal"
-        android:icon="@drawable/icon_personal_change"
+        android:icon="@drawable/ic_bottom_personal"
         android:title="Cá nhân" />
 </menu>

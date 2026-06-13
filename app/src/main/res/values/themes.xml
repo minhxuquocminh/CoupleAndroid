@@ -4,7 +4,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">#303F9F</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorThemeLight</item>
+        <item name="android:windowLightNavigationBar">true</item>
         <item name="checkboxStyle">@style/CompactCheckBox</item>
     </style>
 </resources>

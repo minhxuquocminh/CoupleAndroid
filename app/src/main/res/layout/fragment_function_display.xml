@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar"
         android:background="@color/colorThemeBold"
+        android:elevation="2dp"
         android:gravity="center_vertical">
 
         <TextView
@@ -29,12 +30,13 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorThemeLight">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="@dimen/margin_10dp"
             android:layout_marginBottom="@dimen/margin_10dp"
             android:orientation="vertical">
 
@@ -51,7 +53,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"
@@ -79,7 +82,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"
@@ -107,7 +111,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"
@@ -146,7 +151,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"
@@ -174,7 +180,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"
@@ -202,7 +209,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"
@@ -241,7 +249,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"
@@ -269,7 +278,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"
@@ -297,7 +307,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
                     app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp">
 
                     <ImageView
                         android:layout_width="90dp"

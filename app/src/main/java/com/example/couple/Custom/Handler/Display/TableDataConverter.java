@@ -4,6 +4,7 @@ import com.example.couple.Base.View.Table.RowData;
 import com.example.couple.Base.View.Table.TableData;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.Bridge.BCoupleBridgeHandler;
+import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Couple;
 import com.example.couple.Model.Origin.Jackpot;
@@ -77,6 +78,19 @@ public class TableDataConverter {
             rowData.addCell(history.getNumberSet().getName());
             rowData.addCell(history.getAppearanceTimes() + " lần");
             rowData.addCell(history.getDayNumberBefore() + " ngày");
+            tableData.addRow(rowData);
+        }
+        return tableData;
+    }
+
+    public static TableData  getBridgeHistoryTable(List<Bridge> bridges) {
+        TableData tableData = new TableData();
+        tableData.createHeaders(Arrays.asList("Ngày", "Thông tin", "KQ"));
+        for (Bridge bridge : bridges) {
+            RowData rowData = new RowData();
+            rowData.addCell(bridge.getJackpotHistory().getJackpot().getDateBase().showDDMM("/"));
+            rowData.addCell(bridge.showCompactInfo().trim());
+            rowData.addCell(bridge.isWin() ? "o" : "x");
             tableData.addRow(rowData);
         }
         return tableData;

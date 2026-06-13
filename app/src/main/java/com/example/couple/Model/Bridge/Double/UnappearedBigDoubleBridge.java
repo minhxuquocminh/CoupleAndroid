@@ -22,6 +22,19 @@ public class UnappearedBigDoubleBridge extends Bridge {
     }
 
     @Override
+    public String showCompactInfo() {
+        return BridgeType.UNAPPEARED_BIG_DOUBLE.name;
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\n" + BridgeType.UNAPPEARED_BIG_DOUBLE.name;
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
+    }
+
+    @Override
     public BridgeType getType() {
         return BridgeType.UNAPPEARED_BIG_DOUBLE;
     }

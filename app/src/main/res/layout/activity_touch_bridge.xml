@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/padding_5dp"
+            android:text="Cầu chạm"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView android:id="@+id/tvCombineTouchTitle" style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Chạm kết hợp"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <TextView android:id="@+id/tvCombineTouch" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight" android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp" android:textColor="@color/colorText" android:textSize="@dimen/text_size" />
+
+            <TextView android:id="@+id/tvShadowTouchTitle" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Chạm bóng"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <TextView android:id="@+id/tvShadowTouch" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight" android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp" android:textColor="@color/colorText" android:textSize="@dimen/text_size" />
+
+            <TextView android:id="@+id/tvLastDayShadowTitle" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Chạm bóng ngày"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <TextView android:id="@+id/tvLastDayShadow" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight" android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp" android:textColor="@color/colorText" android:textSize="@dimen/text_size" />
+
+            <TextView android:id="@+id/tvLastWeekShadowTitle" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Chạm bóng tuần"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <TextView android:id="@+id/tvLastWeekShadow" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight" android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp" android:textColor="@color/colorText" android:textSize="@dimen/text_size" />
+
+            <TextView android:id="@+id/tvLottoTouchTitle" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Chạm lô tô"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <TextView android:id="@+id/tvLottoTouch" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@color/colorThemeLight" android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_2dp" android:textColor="@color/colorText" android:textSize="@dimen/text_size" />
+
+            <TextView android:id="@+id/tvCombineTouchHistoryLabel" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Lịch sử chạm kết hợp:"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <LinearLayout android:id="@+id/linearCombineTouchHistory" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="vertical" android:padding="@dimen/padding_2dp" />
+
+            <TextView android:id="@+id/tvShadowTouchHistoryLabel" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Lịch sử chạm bóng:"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <LinearLayout android:id="@+id/linearShadowTouchHistory" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="vertical" android:padding="@dimen/padding_2dp" />
+
+            <TextView android:id="@+id/tvLastDayShadowHistoryLabel" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Lịch sử chạm bóng ngày:"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <LinearLayout android:id="@+id/linearLastDayShadowHistory" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="vertical" android:padding="@dimen/padding_2dp" />
+
+            <TextView android:id="@+id/tvLastWeekShadowHistoryLabel" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Lịch sử chạm bóng tuần:"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <LinearLayout android:id="@+id/linearLastWeekShadowHistory" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="vertical" android:padding="@dimen/padding_2dp" />
+
+            <TextView android:id="@+id/tvLottoTouchHistoryLabel" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:padding="@dimen/padding_2dp" android:text="Lịch sử chạm lô tô:"
+                android:textColor="@color/colorPrimary" android:textSize="@dimen/text_size" android:textStyle="bold" />
+            <LinearLayout android:id="@+id/linearLottoTouchHistory" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp" android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="vertical" android:padding="@dimen/padding_2dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -24,6 +24,19 @@ public class NumberSetBridge extends Bridge {
     }
 
     @Override
+    public String showCompactInfo() {
+        return bridgeType == null ? "" : bridgeType.name;
+    }
+
+    @Override
+    public String showDetailInfo() {
+        String show = showJackpotInfo();
+        show += "\n\n" + showCompactInfo();
+        show += "\n\nDàn số:\n" + showNumbers();
+        return show.trim();
+    }
+
+    @Override
     public BridgeType getType() {
         return bridgeType;
     }

@@ -10,7 +10,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar"
-        android:background="@color/colorThemeBold">
+        android:background="@color/colorThemeBold"
+        android:elevation="2dp">
 
         <TextView
             android:id="@+id/tvToolbar"
@@ -28,7 +29,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorThemeLight">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,7 +124,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="2"
-                    android:hint="ex: 3 8"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -140,7 +141,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:hint="ex: 4 8"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -168,7 +168,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="2"
-                    android:hint="ex: 5 8"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -186,7 +185,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:hint="ex: 6 8"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -213,7 +211,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="2"
-                    android:hint="ex: 7 8"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -231,7 +228,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:hint="ex: 8 8"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -257,7 +253,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:hint="ex: 58 68"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -284,7 +279,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:hint="ex: 38 48"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -311,7 +305,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:hint="ex: 68 78"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -338,7 +331,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:hint="ex: 1 2 3 4"
                     android:lineSpacingExtra="2dp"
                     android:textColor="@color/colorText"
                     android:textSize="@dimen/text_size" />
@@ -393,7 +385,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="top"
-                        android:hint="dàn số được tạo ở đây."
                         android:lineSpacingExtra="2dp"
                         android:minLines="4"
                         android:textColor="@color/colorText"

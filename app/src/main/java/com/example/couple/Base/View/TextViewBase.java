@@ -59,13 +59,13 @@ public class TextViewBase {
 
     public static TextView getPickerTextView(Context context, String text, Integer id) {
         return TextViewBase.builder().context(context).id(id).tag(id).text(text).textSize(18).gravity(Gravity.CENTER)
-                .padding(Spacing.by(35, 30, 35, 30))
+                .padding(Spacing.by(32, 26, 32, 26))
                 .textColor(R.color.colorText).build().toTextView();
     }
 
     public static TextView getCoupleTextView(Context context, String text, Integer id) {
         return TextViewBase.builder().context(context).id(id).tag(id).text(text).textSize(18).gravity(Gravity.CENTER)
-                .padding(Spacing.by(20, 15, 20, 15)).bold(true)
+                .padding(Spacing.by(18, 14, 18, 14)).bold(true)
                 .textColor(R.color.colorTextJackpot).build().toTextView();
     }
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorThemeLight">
+        android:background="@color/colorThemeLight">
 
     <FrameLayout
         android:id="@+id/container"
@@ -14,7 +14,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#EEEEEE"
+        android:background="@color/colorDivider"
         android:layout_above="@+id/bottom_navigation"
         />
 
@@ -23,10 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_navbar"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
+        android:layout_marginBottom="0dp"
+        android:background="@color/colorSurface"
         android:foreground="?attr/selectableItemBackground"
         app:itemBackground="@color/colorBgNavBar"
-        app:itemIconSize="26sp"
+        app:itemIconSize="26dp"
         app:itemIconTint="@color/color_state_navbar"
         app:itemTextColor="@color/color_state_navbar"
         app:labelVisibilityMode="labeled"
