@@ -4,7 +4,7 @@ import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
-import com.example.couple.Custom.Handler.History.HistoryHandler;
+import com.example.couple.Custom.Handler.History.NumberSetHistoryHandler;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Cycle.BranchInDayBridge;
 import com.example.couple.Model.DateTime.Date.Cycle.Branch;
@@ -46,25 +46,25 @@ public enum NumberSetType {
         switch (this) {
             case HEAD:
                 return IntStream.range(0, 10)
-                        .mapToObj(i -> HistoryHandler.getNumberSetHistory(jackpotList,
+                        .mapToObj(i -> NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                                 name + " " + i, NumberArrayHandler.getHeads(i)))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
                         .collect(Collectors.toList());
             case TAIL:
                 return IntStream.range(0, 10)
-                        .mapToObj(i -> HistoryHandler.getNumberSetHistory(jackpotList,
+                        .mapToObj(i -> NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                                 name + " " + i, NumberArrayHandler.getTails(i)))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
                         .collect(Collectors.toList());
             case SUM:
                 return IntStream.range(0, 10)
-                        .mapToObj(i -> HistoryHandler.getNumberSetHistory(jackpotList,
+                        .mapToObj(i -> NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                                 name + " " + i, NumberArrayHandler.getSums(i)))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
                         .collect(Collectors.toList());
             case SET:
                 return Const.SMALL_SETS_NOT_DOUBLE.stream()
-                        .map(i -> HistoryHandler.getNumberSetHistory(jackpotList,
+                        .map(i -> NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                                 name + " " + CoupleBase.showCouple(i),
                                 SetBase.getFrom(i).getSetsDetail()))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
@@ -77,42 +77,42 @@ public enum NumberSetType {
                 return Collections.singletonList(branchInDayBridge.toNumberSetHistory());
             case BRANCH:
                 return IntStream.range(0, TimeInfo.EARTHLY_BRANCHES.size())
-                        .mapToObj(i -> HistoryHandler.getNumberSetHistory(jackpotList,
+                        .mapToObj(i -> NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                                 TimeInfo.EARTHLY_BRANCHES.get(i) + " " + CoupleBase.showCouple(i),
                                 new Branch(i).getTailsOfYear()))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
                         .collect(Collectors.toList());
             case DOUBLE:
                 List<NumberSetHistory> doubles = new ArrayList<>();
-                NumberSetHistory doubleHistory = HistoryHandler.getNumberSetHistory(jackpotList,
+                NumberSetHistory doubleHistory = NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                         SpecialSet.DOUBLE.name, SpecialSet.DOUBLE.values);
                 doubles.add(doubleHistory);
-                NumberSetHistory deviatedHistory = HistoryHandler.getNumberSetHistory(jackpotList,
+                NumberSetHistory deviatedHistory = NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                         SpecialSet.POSITIVE_DOUBLE.name, SpecialSet.POSITIVE_DOUBLE.values);
                 doubles.add(deviatedHistory);
-                NumberSetHistory nearIncreaseHistory = HistoryHandler.getNumberSetHistory(jackpotList,
+                NumberSetHistory nearIncreaseHistory = NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                         SpecialSet.NEAR_DOUBLE_INCREASE.name, SpecialSet.NEAR_DOUBLE_INCREASE.values);
                 doubles.add(nearIncreaseHistory);
-                NumberSetHistory nearDecreaseHistory = HistoryHandler.getNumberSetHistory(jackpotList,
+                NumberSetHistory nearDecreaseHistory = NumberSetHistoryHandler.getNumberSetHistory(jackpotList,
                         SpecialSet.NEAR_DOUBLE_DECREASE.name, SpecialSet.NEAR_DOUBLE_DECREASE.values);
                 doubles.add(nearDecreaseHistory);
                 doubles.sort((x, y) -> y.getDayNumberBefore() - x.getDayNumberBefore());
                 return doubles;
             case HEAD_BEGIN:
                 return IntStream.range(0, 10)
-                        .mapToObj(i -> HistoryHandler.getNumberSetHistoryWithHeadCouple(jackpotList,
+                        .mapToObj(i -> NumberSetHistoryHandler.getNumberSetHistoryWithHeadCouple(jackpotList,
                                 name + " " + i + " (***) ", NumberArrayHandler.getHeads(i)))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
                         .collect(Collectors.toList());
             case TAIL_BEGIN:
                 return IntStream.range(0, 10)
-                        .mapToObj(i -> HistoryHandler.getNumberSetHistoryWithHeadCouple(jackpotList,
+                        .mapToObj(i -> NumberSetHistoryHandler.getNumberSetHistoryWithHeadCouple(jackpotList,
                                 name + " " + i + " (***) ", NumberArrayHandler.getTails(i)))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
                         .collect(Collectors.toList());
             case SUM_BEGIN:
                 return IntStream.range(0, 10)
-                        .mapToObj(i -> HistoryHandler.getNumberSetHistoryWithHeadCouple(jackpotList,
+                        .mapToObj(i -> NumberSetHistoryHandler.getNumberSetHistoryWithHeadCouple(jackpotList,
                                 name + " " + i + " (***) ", NumberArrayHandler.getSums(i)))
                         .sorted(Comparator.comparingInt(NumberSetHistory::getDayNumberBefore).reversed())
                         .collect(Collectors.toList());

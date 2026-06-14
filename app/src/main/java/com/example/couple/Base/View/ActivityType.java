@@ -5,6 +5,7 @@ import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.Bridge.ConnectedBridgeActivity;
 import com.example.couple.View.Bridge.EstimatedBridgeActivity;
 import com.example.couple.View.Bridge.FindingBridgeActivity;
+import com.example.couple.View.Bridge.MappingBridgeActivity;
 import com.example.couple.View.Bridge.SelectiveBridgeActivity;
 import com.example.couple.View.Bridge.TouchBridgeActivity;
 import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
@@ -35,6 +36,7 @@ public enum ActivityType {
     CONNECTED_BRIDGE(2005, "liên thông", ConnectedBridgeActivity.class),
     ESTIMATED_BRIDGE(2006, "ước lượng", EstimatedBridgeActivity.class),
     TOUCH_BRIDGE(2007, "cầu chạm", TouchBridgeActivity.class),
+    MAPPING_BRIDGE(2008, "ánh xạ", MappingBridgeActivity.class),
 
     SPECIAL_SETS_HISTORY(3001, "nhịp chạy", NumberSetHistoryActivity.class),
     JACKPOT_THIS_YEAR(3002, "đầu đuôi", JackpotThisYearActivity.class),

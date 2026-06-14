@@ -7,7 +7,7 @@ import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.Bridge.AfterDoubleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
 import com.example.couple.Custom.Handler.Bridge.OtherBridgeHandler;
-import com.example.couple.Custom.Handler.History.HistoryHandler;
+import com.example.couple.Custom.Handler.History.NumberSetHistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.Bridge.AfterDouble.AfterDoubleSetMapping;
@@ -54,7 +54,7 @@ public class SelectiveBridgeViewModel {
     }
 
     public void getLongBeatBridge(List<Jackpot> jackpotList) {
-        List<NumberSetHistory> histories = HistoryHandler.getCompactNumberSetsHistory(jackpotList,
+        List<NumberSetHistory> histories = NumberSetHistoryHandler.getCompactNumberSetsHistory(jackpotList,
                 Arrays.asList(NumberSetType.values()), 40, 30, 79);
         view.showLongBeatBridge(histories);
     }

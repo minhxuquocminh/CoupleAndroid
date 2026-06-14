@@ -18,6 +18,7 @@ import com.example.couple.R;
 import com.example.couple.View.Account.ChangePasswordActivity;
 import com.example.couple.View.Account.SignInActivity;
 import com.example.couple.View.Account.SignUpActivity;
+import com.example.couple.View.Setting.NotificationSettingActivity;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
 import com.example.couple.View.UpdateDataInfo.UrlAndParamsActivity;
 import com.example.couple.ViewModel.Main.Personal.PersonalViewModel;
@@ -29,6 +30,7 @@ public class PersonalFragment extends Fragment implements PersonalView {
     TextView tvSignUp;
     LinearLayout linearBaseUrl;
     LinearLayout linearAddData;
+    LinearLayout linearNotificationSetting;
     LinearLayout linearChangePassword;
     Button btnSignOut;
 
@@ -45,6 +47,7 @@ public class PersonalFragment extends Fragment implements PersonalView {
         tvSignUp = view.findViewById(R.id.tvSignUp);
         linearBaseUrl = view.findViewById(R.id.linearBaseUrl);
         linearAddData = view.findViewById(R.id.linearAddData);
+        linearNotificationSetting = view.findViewById(R.id.linearNotificationSetting);
         linearChangePassword = view.findViewById(R.id.linearChangePassword);
         btnSignOut = view.findViewById(R.id.btnSignOut);
 
@@ -63,6 +66,13 @@ public class PersonalFragment extends Fragment implements PersonalView {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), AddJackpotManyYearsActivity.class));
+            }
+        });
+
+        linearNotificationSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), NotificationSettingActivity.class));
             }
         });
 

@@ -11,12 +11,12 @@ import java.util.Map;
 import lombok.Getter;
 
 @Getter
-public class CombineBridge {
+public class CombinedBridge {
     Map<BridgeType, Bridge> bridgeMap;
     JackpotHistory jackpotHistory;
     List<Integer> numbers;
 
-    public CombineBridge(Map<BridgeType, Bridge> bridgeMap, JackpotHistory jackpotHistory) {
+    public CombinedBridge(Map<BridgeType, Bridge> bridgeMap, JackpotHistory jackpotHistory) {
         this.bridgeMap = bridgeMap;
         this.jackpotHistory = jackpotHistory;
         this.numbers = new ArrayList<>();

@@ -39,9 +39,11 @@ public enum BridgeType {
     /**
      * mapping bridge
      */
-    MAPPING(2001, "Cầu ánh xạ"),
-    RIGHT_MAPPING(2002, "Cầu ánh xạ P"),
-    TRIAD_MAPPING(2003, "Cầu 2 ánh xạ"),
+    DAY_MAPPING(2001, "Cầu ánh xạ"),
+    DAY_RIGHT_MAPPING(2002, "Cầu ánh xạ P"),
+    COMBINED_MAPPING(2003, "Cầu n ánh xạ"),
+    WEEK_MAPPING(2004, "Cầu ánh xạ tuần"),
+    MONTH_MAPPING(2005, "Cầu ánh xạ tháng"),
 
     /**
      * cycle bridge
@@ -104,22 +106,26 @@ public enum BridgeType {
                 return TouchBridgeHandler.getLastDayShadowTouchBridge(jackpotList, index);
             case LAST_WEEK_SHADOW:
                 return TouchBridgeHandler.getLastWeekShadowTouchBridge(jackpotList, index);
-            case MAPPING:
-                return MappingBridgeHandler.getMappingBridge(jackpotList, index);
+            case DAY_MAPPING:
+                return MappingBridgeHandler.getDayMappingBridge(jackpotList, index);
             case CONNECTED_SET:
                 return ConnectedBridgeHandler.getConnectedSetBridge(lotteryList, index, Const.CONNECTED_BRIDGE_FINDING_DAYS, Const.CONNECTED_BRIDGE_MAX_DISPLAY);
             case ESTIMATED:
                 return EstimatedBridgeHandler.getEstimatedBridge(jackpotList, index);
-            case RIGHT_MAPPING:
-                return MappingBridgeHandler.getRightMappingBridge(jackpotList, index);
+            case DAY_RIGHT_MAPPING:
+                return MappingBridgeHandler.getDayRightMappingBridge(jackpotList, index);
+            case WEEK_MAPPING:
+                return MappingBridgeHandler.getWeekMappingBridge(jackpotList, index);
+            case MONTH_MAPPING:
+                return MappingBridgeHandler.getMonthMappingBridge(jackpotList, index);
             case COMPATIBLE_CYCLE:
                 return CycleBridgeHandler.getCompatibleCycleBridge(jackpotList, index);
             case INCOMPATIBLE_CYCLE:
                 return CycleBridgeHandler.getIncompatibleCycleBridge(jackpotList, index);
             case UNAPPEARED_BIG_DOUBLE:
                 return OtherBridgeHandler.getUnappearedBigDoubleBridge(jackpotList, index);
-            case TRIAD_MAPPING:
-                return MappingBridgeHandler.getAnyMappingBridge(jackpotList, index);
+            case COMBINED_MAPPING:
+                return MappingBridgeHandler.getCombinedMappingBridge(jackpotList, index);
             case BRANCH_IN_TWO_DAYS_BRIDGE:
                 return CycleBridgeHandler.getBranchInTwoDaysBridge(jackpotList, index);
             case AFTER_DOUBLE_COUPLE:

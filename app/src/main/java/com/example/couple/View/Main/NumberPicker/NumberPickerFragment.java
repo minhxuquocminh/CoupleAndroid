@@ -43,6 +43,8 @@ import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
 import com.example.couple.View.Main.MainActivity;
+import com.example.couple.View.Notification.NotificationActivity;
+import com.example.couple.View.Search.SearchActivity;
 import com.example.couple.ViewModel.Main.NumberPicker.NumberPickerViewModel;
 
 import java.util.ArrayList;
@@ -53,6 +55,10 @@ import java.util.stream.Stream;
 
 
 public class NumberPickerFragment extends Fragment implements NumberPickerView {
+    ImageView imgPersonal;
+    LinearLayout layoutSearch;
+    ImageView imgNotification;
+    ImageView imgNavigationMenu;
     TextView tvViewHistory;
     TextView tvBalanceCouple;
     TextView tvJackpotByYear;
@@ -105,6 +111,10 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewParent = inflater.inflate(R.layout.fragment_number_picker, container, false);
 
+        imgPersonal = viewParent.findViewById(R.id.imgPersonal);
+        layoutSearch = viewParent.findViewById(R.id.layoutSearch);
+        imgNotification = viewParent.findViewById(R.id.imgNotification);
+        imgNavigationMenu = viewParent.findViewById(R.id.imgNavigationMenu);
         tvViewHistory = viewParent.findViewById(R.id.tvViewHistory);
         tvBalanceCouple = viewParent.findViewById(R.id.tvBalanceCouple);
         tvJackpotByYear = viewParent.findViewById(R.id.tvJackpotByYear);
@@ -162,6 +172,34 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         viewModel = new NumberPickerViewModel(this, getActivity());
 
         onFirstNumberPickerIsSelected();
+
+        imgPersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.openPersonalTab();
+            }
+        });
+
+        layoutSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+            }
+        });
+
+        imgNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), NotificationActivity.class));
+            }
+        });
+
+        imgNavigationMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.showNavigationMenu(view);
+            }
+        });
 
         tvViewHistory.setOnClickListener(new View.OnClickListener() {
             @Override

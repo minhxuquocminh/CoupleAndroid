@@ -193,12 +193,17 @@ public class TableLayoutBase {
             TableRow tableRow = new TableRow(context);
             tableRow.addView(getBridgeDateCell(context, bridge));
             tableRow.addView(getCell(context, bridge.showCompactInfo().trim(), true, null));
-            tableRow.addView(getCell(context, bridge.isWin() ? "o" : "x", false, null));
+            tableRow.addView(getCell(context, getBridgeResultInfo(bridge), false, null));
             tableLayout.addView(tableRow);
             tableLayout.addView(getBottomBorder(context));
         }
 
         return tableLayout;
+    }
+
+    private static String getBridgeResultInfo(Bridge bridge) {
+        return (bridge.isWin() ? "O" : "X") + "-"
+                + bridge.getJackpotHistory().getJackpot().getCouple().show();
     }
 
     public static TableLayout getTableLayoutWithNewStyleRow(Context context, TableData tableData, TextViewBase headerManager,

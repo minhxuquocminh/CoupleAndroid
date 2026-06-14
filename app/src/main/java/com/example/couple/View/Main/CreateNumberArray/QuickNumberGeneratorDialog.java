@@ -24,7 +24,7 @@ import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.Custom.Handler.NumberArrayHandler;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
-import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Bridge.CombinedBridge;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.Touch.CombineTouchBridge;
 import com.example.couple.Model.Bridge.Touch.ConnectedBridge;
@@ -113,7 +113,7 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
         showRecentCouple(jackpotList);
         showRecentBranch(jackpotList);
         viewModel.getCombineBridgesToday(jackpotList, lotteries,
-                new HashSet<>(Arrays.asList(BridgeType.COMBINE_TOUCH, BridgeType.CONNECTED, BridgeType.MAPPING,
+                new HashSet<>(Arrays.asList(BridgeType.COMBINE_TOUCH, BridgeType.CONNECTED, BridgeType.DAY_MAPPING,
                         BridgeType.ESTIMATED, BridgeType.BIG_DOUBLE, BridgeType.SAME_DOUBLE)));
         viewModel.getLongBeatNumbers(jackpotList);
         viewModel.getMappingAndTouchState(jackpotList, lotteries);
@@ -206,7 +206,7 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
         if (bridgeNumbers.contains(BridgeType.CONNECTED.value)) {
             cboConnectedBridge.setChecked(true);
         }
-        if (bridgeNumbers.contains(BridgeType.MAPPING.value)) {
+        if (bridgeNumbers.contains(BridgeType.DAY_MAPPING.value)) {
             cboMappingBridge.setChecked(true);
         }
         if (bridgeNumbers.contains(BridgeType.ESTIMATED.value)) {
@@ -258,7 +258,7 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
         Set<BridgeType> bridgeTypes = new HashSet<>();
         if (cboCombineTouchBridge.isChecked()) bridgeTypes.add(BridgeType.COMBINE_TOUCH);
         if (cboConnectedBridge.isChecked()) bridgeTypes.add(BridgeType.CONNECTED);
-        if (cboMappingBridge.isChecked()) bridgeTypes.add(BridgeType.MAPPING);
+        if (cboMappingBridge.isChecked()) bridgeTypes.add(BridgeType.DAY_MAPPING);
         if (cboEstimatedBridge.isChecked()) bridgeTypes.add(BridgeType.ESTIMATED);
         if (cboBigDoubleSet.isChecked()) bridgeTypes.add(BridgeType.BIG_DOUBLE);
         if (cboSameDoubleSet.isChecked()) bridgeTypes.add(BridgeType.SAME_DOUBLE);
@@ -316,7 +316,7 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
         Set<Integer> bridgeNumberSet = new HashSet<>();
         if (cboCombineTouchBridge.isChecked()) bridgeNumberSet.add(BridgeType.COMBINE_TOUCH.value);
         if (cboConnectedBridge.isChecked()) bridgeNumberSet.add(BridgeType.CONNECTED.value);
-        if (cboMappingBridge.isChecked()) bridgeNumberSet.add(BridgeType.MAPPING.value);
+        if (cboMappingBridge.isChecked()) bridgeNumberSet.add(BridgeType.DAY_MAPPING.value);
         if (cboEstimatedBridge.isChecked()) bridgeNumberSet.add(BridgeType.ESTIMATED.value);
         if (cboBigDoubleSet.isChecked()) bridgeNumberSet.add(BridgeType.BIG_DOUBLE.value);
         if (cboSameDoubleSet.isChecked()) bridgeNumberSet.add(BridgeType.SAME_DOUBLE.value);
@@ -332,11 +332,11 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
     }
 
     @Override
-    public void showCombineBridgesToday(CombineBridge combineBridge) {
-        bridgeMap = combineBridge.getBridgeMap();
+    public void showCombineBridgesToday(CombinedBridge combinedBridge) {
+        bridgeMap = combinedBridge.getBridgeMap();
         String combine = "kết hợp " + Objects.requireNonNull(bridgeMap.get(BridgeType.COMBINE_TOUCH)).showCompactNumbers();
         String connected = "liên thông " + Objects.requireNonNull(bridgeMap.get(BridgeType.CONNECTED)).showCompactNumbers();
-        String mapping = "ánh xạ " + Objects.requireNonNull(bridgeMap.get(BridgeType.MAPPING)).getNumbers().size();
+        String mapping = "ánh xạ " + Objects.requireNonNull(bridgeMap.get(BridgeType.DAY_MAPPING)).getNumbers().size();
         String estimated = "ước lượng " + Objects.requireNonNull(bridgeMap.get(BridgeType.ESTIMATED)).getNumbers().size();
         cboCombineTouchBridge.setText(combine);
         cboConnectedBridge.setText(connected);
@@ -356,17 +356,17 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
     }
 
     @Override
-    public void showMappingAndTouchState(List<CombineBridge> combineBridges) {
+    public void showMappingAndTouchState(List<CombinedBridge> combinedBridges) {
         String showConnected = "Cầu chạm 1: ";
         String showCombine = "Cầu chạm 2: ";
         String showMapping = "Cầu ánh xạ: ";
-        for (int i = combineBridges.size() - 1; i >= 0; i--) {
-            Bridge combine = combineBridges.get(i).getBridgeMap().get(BridgeType.COMBINE_TOUCH);
+        for (int i = combinedBridges.size() - 1; i >= 0; i--) {
+            Bridge combine = combinedBridges.get(i).getBridgeMap().get(BridgeType.COMBINE_TOUCH);
             showCombine += combine == null ? "" : (combine.isUncheckable() ? "x" : (combine.isWin() ? "1 " : "0 "));
-            Bridge connected = combineBridges.get(i).getBridgeMap().get(BridgeType.CONNECTED);
+            Bridge connected = combinedBridges.get(i).getBridgeMap().get(BridgeType.CONNECTED);
             showConnected += connected == null ? "" : (connected.isUncheckable() ? "x" : (connected.isWin() ? "1 " : "0 "));
             if (i >= 8) continue;
-            Bridge mapping = combineBridges.get(i).getBridgeMap().get(BridgeType.MAPPING);
+            Bridge mapping = combinedBridges.get(i).getBridgeMap().get(BridgeType.DAY_MAPPING);
             showMapping += mapping == null ? "" : (mapping.isUncheckable() ? mapping.getNumbers().size() + "?" :
                     (mapping.isWin() ? mapping.getNumbers().size() + " " : mapping.getNumbers().size() + "x "));
         }
@@ -376,21 +376,21 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
     }
 
     @Override
-    public void showSetsState(List<CombineBridge> combineBridges) {
+    public void showSetsState(List<CombinedBridge> combinedBridges) {
         int count1 = 0;
         int count2 = 0;
         List<Integer> beats1 = new ArrayList<>();
         List<Integer> beats2 = new ArrayList<>();
-        for (int i = combineBridges.size() - 1; i >= 0; i--) {
+        for (int i = combinedBridges.size() - 1; i >= 0; i--) {
             count1++;
-            Bridge doubleFlag = combineBridges.get(i).getBridgeMap().get(BridgeType.SAME_DOUBLE);
+            Bridge doubleFlag = combinedBridges.get(i).getBridgeMap().get(BridgeType.SAME_DOUBLE);
             if (doubleFlag != null && doubleFlag.isWin()) {
                 beats1.add(count1);
                 count1 = 0;
             }
             if (i >= 30) continue;
             count2++;
-            Bridge bigDoubleFlag = combineBridges.get(i).getBridgeMap().get(BridgeType.BIG_DOUBLE);
+            Bridge bigDoubleFlag = combinedBridges.get(i).getBridgeMap().get(BridgeType.BIG_DOUBLE);
             if (bigDoubleFlag != null && bigDoubleFlag.isWin()) {
                 beats2.add(count2);
                 count2 = 0;

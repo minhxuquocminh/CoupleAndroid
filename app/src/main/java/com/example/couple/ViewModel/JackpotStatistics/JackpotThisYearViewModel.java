@@ -3,7 +3,7 @@ package com.example.couple.ViewModel.JackpotStatistics;
 import android.content.Context;
 
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.History.HistoryHandler;
+import com.example.couple.Custom.Handler.History.NumberSetHistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.Statistics.JackpotStatistics;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
@@ -42,7 +42,7 @@ public class JackpotThisYearViewModel {
     }
 
     public void getSameDoubleInNearestTime(List<Jackpot> jackpotList) {
-        Map<NumberSetType, List<NumberSetHistory>> historiesByType = HistoryHandler.getFullNumberSetsHistory(jackpotList,
+        Map<NumberSetType, List<NumberSetHistory>> historiesByType = NumberSetHistoryHandler.getFullNumberSetsHistory(jackpotList,
                 Collections.singletonList(NumberSetType.DOUBLE));
         if (historiesByType.isEmpty()) return;
         // double
@@ -53,7 +53,7 @@ public class JackpotThisYearViewModel {
     }
 
     public void getHeadAndTailInNearestTime(List<Jackpot> jackpotList) {
-        Map<NumberSetType, List<NumberSetHistory>> historiesByType = HistoryHandler.getFullNumberSetsHistory(jackpotList,
+        Map<NumberSetType, List<NumberSetHistory>> historiesByType = NumberSetHistoryHandler.getFullNumberSetsHistory(jackpotList,
                 Arrays.asList(NumberSetType.HEAD, NumberSetType.TAIL));
         if (historiesByType.isEmpty()) return;
         // head tail

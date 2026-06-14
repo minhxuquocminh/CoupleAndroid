@@ -28,11 +28,11 @@ import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
-import com.example.couple.View.Bridge.FindingBridgeActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
-import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.View.Main.MainActivity;
+import com.example.couple.View.Notification.NotificationActivity;
+import com.example.couple.View.Search.SearchActivity;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleActivity;
 import com.example.couple.View.SubScreen.ExperianceActivity;
 import com.example.couple.View.SubScreen.NoteActivity;
@@ -41,9 +41,11 @@ import com.example.couple.ViewModel.Main.HomePage.HomePageViewModel;
 import java.util.List;
 
 public class HomePageFragment extends Fragment implements HomePageView, UpdateDataView {
-    ImageView imgViewLottery;
-    ImageView imgFindingBridge;
     TextView tvCalendar;
+    ImageView imgPersonal;
+    LinearLayout layoutSearch;
+    ImageView imgNotification;
+    ImageView imgNavigationMenu;
     LinearLayout layoutRefreshAll;
     LinearLayout layoutRefreshLottery;
     LinearLayout layoutRefreshJackpots;
@@ -77,9 +79,11 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
-        imgViewLottery = view.findViewById(R.id.imgViewLottery);
-        imgFindingBridge = view.findViewById(R.id.imgFindingBridge);
         tvCalendar = view.findViewById(R.id.tvCalendar);
+        imgPersonal = view.findViewById(R.id.imgPersonal);
+        layoutSearch = view.findViewById(R.id.layoutSearch);
+        imgNotification = view.findViewById(R.id.imgNotification);
+        imgNavigationMenu = view.findViewById(R.id.imgNavigationMenu);
         layoutRefreshAll = view.findViewById(R.id.layoutRefreshAll);
         layoutRefreshLottery = view.findViewById(R.id.layoutRefreshLottery);
         layoutRefreshJackpots = view.findViewById(R.id.layoutRefreshJackpots);
@@ -117,17 +121,31 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
             }
         });
 
-        imgViewLottery.setOnClickListener(new View.OnClickListener() {
+        imgPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), LotteryActivity.class));
+                activity.openPersonalTab();
             }
         });
 
-        imgFindingBridge.setOnClickListener(new View.OnClickListener() {
+        layoutSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), FindingBridgeActivity.class));
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+            }
+        });
+
+        imgNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), NotificationActivity.class));
+            }
+        });
+
+        imgNavigationMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.showNavigationMenu(view);
             }
         });
 

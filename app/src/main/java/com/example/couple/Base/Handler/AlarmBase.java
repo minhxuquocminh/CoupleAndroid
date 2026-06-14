@@ -46,6 +46,17 @@ public class AlarmBase {
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
+    public static void cancelAlarm(Context context, Class<?> receiverClass, int REQUEST_CODE) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, receiverClass);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent,
+                PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_MUTABLE);
+        if (pendingIntent == null) return;
+
+        alarmManager.cancel(pendingIntent);
+        pendingIntent.cancel();
+    }
+
     public static boolean isEnableExactAlarmPermission(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

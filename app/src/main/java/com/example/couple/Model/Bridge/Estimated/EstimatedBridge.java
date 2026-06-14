@@ -30,6 +30,7 @@ public class EstimatedBridge extends Bridge {
         this.periodHistories = new ArrayList<>();
         this.numbers = new ArrayList<>();
 
+        periodHistories.addAll(periodHistories4);
         for (PeriodHistory periodHistory3 : periodHistories3) {
             int count = 0;
             for (PeriodHistory periodHistory4 : periodHistories4) {
@@ -40,8 +41,7 @@ public class EstimatedBridge extends Bridge {
 
         List<Integer> inits = new ArrayList<>();
         for (PeriodHistory periodHistory : periodHistories) {
-            inits.addAll(CoupleHandler
-                    .getPeriodNumbers(periodHistory.getLastNumber(), Const.AMPLITUDE_OF_PERIOD));
+            inits.addAll(CoupleHandler.getPeriodNumbers(periodHistory.getLastNumber(), Const.AMPLITUDE_OF_PERIOD));
         }
 
         for (int number : inits) {

@@ -2,7 +2,7 @@ package com.example.couple.ViewModel.JackpotStatistics;
 
 import android.content.Context;
 
-import com.example.couple.Custom.Handler.History.HistoryHandler;
+import com.example.couple.Custom.Handler.History.NumberSetHistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
@@ -25,7 +25,7 @@ public class NumberSetHistoryViewModel {
     }
 
     public void getSpecialSetsHistory(List<Jackpot> jackpotList) {
-        Map<NumberSetType, List<NumberSetHistory>> historiesByType = HistoryHandler.getFullNumberSetsHistory(jackpotList,
+        Map<NumberSetType, List<NumberSetHistory>> historiesByType = NumberSetHistoryHandler.getFullNumberSetsHistory(jackpotList,
                 NumberSetType.getValuesWithCouple());
         if (!historiesByType.isEmpty()) {
             numberSetHistoryView.showSpecialSetsHistory(historiesByType);

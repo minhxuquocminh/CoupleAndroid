@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.couple.Base.Handler.NotificationBase;
 import com.example.couple.Custom.Const.NotifyId;
 import com.example.couple.Custom.Handler.Bridge.CycleBridgeHandler;
-import com.example.couple.Custom.Handler.History.HistoryHandler;
+import com.example.couple.Custom.Handler.History.NumberSetHistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Bridge.Cycle.BranchInTwoDaysBridge;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
@@ -19,14 +19,19 @@ import java.util.stream.Collectors;
 
 public class NewBridge {
     public static void notify(Context context, List<Jackpot> jackpotList) {
+        if (!NotificationSettingsHandler.isBridgeNotificationEnabled(context)) return;
+
         DateBase nextDate = JackpotHandler.getLastDate(context).addDays(1);
         NotificationInfo notificationInfo = NotificationBase.getNotificationInfo(context, NotifyId.SHOW_NEW_BRIDGE);
         if (!notificationInfo.isEmpty()) {
-            String dateStr = notificationInfo.getTitle().split("ngày")[1].trim();
-            if (DateBase.fromString(dateStr, "-").equals(nextDate)) return;
+            String title = notificationInfo.getTitle();
+            if (title.contains("ngày")) {
+                String dateStr = title.split("ngày")[1].trim();
+                if (DateBase.fromString(dateStr, "-").equals(nextDate)) return;
+            }
         }
         BranchInTwoDaysBridge bridge = CycleBridgeHandler.getBranchInTwoDaysBridge(jackpotList, 0);
-        List<NumberSetHistory> numberSetHistories = HistoryHandler.getCompactNumberSetsHistory(jackpotList,
+        List<NumberSetHistory> numberSetHistories = NumberSetHistoryHandler.getCompactNumberSetsHistory(jackpotList,
                 Arrays.asList(NumberSetType.values()), 50, 50, 79);
         String title = "Có cầu mới cho ngày " + nextDate.showFullChars();
         String content = "";

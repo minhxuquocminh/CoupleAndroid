@@ -28,7 +28,7 @@ public class OtherBridgeHandler {
         lastTwoJackpot.add(jackpotList.get(dayNumberBefore));
         lastTwoJackpot.add(jackpotList.get(dayNumberBefore + 1));
         CombineTouchBridge combineTouchBridge = TouchBridgeHandler.getCombineTouchBridge(jackpotList, lotteries, dayNumberBefore);
-        MappingBridge mappingBridge = MappingBridgeHandler.getMappingBridge(jackpotList, dayNumberBefore);
+        MappingBridge mappingBridge = MappingBridgeHandler.getDayMappingBridge(jackpotList, dayNumberBefore);
         EstimatedBridge estimatedBridge = EstimatedBridgeHandler.getEstimatedBridge(jackpotList, dayNumberBefore);
         return new SyntheticBridge(lastTwoJackpot, combineTouchBridge, mappingBridge, estimatedBridge,
                 new JackpotHistory(dayNumberBefore, jackpot));

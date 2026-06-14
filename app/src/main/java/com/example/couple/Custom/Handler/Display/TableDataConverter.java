@@ -18,7 +18,8 @@ import java.util.List;
 public class TableDataConverter {
 
     public static TableData getBalanceCouple(List<Jackpot> jackpotList, int dayNumber, int picker) {
-        if (jackpotList.size() <= 2) return null;
+        if (jackpotList.size() <= 2)
+            return null;
         int viewSize = Math.min(dayNumber, jackpotList.size() - 2);
         TableData tableData = new TableData();
         tableData.createHeaders(Arrays.asList("D/M", "B1", "B2", "B3", "B4", "+/-", "KQ", "CL"));
@@ -29,16 +30,18 @@ public class TableDataConverter {
             Couple second = jackpotList.get(i + 1).getCouple();
             List<BCouple> balanceBCouples = BCoupleBridgeHandler.getBalanceCouples(
                     first.toBCouple(), second.toBCouple());
-            rowData.addCell(i != -1 ? jackpotList.get(i).getDateBase().showDDMM("/") :
-                    jackpotList.get(0).getDateBase().addDays(1).showDDMM("/"));
+            rowData.addCell(i != -1 ? jackpotList.get(i).getDateBase().showDDMM("/")
+                    : jackpotList.get(0).getDateBase().addDays(1).showDDMM("/"));
             for (BCouple bCouple : balanceBCouples) {
                 rowData.addCell(bCouple.showDot());
             }
             rowData.addCell("{" + first.plus(second) + "," + first.sub(second) + "}");
-            rowData.addCell(i != -1 ? jackpotList.get(i).getCouple().showDot() :
-                    (picker != Const.EMPTY_VALUE ? (picker / 10) + "." + (picker % 10) : "x.x"));
-            rowData.addCell(i != -1 ? jackpotList.get(i).getCouple().getCL() :
-                    (picker != Const.EMPTY_VALUE ? ((picker / 10) % 2 == 0 ? "C" : "L") + ((picker % 10) % 2 == 0 ? "C" : "L") : "xx"));
+            rowData.addCell(i != -1 ? jackpotList.get(i).getCouple().showDot()
+                    : (picker != Const.EMPTY_VALUE ? (picker / 10) + "." + (picker % 10) : "x.x"));
+            rowData.addCell(i != -1 ? jackpotList.get(i).getCouple().getCL()
+                    : (picker != Const.EMPTY_VALUE
+                            ? ((picker / 10) % 2 == 0 ? "C" : "L") + ((picker % 10) % 2 == 0 ? "C" : "L")
+                            : "xx"));
             tableData.addRow(rowData);
         }
         return tableData;
@@ -83,14 +86,15 @@ public class TableDataConverter {
         return tableData;
     }
 
-    public static TableData  getBridgeHistoryTable(List<Bridge> bridges) {
+    public static TableData getBridgeHistoryTable(List<Bridge> bridges) {
         TableData tableData = new TableData();
         tableData.createHeaders(Arrays.asList("Ngày", "Thông tin", "KQ"));
         for (Bridge bridge : bridges) {
             RowData rowData = new RowData();
             rowData.addCell(bridge.getJackpotHistory().getJackpot().getDateBase().showDDMM("/"));
             rowData.addCell(bridge.showCompactInfo().trim());
-            rowData.addCell(bridge.isWin() ? "o" : "x");
+            rowData.addCell((bridge.isWin() ? "O" : "X") + " "
+                    + bridge.getJackpotHistory().getJackpot().getCouple().show());
             tableData.addRow(rowData);
         }
         return tableData;

@@ -3,7 +3,7 @@ package com.example.couple.Custom.Handler.Bridge;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
-import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Bridge.CombinedBridge;
 import com.example.couple.Model.Bridge.JackpotHistory;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
@@ -17,11 +17,11 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class BridgeStateHandler {
+public class CombinedBridgeHandler {
 
-    public static List<CombineBridge> getCombineBridges(List<Jackpot> jackpotList, List<Lottery> lotteryList,
-                                                        Set<BridgeType> bridgeTypes, int numberOfDay, List<Input> inputs) {
-        List<CombineBridge> combineBridges = new ArrayList<>();
+    public static List<CombinedBridge> getCombinedBridges(List<Jackpot> jackpotList, List<Lottery> lotteryList,
+                                                          Set<BridgeType> bridgeTypes, int numberOfDay, List<Input> inputs) {
+        List<CombinedBridge> combinedBridges = new ArrayList<>();
         numberOfDay = Math.min(numberOfDay, jackpotList.size() - 2);
         if (bridgeTypes.contains(BridgeType.COMBINE_TOUCH)) {
             numberOfDay = Math.min(numberOfDay, jackpotList.size() - 14);
@@ -38,11 +38,11 @@ public class BridgeStateHandler {
             Map<BridgeType, Bridge> bridgeMap = bridgeTypes.stream()
                     .map(type -> type.getBridge(jackpotList, lotteryList, inputs, index)).filter(Objects::nonNull)
                     .collect(Collectors.toMap(bridge -> bridge != null ? bridge.getType() : null, Function.identity()));
-            CombineBridge combineBridge = new CombineBridge(bridgeMap, jackpotHistory);
-            combineBridges.add(combineBridge);
+            CombinedBridge combinedBridge = new CombinedBridge(bridgeMap, jackpotHistory);
+            combinedBridges.add(combinedBridge);
         }
 
-        return combineBridges;
+        return combinedBridges;
     }
 
 }

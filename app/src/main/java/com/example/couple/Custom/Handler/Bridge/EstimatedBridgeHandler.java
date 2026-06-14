@@ -69,35 +69,19 @@ public class EstimatedBridgeHandler {
             lastNumbers.add(jackpotList.get(i).getCoupleInt());
         }
         List<DualStatus> statusList = getStatusList(lastNumbers);
+        List<PeriodHistory> periodHistoryList = getPeriodHistoryList(jackpotList,
+                dayNumberBefore, periodNumber, range);
 
-        List<PeriodHistory> periodHistoryList = new ArrayList<>();
-        for (int i = dayNumberBefore + periodNumber; i < jackpotList.size() - periodNumber; i++) {
-            int count = 0;
-            List<Integer> numbers = new ArrayList<>();
-            for (int j = 0; j < periodNumber; j++) {
-                int coupleCheck = jackpotList.get(i + j).getCoupleInt();
-                if (isInPeriod(lastNumbers.get(j), coupleCheck, range)) {
-                    count++;
-                    numbers.add(coupleCheck);
-                }
-            }
-            if (count == periodNumber) {
-                boolean checkStatus = compareStatusList(statusList, getStatusList(numbers));
-                if (!checkStatus) continue;
-                Collections.reverse(numbers);
-                DateBase start = jackpotList.get(i + periodNumber).getDateBase();
-                DateBase end = jackpotList.get(i).getDateBase();
-                if (i - 1 < jackpotList.size() - 1) {
-                    numbers.add(jackpotList.get(i - 1).getCoupleInt());
-                    end = jackpotList.get(i - 1).getDateBase();
-                }
-                periodHistoryList.add(new PeriodHistory(start, end, numbers));
-            }
-        }
+        return periodHistoryList.stream()
+                .filter(periodHistory -> compareStatusList(statusList,
+                        getStatusList(getOriginalPeriodNumbers(periodHistory, periodNumber))))
+                .collect(java.util.stream.Collectors.toList());
+    }
 
-        Collections.reverse(periodHistoryList);
-
-        return periodHistoryList;
+    private static List<Integer> getOriginalPeriodNumbers(PeriodHistory periodHistory, int periodNumber) {
+        List<Integer> numbers = new ArrayList<>(periodHistory.getNumbers().subList(0, periodNumber));
+        Collections.reverse(numbers);
+        return numbers;
     }
 
     private static boolean isInPeriod(int number, int numberCheck, int range) {

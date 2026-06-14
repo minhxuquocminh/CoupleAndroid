@@ -37,6 +37,7 @@ import com.example.couple.View.Bridge.AfterDoubleBridgeActivity;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.Bridge.ConnectedBridgeActivity;
 import com.example.couple.View.Bridge.EstimatedBridgeActivity;
+import com.example.couple.View.Bridge.MappingBridgeActivity;
 import com.example.couple.View.Bridge.TouchBridgeActivity;
 import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
@@ -52,6 +53,7 @@ import com.example.couple.View.Main.FunctionDisplay.FunctionDisplayFragment;
 import com.example.couple.View.Main.HomePage.HomePageFragment;
 import com.example.couple.View.Main.NumberPicker.NumberPickerFragment;
 import com.example.couple.View.Main.Personal.PersonalFragment;
+import com.example.couple.View.Setting.NotificationSettingActivity;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleActivity;
 import com.example.couple.View.SubScreen.CycleByYearActivity;
 import com.example.couple.View.SubScreen.NoteActivity;
@@ -216,7 +218,7 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
         });
     }
 
-    private void showNavigationMenu(View anchor) {
+    public void showNavigationMenu(View anchor) {
         if (navigationPopupWindow != null && navigationPopupWindow.isShowing()) {
             navigationPopupWindow.dismiss();
             return;
@@ -248,6 +250,10 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
         navigationPopupWindow.setOutsideTouchable(true);
         navigationPopupWindow.setElevation(dp(6));
         navigationPopupWindow.showAsDropDown(anchor, 0, 0);
+    }
+
+    public void openPersonalTab() {
+        navigationView.setSelectedItemId(R.id.itPersonal);
     }
 
     private void addGroupView(LinearLayout container, NavigationMenuGroup menuGroup) {
@@ -307,6 +313,7 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
                         new NavigationMenuItem("Cầu liên thông", ConnectedBridgeActivity.class),
                         new NavigationMenuItem("Cầu sau khi ra kép", AfterDoubleBridgeActivity.class),
                         new NavigationMenuItem("Cầu chạm", TouchBridgeActivity.class),
+                        new NavigationMenuItem("Cầu ánh xạ", MappingBridgeActivity.class),
                         new NavigationMenuItem("Cầu ước lượng", EstimatedBridgeActivity.class),
                         new NavigationMenuItem("Tổng hợp cầu", BridgeCombinationActivity.class)
                 }),
@@ -318,7 +325,7 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
                 new NavigationMenuGroup("Cài đặt", new NavigationMenuItem[]{
                         new NavigationMenuItem("Sửa URL và Param", UrlAndParamsActivity.class),
                         new NavigationMenuItem("Lưu dữ liệu ĐB", AddJackpotManyYearsActivity.class),
-                        new NavigationMenuItem("Cài đặt thông báo", null)
+                        new NavigationMenuItem("Cài đặt thông báo", NotificationSettingActivity.class)
                 }),
                 new NavigationMenuGroup("Khác", new NavigationMenuItem[]{
                         new NavigationMenuItem("Can chi theo năm", CycleByYearActivity.class),

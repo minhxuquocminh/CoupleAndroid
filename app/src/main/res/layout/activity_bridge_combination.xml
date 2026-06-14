@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorThemeLight"
+    android:background="@color/colorBgRowLottery"
     android:orientation="vertical">
 
-    <!--toolbar-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,15 +19,14 @@
             android:padding="@dimen/padding_5dp"
             android:text="Tổ hợp cầu"
             android:textColor="@color/colorThemeLight"
-            android:textSize="@dimen/text_size_header"
-            android:typeface="normal" />
+            android:textSize="@dimen/text_size_header" />
 
         <ImageView
             android:id="@+id/imgBridgeAnnotation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="@dimen/margin_5dp"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:contentDescription="Chú thích"
             android:padding="@dimen/padding_10dp"
             android:src="@drawable/ic_right_anno" />
 
@@ -36,39 +34,52 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="@dimen/padding_10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@drawable/bg_bridge_combination_panel"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10dp"
+                android:paddingTop="@dimen/padding_8dp"
+                android:paddingRight="@dimen/padding_10dp"
+                android:paddingBottom="@dimen/padding_8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Số ngày lấy cầu"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="3">
+                    android:layout_width="86dp"
+                    android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/edtDayNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="Số ngày lấy cầu"
                         android:inputType="number"
                         android:maxLength="2"
                         android:text="18"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size"
+                        android:textSize="@dimen/text_size_big"
                         android:textStyle="bold" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -76,475 +87,525 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_5dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@drawable/bg_bridge_combination_panel"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Cầu chạm"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:background="@color/colorText" />
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginBottom="@dimen/margin_3dp"
+                    android:background="@color/colorDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cboCombineTouchBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        android:minHeight="40dp"
+                        android:text="kết hợp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboConnectedBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="liên thông"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cboSyntheticBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="tổng hợp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboLottoTouchBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="lô tô"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cboLastDayShadowBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="bóng ngày"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboLastWeekShadowBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="bóng tuần"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboCombineTouchBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="kết hợp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboConnectedBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="liên thông"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:id="@+id/cboSyntheticBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="tổng hợp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboLottoTouchBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="lô tô"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboLastDayShadowBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="bóng ngày"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboLastWeekShadowBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="bóng tuần"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_5dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@drawable/bg_bridge_combination_panel"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Cầu ánh xạ, cầu ước lượng"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:background="@color/colorText" />
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginBottom="@dimen/margin_3dp"
+                    android:background="@color/colorDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cboMappingBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="ánh xạ"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboConnectedSetBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="liên bộ"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboEstimatedBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="ước lg"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cboRightMappingBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="ánh xạ P"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboCompatible"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="can chi hợp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboIncompatible"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="can chi khắc"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cboTriadMappingBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="2 ánh xạ"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboUnappearedBigDoubleBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="kép chưa ra"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboBranchInTwoDaysBridge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="chi 2 ngày"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboMappingBridge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ánh xạ"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboConnectedSetBridge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="liên bộ"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboEstimatedBridge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ước lg"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboRightMappingBridge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ánh xạ P"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboCompatible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="can chi hợp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboIncompatible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="can chi khắc"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboTriadMappingBridge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="2 ánh xạ"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboUnappearedBigDoubleBridge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="kép chưa ra"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranchInTwoDaysBridge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="chi 2 ngày"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_5dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@drawable/bg_bridge_combination_panel"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Bộ đặc biệt"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:background="@color/colorText" />
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginBottom="@dimen/margin_3dp"
+                    android:background="@color/colorDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cboBigDoubleSet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="bộ kép to"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboSameDoubleSet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="bộ kép bằng"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <CheckBox
+                        android:id="@+id/cboPositiveDoubleSet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/colorPrimary"
+                        android:minHeight="40dp"
+                        android:text="bộ kép dg"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboBigDoubleSet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="bộ kép to"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboSameDoubleSet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="bộ kép bằng"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboPositiveDoubleSet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="bộ kép dg"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_5dp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@drawable/bg_bridge_combination_panel"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Kết hợp các bộ khác"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:background="@color/colorText" />
-            </LinearLayout>
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:layout_marginBottom="@dimen/margin_5dp"
+                    android:background="@color/colorDivider" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_8dp"
-                android:layout_marginRight="@dimen/padding_8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Bộ số:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/edtSet"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Bộ số"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtSet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_weight="2"
+                        android:singleLine="true"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Chạm"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtTouch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:singleLine="true"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_5dp"
-                    android:layout_weight="2"
-                    android:hint="ex: 3 8"
-                    android:lineSpacingExtra="2dp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Tổng"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtSum"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_weight="2"
+                        android:singleLine="true"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Chi"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtBranch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:singleLine="true"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Chạm:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/edtTouch"
-                    android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Đầu"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtHead"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_10dp"
+                        android:layout_weight="2"
+                        android:singleLine="true"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Đuôi"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                    <EditText
+                        android:id="@+id/edtTail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:singleLine="true"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:hint="ex: 4 8"
-                    android:lineSpacingExtra="2dp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="K.hợp"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_8dp"
-                android:layout_marginRight="@dimen/padding_8dp"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/edtCombine"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:singleLine="true"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/text_size" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tổng:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <EditText
-                    android:id="@+id/edtSum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_5dp"
-                    android:layout_weight="2"
-                    android:hint="ex: 5 8"
-                    android:lineSpacingExtra="2dp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Chi:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <EditText
-                    android:id="@+id/edtBranch"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:hint="ex: 6 8"
-                    android:lineSpacingExtra="2dp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_8dp"
-                android:layout_marginRight="@dimen/padding_8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Đầu:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <EditText
-                    android:id="@+id/edtHead"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_5dp"
-                    android:layout_weight="2"
-                    android:hint="ex: 7 8"
-                    android:lineSpacingExtra="2dp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Đuôi:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <EditText
-                    android:id="@+id/edtTail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:hint="ex: 8 8"
-                    android:lineSpacingExtra="2dp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_8dp"
-                android:layout_marginRight="@dimen/padding_8dp"
-                android:layout_marginBottom="@dimen/margin_5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="K.hợp:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <EditText
-                    android:id="@+id/edtCombine"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_5dp"
-                    android:layout_weight="5"
-                    android:hint="ex: 78 88"
-                    android:lineSpacingExtra="2dp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                </LinearLayout>
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btnFindingBridge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_5dp"
-                android:layout_weight="1"
-                android:background="@color/colorThemeBold"
-                android:text="cầu kết hợp"
-                android:textAllCaps="false"
-                android:textColor="@color/colorThemeLight"
-                android:textSize="@dimen/text_size_big" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
+    <Button
+        android:id="@+id/btnFindingBridge"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginRight="@dimen/margin_10dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:background="@drawable/border_corners_primary"
+        android:text="Cầu kết hợp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorThemeLight"
+        android:textSize="@dimen/text_size_big"
+        android:textStyle="bold" />
+
 </LinearLayout>
-
-

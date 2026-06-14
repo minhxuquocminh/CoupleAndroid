@@ -6,28 +6,6 @@
     android:background="@color/colorThemeLight"
     android:orientation="vertical">
 
-    <!--toolbar-->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_toolbar"
-        android:background="@color/colorThemeBold"
-        android:elevation="2dp"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/tvToolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="@dimen/padding_5dp"
-            android:text="Chọn số"
-            android:textColor="@color/colorThemeLight"
-            android:textSize="@dimen/text_size_header"
-            android:typeface="normal" />
-
-    </androidx.appcompat.widget.Toolbar>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,6 +16,78 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingBottom="@dimen/margin_10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorThemeLight"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_10dp"
+                android:paddingTop="@dimen/padding_8dp"
+                android:paddingRight="@dimen/padding_10dp"
+                android:paddingBottom="@dimen/padding_8dp">
+
+                <ImageView
+                    android:id="@+id/imgPersonal"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginRight="@dimen/margin_6dp"
+                    android:background="@drawable/bg_search_box"
+                    android:contentDescription="Cá nhân"
+                    android:padding="@dimen/padding_8dp"
+                    android:src="@drawable/ic_bottom_personal"
+                    android:tint="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:id="@+id/layoutSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_search_box"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padding_10dp"
+                    android:paddingRight="@dimen/padding_10dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_search" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="Tìm kiếm"
+                        android:textColor="@color/colorTextNavBar"
+                        android:textSize="@dimen/text_size" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imgNotification"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="@dimen/margin_6dp"
+                    android:background="@drawable/bg_search_box"
+                    android:contentDescription="Thông báo"
+                    android:padding="@dimen/padding_8dp"
+                    android:src="@drawable/ic_notification" />
+
+                <ImageView
+                    android:id="@+id/imgNavigationMenu"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="@dimen/margin_6dp"
+                    android:background="@drawable/bg_search_box"
+                    android:contentDescription="Menu"
+                    android:padding="@dimen/padding_8dp"
+                    android:src="@drawable/ic_menu_lines" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

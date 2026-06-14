@@ -33,6 +33,13 @@
             android:permission="TODO"
             tools:ignore="ExportedReceiver" />
 
+        <receiver
+            android:name=".Custom.Handler.Notification.TodayBridgeAlarm"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver" />
+
         <activity
             android:name=".View.Main.MainActivity"
             android:exported="true"
@@ -53,6 +60,8 @@
         <activity android:name=".View.Bridge.ConnectedBridgeActivity" />
 
         <activity android:name=".View.Bridge.EstimatedBridgeActivity" />
+
+        <activity android:name=".View.Bridge.MappingBridgeActivity" />
 
         <activity android:name=".View.Bridge.TouchBridgeActivity" />
 
@@ -105,6 +114,12 @@
         <activity android:name=".View.UpdateDataInfo.UrlAndParamsInfoActivity" />
 
         <activity android:name=".View.UpdateDataInfo.AddJackpotManyYearsActivity" />
+
+        <activity android:name=".View.Setting.NotificationSettingActivity" />
+
+        <activity android:name=".View.Notification.NotificationActivity" />
+
+        <activity android:name=".View.Search.SearchActivity" />
 
         <activity android:name=".View.Account.SignInActivity" />
 

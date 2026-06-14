@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class HistoryHandler {
+public class NumberSetHistoryHandler {
 
     public static List<NumberSetHistory> getCompactNumberSetsHistory(List<Jackpot> jackpotList, List<NumberSetType> numberSetTypes,
                                                                      int min8size, int min10size, int minHead) {

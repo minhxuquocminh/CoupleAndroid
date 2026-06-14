@@ -17,7 +17,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Bridge.Bridge;
 import com.example.couple.Model.Bridge.BridgeType;
-import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Bridge.CombinedBridge;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Handler.InputType;
 import com.example.couple.Model.Origin.Jackpot;
@@ -135,14 +135,14 @@ public class BridgeCombinationActivity extends ActivityBase implements BridgeCom
                 bridgeTypeFlag.put(BridgeType.LAST_DAY_SHADOW, cboLastDayShadowBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.LAST_WEEK_SHADOW, cboLastWeekShadowBridge.isChecked());
                 // mapping, estimated
-                bridgeTypeFlag.put(BridgeType.MAPPING, cboMappingBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.DAY_MAPPING, cboMappingBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.CONNECTED_SET, cboConnectedSetBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.ESTIMATED, cboEstimatedBridge.isChecked());
-                bridgeTypeFlag.put(BridgeType.RIGHT_MAPPING, cboRightMappingBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.DAY_RIGHT_MAPPING, cboRightMappingBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.COMPATIBLE_CYCLE, cboCompatible.isChecked());
                 bridgeTypeFlag.put(BridgeType.INCOMPATIBLE_CYCLE, cboIncompatible.isChecked());
                 bridgeTypeFlag.put(BridgeType.UNAPPEARED_BIG_DOUBLE, cboUnappearedBigDoubleBridge.isChecked());
-                bridgeTypeFlag.put(BridgeType.TRIAD_MAPPING, cboTriadMappingBridge.isChecked());
+                bridgeTypeFlag.put(BridgeType.COMBINED_MAPPING, cboTriadMappingBridge.isChecked());
                 bridgeTypeFlag.put(BridgeType.BRANCH_IN_TWO_DAYS_BRIDGE, cboBranchInTwoDaysBridge.isChecked());
                 // special set
                 bridgeTypeFlag.put(BridgeType.BIG_DOUBLE, cboBigDoubleSet.isChecked());
@@ -182,7 +182,7 @@ public class BridgeCombinationActivity extends ActivityBase implements BridgeCom
         String lotto = Objects.requireNonNull(bridgeMap.get(BridgeType.LOTTO_TOUCH)).showCompactNumbers();
         String lastDay = Objects.requireNonNull(bridgeMap.get(BridgeType.LAST_DAY_SHADOW)).showCompactNumbers();
         String lastWeek = Objects.requireNonNull(bridgeMap.get(BridgeType.LAST_WEEK_SHADOW)).showCompactNumbers();
-        String mapping = "" + Objects.requireNonNull(bridgeMap.get(BridgeType.MAPPING)).getNumbers().size();
+        String mapping = "" + Objects.requireNonNull(bridgeMap.get(BridgeType.DAY_MAPPING)).getNumbers().size();
         String conectedSet = Objects.requireNonNull(bridgeMap.get(BridgeType.CONNECTED_SET)).showCompactNumbers();
         String estimated = "" + Objects.requireNonNull(bridgeMap.get(BridgeType.ESTIMATED)).getNumbers().size();
         cboCombineTouchBridge.setText("kết hợp " + combine);
@@ -197,16 +197,16 @@ public class BridgeCombinationActivity extends ActivityBase implements BridgeCom
     }
 
     @Override
-    public void showCombineBridgeList(List<CombineBridge> combineBridges) {
+    public void showCombineBridgeList(List<CombinedBridge> combinedBridges) {
         StringBuilder show = new StringBuilder();
         int count = 0;
-        for (CombineBridge bridge : combineBridges) {
+        for (CombinedBridge bridge : combinedBridges) {
             show.append(bridge.showBridge()).append("\n");
             if (bridge.isWin()) count++;
         }
         DialogBase.showWithCopiedText(this,
-                "Cầu kết hợp", "Tỉ lệ: " + count + "/" + combineBridges.size() +
-                        "\n" + show, combineBridges.get(0).showNumbers(), "KQ");
+                "Cầu kết hợp", "Tỉ lệ: " + count + "/" + combinedBridges.size() +
+                        "\n" + show, combinedBridges.get(0).showNumbers(), "KQ");
     }
 
     @Override

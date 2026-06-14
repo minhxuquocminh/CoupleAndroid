@@ -12,7 +12,7 @@ import com.example.couple.Base.Handler.NumberBase;
 import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Base.View.DialogBase;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.History.HistoryHandler;
+import com.example.couple.Custom.Handler.History.NumberSetHistoryHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
@@ -135,7 +135,7 @@ public class AddJackpotManyYearsActivity extends ActivityBase implements AddJack
         String mess = "";
         int max = 0;
         Map<NumberSetType, List<NumberSetHistory>> historiesByType =
-                HistoryHandler.getFullNumberSetsHistory(jackpotList, Arrays.asList(NumberSetType.values()));
+                NumberSetHistoryHandler.getFullNumberSetsHistory(jackpotList, Arrays.asList(NumberSetType.values()));
         for (Map.Entry<NumberSetType, List<NumberSetHistory>> entry : historiesByType.entrySet()) {
             for (NumberSetHistory history : entry.getValue()) {
                 mess += history.showWithBeats() + "\n";
@@ -149,7 +149,7 @@ public class AddJackpotManyYearsActivity extends ActivityBase implements AddJack
         List<Jackpot> jackpotList = JackpotHandler.getJackpotListManyYears(context, 8);
         String mess = "";
         int max = 0;
-        Map<NumberSetType, List<NumberSetHistory>> historiesByType = HistoryHandler.getFullNumberSetsHistory(jackpotList,
+        Map<NumberSetType, List<NumberSetHistory>> historiesByType = NumberSetHistoryHandler.getFullNumberSetsHistory(jackpotList,
                 Arrays.asList(NumberSetType.HEAD, NumberSetType.TAIL, NumberSetType.SET, NumberSetType.SUM));
         for (Map.Entry<NumberSetType, List<NumberSetHistory>> entry : historiesByType.entrySet()) {
             for (NumberSetHistory history : entry.getValue()) {

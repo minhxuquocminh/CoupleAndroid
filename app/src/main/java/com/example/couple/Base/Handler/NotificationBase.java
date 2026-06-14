@@ -12,6 +12,7 @@ import android.service.notification.StatusBarNotification;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.example.couple.Custom.Handler.Notification.NotificationSettingsHandler;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.DateTime.DateTimeBase;
 import com.example.couple.Model.DateTime.Time.TimeBase;
@@ -62,6 +63,8 @@ public class NotificationBase {
     }
 
     public static void pushNotification(Context context, int notifyId, String title, String content) {
+        if (!NotificationSettingsHandler.isAppNotificationEnabled(context)) return;
+
         initNotification(context);
         NotificationCompat.Builder nb = getChannelNotification(context, title, content);
         mManager.notify(notifyId, nb.build());

@@ -4,11 +4,11 @@ import android.content.Context;
 
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
-import com.example.couple.Custom.Handler.Bridge.BridgeStateHandler;
+import com.example.couple.Custom.Handler.Bridge.CombinedBridgeHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Model.Bridge.BridgeType;
-import com.example.couple.Model.Bridge.CombineBridge;
+import com.example.couple.Model.Bridge.CombinedBridge;
 import com.example.couple.Model.Handler.Input;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
@@ -45,11 +45,11 @@ public class BridgeCombinationViewModel {
         if (jackpotList.isEmpty() || lotteryList.isEmpty()) return;
         Set<BridgeType> bridgeTypes = new HashSet<>(Arrays.asList(BridgeType.COMBINE_TOUCH, BridgeType.CONNECTED,
                 BridgeType.SYNTHETIC, BridgeType.LOTTO_TOUCH, BridgeType.LAST_DAY_SHADOW, BridgeType.LAST_WEEK_SHADOW,
-                BridgeType.MAPPING, BridgeType.CONNECTED_SET, BridgeType.ESTIMATED));
-        List<CombineBridge> combineBridges = BridgeStateHandler.getCombineBridges(jackpotList,
+                BridgeType.DAY_MAPPING, BridgeType.CONNECTED_SET, BridgeType.ESTIMATED));
+        List<CombinedBridge> combinedBridges = CombinedBridgeHandler.getCombinedBridges(jackpotList,
                 lotteryList, bridgeTypes, 1, new ArrayList<>());
         if (!bridgeTypes.isEmpty()) {
-            view.showAllBridgeToday(combineBridges.get(0).getBridgeMap());
+            view.showAllBridgeToday(combinedBridges.get(0).getBridgeMap());
         }
     }
 
@@ -76,12 +76,12 @@ public class BridgeCombinationViewModel {
             view.showMessage("Có lỗi nhập tại:" + notifMessage);
         }
 
-        List<CombineBridge> combineBridges = BridgeStateHandler.getCombineBridges(jackpotList,
+        List<CombinedBridge> combinedBridges = CombinedBridgeHandler.getCombinedBridges(jackpotList,
                 lotteryList, bridgeTypes, numberOfDay, inputs);
-        if (combineBridges.isEmpty()) {
+        if (combinedBridges.isEmpty()) {
             view.showMessage("Không tìm thấy cầu.");
         } else {
-            view.showCombineBridgeList(combineBridges);
+            view.showCombineBridgeList(combinedBridges);
         }
     }
 }

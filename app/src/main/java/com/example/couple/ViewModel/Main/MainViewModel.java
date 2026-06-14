@@ -9,6 +9,7 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.FileName;
 import com.example.couple.Custom.Const.RequestCode;
 import com.example.couple.Custom.Enum.Flag;
+import com.example.couple.Custom.Handler.Notification.NotificationSettingsHandler;
 import com.example.couple.Custom.Handler.Notification.UpdateDataAlarm;
 import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.View.Main.MainView;
@@ -46,6 +47,7 @@ public class MainViewModel {
                 new TimeBase(18, 32, 0));
         AlarmBase.registerAlarmEveryDay(context, UpdateDataAlarm.class, RequestCode.ALARM_1833,
                 new TimeBase(18, 33, 0));
+        NotificationSettingsHandler.applyBridgeNotificationAlarm(context);
         StorageBase.setFlag(context, Flag.SET_ALARM, true);
     }
 

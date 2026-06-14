@@ -158,6 +158,37 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearNotificationSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="6dp"
+                android:background="@color/colorSurface"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="4dp"
+                android:paddingTop="6dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cài đặt thông báo"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:layout_width="18dp"
+                    android:layout_height="22dp"
+                    android:background="@color/colorSurface"
+                    android:src="@drawable/ic_right"
+                    android:tint="@color/colorPrimary" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/linearChangePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

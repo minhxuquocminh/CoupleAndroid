@@ -40,6 +40,8 @@ import com.example.couple.View.Bridge.SelectiveBridgeActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Main.MainActivity;
+import com.example.couple.View.Notification.NotificationActivity;
+import com.example.couple.View.Search.SearchActivity;
 import com.example.couple.ViewModel.Main.CreateNumberArray.CreateNumberArrayViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -48,6 +50,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CreateNumberArrayFragment extends Fragment implements CreateNumberArrayView {
+    ImageView imgPersonal;
+    View layoutSearch;
+    ImageView imgNotification;
+    ImageView imgNavigationMenu;
     TextView tvViewCombineBridge;
     TextView tvViewCycle;
     TextView tvReference;
@@ -102,6 +108,10 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         viewParent = inflater.inflate(R.layout.fragment_create_number_array, container, false);
 
+        imgPersonal = viewParent.findViewById(R.id.imgPersonal);
+        layoutSearch = viewParent.findViewById(R.id.layoutSearch);
+        imgNotification = viewParent.findViewById(R.id.imgNotification);
+        imgNavigationMenu = viewParent.findViewById(R.id.imgNavigationMenu);
         tvViewCombineBridge = viewParent.findViewById(R.id.tvViewCombineBridge);
         tvViewCycle = viewParent.findViewById(R.id.tvViewCycle);
         tvReference = viewParent.findViewById(R.id.tvReference);
@@ -143,6 +153,34 @@ public class CreateNumberArrayFragment extends Fragment implements CreateNumberA
         viewModel = new CreateNumberArrayViewModel(this, getActivity());
         RECEIVE_DATA = false;
         viewModel.getTriadTable();
+
+        imgPersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.openPersonalTab();
+            }
+        });
+
+        layoutSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+            }
+        });
+
+        imgNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), NotificationActivity.class));
+            }
+        });
+
+        imgNavigationMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.showNavigationMenu(view);
+            }
+        });
 
         tvQuickCreate.setOnClickListener(new View.OnClickListener() {
             @Override
