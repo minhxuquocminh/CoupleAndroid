@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ import com.example.couple.ViewModel.JackpotStatistics.JackpotAllYearViewModel;
 public class JackpotAllYearActivity extends ActivityBase implements JackpotAllYearView {
     EditText edtYearNumberBalanceCouple;
     EditText edtYearNumberSDB;
-    TextView tvView;
+    Button tvView;
     LinearLayout linearBalanceCouple;
     LinearLayout linearSDB;
 

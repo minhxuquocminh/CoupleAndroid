@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,9 +15,11 @@ import com.example.couple.ViewModel.UpdateDataInfo.UrlAndParamsViewModel;
 
 public class UrlAndParamsActivity extends ActivityBase implements UrlAndParamsView {
     ImageView imgEditUrlJackpot;
+    LinearLayout linearEditUrlJackpot;
     TextView tvUrlJackpot;
     TextView tvParamsJackpot;
     ImageView imgEditUrlLottery;
+    LinearLayout linearEditUrlLottery;
     TextView tvUrlLottery;
     TextView tvParamsLottery;
 
@@ -30,9 +33,11 @@ public class UrlAndParamsActivity extends ActivityBase implements UrlAndParamsVi
         setContentView(R.layout.activity_url_and_params);
 
         imgEditUrlJackpot = findViewById(R.id.imgEditUrlJackpot);
+        linearEditUrlJackpot = findViewById(R.id.linearEditUrlJackpot);
         tvUrlJackpot = findViewById(R.id.tvUrlJackpot);
         tvParamsJackpot = findViewById(R.id.tvParamsJackpot);
         imgEditUrlLottery = findViewById(R.id.imgEditUrlLottery);
+        linearEditUrlLottery = findViewById(R.id.linearEditUrlLottery);
         tvUrlLottery = findViewById(R.id.tvUrlLottery);
         tvParamsLottery = findViewById(R.id.tvParamsLottery);
 
@@ -42,21 +47,37 @@ public class UrlAndParamsActivity extends ActivityBase implements UrlAndParamsVi
         imgEditUrlJackpot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UrlAndParamsActivity.this, UrlAndParamsInfoActivity.class);
-                intent.putExtra("URL_TYPE", RC_URL_JACKPOT);
-                startActivityForResult(intent, RC_URL_JACKPOT);
+                openUrlAndParamsInfo(RC_URL_JACKPOT);
+            }
+        });
+
+        linearEditUrlJackpot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrlAndParamsInfo(RC_URL_JACKPOT);
             }
         });
 
         imgEditUrlLottery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UrlAndParamsActivity.this, UrlAndParamsInfoActivity.class);
-                intent.putExtra("URL_TYPE", RC_URL_LOTTERY);
-                startActivityForResult(intent, RC_URL_LOTTERY);
+                openUrlAndParamsInfo(RC_URL_LOTTERY);
             }
         });
 
+        linearEditUrlLottery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrlAndParamsInfo(RC_URL_LOTTERY);
+            }
+        });
+
+    }
+
+    private void openUrlAndParamsInfo(int requestCode) {
+        Intent intent = new Intent(UrlAndParamsActivity.this, UrlAndParamsInfoActivity.class);
+        intent.putExtra("URL_TYPE", requestCode);
+        startActivityForResult(intent, requestCode);
     }
 
     @Override

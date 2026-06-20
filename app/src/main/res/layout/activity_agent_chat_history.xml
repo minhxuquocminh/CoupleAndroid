@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBgRowLottery"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/padding_5dp"
+            android:text="Lịch sử chat"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header" />
+
+        <Button
+            android:id="@+id/btnNewChat"
+            style="@style/AppButton.Outline"
+            android:layout_width="112dp"
+            android:layout_height="38dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:text="Chat mới"
+            android:textSize="12sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/linearChatHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/padding_10dp"
+            android:paddingTop="6dp"
+            android:paddingRight="@dimen/padding_10dp"
+            android:paddingBottom="@dimen/padding_10dp" />
+
+    </ScrollView>
+
+</LinearLayout>

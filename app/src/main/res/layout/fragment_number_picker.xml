@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorThemeLight"
@@ -37,7 +38,7 @@
                     android:contentDescription="Cá nhân"
                     android:padding="@dimen/padding_8dp"
                     android:src="@drawable/ic_bottom_personal"
-                    android:tint="@color/colorPrimary" />
+                    app:tint="@color/colorPrimary" />
 
                 <LinearLayout
                     android:id="@+id/layoutSearch"
@@ -92,17 +93,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_2dp"
-                android:layout_marginBottom="@dimen/margin_2dp"
+                android:layout_marginBottom="2dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/tvBalanceCouple"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="BSCB"
@@ -110,13 +111,14 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvJackpotByYear"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="ĐB năm"
@@ -124,13 +126,14 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvCreateNumberArray"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="ĐB ngày mai"
@@ -138,13 +141,14 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvViewHistory"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Lịch sử"
@@ -157,9 +161,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/margin_6dp"
-                android:layout_marginRight="@dimen/margin_6dp"
-                android:layout_marginBottom="@dimen/margin_3dp"
+                android:layout_margin="@dimen/margin_6dp"
                 android:orientation="horizontal"
                 android:weightSum="9">
 
@@ -284,7 +286,7 @@
                 android:id="@+id/linearTableList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_6dp"
+                android:layout_margin="@dimen/margin_2dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -355,7 +357,7 @@
                 android:id="@+id/hsNumberTable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_6dp"
+                android:layout_margin="@dimen/margin_2dp"
                 android:scrollbars="horizontal|vertical" />
 
             <HorizontalScrollView

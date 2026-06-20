@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -13,10 +16,7 @@ import android.widget.TimePicker;
 import androidx.core.app.ActivityCompat;
 
 import com.example.couple.Base.View.ActivityBase;
-import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.Custom.Handler.LotteryHandler;
 import com.example.couple.Custom.Handler.Notification.NotificationSettingsHandler;
-import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.R;
 
@@ -25,8 +25,12 @@ public class NotificationSettingActivity extends ActivityBase {
 
     Switch switchAppNotifications;
     Switch switchBridgeNotification;
+    TextView tvBridgeNotificationTime;
+    Button btnEditBridgeNotificationTime;
+    Button btnSaveBridgeNotificationTime;
+    Button btnCancelBridgeNotificationTime;
+    LinearLayout linearBridgeTimeEditor;
     TimePicker timePickerBridgeNotification;
-    TextView tvDataStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +39,12 @@ public class NotificationSettingActivity extends ActivityBase {
 
         switchAppNotifications = findViewById(R.id.switchAppNotifications);
         switchBridgeNotification = findViewById(R.id.switchBridgeNotification);
+        tvBridgeNotificationTime = findViewById(R.id.tvBridgeNotificationTime);
+        btnEditBridgeNotificationTime = findViewById(R.id.btnEditBridgeNotificationTime);
+        btnSaveBridgeNotificationTime = findViewById(R.id.btnSaveBridgeNotificationTime);
+        btnCancelBridgeNotificationTime = findViewById(R.id.btnCancelBridgeNotificationTime);
+        linearBridgeTimeEditor = findViewById(R.id.linearBridgeTimeEditor);
         timePickerBridgeNotification = findViewById(R.id.timePickerBridgeNotification);
-        tvDataStatus = findViewById(R.id.tvDataStatus);
 
         bindData();
         bindEvents();
@@ -47,17 +55,9 @@ public class NotificationSettingActivity extends ActivityBase {
         switchBridgeNotification.setChecked(NotificationSettingsHandler.isBridgeNotificationEnabled(this));
 
         timePickerBridgeNotification.setIs24HourView(true);
-        TimeBase timeBase = NotificationSettingsHandler.getBridgeNotificationTime(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            timePickerBridgeNotification.setHour(timeBase.getHour());
-            timePickerBridgeNotification.setMinute(timeBase.getMinute());
-        } else {
-            timePickerBridgeNotification.setCurrentHour(timeBase.getHour());
-            timePickerBridgeNotification.setCurrentMinute(timeBase.getMinute());
-        }
+        bindBridgeNotificationTime();
 
         updateBridgeControls();
-        showDataStatus();
     }
 
     private void bindEvents() {
@@ -78,12 +78,65 @@ public class NotificationSettingActivity extends ActivityBase {
             }
         });
 
-        timePickerBridgeNotification.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        btnEditBridgeNotificationTime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
-                NotificationSettingsHandler.setBridgeNotificationTime(NotificationSettingActivity.this, hour, minute);
+            public void onClick(View view) {
+                bindBridgeNotificationTime();
+                linearBridgeTimeEditor.setVisibility(View.VISIBLE);
+                btnEditBridgeNotificationTime.setVisibility(View.GONE);
+                btnCancelBridgeNotificationTime.setVisibility(View.VISIBLE);
             }
         });
+
+        btnCancelBridgeNotificationTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bindBridgeNotificationTime();
+                linearBridgeTimeEditor.setVisibility(View.GONE);
+                btnEditBridgeNotificationTime.setVisibility(View.VISIBLE);
+                btnCancelBridgeNotificationTime.setVisibility(View.GONE);
+            }
+        });
+
+        btnSaveBridgeNotificationTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveSelectedBridgeNotificationTime();
+                bindBridgeNotificationTime();
+                linearBridgeTimeEditor.setVisibility(View.GONE);
+                btnEditBridgeNotificationTime.setVisibility(View.VISIBLE);
+                btnCancelBridgeNotificationTime.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void bindBridgeNotificationTime() {
+        TimeBase timeBase = NotificationSettingsHandler.getBridgeNotificationTime(this);
+        bindBridgeNotificationTimeLabel(timeBase);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timePickerBridgeNotification.setHour(timeBase.getHour());
+            timePickerBridgeNotification.setMinute(timeBase.getMinute());
+        } else {
+            timePickerBridgeNotification.setCurrentHour(timeBase.getHour());
+            timePickerBridgeNotification.setCurrentMinute(timeBase.getMinute());
+        }
+    }
+
+    private void bindBridgeNotificationTimeLabel(TimeBase timeBase) {
+        tvBridgeNotificationTime.setText("Giờ báo: " + timeBase.showHHMM());
+    }
+
+    private void saveSelectedBridgeNotificationTime() {
+        int hour;
+        int minute;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            hour = timePickerBridgeNotification.getHour();
+            minute = timePickerBridgeNotification.getMinute();
+        } else {
+            hour = timePickerBridgeNotification.getCurrentHour();
+            minute = timePickerBridgeNotification.getCurrentMinute();
+        }
+        NotificationSettingsHandler.setBridgeNotificationTime(this, hour, minute);
     }
 
     private void requestPostNotificationPermissionIfNeeded() {
@@ -100,19 +153,17 @@ public class NotificationSettingActivity extends ActivityBase {
 
     private void updateBridgeControls() {
         boolean isAppNotificationEnabled = switchAppNotifications.isChecked();
+        boolean isBridgeNotificationEnabled = switchBridgeNotification.isChecked();
         switchBridgeNotification.setEnabled(isAppNotificationEnabled);
-        timePickerBridgeNotification.setEnabled(isAppNotificationEnabled && switchBridgeNotification.isChecked());
-    }
-
-    private void showDataStatus() {
-        DateBase yesterday = DateBase.today().addDays(-1);
-        DateBase lastJackpotDate = JackpotHandler.getLastDate(this);
-        DateBase lastLotteryDate = LotteryHandler.getLastDate(this);
-
-        String status = "Điều kiện báo cầu: cần dữ liệu ngày " + yesterday.showFullChars() + ".\n";
-        status += "ĐB gần nhất: " + (lastJackpotDate.isEmpty() ? "chưa có" : lastJackpotDate.showFullChars()) + ".\n";
-        status += "XSMB gần nhất: " + (lastLotteryDate.isEmpty() ? "chưa có" : lastLotteryDate.showFullChars()) + ".";
-        tvDataStatus.setText(status);
+        btnEditBridgeNotificationTime.setEnabled(isAppNotificationEnabled && isBridgeNotificationEnabled);
+        btnSaveBridgeNotificationTime.setEnabled(isAppNotificationEnabled && isBridgeNotificationEnabled);
+        btnCancelBridgeNotificationTime.setEnabled(isAppNotificationEnabled && isBridgeNotificationEnabled);
+        timePickerBridgeNotification.setEnabled(isAppNotificationEnabled && isBridgeNotificationEnabled);
+        if (!isAppNotificationEnabled || !isBridgeNotificationEnabled) {
+            linearBridgeTimeEditor.setVisibility(View.GONE);
+            btnEditBridgeNotificationTime.setVisibility(View.VISIBLE);
+            btnCancelBridgeNotificationTime.setVisibility(View.GONE);
+        }
     }
 
     @Override

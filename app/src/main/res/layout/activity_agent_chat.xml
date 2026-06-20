@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBgRowLottery"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/padding_5dp"
+            android:text="Chat bot"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header" />
+
+        <Button
+            android:id="@+id/btnSelectModel"
+            style="@style/AppButton.Outline"
+            android:layout_width="150dp"
+            android:layout_height="38dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:singleLine="true"
+            android:text="model"
+            android:textSize="12sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollMessages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/linearMessages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10dp" />
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurface"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_5dp"
+        android:paddingTop="@dimen/padding_8dp"
+        android:paddingRight="@dimen/padding_5dp"
+        android:paddingBottom="@dimen/padding_8dp">
+
+        <HorizontalScrollView
+            android:id="@+id/scrollSelectedImages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:scrollbars="none"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/linearSelectedImages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnPickImage"
+                android:layout_width="36dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="3dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Chọn ảnh"
+                android:padding="@dimen/padding_8dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_add" />
+
+            <EditText
+                android:id="@+id/edtMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_search_box"
+                android:gravity="center_vertical"
+                android:hint="Nhập tin nhắn"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="5"
+                android:minHeight="40dp"
+                android:paddingLeft="@dimen/padding_10dp"
+                android:paddingTop="@dimen/padding_5dp"
+                android:paddingRight="@dimen/padding_10dp"
+                android:paddingBottom="@dimen/padding_5dp"
+                android:scrollbars="vertical"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorTextNavBar"
+                android:textSize="@dimen/text_size" />
+
+            <ImageButton
+                android:id="@+id/btnSend"
+                android:layout_width="36dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="3dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Gửi"
+                android:padding="@dimen/padding_8dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_send" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

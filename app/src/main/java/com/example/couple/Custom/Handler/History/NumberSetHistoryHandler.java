@@ -3,6 +3,7 @@ package com.example.couple.Custom.Handler.History;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Origin.Jackpot;
+import com.example.couple.Custom.Const.Const;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,7 @@ public class NumberSetHistoryHandler {
     public static List<NumberSetHistory> getCompactNumberSetsHistory(List<Jackpot> jackpotList, List<NumberSetType> numberSetTypes,
                                                                      int min8size, int min10size, int minHead) {
         if (jackpotList.isEmpty()) return new ArrayList<>();
-        int size = Math.min(jackpotList.size(), 150);
+        int size = Math.min(jackpotList.size(), Const.DAY_NUMBER_TO_GET_JACKPOT);
         List<Jackpot> jackpots = jackpotList.subList(0, size);
         List<NumberSetHistory> histories = numberSetTypes.stream().filter(type -> type.size == 8)
                 .flatMap(type -> type.getNumberSetHistory(jackpots)

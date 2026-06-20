@@ -14,293 +14,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/padding_10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboConnectedBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="liên thông"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboCombineTouchBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="kết hợp"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboMappingBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ánh xạ"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboEstimatedBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="ước lg"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboBigDoubleSet"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="bộ kép to"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboSameDoubleSet"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="bộ kép bằng"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Các chi:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch0"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="1"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="2"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboBranch3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="3"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="4"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="5"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="6"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cboBranch7"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="7"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch8"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="8"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch9"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="9"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch10"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="10"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <CheckBox
-                    android:id="@+id/cboBranch11"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="11"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-
-            </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/tvNumberSize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_5dp"
-                android:gravity="center"
-                android:text="64 số được chọn."
-                android:textColor="@color/colorText"
-                android:textSize="@dimen/text_size"
-                android:textStyle="italic" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:text="Các cầu cho ngày hôm nay:"
-                android:textSize="@dimen/text_size"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/padding_5dp">
-
-                <TextView
-                    android:id="@+id/tvLongBeatBridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Các bộ đang gan:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
-                    android:id="@+id/tvFixedKB2Bridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Các bộ theo cầu KB2 cố định:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
-                    android:id="@+id/tvLongBeatKB2Bridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Các bộ theo cầu KB2 gan:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
-                    android:id="@+id/tvRepeatKB2Bridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Các bộ theo cầu KB2 lặp lại:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
-                    android:id="@+id/tvBranchNextDayBridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Các chi:"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
+            android:paddingLeft="12dp"
+            android:paddingTop="@dimen/padding_10dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lịch sử:"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size"
                 android:textStyle="bold" />
 
@@ -308,7 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/padding_5dp">
+                android:paddingLeft="0dp"
+                android:paddingTop="@dimen/padding_3dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="@dimen/padding_8dp">
 
                 <TextView
                     android:id="@+id/tvRecentCouple"
@@ -368,41 +94,291 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:text="Chọn các cầu kết hợp:"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/margin_3dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboConnectedBridge"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="liên thông"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboCombineTouchBridge"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="kết hợp"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboMappingBridge"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ánh xạ"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboEstimatedBridge"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ước lg"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboBigDoubleSet"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="bộ kép to"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboSameDoubleSet"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="bộ kép bằng"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:minHeight="32dp"
+                    android:text="Các chi:"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch0"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch1"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch2"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="2"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboBranch3"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="3"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch4"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="4"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch5"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="5"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch6"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="6"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cboBranch7"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="7"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch8"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="8"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch9"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="9"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch10"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="10"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+                <CheckBox
+                    android:id="@+id/cboBranch11"
+                    style="@style/CompactCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="11"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvNumberSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6dp"
+                android:gravity="center"
+                android:text="64 số được chọn."
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:orientation="horizontal">
 
 
-                <TextView
+                <Button
+                    style="@style/AppButton.PrimarySolid"
                     android:id="@+id/tvCopy"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@color/colorBgSunday"
-                    android:gravity="center"
-                    android:padding="@dimen/padding_10dp"
-                    android:text="Copy"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:text="Copy" />
 
-                <TextView
+                <Button
+                    style="@style/AppButton.Outline"
                     android:id="@+id/tvCancel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_cancel"
-                    android:gravity="center"
-                    android:padding="@dimen/padding_10dp"
-                    android:text="Đóng"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:text="Đóng" />
 
             </LinearLayout>
 

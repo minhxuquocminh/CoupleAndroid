@@ -32,6 +32,10 @@ public class AfterDoubleBridgeHandler {
 
         for (AfterDoubleCoupleMapping mapping : mappings) {
 
+            if (mapping.getDoubleCouple().getInt() == 0) {
+                continue;
+            }
+
             if (mapping.getDayNumberBefore() > 5 && mapping.getDayNumberBefore() < 30) {
                 continue;
             }

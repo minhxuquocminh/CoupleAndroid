@@ -34,7 +34,7 @@ public class EstimatedBridgeHandler {
         }
 
         List<PeriodHistory> periodHistoryList = new ArrayList<>();
-        for (int i = dayNumberBefore + periodNumber; i < jackpotList.size() - periodNumber; i++) {
+        for (int i = dayNumberBefore + periodNumber; i <= jackpotList.size() - periodNumber; i++) {
             int count = 0;
             List<Integer> numbers = new ArrayList<>();
             for (int j = 0; j < periodNumber; j++) {
@@ -46,7 +46,7 @@ public class EstimatedBridgeHandler {
             }
             if (count == periodNumber) {
                 Collections.reverse(numbers);
-                DateBase start = jackpotList.get(i + periodNumber).getDateBase();
+                DateBase start = jackpotList.get(i + periodNumber - 1).getDateBase();
                 DateBase end = jackpotList.get(i).getDateBase();
                 if (i - 1 < jackpotList.size() - 1) {
                     numbers.add(jackpotList.get(i - 1).getCoupleInt());

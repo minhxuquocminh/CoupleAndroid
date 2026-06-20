@@ -37,7 +37,7 @@
                     android:contentDescription="Cá nhân"
                     android:padding="@dimen/padding_8dp"
                     android:src="@drawable/ic_bottom_personal"
-                    android:tint="@color/colorPrimary" />
+                    app:tint="@color/colorPrimary" />
 
                 <LinearLayout
                     android:id="@+id/layoutSearch"
@@ -121,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:text="Update All"
                         android:textColor="@color/colorThemeBold"
-                        android:textSize="17sp"
+                        android:textSize="@dimen/text_size_big"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -129,7 +129,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_autorenew"
-                        android:tint="@color/colorPrimary" />
+                        app:tint="@color/colorPrimary" />
 
                 </LinearLayout>
 
@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:text="XSMB"
                         android:textColor="@color/colorThemeBold"
-                        android:textSize="17sp"
+                        android:textSize="@dimen/text_size_big"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -155,7 +155,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_autorenew"
-                        android:tint="@color/colorPrimary" />
+                        app:tint="@color/colorPrimary" />
 
                 </LinearLayout>
 
@@ -180,7 +180,7 @@
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_autorenew"
-                        android:tint="@color/colorPrimary" />
+                        app:tint="@color/colorPrimary" />
 
                 </LinearLayout>
 
@@ -232,7 +232,7 @@
                     android:layout_marginRight="@dimen/margin_5dp"
                     android:text="Cập nhật dữ liệu"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size_title"
+                    android:textSize="@dimen/text_size_big"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -242,7 +242,7 @@
                     android:background="@color/colorThemeLight"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_clock"
-                    android:tint="@color/colorPrimary" />
+                    app:tint="@color/colorPrimary" />
 
             </LinearLayout>
 
@@ -268,7 +268,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Công cụ hệ thống"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_title"
+                android:textSize="@dimen/text_size_big"
                 android:textStyle="bold" />
 
             <HorizontalScrollView
@@ -283,6 +283,42 @@
                     android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_marginBottom="@dimen/margin_5dp"
                     android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvAgentChat"
+                        android:layout_width="82dp"
+                        android:layout_height="76dp"
+                        android:layout_margin="@dimen/margin_5dp"
+                        app:cardBackgroundColor="@color/colorThemeLight"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="@dimen/padding_5dp">
+
+                            <ImageView
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_agent_chat_card" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_3dp"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="Chat bot"
+                                android:textColor="@color/colorText"
+                                android:textSize="@dimen/text_size_small" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cvNote"
@@ -480,7 +516,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Các số bạn đã dự đoán hôm nay"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_title"
+                android:textSize="@dimen/text_size_big"
                 android:textStyle="bold" />
 
             <TextView
@@ -505,7 +541,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Các cầu chạm cho hôm nay"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_title"
+                android:textSize="@dimen/text_size_big"
                 android:textStyle="bold" />
 
             <TextView
@@ -544,7 +580,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Những ghi chú mà bạn đã lưu"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_title"
+                android:textSize="@dimen/text_size_big"
                 android:textStyle="bold" />
 
             <TextView
@@ -569,7 +605,7 @@
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:text="Đề 2 càng trong vòng 7 ngày gần nhất"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_title"
+                android:textSize="@dimen/text_size_big"
                 android:textStyle="bold" />
 
             <TextView

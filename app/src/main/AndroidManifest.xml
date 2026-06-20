@@ -34,7 +34,7 @@
             tools:ignore="ExportedReceiver" />
 
         <receiver
-            android:name=".Custom.Handler.Notification.TodayBridgeAlarm"
+            android:name=".Custom.Handler.Notification.NextDayBridgeAlarm"
             android:enabled="true"
             android:exported="true"
             android:permission="TODO"
@@ -52,6 +52,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".View.Agent.AgentChatActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".View.Agent.AgentChatHistoryActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".View.Agent.AgentSettingsActivity"
+            android:label="Thêm model"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".View.Agent.AgentModelManageActivity"
+            android:label="Quản lý model"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity android:name=".View.Bridge.FindingBridgeActivity" />
 
@@ -118,6 +136,8 @@
         <activity android:name=".View.Setting.NotificationSettingActivity" />
 
         <activity android:name=".View.Notification.NotificationActivity" />
+
+        <activity android:name=".View.Notification.NewBridgeActivity" />
 
         <activity android:name=".View.Search.SearchActivity" />
 

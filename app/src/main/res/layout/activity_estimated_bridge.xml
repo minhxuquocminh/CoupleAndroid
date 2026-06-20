@@ -64,7 +64,7 @@
                 android:layout_marginLeft="@dimen/margin_10dp"
                 android:layout_marginRight="@dimen/margin_10dp"
                 android:padding="@dimen/padding_2dp"
-                android:text="CÃ¡c khoáº£ng cháº¡y cÃ¹ng nhá»‹p:"
+                android:text="Các khoảng chạy cùng nhịp:"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size"
                 android:textStyle="bold" />

@@ -12,5 +12,6 @@ public class FileName {
     public static final String LOTTERY_URL = "lottery_url.txt";
     public static final String LOTTERY_LAST_DATE = "lottery_last_date.txt";
     public static final String JACKPOT_LAST_DATE = "jackpot_last_date.txt";
+    public static final String BRIDGE_NOTIFICATION = "bridge_notification.txt";
 
 }

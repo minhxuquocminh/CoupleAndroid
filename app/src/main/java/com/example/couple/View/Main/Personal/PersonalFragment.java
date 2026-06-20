@@ -26,8 +26,8 @@ import com.example.couple.ViewModel.Main.Personal.PersonalViewModel;
 public class PersonalFragment extends Fragment implements PersonalView {
     TextView tvName;
     TextView tvUserName;
-    TextView tvSignIn;
-    TextView tvSignUp;
+    Button tvSignIn;
+    Button tvSignUp;
     LinearLayout linearBaseUrl;
     LinearLayout linearAddData;
     LinearLayout linearNotificationSetting;

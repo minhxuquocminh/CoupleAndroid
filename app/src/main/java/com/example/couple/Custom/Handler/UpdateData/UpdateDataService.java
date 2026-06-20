@@ -8,7 +8,9 @@ import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Handler.DateHandler;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.LotteryHandler;
+import com.example.couple.Custom.Handler.Notification.BridgeNotificationStorageHandler;
 import com.example.couple.Custom.Handler.Notification.NewBridge;
+import com.example.couple.Custom.Handler.Sync.CheckSync;
 import com.example.couple.Custom.Handler.Sync.SyncDataHandler;
 import com.example.couple.Custom.Handler.Sync.SyncDataState;
 import com.example.couple.Custom.Handler.Sync.SyncState;
@@ -41,13 +43,15 @@ public class UpdateDataService {
         }
 
         showMessage("Đang cập nhật...", isMainThread);
-        boolean lastSyncedJackpot = syncDataState.getSyncJackpotState() == SyncState.DONE;
+        boolean shouldNotifyNewBridge = syncDataState.getSyncJackpotState() != SyncState.DONE;
         SyncDataState resultSyncState = SyncDataHandler.execute(context);
         if (resultSyncState.getSyncDateState() != SyncState.NETWORK_ERROR) {
             getTimeData(isMainThread);
         }
         if (resultSyncState.getSyncJackpotState() != SyncState.NETWORK_ERROR) {
-            getJackpotData(isMainThread, !lastSyncedJackpot);
+            getJackpotData(isMainThread);
+            handleBridgeNotificationAfterJackpotUpdate(shouldNotifyNewBridge
+                    && resultSyncState.getSyncJackpotState() == SyncState.DONE);
         }
         if (resultSyncState.getSyncLotteryState() != SyncState.NETWORK_ERROR) {
             getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, isMainThread);
@@ -67,7 +71,7 @@ public class UpdateDataService {
         }
 
         if (!screenJackpotList.isEmpty() && !JackpotHandler.getLastDate(context).equals(screenJackpotList.get(0).getDateBase())) {
-            getJackpotData(true, true);
+            getJackpotData(true);
         }
 
         if (!screenLotteries.isEmpty() && !LotteryHandler.getLastDate(context).equals(screenLotteries.get(0).getDateBase())) {
@@ -85,10 +89,9 @@ public class UpdateDataService {
         }, isMainThread).post();
     }
 
-    public void getJackpotData(boolean isMainThread, boolean showNewBridge) {
+    public void getJackpotData(boolean isMainThread) {
         List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, Const.DAY_NUMBER_TO_GET_JACKPOT);
         if (jackpotList.isEmpty()) return;
-        if (showNewBridge) NewBridge.notify(context, jackpotList);
         new MainThreadBase(() -> {
             updateDataView.showJackpotData(jackpotList);
         }, isMainThread).post();
@@ -103,12 +106,15 @@ public class UpdateDataService {
     }
 
     public void updateJackpot(boolean isShowMessage, boolean isMainThread) {
+        boolean shouldNotifyNewBridge = !CheckSync.isSyncJackpot(context);
         boolean checkUpdateJackpot = JackpotHandler.updateJackpot(context);
         String message = checkUpdateJackpot ?
                 "Cập nhật XS Đặc Biệt thành công !" : "Đã xảy ra lỗi khi cập nhật XS Đặc Biệt !";
         if (isShowMessage) showMessage(message, isMainThread);
         if (checkUpdateJackpot) {
-            getJackpotData(isMainThread, true);
+            getJackpotData(isMainThread);
+            handleBridgeNotificationAfterJackpotUpdate(shouldNotifyNewBridge
+                    && CheckSync.isSyncJackpot(context));
         }
     }
 
@@ -132,5 +138,14 @@ public class UpdateDataService {
         new MainThreadBase(() -> {
             updateDataView.showLongMessage(message);
         }, isMainThread).post();
+    }
+
+    private void handleBridgeNotificationAfterJackpotUpdate(boolean shouldNotify) {
+        if (!shouldNotify) return;
+
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, Const.DAY_NUMBER_TO_GET_JACKPOT);
+        if (jackpotList.isEmpty()) return;
+        BridgeNotificationStorageHandler.notifyWinningBridges(context, jackpotList.get(0));
+        NewBridge.notify(context, jackpotList);
     }
 }

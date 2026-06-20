@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -28,7 +29,7 @@ import java.util.List;
 public class CycleByYearActivity extends ActivityBase implements CycleByYearView {
     HorizontalScrollView hsTable;
     Spinner spnBranches;
-    TextView tvCopy;
+    Button tvCopy;
 
     CycleByYearViewModel viewModel;
 

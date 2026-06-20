@@ -28,7 +28,6 @@ public class AddJackpotManyYearsActivity extends ActivityBase implements AddJack
     EditText edtStart;
     Button btnAddData;
     Button btnLoadAllData;
-    Button btnCancel;
     Button btnTest1;
     Button btnTest2;
 
@@ -42,7 +41,6 @@ public class AddJackpotManyYearsActivity extends ActivityBase implements AddJack
         edtStart = findViewById(R.id.edtStart);
         btnAddData = findViewById(R.id.btnAddData);
         btnLoadAllData = findViewById(R.id.btnLoadAllData);
-        btnCancel = findViewById(R.id.tvCancel);
         btnTest1 = findViewById(R.id.btnTest1);
         btnTest2 = findViewById(R.id.btnTest2);
 
@@ -87,13 +85,6 @@ public class AddJackpotManyYearsActivity extends ActivityBase implements AddJack
                         }
                     });
                 }
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
 

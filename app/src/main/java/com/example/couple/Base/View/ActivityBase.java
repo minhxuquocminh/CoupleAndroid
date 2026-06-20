@@ -3,6 +3,7 @@ package com.example.couple.Base.View;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.example.couple.R;
 import com.example.couple.View.Main.MainActivity;
@@ -64,14 +66,23 @@ public abstract class ActivityBase extends SpeechToTextActivityBase {
         tvToolbar.setEllipsize(TextUtils.TruncateAt.END);
         tvToolbar.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
         tvToolbar.setText(getCompactToolbarTitle(tvToolbar.getText().toString()));
-        tvToolbar.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_back, 0, 0, 0);
-        tvToolbar.setCompoundDrawablePadding(dp(4));
+        setToolbarBackIcon(tvToolbar);
+        tvToolbar.setCompoundDrawablePadding(dp(2));
         tvToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+    }
+
+    private void setToolbarBackIcon(TextView tvToolbar) {
+        Drawable backIcon = ContextCompat.getDrawable(this, R.drawable.ic_back);
+        if (backIcon == null) return;
+        int offsetTop = dp(0.5f);
+        int size = dp(24);
+        backIcon.setBounds(0, offsetTop, size, size + offsetTop);
+        tvToolbar.setCompoundDrawables(backIcon, null, null, null);
     }
 
     private String getCompactToolbarTitle(String title) {
@@ -106,6 +117,10 @@ public abstract class ActivityBase extends SpeechToTextActivityBase {
     }
 
     private int dp(int value) {
+        return (int) (value * getResources().getDisplayMetrics().density + 0.5f);
+    }
+
+    private int dp(float value) {
         return (int) (value * getResources().getDisplayMetrics().density + 0.5f);
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ import java.util.Map;
 
 public class BalanceCoupleActivity extends ActivityBase implements BalanceCoupleView {
     EditText edtNumberOfDays;
-    TextView tvGetData;
+    Button tvGetData;
     LinearLayout linearLayout;
 
     BalanceCoupleViewModel viewModel;

@@ -17,7 +17,6 @@ public class UrlAndParamsInfoActivity extends ActivityBase implements UrlAndPara
     EditText edtUrl;
     EditText edtClassName;
     Button btnSave;
-    Button btnCancel;
 
     UrlAndParamsInfoViewModel viewModel;
 
@@ -30,7 +29,6 @@ public class UrlAndParamsInfoActivity extends ActivityBase implements UrlAndPara
         edtUrl = findViewById(R.id.edtUrl);
         edtClassName = findViewById(R.id.edtClassName);
         btnSave = findViewById(R.id.btnSave);
-        btnCancel = findViewById(R.id.tvCancel);
 
         viewModel = new UrlAndParamsInfoViewModel(this, this);
 
@@ -52,13 +50,6 @@ public class UrlAndParamsInfoActivity extends ActivityBase implements UrlAndPara
                 String url = edtUrl.getText().toString().trim();
                 String className = edtClassName.getText().toString().trim();
                 viewModel.saveData(url, className);
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }

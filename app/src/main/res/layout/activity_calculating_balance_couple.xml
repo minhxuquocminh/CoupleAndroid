@@ -82,12 +82,12 @@
 
     </LinearLayout>
 
-    <TextView
+    <Button
         android:id="@+id/tvCalculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/border_corners_primary"
+        style="@style/AppTextButton.Primary"
         android:padding="@dimen/margin_10dp"
         android:text="Xem kết quả"
         android:textColor="@color/colorWhite"

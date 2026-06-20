@@ -50,28 +50,12 @@
                 android:layout_height="wrap_content">
 
                 <Button
+                    style="@style/AppButton.Primary"
                     android:id="@+id/btnUpdateNote"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
-                    android:text="Cập nhật"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorThemeLight"
-                    android:textSize="@dimen/text_size" />
-
-                <Button
-                    android:id="@+id/tvCancel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_corners_cancel"
-                    android:text="Hủy"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorText"
-                    android:textSize="@dimen/text_size" />
+                    android:text="Cập nhật" />
 
             </LinearLayout>
 

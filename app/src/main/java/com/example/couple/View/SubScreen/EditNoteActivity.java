@@ -14,7 +14,6 @@ import com.example.couple.ViewModel.SubScreen.NoteInfoViewModel;
 public class EditNoteActivity extends ActivityBase implements EditNoteView {
     EditText edtNote;
     Button btnUpdateNote;
-    Button btnCancel;
 
     NoteInfoViewModel viewModel;
 
@@ -25,7 +24,6 @@ public class EditNoteActivity extends ActivityBase implements EditNoteView {
 
         edtNote = findViewById(R.id.edtNote);
         btnUpdateNote = findViewById(R.id.btnUpdateNote);
-        btnCancel = findViewById(R.id.tvCancel);
 
         viewModel = new NoteInfoViewModel(this, this);
         viewModel.getNote();
@@ -35,13 +33,6 @@ public class EditNoteActivity extends ActivityBase implements EditNoteView {
             public void onClick(View v) {
                 String note = edtNote.getText().toString().trim();
                 viewModel.updateNote(note);
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }

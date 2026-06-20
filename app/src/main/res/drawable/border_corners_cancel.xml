@@ -7,6 +7,6 @@
 
     <solid android:color="@color/colorCancelButton" />
 
-    <corners android:radius="6dp" />
+    <corners android:radius="@dimen/button_corner_radius" />
 
 </shape>

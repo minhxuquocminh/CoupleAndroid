@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -32,7 +33,7 @@ public class CoupleByWeekActivity extends ActivityBase implements CoupleByWeekVi
     private static final String[] DAY_HEADERS = {"T2", "T3", "T4", "T5", "T6", "T7", "CN"};
 
     EditText edtWeekNumber;
-    TextView tvGetData;
+    Button tvGetData;
     LinearLayout linearCoupleByWeek;
 
     CoupleByWeekViewModel viewModel;
@@ -167,14 +168,7 @@ public class CoupleByWeekActivity extends ActivityBase implements CoupleByWeekVi
 
     private FrameLayout getJackpotCell(Jackpot jackpot, boolean showRightBorder) {
         FrameLayout cell = getCellContainer(showRightBorder);
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.VERTICAL);
-        content.setGravity(Gravity.CENTER);
-        content.setPadding(2, 6, 2, 6);
-        content.setLayoutParams(new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.CENTER));
+        LinearLayout content = getWeekCellContent();
 
         content.addView(getTextView(jackpot.getDateBase().showDDMM("/"), 11,
                 R.color.colorText, false));
@@ -225,8 +219,35 @@ public class CoupleByWeekActivity extends ActivityBase implements CoupleByWeekVi
 
     private FrameLayout getEmptyCell(boolean showRightBorder) {
         FrameLayout cell = getCellContainer(showRightBorder);
-        cell.setMinimumHeight(84);
+        LinearLayout content = getWeekCellContent();
+        content.addView(getTextView("00/00", 11, R.color.colorText, false));
+        content.addView(getTextView("00", 20, R.color.colorTextJackpot, true));
+
+        LinearLayout shadowRow = new LinearLayout(this);
+        shadowRow.setOrientation(LinearLayout.HORIZONTAL);
+        shadowRow.setGravity(Gravity.CENTER);
+        shadowRow.setWeightSum(2);
+        shadowRow.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        shadowRow.addView(getShadowTextView("0"));
+        shadowRow.addView(getShadowTextView("0"));
+        content.addView(shadowRow);
+        content.setVisibility(View.INVISIBLE);
+        cell.addView(content);
         return cell;
+    }
+
+    private LinearLayout getWeekCellContent() {
+        LinearLayout content = new LinearLayout(this);
+        content.setOrientation(LinearLayout.VERTICAL);
+        content.setGravity(Gravity.CENTER);
+        content.setPadding(2, 6, 2, 6);
+        content.setLayoutParams(new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                Gravity.CENTER));
+        return content;
     }
 
     private FrameLayout getCellContainer(boolean showRightBorder) {

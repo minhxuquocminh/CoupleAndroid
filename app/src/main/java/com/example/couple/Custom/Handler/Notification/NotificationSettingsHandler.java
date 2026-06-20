@@ -60,10 +60,11 @@ public class NotificationSettingsHandler {
 
     public static void applyBridgeNotificationAlarm(Context context) {
         if (isAppNotificationEnabled(context) && isBridgeNotificationEnabled(context)) {
-            AlarmBase.registerAlarmEveryDay(context, TodayBridgeAlarm.class, RequestCode.ALARM_TODAY_BRIDGE,
+            AlarmBase.registerAlarmEveryDay(context, NextDayBridgeAlarm.class, RequestCode.ALARM_TODAY_BRIDGE,
                     getBridgeNotificationTime(context));
         } else {
-            AlarmBase.cancelAlarm(context, TodayBridgeAlarm.class, RequestCode.ALARM_TODAY_BRIDGE);
+            AlarmBase.cancelAlarm(context, NextDayBridgeAlarm.class, RequestCode.ALARM_TODAY_BRIDGE);
         }
     }
+
 }

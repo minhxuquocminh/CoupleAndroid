@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,7 +22,7 @@ public class CoupleByYearActivity extends ActivityBase implements CoupleByYearVi
     EditText edtNumberOfYears;
     EditText edtTens;
     EditText edtUnit;
-    TextView tvFilter;
+    Button tvFilter;
     CheckBox cboNearestYear;
     CheckBox cboSumOfYears;
     TextView tvLabel;

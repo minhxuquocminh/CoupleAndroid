@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ public class CalculatingBalanceCoupleActivity extends ActivityBase implements Ca
     TextView tvShow;
     EditText edtFirstNumber;
     EditText edtSecondNumber;
-    TextView tvCalculate;
+    Button tvCalculate;
 
     CalculatingBalanceCoupleViewModel viewModel;
 

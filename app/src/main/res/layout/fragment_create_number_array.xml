@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorThemeLight"
@@ -36,7 +37,7 @@
                     android:contentDescription="Cá nhân"
                     android:padding="@dimen/padding_8dp"
                     android:src="@drawable/ic_bottom_personal"
-                    android:tint="@color/colorPrimary" />
+                    app:tint="@color/colorPrimary" />
 
                 <LinearLayout
                     android:id="@+id/layoutSearch"
@@ -91,17 +92,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_2dp"
                 android:layout_marginBottom="@dimen/margin_2dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/tvViewCombineBridge"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Xem cầu"
@@ -109,13 +110,14 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvViewCycle"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Can chi"
@@ -123,13 +125,14 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvReference"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Tham khảo"
@@ -137,13 +140,14 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvQuickCreate"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Tạo nhanh"
@@ -399,13 +403,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <Button
                         android:id="@+id/tvCreate"
+                        style="@style/AppTextButton.Primary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="@dimen/margin_5dp"
-                        android:background="@drawable/border_corners_primary"
                         android:padding="@dimen/padding_10dp"
                         android:text="  Tạo  "
                         android:textColor="@color/colorWhite"
@@ -447,15 +451,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/tvExportCouple"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Nạp lên"
@@ -463,13 +470,14 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvExportTriad"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Nạp xuống"
@@ -477,13 +485,14 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvExport"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Xuất"
@@ -491,13 +500,14 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/text_size" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvClear"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_5dp"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_marginRight="@dimen/margin_5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border_corners_primary"
                     android:gravity="center"
                     android:padding="@dimen/padding_10dp"
                     android:text="Tạo lại"
@@ -523,13 +533,13 @@
                 android:layout_margin="@dimen/margin_5dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/tvViewJackpot"
+                    style="@style/AppTextButton.Primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="@dimen/margin_5dp"
-                    android:background="@drawable/border_corners_primary"
                     android:padding="@dimen/padding_10dp"
                     android:text="  Bảng ĐB  "
                     android:textColor="@color/colorWhite"

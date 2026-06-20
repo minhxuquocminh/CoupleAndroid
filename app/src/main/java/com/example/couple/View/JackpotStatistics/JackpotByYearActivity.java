@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -36,7 +37,7 @@ import java.util.stream.Stream;
 
 public class JackpotByYearActivity extends ActivityBase implements JackpotByYearView {
     Spinner spnYear;
-    TextView tvGetData;
+    Button tvGetData;
     HorizontalScrollView hsTable;
     TextView tvNote;
 

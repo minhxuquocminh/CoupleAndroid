@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,12 +48,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class QuickNumberGeneratorDialog extends DialogFragment implements QuickNumberGeneratorView {
-    TextView tvLongBeatBridge, tvFixedKB2Bridge, tvLongBeatKB2Bridge, tvRepeatKB2Bridge, tvBranchNextDayBridge;
     TextView tvRecentCouple, tvRecentBranch, tvConnectedTouchState, tvCombineTouchState, tvMappingState, tvBigDoubleState, tvDoubleState;
     CheckBox[] cboBranches = new CheckBox[12];
     CheckBox cboCombineTouchBridge, cboConnectedBridge, cboMappingBridge, cboEstimatedBridge, cboBigDoubleSet, cboSameDoubleSet;
     TextView tvNumberSize;
-    TextView tvCopy, tvCancel;
+    Button tvCopy, tvCancel;
     MainActivity activity;
     QuickNumberGeneratorViewModel viewModel;
     Map<BridgeType, Bridge> bridgeMap = new HashMap<>();
@@ -67,13 +67,6 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_quick_number_generator, container, false);
-
-        // Ánh xạ các TextView
-        tvLongBeatBridge = view.findViewById(R.id.tvLongBeatBridge);
-        tvFixedKB2Bridge = view.findViewById(R.id.tvFixedKB2Bridge);
-        tvLongBeatKB2Bridge = view.findViewById(R.id.tvLongBeatKB2Bridge);
-        tvRepeatKB2Bridge = view.findViewById(R.id.tvRepeatKB2Bridge);
-        tvBranchNextDayBridge = view.findViewById(R.id.tvBranchNextDayBridge);
 
         tvRecentCouple = view.findViewById(R.id.tvRecentCouple);
         tvRecentBranch = view.findViewById(R.id.tvRecentBranch);
@@ -115,7 +108,6 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
         viewModel.getCombineBridgesToday(jackpotList, lotteries,
                 new HashSet<>(Arrays.asList(BridgeType.COMBINE_TOUCH, BridgeType.CONNECTED, BridgeType.DAY_MAPPING,
                         BridgeType.ESTIMATED, BridgeType.BIG_DOUBLE, BridgeType.SAME_DOUBLE)));
-        viewModel.getLongBeatNumbers(jackpotList);
         viewModel.getMappingAndTouchState(jackpotList, lotteries);
         viewModel.getSetsState(jackpotList);
 
@@ -346,13 +338,6 @@ public class QuickNumberGeneratorDialog extends DialogFragment implements QuickN
 
     @Override
     public void showLongBeatNumbers(List<NumberSetHistory> histories) {
-        if (histories.isEmpty()) {
-            tvLongBeatBridge.setVisibility(View.GONE);
-        } else {
-            String show = "Các bộ đang gan: " +
-                    histories.stream().map(NumberSetHistory::showCompact).collect(Collectors.joining(", "));
-            tvLongBeatBridge.setText(show);
-        }
     }
 
     @Override

@@ -58,6 +58,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                style="@style/AppButton.PrimarySolid"
                 android:id="@+id/btnView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,10 +66,7 @@
                 android:layout_marginRight="@dimen/padding_5dp"
                 android:layout_marginBottom="@dimen/margin_5dp"
                 android:layout_weight="1"
-                android:background="@color/colorThemeBold"
                 android:text="Xem"
-                android:textAllCaps="false"
-                android:textColor="@color/colorThemeLight"
                 android:textSize="@dimen/text_size_big" />
 
             <ScrollView

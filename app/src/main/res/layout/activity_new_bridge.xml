@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorThemeLight"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar"
+        android:background="@color/colorThemeBold">
+
+        <TextView
+            android:id="@+id/tvToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/padding_5dp"
+            android:text="Cầu hôm nay"
+            android:textColor="@color/colorThemeLight"
+            android:textSize="@dimen/text_size_header" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10dp">
+
+            <TextView
+                android:id="@+id/tvJackpotResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvEmptyBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5dp"
+                android:text="Chưa có cầu mới."
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvNumberSetTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5dp"
+                android:text="Cầu gan"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linearNumberSetBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvAfterDoubleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5dp"
+                android:text="Cầu sau khi ra kép"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linearAfterDoubleBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvCycleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5dp"
+                android:text="Cầu can chi"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linearCycleBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/padding_2dp"
+                android:padding="@dimen/padding_5dp"
+                android:text="Gợi ý hôm nay: đang phát triển"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvDailyBridgeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5dp"
+                android:text="Cầu theo ngày"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvConnectedTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5dp"
+                android:text="Chạm liên thông"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linearConnectedBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvEstimatedTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_5dp"
+                android:text="Cầu ước lượng"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linearEstimatedBridge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

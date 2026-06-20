@@ -28,6 +28,7 @@ import com.example.couple.Model.DateTime.Time.TimeBase;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
+import com.example.couple.View.Agent.AgentChatHistoryActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
 import com.example.couple.View.Main.MainActivity;
@@ -53,6 +54,7 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
     TextView tvJackpotLastDay;
     ImageView imgClock;
     TextView tvSuggest;
+    CardView cvAgentChat;
     CardView cvNote;
     CardView cvBalanceCouple;
     CardView cvMoreInfo;
@@ -92,6 +94,7 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
         imgClock = view.findViewById(R.id.imgClock);
         tvSuggest = view.findViewById(R.id.tvSuggest);
         tvCalendar = view.findViewById(R.id.tvCalendar);
+        cvAgentChat = view.findViewById(R.id.cvAgentChat);
         cvNote = view.findViewById(R.id.cvNote);
         cvBalanceCouple = view.findViewById(R.id.cvBalanceCouple);
         cvMoreInfo = view.findViewById(R.id.cvNumberExperience);
@@ -200,6 +203,13 @@ public class HomePageFragment extends Fragment implements HomePageView, UpdateDa
                         RequestCode.ALARM_9999, TimeBase.current().addSeconds(10));
                 Toast.makeText(getActivity(), "Đăng ký cập nhật dữ liệu vào lúc " +
                         TimeBase.current().showHHMMSS() + ".", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        cvAgentChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), AgentChatHistoryActivity.class));
             }
         });
 

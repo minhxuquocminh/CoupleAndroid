@@ -23,35 +23,38 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_10dp">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/edtSearch"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_search_box"
-            android:hint="Tìm kiếm"
-            android:paddingLeft="@dimen/padding_10dp"
-            android:paddingRight="@dimen/padding_10dp"
-            android:singleLine="true"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorTextNavBar"
-            android:textSize="@dimen/text_size_big" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10dp"
-            android:background="@drawable/bg_bridge_combination_panel"
-            android:padding="@dimen/padding_10dp"
-            android:text="Tìm kiếm nhanh sẽ gom các màn XSĐB, XSMB, cầu và công cụ ở đây."
-            android:textColor="@color/colorText"
-            android:textSize="@dimen/text_size" />
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10dp">
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_search_box"
+                android:hint="Tìm kiếm"
+                android:paddingLeft="@dimen/padding_10dp"
+                android:paddingRight="@dimen/padding_10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorTextNavBar"
+                android:textSize="@dimen/text_size_big" />
+
+            <LinearLayout
+                android:id="@+id/linearSearchResults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

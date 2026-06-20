@@ -51,11 +51,21 @@ public class NotificationBase {
     }
 
     private static NotificationCompat.Builder getChannelNotification(Context context, String title, String content) {
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        return getChannelNotification(context, title, content, MainActivity.class);
+    }
+
+    private static NotificationCompat.Builder getChannelNotification(Context context, String title, String content,
+                                                                     Class<?> targetActivity) {
+        return getChannelNotification(context, title, content, targetActivity, channelID);
+    }
+
+    private static NotificationCompat.Builder getChannelNotification(Context context, String title, String content,
+                                                                     Class<?> targetActivity, String channelId) {
+        Intent notificationIntent = new Intent(context, targetActivity);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                0, notificationIntent, PendingIntent.FLAG_MUTABLE);
-        return new NotificationCompat.Builder(context, channelID)
+                targetActivity.getName().hashCode(), notificationIntent, PendingIntent.FLAG_MUTABLE);
+        return new NotificationCompat.Builder(context, channelId)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -67,6 +77,25 @@ public class NotificationBase {
 
         initNotification(context);
         NotificationCompat.Builder nb = getChannelNotification(context, title, content);
+        mManager.notify(notifyId, nb.build());
+    }
+
+    public static void pushExpandableNotification(Context context, int notifyId, String title, String content) {
+        if (!NotificationSettingsHandler.isAppNotificationEnabled(context)) return;
+
+        initNotification(context);
+        NotificationCompat.Builder nb = getChannelNotification(context, title, content)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(content));
+        mManager.notify(notifyId, nb.build());
+    }
+
+    public static void pushExpandableNotification(Context context, int notifyId, String title, String content,
+                                                  Class<?> targetActivity) {
+        if (!NotificationSettingsHandler.isAppNotificationEnabled(context)) return;
+
+        initNotification(context);
+        NotificationCompat.Builder nb = getChannelNotification(context, title, content, targetActivity)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(content));
         mManager.notify(notifyId, nb.build());
     }
 

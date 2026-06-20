@@ -33,6 +33,8 @@ import com.example.couple.Custom.Handler.UpdateData.UpdateDataView;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
+import com.example.couple.View.Agent.AgentChatHistoryActivity;
+import com.example.couple.View.Agent.AgentModelManageActivity;
 import com.example.couple.View.Bridge.AfterDoubleBridgeActivity;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.Bridge.ConnectedBridgeActivity;
@@ -53,6 +55,7 @@ import com.example.couple.View.Main.FunctionDisplay.FunctionDisplayFragment;
 import com.example.couple.View.Main.HomePage.HomePageFragment;
 import com.example.couple.View.Main.NumberPicker.NumberPickerFragment;
 import com.example.couple.View.Main.Personal.PersonalFragment;
+import com.example.couple.View.Notification.NewBridgeActivity;
 import com.example.couple.View.Setting.NotificationSettingActivity;
 import com.example.couple.View.SubScreen.CalculatingBalanceCoupleActivity;
 import com.example.couple.View.SubScreen.CycleByYearActivity;
@@ -114,7 +117,7 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
         mainViewModel = new MainViewModel(this, this);
         updateDataService = new UpdateDataService(this, this);
         updateDataService.getTimeData(true);
-        updateDataService.getJackpotData(true, true);
+        updateDataService.getJackpotData(true);
         updateDataService.getLotteryData(Const.MAX_DAYS_TO_GET_LOTTERY, true);
         new ThreadBase<>((param) -> {
             mainViewModel.setUrlAndParamsIfNoData();
@@ -310,6 +313,7 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
                         new NavigationMenuItem("Can Chi", SexagenaryCycleActivity.class)
                 }),
                 new NavigationMenuGroup("Xem cầu", new NavigationMenuItem[]{
+                        new NavigationMenuItem("Cầu mới", NewBridgeActivity.class),
                         new NavigationMenuItem("Cầu liên thông", ConnectedBridgeActivity.class),
                         new NavigationMenuItem("Cầu sau khi ra kép", AfterDoubleBridgeActivity.class),
                         new NavigationMenuItem("Cầu chạm", TouchBridgeActivity.class),
@@ -325,9 +329,11 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
                 new NavigationMenuGroup("Cài đặt", new NavigationMenuItem[]{
                         new NavigationMenuItem("Sửa URL và Param", UrlAndParamsActivity.class),
                         new NavigationMenuItem("Lưu dữ liệu ĐB", AddJackpotManyYearsActivity.class),
+                        new NavigationMenuItem("Quản lý model", AgentModelManageActivity.class),
                         new NavigationMenuItem("Cài đặt thông báo", NotificationSettingActivity.class)
                 }),
                 new NavigationMenuGroup("Khác", new NavigationMenuItem[]{
+                        new NavigationMenuItem("Chat với AI", AgentChatHistoryActivity.class),
                         new NavigationMenuItem("Can chi theo năm", CycleByYearActivity.class),
                         new NavigationMenuItem("Note", NoteActivity.class),
                         new NavigationMenuItem("Tính BSCB", CalculatingBalanceCoupleActivity.class)

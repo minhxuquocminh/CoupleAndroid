@@ -45,9 +45,9 @@
             android:padding="@dimen/padding_10dp">
 
             <LinearLayout
+                style="@style/AppSection.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_bridge_combination_panel"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/padding_10dp"
@@ -85,10 +85,10 @@
             </LinearLayout>
 
             <LinearLayout
+                style="@style/AppSection.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10dp"
-                android:background="@drawable/bg_bridge_combination_panel"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_10dp">
 
@@ -198,10 +198,10 @@
             </LinearLayout>
 
             <LinearLayout
+                style="@style/AppSection.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10dp"
-                android:background="@drawable/bg_bridge_combination_panel"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_10dp">
 
@@ -343,10 +343,10 @@
             </LinearLayout>
 
             <LinearLayout
+                style="@style/AppSection.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10dp"
-                android:background="@drawable/bg_bridge_combination_panel"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_10dp">
 
@@ -408,10 +408,10 @@
             </LinearLayout>
 
             <LinearLayout
+                style="@style/AppSection.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10dp"
-                android:background="@drawable/bg_bridge_combination_panel"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_10dp">
 
@@ -594,6 +594,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <Button
+        style="@style/AppButton.Primary"
         android:id="@+id/btnFindingBridge"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -601,10 +602,7 @@
         android:layout_marginTop="@dimen/margin_5dp"
         android:layout_marginRight="@dimen/margin_10dp"
         android:layout_marginBottom="@dimen/margin_10dp"
-        android:background="@drawable/border_corners_primary"
         android:text="Cầu kết hợp"
-        android:textAllCaps="false"
-        android:textColor="@color/colorThemeLight"
         android:textSize="@dimen/text_size_big"
         android:textStyle="bold" />
 

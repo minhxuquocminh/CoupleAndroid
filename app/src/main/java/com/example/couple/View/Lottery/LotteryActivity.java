@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import com.example.couple.ViewModel.Lottery.LotteryViewModel;
 import java.util.List;
 
 public class LotteryActivity extends ActivityBase implements LotteryView {
-    TextView tvGetData;
+    Button tvGetData;
     EditText edtDayNumber;
     RecyclerView rvTableOfLottery;
 

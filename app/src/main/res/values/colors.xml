@@ -28,9 +28,10 @@
     <color name="colorText">#2F3437</color>
     <color name="colorSurface">#FFFFFF</color>
     <color name="colorSurfaceSoft">#F4F7F6</color>
+    <color name="colorSectionBorder">#CBD5DD</color>
     <color name="colorDivider">#C2CAD3</color>
-    <color name="colorCancelButton">#F3F6F5</color>
-    <color name="colorCancelButtonDark">#B8C3C1</color>
+    <color name="colorCancelButton">#E0E0E0</color>
+    <color name="colorCancelButtonDark">#BDBDBD</color>
 
     <!--    color table of lottery-->
 <!--    <color name="colorBgRowLottery">#24008577</color>-->
