@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Custom.Const.Const;
 import com.example.couple.Custom.Const.TimeInfo;
+import com.example.couple.Custom.Handler.LunarCalendarHandler;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -268,6 +269,14 @@ public class DateBase implements Serializable, Comparable<DateBase> {
     public String showDDMM(String delimiter) {
         if (this.isEmpty()) return Const.EMPTY;
         return CoupleBase.showCouple(day) + delimiter + CoupleBase.showCouple(month);
+    }
+
+    public DateLunar getDateLunar() {
+        return LunarCalendarHandler.getDateData(this).getDateLunar();
+    }
+
+    public DateCycle getDateCycle() {
+        return LunarCalendarHandler.getDateData(this).getDateCycle();
     }
 
 }

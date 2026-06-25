@@ -1,4 +1,4 @@
-package com.example.couple.ViewModel.JackpotStatistics;
+package com.example.couple.ViewModel.Jackpot;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Custom.Handler.Statistics.JackpotStatistics;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Statistics.JackpotNextDay;
-import com.example.couple.View.JackpotStatistics.JackpotNextDayView;
+import com.example.couple.View.Jackpot.JackpotNextDayView;
 
 import java.util.List;
 import java.util.Map;

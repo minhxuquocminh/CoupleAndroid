@@ -18,7 +18,7 @@ import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
-import com.example.couple.View.JackpotStatistics.CoupleByYearActivity;
+import com.example.couple.View.JackpotStatistics.YearlyJackpotStatisticsActivity;
 import com.example.couple.ViewModel.Bridge.ReferenceBridgeViewModel;
 
 import java.util.List;
@@ -119,7 +119,7 @@ public class ReferenceBridgeActivity extends ActivityBase implements ReferenceBr
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ReferenceBridgeActivity.this,
-                        CoupleByYearActivity.class));
+                        YearlyJackpotStatisticsActivity.class));
             }
         });
 

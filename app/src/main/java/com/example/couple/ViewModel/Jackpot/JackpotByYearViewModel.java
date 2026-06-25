@@ -1,10 +1,10 @@
-package com.example.couple.ViewModel.JackpotStatistics;
+package com.example.couple.ViewModel.Jackpot;
 
 import android.content.Context;
 
 import com.example.couple.Custom.Const.TimeInfo;
 import com.example.couple.Custom.Handler.JackpotHandler;
-import com.example.couple.View.JackpotStatistics.JackpotByYearView;
+import com.example.couple.View.Jackpot.JackpotByYearView;
 
 import java.util.ArrayList;
 import java.util.Collections;

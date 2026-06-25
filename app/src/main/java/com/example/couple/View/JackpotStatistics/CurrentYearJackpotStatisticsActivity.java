@@ -2,12 +2,16 @@ package com.example.couple.View.JackpotStatistics;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.View.ActivityBase;
+import com.example.couple.Base.View.SpinnerBase;
 import com.example.couple.Base.View.Table.TableData;
 import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Custom.Handler.Display.TableDataConverter;
@@ -19,12 +23,15 @@ import com.example.couple.R;
 import com.example.couple.ViewModel.JackpotStatistics.JackpotThisYearViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class JackpotThisYearActivity extends ActivityBase implements JackpotThisYearView {
-    TextView tvDouble;
-    LinearLayout linearDouble;
+public class CurrentYearJackpotStatisticsActivity extends ActivityBase implements CurrentYearJackpotStatisticsView {
+    private static final int MODE_THIS_YEAR = 0;
+    private static final int MODE_365_DAYS = 1;
+
+    Spinner spnStatisticMode;
     LinearLayout linearSynthetic;
     TextView tvHeadAndTail;
     LinearLayout linearHeadAndTail;
@@ -36,14 +43,43 @@ public class JackpotThisYearActivity extends ActivityBase implements JackpotThis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jackpot_this_year);
 
+        spnStatisticMode = findViewById(R.id.spnStatisticMode);
         linearSynthetic = findViewById(R.id.linearSynthetic);
-        tvDouble = findViewById(R.id.tvDouble);
-        linearDouble = findViewById(R.id.linearDouble);
         tvHeadAndTail = findViewById(R.id.tvHeadAndTail);
         linearHeadAndTail = findViewById(R.id.linearHeadAndTail);
 
         viewModel = new JackpotThisYearViewModel(this, this);
+        setupStatisticModeSpinner();
+    }
+
+    private void setupStatisticModeSpinner() {
+        List<String> modes = Arrays.asList("Th\u1ed1ng k\u00ea n\u0103m nay", "Th\u1ed1ng k\u00ea 365 ng\u00e0y");
+        SpinnerBase.bindFilterSpinner(this, spnStatisticMode, modes);
+        spnStatisticMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                loadStatistics(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void loadStatistics(int mode) {
+        clearStatistics();
+        if (mode == MODE_365_DAYS) {
+            viewModel.getReserveJackpotListLastDays(365);
+            return;
+        }
         viewModel.getReserveJackpotListThisYear();
+    }
+
+    private void clearStatistics() {
+        linearSynthetic.removeAllViews();
+        linearHeadAndTail.removeAllViews();
     }
 
     @Override
@@ -52,9 +88,8 @@ public class JackpotThisYearActivity extends ActivityBase implements JackpotThis
     }
 
     @Override
-    public void showReserveJackpotListThisYear(List<Jackpot> jackpotList) {
+    public void showReserveJackpotList(List<Jackpot> jackpotList) {
         viewModel.getEventFrequency(jackpotList);
-        viewModel.getSameDoubleInNearestTime(jackpotList);
         viewModel.getHeadAndTailInNearestTime(jackpotList);
     }
 
@@ -67,26 +102,9 @@ public class JackpotThisYearActivity extends ActivityBase implements JackpotThis
     }
 
     @Override
-    public void showSameDoubleInNearestTime(List<NumberSetHistory> doubleHistories, int jackpotSize) {
-        int sum = 0;
-        for (NumberSetHistory history : doubleHistories) {
-            sum += history.getAppearanceTimes();
-        }
-        double ratio = sum == 0 ? 0 : Math.round(((double) jackpotSize / sum) * 100.0) / 100.0;
-        String doubleShow = "Kép (cứ " + ratio + " ngày lại có 1 con kép, tương đương " +
-                jackpotSize + " ngày có " + sum + " con kép):";
-        tvDouble.setText(doubleShow);
-        TableData tableData = TableDataConverter.getNumberSetHistoryTable("Kép", doubleHistories);
-        TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData, true);
-        linearDouble.removeAllViews();
-        linearDouble.addView(tableLayout);
-    }
-
-    @Override
     public void showHeadAndTailInNearestTime(List<NumberSetHistory> headTailHistories) {
-        String statisticShow = "Đầu đuôi:";
-        tvHeadAndTail.setText(statisticShow);
-        TableData tableData = TableDataConverter.getNumberSetHistoryTable("Đầu đuôi", headTailHistories);
+        tvHeadAndTail.setText("\u0110\u1ea7u \u0111u\u00f4i:");
+        TableData tableData = TableDataConverter.getNumberSetHistoryTable("\u0110\u1ea7u \u0111u\u00f4i", headTailHistories);
         TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData, true);
         linearHeadAndTail.removeAllViews();
         linearHeadAndTail.addView(tableLayout);

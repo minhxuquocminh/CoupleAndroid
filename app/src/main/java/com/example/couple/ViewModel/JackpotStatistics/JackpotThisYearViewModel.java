@@ -11,20 +11,19 @@ import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Statistics.EventFrequency;
 import com.example.couple.Model.Statistics.EventFrequencyType;
-import com.example.couple.View.JackpotStatistics.JackpotThisYearView;
+import com.example.couple.View.JackpotStatistics.CurrentYearJackpotStatisticsView;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class JackpotThisYearViewModel {
-    JackpotThisYearView view;
+    CurrentYearJackpotStatisticsView view;
     Context context;
 
-    public JackpotThisYearViewModel(JackpotThisYearView view, Context context) {
+    public JackpotThisYearViewModel(CurrentYearJackpotStatisticsView view, Context context) {
         this.view = view;
         this.context = context;
     }
@@ -32,24 +31,22 @@ public class JackpotThisYearViewModel {
     public void getReserveJackpotListThisYear() {
         List<Jackpot> jackpotList = JackpotHandler.getJackpotListByYear(context, TimeInfo.CURRENT_YEAR);
         if (jackpotList.isEmpty()) return;
-        view.showReserveJackpotListThisYear(jackpotList);
+        view.showReserveJackpotList(jackpotList);
+    }
+
+    public void getReserveJackpotListLastDays(int dayNumber) {
+        List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, dayNumber);
+        if (jackpotList.size() < dayNumber) {
+            view.showMessage("D\u1eef li\u1ec7u XSDB kh\u00f4ng \u0111\u1ee7 " + dayNumber + " ng\u00e0y.");
+            return;
+        }
+        view.showReserveJackpotList(jackpotList);
     }
 
     public void getEventFrequency(List<Jackpot> jackpotList) {
         Map<EventFrequencyType, EventFrequency> eventFrequencyMap = JackpotStatistics.getEventFrequencyMap(jackpotList,
                 Arrays.asList(EventFrequencyType.KEEP_SAME, EventFrequencyType.REVERSE));
         view.showEventFrequency(eventFrequencyMap);
-    }
-
-    public void getSameDoubleInNearestTime(List<Jackpot> jackpotList) {
-        Map<NumberSetType, List<NumberSetHistory>> historiesByType = NumberSetHistoryHandler.getFullNumberSetsHistory(jackpotList,
-                Collections.singletonList(NumberSetType.DOUBLE));
-        if (historiesByType.isEmpty()) return;
-        // double
-        List<NumberSetHistory> doubleHistories = historiesByType.get(NumberSetType.DOUBLE);
-        if (doubleHistories != null) {
-            view.showSameDoubleInNearestTime(doubleHistories, jackpotList.size());
-        }
     }
 
     public void getHeadAndTailInNearestTime(List<Jackpot> jackpotList) {

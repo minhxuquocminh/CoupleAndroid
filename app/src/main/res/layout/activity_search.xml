@@ -34,15 +34,12 @@
             android:padding="@dimen/padding_10dp">
 
             <EditText
+                style="@style/AppEditText.Box"
                 android:id="@+id/edtSearch"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@drawable/bg_search_box"
                 android:hint="Tìm kiếm"
-                android:paddingLeft="@dimen/padding_10dp"
-                android:paddingRight="@dimen/padding_10dp"
                 android:singleLine="true"
-                android:textColor="@color/colorText"
                 android:textColorHint="@color/colorTextNavBar"
                 android:textSize="@dimen/text_size_big" />
 

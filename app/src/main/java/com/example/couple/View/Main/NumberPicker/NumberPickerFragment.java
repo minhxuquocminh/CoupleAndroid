@@ -40,10 +40,9 @@ import com.example.couple.Model.Bridge.Estimated.PeriodHistory;
 import com.example.couple.Model.Handler.Priority;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
-import com.example.couple.View.Agent.AgentChatHistoryActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
-import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
-import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
+import com.example.couple.View.Jackpot.JackpotByYearActivity;
+import com.example.couple.View.Jackpot.JackpotNextDayActivity;
 import com.example.couple.View.Main.MainActivity;
 import com.example.couple.View.Notification.NotificationActivity;
 import com.example.couple.View.Search.SearchActivity;
@@ -70,7 +69,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     CheckBox cboNumberPicker;
     CheckBox cboTableA;
     CheckBox cboTableB;
-    TextView tvShowPrediction;
     TextView tvNumberCounter;
     ImageView imgClear;
     ImageView imgSave;
@@ -127,7 +125,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
         cboNumberPicker = viewParent.findViewById(R.id.cboNumberPicker);
         cboTableA = viewParent.findViewById(R.id.cboTableA);
         cboTableB = viewParent.findViewById(R.id.cboTableB);
-        tvShowPrediction = viewParent.findViewById(R.id.tvShowPrediction);
         tvNumberCounter = viewParent.findViewById(R.id.tvNumberCounter);
         imgClear = viewParent.findViewById(R.id.imgClear);
         imgSave = viewParent.findViewById(R.id.imgSave);
@@ -348,8 +345,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     private void hideAllContentIsSelected() {
-        isFirstNumberPicker = false;
-
         cboSavedList.setChecked(false);
         cboNumberPicker.setChecked(false);
         cboTableA.setChecked(false);
@@ -357,7 +352,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
 
         cboTableA.setVisibility(View.GONE);
         cboTableB.setVisibility(View.GONE);
-        tvShowPrediction.setVisibility(View.GONE);
         tvNumberCounter.setVisibility(View.GONE);
         imgClear.setVisibility(View.GONE);
         imgSave.setVisibility(View.GONE);
@@ -373,14 +367,12 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
     }
 
     private void saveListIsChecked() {
-        isFirstNumberPicker = false;
         cboNumberPicker.setChecked(false);
         viewModel.getTableAList();
         viewModel.getTableBList();
 
         cboTableA.setVisibility(View.GONE);
         cboTableB.setVisibility(View.GONE);
-        tvShowPrediction.setVisibility(View.GONE);
         tvNumberCounter.setVisibility(View.GONE);
         imgClear.setVisibility(View.GONE);
         imgSave.setVisibility(View.GONE);
@@ -405,7 +397,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
 
         cboTableA.setVisibility(View.VISIBLE);
         cboTableB.setVisibility(View.VISIBLE);
-        tvShowPrediction.setVisibility(View.VISIBLE);
         tvNumberCounter.setVisibility(View.VISIBLE);
         imgClear.setVisibility(View.VISIBLE);
         imgSave.setVisibility(View.VISIBLE);
@@ -430,7 +421,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
 
         cboTableA.setVisibility(View.VISIBLE);
         cboTableB.setVisibility(View.VISIBLE);
-        tvShowPrediction.setVisibility(View.VISIBLE);
         tvNumberCounter.setVisibility(View.VISIBLE);
         imgClear.setVisibility(View.VISIBLE);
         imgSave.setVisibility(View.VISIBLE);
@@ -484,7 +474,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
 
     private void onPickNumber(int number) {
         if (listMP.isEmpty()) {
-            tvShowPrediction.setText("m: ");
         } else {
             String mpStr = CoupleBase.showCouple(number);
             if (mpStr.isEmpty()) {
@@ -494,8 +483,6 @@ public class NumberPickerFragment extends Fragment implements NumberPickerView {
                 TextView textView = viewParent.findViewById(IdStart.MY_PREDICTION + i);
                 textView.setText(mpStr);
             }
-            tvShowPrediction.setVisibility(View.VISIBLE);
-            tvShowPrediction.setText("m: " + mpStr + ", " + listMP);
             StorageBase.setNumber(requireActivity(), StorageType.NUMBER_OF_PICKER, number < 0 ? Const.EMPTY_VALUE : number);
         }
     }

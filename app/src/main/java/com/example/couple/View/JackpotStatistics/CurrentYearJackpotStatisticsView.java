@@ -8,10 +8,9 @@ import com.example.couple.Model.Statistics.EventFrequencyType;
 import java.util.List;
 import java.util.Map;
 
-public interface JackpotThisYearView {
+public interface CurrentYearJackpotStatisticsView {
     void showMessage(String message);
-    void showReserveJackpotListThisYear(List<Jackpot> jackpotList);
+    void showReserveJackpotList(List<Jackpot> jackpotList);
     void showEventFrequency(Map<EventFrequencyType, EventFrequency> eventFrequencyMap);
-    void showSameDoubleInNearestTime(List<NumberSetHistory> doubleHistories, int jackpotSize);
     void showHeadAndTailInNearestTime(List<NumberSetHistory> headTailHistories);
 }

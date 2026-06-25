@@ -35,7 +35,7 @@ public class BridgeCombinationViewModel {
         List<Jackpot> jackpotList = JackpotHandler.getJackpotListByDays(context, TimeInfo.DAY_OF_YEAR);
         List<Lottery> lotteryList = LotteryHandler.getLotteryListFromFile(context, Const.MAX_DAYS_TO_GET_LOTTERY);
         if (jackpotList.isEmpty() || lotteryList.isEmpty()) {
-            view.showMessage("Lỗi không láy được dữ liệu Xổ số.");
+            view.showMessage("Lỗi không lấy được dữ liệu Xổ số.");
             return;
         }
         view.showAllData(jackpotList, lotteryList);

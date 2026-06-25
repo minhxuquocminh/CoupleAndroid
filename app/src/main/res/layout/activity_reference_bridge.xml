@@ -326,7 +326,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/padding_5dp"
-                    android:text="Xem thêm"
+                    android:text="Th&#7889;ng k&#234; &#272;B theo n&#259;m"
                     android:textColor="@color/colorTextLink"
                     android:textSize="@dimen/text_size" />
             </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.couple.View.JackpotStatistics;
+package com.example.couple.View.Jackpot;
 
 import java.util.List;
 

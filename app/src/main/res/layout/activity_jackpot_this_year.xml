@@ -5,7 +5,6 @@
     android:background="@color/colorThemeLight"
     android:orientation="vertical">
 
-    <!--toolbar-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="@dimen/padding_5dp"
-            android:text="Thống kê XS Đặc biệt trong năm nay"
+            android:text="Th&#7889;ng k&#234; &#272;B n&#259;m nay"
             android:textColor="@color/colorThemeLight"
             android:textSize="@dimen/text_size_header"
             android:typeface="normal" />
@@ -34,6 +33,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <Spinner
+                android:id="@+id/spnStatisticMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:background="@drawable/bg_spinner_dropdown"
+                android:paddingLeft="@dimen/padding_5dp"
+                android:paddingRight="28dp"
+                android:spinnerMode="dropdown" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,34 +52,13 @@
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:layout_marginRight="@dimen/margin_10dp"
                 android:layout_marginBottom="@dimen/margin_5dp"
-                android:text="Tổng hợp:"
+                android:text="T&#7893;ng h&#7907;p:"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/linearSynthetic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:orientation="vertical" />
-
-            <TextView
-                android:id="@+id/tvDouble"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:layout_marginBottom="@dimen/margin_5dp"
-                android:text="Kép:"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/linearDouble"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10dp"
@@ -83,7 +73,7 @@
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:layout_marginRight="@dimen/margin_10dp"
                 android:layout_marginBottom="@dimen/margin_5dp"
-                android:text="Đầu đuôi:"
+                android:text="&#272;&#7847;u &#273;u&#244;i:"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size"
                 android:textStyle="bold" />

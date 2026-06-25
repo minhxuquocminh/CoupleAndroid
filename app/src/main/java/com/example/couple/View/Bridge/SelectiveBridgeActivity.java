@@ -17,7 +17,7 @@ import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
-import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
+import com.example.couple.View.BridgeHistory.JackpotNumberSetRhythmActivity;
 import com.example.couple.ViewModel.Bridge.SelectiveBridgeViewModel;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public class SelectiveBridgeActivity extends ActivityBase implements SelectiveBr
         tvViewLongBeatBridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SelectiveBridgeActivity.this, NumberSetHistoryActivity.class));
+                startActivity(new Intent(SelectiveBridgeActivity.this, JackpotNumberSetRhythmActivity.class));
             }
         });
 

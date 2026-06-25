@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import com.example.couple.Base.Basic.NoParamFunction;
+import com.example.couple.R;
 
 public class DialogBase {
 
@@ -30,7 +31,7 @@ public class DialogBase {
                     }
                 })
                 .setNegativeButton("Hủy", null)
-                .setIcon(android.R.drawable.ic_dialog_alert).show();
+                .setIcon(R.drawable.ic_copy).show();
     }
 
     public static void showBasic(Context context, String title, String message) {

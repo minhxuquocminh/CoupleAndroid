@@ -20,13 +20,13 @@ import com.example.couple.Model.Bridge.NumberSet.NumberSetHistory;
 import com.example.couple.Model.Bridge.NumberSet.NumberSetType;
 import com.example.couple.Model.Origin.Jackpot;
 import com.example.couple.R;
-import com.example.couple.ViewModel.JackpotStatistics.NumberSetHistoryViewModel;
+import com.example.couple.ViewModel.BridgeHistory.NumberSetHistoryViewModel;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class NumberSetHistoryActivity extends ActivityBase implements NumberSetHistoryView {
+public class JackpotNumberSetRhythmActivity extends ActivityBase implements NumberSetHistoryView {
     EditText edtDayNumber;
     Button btnView;
     HorizontalScrollView hsTable;
@@ -64,7 +64,7 @@ public class NumberSetHistoryActivity extends ActivityBase implements NumberSetH
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WidgetBase.hideKeyboard(NumberSetHistoryActivity.this);
+                WidgetBase.hideKeyboard(JackpotNumberSetRhythmActivity.this);
                 String dayNumberStr = edtDayNumber.getText().toString().trim();
                 if (dayNumberStr.isEmpty()) {
                     showMessage("Bạn chưa nhập số ngày.");

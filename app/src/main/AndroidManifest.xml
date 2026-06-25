@@ -71,6 +71,12 @@
             android:label="Quản lý model"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
+        <activity
+            android:name=".View.Agent.AiJackpotStatisticsActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity android:name=".View.Agent.AiPredictionHistoryActivity" />
+
         <activity android:name=".View.Bridge.FindingBridgeActivity" />
 
         <activity android:name=".View.Bridge.AfterDoubleBridgeActivity" />
@@ -85,7 +91,7 @@
 
         <activity android:name=".View.Bridge.SelectiveBridgeActivity" />
 
-        <activity android:name=".View.JackpotStatistics.JackpotNextDayActivity" />
+        <activity android:name=".View.Jackpot.JackpotNextDayActivity" />
 
         <activity
             android:name=".View.Lottery.LotteryActivity"
@@ -95,14 +101,13 @@
 
         <activity android:name=".View.Couple.CoupleByWeekActivity" />
 
-        <activity android:name=".View.JackpotStatistics.CoupleByYearActivity" />
+        <activity android:name=".View.JackpotStatistics.YearlyJackpotStatisticsActivity" />
 
-        <activity android:name=".View.JackpotStatistics.JackpotThisYearActivity" />
+        <activity android:name=".View.JackpotStatistics.CurrentYearJackpotStatisticsActivity" />
 
-        <activity android:name=".View.JackpotStatistics.JackpotAllYearActivity" />
 
         <activity
-            android:name=".View.JackpotStatistics.JackpotByYearActivity"
+            android:name=".View.Jackpot.JackpotByYearActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <activity android:name=".View.Bridge.ReferenceBridgeActivity" />
@@ -120,7 +125,7 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".View.BridgeHistory.NumberSetHistoryActivity"
+            android:name=".View.BridgeHistory.JackpotNumberSetRhythmActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <activity android:name=".View.SubScreen.CycleByYearActivity" />

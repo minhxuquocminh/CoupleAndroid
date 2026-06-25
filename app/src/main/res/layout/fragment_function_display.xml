@@ -3,376 +3,111 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorThemeLight"
+    android:background="@color/colorSurfaceSoft"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurfaceSoft"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_10dp"
+        android:paddingTop="@dimen/padding_8dp"
+        android:paddingRight="@dimen/padding_10dp"
+        android:paddingBottom="@dimen/padding_8dp">
+
+        <ImageView
+            android:id="@+id/imgPersonal"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginRight="@dimen/margin_6dp"
+            android:background="@drawable/bg_search_box"
+            android:contentDescription="Cá nhân"
+            android:padding="@dimen/padding_8dp"
+            android:src="@drawable/ic_bottom_personal"
+            app:tint="@color/colorPrimary" />
+
+        <LinearLayout
+            android:id="@+id/layoutSearch"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search_box"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_10dp"
+            android:paddingRight="@dimen/padding_10dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_search" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="Tìm kiếm"
+                android:textColor="@color/colorTextNavBar"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgNotification"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="@dimen/margin_6dp"
+            android:background="@drawable/bg_search_box"
+            android:contentDescription="Thông báo"
+            android:padding="@dimen/padding_8dp"
+            android:src="@drawable/ic_notification" />
+
+        <ImageView
+            android:id="@+id/imgNavigationMenu"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="@dimen/margin_6dp"
+            android:background="@drawable/bg_search_box"
+            android:contentDescription="Menu"
+            android:padding="@dimen/padding_8dp"
+            android:src="@drawable/ic_menu_lines" />
+
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorThemeLight">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorSurfaceSoft"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/padding_10dp"
-            android:paddingTop="@dimen/padding_10dp"
-            android:paddingRight="@dimen/padding_10dp"
-            android:paddingBottom="@dimen/padding_15dp">
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/padding_8dp"
+            android:paddingRight="@dimen/padding_8dp"
+            android:paddingBottom="@dimen/padding_10dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/linearLeftGroups"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvViewJackpot"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_jackpot_by_year_2" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="XS Đặc Biệt"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvViewLottery"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_lottery" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="XS theo ngày"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvJackpotNextDay"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_jackpot_next_day" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="ĐB ngày mai"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:layout_weight="1"
+                android:orientation="vertical" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/linearRightGroups"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvLotteryFindingBridge"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_finding_bridge" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="Soi cầu MB"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvBalanceCouple"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_trigrams" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="Bộ số CB"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvAppearanceJackpot"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_jackpot_counter" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="Tìm số ĐB"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvJackpotReference"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_reference_jackpot" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="Thống kê XS"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvJackpotThisYear"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_jackpot_this_year" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="ĐB năm nay"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvGeneralJackpot"
-                    android:layout_width="0dp"
-                    android:layout_height="106dp"
-                    android:layout_margin="@dimen/margin_5dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorThemeLight"
-                    app:cardCornerRadius="7dp"
-                    app:cardElevation="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_8dp">
-
-                        <ImageView
-                            android:layout_width="58dp"
-                            android:layout_height="58dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_prediction_bridge" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5dp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="ĐB tổng hợp"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size_small" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_weight="1"
+                android:orientation="vertical" />
 
         </LinearLayout>
 

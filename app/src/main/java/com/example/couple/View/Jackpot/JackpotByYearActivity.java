@@ -1,10 +1,9 @@
-package com.example.couple.View.JackpotStatistics;
+package com.example.couple.View.Jackpot;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.Spinner;
@@ -16,6 +15,7 @@ import com.example.couple.Base.Handler.CoupleBase;
 import com.example.couple.Base.Handler.StorageBase;
 import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Base.View.Spacing;
+import com.example.couple.Base.View.SpinnerBase;
 import com.example.couple.Base.View.Table.TableLayoutBase;
 import com.example.couple.Base.View.TextViewBase;
 import com.example.couple.Base.View.TextViewPositionManager;
@@ -26,7 +26,7 @@ import com.example.couple.Custom.Enum.StorageType;
 import com.example.couple.Custom.Handler.JackpotHandler;
 import com.example.couple.Model.DateTime.Date.DateBase;
 import com.example.couple.R;
-import com.example.couple.ViewModel.JackpotStatistics.JackpotByYearViewModel;
+import com.example.couple.ViewModel.Jackpot.JackpotByYearViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,9 +80,7 @@ public class JackpotByYearActivity extends ActivityBase implements JackpotByYear
         for (int year : yearList) {
             yearStrList.add("Năm " + year);
         }
-        ArrayAdapter<?> adapter = new ArrayAdapter<>(this,
-                R.layout.custom_item_spinner, R.id.tvItemSpinner, yearStrList);
-        spnYear.setAdapter(adapter);
+        SpinnerBase.bindFilterSpinner(this, spnYear, yearStrList);
         int position = yearList.indexOf(TimeInfo.CURRENT_YEAR);
         if (position >= 0) {
             spnYear.setSelection(position);

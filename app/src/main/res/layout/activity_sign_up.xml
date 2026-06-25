@@ -70,6 +70,7 @@
 
                 <EditText
                     android:id="@+id/edtName"
+                    style="@style/AppAuth.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Họ tên đầy đủ"
@@ -89,6 +90,7 @@
 
                 <EditText
                     android:id="@+id/edtPhone"
+                    style="@style/AppAuth.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Số điện thoại"
@@ -109,6 +111,7 @@
 
                 <EditText
                     android:id="@+id/edtEmail"
+                    style="@style/AppAuth.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Địa chỉ email"
@@ -131,6 +134,7 @@
 
                 <EditText
                     android:id="@+id/edtUsername"
+                    style="@style/AppAuth.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Tên đăng nhập"
@@ -150,6 +154,7 @@
 
                 <EditText
                     android:id="@+id/edtPassword"
+                    style="@style/AppAuth.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Mật khẩu"
@@ -170,6 +175,7 @@
 
                 <EditText
                     android:id="@+id/edtRepeatPassword"
+                    style="@style/AppAuth.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nhập lại mật khẩu"

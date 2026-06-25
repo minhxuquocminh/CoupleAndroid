@@ -35,45 +35,40 @@
             android:orientation="vertical">
 
             <LinearLayout
+                style="@style/AppFilter.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <View
-                    android:layout_width="0dp"
+                <TextView
+                    style="@style/AppFilter.Label"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Spinner
-                    android:id="@+id/spnYear"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_5dp"
-                    android:layout_marginRight="@dimen/margin_5dp"
-                    android:layout_weight="6"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:textStyle="bold" />
+                    android:text="Năm thống kê" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="5">
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spnYear"
+                        style="@style/AppFilter.Spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1" />
 
                     <Button
                         android:id="@+id/tvGetData"
+                        style="@style/AppButton.Filter"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        style="@style/AppTextButton.Primary"
-                        android:padding="@dimen/padding_10dp"
-                        android:text="Xem kết quả"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/text_size" />
+                        android:layout_height="40dp"
+                        android:minWidth="112dp"
+                        android:text="Xem kết quả" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <ScrollView

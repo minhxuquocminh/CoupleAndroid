@@ -35,57 +35,44 @@
             android:orientation="vertical">
 
             <LinearLayout
+                style="@style/AppFilter.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
+                android:layout_margin="@dimen/margin_5dp"
                 android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppFilter.Label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Số ngày cần xem" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp">
-
-                        <EditText
-                            android:id="@+id/edtFindingDays"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:hint="Số ngày cần xem"
-                            android:inputType="number"
-                            android:maxLength="3"
-                            android:text="30"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/text_size"
-                            android:textStyle="bold" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/edtFindingDays"
+                        style="@style/AppFilter.Input"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="30" />
 
                     <Button
                         android:id="@+id/tvGetData"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="@dimen/margin_5dp"
-                        android:layout_marginRight="@dimen/margin_5dp"
-                        style="@style/AppTextButton.Primary"
-                        android:gravity="center"
-                        android:padding="10dp"
+                        style="@style/AppButton.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:minWidth="112dp"
                         android:text="Xem BSCB"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/text_size" />
-
+                        android:textAllCaps="false" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <!--show data-->
@@ -94,7 +81,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_5dp"
-                android:layout_marginTop="3dp"
                 android:layout_marginRight="@dimen/margin_5dp"
                 android:layout_marginBottom="@dimen/margin_10dp"
                 android:orientation="vertical" />
@@ -104,5 +90,3 @@
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
-
-

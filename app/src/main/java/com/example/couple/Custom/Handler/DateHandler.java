@@ -73,6 +73,8 @@ public class DateHandler {
      */
 
     public static boolean updateAllDateData(Context context) {
+        return true;
+        /*
         boolean checkNextDay = updateDateData(context,
                 DateBase.today().addDays(1), FileName.DATE_DATA_NEXT_DAY);
         if (!checkNextDay) return false;
@@ -87,6 +89,7 @@ public class DateHandler {
         DateBase previousPreviousMonth = dateData1.getDateBase().addDays(-dateData1.getDateLunar().getDay());
 
         return updateDateData(context, previousPreviousMonth, FileName.DATE_DATA_PREVIOUS_2);
+        */
     }
 
     private static boolean updateDateData(Context context, DateBase dateBase, String fileName) {
@@ -101,6 +104,14 @@ public class DateHandler {
     }
 
     public static List<DateData> getAllDateData(Context context, int numberOfDays) {
+        List<DateData> offlineDateDataList = new ArrayList<>();
+        if (numberOfDays < 1) return offlineDateDataList;
+        offlineDateDataList.add(LunarCalendarHandler.getDateData(DateBase.today().addDays(1)));
+        for (int i = 0; i < numberOfDays - 1; i++) {
+            offlineDateDataList.add(LunarCalendarHandler.getDateData(DateBase.today().addDays(-i)));
+        }
+        return offlineDateDataList;
+        /*
         List<DateData> dateDataList = new ArrayList<>();
         DateData nextDay = getDateData(context, FileName.DATE_DATA_NEXT_DAY);
         dateDataList.add(nextDay);
@@ -156,6 +167,7 @@ public class DateHandler {
         }
 
         return dateDataList;
+        */
     }
 
     private static DateData getDateData(Context context, String fileName) {
@@ -190,11 +202,11 @@ public class DateHandler {
     }
 
     public static DateData getDateDataNextDay(Context context) {
-        return getDateData(context, FileName.DATE_DATA_NEXT_DAY);
+        return LunarCalendarHandler.getDateData(DateBase.today().addDays(1));
     }
 
     public static DateData getDateDataToday(Context context) {
-        return getDateData(context, FileName.DATE_DATA_TODAY);
+        return LunarCalendarHandler.getDateData(DateBase.today());
     }
 
 }

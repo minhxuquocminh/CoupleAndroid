@@ -21,14 +21,14 @@ import com.example.couple.View.Bridge.ConnectedBridgeActivity;
 import com.example.couple.View.Bridge.EstimatedBridgeActivity;
 import com.example.couple.View.Bridge.MappingBridgeActivity;
 import com.example.couple.View.Bridge.TouchBridgeActivity;
-import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
+import com.example.couple.View.BridgeHistory.JackpotNumberSetRhythmActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.Couple.CoupleByWeekActivity;
-import com.example.couple.View.JackpotStatistics.JackpotAllYearActivity;
-import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
-import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
-import com.example.couple.View.JackpotStatistics.JackpotThisYearActivity;
+import com.example.couple.View.Jackpot.JackpotByYearActivity;
+import com.example.couple.View.Jackpot.JackpotNextDayActivity;
+import com.example.couple.View.JackpotStatistics.CurrentYearJackpotStatisticsActivity;
+import com.example.couple.View.JackpotStatistics.YearlyJackpotStatisticsActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.View.Notification.NewBridgeActivity;
 import com.example.couple.View.Notification.NotificationActivity;
@@ -76,8 +76,8 @@ public class SearchActivity extends ActivityBase {
                 AfterDoubleBridgeActivity.class, "kep", "cau kep", "sau khi ra kep");
         SearchShortcut jackpotHistory = new SearchShortcut("Lịch sử ĐB", "Xem lịch sử XS Đặc Biệt theo năm.",
                 JackpotByYearActivity.class, "lich su db", "xsdb", "dac biet", "db");
-        SearchShortcut yearlyStatistic = new SearchShortcut("Thống kê theo năm", "Xem thống kê ĐB nhiều năm.",
-                JackpotAllYearActivity.class, "thong ke", "theo nam", "nhieu nam", "dac biet nhieu nam");
+        SearchShortcut yearlyStatistic = new SearchShortcut("Thống kê ĐB theo năm", "Xem thống kê ĐB theo năm.",
+                YearlyJackpotStatisticsActivity.class, "thong ke db theo nam", "thong ke", "theo nam", "db theo nam");
 
         defaultShortcuts = Arrays.asList(newBridge, notificationSetting, connectedBridge, afterDoubleBridge,
                 jackpotHistory, yearlyStatistic);
@@ -94,7 +94,7 @@ public class SearchActivity extends ActivityBase {
         allShortcuts.add(new SearchShortcut("BSCB", "Xem bảng số cân bằng.",
                 BalanceCoupleActivity.class, "bscb", "bang so can bang", "can bang"));
         allShortcuts.add(new SearchShortcut("Cầu gan", "Xem nhịp chạy và lịch sử bộ số.",
-                NumberSetHistoryActivity.class, "cau gan", "gan", "nhip chay", "bo so"));
+                JackpotNumberSetRhythmActivity.class, "cau gan", "gan", "nhip chay", "bo so"));
         allShortcuts.add(new SearchShortcut("Can chi", "Xem thông tin can chi.",
                 SexagenaryCycleActivity.class, "can chi", "can", "chi"));
         allShortcuts.add(new SearchShortcut("Cầu chạm", "Xem các cầu chạm.",
@@ -105,12 +105,10 @@ public class SearchActivity extends ActivityBase {
                 EstimatedBridgeActivity.class, "cau uoc luong", "uoc luong"));
         allShortcuts.add(new SearchShortcut("Tổng hợp cầu", "Xem tổng hợp các loại cầu.",
                 BridgeCombinationActivity.class, "tong hop cau", "tong hop", "cau tong hop"));
-        allShortcuts.add(new SearchShortcut("Đặc Biệt năm nay", "Xem thống kê ĐB năm nay.",
-                JackpotThisYearActivity.class, "dac biet nam nay", "db nam nay", "nam nay"));
-        allShortcuts.add(new SearchShortcut("Đặc Biệt nhiều năm", "Xem thống kê ĐB nhiều năm.",
-                JackpotAllYearActivity.class, "dac biet nhieu nam", "db nhieu nam", "nhieu nam"));
+        allShortcuts.add(new SearchShortcut("Thống kê ĐB năm nay", "Xem thống kê ĐB năm nay.",
+                CurrentYearJackpotStatisticsActivity.class, "dac biet nam nay", "db nam nay", "nam nay"));
         allShortcuts.add(new SearchShortcut("Nhịp chạy ĐB", "Xem nhịp chạy ĐB theo bộ số.",
-                NumberSetHistoryActivity.class, "nhip chay db", "nhip chay", "bo so"));
+                JackpotNumberSetRhythmActivity.class, "nhip chay db", "nhip chay", "bo so"));
         allShortcuts.add(new SearchShortcut("Sửa URL và Param", "Cấu hình URL và tham số lấy dữ liệu.",
                 UrlAndParamsActivity.class, "sua url", "param", "url", "cau hinh"));
         allShortcuts.add(new SearchShortcut("Lưu dữ liệu ĐB", "Thêm hoặc lưu dữ liệu ĐB nhiều năm.",

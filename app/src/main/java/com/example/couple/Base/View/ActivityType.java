@@ -8,12 +8,12 @@ import com.example.couple.View.Bridge.FindingBridgeActivity;
 import com.example.couple.View.Bridge.MappingBridgeActivity;
 import com.example.couple.View.Bridge.SelectiveBridgeActivity;
 import com.example.couple.View.Bridge.TouchBridgeActivity;
-import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
+import com.example.couple.View.BridgeHistory.JackpotNumberSetRhythmActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
-import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
-import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
-import com.example.couple.View.JackpotStatistics.JackpotThisYearActivity;
+import com.example.couple.View.Jackpot.JackpotByYearActivity;
+import com.example.couple.View.Jackpot.JackpotNextDayActivity;
+import com.example.couple.View.JackpotStatistics.CurrentYearJackpotStatisticsActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.View.SubScreen.CycleByYearActivity;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
@@ -38,8 +38,8 @@ public enum ActivityType {
     TOUCH_BRIDGE(2007, "cầu chạm", TouchBridgeActivity.class),
     MAPPING_BRIDGE(2008, "ánh xạ", MappingBridgeActivity.class),
 
-    SPECIAL_SETS_HISTORY(3001, "nhịp chạy", NumberSetHistoryActivity.class),
-    JACKPOT_THIS_YEAR(3002, "đầu đuôi", JackpotThisYearActivity.class),
+    SPECIAL_SETS_HISTORY(3001, "nhịp chạy", JackpotNumberSetRhythmActivity.class),
+    JACKPOT_THIS_YEAR(3002, "đầu đuôi", CurrentYearJackpotStatisticsActivity.class),
     CYCLE_BY_YEAR(3003, "đặc biệt theo năm", CycleByYearActivity.class),
     BRIDGE_COMBINATION(3004, "tổ hợp cầu", BridgeCombinationActivity.class),
 

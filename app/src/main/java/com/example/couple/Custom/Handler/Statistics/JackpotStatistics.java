@@ -60,7 +60,7 @@ public class JackpotStatistics {
             col++;
         }
         for (Integer couple : couples) {
-            matrix[row][0] = couple + "";
+            matrix[row][0] = formatCouple(couple);
             matrix[row][col] = sum[row] + "";
             row++;
         }
@@ -83,11 +83,46 @@ public class JackpotStatistics {
             col++;
         }
         for (int couple = 0; couple < 100; couple++) {
-            matrix[couple + 1][0] = couple + "";
+            matrix[couple + 1][0] = formatCouple(couple);
             matrix[couple + 1][col] = sum[couple + 1] + "";
         }
         matrix[0][col] = "Tổng";
         return matrix;
+    }
+
+    public static String[][] getCounterMatrixByYears(Map<Integer, int[]> counterByYears,
+                                                     List<String> names,
+                                                     List<List<Integer>> groups) {
+        String[][] matrix = new String[names.size() + 1][counterByYears.size() + 2];
+        matrix[0][0] = "Nh\u00f3m";
+        int col = 1;
+        int[] sum = new int[names.size() + 1];
+
+        for (Map.Entry<Integer, int[]> entry : counterByYears.entrySet()) {
+            matrix[0][col] = entry.getKey() + "";
+            for (int row = 1; row <= groups.size(); row++) {
+                int counter = 0;
+                for (Integer couple : groups.get(row - 1)) {
+                    if (couple >= 0 && couple < entry.getValue().length) {
+                        counter += entry.getValue()[couple];
+                    }
+                }
+                matrix[row][col] = counter + "";
+                sum[row] += counter;
+            }
+            col++;
+        }
+
+        for (int row = 1; row <= names.size(); row++) {
+            matrix[row][0] = names.get(row - 1);
+            matrix[row][col] = sum[row] + "";
+        }
+        matrix[0][col] = "T\u1ed5ng";
+        return matrix;
+    }
+
+    private static String formatCouple(int couple) {
+        return couple < 10 ? "0" + couple : couple + "";
     }
 
     public static Map<Integer, int[]> getCounterByYears(Map<Integer, String[][]> matrixByYears) {

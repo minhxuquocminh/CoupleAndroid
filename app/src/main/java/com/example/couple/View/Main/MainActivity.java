@@ -35,20 +35,22 @@ import com.example.couple.Model.Origin.Lottery;
 import com.example.couple.R;
 import com.example.couple.View.Agent.AgentChatHistoryActivity;
 import com.example.couple.View.Agent.AgentModelManageActivity;
+import com.example.couple.View.Agent.AiJackpotStatisticsActivity;
+import com.example.couple.View.Agent.AiPredictionHistoryActivity;
 import com.example.couple.View.Bridge.AfterDoubleBridgeActivity;
 import com.example.couple.View.Bridge.BridgeCombinationActivity;
 import com.example.couple.View.Bridge.ConnectedBridgeActivity;
 import com.example.couple.View.Bridge.EstimatedBridgeActivity;
 import com.example.couple.View.Bridge.MappingBridgeActivity;
 import com.example.couple.View.Bridge.TouchBridgeActivity;
-import com.example.couple.View.BridgeHistory.NumberSetHistoryActivity;
+import com.example.couple.View.BridgeHistory.JackpotNumberSetRhythmActivity;
 import com.example.couple.View.BridgeHistory.SexagenaryCycleActivity;
 import com.example.couple.View.Couple.BalanceCoupleActivity;
 import com.example.couple.View.Couple.CoupleByWeekActivity;
-import com.example.couple.View.JackpotStatistics.JackpotAllYearActivity;
-import com.example.couple.View.JackpotStatistics.JackpotByYearActivity;
-import com.example.couple.View.JackpotStatistics.JackpotNextDayActivity;
-import com.example.couple.View.JackpotStatistics.JackpotThisYearActivity;
+import com.example.couple.View.Jackpot.JackpotByYearActivity;
+import com.example.couple.View.Jackpot.JackpotNextDayActivity;
+import com.example.couple.View.JackpotStatistics.CurrentYearJackpotStatisticsActivity;
+import com.example.couple.View.JackpotStatistics.YearlyJackpotStatisticsActivity;
 import com.example.couple.View.Lottery.LotteryActivity;
 import com.example.couple.View.Main.CreateNumberArray.CreateNumberArrayFragment;
 import com.example.couple.View.Main.FunctionDisplay.FunctionDisplayFragment;
@@ -76,6 +78,7 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
     private PopupWindow navigationPopupWindow;
 
     private static final String TOOLBAR_MENU_TAG = "toolbar_navigation_menu";
+    private static final int MAX_AUTO_UPDATE_FAILURE_COUNT = 5;
 
     FragmentManager fm = getSupportFragmentManager();
     public static Fragment fragment1 = new HomePageFragment();
@@ -87,6 +90,7 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
 
     MainViewModel mainViewModel;
     UpdateDataService updateDataService;
+    private int autoUpdateFailureCount = 0;
 
     @Getter
     @Setter
@@ -313,6 +317,7 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
                         new NavigationMenuItem("Can Chi", SexagenaryCycleActivity.class)
                 }),
                 new NavigationMenuGroup("Xem cầu", new NavigationMenuItem[]{
+                        new NavigationMenuItem("AI soi cầu ĐB", AiJackpotStatisticsActivity.class),
                         new NavigationMenuItem("Cầu mới", NewBridgeActivity.class),
                         new NavigationMenuItem("Cầu liên thông", ConnectedBridgeActivity.class),
                         new NavigationMenuItem("Cầu sau khi ra kép", AfterDoubleBridgeActivity.class),
@@ -322,9 +327,10 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
                         new NavigationMenuItem("Tổng hợp cầu", BridgeCombinationActivity.class)
                 }),
                 new NavigationMenuGroup("Thống kê", new NavigationMenuItem[]{
-                        new NavigationMenuItem("Đặc Biệt năm nay", JackpotThisYearActivity.class),
-                        new NavigationMenuItem("Đặc Biệt nhiều năm", JackpotAllYearActivity.class),
-                        new NavigationMenuItem("Nhịp chạy ĐB", NumberSetHistoryActivity.class)
+                        new NavigationMenuItem("Thống kê ĐB năm nay", CurrentYearJackpotStatisticsActivity.class),
+                        new NavigationMenuItem("Thống kê ĐB theo năm", YearlyJackpotStatisticsActivity.class),
+                        new NavigationMenuItem("Lịch sử AI ĐB", AiPredictionHistoryActivity.class),
+                        new NavigationMenuItem("Nhịp chạy ĐB", JackpotNumberSetRhythmActivity.class)
                 }),
                 new NavigationMenuGroup("Cài đặt", new NavigationMenuItem[]{
                         new NavigationMenuItem("Sửa URL và Param", UrlAndParamsActivity.class),
@@ -348,7 +354,9 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
     @Override
     protected void onResume() {
         super.onResume();
-        updateDataService.getAllIfDataIsOld(time.getValue(), jackpotList.getValue(), lotteryList.getValue());
+        if (!shouldSkipAutoUpdate()) {
+            updateDataService.getAllIfDataIsOld(time.getValue(), jackpotList.getValue(), lotteryList.getValue());
+        }
     }
 
     @Override
@@ -359,11 +367,32 @@ public class MainActivity extends ActivityBase implements MainView, UpdateDataVi
         } else {
             mainViewModel.registerBackgoundRuntime();
         }
-        new ThreadBase<>((param) -> {
-            updateDataService.updateAllData(false, false);
-            return null;
-        }, "").start();
+        if (!shouldSkipAutoUpdate()) {
+            new ThreadBase<>((param) -> {
+                boolean updateSuccess = updateDataService.updateAllData(false, false);
+                recordAutoUpdateResult(updateSuccess);
+                return null;
+            }, "").start();
+        }
         initSpeechToText(0);
+    }
+
+    private synchronized boolean shouldSkipAutoUpdate() {
+        return autoUpdateFailureCount >= MAX_AUTO_UPDATE_FAILURE_COUNT;
+    }
+
+    private synchronized void recordAutoUpdateResult(boolean updateSuccess) {
+        if (updateSuccess) {
+            autoUpdateFailureCount = 0;
+            return;
+        }
+        autoUpdateFailureCount++;
+    }
+
+    @Override
+    protected void onDestroy() {
+        autoUpdateFailureCount = 0;
+        super.onDestroy();
     }
 
     private static void askToEnableExactAlarmPermission(Context context) {

@@ -1,4 +1,4 @@
-package com.example.couple.ViewModel.JackpotStatistics;
+package com.example.couple.ViewModel.BridgeHistory;
 
 import android.content.Context;
 

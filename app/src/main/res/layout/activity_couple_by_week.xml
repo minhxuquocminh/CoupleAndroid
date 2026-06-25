@@ -35,58 +35,49 @@
             android:orientation="vertical">
 
             <LinearLayout
+                style="@style/AppFilter.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:layout_margin="@dimen/margin_5dp"
+                android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
+                <TextView
+                    style="@style/AppFilter.Label"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:text="Số tuần" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/edtWeekNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:hint="Số tuần"
+                        style="@style/AppFilter.Input"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1"
                         android:inputType="number"
                         android:maxLength="2"
-                        android:text="4"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size"
-                        android:textStyle="bold" />
+                        android:text="4" />
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/tvGetData"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    style="@style/AppTextButton.Primary"
-                    android:padding="@dimen/padding_10dp"
-                    android:text="Xem kết quả"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/text_size" />
+                    <Button
+                        android:id="@+id/tvGetData"
+                        style="@style/AppButton.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:minWidth="112dp"
+                        android:text="Xem kết quả" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearCoupleByWeek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical" />
 
 

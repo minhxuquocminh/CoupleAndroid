@@ -5,7 +5,6 @@
     android:background="@color/colorThemeLight"
     android:orientation="vertical">
 
-    <!--toolbar-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="@dimen/padding_5dp"
-            android:text="Thống kê tần suất Đề chạy"
+            android:text="Thống kê ĐB theo năm"
             android:textColor="@color/colorThemeLight"
             android:textSize="@dimen/text_size_header"
             android:typeface="normal" />
@@ -35,135 +34,98 @@
             android:orientation="vertical">
 
             <LinearLayout
+                style="@style/AppFilter.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:layout_marginBottom="@dimen/margin_5dp">
+                android:layout_margin="@dimen/margin_5dp"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    style="@style/AppFilter.Label"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="9"
-                    android:orientation="vertical">
+                    android:text="Bộ lọc" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_5dp"
-                        android:layout_marginRight="@dimen/margin_5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1">
-
-                            <EditText
-                                android:id="@+id/edtNumberOfYears"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Số năm"
-                                android:inputType="number"
-                                android:maxLength="1"
-                                android:text="3"
-                                android:textColor="@color/colorText"
-                                android:textSize="@dimen/text_size" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1">
-
-                            <EditText
-                                android:id="@+id/edtTens"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Số đầu"
-                                android:inputType="number"
-                                android:maxLength="1"
-                                android:textColor="@color/colorText"
-                                android:textSize="@dimen/text_size" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1">
-
-                            <EditText
-                                android:id="@+id/edtUnit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Số đuôi"
-                                android:inputType="number"
-                                android:maxLength="1"
-                                android:textColor="@color/colorText"
-                                android:textSize="@dimen/text_size" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_5dp"
+                    <Spinner
+                        android:id="@+id/spnStatisticType"
+                        style="@style/AppFilter.Spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
                         android:layout_marginRight="@dimen/margin_5dp"
-                        android:orientation="horizontal">
+                        android:layout_weight="5" />
 
-                        <CheckBox
-                            android:id="@+id/cboNearestYear"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Năm gần nhất"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size" />
-
-                        <CheckBox
-                            android:id="@+id/cboSumOfYears"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Tổng các năm"
-                            android:textColor="@color/colorText"
-                            android:textSize="@dimen/text_size" />
-
-                    </LinearLayout>
-
+                    <EditText
+                        android:id="@+id/edtFilterValue"
+                        style="@style/AppFilter.Input"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="3"
+                        android:hint="Số đề"
+                        android:inputType="number"
+                        android:maxLength="2" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/tvFilter"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                    <TextView
+                        style="@style/AppFilter.Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_margin="@dimen/margin_10dp"
-                        style="@style/AppTextButton.Primary"
-                        android:gravity="center"
-                        android:padding="@dimen/padding_10dp"
-                        android:text="Lọc"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/text_size" />
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:text="Số năm" />
 
+                    <Spinner
+                        android:id="@+id/spnNumberOfYears"
+                        style="@style/AppFilter.Spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="3" />
+
+                    <TextView
+                        style="@style/AppFilter.Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:text="Sắp xếp" />
+
+                    <Spinner
+                        android:id="@+id/spnSortType"
+                        style="@style/AppFilter.Spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="6" />
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/tvFilter"
+                    style="@style/AppButton.Filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:text="Xem" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:text="Đề chạy theo năm:"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
+                android:text="Kết quả:"
                 android:textColor="@color/colorText"
                 android:textSize="@dimen/text_size" />
 
@@ -171,12 +133,13 @@
                 android:id="@+id/linearFreqCouple"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin_10dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
                 android:orientation="vertical" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </LinearLayout>

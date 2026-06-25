@@ -97,8 +97,6 @@ public abstract class ActivityBase extends SpeechToTextActivityBase {
                 return "Tổ hợp";
             case "Cầu sau khi ra kép":
                 return "Cầu sau kép";
-            case "Đặc Biệt nhiều năm":
-                return "ĐB nhiều năm";
             case "Đặc Biệt năm nay":
                 return "ĐB năm nay";
             case "Nhịp chạy ĐB":

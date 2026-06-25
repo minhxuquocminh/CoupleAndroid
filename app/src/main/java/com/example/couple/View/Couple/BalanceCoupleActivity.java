@@ -81,7 +81,8 @@ public class BalanceCoupleActivity extends ActivityBase implements BalanceCouple
     @Override
     public void showTableOfBalanceCouple(List<Jackpot> jackpotList, int numberOfDays) {
         int picker = StorageBase.getNumber(this, StorageType.NUMBER_OF_PICKER);
-        TableData tableData = TableDataConverter.getBalanceCouple(jackpotList, numberOfDays, picker);
+        TableData tableData = TableDataConverter.getBalanceCouple(jackpotList, numberOfDays,
+                picker, !isCompactWidth());
         Map<Integer, TextViewBase> bodyManager = TableDataSupport
                 .getSundayTextViewManager(this, jackpotList, numberOfDays);
         TableLayout tableLayout = TableLayoutBase.getTableLayoutWithNewStyleRow(this,
@@ -94,5 +95,9 @@ public class BalanceCoupleActivity extends ActivityBase implements BalanceCouple
     @Override
     public Context getContext() {
         return this;
+    }
+
+    private boolean isCompactWidth() {
+        return getResources().getConfiguration().screenWidthDp < 360;
     }
 }

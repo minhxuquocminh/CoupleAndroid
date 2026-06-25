@@ -3,7 +3,6 @@ package com.example.couple.View.SubScreen;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.Spinner;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.Handler.CoupleBase;
+import com.example.couple.Base.View.SpinnerBase;
 import com.example.couple.Base.View.Table.RowData;
 import com.example.couple.Base.View.Table.TableData;
 import com.example.couple.Base.View.Table.TableLayoutBase;
@@ -50,9 +50,7 @@ public class CycleByYearActivity extends ActivityBase implements CycleByYearView
             Branch branch = new Branch(i);
             branchesList.add(branch.show());
         }
-        ArrayAdapter<?> adapter = new ArrayAdapter<>(this,
-                R.layout.custom_item_spinner, R.id.tvItemSpinner, branchesList);
-        spnBranches.setAdapter(adapter);
+        SpinnerBase.bindFilterSpinner(this, spnBranches, branchesList);
 
         tvCopy.setOnClickListener(new View.OnClickListener() {
             @Override

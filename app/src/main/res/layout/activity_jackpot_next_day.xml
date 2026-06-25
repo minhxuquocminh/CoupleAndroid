@@ -35,69 +35,82 @@
             android:orientation="vertical">
 
             <LinearLayout
+                style="@style/AppFilter.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:layout_margin="@dimen/margin_5dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Số năm hiển thị:"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/edtYearNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:hint="ex: 5    "
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:text="5"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Số ngày trước đó:"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:textStyle="bold" />
+                        <TextView
+                            style="@style/AppFilter.Label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Số năm hiển thị" />
 
-                <EditText
-                    android:id="@+id/edtDayNumberBefore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:hint="ex: 0    "
-                    android:inputType="number"
-                    android:maxLength="1"
-                    android:text="0"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:textStyle="bold" />
+                        <EditText
+                            android:id="@+id/edtYearNumber"
+                            style="@style/AppFilter.Input"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="@dimen/margin_5dp"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:text="5" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/AppFilter.Label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Số ngày trước đó" />
+
+                        <EditText
+                            android:id="@+id/edtDayNumberBefore"
+                            style="@style/AppFilter.Input"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="@dimen/margin_5dp"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:text="0" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/tvView"
+                    style="@style/AppButton.Filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:text="Xem thống kê" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/tvView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                style="@style/AppTextButton.Primary"
-                android:padding="@dimen/padding_10dp"
-                android:text="Xem thống kê"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_size" />
 
             <LinearLayout
                 android:id="@+id/linearJackpotNextDay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/margin_10dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
                 android:orientation="vertical" />
 
         </LinearLayout>

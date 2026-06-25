@@ -39,7 +39,12 @@ public class Api {
 
         JsoupBase jsoupBase = new JsoupBase(context, link, Const.TIME_OUT, elementClasses);
         jsoupBase.execute();
-        return jsoupBase.get();
+        String dateData = jsoupBase.get();
+        if (!dateData.isEmpty()) return dateData;
+
+        JsoupBase fallbackJsoupBase = new JsoupBase(context, link, Const.TIME_OUT, new ArrayList<>());
+        fallbackJsoupBase.execute();
+        return fallbackJsoupBase.get();
     }
 
     public static String getJackpotDataFromInternet(Context context, int year)

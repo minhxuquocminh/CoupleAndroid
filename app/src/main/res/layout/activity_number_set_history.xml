@@ -32,47 +32,54 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="5dp">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
+                style="@style/AppFilter.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="3">
+                android:layout_margin="@dimen/margin_5dp"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/edtDayNumber"
+                <TextView
+                    style="@style/AppFilter.Label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:hint="Số ngày xem"
-                    android:inputType="number"
-                    android:maxLength="3"
-                    android:text="18"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:textStyle="bold" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:text="Số ngày xem" />
 
-            <Button
-                style="@style/AppButton.PrimarySolid"
-                android:id="@+id/btnView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_5dp"
-                android:layout_marginRight="@dimen/padding_5dp"
-                android:layout_marginBottom="@dimen/margin_5dp"
-                android:layout_weight="1"
-                android:text="Xem"
-                android:textSize="@dimen/text_size_big" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edtDayNumber"
+                        style="@style/AppFilter.Input"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:text="18" />
+
+                    <Button
+                        android:id="@+id/btnView"
+                        style="@style/AppButton.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:minWidth="76dp"
+                        android:text="Xem" />
+                </LinearLayout>
+            </LinearLayout>
 
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_5dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
+                android:layout_marginBottom="@dimen/margin_5dp"
                 android:fillViewport="true"
                 android:scrollbarStyle="outsideInset"
                 android:scrollbars="horizontal|vertical">

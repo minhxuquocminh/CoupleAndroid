@@ -223,11 +223,27 @@ public class JackpotHandler {
         return matrixMap;
     }
 
+    public static List<Integer> getInvalidJackpotDataYears(Context context, int numberOfYears) {
+        List<Integer> invalidYears = new ArrayList<>();
+        if (numberOfYears < 1) return invalidYears;
+        int startYear = TimeInfo.CURRENT_YEAR - numberOfYears + 1;
+        int endYear = TimeInfo.CURRENT_YEAR;
+        int expectedSize = TimeInfo.DAY_OF_MONTH * TimeInfo.MONTH_OF_YEAR;
+
+        for (int year = startYear; year <= endYear; year++) {
+            String data = IOFileBase.readDataFromFile(context, "jackpot" + year + ".txt");
+            if (data.isEmpty() || data.split(Split.FIRST_ROUND.value, -1).length < expectedSize) {
+                invalidYears.add(year);
+            }
+        }
+        return invalidYears;
+    }
+
     public static String[][] getJackpotMatrixByYear(Context context, int year) {
         String data = IOFileBase.readDataFromFile(context, "jackpot" + year + ".txt");
         if (data.isEmpty()) return null;
         String[][] matrix = new String[TimeInfo.DAY_OF_MONTH][TimeInfo.MONTH_OF_YEAR];
-        String[] numbers = data.split(Split.FIRST_ROUND.value);
+        String[] numbers = data.split(Split.FIRST_ROUND.value, -1);
         for (int i = 0; i < TimeInfo.DAY_OF_MONTH; i++) {
             for (int j = 0; j < TimeInfo.MONTH_OF_YEAR; j++) {
                 try {
@@ -247,7 +263,7 @@ public class JackpotHandler {
         String data = IOFileBase.readDataFromFile(context, "jackpot" + year + ".txt");
         if (data.isEmpty()) return null;
         String[][] matrix = new String[TimeInfo.DAY_OF_MONTH][TimeInfo.MONTH_OF_YEAR];
-        String[] numbers = data.split(Split.FIRST_ROUND.value);
+        String[] numbers = data.split(Split.FIRST_ROUND.value, -1);
         for (int i = 0; i < TimeInfo.DAY_OF_MONTH; i++) {
             for (int j = 0; j < TimeInfo.MONTH_OF_YEAR; j++) {
                 try {

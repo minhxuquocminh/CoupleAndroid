@@ -1,4 +1,4 @@
-package com.example.couple.View.JackpotStatistics;
+package com.example.couple.View.Jackpot;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.couple.Base.View.DialogBase;
@@ -20,7 +19,7 @@ import com.example.couple.Base.View.ActivityBase;
 import com.example.couple.Model.Statistics.JackpotNextDay;
 import com.example.couple.R;
 import com.example.couple.View.UpdateDataInfo.AddJackpotManyYearsActivity;
-import com.example.couple.ViewModel.JackpotStatistics.JackpotNextDayViewModel;
+import com.example.couple.ViewModel.Jackpot.JackpotNextDayViewModel;
 
 import java.util.List;
 
@@ -77,7 +76,8 @@ public class JackpotNextDayActivity extends ActivityBase implements JackpotNextD
 
     @Override
     public void showJackpotNextDay(List<JackpotNextDay> jackpotNextDayList) {
-        TableData tableData = TableDataConverter.getJackpotNextDayTable(jackpotNextDayList);
+        TableData tableData = TableDataConverter.getJackpotNextDayTable(jackpotNextDayList,
+                isCompactWidth());
         TableLayout tableLayout = TableLayoutBase.getTableLayout(this, tableData, true);
         linearJackpotNextDay.removeAllViews();
         linearJackpotNextDay.addView(tableLayout);
@@ -98,5 +98,9 @@ public class JackpotNextDayActivity extends ActivityBase implements JackpotNextD
     @Override
     public Context getContext() {
         return this;
+    }
+
+    private boolean isCompactWidth() {
+        return getResources().getConfiguration().screenWidthDp < 360;
     }
 }

@@ -66,6 +66,7 @@
 
                 <EditText
                     android:id="@+id/edtUsername"
+                    style="@style/AppAuth.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Tên đăng nhập"
@@ -85,6 +86,7 @@
 
                 <EditText
                     android:id="@+id/edtPassword"
+                    style="@style/AppAuth.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Mật khẩu"

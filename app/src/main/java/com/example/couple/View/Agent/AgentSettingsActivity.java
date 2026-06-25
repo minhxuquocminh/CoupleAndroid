@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.couple.Base.View.ActivityBase;
+import com.example.couple.Base.View.SpinnerBase;
 import com.example.couple.Custom.Handler.Agent.AgentModelCallback;
 import com.example.couple.Custom.Handler.Agent.AgentModelFetcher;
 import com.example.couple.Custom.Handler.Agent.AgentSettingsHandler;
@@ -94,10 +94,7 @@ public class AgentSettingsActivity extends ActivityBase {
     }
 
     private void bindProviderSpinner() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, PROVIDERS);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnProvider.setAdapter(adapter);
+        SpinnerBase.bindFilterSpinner(this, spnProvider, PROVIDERS);
         spnProvider.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

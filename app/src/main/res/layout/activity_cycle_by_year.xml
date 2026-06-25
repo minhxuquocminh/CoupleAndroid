@@ -32,57 +32,50 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="5dp">
+            android:orientation="vertical">
 
             <LinearLayout
+                style="@style/AppFilter.Panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <View
-                    android:layout_width="0dp"
+                <TextView
+                    style="@style/AppFilter.Label"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2" />
-
-                <Spinner
-                    android:id="@+id/spnBranches"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_5dp"
-                    android:layout_marginRight="@dimen/margin_5dp"
-                    android:layout_weight="5"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_size"
-                    android:textStyle="bold" />
+                    android:text="Can chi" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3">
+                    android:layout_marginTop="@dimen/margin_5dp"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/spnBranches"
+                        style="@style/AppFilter.Spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="@dimen/margin_5dp"
+                        android:layout_weight="1" />
 
                     <Button
                         android:id="@+id/tvCopy"
+                        style="@style/AppButton.Filter"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        style="@style/AppTextButton.Primary"
-                        android:padding="@dimen/padding_10dp"
-                        android:text="Copy"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/text_size" />
+                        android:layout_height="40dp"
+                        android:minWidth="76dp"
+                        android:text="Copy" />
                 </LinearLayout>
-
             </LinearLayout>
-
 
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_6dp"
-                android:layout_marginRight="@dimen/margin_6dp"
+                android:layout_marginLeft="@dimen/margin_5dp"
+                android:layout_marginRight="@dimen/margin_5dp"
                 android:fillViewport="true"
                 android:scrollbarStyle="outsideInset"
                 android:scrollbars="horizontal|vertical">
@@ -100,5 +93,3 @@
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
-
-
